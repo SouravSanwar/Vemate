@@ -7,7 +7,7 @@ class Language extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
-          'App_Name': 'Ketemaa',
+          'App_Name': 'Vemate',
           AppLanguageString.GOOGLE_LOGIN: 'Continue with Google',
           'Facebook_Login': 'Continue with Facebook',
           'Apple_Login': 'Continue with Apple',

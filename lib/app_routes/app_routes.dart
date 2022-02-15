@@ -2,6 +2,14 @@ import 'package:get/get.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_email.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/sign_up.dart';
+import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
+import 'package:ketemaa/features/home/presentation/home.dart';
+import 'package:ketemaa/features/home/presentation/property_details/property_details_page.dart';
+import 'package:ketemaa/features/place_a_add/presentation/category_page.dart';
+import 'package:ketemaa/features/place_a_add/presentation/categorywise/property_for_rent/agent_page.dart';
+import 'package:ketemaa/features/place_a_add/presentation/categorywise/property_for_rent/initial_page.dart';
+import 'package:ketemaa/features/place_a_add/presentation/categorywise/property_for_rent/listing_form.dart';
+import 'package:ketemaa/features/place_a_add/presentation/place_a_add.dart';
 import 'package:ketemaa/features/splash_screen/splash_screen.dart';
 
 class AppRoutes {
@@ -36,7 +44,38 @@ class AppRoutes {
         name: SIGN_IN_EMAIL,
         page: () => SignInWithEmail(),
       ),
-
+      GetPage(
+        name: HOME,
+        page: () => Home(),
+      ),
+      GetPage(
+        name: CONTROLLER_PAGE,
+        page: () => ControllerPage(),
+      ),
+      GetPage(
+          name: PLACE_A_ADD,
+          page: () => PlaceAAdd(),
+          transition: Transition.downToUp),
+      GetPage(
+        name: CATEGORYFORADD,
+        page: () => CategoryPage(),
+      ),
+      GetPage(
+        name: PROPERTY_INITAIL_PAGE,
+        page: () => PropertyInitialPage(),
+      ),
+      GetPage(
+        name: PROPERTY_AGENT_PAGE,
+        page: () => PropertyAgentPage(),
+      ),
+      GetPage(
+        name: PROPERTY_LISTING_PAGE,
+        page: () => PropertyListingForm(),
+      ),
+      GetPage(
+        name: PROPERTY_DETAILS_PAGE,
+        page: () => PropertyDetailsPage(),
+      ),
     ];
   }
 }
