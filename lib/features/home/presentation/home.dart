@@ -1,53 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ketemaa/core/language/language_string.dart';
-import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
-import 'package:ketemaa/core/utilities/app_dimension/app_sizes.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
-import 'package:ketemaa/core/utilities/common_widgets/app_loading.dart';
-import 'package:ketemaa/core/utilities/common_widgets/shimmer.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
-import 'package:ketemaa/features/home/_controller/home_controller.dart';
-import 'package:ketemaa/core/utilities/common_widgets/category_card.dart';
-import 'package:ketemaa/features/home/presentation/widgets/porperty_for_rent_listview.dart';
-import 'package:ketemaa/features/place_a_add/_controller/place_a_add_controller.dart';
+import 'package:ketemaa/features/home/Components/category_card.dart';
+import 'package:ketemaa/features/home/Components/category_item_card.dart';
+import 'package:ketemaa/features/home/Components/name_row.dart';
+import 'package:provider/provider.dart';
 
-class Home extends StatelessWidget {
+import '../../../core/utilities/app_assets/app_assets.dart';
+import '../../../core/utilities/app_colors/app_colors.dart';
+
+class Home extends StatefulWidget {
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    var fetchData = Provider.of<GetData>(context, listen: false);
+
+    fetchData.getCollectibles();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeController());
-    Get.put(PlaceAddController());
     Get.put(ControllerPageController());
-    HomeController.to.fetchHomeCategoryData();
 
     SharedPreferenceController.to.getToken();
 
-    return const Scaffold(
+    return Scaffold(
       /*appBar: AppBar(
         //leading: null,
         // The search area here
         leading: Container(
-          width: double.infinity,
-          height: 40,
+          width: Get.width,
+          height: Get.height * .35,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(5),
           ),
           child: const Center(
-            child: TextField(
-              decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  hintText: 'Search...',
-                  border: InputBorder.none),
-            ),
+            child: Text('AppBar'),
           ),
         ),
       ),*/
-      body: Center(
-        child: Text('Home'),
-      ),
+      body: Consumer<GetData>(builder: (context, data, child) {
+        return Padding(
+          padding: EdgeInsets.all(AppDimension.padding_16),
+          child: ListView(
+            children: [
+              CategoryCard(
+                name: 'Category Name',
+              ),
+              AppSpaces.spaces_height_10,
+              NameRow(
+                name: 'Collectibles',
+              ),
+              AppSpaces.spaces_height_10,
+              CategoryItemCard(
+                image: AppAsset.main_auth_image_2,
+              ),
+              AppSpaces.spaces_height_10,
+              NameRow(
+                name: 'Comics',
+              ),
+              AppSpaces.spaces_height_10,
+              CategoryItemCard(
+                image: AppAsset.main_auth_image_3,
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

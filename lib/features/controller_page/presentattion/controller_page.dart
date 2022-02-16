@@ -5,16 +5,12 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 
 import 'package:ketemaa/features/home/presentation/home.dart';
-import 'package:ketemaa/features/place_a_add/_controller/place_a_add_controller.dart';
-import 'package:ketemaa/features/place_a_add/presentation/place_a_add.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
 
 class ControllerPage extends StatelessWidget {
   List<String> names = [
     'Home',
     'Favourite',
-    'Place a Add',
-    'Chats',
     'Profile',
   ];
 
@@ -31,12 +27,12 @@ class ControllerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(ControllerPageController());
-    Get.put(PlaceAddController());
+    Get.put(ControllerPageController());
     return Obx(() {
       return Scaffold(
         body: BottomBarPageTransition(
           builder: (_, index) => getBody(index),
-          currentIndex: PlaceAddController.to.currentPage.value,
+          currentIndex: ControllerPageController.to.currentPage.value,
           totalLength: ControllerPageController.to.bottomBarData!.length,
           transitionType: transitionType,
           transitionDuration: duration,
@@ -68,9 +64,9 @@ class ControllerPage extends StatelessWidget {
       selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
       selectedFontSize: 12,
       unselectedFontSize: 12,
-      currentIndex: PlaceAddController.to.currentPage.value,
+      currentIndex: ControllerPageController.to.currentPage.value,
       onTap: (index) {
-        PlaceAddController.to.currentPage.value = index;
+        ControllerPageController.to.currentPage.value = index;
       },
       selectedItemColor: AppColors.black,
       unselectedItemColor: AppColors.grey,

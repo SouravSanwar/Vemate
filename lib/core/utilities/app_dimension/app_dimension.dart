@@ -19,6 +19,8 @@ class AppDimension {
 
   static double padding_16 = 16;
 
+  static double padding_4 = 4.0;
+
   static double padding_8 = 8.0;
 
   static double radius = 16;

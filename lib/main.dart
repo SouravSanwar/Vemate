@@ -5,16 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
+import 'package:provider/provider.dart';
 import 'app_routes/app_routes.dart';
+import 'core/Provider/getData.dart';
 import 'core/graphQLConfig/graphql_config.dart';
 import 'core/language/language.dart';
 import 'core/utilities/app_theme/app_theme.dart';
 
 Future<void> main() async {
   runApp(
-    GraphQLProvider(
-      client: AppGraphQLConfiguration.client,
-      child: const CacheProvider(child: MyApp()),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => GetData()),
+      ],
+      child: MyApp(),
     ),
   );
 }
