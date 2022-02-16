@@ -15,10 +15,6 @@ import 'package:ketemaa/features/home/presentation/widgets/porperty_for_rent_lis
 import 'package:ketemaa/features/place_a_add/_controller/place_a_add_controller.dart';
 
 class Home extends StatelessWidget {
-  var cityId;
-
-  Home({this.cityId});
-
   @override
   Widget build(BuildContext context) {
     Get.put(HomeController());
@@ -28,7 +24,7 @@ class Home extends StatelessWidget {
 
     SharedPreferenceController.to.getToken();
 
-    return Scaffold(
+    return const Scaffold(
       /*appBar: AppBar(
         //leading: null,
         // The search area here
@@ -49,73 +45,8 @@ class Home extends StatelessWidget {
           ),
         ),
       ),*/
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: AppDimension.padding_8,
-            left: AppDimension.padding_16,
-            right: AppDimension.padding_16,
-          ),
-          child: SafeArea(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: AppSizes.width8,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: AppColors.hintColor,
-                        //color: Colors.grey,
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: Center(
-                        child: TextField(
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.search,
-                                color: AppColors.primaryColor,
-                              ),
-                              hintText: AppLanguageString.SEARCH_HINT.tr,
-                              hintStyle: Get.textTheme.bodyText1!
-                                  .copyWith(color: AppColors.primaryColor),
-                              border: InputBorder.none),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.notifications_none)),
-                    )
-                  ],
-                ),
-                AppSpaces.spaces_height_10,
-                Obx(() {
-                  return HomeController.to.categoryModel.value.categories ==
-                          null
-                      ? AppLoading()
-                      : CategoryCard(
-                          category: HomeController
-                              .to.categoryModel.value.categories!.edges!,
-                          //need to null check
-                          mainAxisSpace: 3.0,
-                          crossAxisSpace: 3.0,
-                          childCount: 3,
-                          childAspectRatio: AppSizes.width3 / 130,
-                          cardElavation: 3.0,
-                        );
-                }),
-                AppSpaces.spaces_height_10,
-                HomeController.to.propertyRentModel.value
-                            .propertyRentAdvertises ==
-                        null
-                    ? AppLoading()
-                    :  PropertyListView(),
-              ],
-            ),
-          ),
-        ),
+      body: Center(
+        child: Text('Home'),
       ),
     );
   }

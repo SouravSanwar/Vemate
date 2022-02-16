@@ -21,20 +21,18 @@ class ControllerPage extends StatelessWidget {
   List<IconData> icons = [
     Icons.home,
     Icons.favorite_border,
-    Icons.add,
-    Icons.message,
     Icons.person,
   ];
 
   Duration duration = const Duration(milliseconds: 300);
   Curve curve = Curves.ease;
-  TransitionType transitionType = TransitionType.slide;
+  TransitionType transitionType = TransitionType.fade;
 
   @override
   Widget build(BuildContext context) {
     Get.put(ControllerPageController());
     Get.put(PlaceAddController());
-    return Obx((){
+    return Obx(() {
       return Scaffold(
         body: BottomBarPageTransition(
           builder: (_, index) => getBody(index),
@@ -58,14 +56,6 @@ class ControllerPage extends StatelessWidget {
           child: Text(names[index]),
         ),
       );
-    } else if (index == 2) {
-      return PlaceAAdd();
-    } else if (index == 3) {
-      return Container(
-        child: Center(
-          child: Text(names[index]),
-        ),
-      );
     } else {
       return Container(
         child: Profile(),
@@ -80,7 +70,6 @@ class ControllerPage extends StatelessWidget {
       unselectedFontSize: 12,
       currentIndex: PlaceAddController.to.currentPage.value,
       onTap: (index) {
-        //print(PlaceAddController.to.currentPage.value);
         PlaceAddController.to.currentPage.value = index;
       },
       selectedItemColor: AppColors.black,
@@ -88,7 +77,7 @@ class ControllerPage extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       items: List.generate(
         ControllerPageController.to.bottomBarData!.length,
-            (index) => BottomNavigationBarItem(
+        (index) => BottomNavigationBarItem(
           icon: Icon(icons[index]),
           label: names[index],
         ),

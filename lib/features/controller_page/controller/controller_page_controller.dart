@@ -14,14 +14,6 @@ class ControllerPageController {
       'Favourite',
     ],
     [
-      Icons.add,
-      'Place a Add',
-    ],
-    [
-      Icons.message,
-      'Chats',
-    ],
-    [
       Icons.person,
       'Profile',
     ],
@@ -30,10 +22,8 @@ class ControllerPageController {
   List<String> names = [
     'Home',
     'Favourite',
-    'Place a Add',
-    'Chats',
     'Profile',
   ].obs;
 
-  //RxInt itemCount = bottomBarData!.length.obs;
+//RxInt itemCount = bottomBarData!.length.obs;
 }
