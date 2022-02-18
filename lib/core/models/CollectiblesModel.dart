@@ -1,5 +1,60 @@
+class CollectiblesModel {
+  CollectiblesModel({
+      this.collectibles,});
+
+  CollectiblesModel.fromJson(dynamic json) {
+    collectibles = json['collectibles'] != null ? Collectibles.fromJson(json['collectibles']) : null;
+  }
+  Collectibles? collectibles;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (collectibles != null) {
+      map['collectibles'] = collectibles?.toJson();
+    }
+    return map;
+  }
+
+}
+
 class Collectibles {
   Collectibles({
+      this.count, 
+      this.next, 
+      this.previous, 
+      this.results,});
+
+  Collectibles.fromJson(dynamic json) {
+    count = json['count'];
+    next = json['next'];
+    previous = json['previous'];
+    if (json['results'] != null) {
+      results = [];
+      json['results'].forEach((v) {
+        results?.add(Results.fromJson(v));
+      });
+    }
+  }
+  int? count;
+  String? next;
+  dynamic previous;
+  List<Results>? results;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['count'] = count;
+    map['next'] = next;
+    map['previous'] = previous;
+    if (results != null) {
+      map['results'] = results?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+
+}
+
+class Results {
+  Results({
       this.id, 
       this.name, 
       this.description, 
@@ -17,7 +72,7 @@ class Collectibles {
       this.brand, 
       this.series,});
 
-  Collectibles.fromJson(dynamic json) {
+  Results.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
@@ -35,7 +90,7 @@ class Collectibles {
     brand = json['brand'];
     series = json['series'];
   }
-  var id;
+  int? id;
   String? name;
   String? description;
   int? listing;

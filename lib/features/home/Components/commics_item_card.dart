@@ -1,19 +1,21 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:ketemaa/app_routes/app_routes.dart';
-import 'package:ketemaa/core/utilities/app_assets/app_assets.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:provider/provider.dart';
 
-class CategoryItemCard extends StatelessWidget {
-  var list;
+import '../../../core/Provider/getData.dart';
+import '../../../core/models/CommicsModel.dart';
+
+class CommicsItemCard extends StatelessWidget {
+  List<Results>? list;
 
   String? image;
   String? name;
 
-  CategoryItemCard({
+  CommicsItemCard({
     this.list,
     this.image,
     this.name,
@@ -26,7 +28,7 @@ class CategoryItemCard extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        itemCount: 15,
+        itemCount: list!.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.all(4.0),
@@ -42,7 +44,17 @@ class CategoryItemCard extends StatelessWidget {
                 ),
               ),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  var fetchData =
+                      Provider.of<GetData>(Get.overlayContext!, listen: false);
+                  fetchData.getSingleComic(list![index].id);
+
+                  Flushbar(
+                    title: "Hey buddy",
+                    message: "You selected ${list![index].name}",
+                    duration: const Duration(seconds: 1),
+                  ).show(context);
+                },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -68,8 +80,8 @@ class CategoryItemCard extends StatelessWidget {
                               bottom: AppDimension.padding_4,
                             ),
                             child: Text(
-                              'Name',
-                              textAlign: TextAlign.center,
+                              list![index].name.toString(),
+                              textAlign: TextAlign.left,
                               style: Get.textTheme.bodyText1!
                                   .copyWith(color: AppColors.black),
                             ),
@@ -104,13 +116,13 @@ class CategoryItemCard extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Price',
+                                    list![index].floorPrice.toString(),
                                     textAlign: TextAlign.center,
                                     style: Get.textTheme.bodyText1!
                                         .copyWith(color: AppColors.black),
                                   ),
                                   Text(
-                                    'Sold out',
+                                    list![index].rarity.toString(),
                                     textAlign: TextAlign.center,
                                     style: Get.textTheme.bodyText1!
                                         .copyWith(color: AppColors.black),

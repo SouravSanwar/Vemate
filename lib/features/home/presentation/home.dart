@@ -6,7 +6,8 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/home/Components/category_card.dart';
-import 'package:ketemaa/features/home/Components/category_item_card.dart';
+import 'package:ketemaa/features/home/Components/collectibles_item_card.dart';
+import 'package:ketemaa/features/home/Components/commics_item_card.dart';
 import 'package:ketemaa/features/home/Components/name_row.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +26,7 @@ class _HomeState extends State<Home> {
     var fetchData = Provider.of<GetData>(context, listen: false);
 
     fetchData.getCollectibles();
+    fetchData.getComics();
 
     super.initState();
   }
@@ -55,6 +57,7 @@ class _HomeState extends State<Home> {
         return Padding(
           padding: EdgeInsets.all(AppDimension.padding_16),
           child: ListView(
+            //shrinkWrap: true,
             children: [
               CategoryCard(
                 name: 'Category Name',
@@ -64,17 +67,23 @@ class _HomeState extends State<Home> {
                 name: 'Collectibles',
               ),
               AppSpaces.spaces_height_10,
-              CategoryItemCard(
-                image: AppAsset.main_auth_image_2,
-              ),
+              data.collectiblesModel != null
+                  ? CollectiblesItemCard(
+                      list: data.collectiblesModel!.collectibles!.results,
+                      image: AppAsset.main_auth_image_3,
+                    )
+                  : Container(),
               AppSpaces.spaces_height_10,
               NameRow(
                 name: 'Comics',
               ),
               AppSpaces.spaces_height_10,
-              CategoryItemCard(
-                image: AppAsset.main_auth_image_3,
-              ),
+              data.comicsModel != null
+                  ? CommicsItemCard(
+                      list: data.comicsModel!.comics!.results,
+                      image: AppAsset.main_auth_image_3,
+                    )
+                  : Container(),
             ],
           ),
         );
