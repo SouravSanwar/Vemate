@@ -3,15 +3,16 @@ import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initia
 import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_email.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/sign_up.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
-import 'package:ketemaa/features/home/presentation/home.dart';
 import 'package:ketemaa/features/splash_screen/splash_screen.dart';
+
+import '../features/market/presentation/market.dart';
 
 class AppRoutes {
   static String INITAL_SCREEN = "/";
   static String MAIN_AUTH = "/auth_initial_page";
   static String SIGN_UP = "/sign_up";
   static String SIGN_IN_EMAIL = "/sign_in_email";
-  static String HOME = "/home";
+  static String MARKET = "/market";
   static String CONTROLLER_PAGE = "/controller_page";
   static String PLACE_A_ADD = "/place_a_add";
   static String CATEGORYFORADD = "/place_a_add_category";
@@ -39,8 +40,8 @@ class AppRoutes {
         page: () => SignInWithEmail(),
       ),
       GetPage(
-        name: HOME,
-        page: () => Home(),
+        name: MARKET,
+        page: () => Market(),
       ),
       GetPage(
         name: CONTROLLER_PAGE,

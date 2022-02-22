@@ -10,20 +10,18 @@ class ControllerPageController {
       'Home',
     ],
     [
-      Icons.favorite_border,
-      'Favourite',
+      Icons.list_alt_outlined,
+      'MCP',
     ],
     [
-      Icons.person,
-      'Profile',
+      Icons.shop,
+      'Market',
+    ],
+    [
+      Icons.card_travel,
+      'Vault',
     ],
   ].obs;
 
-  List<String> names = [
-    'Home',
-    'Favourite',
-    'Profile',
-  ].obs;
 
-//RxInt itemCount = bottomBarData!.length.obs;
 }

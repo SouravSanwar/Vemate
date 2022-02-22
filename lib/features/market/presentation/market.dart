@@ -1,0 +1,223 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ketemaa/core/Provider/getData.dart';
+import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
+import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
+import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:provider/provider.dart';
+
+import '../../../core/utilities/app_assets/app_assets.dart';
+import '../Components/category_card.dart';
+import '../Components/collectibles_item_card.dart';
+import '../Components/commics_item_card.dart';
+import '../Components/name_row.dart';
+
+class Market extends StatefulWidget {
+  @override
+  State<Market> createState() => _MarketState();
+}
+
+class _MarketState extends State<Market> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    var fetchData = Provider.of<GetData>(context, listen: false);
+
+    fetchData.getCollectibles();
+    fetchData.getComics();
+
+    super.initState();
+  }
+
+  int? currentIndex = 1;
+  bool? collectibleSelected = true;
+  bool? comicSelected = false;
+  bool? brandSelected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    Get.put(ControllerPageController());
+
+    SharedPreferenceController.to.getToken();
+
+    return Scaffold(
+      /*appBar: AppBar(
+        //leading: null,
+        // The search area here
+        leading: Container(
+          width: Get.width,
+          height: Get.height * .35,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: const Center(
+            child: Text('AppBar'),
+          ),
+        ),
+      ),*/
+      body: Consumer<GetData>(builder: (context, data, child) {
+        return Padding(
+          padding: EdgeInsets.only(top: AppDimension.padding_16),
+          child: Stack(
+            //shrinkWrap: true,
+            children: [
+              AppSpaces.spaces_height_10,
+              ListView(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: AppDimension.padding_8,
+                      right: AppDimension.padding_8,
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 5,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(AppDimension.primary_radius),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 2,
+                                  blurRadius: 2,
+                                ),
+                              ],
+                            ),
+                            //height: 100,
+                            child: Padding(
+                              padding: EdgeInsets.all(AppDimension.padding_8),
+                              child: const Text(
+                                'Search by Name or Brand',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: Icon(Icons.search),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  AppSpaces.spaces_height_10,
+                  Container(
+                    child: collectibleSelected == true
+                        ? SizedBox(
+                            height: Get.height,
+                            child: data.collectiblesModel != null
+                                ? CollectiblesItemCard(
+                                    list: data.collectiblesModel!.collectibles!
+                                        .results,
+                                    image: AppAsset.main_auth_image_3,
+                                  )
+                                : Container(),
+                          )
+                        : (comicSelected == true
+                            ? SizedBox(
+                                height: Get.height,
+                                child: data.comicsModel != null
+                                    ? CommicsItemCard(
+                                        list: data.comicsModel!.comics!.results,
+                                        image: AppAsset.main_auth_image_3,
+                                      )
+                                    : Container(),
+                              )
+                            : Center(
+                                child: Text('Brand'),
+                              )),
+                  )
+                ],
+              ),
+              AppSpaces.spaces_height_10,
+              Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8.0),
+                        topRight: Radius.circular(8.0),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.green.withOpacity(0.3),
+                          spreadRadius: 2,
+                          blurRadius: 2,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              currentIndex = 1;
+                              setState(() {
+                                collectibleSelected = true;
+                                comicSelected = false;
+                                brandSelected = false;
+                              });
+                            },
+                            child: CategoryCard(
+                                name: 'Collectibles',
+                                color: collectibleSelected == true
+                                    ? Colors.green
+                                    : Colors.grey),
+                          ),
+                        ),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              currentIndex = 2;
+                              setState(() {
+                                comicSelected = true;
+                                brandSelected = false;
+                                collectibleSelected = false;
+                              });
+                            },
+                            child: CategoryCard(
+                                name: 'Comics',
+                                color: comicSelected == true
+                                    ? Colors.green
+                                    : Colors.grey),
+                          ),
+                        ),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              currentIndex = 3;
+                              setState(() {
+                                brandSelected = true;
+                                collectibleSelected = false;
+                                comicSelected = false;
+                              });
+                            },
+                            child: CategoryCard(
+                              name: 'Brand',
+                              color: brandSelected == true
+                                  ? Colors.green
+                                  : Colors.grey,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ))
+            ],
+          ),
+        );
+      }),
+    );
+  }
+}

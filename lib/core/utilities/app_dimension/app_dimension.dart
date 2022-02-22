@@ -18,6 +18,7 @@ class AppDimension {
   static double h6 = 26;
 
   static double padding_16 = 16;
+  static double padding_10 = 10;
 
   static double padding_4 = 4.0;
 

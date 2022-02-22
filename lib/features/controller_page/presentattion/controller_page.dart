@@ -3,21 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:ketemaa/features/mcp/presentation/mcp.dart';
 
-import 'package:ketemaa/features/home/presentation/home.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
+
+import '../../market/presentation/market.dart';
 
 class ControllerPage extends StatelessWidget {
   List<String> names = [
     'Home',
-    'Favourite',
-    'Profile',
+    'MCP',
+    'Market',
+    'Vault',
   ];
 
   List<IconData> icons = [
     Icons.home,
-    Icons.favorite_border,
-    Icons.person,
+    Icons.list_alt_outlined,
+    Icons.shop,
+    Icons.card_travel,
   ];
 
   Duration duration = const Duration(milliseconds: 300);
@@ -45,13 +49,15 @@ class ControllerPage extends StatelessWidget {
 
   getBody(int index) {
     if (index == 0) {
-      return Home();
-    } else if (index == 1) {
       return Container(
         child: Center(
           child: Text(names[index]),
         ),
       );
+    } else if (index == 1) {
+      return MCP();
+    }else if (index == 2) {
+      return Market();
     } else {
       return Container(
         child: Profile(),

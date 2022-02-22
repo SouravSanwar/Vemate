@@ -10,7 +10,7 @@ List<String> names = [
 ];
 
 List<IconData> icons = [
-  Icons.home,
+  Icons.market,
   Icons.favorite_border,
   Icons.add,
   Icons.message,

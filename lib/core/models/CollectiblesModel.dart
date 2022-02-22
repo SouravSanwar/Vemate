@@ -1,10 +1,16 @@
+import 'package:get/get.dart';
+
 class CollectiblesModel {
   CollectiblesModel({
-      this.collectibles,});
+    this.collectibles,
+  });
 
   CollectiblesModel.fromJson(dynamic json) {
-    collectibles = json['collectibles'] != null ? Collectibles.fromJson(json['collectibles']) : null;
+    collectibles = json['collectibles'] != null
+        ? Collectibles.fromJson(json['collectibles'])
+        : null;
   }
+
   Collectibles? collectibles;
 
   Map<String, dynamic> toJson() {
@@ -14,15 +20,15 @@ class CollectiblesModel {
     }
     return map;
   }
-
 }
 
 class Collectibles {
   Collectibles({
-      this.count, 
-      this.next, 
-      this.previous, 
-      this.results,});
+    this.count,
+    this.next,
+    this.previous,
+    this.results,
+  });
 
   Collectibles.fromJson(dynamic json) {
     count = json['count'];
@@ -35,6 +41,7 @@ class Collectibles {
       });
     }
   }
+
   int? count;
   String? next;
   dynamic previous;
@@ -50,27 +57,29 @@ class Collectibles {
     }
     return map;
   }
-
 }
 
 class Results {
   Results({
-      this.id, 
-      this.name, 
-      this.description, 
-      this.listing, 
-      this.floorPrice, 
-      this.owner, 
-      this.edition, 
-      this.dropDate, 
-      this.listPrice, 
-      this.editions, 
-      this.editionType, 
-      this.season, 
-      this.rarity, 
-      this.license, 
-      this.brand, 
-      this.series,});
+    this.id,
+    this.name,
+    this.description,
+    this.listing,
+    this.floorPrice,
+    this.owner,
+    this.edition,
+    this.dropDate,
+    this.listPrice,
+    this.editions,
+    this.editionType,
+    this.season,
+    this.rarity,
+    this.license,
+    this.brand,
+    this.series,
+    this.rarePoint,
+    this.cpp,
+  });
 
   Results.fromJson(dynamic json) {
     id = json['id'];
@@ -89,7 +98,19 @@ class Results {
     license = json['license'];
     brand = json['brand'];
     series = json['series'];
+
+    if (rarity == 'Rare') {
+      rarePoint = 2;
+      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
+    } else if (rarity == 'Ultra Rare') {
+      rarePoint = 3;
+      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
+    } else {
+      rarePoint = 1;
+      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
+    }
   }
+
   int? id;
   String? name;
   String? description;
@@ -106,6 +127,8 @@ class Results {
   String? license;
   String? brand;
   String? series;
+  int? rarePoint;
+  double? cpp;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -127,5 +150,4 @@ class Results {
     map['series'] = series;
     return map;
   }
-
 }

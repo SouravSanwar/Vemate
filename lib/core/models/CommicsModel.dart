@@ -1,10 +1,14 @@
+import 'package:get/get.dart';
+
 class ComicsModel {
   ComicsModel({
-      this.comics,});
+    this.comics,
+  });
 
   ComicsModel.fromJson(dynamic json) {
     comics = json['comics'] != null ? Comics.fromJson(json['comics']) : null;
   }
+
   Comics? comics;
 
   Map<String, dynamic> toJson() {
@@ -14,15 +18,15 @@ class ComicsModel {
     }
     return map;
   }
-
 }
 
 class Comics {
   Comics({
-      this.count, 
-      this.next, 
-      this.previous, 
-      this.results,});
+    this.count,
+    this.next,
+    this.previous,
+    this.results,
+  });
 
   Comics.fromJson(dynamic json) {
     count = json['count'];
@@ -35,6 +39,7 @@ class Comics {
       });
     }
   }
+
   int? count;
   String? next;
   dynamic previous;
@@ -50,30 +55,32 @@ class Comics {
     }
     return map;
   }
-
 }
 
 class Results {
   Results({
-      this.id, 
-      this.name, 
-      this.rarity, 
-      this.description, 
-      this.listing, 
-      this.floorPrice, 
-      this.owner, 
-      this.edition, 
-      this.coverVariant, 
-      this.coverArtist, 
-      this.publisher, 
-      this.series, 
-      this.issue, 
-      this.pages, 
-      this.startYear, 
-      this.writers, 
-      this.artists, 
-      this.characters, 
-      this.editions,});
+    this.id,
+    this.name,
+    this.rarity,
+    this.description,
+    this.listing,
+    this.floorPrice,
+    this.owner,
+    this.edition,
+    this.coverVariant,
+    this.coverArtist,
+    this.publisher,
+    this.series,
+    this.issue,
+    this.pages,
+    this.startYear,
+    this.writers,
+    this.artists,
+    this.characters,
+    this.editions,
+    this.rarePoint,
+    this.cpp,
+  });
 
   Results.fromJson(dynamic json) {
     id = json['id'];
@@ -95,7 +102,18 @@ class Results {
     artists = json['artists'];
     characters = json['characters'];
     editions = json['editions'];
+    if (rarity == 'Rare') {
+      rarePoint = 2;
+      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
+    } else if (rarity == 'Ultra Rare') {
+      rarePoint = 3;
+      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
+    } else {
+      rarePoint = 1;
+      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
+    }
   }
+
   int? id;
   String? name;
   String? rarity;
@@ -115,6 +133,8 @@ class Results {
   String? artists;
   String? characters;
   String? editions;
+  int? rarePoint;
+  double? cpp;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -139,5 +159,4 @@ class Results {
     map['editions'] = editions;
     return map;
   }
-
 }
