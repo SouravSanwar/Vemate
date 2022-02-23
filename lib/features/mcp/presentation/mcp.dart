@@ -28,6 +28,8 @@ class _MCPState extends State<MCP> {
     // TODO: implement initState
     fetchData = Provider.of<GetData>(context, listen: false);
 
+    fetchData.getCollectibles();
+    fetchData.getComics();
     super.initState();
   }
 
@@ -138,85 +140,82 @@ class _MCPState extends State<MCP> {
               ),
               AppSpaces.spaces_height_10,
               Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8.0),
-                        topRight: Radius.circular(8.0),
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(AppDimension.padding_8),
+                      topRight: Radius.circular(AppDimension.padding_8),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.green.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 2,
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.green.withOpacity(0.3),
-                          spreadRadius: 2,
-                          blurRadius: 2,
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              currentIndex = 1;
-                              setState(() {
-                                collectibleSelected = true;
-                                comicSelected = false;
-                                brandSelected = false;
-
-                                fetchData.getCollectibles();
-                              });
-                            },
-                            child: CategoryCard(
-                                name: 'Collectibles',
-                                color: collectibleSelected == true
-                                    ? Colors.green
-                                    : Colors.grey),
-                          ),
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              currentIndex = 2;
-                              setState(() {
-                                comicSelected = true;
-                                brandSelected = false;
-                                collectibleSelected = false;
-
-                                fetchData.getComics();
-                              });
-                            },
-                            child: CategoryCard(
-                                name: 'Comics',
-                                color: comicSelected == true
-                                    ? Colors.green
-                                    : Colors.grey),
-                          ),
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              currentIndex = 3;
-                              setState(() {
-                                brandSelected = true;
-                                collectibleSelected = false;
-                                comicSelected = false;
-                              });
-                            },
-                            child: CategoryCard(
-                              name: 'Brand',
-                              color: brandSelected == true
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            currentIndex = 1;
+                            setState(() {
+                              collectibleSelected = true;
+                              comicSelected = false;
+                              brandSelected = false;
+                            });
+                          },
+                          child: CategoryCard(
+                              name: 'Collectibles',
+                              color: collectibleSelected == true
                                   ? Colors.green
-                                  : Colors.grey,
-                            ),
+                                  : Colors.grey),
+                        ),
+                      ),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            currentIndex = 2;
+                            setState(() {
+                              comicSelected = true;
+                              brandSelected = false;
+                              collectibleSelected = false;
+                            });
+                          },
+                          child: CategoryCard(
+                              name: 'Comics',
+                              color: comicSelected == true
+                                  ? Colors.green
+                                  : Colors.grey),
+                        ),
+                      ),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            currentIndex = 3;
+                            setState(() {
+                              brandSelected = true;
+                              collectibleSelected = false;
+                              comicSelected = false;
+                            });
+                          },
+                          child: CategoryCard(
+                            name: 'Brand',
+                            color: brandSelected == true
+                                ? Colors.green
+                                : Colors.grey,
                           ),
                         ),
-                      ],
-                    ),
-                  ),)
+                      ),
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
         );

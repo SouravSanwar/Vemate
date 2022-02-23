@@ -27,6 +27,8 @@ class _MarketState extends State<Market> {
     // TODO: implement initState
     fetchData = Provider.of<GetData>(context, listen: false);
 
+    fetchData.getCollectibles();
+    fetchData.getComics();
     super.initState();
   }
 
@@ -167,8 +169,6 @@ class _MarketState extends State<Market> {
                                 collectibleSelected = true;
                                 comicSelected = false;
                                 brandSelected = false;
-
-                                fetchData.getCollectibles();
                               });
                             },
                             child: CategoryCard(
@@ -186,8 +186,6 @@ class _MarketState extends State<Market> {
                                 comicSelected = true;
                                 brandSelected = false;
                                 collectibleSelected = false;
-
-                                fetchData.getComics();
                               });
                             },
                             child: CategoryCard(
