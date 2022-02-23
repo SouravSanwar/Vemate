@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:ketemaa/features/home/presentation/home.dart';
 import 'package:ketemaa/features/mcp/presentation/mcp.dart';
 
 import 'package:ketemaa/features/profile/presentation/profile.dart';
@@ -49,11 +50,7 @@ class ControllerPage extends StatelessWidget {
 
   getBody(int index) {
     if (index == 0) {
-      return Container(
-        child: Center(
-          child: Text(names[index]),
-        ),
-      );
+      return Home();
     } else if (index == 1) {
       return MCP();
     }else if (index == 2) {

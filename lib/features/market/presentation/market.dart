@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/market_card_shimmer.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,7 @@ import '../../../core/utilities/app_assets/app_assets.dart';
 import '../Components/category_card.dart';
 import '../Components/collectibles_item_card.dart';
 import '../Components/commics_item_card.dart';
-import '../Components/name_row.dart';
+import '../../home/components/name_row.dart';
 
 class Market extends StatefulWidget {
   @override
@@ -19,13 +20,12 @@ class Market extends StatefulWidget {
 }
 
 class _MarketState extends State<Market> {
+  var fetchData;
+
   @override
   void initState() {
     // TODO: implement initState
-    var fetchData = Provider.of<GetData>(context, listen: false);
-
-    fetchData.getCollectibles();
-    fetchData.getComics();
+    fetchData = Provider.of<GetData>(context, listen: false);
 
     super.initState();
   }
@@ -119,7 +119,7 @@ class _MarketState extends State<Market> {
                                         .results,
                                     image: AppAsset.main_auth_image_3,
                                   )
-                                : Container(),
+                                : const MarketCardShimmer(),
                           )
                         : (comicSelected == true
                             ? SizedBox(
@@ -129,7 +129,7 @@ class _MarketState extends State<Market> {
                                         list: data.comicsModel!.comics!.results,
                                         image: AppAsset.main_auth_image_3,
                                       )
-                                    : Container(),
+                                    : const MarketCardShimmer(),
                               )
                             : Center(
                                 child: Text('Brand'),
@@ -146,8 +146,8 @@ class _MarketState extends State<Market> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8.0),
-                        topRight: Radius.circular(8.0),
+                        topLeft: Radius.circular(AppDimension.padding_8),
+                        topRight: Radius.circular(AppDimension.padding_8),
                       ),
                       boxShadow: [
                         BoxShadow(
@@ -167,6 +167,8 @@ class _MarketState extends State<Market> {
                                 collectibleSelected = true;
                                 comicSelected = false;
                                 brandSelected = false;
+
+                                fetchData.getCollectibles();
                               });
                             },
                             child: CategoryCard(
@@ -184,6 +186,8 @@ class _MarketState extends State<Market> {
                                 comicSelected = true;
                                 brandSelected = false;
                                 collectibleSelected = false;
+
+                                fetchData.getComics();
                               });
                             },
                             child: CategoryCard(

@@ -6,8 +6,9 @@ import '../../../core/utilities/app_spaces/app_spaces.dart';
 
 class NameRow extends StatelessWidget {
   String? name;
+  TextStyle? style;
 
-  NameRow({Key? key, this.name}) : super(key: key);
+  NameRow({Key? key, this.name, this.style}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +17,12 @@ class NameRow extends StatelessWidget {
         Text(
           name.toString(),
           textAlign: TextAlign.center,
-          style: Get.textTheme.bodyText1!.copyWith(color: AppColors.black),
+          style: style,
         ),
         AppSpaces.spaces_width_5,
         Expanded(
           child: Column(
-            children: [
+            children: const [
               Divider(
                 color: Colors.black,
                 thickness: 1.0,

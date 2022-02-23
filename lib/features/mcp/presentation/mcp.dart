@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/mcp_card_shimmer.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/mcp/Components/category_card.dart';
@@ -20,13 +21,12 @@ class MCP extends StatefulWidget {
 }
 
 class _MCPState extends State<MCP> {
+  var fetchData;
+
   @override
   void initState() {
     // TODO: implement initState
-    var fetchData = Provider.of<GetData>(context, listen: false);
-
-    fetchData.getCollectibles();
-    fetchData.getComics();
+    fetchData = Provider.of<GetData>(context, listen: false);
 
     super.initState();
   }
@@ -113,26 +113,26 @@ class _MCPState extends State<MCP> {
                   Container(
                     child: collectibleSelected == true
                         ? SizedBox(
-                      height: Get.height,
-                      child: data.collectiblesModel != null
-                          ? CollectiblesMCPCard(
-                        list: data.collectiblesModel!.collectibles!
-                            .results,
-                      )
-                          : Container(),
-                    )
+                            height: Get.height,
+                            child: data.collectiblesModel != null
+                                ? CollectiblesMCPCard(
+                                    list: data.collectiblesModel!.collectibles!
+                                        .results,
+                                  )
+                                : const MCPCardShimmer(),
+                          )
                         : (comicSelected == true
-                        ? SizedBox(
-                      height: Get.height,
-                      child: data.comicsModel != null
-                          ? ComicsMcpCard(
-                        list: data.comicsModel!.comics!.results,
-                      )
-                          : Container(),
-                    )
-                        : Center(
-                      child: Text('Brand'),
-                    )),
+                            ? SizedBox(
+                                height: Get.height,
+                                child: data.comicsModel != null
+                                    ? ComicsMcpCard(
+                                        list: data.comicsModel!.comics!.results,
+                                      )
+                                    : const MCPCardShimmer(),
+                              )
+                            : Center(
+                                child: Text('Brand'),
+                              )),
                   )
                 ],
               ),
@@ -166,6 +166,8 @@ class _MCPState extends State<MCP> {
                                 collectibleSelected = true;
                                 comicSelected = false;
                                 brandSelected = false;
+
+                                fetchData.getCollectibles();
                               });
                             },
                             child: CategoryCard(
@@ -183,6 +185,8 @@ class _MCPState extends State<MCP> {
                                 comicSelected = true;
                                 brandSelected = false;
                                 collectibleSelected = false;
+
+                                fetchData.getComics();
                               });
                             },
                             child: CategoryCard(
@@ -212,7 +216,7 @@ class _MCPState extends State<MCP> {
                         ),
                       ],
                     ),
-                  ))
+                  ),)
             ],
           ),
         );

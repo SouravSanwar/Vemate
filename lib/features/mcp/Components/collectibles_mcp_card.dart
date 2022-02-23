@@ -44,7 +44,7 @@ class _CollectiblesMCPCardState extends State<CollectiblesMCPCard> {
                 borderRadius: BorderRadius.circular(8.0),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
+                    color: Colors.grey.withOpacity(0.2),
                     spreadRadius: 2,
                     blurRadius: 2,
                   ),
