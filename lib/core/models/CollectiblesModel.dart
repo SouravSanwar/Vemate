@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CollectiblesModel {
@@ -79,6 +80,7 @@ class Results {
     this.series,
     this.rarePoint,
     this.cpp,
+    this.rarityColor,
   });
 
   Results.fromJson(dynamic json) {
@@ -102,12 +104,19 @@ class Results {
     if (rarity == 'Rare') {
       rarePoint = 2;
       cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
+      rarityColor = Colors.deepPurpleAccent.shade100;
     } else if (rarity == 'Ultra Rare') {
       rarePoint = 3;
       cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
+      rarityColor = Colors.green.shade100;
     } else {
       rarePoint = 1;
       cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
+      if (rarity == 'Common') {
+        rarityColor = Colors.blueGrey;
+      } else {
+        rarityColor = Colors.lime;
+      }
     }
   }
 
@@ -129,6 +138,7 @@ class Results {
   String? series;
   int? rarePoint;
   double? cpp;
+  Color? rarityColor;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

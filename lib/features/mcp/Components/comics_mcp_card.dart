@@ -13,13 +13,8 @@ import '../../../core/models/CommicsModel.dart';
 class ComicsMcpCard extends StatelessWidget {
   List<Results>? list;
 
-  String? image;
-  String? name;
-
   ComicsMcpCard({
     this.list,
-    this.image,
-    this.name,
   });
 
   @override
@@ -38,7 +33,7 @@ class ComicsMcpCard extends StatelessWidget {
             child: Container(
               width: Get.width * .5,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: list![index].rarityColor,
                 borderRadius: BorderRadius.circular(8.0),
                 boxShadow: [
                   BoxShadow(

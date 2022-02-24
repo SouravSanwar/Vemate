@@ -7,6 +7,7 @@ import 'package:ketemaa/core/utilities/app_assets/app_assets.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/features/market/presentation/single_collectible.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/Provider/getData.dart';
@@ -15,13 +16,8 @@ import '../../../core/models/CollectiblesModel.dart';
 class CollectiblesItemCard extends StatefulWidget {
   List<Results>? list;
 
-  String? image;
-  String? name;
-
   CollectiblesItemCard({
     this.list,
-    this.image,
-    this.name,
   });
 
   @override
@@ -45,7 +41,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
             child: Container(
               width: Get.width * .5,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: widget.list![index].rarityColor,
                 borderRadius: BorderRadius.circular(8.0),
                 boxShadow: [
                   BoxShadow(
@@ -57,10 +53,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
               ),
               child: InkWell(
                 onTap: () {
-                  var fetchData =
-                      Provider.of<GetData>(Get.overlayContext!, listen: false);
-                  fetchData.getSingleCollectible(widget.list![index].id);
-
+                  Get.to(
+                      () => SingleCollectibleView(id: widget.list![index].id));
                   Flushbar(
                     title: "Hey buddy",
                     message: "You selected ${widget.list![index].name}",
@@ -72,7 +66,6 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      //AppSpaces.spaces_height_10,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

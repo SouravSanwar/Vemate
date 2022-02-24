@@ -38,7 +38,7 @@ class CommicsItemCard extends StatelessWidget {
             child: Container(
               width: Get.width * .5,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: list![index].rarityColor,
                 borderRadius: BorderRadius.circular(8.0),
                 boxShadow: [
                   BoxShadow(

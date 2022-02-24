@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/Provider/getData.dart';
 import '../../../core/models/CollectiblesModel.dart';
+import '../../market/presentation/single_collectible.dart';
 
 class CollectiblesMCPCard extends StatefulWidget {
   List<Results>? list;
@@ -40,7 +41,7 @@ class _CollectiblesMCPCardState extends State<CollectiblesMCPCard> {
             child: Container(
               width: Get.width * .5,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: widget.list![index].rarityColor,
                 borderRadius: BorderRadius.circular(8.0),
                 boxShadow: [
                   BoxShadow(
@@ -52,9 +53,8 @@ class _CollectiblesMCPCardState extends State<CollectiblesMCPCard> {
               ),
               child: InkWell(
                 onTap: () {
-                  var fetchData =
-                      Provider.of<GetData>(Get.overlayContext!, listen: false);
-                  fetchData.getSingleCollectible(widget.list![index].id);
+                  Get.to(
+                      () => SingleCollectibleView(id: widget.list![index].id));
 
                   Flushbar(
                     title: "Hey buddy",
@@ -67,7 +67,6 @@ class _CollectiblesMCPCardState extends State<CollectiblesMCPCard> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      //AppSpaces.spaces_height_10,
                       Text(
                         widget.list![index].name.toString(),
                         textAlign: TextAlign.start,

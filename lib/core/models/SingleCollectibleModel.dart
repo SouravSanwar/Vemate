@@ -1,39 +1,37 @@
 class SingleCollectibleModel {
   SingleCollectibleModel({
     this.details,
-    this.floorPrice,
+    //this.floorPrice,
   });
 
   SingleCollectibleModel.fromJson(dynamic json) {
     details =
         json['details'] != null ? Details.fromJson(json['details']) : null;
-    floorPrice = json['floor_price'] != null
-        ? FloorPrice.fromJson(json['floorPrice'])
-        : null;
+    //floorPrice = json['floor_price'] != null ? FloorPrice.fromJson(json['floorPrice']) : null;
   }
 
   Details? details;
-  FloorPrice? floorPrice;
+
+  //FloorPrice? floorPrice;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (details != null) {
       map['details'] = details?.toJson();
     }
-    if (floorPrice != null) {
+    /*if (floorPrice != null) {
       map['floor_price'] = floorPrice?.toJson();
-    }
+    }*/
     return map;
   }
 }
 
-class FloorPrice {
+/*class FloorPrice {
   FloorPrice({
-    this.count,
-    this.next,
-    this.previous,
-    this.results,
-  });
+      this.count,
+      this.next,
+      this.previous,
+      this.results,});
 
   FloorPrice.fromJson(dynamic json) {
     count = json['count'];
@@ -46,7 +44,6 @@ class FloorPrice {
       });
     }
   }
-
   int? count;
   dynamic next;
   dynamic previous;
@@ -62,7 +59,8 @@ class FloorPrice {
     }
     return map;
   }
-}
+
+}*/
 
 class Results {
   Results({

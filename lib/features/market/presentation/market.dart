@@ -119,7 +119,6 @@ class _MarketState extends State<Market> {
                                 ? CollectiblesItemCard(
                                     list: data.collectiblesModel!.collectibles!
                                         .results,
-                                    image: AppAsset.main_auth_image_3,
                                   )
                                 : const MarketCardShimmer(),
                           )
