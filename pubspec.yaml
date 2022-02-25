@@ -37,6 +37,7 @@ dependencies:
   get: ^4.3.8
   dartz: ^0.10.0
   equatable: ^2.0.3
+  carousel_slider: ^4.0.0
   data_connection_checker: ^0.3.4
  # http: ^0.13.4
   google_fonts: ^2.1.0
@@ -54,9 +55,12 @@ dependencies:
   shimmer:
   ##firebase_core:
   skeleton_animation: ^0.1.4
-  image_picker: ^0.8.4+4
   provider: ^6.0.2
   another_flushbar: ^1.10.28
+  share_plus: ^3.1.0
+  rating_dialog: ^2.0.3
+  store_redirect: ^2.0.1
+  image_picker: ^0.8.4+9
 
 
 dev_dependencies:
@@ -85,6 +89,7 @@ flutter:
   assets:
     - assets/media/image/
     - assets/media/icon/
+    - slider/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
