@@ -12,6 +12,8 @@ import 'core/graphQLConfig/graphql_config.dart';
 import 'core/language/language.dart';
 import 'core/utilities/app_theme/app_theme.dart';
 
+//this is main class
+
 Future<void> main() async {
   runApp(
     MultiProvider(
