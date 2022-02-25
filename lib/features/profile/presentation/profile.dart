@@ -58,204 +58,206 @@ class Profile extends StatelessWidget {
               left: AppDimension.padding_8,
               right: AppDimension.padding_8,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ListView(
-                  shrinkWrap: true,
-                  children: [
-                    AppSpaces.spaces_height_5,
-                    Text(
-                      'My Account',
-                      style: Get.textTheme.headline2,
-                      textAlign: TextAlign.center,
-                    ),
-                    AppSpaces.spaces_height_5,
-                    const Padding(
-                      padding: EdgeInsets.only(left: 45.0, right: 45.0),
-                      child: ProfileDetailsDivider(),
-                    ),
-                    AppSpaces.spaces_height_5,
-                    ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(25)),
-                      child: SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: Image.asset('assets/media/image/profile.png'),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ListView(
+                    shrinkWrap: true,
+                    children: [
+                      AppSpaces.spaces_height_5,
+                      Text(
+                        'My Account',
+                        style: Get.textTheme.headline2,
+                        textAlign: TextAlign.center,
                       ),
-                    ),
-                    AppSpaces.spaces_height_5,
-                    Text(
-                      'User Name',
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),
-                      textAlign: TextAlign.center,
-                    ),
-                    const ProfileDetailsDivider(),
-                    GestureDetector(
-                      onTap: (){
-                        // Add what you want to do on tap
-                      },
-                      child:Row(
-                      children: [
-                        Image.asset(
-                          'assets/media/image/edit.png',
-                          height: 25,
-                          width: 25,
+                      AppSpaces.spaces_height_5,
+                      const Padding(
+                        padding: EdgeInsets.only(left: 45.0, right: 45.0),
+                        child: ProfileDetailsDivider(),
+                      ),
+                      AppSpaces.spaces_height_5,
+                      ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(25)),
+                        child: SizedBox(
+                          height: 100,
+                          width: 100,
+                          child: Image.asset('assets/media/image/profile.png'),
                         ),
-                        AppSpaces.spaces_width_10,
-                        Text(
-                          'Profile Edit',
-                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
-                        ),
-                        new Spacer(),
-                        Icon(Icons.navigate_next)
-                      ],
-                    ),
-                   ),
-                    const ProfileDetailsDivider(),
-                    Row(
-                      children: [
-                        Image.asset(
-                          'assets/media/image/customer-service.png',
-                          height: 25,
-                          width: 25,
-                        ),
-                        AppSpaces.spaces_width_10,
-                        Text(
-                          'Help and Support',
-                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
-                        ),
-                        new Spacer(),
-                        Icon(Icons.navigate_next)
-                      ],
-                    ),
-                    const ProfileDetailsDivider(),
-                    Row(
-                      children: [
-                        Image.asset(
-                          'assets/media/image/privacy-policy.png',
-                          height: 25,
-                          width: 25,
-                        ),
-                        AppSpaces.spaces_width_10,
-                        Text(
-                          'Privacy Policy',
-                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
-                        ),
-                        new Spacer(),
-                        Icon(Icons.navigate_next)
-                      ],
-                    ),
-                    const ProfileDetailsDivider(),
-
-
-                    GestureDetector(
-                      onTap: (){
-                        showDialog(
-                          context: context,
-                          builder: (context) => _dialog,
-                        );
-
-                      },
-                      child:Row(
-                      children: [
-                        Image.asset(
-                          'assets/media/image/rating.png',
-                          height: 25,
-                          width: 25,
-                        ),
-                        AppSpaces.spaces_width_10,
-                        Text(
-                          'Rate',
-                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
-                        ),
-                        new Spacer(),
-                        Icon(Icons.navigate_next)
-                      ],
-                    ),
-                    ),
-                    const ProfileDetailsDivider(),
-
-                    GestureDetector(
-                      onTap: (){
-                        Share.share('Visit Vemate Website:\n https://www.vemate.com/');
-                      },
-                      child:Row(
-                      children: [
-                        Image.asset(
-                          'assets/media/image/share.png',
-                          height: 25,
-                          width: 25,
-                        ),
-                        AppSpaces.spaces_width_10,
-                        Text(
-                          'Share Vemate',
-                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
-                        ),
-                        new Spacer(),
-                        Icon(Icons.navigate_next)
-                      ],
-                    ),
-                    ),
-                    const ProfileDetailsDivider(),
-                    Row(
-
-                      children: [
-
-                        Image.asset(
-                          'assets/media/image/information.png',
-                          height: 25,
-                          width: 25,
-                        ),
-                        AppSpaces.spaces_width_10,
-                        Text(
-                          'About Vemate',
-                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
-                        ),
-                        new Spacer(),
-                        Icon(Icons.navigate_next)
-                      ],
-                    ),
-                    const ProfileDetailsDivider(),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.all(AppDimension.padding_16),
-                  child: Container(
-                    clipBehavior: Clip.antiAlias,
-                    alignment: Alignment.bottomCenter,
-                    decoration: BoxDecoration(
-                      color: Colors.red.shade200,
-                      borderRadius: BorderRadius.circular(8.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 2,
-                          blurRadius: 2,
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(AppDimension.padding_10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      ),
+                      AppSpaces.spaces_height_5,
+                      Text(
+                        'User Name',
+                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),
+                        textAlign: TextAlign.center,
+                      ),
+                      const ProfileDetailsDivider(),
+                      GestureDetector(
+                        onTap: (){
+                          // Add what you want to do on tap
+                        },
+                        child:Row(
                         children: [
-                          Text(
-                            'Log Out',
-                            style: Get.textTheme.bodyText2,
+                          Image.asset(
+                            'assets/media/image/edit.png',
+                            height: 25,
+                            width: 25,
                           ),
                           AppSpaces.spaces_width_10,
+                          Text(
+                            'Profile Edit',
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
+                          ),
+                          new Spacer(),
+                          Icon(Icons.navigate_next)
+                        ],
+                      ),
+                     ),
+                      const ProfileDetailsDivider(),
+                      Row(
+                        children: [
                           Image.asset(
-                            'assets/media/image/logout.png',
-                            height: 15,
-                            width: 15,
+                            'assets/media/image/customer-service.png',
+                            height: 25,
+                            width: 25,
+                          ),
+                          AppSpaces.spaces_width_10,
+                          Text(
+                            'Help and Support',
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
+                          ),
+                          new Spacer(),
+                          Icon(Icons.navigate_next)
+                        ],
+                      ),
+                      const ProfileDetailsDivider(),
+                      Row(
+                        children: [
+                          Image.asset(
+                            'assets/media/image/privacy-policy.png',
+                            height: 25,
+                            width: 25,
+                          ),
+                          AppSpaces.spaces_width_10,
+                          Text(
+                            'Privacy Policy',
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
+                          ),
+                          new Spacer(),
+                          Icon(Icons.navigate_next)
+                        ],
+                      ),
+                      const ProfileDetailsDivider(),
+
+
+                      GestureDetector(
+                        onTap: (){
+                          showDialog(
+                            context: context,
+                            builder: (context) => _dialog,
+                          );
+
+                        },
+                        child:Row(
+                        children: [
+                          Image.asset(
+                            'assets/media/image/rating.png',
+                            height: 25,
+                            width: 25,
+                          ),
+                          AppSpaces.spaces_width_10,
+                          Text(
+                            'Rate',
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
+                          ),
+                          new Spacer(),
+                          Icon(Icons.navigate_next)
+                        ],
+                      ),
+                      ),
+                      const ProfileDetailsDivider(),
+
+                      GestureDetector(
+                        onTap: (){
+                          Share.share('Visit Vemate Website:\n https://www.vemate.com/');
+                        },
+                        child:Row(
+                        children: [
+                          Image.asset(
+                            'assets/media/image/share.png',
+                            height: 25,
+                            width: 25,
+                          ),
+                          AppSpaces.spaces_width_10,
+                          Text(
+                            'Share Vemate',
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
+                          ),
+                          new Spacer(),
+                          Icon(Icons.navigate_next)
+                        ],
+                      ),
+                      ),
+                      const ProfileDetailsDivider(),
+                      Row(
+
+                        children: [
+
+                          Image.asset(
+                            'assets/media/image/information.png',
+                            height: 25,
+                            width: 25,
+                          ),
+                          AppSpaces.spaces_width_10,
+                          Text(
+                            'About Vemate',
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
+                          ),
+                          new Spacer(),
+                          Icon(Icons.navigate_next)
+                        ],
+                      ),
+                      const ProfileDetailsDivider(),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(AppDimension.padding_16),
+                    child: Container(
+                      clipBehavior: Clip.antiAlias,
+                      alignment: Alignment.bottomCenter,
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade200,
+                        borderRadius: BorderRadius.circular(8.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 2,
+                            blurRadius: 2,
                           ),
                         ],
                       ),
+                      child: Padding(
+                        padding: EdgeInsets.all(AppDimension.padding_10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Log Out',
+                              style: Get.textTheme.bodyText2,
+                            ),
+                            AppSpaces.spaces_width_10,
+                            Image.asset(
+                              'assets/media/image/logout.png',
+                              height: 15,
+                              width: 15,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

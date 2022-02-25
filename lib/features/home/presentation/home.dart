@@ -17,15 +17,12 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-
-
 class _HomeState extends State<Home> {
-
-  final items=[
+  final items = [
     "slider/11.jpg",
     "slider/12.jpg",
-    "slider/13.jpg",];
-
+    "slider/13.jpg",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +51,8 @@ class _HomeState extends State<Home> {
               children: [
                 Padding(
                   padding: EdgeInsets.all(AppDimension.padding_16),
-                  child: Text(
-                    'Vemate',
-                    style: Get.textTheme.headline2!
-                        .copyWith(color: AppColors.black),
+                  child: Image.asset(
+                    'slider/12.png',
                   ),
                 ),
                 InkWell(
@@ -85,12 +80,11 @@ class _HomeState extends State<Home> {
             ),
           ),
           AppSpaces.spaces_height_10,
-
           Container(
             child: CarouselSlider(
               options: CarouselOptions(
-                height: MediaQuery.of(context).size.height*.2,
-                aspectRatio: 16/9,
+                height: MediaQuery.of(context).size.height * .2,
+                aspectRatio: 16 / 9,
                 viewportFraction: 0.8,
                 initialPage: 0,
                 //again starts from first image
@@ -104,13 +98,11 @@ class _HomeState extends State<Home> {
                 scrollDirection: Axis.horizontal,
               ),
               items: items.map((index) {
-                return Builder(builder: (BuildContext){
+                return Builder(builder: (BuildContext) {
                   return Container(
                     width: MediaQuery.of(context).size.height,
                     margin: const EdgeInsets.symmetric(horizontal: 1.0),
-                    decoration: BoxDecoration(
-                        color: Colors.white60
-                    ),
+                    decoration: BoxDecoration(color: Colors.white60),
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Image.asset(
@@ -122,11 +114,8 @@ class _HomeState extends State<Home> {
                 });
               }).toList(),
             ),
-
           ),
-
           AppSpaces.spaces_height_10,
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: NameRow(
