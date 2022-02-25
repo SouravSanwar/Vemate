@@ -21,7 +21,7 @@ class PasswordInputField extends StatefulWidget {
 }
 
 class _PasswordInputFieldState extends State<PasswordInputField> {
-  bool _toggleVisbility = true;
+  bool _toggleVisibility = true;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,14 +45,14 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             suffixIcon: IconButton(
               onPressed: () {
                 setState(() {
-                  _toggleVisbility = !_toggleVisbility;
+                  _toggleVisibility = !_toggleVisibility;
                 });
               },
-              icon: _toggleVisbility
+              icon: _toggleVisibility
                   ? Icon(Icons.visibility)
                   : Icon(Icons.visibility_off),
             )),
-        obscureText: _toggleVisbility,
+        obscureText: _toggleVisibility,
       ),
     );
   }

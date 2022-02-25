@@ -7,7 +7,7 @@ class Language extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
-          'App_Name': 'Vemate',
+          AppLanguageString.APPNAME: 'Vemate',
           AppLanguageString.GOOGLE_LOGIN: 'Continue with Google',
           'Facebook_Login': 'Continue with Facebook',
           'Apple_Login': 'Continue with Apple',
@@ -20,10 +20,12 @@ class Language extends Translations {
           'Log_In_With_Email': 'Log in with email',
           'Name': 'Name',
           'Email': 'Email',
-          'Password': 'Password',
+          AppLanguageString.PASSWORD: 'Password',
+          AppLanguageString.CONFIRMPASSWORD: 'Confirm Password',
           'Sign_Up': 'Sign Up',
           'Log_In': 'Log In',
           'and': "and",
+          AppLanguageString.USERNAME: 'Username',
           AppLanguageString.SEARCH_HINT: 'What are you looking for?',
           AppLanguageString.POPULAR_IN: 'Popular in',
           AppLanguageString.RESIDENTIAL_FOR_RENT: 'Residential for Rent',

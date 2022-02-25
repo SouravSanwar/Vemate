@@ -12,7 +12,9 @@ class AppLanguageString {
   static String LOGIN_IN_WITH = 'Log_In_With_Email';
   static String NAME = 'Name';
   static String EMAIL = 'Email';
+  static String USERNAME = 'user_name';
   static String PASSWORD = 'Password';
+  static String CONFIRMPASSWORD = 'confirm_password';
   static String SIGN_UP = 'Sign_Up';
   static String lOG_IN = 'Log_In';
   static var AND = "and";

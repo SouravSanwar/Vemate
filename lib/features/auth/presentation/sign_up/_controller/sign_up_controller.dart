@@ -17,6 +17,8 @@ class SignUpController extends GetxController {
 
   TextEditingController passwordController = TextEditingController();
 
+  TextEditingController confirmPasswordController = TextEditingController();
+
   AuthRepository _authRepository = AuthenticationRemoteRepository();
 
   @override

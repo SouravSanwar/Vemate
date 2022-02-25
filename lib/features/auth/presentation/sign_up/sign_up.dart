@@ -38,7 +38,7 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AppSpaces.spaces_height_100,
+              AppSpaces.spaces_height_50,
               Text(
                 AppLanguageString.SIGN_UP_TO.tr +
                     ' ' +
@@ -47,32 +47,37 @@ class _SignUpState extends State<SignUp> {
               ),
               AppSpaces.spaces_height_30,
               TextInputField(
-                labelText: AppLanguageString.NAME.tr,
+                labelText: AppLanguageString.USERNAME.tr,
                 height: .09,
                 textType: TextInputType.text,
                 controller: SignUpController.to.nameController,
               ),
-              AppSpaces.spaces_height_5,
+              //AppSpaces.spaces_height_5,
               TextInputField(
                 labelText: AppLanguageString.EMAIL.tr,
                 height: .09,
                 textType: TextInputType.emailAddress,
                 controller: SignUpController.to.emailController,
               ),
-              AppSpaces.spaces_height_5,
+              //AppSpaces.spaces_height_5,
               PasswordInputField(
                   labelText: AppLanguageString.PASSWORD.tr,
                   height: .09,
                   textType: TextInputType.text,
                   controller: SignUpController.to.passwordController),
-              AppSpaces.spaces_height_5,
+              //AppSpaces.spaces_height_5,
+              PasswordInputField(
+                  labelText: AppLanguageString.CONFIRMPASSWORD.tr,
+                  height: .09,
+                  textType: TextInputType.text,
+                  controller: SignUpController.to.confirmPasswordController),
+              //AppSpaces.spaces_height_5,
               Container(
                 margin: EdgeInsets.all(AppDimension.b1),
-                //padding: EdgeInsets.all(AppDimension.b1),
-                height: Get.height * .09,
-                width: Get.width,
+                height: Get.height * .07,
+                width: Get.width * .4,
                 decoration: BoxDecoration(
-                  color: AppColors.textColor, // set border width
+                  color: AppColors.primaryColor, // set border width
                   borderRadius: const BorderRadius.all(
                       Radius.circular(10.0)), // set rounded corner radius
                 ),
@@ -82,6 +87,7 @@ class _SignUpState extends State<SignUp> {
                   },
                   child: Text(
                     AppLanguageString.SIGN_UP.tr.toUpperCase(),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white),
                   ),
                 ),
               ),

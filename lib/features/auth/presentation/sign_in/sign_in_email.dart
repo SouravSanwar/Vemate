@@ -19,8 +19,6 @@ class SignInWithEmail extends StatelessWidget {
     Get.put(SigninController());
     //SigninController.to.signIn();
 
-    /*printInfo(
-        info: '${SigninController.to.userLogin.value.loginUser!.success}');*/
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -59,7 +57,7 @@ class SignInWithEmail extends StatelessWidget {
         ),
         AppSpaces.spaces_height_30,
         TextInputField(
-          labelText: AppLanguageString.EMAIL.tr,
+          labelText: AppLanguageString.USERNAME.tr,
           height: .09,
           textType: TextInputType.emailAddress,
           controller: SigninController.to.emailTextFiledController,
@@ -73,11 +71,10 @@ class SignInWithEmail extends StatelessWidget {
         AppSpaces.spaces_height_5,
         Container(
           margin: EdgeInsets.all(AppDimension.b1),
-          //padding: EdgeInsets.all(AppDimension.b1),
           height: Get.height * .09,
-          width: Get.width,
+          width: Get.width * .5,
           decoration: BoxDecoration(
-            color: AppColors.textColor, // set border width
+            color: AppColors.primaryColor, // set border width
             borderRadius: const BorderRadius.all(
                 Radius.circular(10.0)), // set rounded corner radius
           ),

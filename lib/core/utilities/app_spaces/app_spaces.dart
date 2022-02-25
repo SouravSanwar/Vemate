@@ -23,6 +23,8 @@ class AppSpaces {
       const Padding(padding: EdgeInsets.only(top: 35));
   static Padding spaces_height_40 =
       const Padding(padding: EdgeInsets.only(top: 40));
+  static Padding spaces_height_50 =
+      const Padding(padding: EdgeInsets.only(top: 50));
   static Padding spaces_height_100 =
       const Padding(padding: EdgeInsets.only(top: 100));
   static Padding spaces_height_160 =
