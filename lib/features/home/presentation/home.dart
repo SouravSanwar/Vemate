@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,14 +17,23 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+
+
 class _HomeState extends State<Home> {
+
+  final items=[
+    "slider/11.jpg",
+    "slider/12.jpg",
+    "slider/13.jpg",];
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         children: [
           Container(
-            height: Get.height * .15,
+            height: Get.height * .13,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -73,7 +83,49 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          AppSpaces.spaces_height_20,
+          AppSpaces.spaces_height_10,
+
+          Container(
+            child: CarouselSlider(
+              options: CarouselOptions(
+                height: MediaQuery.of(context).size.height*.2,
+                aspectRatio: 16/9,
+                viewportFraction: 0.8,
+                initialPage: 0,
+                //again starts from first image
+                enableInfiniteScroll: true,
+                reverse: false,
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 2),
+                autoPlayAnimationDuration: const Duration(milliseconds: 500),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                scrollDirection: Axis.horizontal,
+              ),
+              items: items.map((index) {
+                return Builder(builder: (BuildContext){
+                  return Container(
+                    width: MediaQuery.of(context).size.height,
+                    margin: const EdgeInsets.symmetric(horizontal: 1.0),
+                    decoration: BoxDecoration(
+                        color: Colors.white60
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Image.asset(
+                        index,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  );
+                });
+              }).toList(),
+            ),
+
+          ),
+
+          AppSpaces.spaces_height_10,
+
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: NameRow(
