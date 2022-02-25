@@ -20,6 +20,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black12,
       body: ListView(
         children: [
           Container(
@@ -32,7 +33,7 @@ class _HomeState extends State<Home> {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.green.withOpacity(0.3),
+                  color: AppColors.primaryColor.withOpacity(0.3),
                   spreadRadius: 2,
                   blurRadius: 2,
                 ),
