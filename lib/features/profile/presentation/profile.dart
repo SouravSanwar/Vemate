@@ -1,23 +1,43 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_sizes.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/widgets/profile_divider.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:store_redirect/store_redirect.dart';
 
+import 'package:image_picker/image_picker.dart';
+
 import 'custom_app_bar.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
+  @override
+  _ProfileState createState() => _ProfileState();
+}
 
+class _ProfileState extends State<Profile> {
+  //Imagepicker
+  XFile? imageXFile;
+  final ImagePicker _picker = ImagePicker();
+  String sellerImageUrl = "";
 
+  Future<void> _getImage() async {
+    imageXFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      imageXFile;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+
+
 
 
     final _dialog = RatingDialog(
@@ -76,15 +96,24 @@ class Profile extends StatelessWidget {
                       child: ProfileDetailsDivider(),
                     ),
                     AppSpaces.spaces_height_5,
-                    ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(25)),
-                      child: SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: Image.asset('assets/media/image/profile.png'),
+
+
+
+                    InkWell(
+                      onTap: () {
+                        _getImage();
+                      },
+                      child: CircleAvatar(
+                        radius: MediaQuery.of(context).size.width * .20,
+                        backgroundColor: Colors.white,
+                        backgroundImage: null,
+                        child:Icon(Icons.person,size: 100,color: Colors.green,)
                       ),
                     ),
                     AppSpaces.spaces_height_5,
+
+
+
                     Text(
                       'User Name',
                       style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),
@@ -93,7 +122,7 @@ class Profile extends StatelessWidget {
                     const ProfileDetailsDivider(),
                     GestureDetector(
                       onTap: (){
-                        // Add what you want to do on tap
+                        Navigator.push(context,MaterialPageRoute(builder: (c)=>EditProfilePage()));
                       },
                       child:Row(
                       children: [
@@ -166,7 +195,7 @@ class Profile extends StatelessWidget {
                         ),
                         AppSpaces.spaces_width_10,
                         Text(
-                          'Rate',
+                          'Rate                             ',
                           style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
                         ),
                         new Spacer(),
@@ -220,13 +249,14 @@ class Profile extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.all(AppDimension.padding_16),
+                  padding: EdgeInsets.all(AppDimension.padding_8),
                   child: Container(
+                    height: 40,
                     clipBehavior: Clip.antiAlias,
                     alignment: Alignment.bottomCenter,
                     decoration: BoxDecoration(
-                      color: Colors.red.shade200,
-                      borderRadius: BorderRadius.circular(8.0),
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(10.0),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.2),

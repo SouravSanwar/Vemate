@@ -25,22 +25,26 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height * widget.height,
-      margin: EdgeInsets.all(AppDimension.b1),
-      padding: EdgeInsets.all(AppDimension.b1),
+      margin: EdgeInsets.symmetric(horizontal: 15),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xff2F3758),
         border: Border.all(
-            color: AppColors.black, // set border color
+            color: AppColors.grey, // set border color
             width: 1.5), // set border width
         borderRadius: BorderRadius.all(
-            Radius.circular(10.0)), // set rounded corner radius
+            Radius.circular(25.0)), // set rounded corner radius
       ),
       child: TextField(
+
+        style: TextStyle(color: Colors.white,
+                         fontSize: 18.0),
         controller: widget.controller,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
             hintText: widget.labelText,
+            hintStyle: TextStyle( fontSize: 15),
+            labelStyle:TextStyle(color: Colors.blue,),
             border: InputBorder.none,
             suffixIcon: IconButton(
               onPressed: () {
@@ -49,8 +53,10 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
                 });
               },
               icon: _toggleVisibility
-                  ? Icon(Icons.visibility)
-                  : Icon(Icons.visibility_off),
+                  ? Icon(Icons.visibility,
+              color: Color(0xffA984E5),)
+                  : Icon(Icons.visibility_off,
+              color: Color(0xffA984E5),),
             )),
         obscureText: _toggleVisibility,
       ),

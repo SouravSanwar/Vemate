@@ -13,14 +13,12 @@ import '../../market/presentation/market.dart';
 class ControllerPage extends StatelessWidget {
   List<String> names = [
     'Home',
-    'MCP',
     'Market',
     'Vault',
   ];
 
   List<IconData> icons = [
     Icons.home,
-    Icons.list_alt_outlined,
     Icons.shop,
     Icons.card_travel,
   ];
@@ -35,6 +33,8 @@ class ControllerPage extends StatelessWidget {
     Get.put(ControllerPageController());
     return Obx(() {
       return Scaffold(
+
+        backgroundColor: Color(0xff272E49),
         body: BottomBarPageTransition(
           builder: (_, index) => getBody(index),
           currentIndex: ControllerPageController.to.currentPage.value,
@@ -43,7 +43,10 @@ class ControllerPage extends StatelessWidget {
           transitionDuration: duration,
           transitionCurve: curve,
         ),
-        bottomNavigationBar: getBottomBar(),
+        bottomNavigationBar: Container(
+          height: 65,
+          child: getBottomBar(),
+        )
       );
     });
   }
@@ -51,9 +54,7 @@ class ControllerPage extends StatelessWidget {
   getBody(int index) {
     if (index == 0) {
       return Home();
-    } else if (index == 1) {
-      return MCP();
-    }else if (index == 2) {
+    }else if (index == 1) {
       return Market();
     } else {
       return Container(
@@ -62,8 +63,21 @@ class ControllerPage extends StatelessWidget {
     }
   }
 
-  getBottomBar() {
-    return BottomNavigationBar(
+/*  getBottomBar() {
+
+    return Container(
+
+      decoration: BoxDecoration(
+        color: Colors.black45,
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(20),
+          topLeft: Radius.circular(20),
+        ),
+      ),
+
+      child:BottomNavigationBar(
+
+      backgroundColor: Colors.black54,
       selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
       selectedFontSize: 12,
       unselectedFontSize: 12,
@@ -71,8 +85,8 @@ class ControllerPage extends StatelessWidget {
       onTap: (index) {
         ControllerPageController.to.currentPage.value = index;
       },
-      selectedItemColor: AppColors.black,
-      unselectedItemColor: AppColors.grey,
+      selectedItemColor: Colors.purpleAccent,
+      unselectedItemColor: AppColors.white,
       type: BottomNavigationBarType.fixed,
       items: List.generate(
         ControllerPageController.to.bottomBarData!.length,
@@ -81,6 +95,70 @@ class ControllerPage extends StatelessWidget {
           label: names[index],
         ),
       ),
+    ),
+
     );
+  }*/
+
+  getBottomBar() {
+    return ClipRRect(
+
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(50.0),
+            topRight: Radius.circular(50.0),
+          ),
+
+
+          child: BottomNavigationBar(
+
+            backgroundColor: Color(0xff384362),
+            selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+            currentIndex: ControllerPageController.to.currentPage.value,
+            onTap: (index) {ControllerPageController.to.currentPage.value = index;},
+            type: BottomNavigationBarType.fixed,
+            selectedFontSize: 12,
+            unselectedFontSize: 12,
+            selectedItemColor: Color(0xffB390E3),
+           // Color c=[Colors.black, Colors.redAccent] as Color;
+            unselectedItemColor: AppColors.white,
+            showUnselectedLabels: true,
+            items: List.generate(
+              ControllerPageController.to.bottomBarData!.length,
+                  (index) => BottomNavigationBarItem(
+                    icon: Icon(icons[index]),
+                    label: names[index],
+              ),
+            ),
+          ),
+        );
+
+    /*return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(40),
+        topLeft: Radius.circular(40),
+      ),
+      child:BottomNavigationBar(
+
+
+      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+      selectedFontSize: 12,
+      unselectedFontSize: 12,
+      currentIndex: ControllerPageController.to.currentPage.value,
+      onTap: (index) {
+        ControllerPageController.to.currentPage.value = index;
+      },
+      selectedItemColor: Colors.purpleAccent,
+      unselectedItemColor: AppColors.white,
+      type: BottomNavigationBarType.fixed,
+      items: List.generate(
+        ControllerPageController.to.bottomBarData!.length,
+        (index) => BottomNavigationBarItem(
+          icon: Icon(icons[index]),
+          label: names[index],
+        ),
+      ),
+    ),
+
+    );*/
   }
 }

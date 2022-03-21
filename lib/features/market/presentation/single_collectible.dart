@@ -40,7 +40,7 @@ class _SingleCollectibleViewState extends State<SingleCollectibleView> {
           title: Text(
             data.singleCollectibleModel != null
                 ? data.singleCollectibleModel!.details!.name.toString()
-                : '...',
+                : "",
             style: Get.textTheme.headline1!
                 .copyWith(color: AppColors.primaryColor),
           ),

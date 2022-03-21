@@ -20,66 +20,120 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: AppColors.black,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-        backgroundColor: AppColors.white,
-        elevation: 0.0,
-      ),
+      backgroundColor: Color(0xff272E49),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AppSpaces.spaces_height_15,
+              Container(
+                height: Get.height * .2,
+                width: Get.width * 1,
+                child: Image.asset(
+                  'assets/media/image/vemate.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AppSpaces.spaces_height_50,
-              Text(
-                AppLanguageString.SIGN_UP_TO.tr +
-                    ' ' +
-                    AppLanguageString.APPNAME.tr,
-                style: Get.textTheme.headline4!.copyWith(color: Colors.black),
-              ),
-              AppSpaces.spaces_height_30,
+              Container(
+                  width: Get.width * .9,
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: const Text(
+                    "REGISTER",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.grey),
+                  )),
+              AppSpaces.spaces_height_25,
+             /* Container(
+                  width: Get.width * .9,
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: const Text(
+                    "Username",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                        fontSize: 12),
+                  )),*/
+
               TextInputField(
-                labelText: AppLanguageString.USERNAME.tr,
+                labelText: "Username",
                 height: .09,
                 textType: TextInputType.text,
                 controller: SignUpController.to.nameController,
               ),
               //AppSpaces.spaces_height_5,
+              SizedBox(height: 15,),
+              /*Container(
+                  width: Get.width * .9,
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: const Text(
+                    "E-mail",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                        fontSize: 12),
+                  )),*/
               TextInputField(
-                labelText: AppLanguageString.EMAIL.tr,
+                labelText: "E-mail",
                 height: .09,
                 textType: TextInputType.emailAddress,
                 controller: SignUpController.to.emailController,
               ),
+
               //AppSpaces.spaces_height_5,
+              SizedBox(height: 15,),
+              /*Container(
+                  width: Get.width * .9,
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: const Text(
+                    "Password",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                        fontSize: 12),
+                  )),*/
+
+
               PasswordInputField(
-                  labelText: AppLanguageString.PASSWORD.tr,
+                  labelText: "Password",
                   height: .09,
                   textType: TextInputType.text,
                   controller: SignUpController.to.passwordController),
               //AppSpaces.spaces_height_5,
+             SizedBox(height: 15,),
+
+
+              /* Container(
+                  width: Get.width * .9,
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: const Text(
+                    "Confirm Password",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                        fontSize: 12),
+                  )),*/
               PasswordInputField(
-                  labelText: AppLanguageString.CONFIRMPASSWORD.tr,
+                  labelText: "Confirm Password",
                   height: .09,
                   textType: TextInputType.text,
                   controller: SignUpController.to.confirmPasswordController),
               //AppSpaces.spaces_height_5,
-              Container(
-                margin: EdgeInsets.all(AppDimension.b1),
-                height: Get.height * .07,
-                width: Get.width * .4,
+
+              const SizedBox(
+                height: 50,
+              ),
+
+              Container( margin: EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(horizontal: 7),
+                width: Get.width,
                 decoration: BoxDecoration(
-                  color: AppColors.primaryColor, // set border width
+                  gradient: AppColors.purpleGradient, // set border width
                   borderRadius: const BorderRadius.all(
-                      Radius.circular(10.0)), // set rounded corner radius
+                      Radius.circular(20.0)), // set rounded corner radius
                 ),
                 child: TextButton(
                   onPressed: () {
@@ -92,6 +146,8 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
             ],
+          ),
+          ],
           ),
         ),
       ),

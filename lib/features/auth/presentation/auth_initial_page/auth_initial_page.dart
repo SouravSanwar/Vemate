@@ -10,6 +10,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/image_slider.dart';
 import 'package:ketemaa/core/utilities/common_widgets/social_login_button.dart';
+import 'package:ketemaa/graph/designhelper.dart';
 
 import '../../../../core/utilities/app_dimension/app_dimension.dart';
 import '../../../../core/utilities/common_widgets/password_input_field.dart';
@@ -30,7 +31,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: Color(0xff272E49),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -38,10 +39,10 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
             children: [
               AppSpaces.spaces_height_15,
               Container(
-                height: Get.width * .4,
-                width: Get.width * .4,
+                height: Get.height * .2,
+                width: Get.width * 1,
                 child: Image.asset(
-                  'assets/media/image/low-price.png',
+                  'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -49,29 +50,79 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  AppSpaces.spaces_height_15,
+                  Container(
+                      width: Get.width * .9,
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: const Text(
+                        "LOGIN",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.grey),
+                      )),
+                  AppSpaces.spaces_height_25,
+                  /*Container(
+                      width: Get.width * .9,
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: const Text(
+                        "Username",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey,
+                            fontSize: 12),
+                      )),*/
                   TextInputField(
-                    labelText: AppLanguageString.USERNAME.tr,
+                    labelText: "Username",
                     height: .09,
                     textType: TextInputType.emailAddress,
                     controller: SigninController.to.emailTextFiledController,
                   ),
+
+                  SizedBox(height: 15,),
+                  /*Container(
+                      width: Get.width * .9,
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: const Text(
+                        "Password",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey,
+                            fontSize: 12),
+                      )),*/
                   //AppSpaces.spaces_height_5,
                   PasswordInputField(
-                      labelText: AppLanguageString.PASSWORD.tr,
+                      labelText: "Password",
                       height: .09,
                       textType: TextInputType.text,
                       controller:
                           SigninController.to.passwordTextFiledController),
-                  //AppSpaces.spaces_height_5,
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Get.toNamed(AppRoutes.RESET_PASS);
+                    },
+                    child: Container(
+                        alignment: Alignment.bottomRight,
+                        width: Get.width * .9,
+                        child: const Text(
+                          "Forgot Password?",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                              fontSize: 12),
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   Container(
-                    margin: EdgeInsets.all(AppDimension.b1),
-                    height: Get.height * .07,
-                    width: Get.width * .4,
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    padding: EdgeInsets.symmetric(horizontal: 7),
+                    width: Get.width,
                     decoration: BoxDecoration(
-                      color: AppColors.primaryColor, // set border width
+                      gradient: AppColors.purpleGradient, // set border width
                       borderRadius: const BorderRadius.all(
-                          Radius.circular(10.0)), // set rounded corner radius
+                          Radius.circular(20.0)), // set rounded corner radius
                     ),
                     child: TextButton(
                       onPressed: () {
@@ -94,59 +145,128 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   )
                 ],
               ),
-              AppSpaces.spaces_height_20,
+
+              AppSpaces.spaces_height_25,
+              Container(),
+              AppSpaces.spaces_height_25,
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: <
+                  Widget>[
+                Expanded(
+                  child: Container(
+                      margin: const EdgeInsets.only(left: 45.0, right: 10.0),
+                      child: const Divider(
+                        color: Colors.grey,
+                      )),
+                ),
+                const Text(
+                  "Or Continue With",
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15),
+                ),
+                Expanded(
+                  child: Container(
+                      margin: const EdgeInsets.only(left: 10.0, right: 45.0),
+                      child: const Divider(
+                        color: Colors.grey,
+                      )),
+                ),
+              ]),
+
+              AppSpaces.spaces_height_25,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 80, // <-- Your width
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Image.asset('assets/media/icon/google.png'),
+                      style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          padding: EdgeInsets.all(10),
+                          side: BorderSide(
+                              width: 1.0, color: AppColors.primaryColor),
+                          primary: Color(0xff272E49)
+                          // <-- Splash color
+                          ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 80, // <-- Your width
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Image.asset(
+                        'assets/media/icon/apple.png',
+                        color: Colors.white,
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          padding: EdgeInsets.all(10),
+                          side: BorderSide(
+                              width: 1.0, color: AppColors.primaryColor),
+                          primary: Color(0xff272E49)
+                          // <-- Splash color
+                          ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 80, // <-- Your width
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Image.asset(
+                        'assets/media/icon/facebook.png',
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          padding: EdgeInsets.all(10),
+                          side: BorderSide(
+                              width: 1.0, color: AppColors.primaryColor),
+                          primary: Color(0xff272E49)
+                          // <-- Splash color
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+
+              /*ocialLoginButton(
+                  image: AppAsset.google_icon,
+                  text: AppLanguageString.GOOGLE_LOGIN.tr
+              ),*/
+
+              SizedBox(
+                height: 70,
+              ),
               Center(
                 child: InkWell(
                   onTap: () {
                     Get.toNamed(AppRoutes.SIGN_UP);
                   },
-                  child: Text(
-                    AppLanguageString.CREATE_ACCOUNT.tr,
-                    style: TextStyle(
-                        color: AppColors.primaryColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
-                  ),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Do You Have Any Account?",
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12),
+                        ),
+                        Text(
+                          "Register For Free",
+                          style: TextStyle(
+                              color: AppColors.primaryColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                        ),
+                      ]),
                 ),
               ),
-              AppSpaces.spaces_height_25,
-              Container(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: RichText(
-                    text: TextSpan(
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 13,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: AppLanguageString.ACCEPT_TnC.tr,
-                            style: TextStyle(color: AppColors.black)),
-                        TextSpan(
-                            text: AppLanguageString.TERMS_CONDITION.tr,
-                            style: TextStyle(
-                              color: AppColors.primaryColor,
-                              decoration: TextDecoration.underline,
-                            )),
-                        TextSpan(text: ' ${AppLanguageString.AND.tr} '),
-                        TextSpan(
-                            text: AppLanguageString.PRIVACY_POLICY.tr,
-                            style: TextStyle(
-                              color: AppColors.primaryColor,
-                              decoration: TextDecoration.underline,
-                            ))
-                      ],
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              AppSpaces.spaces_height_25,
-              SocialLoginButton(
-                  image: AppAsset.google_icon,
-                  text: AppLanguageString.GOOGLE_LOGIN.tr),
             ],
           ),
         ),
