@@ -8,10 +8,7 @@ class ControllerPageController {
     [
       Icons.home,
       'Home',
-    ],
-    [
-      Icons.list_alt_outlined,
-      'MCP',
+
     ],
     [
       Icons.shop,

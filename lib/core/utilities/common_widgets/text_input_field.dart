@@ -29,46 +29,49 @@ class _TextInputFieldState extends State<TextInputField> {
   Widget build(BuildContext context) {
     emailisValid = EmailValidator.validate(widget.controller.text);
     return Container(
-      height: Get.height * widget.height,
-      margin: EdgeInsets.all(AppDimension.b1),
-      padding: EdgeInsets.all(AppDimension.b1),
+      margin: EdgeInsets.symmetric(horizontal: 15),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xff2F3758),
         border: Border.all(
-            color: AppColors.black, // set border color
+            color: AppColors.grey, // set border color
             width: 1.5), // set border width
         borderRadius: BorderRadius.all(
-            Radius.circular(10.0)), // set rounded corner radius
+            Radius.circular(25.0)), // set rounded corner radius
       ),
       child: widget.controller == 'emailController'
           ? TextFormField(
-        key: _formKey,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Please enter your email';
-          }
-          return null;
-        },
-        onChanged: (value) {
-          setState(() {
-            value == null ? emailisValid = false : emailisValid = true;
-          });
-        },
-        controller: widget.controller,
-        decoration: InputDecoration(
-          hintText: widget.labelText,
-          border: InputBorder.none,
-        ),
-        keyboardType: widget.textType,
-      )
+              style: TextStyle(color: Colors.white, fontSize: 18.0),
+              key: _formKey,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your email';
+                }
+                return null;
+              },
+              onChanged: (value) {
+                setState(() {
+                  value == null ? emailisValid = false : emailisValid = true;
+                });
+              },
+              controller: widget.controller,
+              decoration: InputDecoration(
+                errorText: emailisValid==false? 'This field is required.' : null,
+                border: InputBorder.none,
+              ),
+              keyboardType: widget.textType,
+            )
           : TextField(
-        controller: widget.controller,
-        decoration: InputDecoration(
-          hintText: widget.labelText,
-          border: InputBorder.none,
-        ),
-        keyboardType: widget.textType,
-      ),
+
+              style: TextStyle(color: Colors.white, fontSize: 18.0),
+              controller: widget.controller,
+              decoration: InputDecoration(
+                hintText: widget.labelText,
+                hintStyle: TextStyle( fontSize: 15),
+                border: InputBorder.none,
+              ),
+              keyboardType: widget.textType,
+            ),
     );
   }
 }

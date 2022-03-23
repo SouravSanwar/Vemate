@@ -5,10 +5,12 @@ import 'package:ketemaa/features/auth/presentation/sign_up/sign_up.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/splash_screen/splash_screen.dart';
 
+import '../features/auth/reset_pass/reset_pass.dart';
 import '../features/market/presentation/market.dart';
 
 class AppRoutes {
   static String INITAL_SCREEN = "/";
+  static String RESET_PASS = "/reset_pass";
   static String MAIN_AUTH = "/auth_initial_page";
   static String SIGN_UP = "/sign_up";
   static String SIGN_IN_EMAIL = "/sign_in_email";
@@ -26,6 +28,10 @@ class AppRoutes {
       GetPage(
         name: INITAL_SCREEN,
         page: () => SplashScreen(),
+      ),
+      GetPage(
+        name: RESET_PASS,
+        page: () => ResetPass(),
       ),
       GetPage(
         name: MAIN_AUTH,

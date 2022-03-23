@@ -1,31 +1,49 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_sizes.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/widgets/profile_divider.dart';
+
+import 'package:ketemaa/graph/designhelper.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:store_redirect/store_redirect.dart';
 
+import 'package:image_picker/image_picker.dart';
+
+import '../../../core/utilities/app_colors/app_colors.dart';
 import 'custom_app_bar.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
+  @override
+  _ProfileState createState() => _ProfileState();
+}
 
+class _ProfileState extends State<Profile> {
+  //Imagepicker
+  XFile? imageXFile;
+  final ImagePicker _picker = ImagePicker();
+  String sellerImageUrl = "";
 
+  Future<void> _getImage() async {
+    imageXFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      imageXFile;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-
-
     final _dialog = RatingDialog(
       // your app's name?
       title: Text('Rate Us On App Store or Play Store'),
       // encourage your user to leave a high rating?
-      message:
-      Text(''),
+      message: Text(''),
       // your app's logo?
       image: Image.asset('slider/12.png'),
       submitButtonText: 'Submit',
@@ -38,20 +56,17 @@ class Profile extends StatelessWidget {
           // ask the user to contact you instead of leaving a bad review
         } else {
           //go to app store
-          StoreRedirect.redirect(androidAppId: 'com.xinxian.shop',iOSAppId: 'com.xinxian.shop');
+          StoreRedirect.redirect(
+              androidAppId: 'com.xinxian.shop', iOSAppId: 'com.xinxian.shop');
         }
       },
     );
-
-
-
-
-
 
     return SafeArea(
       //maintainBottomViewPadding: true,
       minimum: EdgeInsets.zero,
       child: Scaffold(
+        backgroundColor: Color(0xff272E49),
         body: Container(
           child: Padding(
             padding: EdgeInsets.only(
@@ -65,196 +80,92 @@ class Profile extends StatelessWidget {
                   ListView(
                     shrinkWrap: true,
                     children: [
-                      AppSpaces.spaces_height_5,
-                      Text(
-                        'My Account',
-                        style: Get.textTheme.headline2,
-                        textAlign: TextAlign.center,
-                      ),
-                      AppSpaces.spaces_height_5,
-                      const Padding(
-                        padding: EdgeInsets.only(left: 45.0, right: 45.0),
-                        child: ProfileDetailsDivider(),
-                      ),
-                      AppSpaces.spaces_height_5,
-                      ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(25)),
-                        child: SizedBox(
-                          height: 100,
-                          width: 100,
-                          child: Image.asset('assets/media/image/profile.png'),
+                      const SizedBox(
+                      height: 50,
                         ),
+
+                        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      Container(
+                      child: CircleAvatar(
+                      radius: MediaQuery.of(context).size.width * .15,
+                        backgroundColor: Color(0xff272E49),
+                          backgroundImage: null,
+                        child: Shader(
+                      icon: Icon(Icons.person,size: 100,),
                       ),
-                      AppSpaces.spaces_height_5,
-                      Text(
+
+                        // Icon(Icons.person,size: 100,)
+                        ),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: AppColors.greyWhite,
+                        width: 2.0,
+                          ),
+                          ),
+                          ),
+                        const SizedBox(
+                      width: 10,
+                      ),
+                      constText(
                         'User Name',
-                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),
+                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20.0),
                         textAlign: TextAlign.center,
                       ),
-                      const ProfileDetailsDivider(),
-                      GestureDetector(
-                        onTap: (){
-                          // Add what you want to do on tap
-                        },
-                        child:Row(
-                        children: [
+                      ]
+                          ),
+
+                            SizedBox(height: 50,),
+                          CustomProfileElements(
+                          Icons.person,
+                            "Profile Edit",
+                            (){ Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                          builder: (c) => EditProfilePage()));
+                        }
+                      ),
+                     /*
                           Image.asset(
                             'assets/media/image/edit.png',
                             height: 25,
-                            width: 25,
+                            width: 25,color: Colors.white,
+                          ),*/
+                          CustomProfileElements(
+                          Icons.help_outline,
+                            "Help and Support",
+                            (){}
                           ),
-                          AppSpaces.spaces_width_10,
-                          Text(
-                            'Profile Edit',
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
+                          CustomProfileElements(
+                          Icons.privacy_tip_outlined,
+                            "Privacy Policy",
+                            (){}
                           ),
-                          new Spacer(),
-                          Icon(Icons.navigate_next)
-                        ],
-                      ),
-                     ),
-                      const ProfileDetailsDivider(),
-                      Row(
-                        children: [
-                          Image.asset(
-                            'assets/media/image/customer-service.png',
-                            height: 25,
-                            width: 25,
-                          ),
-                          AppSpaces.spaces_width_10,
-                          Text(
-                            'Help and Support',
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
-                          ),
-                          new Spacer(),
-                          Icon(Icons.navigate_next)
-                        ],
-                      ),
-                      const ProfileDetailsDivider(),
-                      Row(
-                        children: [
-                          Image.asset(
-                            'assets/media/image/privacy-policy.png',
-                            height: 25,
-                            width: 25,
-                          ),
-                          AppSpaces.spaces_width_10,
-                          Text(
-                            'Privacy Policy',
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
-                          ),
-                          new Spacer(),
-                          Icon(Icons.navigate_next)
-                        ],
-                      ),
-                      const ProfileDetailsDivider(),
+                          CustomProfileElements(
+                          Icons.rate_review_outlined,
+                        "Rate",
+                      (){
 
-
-                      GestureDetector(
-                        onTap: (){
                           showDialog(
                             context: context,
-                            builder: (context) => _dialog,
-                          );
-
-                        },
-                        child:Row(
-                        children: [
-                          Image.asset(
-                            'assets/media/image/rating.png',
-                            height: 25,
-                            width: 25,
-                          ),
-                          AppSpaces.spaces_width_10,
-                          Text(
-                            'Rate',
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
-                          ),
-                          new Spacer(),
-                          Icon(Icons.navigate_next)
-                        ],
-                      ),
-                      ),
-                      const ProfileDetailsDivider(),
-
-                      GestureDetector(
-                        onTap: (){
-                          Share.share('Visit Vemate Website:\n https://www.vemate.com/');
-                        },
-                        child:Row(
-                        children: [
-                          Image.asset(
-                            'assets/media/image/share.png',
-                            height: 25,
-                            width: 25,
-                          ),
-                          AppSpaces.spaces_width_10,
-                          Text(
-                            'Share Vemate',
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
-                          ),
-                          new Spacer(),
-                          Icon(Icons.navigate_next)
-                        ],
-                      ),
-                      ),
-                      const ProfileDetailsDivider(),
-                      Row(
-
-                        children: [
-
-                          Image.asset(
-                            'assets/media/image/information.png',
-                            height: 25,
-                            width: 25,
-                          ),
-                          AppSpaces.spaces_width_10,
-                          Text(
-                            'About Vemate',
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.0),
-                          ),
-                          new Spacer(),
-                          Icon(Icons.navigate_next)
-                        ],
-                      ),
-                      const ProfileDetailsDivider(),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(AppDimension.padding_16),
-                    child: Container(
-                      clipBehavior: Clip.antiAlias,
-                      alignment: Alignment.bottomCenter,
-                      decoration: BoxDecoration(
-                        color: Colors.red.shade200,
-                        borderRadius: BorderRadius.circular(8.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 2,
-                            blurRadius: 2,
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(AppDimension.padding_10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Log Out',
-                              style: Get.textTheme.bodyText2,
-                            ),
-                            AppSpaces.spaces_width_10,
-                            Image.asset(
-                              'assets/media/image/logout.png',
-                              height: 15,
-                              width: 15,
-                            ),
-                          ],
-                        ),
-                      ),
+                            builder: (context) => _dialog,);
+                          }
                     ),
+                        CustomProfileElements(
+                          Icons.share,
+
+                      "Share Vemate",
+                         (){
+                          Share.share('Visit Vemate Website:\n https://www.vemate.com/');
+                        }
+                          ),
+                          CustomProfileElements(
+                          Icons.info_outline_rounded,
+                      "About Vemate'",
+                      (){}
+                      ),
+
+                        ],
                   ),
                 ],
               ),

@@ -61,6 +61,17 @@ dependencies:
   rating_dialog: ^2.0.3
   store_redirect: ^2.0.1
   image_picker: ^0.8.4+9
+  animated_theme_switcher: ^2.0.6
+  anim_search_bar: ^2.0.2
+  flutter_typeahead: ^3.2.4
+  animate_do: ^2.1.0
+  fl_chart: ^0.45.1
+  glass_kit: ^2.0.1
+  filter_list: ^1.0.1
+  pie_chart: ^5.1.0
+  flutter_initicon: ^2.0.0
+  random_color: ^1.0.6-nullsafety
+  hexcolor: ^2.0.6
 
 
 dev_dependencies:

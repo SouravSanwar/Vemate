@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 
+import '../presentation/edit_profile_page.dart';
+
 class ProfileDetailsDivider extends StatelessWidget {
   const ProfileDetailsDivider({Key? key}) : super(key: key);
 
@@ -16,6 +18,99 @@ class ProfileDetailsDivider extends StatelessWidget {
         ),
         AppSpaces.spaces_height_5,
       ],
+    );
+  }
+}
+
+
+class ProfileItem extends StatelessWidget{
+  final Icon? icon;
+  final Image? image;
+  final Text? text;
+  ProfileItem({
+    this.icon,
+    this.image,
+    this.text,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      child: Row(
+        children: [
+          Image.asset(
+            'assets/media/image/edit.png',
+            height: 25,
+            width: 25,
+            color: Colors.white,
+          ),
+          AppSpaces.spaces_width_10,
+          const Text(
+            'Profile Edit',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 15.0),
+          ),
+          new Spacer(),
+          Icon(Icons.navigate_next)
+        ],
+      ),
+    );
+  }
+
+}
+
+class CustomProfileElements extends StatelessWidget {
+
+  final IconData? icon;
+  final String? text;
+  final  onTap;
+
+
+  CustomProfileElements(this.icon, this.text, this.onTap);
+
+  @override
+  Widget build(BuildContext context) {
+    //ToDO
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Container(
+
+        child: InkWell(
+          onTap:onTap,
+            splashColor: Colors.orangeAccent,
+            child: Container(
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color(0xff454F70),
+                      Color(0xff3F496A),
+                      Color(0xff374162),
+                      Color(0xff303B5B),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(children: <Widget>[
+                      SizedBox(width: 10,),
+                      Icon(icon,color: Colors.white),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                      ),
+                      Text(text.toString(), style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white
+                      ),),
+                    ],),
+                    Icon(Icons.arrow_right,color: Colors.white,)
+                  ],)
+            )
+        ),
+      ),
     );
   }
 }
