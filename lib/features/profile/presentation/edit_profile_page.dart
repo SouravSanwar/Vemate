@@ -1,10 +1,17 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ketemaa/graph/designhelper.dart';
 
+import '../../../core/language/language_string.dart';
+import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/app_dimension/app_dimension.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
+import '../../../core/utilities/common_widgets/password_input_field.dart';
+import '../../../core/utilities/common_widgets/text_input_field.dart';
+import '../../auth/presentation/sign_in/_controller/sign_in_controller.dart';
 import '../widgets/custom_text_field.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -33,6 +40,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
           return Scaffold(
+            backgroundColor: Color(0xff272E49),
 
             body: ListView(
 
@@ -52,15 +60,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         Container(
                           child: CircleAvatar(
                             radius: MediaQuery.of(context).size.width * .25,
-                            backgroundColor: Colors.white,
+                            backgroundColor: Color(0xff2F3758),
                             backgroundImage: imageXFile == null
                                 ? null
                                 : FileImage(File(imageXFile!.path)),
                             child: imageXFile == null
-                                ? Icon(
-                              Icons.person_add_alt_1_rounded,
-                              size: MediaQuery.of(context).size.width * .25,
-                              color: Colors.green,
+                                ? Shader(
+                              icon: Icon(Icons.person_add_alt_1_rounded,size: 100,),
                             )
                                 : null,
                           ),
@@ -75,7 +81,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               },
                               elevation: 2.0,
                               fillColor: Color(0xFFF5F6F9),
-                              child: Icon(Icons.camera_alt_outlined, color: Colors.blue,size: 20,),
+                              child: Shader(
+                                icon: Icon(Icons.camera_alt,size: 20,),
+                              ),
                               padding: EdgeInsets.all(15.0),
                               shape: CircleBorder(),
                             )),
@@ -86,61 +94,51 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 const SizedBox(
                   height: 80,
                 ),
-                CustomTextField(
-                  data: Icons.person,
-                  controller: nameController,
-                  hintText: "Enter Your Name",
-                  isObsecre: false,
+                TextInputField(
+                  labelText: AppLanguageString.USERNAME.tr,
+                  height: .09,
+                  textType: TextInputType.emailAddress,
+                  controller: SigninController.to.emailTextFiledController,
                 ),
-                CustomTextField(
-                  data: Icons.email,
-                  controller: emailController,
-                  hintText: "Enter Your Email",
-                  isObsecre: false,
+                AppSpaces.spaces_height_5,
+                TextInputField(
+                  labelText: AppLanguageString.EMAIL.tr,
+                  height: .09,
+                  textType: TextInputType.emailAddress,
+                  controller: SigninController.to.emailTextFiledController,
                 ),
-                CustomTextField(
-                  data: Icons.lock,
-                  controller: passwordController,
-                  hintText: "Password",
-                  isObsecre: true,
-                ),
+                AppSpaces.spaces_height_5,
+               PasswordInputField(
+                labelText: AppLanguageString.PASSWORD.tr,
+                height: .09,
+                textType: TextInputType.text,
+                controller: SigninController.to.passwordTextFiledController),
+
                 const SizedBox(
                   height: 50,
                 ),
-                ElevatedButton(
-                  onPressed: () => {},
-                  child: Row(
 
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                  Text(
-                    "   Update Info   ",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22),
-
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 7),
+                  width: Get.width,
+                  decoration: BoxDecoration(
+                    gradient: AppColors.purpleGradient, // set border width
+                    borderRadius: const BorderRadius.all(
+                        Radius.circular(20.0)), // set rounded corner radius
                   ),
-
-                   AppSpaces.spaces_width_10,
-                   Image.asset(
-                        'assets/media/image/logout.png',
-                        height: 20,
-                        width: 20,
-                     color: Colors.white,
-                      ),
-
-                  ],
-                ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 10.0),
-                    shadowColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                  child: TextButton(
+                    onPressed: () {
+                    },
+                    child: Text(
+                      AppLanguageString.UPDATE_INFO.toUpperCase(),
+                      style:
+                      Get.textTheme.button!.copyWith(color: Colors.white),
                     ),
                   ),
-                )
+                ),
+
+
               ],
             ),
     );

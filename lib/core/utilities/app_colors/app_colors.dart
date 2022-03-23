@@ -29,4 +29,13 @@ class AppColors {
     ],
   );
 
+  static Gradient cardGradient=const LinearGradient(
+    colors: [
+      Color(0xff454F70),
+      Color(0xff3F496A),
+      Color(0xff374162),
+      Color(0xff303B5B),
+    ],
+  );
+
 }

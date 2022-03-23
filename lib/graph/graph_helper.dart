@@ -18,7 +18,18 @@ class gh {
       ii = '4PM',
       jj = '6PM',
       kk = '8PM',
-      ll = '10PM';
+      ll = '10PM',
+      mm = '2AM',
+      nn = '4AM',
+      oo = '6AM',
+      pp = '8AM',
+      qq = '10AM',
+      rr = '12PM',
+      ss = '2PM',
+      tt = '4PM',
+      uu = '6PM',
+      vv = '8PM',
+      ww = '10PM';
 }
 
 class GraphHelper extends StatelessWidget {
@@ -26,7 +37,10 @@ class GraphHelper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return Container(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(horizontal:15),
+        child: ListView(
+            children: [
           FadeInUp(
             duration: Duration(milliseconds: 100),
             child: Row(
@@ -46,6 +60,17 @@ class GraphHelper extends StatelessWidget {
                     gh.jj = '6PM';
                     gh.kk = '8PM';
                     gh.ll = '10PM';
+                    gh.mm = '2AM';
+                    gh.nn = '4AM';
+                    gh.oo = '6AM';
+                    gh.pp = '8AM';
+                    gh.qq = '10AM';
+                    gh.rr = '12PM';
+                    gh.ss = '2PM';
+                    gh.tt = '4PM';
+                    gh.uu = '6PM';
+                    gh.vv = '8PM';
+                    gh.ww = '10PM';
                   },
                   child: Row(
                     children: [
@@ -172,7 +197,7 @@ class GraphHelper extends StatelessWidget {
                     gh.ll = 'DEC';
                   },
                   child: Row(
-                    children: [
+                    children: const [
                       SizedBox(width: 8),
                       Text(
                         "1 Y",
@@ -186,7 +211,7 @@ class GraphHelper extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
 
@@ -194,7 +219,7 @@ class GraphHelper extends StatelessWidget {
                 DesignHelper(
                   onPressed: () {},
                   child: Row(
-                    children: [
+                    children: const [
                       SizedBox(width: 8),
                       Text(
                         "All",
@@ -227,72 +252,131 @@ class GraphHelper extends StatelessWidget {
                   fontSize: 15),
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
-          Expanded(
-            child: Column(children: <Widget>[
-              Expanded(
-                child: ListView.builder(
-                    itemCount: 5,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                          leading: Icon(Icons.list),
-                          trailing: Text(
-                            "GFG",
-                            style: TextStyle(color: Colors.green, fontSize: 15),
-                          ),
-                          title: Text("List item $index"));
-                    }),
-              ),
-            ]),
-            /* divider(),
-                    CustomTextField(
-                      data: Icons.person,
-                      controller: nameController,
-                      hintText: "Name",
-                      isObsecre: false,
-                    ),
-                    divider(),
-                    CustomTextField(
-                      data: Icons.email,
-                      controller: emailController,
-                      hintText: "Enter Your Email",
-                      isObsecre: false,
-                    ),
-                    divider(),
-                    CustomTextField(
-                      data: Icons.lock,
-                      controller: passwordController,
-                      hintText: "Password",
-                      isObsecre: true,
-                    ),
-                    divider(),
-                    CustomTextField(
-                      data: Icons.lock,
-                      controller: confirmPassController,
-                      hintText: "Confirm Password",
-                      isObsecre: true,
-                    ),
-                    divider(),
-                    CustomTextField(
-                      data: Icons.phone,
-                      controller: phoneController,
-                      hintText: "Enter Your Phone number",
-                      isObsecre: false,
-                    ),
-                    divider(),
-                    CustomTextField(
-                      data: Icons.my_location,
-                      controller: locationController,
-                      hintText: "Address",
-                      isObsecre: false,
+          const SizedBox(height: 20,),
 
-                    ),
-                     //current location buton
-                  ],*/
+         Expanded(
+           child:Container(
+
+             decoration: BoxDecoration(
+                 border: Border.all(color: Colors.white,width: 0.5)
+             ),
+
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+              ItemDetails(
+                text: "Floor Price",
+                text1: data.singleCollectibleModel != null
+                    ? data.singleCollectibleModel!.details!.floorPrice.toString()
+                    : "",
+              ),
+
+              const SizedBox(height: 0.5,),
+
+              ItemDetails(
+                text: "Owner",
+                text1: data.singleCollectibleModel != null
+                    ? data.singleCollectibleModel!.details!.owner.toString()
+                    : "",
+              ),
+
+                const SizedBox(height: 0.5,),
+
+                ItemDetails(
+                text: "Edition",
+                text1: data.singleCollectibleModel != null
+                    ? data.singleCollectibleModel!.details!.edition.toString()
+                    : "",
+              ),
+
+                const SizedBox(height: 0.5,),
+
+                ItemDetails(
+                text: "Name",
+                text1: data.singleCollectibleModel != null
+                    ? data.singleCollectibleModel!.details!.name.toString()
+                    : "",
+              ),
+
+                const SizedBox(height: 0.5,),
+
+                ItemDetails(
+                text: "Drop Date",
+                text1: data.singleCollectibleModel != null
+                    ? data.singleCollectibleModel!.details!.dropDate.toString()
+                    : "",
+              ),
+
+                const SizedBox(height: 0.5,),
+
+                ItemDetails(
+                text: "List Price",
+                text1: data.singleCollectibleModel != null
+                    ? data.singleCollectibleModel!.details!.listPrice.toString()
+                    : "",
+              ),
+
+                const SizedBox(height: 0.5,),
+
+                ItemDetails(
+                text: "Editions",
+                text1: data.singleCollectibleModel != null
+                    ? data.singleCollectibleModel!.details!.editions.toString()
+                    : "",
+              ),
+
+                const SizedBox(height: 0.5,),
+
+                ItemDetails(
+                text: "Edition Type",
+                text1: data.singleCollectibleModel != null
+                    ? data.singleCollectibleModel!.details!.editionType.toString()
+                    : "",
+              ),
+
+                const SizedBox(height: 0.5,),
+
+                ItemDetails(
+                text: "Season",
+                text1: data.singleCollectibleModel != null
+                    ? data.singleCollectibleModel!.details!.season.toString()
+                    : "",
+              ),
+
+                const SizedBox(height: 0.5,),
+
+                ItemDetails(
+                text: "Rarity",
+                text1: data.singleCollectibleModel != null
+                    ? data.singleCollectibleModel!.details!.rarity.toString()
+                    : "",
+              ),
+
+                const SizedBox(height: 0.5,),
+
+                ItemDetails(
+                text: "Brand",
+                text1: data.singleCollectibleModel != null
+                    ? data.singleCollectibleModel!.details!.brand.toString()
+                    : "",
+              ),
+
+                const SizedBox(height: 0.5,),
+
+                ItemDetails(
+                text: "Series",
+                text1: data.singleCollectibleModel != null
+                    ? data.singleCollectibleModel!.details!.series.toString()
+                    : "",
+              ),
+            ]
+           ),
+           ),
           ),
-        ]),
+              SizedBox(height: 20,)
+
+        ]
+        ),
       );
     });
   }

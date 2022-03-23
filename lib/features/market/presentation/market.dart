@@ -271,7 +271,6 @@ class _MarketState extends State<Market> {
                                 child: data.comicsModel != null
                                     ? CommicsItemCard(
                                         list: data.comicsModel!.comics!.results,
-                                        image: AppAsset.main_auth_image_3,
                                       )
                                     : const MarketCardShimmer(),
                               )

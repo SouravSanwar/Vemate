@@ -7,14 +7,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:http/http.dart' as http;
-import 'package:ketemaa/core/utilities/app_dimension/app_sizes.dart';
 import 'package:ketemaa/graph/graph_helper.dart';
 import 'package:provider/provider.dart';
-
 import '../core/Provider/getData.dart';
-import 'designhelper.dart';
-
 class ChartExample extends StatefulWidget {
   int? id;
   ChartExample({Key? key, this.id}) : super(key: key);
@@ -61,7 +56,7 @@ class _ChartExampleState extends State<ChartExample> {
     return Consumer<GetData>(builder: (context, data, child) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff272E49),
         elevation: 4,
         title: Text(
           data.singleCollectibleModel != null
@@ -106,44 +101,8 @@ class _ChartExampleState extends State<ChartExample> {
 
       ),
 
-
-      backgroundColor: Colors.white,
-      /*bottomNavigationBar: SalomonBottomBar(
-        currentIndex: _currentIndex,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white,
-        margin: EdgeInsets.only(bottom: 30, top: 10, right: 20, left: 20),
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: [
-          SalomonBottomBarItem(
-            icon: Icon(Icons.home),
-            title: Text("Home"),
-            selectedColor: Colors.white
-          ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.explore_outlined),
-            title: Text("Likes"),
-            selectedColor: Colors.pink
-          ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.data_usage),
-            title: Text("Search"),
-            selectedColor: Colors.orange
-          ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.settings),
-            title: Text("Profile"),
-            selectedColor: Colors.teal
-          )
-        ],
-      ),*/
+      backgroundColor: Color(0xff272E49),
       body: NestedScrollView(
-
-
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverToBoxAdapter(
@@ -181,8 +140,9 @@ class _ChartExampleState extends State<ChartExample> {
                           mainData(),
                           swapAnimationDuration: Duration(milliseconds: 1000), // Optional
                           swapAnimationCurve: Curves.bounceIn, // Optional
-                        ),
+
                       ),
+                     )
                     ),
                   ],
                 ),
@@ -228,7 +188,7 @@ class _ChartExampleState extends State<ChartExample> {
           reservedSize: 40,
           interval: 1,
           getTextStyles: (context, value) => const TextStyle(
-              color: Color(0xff68737d),
+              color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 8),
           getTitles: (value) {
@@ -266,7 +226,7 @@ class _ChartExampleState extends State<ChartExample> {
           showTitles: true,
           interval: 1,
           getTextStyles: (context, value) => const TextStyle(
-            color: Color(0xff67727d),
+            color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 12,
           ),

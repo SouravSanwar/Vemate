@@ -47,6 +47,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             labelStyle:TextStyle(color: Colors.blue,),
             border: InputBorder.none,
             suffixIcon: IconButton(
+              splashColor:Color(0xff2F3758),
               onPressed: () {
                 setState(() {
                   _toggleVisibility = !_toggleVisibility;

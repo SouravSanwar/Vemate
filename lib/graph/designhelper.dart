@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 
 class DesignHelper extends StatefulWidget {
   final Widget child;
@@ -30,7 +31,7 @@ class _DesignHelperState extends State<DesignHelper> {
           borderRadius: BorderRadius.circular(10)
       ),
       child: widget.child,
-      color: Color(0xff02d39a).withOpacity(0.7),
+      color: AppColors.primaryColor,
       highlightElevation: 5,
       minWidth: 20,
       splashColor: Color(0x1F1A1A1A),
@@ -42,6 +43,8 @@ class _DesignHelperState extends State<DesignHelper> {
     );
   }
 }
+
+
 
 class CustomTextField extends StatelessWidget {
 
@@ -113,20 +116,90 @@ class CustomTextField extends StatelessWidget {
   }
 }
 
-class divider extends StatelessWidget{
+
+//For Items of graphn page
+class ItemDetails extends StatelessWidget{
+
+  final String? text;
+  final String? text1;
+  ItemDetails ({
+    this.text,
+    this.text1,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
+      height: 42,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4.0),
+        gradient: AppColors.cardGradient,
+      ),
+      child: Row(
         children: [
-          const Divider(
-            height: 1,
-            color: Colors.grey,
-            thickness: 1,
-          ),
+         Expanded(
+             flex: 3,
+             child: Container(
+               child: Text(
+                 text!,style: TextStyle(
+                    color: AppColors.greyWhite,
+                     fontSize: 15,
+                    fontWeight: FontWeight.bold
+               ),
+               ),
+               decoration: BoxDecoration(
+                 gradient: AppColors.purpleGradient,
+               ),
+               padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 12)
+
+           ),
+         ),
+          Expanded(
+             flex: 7,
+            child: Container(
+              child: Text(
+                text1!,style: TextStyle(
+                  color: AppColors.greyWhite,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold
+              ),
+              ),
+
+              padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2)
+
+            ),
+         ),
         ],
       ),
     );
   }
 
+}
+
+
+
+
+
+class Shader extends StatelessWidget{
+  final Icon? icon;
+  Shader({
+    this.icon
+  });
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+        blendMode: BlendMode.srcIn,
+        shaderCallback: (Rect bounds) {
+          return const LinearGradient(
+            colors: [
+              Color(0xff8760EE),
+              Color(0xffA984E5),
+              Color(0xffCA88E8),
+            ],
+            tileMode: TileMode.repeated,
+          ).createShader(bounds);
+        },
+
+        child: icon
+    );
+  }
 }
