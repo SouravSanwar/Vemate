@@ -64,12 +64,12 @@ class _ChartExampleState extends State<ChartExample> {
               : "",
           style: TextStyle(
               color: gh.c? Colors.blueGrey.shade300:Colors.green,
-              fontSize: 20,
+              fontSize: 18,
               fontWeight: FontWeight.bold
 
           ),
         ),
-        actions: [
+/*        actions: [
           IconButton(
             icon: Icon(gh.c?null:Icons.list_alt),
             color: gh.c?Colors.blueGrey.shade300:Colors.green,
@@ -95,10 +95,7 @@ class _ChartExampleState extends State<ChartExample> {
 
           ),
 
-        ],
-
-
-
+        ],*/
       ),
 
       backgroundColor: Color(0xff272E49),
@@ -110,7 +107,7 @@ class _ChartExampleState extends State<ChartExample> {
 
                 padding: const EdgeInsets.all(20),
                 width: double.infinity,
-                child: Column(
+                child:/* Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
@@ -130,7 +127,7 @@ class _ChartExampleState extends State<ChartExample> {
 
                         ],
                       ),
-                    ),
+                    ),*/
                     FadeInUp(
                       duration: Duration(milliseconds: 100),
                       child: Container(
@@ -144,8 +141,7 @@ class _ChartExampleState extends State<ChartExample> {
                       ),
                      )
                     ),
-                  ],
-                ),
+
               ),
             )
           ];

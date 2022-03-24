@@ -88,7 +88,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                             widget.list![index].name
                                 .toString()[0]
                                 .toUpperCase(),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.deepPurpleAccent,
                                 fontSize: 35,
                                 fontWeight: FontWeight.bold),
@@ -205,21 +205,6 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                         ),
                       ),
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                       Expanded(
                         flex: 5,
                         // add this
@@ -266,13 +251,13 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               fontSize: 10),
                                         ),
                                         if (percent < 0.0)
-                                          Icon(
+                                          const Icon(
                                             Icons.arrow_downward,
                                             color: Colors.red,
                                             size: 12,
                                           )
                                         else
-                                          Icon(
+                                          const Icon(
                                             Icons.arrow_upward,
                                             color: Colors.green,
                                             size: 12,

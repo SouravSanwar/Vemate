@@ -72,6 +72,7 @@ dependencies:
   flutter_initicon: ^2.0.0
   random_color: ^1.0.6-nullsafety
   hexcolor: ^2.0.6
+  pinput: ^2.2.4
 
 
 dev_dependencies:

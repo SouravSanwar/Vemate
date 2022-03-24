@@ -15,6 +15,7 @@ import 'package:store_redirect/store_redirect.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../core/utilities/app_colors/app_colors.dart';
+import '../../market/presentation/vault.dart';
 import 'custom_app_bar.dart';
 
 class Profile extends StatefulWidget {
@@ -137,12 +138,16 @@ class _ProfileState extends State<Profile> {
                     CustomProfileElements(
                         Icons.help_outline,
                         "Help and Support",
-                            (){}
+                            (){    }
                     ),
                     CustomProfileElements(
                         Icons.privacy_tip_outlined,
                         "Privacy Policy",
-                            (){}
+                            (){Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (c) => Vault()));
+                        }
                     ),
                     CustomProfileElements(
                         Icons.rate_review_outlined,

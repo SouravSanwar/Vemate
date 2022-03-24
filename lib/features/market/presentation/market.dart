@@ -12,6 +12,7 @@ import 'package:ketemaa/features/controller_page/controller/controller_page_cont
 import 'package:provider/provider.dart';
 
 import '../../../core/utilities/app_assets/app_assets.dart';
+import '../../../core/utilities/shimmer/loading.dart';
 import '../../profile/widgets/custom_text_field.dart';
 import '../Components/category_card.dart';
 import '../Components/collectibles_item_card.dart';
@@ -50,10 +51,10 @@ class _MarketState extends State<Market> {
     await FilterListDialog.display<Rarity>(
       context,
       hideSelectedTextCount: true,
-      themeData: FilterListThemeData(context),
       listData: rarityList,
       selectedListData: selectedUserList,
       choiceChipLabel: (item) => item!.name,
+      backgroundColor: Colors.black45,
       validateSelectedItem: (list, val) => list!.contains(val),
       controlButtons: [ContolButtonType.All, ContolButtonType.Reset],
       onItemSearch: (user, query) {
@@ -127,23 +128,27 @@ class _MarketState extends State<Market> {
                                   fillColor: Color(0xff2F3758),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15.0),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0xff455181),
                                     ),
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
+                                  focusedBorder: const UnderlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Color(0xff2F3758)),
                                     //  when the TextFormField in focused
                                   ),
-                                  prefixIcon: InkWell(
+                                  prefixIcon: const InkWell(
+
                                     child: Icon(
                                       Icons.search,
                                       color: Colors.grey,
                                     ),
                                   ),
                                   suffixIcon: InkWell(
-                                    child: Icon(
+                                    onTap: () {
+                                      _openFilterDialog();
+                                    },
+                                    child: const Icon(
                                       Icons.filter_list,
                                       color: Color(0xff926FDF),
                                     ),
@@ -174,85 +179,85 @@ class _MarketState extends State<Market> {
                     ),
                   ),
                   AppSpaces.spaces_height_5,
-                Padding(
-                  padding:EdgeInsets.only(
-                    left: AppDimension.padding_8,
-                    right: AppDimension.padding_8,
-                  ),
-                 child: Row(
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            currentIndex = 1;
-                            setState(() {
-                              collectibleSelected = true;
-                              comicSelected = false;
-                              brandSelected = false;
-                            });
-                          },
-                          child: CategoryCard(
-                            name: 'Collectibles',
-                            gradient: collectibleSelected == true
-                                ? AppColors.purpleGradient
-                                : const LinearGradient(
-                                    colors: [
-                                      Color(0xff272E49),
-                                      Color(0xff272E49),
-                                    ],
-                                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: AppDimension.padding_8,
+                      right: AppDimension.padding_8,
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              currentIndex = 1;
+                              setState(() {
+                                collectibleSelected = true;
+                                comicSelected = false;
+                                brandSelected = false;
+                              });
+                            },
+                            child: CategoryCard(
+                              name: 'Collectibles',
+                              gradient: collectibleSelected == true
+                                  ? AppColors.purpleGradient
+                                  : const LinearGradient(
+                                      colors: [
+                                        Color(0xff272E49),
+                                        Color(0xff272E49),
+                                      ],
+                                    ),
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            currentIndex = 2;
-                            setState(() {
-                              comicSelected = true;
-                              brandSelected = false;
-                              collectibleSelected = false;
-                            });
-                          },
-                          child: CategoryCard(
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              currentIndex = 2;
+                              setState(() {
+                                comicSelected = true;
+                                brandSelected = false;
+                                collectibleSelected = false;
+                              });
+                            },
+                            child: CategoryCard(
                               name: 'Comics',
-                            gradient: comicSelected== true
-                                ? AppColors.purpleGradient
-                                : const LinearGradient(
-                              colors: [
-                                Color(0xff272E49),
-                                Color(0xff272E49),
-                              ],
+                              gradient: comicSelected == true
+                                  ? AppColors.purpleGradient
+                                  : const LinearGradient(
+                                      colors: [
+                                        Color(0xff272E49),
+                                        Color(0xff272E49),
+                                      ],
+                                    ),
                             ),
-                             ),
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            currentIndex = 3;
-                            setState(() {
-                              brandSelected = true;
-                              collectibleSelected = false;
-                              comicSelected = false;
-                            });
-                          },
-                          child: CategoryCard(
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              currentIndex = 3;
+                              setState(() {
+                                brandSelected = true;
+                                collectibleSelected = false;
+                                comicSelected = false;
+                              });
+                            },
+                            child: CategoryCard(
                               name: 'Brand',
-                            gradient: brandSelected== true
-                                ? AppColors.purpleGradient
-                                : const LinearGradient(
-                              colors: [
-                                Color(0xff272E49),
-                                Color(0xff272E49),
-                              ],
+                              gradient: brandSelected == true
+                                  ? AppColors.purpleGradient
+                                  : const LinearGradient(
+                                      colors: [
+                                        Color(0xff272E49),
+                                        Color(0xff272E49),
+                                      ],
+                                    ),
                             ),
-                              ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
                   AppSpaces.spaces_height_10,
                   Container(
                     child: collectibleSelected == true
@@ -263,7 +268,7 @@ class _MarketState extends State<Market> {
                                     list: data.collectiblesModel!.collectibles!
                                         .results,
                                   )
-                                : const MarketCardShimmer(),
+                                : const LoadingExample(),
                           )
                         : (comicSelected == true
                             ? SizedBox(
@@ -272,12 +277,12 @@ class _MarketState extends State<Market> {
                                     ? CommicsItemCard(
                                         list: data.comicsModel!.comics!.results,
                                       )
-                                    : const MarketCardShimmer(),
+                                    : const LoadingExample(),
                               )
-                            : Center(
+                            : const Center(
                                 child: Text('Brand'),
                               )),
-                  )
+                  ),
                 ],
               ),
             ],
@@ -301,5 +306,3 @@ List<Rarity> rarityList = [
   Rarity(name: "Common"),
   Rarity(name: "Uncommon"),
 ];
-
-
