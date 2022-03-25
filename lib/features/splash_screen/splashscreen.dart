@@ -29,10 +29,10 @@ class SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> navigationPage() async {
-    /*prefs!.getString('is_email_verified') == "true"
+    prefs!.getString('is_email_verified') == "true"
         ? Get.to(() => ControllerPage())
-        : Get.to(() => const AuthInitialPage());*/
-    Get.to(() => const AuthInitialPage());
+        : Get.to(() => const AuthInitialPage());
+    //Get.to(() => const AuthInitialPage());
   }
 
   @override
