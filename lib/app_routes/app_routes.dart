@@ -3,7 +3,7 @@ import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initia
 import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_email.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/sign_up.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
-import 'package:ketemaa/features/splash_screen/splash_screen.dart';
+import 'package:ketemaa/features/splash_screen/splashscreen.dart';
 
 import '../features/auth/reset_pass/reset_pass.dart';
 import '../features/market/presentation/market.dart';
@@ -23,27 +23,27 @@ class AppRoutes {
   static String PROPERTY_LISTING_PAGE = "/property_Listing_Page";
   static String PROPERTY_DETAILS_PAGE = "/property_Details_Page";
 
-  static List<GetPage> AppRoutesList() {
+  static List<GetPage> appRoutesList() {
     return [
       GetPage(
         name: INITAL_SCREEN,
-        page: () => SplashScreen(),
+        page: () => const SplashScreen(),
       ),
       GetPage(
         name: RESET_PASS,
-        page: () => ResetPass(),
+        page: () => const ResetPass(),
       ),
       GetPage(
         name: MAIN_AUTH,
-        page: () => AuthInitialPage(),
+        page: () => const AuthInitialPage(),
       ),
       GetPage(
         name: SIGN_UP,
-        page: () => SignUp(),
+        page: () => const SignUp(),
       ),
       GetPage(
         name: SIGN_IN_EMAIL,
-        page: () => SignInWithEmail(),
+        page: () => const SignInWithEmail(),
       ),
       GetPage(
         name: MARKET,

@@ -21,6 +21,7 @@ class SharedPreferenceController extends GetxController {
 
   getToken() {
     var _token = sharedPreferences.getString(SharedPreferenceKey.token);
+    var _isEmailVerified = sharedPreferences.getString(SharedPreferenceKey.token);
     printInfo(info: '$_token');
     return _token;
   }

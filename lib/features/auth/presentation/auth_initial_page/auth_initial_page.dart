@@ -4,6 +4,7 @@ import 'package:flutter_image_slider/carousel.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
+import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_assets/app_assets.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -11,6 +12,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/image_slider.dart';
 import 'package:ketemaa/core/utilities/common_widgets/social_login_button.dart';
 import 'package:ketemaa/graph/designhelper.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/utilities/app_dimension/app_dimension.dart';
 import '../../../../core/utilities/common_widgets/password_input_field.dart';
@@ -25,20 +27,30 @@ class AuthInitialPage extends StatefulWidget {
 }
 
 class _AuthInitialPageState extends State<AuthInitialPage> {
+  PostData? postData;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    postData = Provider.of<PostData>(context, listen: false);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Get.put(SigninController());
-    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Color(0xff272E49),
+      backgroundColor: const Color(0xff272E49),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               AppSpaces.spaces_height_15,
-              Container(
+              SizedBox(
                 height: Get.height * .2,
                 width: Get.width * 1,
                 child: Image.asset(
@@ -52,51 +64,27 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 children: [
                   Container(
                       width: Get.width * .9,
-                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: const Text(
                         "LOGIN",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.grey),
                       )),
                   AppSpaces.spaces_height_25,
-                  /*Container(
-                      width: Get.width * .9,
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: const Text(
-                        "Username",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey,
-                            fontSize: 12),
-                      )),*/
                   TextInputField(
-                    labelText: "Username",
+                    labelText: "Email",
                     height: .09,
                     textType: TextInputType.emailAddress,
                     controller: SigninController.to.emailTextFiledController,
                   ),
-
-                  SizedBox(height: 15,),
-                  /*Container(
-                      width: Get.width * .9,
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: const Text(
-                        "Password",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey,
-                            fontSize: 12),
-                      )),*/
-                  //AppSpaces.spaces_height_5,
+                  AppSpaces.spaces_height_15,
                   PasswordInputField(
                       labelText: "Password",
                       height: .09,
                       textType: TextInputType.text,
                       controller:
                           SigninController.to.passwordTextFiledController),
-                  const SizedBox(
-                    height: 5,
-                  ),
+                  AppSpaces.spaces_height_5,
                   TextButton(
                     onPressed: () {
                       Get.toNamed(AppRoutes.RESET_PASS);
@@ -116,8 +104,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     height: 15,
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 15),
-                    padding: EdgeInsets.symmetric(horizontal: 7),
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 7),
                     width: Get.width,
                     decoration: BoxDecoration(
                       gradient: AppColors.purpleGradient, // set border width
@@ -126,15 +114,13 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        Get.toNamed(AppRoutes.CONTROLLER_PAGE);
-                        /*SigninController.to.signIn(
-                          email: SigninController
-                              .to.emailTextFiledController.text
-                              .toString(),
-                          password: SigninController
-                              .to.passwordTextFiledController.text
-                              .toString(),
-                        );*/
+                        var body = {
+                          "email":
+                              SigninController.to.emailTextFiledController.text,
+                          "password": SigninController
+                              .to.passwordTextFiledController.text,
+                        };
+                        postData!.logIn(context, body);
                       },
                       child: Text(
                         AppLanguageString.lOG_IN.tr.toUpperCase(),
@@ -149,53 +135,54 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
               AppSpaces.spaces_height_25,
               Container(),
               AppSpaces.spaces_height_25,
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: <
-                  Widget>[
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.only(left: 45.0, right: 10.0),
-                      child: const Divider(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 45.0, right: 10.0),
+                        child: const Divider(
+                          color: Colors.grey,
+                        )),
+                  ),
+                  const Text(
+                    "Or Continue With",
+                    style: TextStyle(
                         color: Colors.grey,
-                      )),
-                ),
-                const Text(
-                  "Or Continue With",
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15),
-                ),
-                Expanded(
-                  child: Container(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15),
+                  ),
+                  Expanded(
+                    child: Container(
                       margin: const EdgeInsets.only(left: 10.0, right: 45.0),
                       child: const Divider(
                         color: Colors.grey,
-                      )),
-                ),
-              ]),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
 
               AppSpaces.spaces_height_25,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 80, // <-- Your width
+                    width: 80,
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {},
                       child: Image.asset('assets/media/icon/google.png'),
                       style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(10),
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(10),
                           side: BorderSide(
                               width: 1.0, color: AppColors.primaryColor),
-                          primary: Color(0xff272E49)
-                          // <-- Splash color
-                          ),
+                          primary: const Color(0xff272E49)),
                     ),
                   ),
                   SizedBox(
-                    width: 80, // <-- Your width
+                    width: 80,
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {},
@@ -204,17 +191,15 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                         color: Colors.white,
                       ),
                       style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(10),
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(10),
                           side: BorderSide(
                               width: 1.0, color: AppColors.primaryColor),
-                          primary: Color(0xff272E49)
-                          // <-- Splash color
-                          ),
+                          primary: const Color(0xff272E49)),
                     ),
                   ),
                   SizedBox(
-                    width: 80, // <-- Your width
+                    width: 80,
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {},
@@ -222,24 +207,17 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                         'assets/media/icon/facebook.png',
                       ),
                       style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(10),
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(10),
                           side: BorderSide(
                               width: 1.0, color: AppColors.primaryColor),
-                          primary: Color(0xff272E49)
-                          // <-- Splash color
-                          ),
+                          primary: const Color(0xff272E49)),
                     ),
                   ),
                 ],
               ),
 
-              /*ocialLoginButton(
-                  image: AppAsset.google_icon,
-                  text: AppLanguageString.GOOGLE_LOGIN.tr
-              ),*/
-
-              SizedBox(
+              const SizedBox(
                 height: 70,
               ),
               Center(
@@ -267,6 +245,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       ]),
                 ),
               ),
+              AppSpaces.spaces_height_15,
             ],
           ),
         ),

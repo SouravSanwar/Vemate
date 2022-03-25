@@ -4,21 +4,24 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';*/
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'app_routes/app_routes.dart';
 import 'core/Provider/getData.dart';
 import 'core/graphQLConfig/graphql_config.dart';
 import 'core/language/language.dart';
 import 'core/utilities/app_theme/app_theme.dart';
 
-//this is main class
+SharedPreferences? prefs;
 
 Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => GetData()),
+        ChangeNotifierProvider(create: (_) => PostData()),
       ],
       child: MyApp(),
     ),
@@ -57,9 +60,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.themeData(),
-      getPages: AppRoutes.AppRoutesList(),
-      initialRoute: AppRoutes.MAIN_AUTH,
-      //initialRoute: AppRoutes.PROPERTY_DETAILS_PAGE,
+      getPages: AppRoutes.appRoutesList(),
+      initialRoute: AppRoutes.INITAL_SCREEN,
       translations: Language(),
       locale: const Locale('en', 'US'),
     );

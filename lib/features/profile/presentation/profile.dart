@@ -81,91 +81,78 @@ class _ProfileState extends State<Profile> {
                     shrinkWrap: true,
                     children: [
                       const SizedBox(
-                      height: 50,
-                        ),
+                        height: 50,
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: CircleAvatar(
+                                radius: MediaQuery.of(context).size.width * .15,
+                                backgroundColor: Color(0xff272E49),
+                                backgroundImage: null,
+                                child: Shader(
+                                  icon: Icon(
+                                    Icons.person,
+                                    size: 100,
+                                  ),
+                                ),
 
-                        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Container(
-                      child: CircleAvatar(
-                      radius: MediaQuery.of(context).size.width * .15,
-                        backgroundColor: Color(0xff272E49),
-                          backgroundImage: null,
-                        child: Shader(
-                      icon: Icon(Icons.person,size: 100,),
+                                // Icon(Icons.person,size: 100,)
+                              ),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: AppColors.greyWhite,
+                                  width: 2.0,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Text(
+                              'User Name',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0),
+                              textAlign: TextAlign.center,
+                            ),
+                          ]),
+                      SizedBox(
+                        height: 50,
                       ),
-
-                        // Icon(Icons.person,size: 100,)
-                        ),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: AppColors.greyWhite,
-                        width: 2.0,
-                          ),
-                          ),
-                          ),
-                        const SizedBox(
-                      width: 10,
-                      ),
-                      constText(
-                        'User Name',
-                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20.0),
-                        textAlign: TextAlign.center,
-                      ),
-                      ]
-                          ),
-
-                            SizedBox(height: 50,),
-                          CustomProfileElements(
-                          Icons.person,
-                            "Profile Edit",
-                            (){ Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                          builder: (c) => EditProfilePage()));
-                        }
-                      ),
-                     /*
+                      CustomProfileElements(Icons.person, "Profile Edit", () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (c) => EditProfilePage()));
+                      }),
+                      /*
                           Image.asset(
                             'assets/media/image/edit.png',
                             height: 25,
                             width: 25,color: Colors.white,
                           ),*/
-                          CustomProfileElements(
-                          Icons.help_outline,
-                            "Help and Support",
-                            (){}
-                          ),
-                          CustomProfileElements(
-                          Icons.privacy_tip_outlined,
-                            "Privacy Policy",
-                            (){}
-                          ),
-                          CustomProfileElements(
-                          Icons.rate_review_outlined,
-                        "Rate",
-                      (){
-
-                          showDialog(
-                            context: context,
-                            builder: (context) => _dialog,);
-                          }
-                    ),
-                        CustomProfileElements(
-                          Icons.share,
-
-                      "Share Vemate",
-                         (){
-                          Share.share('Visit Vemate Website:\n https://www.vemate.com/');
-                        }
-                          ),
-                          CustomProfileElements(
-                          Icons.info_outline_rounded,
-                      "About Vemate'",
-                      (){}
-                      ),
-
-                        ],
+                      CustomProfileElements(
+                          Icons.help_outline, "Help and Support", () {}),
+                      CustomProfileElements(
+                          Icons.privacy_tip_outlined, "Privacy Policy", () {}),
+                      CustomProfileElements(Icons.rate_review_outlined, "Rate",
+                          () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => _dialog,
+                        );
+                      }),
+                      CustomProfileElements(Icons.share, "Share Vemate", () {
+                        Share.share(
+                            'Visit Vemate Website:\n https://www.vemate.com/');
+                      }),
+                      CustomProfileElements(
+                          Icons.info_outline_rounded, "About Vemate'", () {}),
+                    ],
                   ),
                 ],
               ),

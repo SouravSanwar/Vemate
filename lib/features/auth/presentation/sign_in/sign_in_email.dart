@@ -17,7 +17,6 @@ class SignInWithEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(SigninController());
-    //SigninController.to.signIn();
 
     return Scaffold(
       appBar: AppBar(

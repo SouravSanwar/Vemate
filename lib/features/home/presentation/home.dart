@@ -19,9 +19,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final items = [
-    "slider/11.jpg",
-    "slider/12.jpg",
-    "slider/13.jpg",
+    "assets/media/slider/11.jpg",
+    "assets/media/slider/12.jpg",
+    "assets/media/slider/13.jpg",
   ];
 
   @override
@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
                 Padding(
                   padding: EdgeInsets.all(AppDimension.padding_16),
                   child: Image.asset(
-                    'slider/12.png',
+                    'assets/media/slider/12.png',
                   ),
                 ),
                 InkWell(
