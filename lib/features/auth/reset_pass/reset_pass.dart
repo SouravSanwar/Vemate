@@ -67,7 +67,7 @@ class _ResetPassState extends State<ResetPass> {
                     labelText: "Enter e-mail",
                     height: .09,
                     textType: TextInputType.emailAddress,
-                    controller: SigninController.to.emailTextFiledController,
+                    controller: SigninController.to.userNameTextFiledController,
                   ),
 
                   const SizedBox(

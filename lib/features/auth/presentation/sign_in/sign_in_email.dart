@@ -59,7 +59,7 @@ class SignInWithEmail extends StatelessWidget {
           labelText: AppLanguageString.USERNAME.tr,
           height: .09,
           textType: TextInputType.emailAddress,
-          controller: SigninController.to.emailTextFiledController,
+          controller: SigninController.to.userNameTextFiledController,
         ),
         AppSpaces.spaces_height_5,
         PasswordInputField(
@@ -82,7 +82,7 @@ class SignInWithEmail extends StatelessWidget {
               //Get.toNamed(AppRoutes.CONTROLLER_PAGE);
 
               SigninController.to.signIn(
-                email: SigninController.to.emailTextFiledController.text
+                email: SigninController.to.userNameTextFiledController.text
                     .toString(),
                 password: SigninController.to.passwordTextFiledController.text
                     .toString(),

@@ -38,14 +38,13 @@ class AppSpaces {
       const Padding(padding: EdgeInsets.only(left: 15));
   static Padding spaces_width_20 =
       const Padding(padding: EdgeInsets.only(left: 20));
+  static Padding spaces_width_25 =
+      const Padding(padding: EdgeInsets.only(left: 25));
 
   static EdgeInsets spaces_all_5 = const EdgeInsets.all(5);
   static EdgeInsets spaces_all_10 = const EdgeInsets.all(10);
   static EdgeInsets spaces_all_15 = const EdgeInsets.all(15);
   static EdgeInsets spaces_all_20 = const EdgeInsets.all(20);
-
-  static Padding spaces_width_25 =
-      const Padding(padding: EdgeInsets.only(left: 25));
 
   static EdgeInsets custom_spaces(
           {double? left, double? right, double? bottom, double? top}) =>

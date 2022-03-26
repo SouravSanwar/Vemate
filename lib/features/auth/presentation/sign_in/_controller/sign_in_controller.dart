@@ -16,6 +16,7 @@ class SigninController extends GetxController {
 
   //testFiledControllers
 
+  TextEditingController userNameTextFiledController = TextEditingController();
   TextEditingController emailTextFiledController = TextEditingController();
   TextEditingController passwordTextFiledController = TextEditingController();
 
@@ -36,7 +37,7 @@ class SigninController extends GetxController {
   signIn({@required String? email, @required String? password}) async {
     loading.value = true;
     Either<QueryResult, Failure> _response = await _authRepository.signIn(
-        email: emailTextFiledController.text.toString(),
+        email: userNameTextFiledController.text.toString(),
         password: passwordTextFiledController.text.toString());
 
     _response.fold((l) {
@@ -100,7 +101,7 @@ class SigninController extends GetxController {
   _signInValidation() {
     bool isValidated = false;
 
-    if (emailTextFiledController.text.isEmpty) {
+    if (userNameTextFiledController.text.isEmpty) {
       isValidated = false;
       AppSnackBar.showErrorMessage(
           title: AppLanguageString.VALIDATION_FAILED.tr,

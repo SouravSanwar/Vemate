@@ -3,6 +3,7 @@ import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initia
 import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_email.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/sign_up.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
+import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/splash_screen/splashscreen.dart';
 
 import '../features/auth/reset_pass/reset_pass.dart';
@@ -16,12 +17,7 @@ class AppRoutes {
   static String SIGN_IN_EMAIL = "/sign_in_email";
   static String MARKET = "/market";
   static String CONTROLLER_PAGE = "/controller_page";
-  static String PLACE_A_ADD = "/place_a_add";
-  static String CATEGORYFORADD = "/place_a_add_category";
-  static String PROPERTY_INITAIL_PAGE = "/property_Initial_Page";
-  static String PROPERTY_AGENT_PAGE = "/property_Agent_Page";
-  static String PROPERTY_LISTING_PAGE = "/property_Listing_Page";
-  static String PROPERTY_DETAILS_PAGE = "/property_Details_Page";
+  static String EDIT_PROFILE = "/edit_profile";
 
   static List<GetPage> appRoutesList() {
     return [
@@ -52,6 +48,10 @@ class AppRoutes {
       GetPage(
         name: CONTROLLER_PAGE,
         page: () => ControllerPage(),
+      ),
+      GetPage(
+        name: EDIT_PROFILE,
+        page: () => EditProfilePage(),
       ),
     ];
   }

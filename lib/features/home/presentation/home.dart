@@ -2,10 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/home/components/name_row.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../components/matric_card.dart';

@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:ketemaa/core/models/CommicsModel.dart';
+import 'package:ketemaa/core/models/ProfileModel.dart';
 import 'package:ketemaa/core/models/SingleCollectibleModel.dart';
 import 'package:ketemaa/core/models/SingleComicModel.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
+import 'package:ketemaa/main.dart';
 import '../models/CollectiblesModel.dart';
 
 class GetData extends ChangeNotifier {
@@ -18,11 +20,32 @@ class GetData extends ChangeNotifier {
   ComicsModel? comicsModel;
   SingleComicModel? singleComicModel;
 
-  Map<String, String> requestHeaders = {
+  ProfileModel? profileModel;
+
+  Map<String, String> requestHeadersWithToken = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
-    'X-Authorization': '',
+    'Authorization': 'token ${prefs!.getString('token')}',
   };
+  Map<String, String> requestToken = {
+    'Authorization': 'token ${prefs!.getString('token')}',
+  };
+
+  Future getUserInfo() async {
+    profileModel = null;
+    final response = await http.get(
+      Uri.parse(Urls.userInfo),
+      headers: requestToken,
+    );
+
+    var data = json.decode(response.body.toString());
+
+    printInfo(info: data.toString());
+
+    profileModel = ProfileModel.fromJson(data);
+
+    notifyListeners();
+  }
 
   Future getCollectibles() async {
     collectiblesModel = null;

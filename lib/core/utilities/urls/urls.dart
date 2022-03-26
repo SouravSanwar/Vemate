@@ -7,6 +7,9 @@ class Urls {
   static String resendCode = mainUrl + '/api/v1/account/public/users/send_verification_code/';
   static String logIn = mainUrl + '/api/v1/account/public/users/signin/';
 
+  static String userInfo = mainUrl + '/api/v1/account/public/users/profile/';
+  static String updateUserInfo = mainUrl + '/api/v1/account/public/users/profile/';
+
   static String collectibles = mainUrl + '/collectibles';
   static String singleCollectible = mainUrl + '/collectible/';
 

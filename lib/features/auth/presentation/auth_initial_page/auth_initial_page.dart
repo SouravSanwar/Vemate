@@ -72,10 +72,10 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(
-                    labelText: "Email",
+                    labelText: "Username",
                     height: .09,
                     textType: TextInputType.emailAddress,
-                    controller: SigninController.to.emailTextFiledController,
+                    controller: SigninController.to.userNameTextFiledController,
                   ),
                   AppSpaces.spaces_height_15,
                   PasswordInputField(
@@ -115,8 +115,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     child: TextButton(
                       onPressed: () {
                         var body = {
-                          "email":
-                              SigninController.to.emailTextFiledController.text,
+                          "username":
+                              SigninController.to.userNameTextFiledController.text,
                           "password": SigninController
                               .to.passwordTextFiledController.text,
                         };

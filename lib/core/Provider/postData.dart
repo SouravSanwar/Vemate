@@ -6,14 +6,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/main.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PostData extends ChangeNotifier {
+  GetData? getData;
+  Map<String, String> requestHeaders = {
+    'Content-type': 'application/json',
+    'Accept': 'application/json',
+  };
+  Map<String, String> requestHeadersWithToken = {
+    'Content-type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'token ${prefs!.getString('token')}',
+  };
+  Map<String, String> requestToken = {
+    'Authorization': 'token ${prefs!.getString('token')}',
+  };
+
   Future signUp(BuildContext context, var body) async {
     showDialog(
         context: context,
@@ -22,11 +38,8 @@ class PostData extends ChangeNotifier {
 
     printInfo(info: body.toString());
 
-    final response = await http
-        .post(Uri.parse(Urls.signUp), body: json.encode(body), headers: {
-      HttpHeaders.contentTypeHeader: 'application/json',
-      HttpHeaders.acceptHeader: 'application/json',
-    });
+    final response = await http.post(Uri.parse(Urls.signUp),
+        body: json.encode(body), headers: requestHeaders);
     var x = json.decode(response.body);
 
     printInfo(info: x.toString());
@@ -100,11 +113,8 @@ class PostData extends ChangeNotifier {
 
     printInfo(info: body.toString());
 
-    final response = await http
-        .post(Uri.parse(Urls.verifyCode), body: json.encode(body), headers: {
-      HttpHeaders.contentTypeHeader: 'application/json',
-      HttpHeaders.acceptHeader: 'application/json',
-    });
+    final response = await http.post(Uri.parse(Urls.verifyCode),
+        body: json.encode(body), headers: requestHeaders);
 
     /*var x = json.decode(response.body);
 
@@ -174,11 +184,8 @@ class PostData extends ChangeNotifier {
 
     printInfo(info: body.toString());
 
-    final response = await http
-        .post(Uri.parse(Urls.resendCode), body: json.encode(body), headers: {
-      HttpHeaders.contentTypeHeader: 'application/json',
-      HttpHeaders.acceptHeader: 'application/json',
-    });
+    final response = await http.post(Uri.parse(Urls.resendCode),
+        body: json.encode(body), headers: requestHeaders);
 
     /*var x = json.decode(response.body);
 
@@ -259,11 +266,8 @@ class PostData extends ChangeNotifier {
 
     printInfo(info: body.toString());
 
-    final response = await http
-        .post(Uri.parse(Urls.logIn), body: json.encode(body), headers: {
-      HttpHeaders.contentTypeHeader: 'application/json',
-      HttpHeaders.acceptHeader: 'application/json',
-    });
+    final response = await http.post(Uri.parse(Urls.logIn),
+        body: json.encode(body), headers: requestHeaders);
     print(response.body.toString());
     var x = json.decode(response.body);
 
@@ -289,6 +293,83 @@ class PostData extends ChangeNotifier {
               duration: const Duration(seconds: 3),
               messageText: const Text(
                 "Login Successful",
+                style: TextStyle(fontSize: 16.0, color: Colors.green),
+              )).show(context);
+        } else {
+          Navigator.of(context).pop();
+
+          Flushbar(
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              isDismissible: false,
+              duration: const Duration(seconds: 3),
+              messageText: const Text(
+                "Invalid Information",
+                style: TextStyle(fontSize: 16.0, color: Colors.green),
+              )).show(context);
+        }
+      } catch (e) {
+        Navigator.of(context).pop();
+        Flushbar(
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            isDismissible: false,
+            duration: const Duration(seconds: 3),
+            messageText: const Text(
+              "Something went wrong",
+              style: TextStyle(fontSize: 16.0, color: Colors.green),
+            )).show(context);
+      }
+    } else {
+      Navigator.of(context).pop();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Something went wrong",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    }
+    notifyListeners();
+  }
+
+  Future updateProfile(BuildContext context, var body) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const CircularProgressIndicator());
+
+    printInfo(info: body.toString());
+
+    final response = await http.patch(Uri.parse(Urls.updateUserInfo),
+        body: json.encode(body), headers: requestHeadersWithToken);
+    print(response.body.toString());
+    var x = json.decode(response.body);
+
+    if (response.statusCode == 200 ||
+        response.statusCode == 401 ||
+        response.statusCode == 403 ||
+        response.statusCode == 500 ||
+        response.statusCode == 201) {
+      try {
+        Map<String, dynamic> js = x;
+        if (js['is_email_verified'] == true) {
+          getData = Provider.of<GetData>(context, listen: false);
+          await getData!.getUserInfo();
+          prefs = await SharedPreferences.getInstance();
+
+          prefs!.setString('name', js['name'].toString());
+          prefs!.setString('email', js['email'].toString());
+
+          printInfo(info: prefs!.getString('is_email_verified').toString());
+
+          Navigator.of(context).pop();
+
+          Flushbar(
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              isDismissible: false,
+              duration: const Duration(seconds: 3),
+              messageText: const Text(
+                "Update Successful",
                 style: TextStyle(fontSize: 16.0, color: Colors.green),
               )).show(context);
         } else {
