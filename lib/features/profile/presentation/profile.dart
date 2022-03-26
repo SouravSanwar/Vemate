@@ -6,6 +6,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_sizes.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/widgets/profile_divider.dart';
 
@@ -80,100 +81,106 @@ class _ProfileState extends State<Profile> {
       //maintainBottomViewPadding: true,
       minimum: EdgeInsets.zero,
       child: Consumer<GetData>(builder: (context, data, child) {
-        return Scaffold(
-          backgroundColor: const Color(0xff272E49),
-          body: Padding(
-            padding: EdgeInsets.only(
-              left: AppDimension.padding_8,
-              right: AppDimension.padding_8,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ListView(
-                    shrinkWrap: true,
-                    children: [
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+        return data.profileModel != null
+            ? Scaffold(
+                backgroundColor: const Color(0xff272E49),
+                body: Padding(
+                  padding: EdgeInsets.only(
+                    left: AppDimension.padding_8,
+                    right: AppDimension.padding_8,
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ListView(
+                          shrinkWrap: true,
                           children: [
-                            Container(
-                              child: CircleAvatar(
-                                radius: MediaQuery.of(context).size.width * .15,
-                                backgroundColor: const Color(0xff272E49),
-                                backgroundImage: null,
-                                child: Shader(
-                                  icon: const Icon(
-                                    Icons.person,
-                                    size: 100,
-                                  ),
-                                ),
-
-                                // Icon(Icons.person,size: 100,)
-                              ),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: AppColors.greyWhite,
-                                  width: 2.0,
-                                ),
-                              ),
-                            ),
                             const SizedBox(
-                              width: 10,
+                              height: 50,
                             ),
-                            Text(
-                              data.profileModel!.nickname.toString(),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0),
-                              textAlign: TextAlign.center,
-                            ),
-                          ]),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      CustomProfileElements(Icons.person, "Profile Edit", () {
-                        Get.toNamed(
-                          AppRoutes.EDIT_PROFILE,
-                          arguments: data.profileModel,
-                        );
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    child: CircleAvatar(
+                                      radius:
+                                          MediaQuery.of(context).size.width *
+                                              .15,
+                                      backgroundColor: const Color(0xff272E49),
+                                      backgroundImage: null,
+                                      child: Image.network(
+                                        Urls.mainUrl +
+                                            data.profileModel!.profileImage!
+                                                .mobile!.src
+                                                .toString(),
+                                      ),
 
-                        /*Navigator.push(
+                                      // Icon(Icons.person,size: 100,)
+                                    ),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: AppColors.greyWhite,
+                                        width: 2.0,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    data.profileModel!.nickname.toString(),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.0),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ]),
+                            const SizedBox(
+                              height: 50,
+                            ),
+                            CustomProfileElements(Icons.person, "Profile Edit",
+                                () {
+                              Get.toNamed(
+                                AppRoutes.EDIT_PROFILE,
+                                arguments: data.profileModel,
+                              );
+
+                              /*Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (c) => EditProfilePage(),
                           ),
                         );*/
-                      }),
-                      CustomProfileElements(
-                          Icons.help_outline, "Help and Support", () {}),
-                      CustomProfileElements(
-                          Icons.privacy_tip_outlined, "Privacy Policy", () {}),
-                      CustomProfileElements(Icons.rate_review_outlined, "Rate",
-                          () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => _dialog,
-                        );
-                      }),
-                      CustomProfileElements(Icons.share, "Share Vemate", () {
-                        Share.share(
-                            'Visit Vemate Website:\n https://www.vemate.com/');
-                      }),
-                      CustomProfileElements(
-                          Icons.info_outline_rounded, "About Vemate'", () {}),
-                    ],
+                            }),
+                            CustomProfileElements(
+                                Icons.help_outline, "Help and Support", () {}),
+                            CustomProfileElements(Icons.privacy_tip_outlined,
+                                "Privacy Policy", () {}),
+                            CustomProfileElements(
+                                Icons.rate_review_outlined, "Rate", () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => _dialog,
+                              );
+                            }),
+                            CustomProfileElements(Icons.share, "Share Vemate",
+                                () {
+                              Share.share(
+                                  'Visit Vemate Website:\n https://www.vemate.com/');
+                            }),
+                            CustomProfileElements(Icons.info_outline_rounded,
+                                "About Vemate'", () {}),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
-          ),
-        );
+                ),
+              )
+            : Container();
       }),
     );
   }

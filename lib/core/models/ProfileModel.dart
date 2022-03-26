@@ -1,32 +1,29 @@
 class ProfileModel {
   ProfileModel({
-    this.id,
-    this.profileImage,
-    this.verificationId,
-    this.lastLogin,
-    this.isSuperuser,
-    this.nickname,
-    this.email,
-    this.gender,
-    this.birthYear,
-    this.presentAddress,
-    this.permanentAddress,
-    this.city,
-    this.postCode,
-    this.country,
-    this.fcmDeviceId,
-    this.isEmailVerified,
-    this.joinDate,
-    this.isActive,
-    this.isStaff,
-  });
+      this.id, 
+      this.profileImage, 
+      this.verificationId, 
+      this.lastLogin, 
+      this.isSuperuser, 
+      this.nickname, 
+      this.email, 
+      this.gender, 
+      this.birthYear, 
+      this.presentAddress, 
+      this.permanentAddress, 
+      this.city, 
+      this.postCode, 
+      this.country, 
+      this.fcmDeviceId, 
+      this.isEmailVerified, 
+      this.joinDate, 
+      this.isActive, 
+      this.isStaff,});
 
   ProfileModel.fromJson(dynamic json) {
     id = json['id'];
-    profileImage = json['profile_image'];
-    verificationId = json['verification_id'] != null
-        ? VerificationId.fromJson(json['verification_id'])
-        : null;
+    profileImage = json['profile_image'] != null ? ProfileImage.fromJson(json['profile_image']) : null;
+    verificationId = json['verification_id'] != null ? VerificationId.fromJson(json['verification_id']) : null;
     lastLogin = json['last_login'];
     isSuperuser = json['is_superuser'];
     nickname = json['nickname'];
@@ -44,9 +41,8 @@ class ProfileModel {
     isActive = json['is_active'];
     isStaff = json['is_staff'];
   }
-
   int? id;
-  dynamic profileImage;
+  ProfileImage? profileImage;
   VerificationId? verificationId;
   String? lastLogin;
   bool? isSuperuser;
@@ -68,7 +64,9 @@ class ProfileModel {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
-    map['profile_image'] = profileImage;
+    if (profileImage != null) {
+      map['profile_image'] = profileImage?.toJson();
+    }
     if (verificationId != null) {
       map['verification_id'] = verificationId?.toJson();
     }
@@ -90,23 +88,23 @@ class ProfileModel {
     map['is_staff'] = isStaff;
     return map;
   }
+
 }
 
 class VerificationId {
   VerificationId({
-    this.id,
-    this.frontImageDetail,
-    this.backImageDetail,
-    this.idNo,
-    this.name,
-    this.status,
-    this.rejectedReason,
-    this.creationTime,
-    this.updateTime,
-    this.user,
-    this.frontImage,
-    this.backImage,
-  });
+      this.id, 
+      this.frontImageDetail, 
+      this.backImageDetail, 
+      this.idNo, 
+      this.name, 
+      this.status, 
+      this.rejectedReason, 
+      this.creationTime, 
+      this.updateTime, 
+      this.user, 
+      this.frontImage, 
+      this.backImage,});
 
   VerificationId.fromJson(dynamic json) {
     id = json['id'];
@@ -122,7 +120,6 @@ class VerificationId {
     frontImage = json['front_image'];
     backImage = json['back_image'];
   }
-
   int? id;
   dynamic frontImageDetail;
   dynamic backImageDetail;
@@ -152,4 +149,123 @@ class VerificationId {
     map['back_image'] = backImage;
     return map;
   }
+
+}
+
+class ProfileImage {
+  ProfileImage({
+      this.original, 
+      this.tab, 
+      this.mobile,});
+
+  ProfileImage.fromJson(dynamic json) {
+    original = json['original'] != null ? Original.fromJson(json['original']) : null;
+    tab = json['tab'] != null ? Tab.fromJson(json['tab']) : null;
+    mobile = json['mobile'] != null ? Mobile.fromJson(json['mobile']) : null;
+  }
+  Original? original;
+  Tab? tab;
+  Mobile? mobile;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (original != null) {
+      map['original'] = original?.toJson();
+    }
+    if (tab != null) {
+      map['tab'] = tab?.toJson();
+    }
+    if (mobile != null) {
+      map['mobile'] = mobile?.toJson();
+    }
+    return map;
+  }
+
+}
+
+class Mobile {
+  Mobile({
+      this.src, 
+      this.width, 
+      this.height, 
+      this.alt,});
+
+  Mobile.fromJson(dynamic json) {
+    src = json['src'];
+    width = json['width'];
+    height = json['height'];
+    alt = json['alt'];
+  }
+  String? src;
+  int? width;
+  int? height;
+  String? alt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['src'] = src;
+    map['width'] = width;
+    map['height'] = height;
+    map['alt'] = alt;
+    return map;
+  }
+
+}
+
+class Tab {
+  Tab({
+      this.src, 
+      this.width, 
+      this.height, 
+      this.alt,});
+
+  Tab.fromJson(dynamic json) {
+    src = json['src'];
+    width = json['width'];
+    height = json['height'];
+    alt = json['alt'];
+  }
+  String? src;
+  int? width;
+  int? height;
+  String? alt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['src'] = src;
+    map['width'] = width;
+    map['height'] = height;
+    map['alt'] = alt;
+    return map;
+  }
+
+}
+
+class Original {
+  Original({
+      this.src, 
+      this.width, 
+      this.height, 
+      this.alt,});
+
+  Original.fromJson(dynamic json) {
+    src = json['src'];
+    width = json['width'];
+    height = json['height'];
+    alt = json['alt'];
+  }
+  String? src;
+  int? width;
+  int? height;
+  String? alt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['src'] = src;
+    map['width'] = width;
+    map['height'] = height;
+    map['alt'] = alt;
+    return map;
+  }
+
 }
