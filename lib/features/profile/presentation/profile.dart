@@ -54,11 +54,18 @@ class _ProfileState extends State<Profile> {
   }
 
   final _dialog = RatingDialog(
-    // your app's name?
-    title: const Text('Rate Us On App Store or Play Store'),
-    // encourage your user to leave a high rating?
-    message: const Text(''),
-    // your app's logo?
+    initialRating: 5.0,
+
+    title: Text(
+      'Vemate',
+      style: Get.textTheme.headline2,
+      textAlign: TextAlign.center,
+    ),
+    message: Text(
+      'Rate Us On App Store or Play Store',
+      style: Get.textTheme.bodyLarge,
+      textAlign: TextAlign.center,
+    ),
     image: Image.asset('assets/media/slider/12.png'),
     submitButtonText: 'Submit',
     onCancelled: () => print('cancelled'),
@@ -66,10 +73,7 @@ class _ProfileState extends State<Profile> {
       print('rating: ${response.rating}, comment: ${response.comment}');
       // TODO: add your own logic
       if (response.rating < 3.0) {
-        // send their comments to your email or anywhere you wish
-        // ask the user to contact you instead of leaving a bad review
       } else {
-        //go to app store
         StoreRedirect.redirect(
             androidAppId: 'com.xinxian.shop', iOSAppId: 'com.xinxian.shop');
       }
