@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';*/
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'app_routes/app_routes.dart';
 import 'core/Provider/getData.dart';
-import 'core/graphQLConfig/graphql_config.dart';
+import 'core/Provider/postFile.dart';
 import 'core/language/language.dart';
 import 'core/utilities/app_theme/app_theme.dart';
 
@@ -22,6 +21,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => GetData()),
         ChangeNotifierProvider(create: (_) => PostData()),
+        ChangeNotifierProvider(create: (_) => PostFile()),
       ],
       child: MyApp(),
     ),

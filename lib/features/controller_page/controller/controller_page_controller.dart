@@ -8,7 +8,6 @@ class ControllerPageController {
     [
       Icons.home,
       'Home',
-
     ],
     [
       Icons.shop,
@@ -19,6 +18,4 @@ class ControllerPageController {
       'Vault',
     ],
   ].obs;
-
-
 }

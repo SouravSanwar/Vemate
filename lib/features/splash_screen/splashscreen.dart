@@ -32,8 +32,8 @@ class SplashScreenState extends State<SplashScreen>
     /*prefs!.getString('is_email_verified') == "true"
         ? Get.to(() => ControllerPage())
         : Get.to(() => const AuthInitialPage());*/
-    //Get.to(() => ControllerPage());
-    Get.to(() => const AuthInitialPage());
+    Get.to(() => ControllerPage());
+    //Get.to(() => const AuthInitialPage());
   }
 
   @override

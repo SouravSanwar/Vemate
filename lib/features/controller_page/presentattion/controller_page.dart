@@ -7,6 +7,7 @@ import 'package:ketemaa/features/home/presentation/home.dart';
 import 'package:ketemaa/features/mcp/presentation/mcp.dart';
 
 import 'package:ketemaa/features/profile/presentation/profile.dart';
+import 'package:ketemaa/main.dart';
 
 import '../../market/presentation/market.dart';
 
@@ -32,6 +33,7 @@ class ControllerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(ControllerPageController());
     return Obx(() {
+      printInfo(info: prefs!.getString('token').toString());
       return Scaffold(
           backgroundColor: const Color(0xff272E49),
           body: BottomBarPageTransition(

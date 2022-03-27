@@ -7,4 +7,6 @@ class ProfileController extends GetxController {
   TextEditingController userNameTextFiledController = TextEditingController();
   TextEditingController emailTextFiledController = TextEditingController();
   TextEditingController passwordTextFiledController = TextEditingController();
+
+  String sellerImageUrl = "";
 }

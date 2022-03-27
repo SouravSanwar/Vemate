@@ -2,6 +2,7 @@
     package="com.w3kernel.ketemaa">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:icon="@mipmap/ic_launcher"

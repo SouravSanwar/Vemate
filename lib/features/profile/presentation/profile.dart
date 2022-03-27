@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
@@ -103,6 +104,7 @@ class _ProfileState extends State<Profile> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
+                                    clipBehavior: Clip.antiAlias,
                                     child: CircleAvatar(
                                       radius:
                                           MediaQuery.of(context).size.width *
@@ -114,6 +116,7 @@ class _ProfileState extends State<Profile> {
                                             data.profileModel!.profileImage!
                                                 .mobile!.src
                                                 .toString(),
+                                        fit: BoxFit.fill,
                                       ),
 
                                       // Icon(Icons.person,size: 100,)
@@ -126,9 +129,7 @@ class _ProfileState extends State<Profile> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
+                                  AppSpaces.spaces_width_10,
                                   Text(
                                     data.profileModel!.nickname.toString(),
                                     style: TextStyle(
@@ -172,7 +173,7 @@ class _ProfileState extends State<Profile> {
                                   'Visit Vemate Website:\n https://www.vemate.com/');
                             }),
                             CustomProfileElements(Icons.info_outline_rounded,
-                                "About Vemate'", () {}),
+                                "About Vemate", () {}),
                           ],
                         ),
                       ],

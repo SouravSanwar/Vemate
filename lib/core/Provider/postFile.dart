@@ -8,8 +8,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/main.dart';
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 enum Method { POST, GET, PUT, DELETE, PATCH }
 
@@ -111,13 +113,13 @@ class PostFile extends ChangeNotifier {
     }
   }
 
-  static Future requestWithFile(BuildContext context,
+  Future requestWithFile(BuildContext context,
       {@required String? url,
       Map<String, String>? body,
       List<String>? fileKey,
       List<File>? files,
       Method method = Method.POST}) async {
-    CircularProgressIndicator();
+    const CircularProgressIndicator();
     print('New Body: $body');
     var result;
     //bool loading = false;
@@ -162,7 +164,19 @@ class PostFile extends ChangeNotifier {
         });
         showData(
             url: url, body: body, method: method, response: result.toString());
-        return json.decode(result);
+        //return json.decode(result);
+
+        var getData = Provider.of<GetData>(context, listen: false);
+        await getData.getUserInfo();
+
+        Flushbar(
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            isDismissible: false,
+            duration: const Duration(seconds: 3),
+            messageText: const Text(
+              'Updated Successfully',
+              style: TextStyle(fontSize: 16.0, color: Colors.green),
+            )).show(context);
       } else if (response.statusCode == 413) {
         print('Big File');
 
@@ -172,7 +186,7 @@ class PostFile extends ChangeNotifier {
             duration: const Duration(seconds: 3),
             messageText: const Text(
               'File too large',
-              style: const TextStyle(fontSize: 16.0, color: Colors.green),
+              style: TextStyle(fontSize: 16.0, color: Colors.green),
             )).show(context);
 
         return {'error': 'file_too_large'};
@@ -186,11 +200,13 @@ class PostFile extends ChangeNotifier {
           duration: const Duration(seconds: 3),
           messageText: const Text(
             'check your internet connection',
-            style: const TextStyle(fontSize: 16.0, color: Colors.green),
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
 
       return {'error': 'check_your_internet_connection'};
     }
+
+    notifyListeners();
   }
 
   static void showData(

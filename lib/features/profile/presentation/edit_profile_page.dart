@@ -1,11 +1,15 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
+import 'package:ketemaa/core/Provider/postFile.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
+import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/profile/_controller/profile_controller.dart';
 import 'package:ketemaa/graph/designhelper.dart';
 import 'package:provider/provider.dart';
@@ -25,21 +29,25 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  //Imagepicker
-  XFile? imageXFile;
-  final ImagePicker _picker = ImagePicker();
-  String sellerImageUrl = "";
+  String? _fileName;
+  String? _saveAsFileName;
+  List<PlatformFile>? _paths;
+  String? _directoryPath;
+  String? _extension;
+  bool _isLoading = false;
+  bool _userAborted = false;
+  FileType _pickingType = FileType.image;
+  List<File>? files = <File>[];
+  List<File>? fileList = <File>[];
+  final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
   PostData? postData;
 
-  ProfileModel? profileModel = Get.arguments;
+  PostFile? postFile;
 
-  Future<void> _getImage() async {
-    imageXFile = await _picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      imageXFile;
-    });
-  }
+  GetData? getData;
+
+  ProfileModel? profileModel = Get.arguments;
 
   @override
   void initState() {
@@ -48,8 +56,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
     ProfileController.to.userNameTextFiledController.text =
         profileModel!.nickname!;
     ProfileController.to.emailTextFiledController.text = profileModel!.email!;
+    ProfileController.to.sellerImageUrl =
+        profileModel!.profileImage!.mobile!.src.toString();
 
+    postFile = Provider.of<PostFile>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
+    getData = Provider.of<GetData>(context, listen: false);
 
     // TODO: implement initState
     super.initState();
@@ -57,38 +69,46 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xff272E49),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        physics: const BouncingScrollPhysics(),
-        children: [
-          AppSpaces.spaces_height_100,
-          InkWell(
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                CircleAvatar(
-                  radius: MediaQuery.of(context).size.width * .25,
-                  backgroundColor: const Color(0xff2F3758),
-                  backgroundImage: imageXFile == null
-                      ? null
-                      : FileImage(File(imageXFile!.path)),
-                  child: imageXFile == null
-                      ? Shader(
-                          icon: const Icon(
-                            Icons.person_add_alt_1_rounded,
-                            size: 100,
-                          ),
-                        )
-                      : null,
-                ),
-                Positioned(
+    return Consumer<GetData>(builder: (context, data, child){
+      return Scaffold(
+        backgroundColor: const Color(0xff272E49),
+        body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          physics: const BouncingScrollPhysics(),
+          children: [
+            AppSpaces.spaces_height_100,
+            InkWell(
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: MediaQuery.of(context).size.width * .25,
+                    backgroundColor: const Color(0xff2F3758),
+                    backgroundImage: ProfileController.to.sellerImageUrl == ""
+                        ? null
+                        : NetworkImage(
+                      Urls.mainUrl +
+                          data.profileModel!.profileImage!
+                              .mobile!.src
+                              .toString(),
+                    ),
+                    child: ProfileController.to.sellerImageUrl == ""
+                        ? Shader(
+                      icon: const Icon(
+                        Icons.person_add_alt_1_rounded,
+                        size: 100,
+                      ),
+                    )
+                        : null,
+                  ),
+                  Positioned(
                     bottom: 10,
                     right: 55,
                     child: RawMaterialButton(
                       onPressed: () {
-                        _getImage();
+                        setState(() {
+                          _pickFiles();
+                        });
                       },
                       elevation: 2.0,
                       fillColor: const Color(0xFFF5F6F9),
@@ -100,58 +120,133 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                       padding: const EdgeInsets.all(15.0),
                       shape: const CircleBorder(),
-                    )),
-              ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 80,
-          ),
-          TextInputField(
-            labelText: AppLanguageString.USERNAME.tr,
-            height: .09,
-            textType: TextInputType.emailAddress,
-            controller: ProfileController.to.userNameTextFiledController,
-          ),
-          AppSpaces.spaces_height_10,
-          TextInputField(
-            labelText: AppLanguageString.EMAIL.tr,
-            height: .09,
-            textType: TextInputType.emailAddress,
-            controller: ProfileController.to.emailTextFiledController,
-          ),
-          /*AppSpaces.spaces_height_10,
+            const SizedBox(
+              height: 80,
+            ),
+            TextInputField(
+              labelText: AppLanguageString.USERNAME.tr,
+              height: .09,
+              textType: TextInputType.emailAddress,
+              controller: ProfileController.to.userNameTextFiledController,
+            ),
+            AppSpaces.spaces_height_10,
+            TextInputField(
+              labelText: AppLanguageString.EMAIL.tr,
+              height: .09,
+              textType: TextInputType.emailAddress,
+              controller: ProfileController.to.emailTextFiledController,
+            ),
+            /*AppSpaces.spaces_height_10,
           PasswordInputField(
               labelText: AppLanguageString.PASSWORD.tr,
               height: .09,
               textType: TextInputType.text,
               controller: ProfileController.to.passwordTextFiledController),*/
-          AppSpaces.spaces_height_50,
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15),
-            padding: const EdgeInsets.symmetric(horizontal: 7),
-            width: Get.width,
-            decoration: BoxDecoration(
-              gradient: AppColors.purpleGradient, // set border width
-              borderRadius: const BorderRadius.all(
-                  Radius.circular(20.0)), // set rounded corner radius
-            ),
-            child: TextButton(
-              onPressed: () {
-                var body = {
-                  "nickname": ProfileController.to.userNameTextFiledController.text,
-                  "email": ProfileController.to.emailTextFiledController.text
-                };
-                postData!.updateProfile(context, body);
-              },
-              child: Text(
-                AppLanguageString.UPDATE_INFO.toUpperCase(),
-                style: Get.textTheme.button!.copyWith(color: Colors.white),
+            AppSpaces.spaces_height_50,
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 7),
+              width: Get.width,
+              decoration: BoxDecoration(
+                gradient: AppColors.purpleGradient, // set border width
+                borderRadius: const BorderRadius.all(
+                    Radius.circular(20.0)), // set rounded corner radius
+              ),
+              child: TextButton(
+                onPressed: () {
+                  var body = {
+                    "nickname":
+                    ProfileController.to.userNameTextFiledController.text,
+                    "email": ProfileController.to.emailTextFiledController.text
+                  };
+                  postData!.updateProfile(context, body);
+                },
+                child: Text(
+                  AppLanguageString.UPDATE_INFO.toUpperCase(),
+                  style: Get.textTheme.button!.copyWith(color: Colors.white),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
+      );
+    });
+  }
+
+  Future _pickFiles() async {
+    _resetState();
+    try {
+      _directoryPath = null;
+      _paths = (await FilePicker.platform.pickFiles(
+        type: _pickingType,
+        allowMultiple: false,
+        onFileLoading: (FilePickerStatus status) => print(status),
+        allowedExtensions: (_extension?.isNotEmpty ?? false)
+            ? _extension?.replaceAll(' ', '').split(',')
+            : null,
+      ))
+          ?.files;
+
+      files!.add(File(_paths![0].path!));
+      fileList!.addAll(files!);
+
+      List<String> fileKey = [];
+
+      for (int i = 0; i < fileList!.length; i++) {
+        fileKey.add('image');
+      }
+      Map<String, String>? body = {};
+
+      postFile!.requestWithFile(context,
+          url: Urls.updateProfilePic,
+          method: Method.POST,
+          body: body,
+          fileKey: fileKey,
+          files: fileList);
+
+
+      printInfo(info: 'Files' + fileList.toString());
+      printInfo(info: 'Files' + _paths.toString());
+    } on PlatformException catch (e) {
+      _logException('Unsupported operation' + e.toString());
+    } catch (e) {
+      _logException(e.toString());
+    }
+    if (!mounted) return;
+    setState(() {
+      _isLoading = false;
+      _fileName =
+          _paths != null ? _paths!.map((e) => e.name).toString() : '...';
+      _userAborted = _paths == null;
+    });
+  }
+
+  void _logException(String message) {
+    print(message);
+    _scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
+    _scaffoldMessengerKey.currentState?.showSnackBar(
+      SnackBar(
+        content: Text(message),
       ),
     );
+  }
+
+  void _resetState() {
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _isLoading = true;
+      _directoryPath = null;
+      _fileName = null;
+      _paths = null;
+      _saveAsFileName = null;
+      _userAborted = false;
+    });
   }
 }

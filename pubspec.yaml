@@ -74,6 +74,7 @@ dependencies:
   hexcolor: ^2.0.6
   pinput: ^2.2.4
   pin_code_fields: ^7.3.0
+  file_picker: ^4.5.1
 
 
 dev_dependencies:
