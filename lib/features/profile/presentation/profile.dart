@@ -15,7 +15,8 @@ import 'package:store_redirect/store_redirect.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../core/utilities/app_colors/app_colors.dart';
-import '../../market/presentation/vault.dart';
+import '../../market/presentation/vault/vault.dart';
+import '../../market/presentation/vault/vaule_collectibles_card.dart';
 import 'custom_app_bar.dart';
 
 class Profile extends StatefulWidget {

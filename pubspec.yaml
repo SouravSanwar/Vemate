@@ -73,6 +73,7 @@ dependencies:
   random_color: ^1.0.6-nullsafety
   hexcolor: ^2.0.6
   pinput: ^2.2.4
+  blurrycontainer: ^0.1.0
 
 
 dev_dependencies:

@@ -51,6 +51,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
         right: AppDimension.padding_8,
       ),
       child: ListView.builder(
+
         shrinkWrap: true,
         itemCount: widget.list!.length,
         itemBuilder: (BuildContext context, int index) {

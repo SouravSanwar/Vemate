@@ -9,6 +9,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/market_card_shimmer.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:ketemaa/features/market/presentation/vault/vaule_collectibles_card.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/utilities/app_assets/app_assets.dart';
@@ -117,6 +118,7 @@ class _MarketState extends State<Market> {
                     ),
                     child: Row(
                       children: [
+
                         Expanded(
                           child: Container(
                             height: 60,
