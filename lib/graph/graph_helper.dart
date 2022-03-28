@@ -37,10 +37,9 @@ class GraphHelper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.symmetric(horizontal:15),
-        child: ListView(
-            children: [
+        padding: const EdgeInsets.symmetric(horizontal:20),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center, children: [
           FadeInUp(
             duration: Duration(milliseconds: 100),
             child: Row(
@@ -72,21 +71,14 @@ class GraphHelper extends StatelessWidget {
                     gh.vv = '8PM';
                     gh.ww = '10PM';
                   },
-                  child: Row(
-                    children: [
-                      SizedBox(width: 8),
-                      Text(
-                        "1 H",
+                  child:const Text(
+                        "1H",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
                         ),
                       ),
-                      SizedBox(width: 8),
-                    ],
-                  ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
 
@@ -95,38 +87,25 @@ class GraphHelper extends StatelessWidget {
                   onPressed: () {
                     // Navigator.of(context).pushReplacementNamed('/');
                   },
-                  child: Row(
-                    children: [
-                      SizedBox(width: 6),
-                      Text(
-                        "24 H",
+                  child:const Text(
+                        "24H",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
                         ),
                       ),
-                      SizedBox(width: 6),
-                    ],
-                  ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 DesignHelper(
                   onPressed: () {},
-                  child: Row(
-                    children: [
-                      SizedBox(width: 8),
-                      Text(
-                        "7 D",
+                  child:const Text(
+                        "7D",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
                         ),
                       ),
-                      SizedBox(width: 8),
-                    ],
-                  ),
+
                 ),
 
                 SizedBox(
@@ -135,23 +114,17 @@ class GraphHelper extends StatelessWidget {
                 //FOR 30 DAYS
                 DesignHelper(
                   onPressed: () {},
-                  child: Row(
-                    children: [
-                      SizedBox(width: 6),
-                      Text(
-                        "30 D",
+                  child:const Text(
+                        "30D",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
                         ),
                       ),
-                      SizedBox(width: 6),
-                    ],
-                  ),
                 ),
               ],
             ),
           ),
+          const SizedBox(height: 5,),
 
           FadeInUp(
             duration: Duration(milliseconds: 1000),
@@ -161,22 +134,16 @@ class GraphHelper extends StatelessWidget {
                 //FOR 60 DAYS
                 DesignHelper(
                   onPressed: () {},
-                  child: Row(
-                    children: [
-                      SizedBox(width: 6),
-                      Text(
-                        "60 D",
+                  child: const Text(
+                        "60D",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
                         ),
                       ),
-                      SizedBox(width: 6),
-                    ],
-                  ),
+
                 ),
 
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
 
@@ -196,19 +163,12 @@ class GraphHelper extends StatelessWidget {
                     gh.kk = 'NOV';
                     gh.ll = 'DEC';
                   },
-                  child: Row(
-                    children: const [
-                      SizedBox(width: 8),
-                      Text(
-                        "1 Y",
+                  child:const Text(
+                        "1Y",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
                         ),
                       ),
-                      SizedBox(width: 8),
-                    ],
-                  ),
                 ),
 
                 const SizedBox(
@@ -218,24 +178,17 @@ class GraphHelper extends StatelessWidget {
                 //FOR 60 DAYS
                 DesignHelper(
                   onPressed: () {},
-                  child: Row(
-                    children: const [
-                      SizedBox(width: 8),
-                      Text(
+                  child:const Text(
                         "All",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
                         ),
                       ),
-                      SizedBox(width: 8),
-                    ],
-                  ),
                 ),
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           // recent transactions
@@ -246,6 +199,7 @@ class GraphHelper extends StatelessWidget {
                   ? data.singleCollectibleModel!.details!.name.toString() +
                       "'s Details"
                   : "",
+              textAlign: TextAlign.center,
               style: TextStyle(
                   color: gh.c ? Colors.blueGrey.shade300 : Colors.green,
                   fontWeight: FontWeight.bold,
@@ -255,14 +209,14 @@ class GraphHelper extends StatelessWidget {
           const SizedBox(height: 20,),
 
          Expanded(
-           child:Container(
+          child:Container(
 
-             decoration: BoxDecoration(
-                 border: Border.all(color: Colors.white,width: 0.5)
-             ),
+          decoration: BoxDecoration(
+          border: Border.all(color: Colors.white,width: 0.5)
+          ),
 
-            child: Column(
-                mainAxisSize: MainAxisSize.min,
+         child: ListView(
+
               children: <Widget>[
               ItemDetails(
                 text: "Floor Price",
@@ -372,11 +326,11 @@ class GraphHelper extends StatelessWidget {
             ]
            ),
            ),
-          ),
-              SizedBox(height: 20,)
+         ),
+        SizedBox(height: 20,),
 
-        ]
-        ),
+
+        ]),
       );
     });
   }

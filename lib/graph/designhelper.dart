@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 
 class DesignHelper extends StatefulWidget {
@@ -25,21 +27,23 @@ class _DesignHelperState extends State<DesignHelper> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10)
-      ),
+    return Container(
+      width: Get.width*.2,
+        height: Get.height*.05,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          gradient: AppColors.purpleGradient, // set border width
+          borderRadius: const BorderRadius.all(
+              Radius.circular(20.0)), // set rounded corner radius
+        ),
+      child: MaterialButton(
       child: widget.child,
-      color: AppColors.primaryColor,
-      highlightElevation: 5,
-      minWidth: 20,
-      splashColor: Color(0x1F1A1A1A),
 
       onPressed: () {
         widget.onPressed();
       },
 
+    )
     );
   }
 }
@@ -81,14 +85,13 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
 
         enabled: enabled,
-
         controller: controller,
         obscureText: isObsecre!,
         cursorColor: Theme.of(context).primaryColor,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.red,
               width: 1.0,
             ),

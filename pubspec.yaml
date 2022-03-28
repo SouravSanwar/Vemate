@@ -73,8 +73,7 @@ dependencies:
   random_color: ^1.0.6-nullsafety
   hexcolor: ^2.0.6
   pinput: ^2.2.4
-  pin_code_fields: ^7.3.0
-  file_picker: ^4.5.1
+  blurrycontainer: ^0.1.0
 
 
 dev_dependencies:
@@ -103,8 +102,7 @@ flutter:
   assets:
     - assets/media/image/
     - assets/media/icon/
-    - assets/media/slider/
-
+    - slider/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -38,5 +38,17 @@ class AppColors {
       Color(0xff303B5B),
     ],
   );
+  static Gradient vaultBarGradient=const LinearGradient(
+    colors: [
+      Color(0xff454F70),
+      Color(0xff3F496A),
+      Color(0xff374162),
+      Color(0xff303B5B),
+      const Color(0xff584D9F),
+      const Color(0xff393E6B),
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
 
 }

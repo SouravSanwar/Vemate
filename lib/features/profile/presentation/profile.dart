@@ -20,6 +20,8 @@ import 'package:store_redirect/store_redirect.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../core/utilities/app_colors/app_colors.dart';
+import '../../market/presentation/vault/vault.dart';
+import '../../market/presentation/vault/vaule_collectibles_card.dart';
 import 'custom_app_bar.dart';
 
 class Profile extends StatefulWidget {
@@ -153,6 +155,47 @@ class _ProfileState extends State<Profile> {
                                 arguments: data.profileModel,
                               );
 
+                   SizedBox(height: 50,),
+                    CustomProfileElements(
+                        Icons.person,
+                        "Profile Edit",
+                            (){ Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (c) => EditProfilePage()));
+                        }
+                    ),
+                   /* Image.asset(
+                      'assets/media/image/edit.png',
+                      height: 25,
+                      width: 25,
+                      color: Colors.white,
+                    ),*/
+                    CustomProfileElements(
+                        Icons.help_outline,
+                        "Help and Support",
+                            (){    }
+                    ),
+                    CustomProfileElements(
+                        Icons.privacy_tip_outlined,
+                        "Privacy Policy",
+                            (){Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (c) => Vault()));
+                        }
+                    ),
+                    CustomProfileElements(
+                        Icons.rate_review_outlined,
+                        "Rate",
+                            (){
+                          showDialog(context: context, builder: (context) => _dialog,);
+                        }
+                    ),
+                    CustomProfileElements(
+                        Icons.share,
+                        "Share Vemate",
+                            (){
                               /*Navigator.push(
                           context,
                           MaterialPageRoute(
