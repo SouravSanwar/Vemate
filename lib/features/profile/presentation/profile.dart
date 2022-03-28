@@ -7,6 +7,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_sizes.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/widgets/profile_divider.dart';
@@ -57,7 +58,6 @@ class _ProfileState extends State<Profile> {
 
   final _dialog = RatingDialog(
     initialRating: 5.0,
-
     title: Text(
       'Vemate',
       style: Get.textTheme.headline2,
@@ -96,139 +96,80 @@ class _ProfileState extends State<Profile> {
                     left: AppDimension.padding_8,
                     right: AppDimension.padding_8,
                   ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ListView(
-                          shrinkWrap: true,
+                  child: ListView(
+                    children: [
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(
-                              height: 50,
+                            Container(
+                              clipBehavior: Clip.antiAlias,
+                              child: CircleAvatar(
+                                radius: MediaQuery.of(context).size.width * .15,
+                                backgroundColor: const Color(0xff272E49),
+                                backgroundImage: null,
+                                child: Image.network(
+                                  Urls.mainUrl +
+                                      data.profileModel!.profileImage!.mobile!
+                                          .src
+                                          .toString(),
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: AppColors.greyWhite,
+                                  width: 2.0,
+                                ),
+                              ),
                             ),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    clipBehavior: Clip.antiAlias,
-                                    child: CircleAvatar(
-                                      radius:
-                                          MediaQuery.of(context).size.width *
-                                              .15,
-                                      backgroundColor: const Color(0xff272E49),
-                                      backgroundImage: null,
-                                      child: Image.network(
-                                        Urls.mainUrl +
-                                            data.profileModel!.profileImage!
-                                                .mobile!.src
-                                                .toString(),
-                                        fit: BoxFit.fill,
-                                      ),
-
-                                      // Icon(Icons.person,size: 100,)
-                                    ),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: AppColors.greyWhite,
-                                        width: 2.0,
-                                      ),
-                                    ),
-                                  ),
-                                  AppSpaces.spaces_width_10,
-                                  Text(
-                                    data.profileModel!.nickname.toString(),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20.0),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ]),
-                            const SizedBox(
-                              height: 50,
+                            AppSpaces.spaces_width_10,
+                            Text(
+                              data.profileModel!.nickname.toString(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0),
+                              textAlign: TextAlign.center,
                             ),
-                            CustomProfileElements(Icons.person, "Profile Edit",
-                                () {
-                              Get.toNamed(
-                                AppRoutes.EDIT_PROFILE,
-                                arguments: data.profileModel,
-                              );
-
-                   SizedBox(height: 50,),
-                    CustomProfileElements(
-                        Icons.person,
-                        "Profile Edit",
-                            (){ Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (c) => EditProfilePage()));
-                        }
-                    ),
-                   /* Image.asset(
-                      'assets/media/image/edit.png',
-                      height: 25,
-                      width: 25,
-                      color: Colors.white,
-                    ),*/
-                    CustomProfileElements(
-                        Icons.help_outline,
-                        "Help and Support",
-                            (){    }
-                    ),
-                    CustomProfileElements(
-                        Icons.privacy_tip_outlined,
-                        "Privacy Policy",
-                            (){Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (c) => Vault()));
-                        }
-                    ),
-                    CustomProfileElements(
-                        Icons.rate_review_outlined,
-                        "Rate",
-                            (){
-                          showDialog(context: context, builder: (context) => _dialog,);
-                        }
-                    ),
-                    CustomProfileElements(
-                        Icons.share,
-                        "Share Vemate",
-                            (){
-                              /*Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (c) => EditProfilePage(),
-                          ),
-                        );*/
-                            }),
-                            CustomProfileElements(
-                                Icons.help_outline, "Help and Support", () {}),
-                            CustomProfileElements(Icons.privacy_tip_outlined,
-                                "Privacy Policy", () {}),
-                            CustomProfileElements(
-                                Icons.rate_review_outlined, "Rate", () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => _dialog,
-                              );
-                            }),
-                            CustomProfileElements(Icons.share, "Share Vemate",
-                                () {
-                              Share.share(
-                                  'Visit Vemate Website:\n https://www.vemate.com/');
-                            }),
-                            CustomProfileElements(Icons.info_outline_rounded,
-                                "About Vemate", () {}),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ]),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      CustomProfileElements(Icons.person, "Profile Edit", () {
+                        Get.toNamed(
+                          AppRoutes.EDIT_PROFILE,
+                          arguments: data.profileModel,
+                        );
+                      }),
+                      CustomProfileElements(
+                          Icons.help_outline, "Help and Support", () {}),
+                      CustomProfileElements(
+                          Icons.privacy_tip_outlined, "Privacy Policy", () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (c) => Vault()));
+                      }),
+                      CustomProfileElements(Icons.rate_review_outlined, "Rate",
+                          () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => _dialog,
+                        );
+                      }),
+                      CustomProfileElements(Icons.share, "Share Vemate", () {
+                        Share.share(
+                            'Visit Vemate Website:\n https://www.vemate.com/');
+                      }),
+                      CustomProfileElements(
+                          Icons.info_outline_rounded, "About Vemate", () {}),
+                    ],
                   ),
                 ),
               )
-            : Container();
+            : LoadingExample();
       }),
     );
   }

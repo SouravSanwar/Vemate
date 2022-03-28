@@ -25,8 +25,8 @@ class Vault extends StatefulWidget {
 
 class _VaultState extends State<Vault> {
   bool _isLoaded = false;
-  double scrnHeight=Get.height;
-  double scrnWidth=Get.width;
+  double scrnHeight = Get.height;
+  double scrnWidth = Get.width;
 
   @override
   void initState() {
@@ -49,16 +49,16 @@ class _VaultState extends State<Vault> {
     SharedPreferenceController.to.getToken();
 
     return Scaffold(
-      backgroundColor: Color(0xff272E49),
+      backgroundColor: AppColors.backgroundColor,
       body: Consumer<GetData>(builder: (context, data, child) {
         return Padding(
-          padding: EdgeInsets.only(top: 0.0),
+          padding: const EdgeInsets.only(top: 0.0),
           child: Stack(
             //shrinkWrap: true,
             children: [
               ListView(
                 children: [
-                  SizedBox(height:Get.height*.2),
+                  SizedBox(height: Get.height * .2),
                   Padding(
                     padding: EdgeInsets.only(
                         left:
@@ -72,8 +72,10 @@ class _VaultState extends State<Vault> {
                     ),
                   ),
                   VaultCollectiblesCard(),
-                   SizedBox(height: Get.height*.02,),
-                   Padding(
+                  SizedBox(
+                    height: Get.height * .02,
+                  ),
+                  Padding(
                     padding: EdgeInsets.only(
                         left:
                             Get.width * .06), //apply padding to all four sides
@@ -86,11 +88,13 @@ class _VaultState extends State<Vault> {
                     ),
                   ),
                   VaultComicsCard(),
-                  SizedBox(height: Get.height*.02,),
+                  SizedBox(
+                    height: Get.height * .02,
+                  ),
                   Padding(
                     padding: EdgeInsets.only(
                         left:
-                        Get.width * .06), //apply padding to all four sides
+                            Get.width * .06), //apply padding to all four sides
                     child: const Text(
                       "My Sets",
                       style: TextStyle(
@@ -100,22 +104,23 @@ class _VaultState extends State<Vault> {
                     ),
                   ),
                   Container(
-                      height: Get.height*.22,
-                   child: SizedBox(
-                      width: Get.width,
-                      child: data.collectiblesModel != null
-                          ? MysetsCard(
-                        list: data.collectiblesModel!.collectibles!
-                            .results,
-                      )
-                          : LoadingExample(),
-                    )
+                      height: Get.height * .22,
+                      child: SizedBox(
+                        width: Get.width,
+                        child: data.collectiblesModel != null
+                            ? MysetsCard(
+                                list: data
+                                    .collectiblesModel!.collectibles!.results,
+                              )
+                            : const LoadingExample(),
+                      )),
+                  SizedBox(
+                    height: Get.height * .02,
                   ),
-                  SizedBox(height: Get.height*.02,),
                   Padding(
                     padding: EdgeInsets.only(
                         left:
-                        Get.width * .06), //apply padding to all four sides
+                            Get.width * .06), //apply padding to all four sides
                     child: const Text(
                       "My Wishlist",
                       style: TextStyle(
@@ -124,26 +129,21 @@ class _VaultState extends State<Vault> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-
                   Container(
-                      height: Get.height*.22,
+                      height: Get.height * .22,
                       child: SizedBox(
                         width: Get.width,
                         child: data.collectiblesModel != null
                             ? MysetsCard(
-                          list: data.collectiblesModel!.collectibles!
-                              .results,
-                        )
-                            : LoadingExample(),
-                      )
-                  ),
-
-
+                                list: data
+                                    .collectiblesModel!.collectibles!.results,
+                              )
+                            : const LoadingExample(),
+                      )),
                 ],
               ),
-
               Positioned(
-                top: Get.height*.03,
+                top: Get.height * .03,
                 left: 0.0,
                 right: 0.0,
                 child: ClipPath(
@@ -174,7 +174,7 @@ class _VaultState extends State<Vault> {
                           ),
                         ]),
                         SizedBox(
-                          height: Get.height* .015,
+                          height: Get.height * .015,
                         ),
                         Row(
                           children: [
@@ -183,7 +183,7 @@ class _VaultState extends State<Vault> {
                             ),
                             Expanded(
                               flex: 4,
-                              child:Text(
+                              child: Text(
                                 "Vault Value",
                                 textAlign: TextAlign.start,
                                 style: Get.textTheme.bodyText2!.copyWith(
@@ -194,8 +194,7 @@ class _VaultState extends State<Vault> {
                             ),
                             Expanded(
                               flex: 2,
-                              child:Text(
-
+                              child: Text(
                                 "MCP",
                                 textAlign: TextAlign.start,
                                 style: Get.textTheme.bodyText2!.copyWith(
@@ -206,7 +205,7 @@ class _VaultState extends State<Vault> {
                             ),
                             Expanded(
                               flex: 3,
-                              child:Container(
+                              child: Container(
                                 width: Get.width * .15,
                                 height: Get.height * .03,
                                 alignment: Alignment.center,
@@ -227,9 +226,9 @@ class _VaultState extends State<Vault> {
                                 ),
                               ),
                             ),
-                            Expanded(
+                            const Expanded(
                               flex: 4,
-                              child:Text(""),
+                              child: Text(""),
                             ),
                           ],
                         ),
@@ -240,7 +239,7 @@ class _VaultState extends State<Vault> {
                             ),
                             Expanded(
                               flex: 4,
-                              child:Text(
+                              child: Text(
                                 r"$" + "4563",
                                 textAlign: TextAlign.start,
                                 style: Get.textTheme.bodyText2!.copyWith(
@@ -251,8 +250,7 @@ class _VaultState extends State<Vault> {
                             ),
                             Expanded(
                               flex: 2,
-                              child:Text(
-
+                              child: Text(
                                 "187",
                                 textAlign: TextAlign.start,
                                 style: Get.textTheme.bodyText2!.copyWith(
@@ -263,24 +261,34 @@ class _VaultState extends State<Vault> {
                             ),
                             Expanded(
                               flex: 3,
-                              child:Row(
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   if (percent < 0.0)
-                                  //toRotateIcon
-                                    RotationTransition(
-                                      turns: new AlwaysStoppedAnimation(45 / 360),
-                                      child: Icon(Icons.arrow_downward, size: 18,color: Colors.red,),
+                                    //toRotateIcon
+                                    const RotationTransition(
+                                      turns:
+                                          AlwaysStoppedAnimation(45 / 360),
+                                      child: Icon(
+                                        Icons.arrow_downward,
+                                        size: 18,
+                                        color: Colors.red,
+                                      ),
                                     )
                                   else
-                                    RotationTransition(
-                                      turns: new AlwaysStoppedAnimation(45 / 360),
-                                      child: Icon(Icons.arrow_upward, size: 18,color: Colors.green,),
+                                    const RotationTransition(
+                                      turns:
+                                          AlwaysStoppedAnimation(45 / 360),
+                                      child: Icon(
+                                        Icons.arrow_upward,
+                                        size: 18,
+                                        color: Colors.green,
+                                      ),
                                     ),
                                   Text(
                                     percent < 0.0
                                         ? percent.toString()
-                                        : percent.toString()+"%",
+                                        : percent.toString() + "%",
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
                                       color: percent < 0.0
@@ -289,14 +297,12 @@ class _VaultState extends State<Vault> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-
-
                                 ],
                               ),
                             ),
-                            Expanded(
+                            const Expanded(
                               flex: 4,
-                              child:Text(""),
+                              child: Text(""),
                             ),
                           ],
                         ),
@@ -309,7 +315,7 @@ class _VaultState extends State<Vault> {
                           child: LineChart(
                             mainData(), // Optional
                             swapAnimationCurve:
-                            Curves.easeInOutBack, // Optional
+                                Curves.easeInOutBack, // Optional
                           ),
                         ),
                         Positioned(
@@ -460,38 +466,38 @@ class _VaultState extends State<Vault> {
         LineChartBarData(
           spots: _isLoaded
               ? [
-                  FlSpot(0, 0),
-                  FlSpot(2.9, 2),
-                  FlSpot(4.4, 3),
-                  FlSpot(6.4, 3.1),
-                  FlSpot(8, 4),
-                  FlSpot(9.5, 4),
-                  FlSpot(12, 5),
-                  FlSpot(16, 1),
-                  FlSpot(20, 8),
-                  FlSpot(24, 2),
-                  FlSpot(28, 4.1),
-                  FlSpot(32, 5),
-                  FlSpot(36, 2.9),
-                  FlSpot(40, 1.8),
-                  FlSpot(44, 6),
+                  const FlSpot(0, 0),
+                  const FlSpot(2.9, 2),
+                  const FlSpot(4.4, 3),
+                  const FlSpot(6.4, 3.1),
+                  const FlSpot(8, 4),
+                  const FlSpot(9.5, 4),
+                  const FlSpot(12, 5),
+                  const FlSpot(16, 1),
+                  const FlSpot(20, 8),
+                  const FlSpot(24, 2),
+                  const FlSpot(28, 4.1),
+                  const FlSpot(32, 5),
+                  const FlSpot(36, 2.9),
+                  const FlSpot(40, 1.8),
+                  const FlSpot(44, 6),
                 ]
               : [
-                  FlSpot(0, 0),
-                  FlSpot(2.4, 0),
-                  FlSpot(4.4, 0),
-                  FlSpot(6.4, 0),
-                  FlSpot(8, 0),
-                  FlSpot(9.5, 0),
-                  FlSpot(12, 0),
-                  FlSpot(16, 0),
-                  FlSpot(20, 0),
-                  FlSpot(24, 0),
-                  FlSpot(28, 0),
-                  FlSpot(32, 0),
-                  FlSpot(36, 0),
-                  FlSpot(40, 0),
-                  FlSpot(44, 0),
+                  const FlSpot(0, 0),
+                  const FlSpot(2.4, 0),
+                  const FlSpot(4.4, 0),
+                  const FlSpot(6.4, 0),
+                  const FlSpot(8, 0),
+                  const FlSpot(9.5, 0),
+                  const FlSpot(12, 0),
+                  const FlSpot(16, 0),
+                  const FlSpot(20, 0),
+                  const FlSpot(24, 0),
+                  const FlSpot(28, 0),
+                  const FlSpot(32, 0),
+                  const FlSpot(36, 0),
+                  const FlSpot(40, 0),
+                  const FlSpot(44, 0),
                 ],
           isCurved: true,
           colors: gradientColors,
@@ -501,8 +507,8 @@ class _VaultState extends State<Vault> {
           ),
           belowBarData: BarAreaData(
               show: true,
-              gradientFrom: Offset(0, 0),
-              gradientTo: Offset(0, 1),
+              gradientFrom: const Offset(0, 0),
+              gradientTo: const Offset(0, 1),
               colors: [
                 const Color(0xff8053B7),
                 const Color(0xff8053B7),
@@ -517,10 +523,11 @@ class _VaultState extends State<Vault> {
 
 class WaveClip extends CustomClipper<Path> {
   late final double? adjust = 0;
+
   @override
   Path getClip(Size size) {
     Path path = new Path();
-    path.lineTo(0.0, size.height * 0.60-10 );
+    path.lineTo(0.0, size.height * 0.60 - 10);
 
     var startpoints = Offset(size.width * 0.273, size.height * 0.819 - adjust!);
     var startcontrolpoints =

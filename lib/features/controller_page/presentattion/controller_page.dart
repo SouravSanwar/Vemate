@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/home/presentation/home.dart';
+import 'package:ketemaa/features/market/presentation/vault/vault.dart';
 import 'package:ketemaa/features/mcp/presentation/mcp.dart';
 
 import 'package:ketemaa/features/profile/presentation/profile.dart';
@@ -57,7 +58,7 @@ class ControllerPage extends StatelessWidget {
     } else if (index == 1) {
       return Market();
     } else {
-      return const Profile();
+      return Vault();
     }
   }
 

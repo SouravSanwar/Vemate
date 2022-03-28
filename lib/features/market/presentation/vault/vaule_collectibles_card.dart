@@ -3,100 +3,94 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 
 import 'package:ketemaa/graph/graph_helper.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
-class VaultCollectiblesCard extends StatefulWidget {
 
+class VaultCollectiblesCard extends StatefulWidget {
   @override
   State<VaultCollectiblesCard> createState() => _VaultCollectiblesCardState();
 }
 
-
 class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
-
   double percent = 3.30;
-
-
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
           width: Get.width,
-          height: Get.height*.18,
           decoration: BoxDecoration(
             gradient: AppColors.cardGradient,
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child:Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
                 flex: 4,
-                child:Padding(
-                  padding: const EdgeInsets.only(left: 10,top: 10),
-                  child:  Column(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10, top: 10),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "Collectibles Value",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Text(
-                        r"$" + "456",
+                      AppSpaces.spaces_height_5,
+                      const Text(
+                        "\$465",
                         style: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold),
+                            color: Colors.grey, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 30),
-                      Text(
+                      AppSpaces.spaces_height_30,
+                      const Text(
                         "MCP",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Text(
+                      AppSpaces.spaces_height_5,
+                      const Text(
                         "65",
                         style: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold),
+                            color: Colors.grey, fontWeight: FontWeight.bold),
                       ),
+                      AppSpaces.spaces_height_10,
                     ],
-
                   ),
                 ),
               ),
               Expanded(
-                  flex: 6,
-                child:Padding(
-                  padding: const EdgeInsets.only(left: 30,top: 10,right: 10),
-                  child:Column(
-                    children:  [
+                flex: 6,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30, top: 10, right: 10),
+                  child: Column(
+                    children: [
                       Container(
-
-                        height: Get.height*.09,
+                        height: Get.height * .09,
                         child: LineChart(
-                          mainData(),// Optional
-                          swapAnimationCurve:
-                          Curves.linear, // Optional
+                          mainData(), // Optional
+                          swapAnimationCurve: Curves.linear, // Optional
                         ),
                       ),
-                      SizedBox(height: Get.height*.038,),
+                      SizedBox(
+                        height: Get.height * .038,
+                      ),
                       Row(
-
                         children: [
-                          SizedBox(width: Get.width*.1,),
+                          SizedBox(
+                            width: Get.width * .1,
+                          ),
                           const Text(
                             r"$" + "175",
                             style: TextStyle(
@@ -104,23 +98,27 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                 fontWeight: FontWeight.bold),
                           ),
                           Expanded(
-                            child:Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                SizedBox(width: Get.width*.1,),
+                                SizedBox(
+                                  width: Get.width * .1,
+                                ),
                                 Text(
                                   percent < 0.0
                                       ? percent.toString()
-                                      : percent.toString()+"%",
+                                      : percent.toString() + "%",
                                   textAlign: TextAlign.end,
                                   style: TextStyle(
-                                      color: percent < 0.0
-                                          ? Colors.red
-                                          : Colors.green,
-                                      fontWeight: FontWeight.bold,
-                                      ),
+                                    color: percent < 0.0
+                                        ? Colors.red
+                                        : Colors.green,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                SizedBox(width: Get.width*.01,),
+                                SizedBox(
+                                  width: Get.width * .01,
+                                ),
                                 if (percent < 0.0)
                                   const Icon(
                                     Icons.arrow_downward,
@@ -136,23 +134,17 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                               ],
                             ),
                           ),
-
-
                         ],
-
                       )
                     ],
-
                   ),
                 ),
               ),
-
             ],
-          )
-      ),
-
+          )),
     );
   }
+
   List<Color> gradientColors = [
     const Color(0xff23b6e6),
     const Color(0xff02d31a),
@@ -250,41 +242,41 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
       maxY: 10,
       lineBarsData: [
         LineChartBarData(
-          spots:true
+          spots: true
               ? [
-            FlSpot(0, 0),
-            FlSpot(2.9, 2),
-            FlSpot(4.4, 3),
-            FlSpot(6.4, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 4),
-            FlSpot(12, 5),
-            FlSpot(16, 1),
-            FlSpot(20, 8),
-            FlSpot(24, 2),
-            FlSpot(28, 4.1),
-            FlSpot(32, 5),
-            FlSpot(36, 2.9),
-            FlSpot(40, 1.8),
-            FlSpot(44, 6),
-          ]
+                  const FlSpot(0, 0),
+                  const FlSpot(2.9, 2),
+                  const FlSpot(4.4, 3),
+                  const FlSpot(6.4, 3.1),
+                  const FlSpot(8, 4),
+                  const FlSpot(9.5, 4),
+                  const FlSpot(12, 5),
+                  const FlSpot(16, 1),
+                  const FlSpot(20, 8),
+                  const FlSpot(24, 2),
+                  const FlSpot(28, 4.1),
+                  const FlSpot(32, 5),
+                  const FlSpot(36, 2.9),
+                  const FlSpot(40, 1.8),
+                  const FlSpot(44, 6),
+                ]
               : [
-            FlSpot(0, 0),
-            FlSpot(2.4, 0),
-            FlSpot(4.4, 0),
-            FlSpot(6.4, 0),
-            FlSpot(8, 0),
-            FlSpot(9.5, 0),
-            FlSpot(12, 0),
-            FlSpot(16, 0),
-            FlSpot(20, 0),
-            FlSpot(24, 0),
-            FlSpot(28, 0),
-            FlSpot(32, 0),
-            FlSpot(36, 0),
-            FlSpot(40, 0),
-            FlSpot(44, 0),
-          ],
+                  const FlSpot(0, 0),
+                  const FlSpot(2.4, 0),
+                  const FlSpot(4.4, 0),
+                  const FlSpot(6.4, 0),
+                  const FlSpot(8, 0),
+                  const FlSpot(9.5, 0),
+                  const FlSpot(12, 0),
+                  const FlSpot(16, 0),
+                  const FlSpot(20, 0),
+                  const FlSpot(24, 0),
+                  const FlSpot(28, 0),
+                  const FlSpot(32, 0),
+                  const FlSpot(36, 0),
+                  const FlSpot(40, 0),
+                  const FlSpot(44, 0),
+                ],
           isCurved: true,
           colors: gradientColors,
           barWidth: 2,
@@ -303,5 +295,4 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
       ],
     );
   }
-
 }

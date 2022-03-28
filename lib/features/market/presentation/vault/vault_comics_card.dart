@@ -3,6 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 
 import 'package:ketemaa/graph/graph_helper.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -28,7 +29,6 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
       padding: const EdgeInsets.all(10.0),
       child: Container(
           width: Get.width,
-          height: Get.height*.18,
           decoration: BoxDecoration(
             gradient: AppColors.cardGradient,
             borderRadius: BorderRadius.circular(12.0),
@@ -42,36 +42,37 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                   padding: const EdgeInsets.only(left: 10,top: 10),
                   child:  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "Comics Value",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Text(
+                      AppSpaces.spaces_height_5,
+                      const Text(
                         r"$" + "4107",
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 30),
-                      Text(
+                      AppSpaces.spaces_height_30,
+                      const Text(
                         "MCP",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Text(
+                      AppSpaces.spaces_height_5,
+                      const Text(
                         "122",
                         style: TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.bold),
                       ),
+                      AppSpaces.spaces_height_10,
                     ],
 
                   ),
@@ -252,38 +253,38 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
         LineChartBarData(
           spots:true
               ? [
-            FlSpot(0, 0),
-            FlSpot(2.9, 2),
-            FlSpot(4.4, 3),
-            FlSpot(6.4, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 4),
-            FlSpot(12, 5),
-            FlSpot(16, 1),
-            FlSpot(20, 8),
-            FlSpot(24, 2),
-            FlSpot(28, 4.1),
-            FlSpot(32, 5),
-            FlSpot(36, 2.9),
-            FlSpot(40, 1.8),
-            FlSpot(44, 6),
+            const FlSpot(0, 0),
+            const FlSpot(2.9, 2),
+            const FlSpot(4.4, 3),
+            const FlSpot(6.4, 3.1),
+            const FlSpot(8, 4),
+            const FlSpot(9.5, 4),
+            const FlSpot(12, 5),
+            const FlSpot(16, 1),
+            const FlSpot(20, 8),
+            const FlSpot(24, 2),
+            const FlSpot(28, 4.1),
+            const FlSpot(32, 5),
+            const FlSpot(36, 2.9),
+            const FlSpot(40, 1.8),
+            const FlSpot(44, 6),
           ]
               : [
-            FlSpot(0, 0),
-            FlSpot(2.4, 0),
-            FlSpot(4.4, 0),
-            FlSpot(6.4, 0),
-            FlSpot(8, 0),
-            FlSpot(9.5, 0),
-            FlSpot(12, 0),
-            FlSpot(16, 0),
-            FlSpot(20, 0),
-            FlSpot(24, 0),
-            FlSpot(28, 0),
-            FlSpot(32, 0),
-            FlSpot(36, 0),
-            FlSpot(40, 0),
-            FlSpot(44, 0),
+            const FlSpot(0, 0),
+            const FlSpot(2.4, 0),
+            const FlSpot(4.4, 0),
+            const FlSpot(6.4, 0),
+            const FlSpot(8, 0),
+            const FlSpot(9.5, 0),
+            const FlSpot(12, 0),
+            const FlSpot(16, 0),
+            const FlSpot(20, 0),
+            const FlSpot(24, 0),
+            const FlSpot(28, 0),
+            const FlSpot(32, 0),
+            const FlSpot(36, 0),
+            const FlSpot(40, 0),
+            const FlSpot(44, 0),
           ],
           isCurved: true,
           colors: gradientColors,

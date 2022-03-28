@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:ketemaa/core/Provider/getData.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/main.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
@@ -119,7 +120,7 @@ class PostFile extends ChangeNotifier {
       List<String>? fileKey,
       List<File>? files,
       Method method = Method.POST}) async {
-    const CircularProgressIndicator();
+    LoadingExample();
     print('New Body: $body');
     var result;
     //bool loading = false;
@@ -168,6 +169,7 @@ class PostFile extends ChangeNotifier {
 
         var getData = Provider.of<GetData>(context, listen: false);
         await getData.getUserInfo();
+
 
         Flushbar(
             flushbarPosition: FlushbarPosition.BOTTOM,
