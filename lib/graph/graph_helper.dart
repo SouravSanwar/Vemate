@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:ketemaa/graph/components/item_details.dart';
 import 'package:provider/provider.dart';
 
 import '../core/Provider/getData.dart';
@@ -215,116 +216,7 @@ class GraphHelper extends StatelessWidget {
           border: Border.all(color: Colors.white,width: 0.5)
           ),
 
-         child: ListView(
-
-              children: <Widget>[
-              ItemDetails(
-                text: "Floor Price",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.floorPrice.toString()
-                    : "",
-              ),
-
-              const SizedBox(height: 0.5,),
-
-              ItemDetails(
-                text: "Owner",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.owner.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
-                ItemDetails(
-                text: "Edition",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.edition.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
-                ItemDetails(
-                text: "Name",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.name.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
-                ItemDetails(
-                text: "Drop Date",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.dropDate.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
-                ItemDetails(
-                text: "List Price",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.listPrice.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
-                ItemDetails(
-                text: "Editions",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.editions.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
-                ItemDetails(
-                text: "Edition Type",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.editionType.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
-                ItemDetails(
-                text: "Season",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.season.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
-                ItemDetails(
-                text: "Rarity",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.rarity.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
-                ItemDetails(
-                text: "Brand",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.brand.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
-                ItemDetails(
-                text: "Series",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.series.toString()
-                    : "",
-              ),
-            ]
-           ),
+         child: ItemDetails(),
            ),
          ),
         SizedBox(height: 20,),

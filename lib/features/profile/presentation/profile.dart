@@ -1,13 +1,10 @@
-import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
-import 'package:ketemaa/core/utilities/app_dimension/app_sizes.dart';
-import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
+import 'package:ketemaa/features/profile/_controller/shader.dart';
 import 'package:ketemaa/features/profile/widgets/profile_divider.dart';
 
-import 'package:ketemaa/graph/designhelper.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:store_redirect/store_redirect.dart';
@@ -15,9 +12,7 @@ import 'package:store_redirect/store_redirect.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../core/utilities/app_colors/app_colors.dart';
-import '../../market/presentation/vault/vault.dart';
-import '../../market/presentation/vault/vaule_collectibles_card.dart';
-import 'custom_app_bar.dart';
+import '../../market/vault/vault.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -42,11 +37,8 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     final _dialog = RatingDialog(
-      // your app's name?
       title: Text('Rate Us On App Store or Play Store'),
-      // encourage your user to leave a high rating?
       message: Text(''),
-      // your app's logo?
       image: Image.asset('slider/12.png'),
       submitButtonText: 'Submit',
       onCancelled: () => print('cancelled'),
@@ -54,10 +46,7 @@ class _ProfileState extends State<Profile> {
         print('rating: ${response.rating}, comment: ${response.comment}');
         // TODO: add your own logic
         if (response.rating < 3.0) {
-          // send their comments to your email or anywhere you wish
-          // ask the user to contact you instead of leaving a bad review
         } else {
-          //go to app store
           StoreRedirect.redirect(
               androidAppId: 'com.xinxian.shop', iOSAppId: 'com.xinxian.shop');
         }
@@ -65,7 +54,6 @@ class _ProfileState extends State<Profile> {
     );
 
     return SafeArea(
-      //maintainBottomViewPadding: true,
       minimum: EdgeInsets.zero,
       child: Scaffold(
         backgroundColor: Color(0xff272E49),

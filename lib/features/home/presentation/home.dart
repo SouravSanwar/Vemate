@@ -4,11 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/features/home/components/home_vault_card.dart';
 import 'package:ketemaa/features/home/components/name_row.dart';
-import 'package:ketemaa/features/profile/presentation/profile.dart';
-
+import 'package:ketemaa/features/profile/_controller/shader.dart';
+import 'package:provider/provider.dart';
+import '../../../core/Provider/getData.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
+import '../../../core/utilities/shimmer/loading.dart';
+import '../../market/Components/category_card.dart';
+import '../components/image_slider.dart';
 import '../components/matric_card.dart';
+import '../components/vault_new_item_card.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,228 +23,231 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-
-
 class _HomeState extends State<Home> {
 
-  final items=[
-    "slider/11.jpg",
-    "slider/12.jpg",
-    "slider/13.jpg",];
+  int? currentIndex = 1;
+  bool? allSelected = true;
+  bool? dropSelected = false;
+  bool? setsSelected = false;
+  bool? priceSelected = false;
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Consumer<GetData>(builder: (context, data, child) {
+      return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5),
+      child:Scaffold(
+      backgroundColor: Color(0xff272E49),
       body: ListView(
         children: [
-          Container(
-            height: Get.height * .13,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(AppDimension.padding_16),
-                bottomRight: Radius.circular(AppDimension.padding_16),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.green.withOpacity(0.3),
-                  spreadRadius: 2,
-                  blurRadius: 2,
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(AppDimension.padding_16),
-                  child: Text(
-                    'Vemate',
-                    style: Get.textTheme.headline2!
-                        .copyWith(color: AppColors.black),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.to(() => const Profile());
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(AppDimension.padding_16),
-                    child: Container(
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(AppDimension.padding_16),
+          SizedBox(height: Get.height * .02),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 5.0),
+                      child: SizedBox(
+                        height: Get.height * .04,
+                        width: Get.height * .04,
+                        child: Image.asset(
+                          'assets/media/icon/logo v.png',
+                          fit: BoxFit.fill,
                         ),
-                      ),
-                      child: Image.asset(
-                        'assets/media/image/profile.png',
-                        fit: BoxFit.cover,
-                      ),
+                      )),
+                  Text(
+                    "Hi, Andre",
+                    style: Get.textTheme.headline1!.copyWith(
+                        color: AppColors.white, fontWeight: FontWeight.w500),
+                  )
+                ],
+              ),
+
+
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15.0,),
+                child: Container(
+                  child: CircleAvatar(
+                    radius: MediaQuery
+                        .of(context)
+                        .size
+                        .width * .06,
+                    backgroundColor: Color(0xff272E49),
+                    backgroundImage: null,
+                    child: Shader(
+                      icon: Icon(Icons.person, size: 30,),
+                    ),
+
+                    // Icon(Icons.person,size: 100,)
+                  ),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: AppColors.greyWhite,
+                      width: 1.0,
                     ),
                   ),
                 ),
-              ],
+              )
+            ],
+          ),
+          Padding(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+            child: Text(
+              'News',
+              style: Get.textTheme.headline1!.copyWith(
+                  color: AppColors.white, fontWeight: FontWeight.w500),
             ),
           ),
           AppSpaces.spaces_height_10,
+          ImageSlider(),
+          AppSpaces.spaces_height_10,
+          Padding(
+            padding:
+            const EdgeInsets.only(top: 10, bottom: 0, left: 15, right: 15),
+            child: Text(
+              'My Vault',
+              style: Get.textTheme.headline1!.copyWith(
+                  color: AppColors.white, fontWeight: FontWeight.w500),
+            ),
+          ),
+          HomeVaultCard(),
+
+          Padding(
+            padding:
+            const EdgeInsets.only(top: 10, bottom: 0, left: 15, right: 15),
+            child: Text(
+              'Newest',
+              style: Get.textTheme.headline1!.copyWith(
+                  color: AppColors.white, fontWeight: FontWeight.w500),
+            ),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    currentIndex = 1;
+                    setState(() {
+                      allSelected = true;
+                      dropSelected = false;
+                      setsSelected = false;
+                      priceSelected = false;
+                    });
+                  },
+                  child: CategoryCard(
+                    name: 'All',
+                    gradient: allSelected == true
+                        ? AppColors.purpleGradient
+                        : const LinearGradient(
+                      colors: [
+                        Color(0xff272E49),
+                        Color(0xff272E49),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    currentIndex = 2;
+                    setState(() {
+                      allSelected = false;
+                      dropSelected = true;
+                      setsSelected = false;
+                      priceSelected = false;
+                    });
+                  },
+                  child: CategoryCard(
+                    name: 'Drop',
+                    gradient: dropSelected == true
+                        ? AppColors.purpleGradient
+                        : const LinearGradient(
+                      colors: [
+                        Color(0xff272E49),
+                        Color(0xff272E49),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    currentIndex = 3;
+                    setState(() {
+                      allSelected = false;
+                      dropSelected = false;
+                      setsSelected = true;
+                      priceSelected = false;
+                    });
+                  },
+                  child: CategoryCard(
+                    name: 'Sets',
+                    gradient: setsSelected == true
+                        ? AppColors.purpleGradient
+                        : const LinearGradient(
+                      colors: [
+                        Color(0xff272E49),
+                        Color(0xff272E49),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    currentIndex = 4;
+                    setState(() {
+                      allSelected = false;
+                      dropSelected = false;
+                      setsSelected = false;
+                      priceSelected = true;
+                    });
+                  },
+                  child: CategoryCard(
+                    name: 'Price',
+                    gradient: priceSelected == true
+                        ? AppColors.purpleGradient
+                        : const LinearGradient(
+                      colors: [
+                        Color(0xff272E49),
+                        Color(0xff272E49),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
 
           Container(
-            child: CarouselSlider(
-              options: CarouselOptions(
-                height: MediaQuery.of(context).size.height*.2,
-                aspectRatio: 16/9,
-                viewportFraction: 0.8,
-                initialPage: 0,
-                //again starts from first image
-                enableInfiniteScroll: true,
-                reverse: false,
-                autoPlay: true,
-                autoPlayInterval: const Duration(seconds: 2),
-                autoPlayAnimationDuration: const Duration(milliseconds: 500),
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enlargeCenterPage: true,
-                scrollDirection: Axis.horizontal,
-              ),
-              items: items.map((index) {
-                return Builder(builder: (BuildContext){
-                  return Container(
-                    width: MediaQuery.of(context).size.height,
-                    margin: const EdgeInsets.symmetric(horizontal: 1.0),
-                    decoration: BoxDecoration(
-                        color: Colors.white60
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Image.asset(
-                        index,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  );
-                });
-              }).toList(),
-            ),
-
-          ),
-
-          AppSpaces.spaces_height_10,
-
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: NameRow(
-              name: 'My Collectibles Matrices',
-              style: Get.textTheme.headline1!.copyWith(
-                  color: AppColors.black, fontWeight: FontWeight.w500),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: MatricesCard(
-                    time: '1 Hour',
-                    rate: '-3.49%',
-                  ),
-                ),
-                AppSpaces.spaces_width_10,
-                Expanded(
-                  child: MatricesCard(
-                    time: '24 Hours',
-                    rate: '3.49%',
-                  ),
-                ),
-                AppSpaces.spaces_width_10,
-                Expanded(
-                  child: MatricesCard(
-                    time: '7 Days',
-                    rate: '-3.49%',
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: MatricesCard(
-                    time: '30 Days',
-                    rate: '-3.49%',
-                  ),
-                ),
-                AppSpaces.spaces_width_10,
-                Expanded(
-                  child: MatricesCard(
-                    time: '60 Days',
-                    rate: '4.49%',
-                  ),
-                ),
-              ],
-            ),
-          ),
-          AppSpaces.spaces_height_20,
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: NameRow(
-              name: 'My Comics Matrices',
-              style: Get.textTheme.headline1!.copyWith(
-                  color: AppColors.black, fontWeight: FontWeight.w500),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: MatricesCard(
-                    time: '1 Hour',
-                    rate: '-3.49%',
-                  ),
-                ),
-                AppSpaces.spaces_width_10,
-                Expanded(
-                  child: MatricesCard(
-                    time: '24 Hours',
-                    rate: '3.49%',
-                  ),
-                ),
-                AppSpaces.spaces_width_10,
-                Expanded(
-                  child: MatricesCard(
-                    time: '7 Days',
-                    rate: '-3.49%',
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: MatricesCard(
-                    time: '30 Days',
-                    rate: '-3.49%',
-                  ),
-                ),
-                AppSpaces.spaces_width_10,
-                Expanded(
-                  child: MatricesCard(
-                    time: '60 Days',
-                    rate: '4.49%',
-                  ),
-                ),
-              ],
-            ),
+              height: Get.height * .22,
+              child: SizedBox(
+                width: Get.width,
+                child: data.collectiblesModel != null
+                    ? VaultNewItemCard(
+                  list: data
+                      .collectiblesModel!.collectibles!.results,
+                )
+                    : LoadingExample(),
+              )),
+          SizedBox(
+            height: Get.height * .02,
           ),
         ],
       ),
+    ),
+      );
+  },
     );
+
   }
 }

@@ -1,19 +1,14 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ketemaa/graph/designhelper.dart';
-
 import '../../../core/language/language_string.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
-import '../../../core/utilities/app_dimension/app_dimension.dart';
+import 'package:ketemaa/features/profile/_controller/shader.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
 import '../../../core/utilities/common_widgets/password_input_field.dart';
 import '../../../core/utilities/common_widgets/text_input_field.dart';
 import '../../auth/presentation/sign_in/_controller/sign_in_controller.dart';
-import '../widgets/custom_text_field.dart';
-
 class EditProfilePage extends StatefulWidget {
   @override
   _EditProfilePageState createState() => _EditProfilePageState();

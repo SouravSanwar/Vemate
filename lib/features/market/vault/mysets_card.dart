@@ -1,6 +1,4 @@
-import 'dart:ffi';
-import 'package:animate_do/animate_do.dart';
-import 'package:another_flushbar/flushbar.dart';
+
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
@@ -57,7 +55,7 @@ class _MysetsCardState extends State<MysetsCard> {
         itemCount: widget.list!.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.all(2.0),
             child: Container(
               width: Get.width*.37,
               height: Get.height*.22,
@@ -91,26 +89,103 @@ class _MysetsCardState extends State<MysetsCard> {
                                     fontSize: 35,
                                     fontWeight: FontWeight.bold),
                               ),
+                              SizedBox(height: Get.height*.02,),
                               BlurryContainer(
-                                borderRadius: BorderRadius.circular(10),
+                                padding: const EdgeInsets.all(3.0),
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
                                 bgColor: Colors.white,
                                 width: Get.width*.37,
-                                height: Get.height*.155,
+                                height: Get.height*.14,
                                  child: Column(
                                        children: [
                                          Container(
-                                           height: Get.height*.02,
-                                           child:Text(
-                                             widget.list![index].name.toString().length >13
-                                                 ? widget.list![index].name.toString().substring(0,12)+"....."
-                                                 : widget.list![index].name.toString(),
-
-                                             textAlign: TextAlign.start,
-                                             style: Get.textTheme.bodyText2!.copyWith(
-                                                 color: Color(0xD3E398CA),
-                                                 fontWeight: FontWeight.w600,
-                                                 fontSize: 11),
+                                           height: Get.height*.05,
+                                           child: LineChart(
+                                             mainData(),// Optional
+                                             swapAnimationCurve:
+                                             Curves.easeInOutQuad, // Optional
                                            ),
+                                         ),
+                                         new Divider(
+                                           color: Colors.white,
+                                         ),
+                                         Row(
+                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                           children: [
+                                             Expanded(
+                                             child:Container(
+                                               height: Get.height*.02,
+                                               child:Text(
+                                                 widget.list![index].name.toString().length >15
+                                                     ? widget.list![index].name.toString().substring(0,14)+"....."
+                                                     : widget.list![index].name.toString(),
+
+                                                 textAlign: TextAlign.start,
+                                                 style: Get.textTheme.bodyText2!.copyWith(
+                                                     color: Color(0xD3E398CA),
+                                                     fontWeight: FontWeight.w600,
+                                                     fontSize: 12),
+                                               ),
+                                             ),
+                                             ),
+
+                                           ],
+                                         ),
+                                         SizedBox(height: Get.height*.01,),
+                                         Row(
+                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                           children: [
+
+                                             Expanded(
+                                               flex: 2,
+                                               child:Container(
+                                                 height: Get.height*.02,
+                                                 child:Text(
+                                                   widget.list![index].floorPrice.toString(),
+
+                                                   textAlign: TextAlign.start,
+                                                   style: Get.textTheme.bodyText2!.copyWith(
+                                                       color: Color(0xD3E398CA),
+                                                       fontWeight: FontWeight.w600,
+                                                       fontSize: 11),
+                                                 ),
+                                               ),
+                                             ),
+
+                                             Expanded(
+                                               child:Row(
+                                                 mainAxisAlignment: MainAxisAlignment.end,
+                                                 children: [
+                                                   Text(
+                                                     percent < 0.0
+                                                         ? percent.toString()
+                                                         : "+" + percent.toString(),
+                                                     textAlign: TextAlign.end,
+                                                     style: Get.textTheme.bodyText1!.copyWith(
+                                                         color: percent < 0.0
+                                                             ? Colors.red
+                                                             : Colors.green,
+                                                         fontWeight: FontWeight.w300,
+                                                         fontSize: 11),
+                                                   ),
+                                                   if (percent < 0.0)
+                                                     const Icon(
+                                                       Icons.arrow_downward,
+                                                       color: Colors.red,
+                                                       size: 14,
+                                                     )
+                                                   else
+                                                     const Icon(
+                                                       Icons.arrow_upward,
+                                                       color: Colors.green,
+                                                       size: 14,
+                                                     )
+                                                 ],
+                                               ),
+                                             ),
+
+                                           ],
                                          )
                                        ],
                                  ),
