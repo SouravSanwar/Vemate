@@ -16,7 +16,6 @@ import '../../../../core/utilities/app_colors/app_colors.dart';
 class MysetsCard extends StatefulWidget {
   List<Results>? list;
 
-
   MysetsCard({
     this.list,
   });
@@ -43,8 +42,6 @@ class _MysetsCardState extends State<MysetsCard> {
 
   @override
   Widget build(BuildContext context) {
-    double percent = 3.30;
-
 
     return Padding(
       padding: EdgeInsets.only(
@@ -59,68 +56,61 @@ class _MysetsCardState extends State<MysetsCard> {
           return Padding(
             padding: const EdgeInsets.all(4.0),
             child: Container(
-              width: Get.width*.37,
-              height: Get.height*.22,
+              width: Get.width * .37,
               decoration: BoxDecoration(
                 gradient: AppColors.purpleGradient,
-                borderRadius: BorderRadius.circular(12.0),
+                borderRadius: BorderRadius.circular(5.0),
               ),
               child: InkWell(
                 onTap: () {
                   Get.to(() => ChartExample(id: widget.list![index].id));
                 },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                          width: Get.width*.37,
-                          height: Get.height*.22,
-                          decoration: BoxDecoration(
-                              color: Color(0xD3C89EF3),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Color(0xff454F70))),
-                          alignment: Alignment.topCenter,
-                          child:Column(
+                child: Container(
+                    decoration: BoxDecoration(
+                        color: const Color(0xD3C89EF3),
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: const Color(0xff454F70))),
+                    alignment: Alignment.topCenter,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          widget.list![index].name
+                              .toString()[0]
+                              .toUpperCase(),
+                          style: const TextStyle(
+                              color: Colors.deepPurpleAccent,
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        BlurryContainer(
+                          borderRadius: BorderRadius.circular(5),
+                          bgColor: Colors.white,
+                          width: Get.width * .37,
+                          height: Get.height * .155,
+                          child: Column(
                             children: [
                               Text(
                                 widget.list![index].name
-                                    .toString()[0]
-                                    .toUpperCase(),
-                                style: const TextStyle(
-                                    color: Colors.deepPurpleAccent,
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              BlurryContainer(
-                                borderRadius: BorderRadius.circular(10),
-                                bgColor: Colors.white,
-                                width: Get.width*.37,
-                                height: Get.height*.155,
-                                 child: Column(
-                                       children: [
-                                         Container(
-                                           height: Get.height*.02,
-                                           child:Text(
-                                             widget.list![index].name.toString().length >13
-                                                 ? widget.list![index].name.toString().substring(0,12)+"....."
-                                                 : widget.list![index].name.toString(),
-
-                                             textAlign: TextAlign.start,
-                                             style: Get.textTheme.bodyText2!.copyWith(
-                                                 color: Color(0xD3E398CA),
-                                                 fontWeight: FontWeight.w600,
-                                                 fontSize: 11),
-                                           ),
-                                         )
-                                       ],
-                                 ),
-                              ),
+                                    .toString()
+                                    .length >
+                                    13
+                                    ? widget.list![index].name
+                                    .toString()
+                                    .substring(0, 12) +
+                                    "....."
+                                    : widget.list![index].name.toString(),
+                                textAlign: TextAlign.start,
+                                style: Get.textTheme.bodyText2!.copyWith(
+                                    color: const Color(0xD3E398CA),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 11),
+                              )
                             ],
-                          )
-                      ),
-                    ],
-                  ),
-
+                          ),
+                        ),
+                      ],
+                    )),
               ),
             ),
           );
@@ -228,39 +218,39 @@ class _MysetsCardState extends State<MysetsCard> {
         LineChartBarData(
           spots: _isLoaded
               ? [
-            FlSpot(0, 0),
-            FlSpot(2.9, 2),
-            FlSpot(4.4, 3),
-            FlSpot(6.4, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 4),
-            FlSpot(12, 5),
-            FlSpot(16, 1),
-            FlSpot(20, 8),
-            FlSpot(24, 2),
-            FlSpot(28, 4.1),
-            FlSpot(32, 5),
-            FlSpot(36, 2.9),
-            FlSpot(40, 1.8),
-            FlSpot(44, 6),
-          ]
+                  const FlSpot(0, 0),
+                  const FlSpot(2.9, 2),
+                  const FlSpot(4.4, 3),
+                  const FlSpot(6.4, 3.1),
+                  const FlSpot(8, 4),
+                  const FlSpot(9.5, 4),
+                  const FlSpot(12, 5),
+                  const FlSpot(16, 1),
+                  const FlSpot(20, 8),
+                  const FlSpot(24, 2),
+                  const FlSpot(28, 4.1),
+                  const FlSpot(32, 5),
+                  const FlSpot(36, 2.9),
+                  const FlSpot(40, 1.8),
+                  const FlSpot(44, 6),
+                ]
               : [
-            FlSpot(0, 0),
-            FlSpot(2.4, 0),
-            FlSpot(4.4, 0),
-            FlSpot(6.4, 0),
-            FlSpot(8, 0),
-            FlSpot(9.5, 0),
-            FlSpot(12, 0),
-            FlSpot(16, 0),
-            FlSpot(20, 0),
-            FlSpot(24, 0),
-            FlSpot(28, 0),
-            FlSpot(32, 0),
-            FlSpot(36, 0),
-            FlSpot(40, 0),
-            FlSpot(44, 0),
-          ],
+                  const FlSpot(0, 0),
+                  const FlSpot(2.4, 0),
+                  const FlSpot(4.4, 0),
+                  const FlSpot(6.4, 0),
+                  const FlSpot(8, 0),
+                  const FlSpot(9.5, 0),
+                  const FlSpot(12, 0),
+                  const FlSpot(16, 0),
+                  const FlSpot(20, 0),
+                  const FlSpot(24, 0),
+                  const FlSpot(28, 0),
+                  const FlSpot(32, 0),
+                  const FlSpot(36, 0),
+                  const FlSpot(40, 0),
+                  const FlSpot(44, 0),
+                ],
           isCurved: true,
           colors: gradientColors,
           barWidth: 2,

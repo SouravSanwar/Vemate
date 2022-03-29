@@ -8,7 +8,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/Provider/getData.dart';
-import '../../../core/models/CommicsModel.dart';
+import '../../../core/models/ComicsModel.dart';
 
 class ComicsMcpCard extends StatelessWidget {
   List<Results>? list;
@@ -33,7 +33,6 @@ class ComicsMcpCard extends StatelessWidget {
             child: Container(
               width: Get.width * .5,
               decoration: BoxDecoration(
-                color: list![index].rarityColor,
                 borderRadius: BorderRadius.circular(8.0),
                 boxShadow: [
                   BoxShadow(
@@ -73,7 +72,7 @@ class ComicsMcpCard extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              list![index].publisher.toString(),
+                              list![index].brand.toString(),
                               textAlign: TextAlign.start,
                               style: Get.textTheme.bodyText1!
                                   .copyWith(color: AppColors.black),

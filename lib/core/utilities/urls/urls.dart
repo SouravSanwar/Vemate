@@ -15,7 +15,9 @@ class Urls {
   static String updateProfilePic =
       mainUrl + '/api/v1/account/public/users/upload_profile_image/';
 
-  static String collectibles = mainUrl + '/collectibles';
+  /*static String collectibles =
+      mainUrl + '/api/v1/veve/public/products/?type=0&limit=20&offset=0';*/
+  static String singleProduct = mainUrl + '/api/v1/veve/public/products/';
   static String singleCollectible = mainUrl + '/collectible/';
 
   static String comics = mainUrl + '/comics';

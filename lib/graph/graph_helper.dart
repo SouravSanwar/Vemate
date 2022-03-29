@@ -37,9 +37,8 @@ class GraphHelper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return Container(
-        padding: const EdgeInsets.symmetric(horizontal:20),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center, children: [
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           FadeInUp(
             duration: Duration(milliseconds: 100),
             child: Row(
@@ -71,12 +70,12 @@ class GraphHelper extends StatelessWidget {
                     gh.vv = '8PM';
                     gh.ww = '10PM';
                   },
-                  child:const Text(
-                        "1H",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
+                  child: const Text(
+                    "1H",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   width: 5,
@@ -87,25 +86,24 @@ class GraphHelper extends StatelessWidget {
                   onPressed: () {
                     // Navigator.of(context).pushReplacementNamed('/');
                   },
-                  child:const Text(
-                        "24H",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
+                  child: const Text(
+                    "24H",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   width: 5,
                 ),
                 DesignHelper(
                   onPressed: () {},
-                  child:const Text(
-                        "7D",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-
+                  child: const Text(
+                    "7D",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
 
                 SizedBox(
@@ -114,17 +112,19 @@ class GraphHelper extends StatelessWidget {
                 //FOR 30 DAYS
                 DesignHelper(
                   onPressed: () {},
-                  child:const Text(
-                        "30D",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
+                  child: const Text(
+                    "30D",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 5,),
+          const SizedBox(
+            height: 5,
+          ),
 
           FadeInUp(
             duration: Duration(milliseconds: 1000),
@@ -135,12 +135,11 @@ class GraphHelper extends StatelessWidget {
                 DesignHelper(
                   onPressed: () {},
                   child: const Text(
-                        "60D",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-
+                    "60D",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
 
                 const SizedBox(
@@ -163,12 +162,12 @@ class GraphHelper extends StatelessWidget {
                     gh.kk = 'NOV';
                     gh.ll = 'DEC';
                   },
-                  child:const Text(
-                        "1Y",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
+                  child: const Text(
+                    "1Y",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
 
                 const SizedBox(
@@ -178,12 +177,12 @@ class GraphHelper extends StatelessWidget {
                 //FOR 60 DAYS
                 DesignHelper(
                   onPressed: () {},
-                  child:const Text(
-                        "All",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
+                  child: const Text(
+                    "All",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -195,8 +194,8 @@ class GraphHelper extends StatelessWidget {
           FadeInUp(
             duration: Duration(milliseconds: 1000),
             child: Text(
-              data.singleCollectibleModel != null
-                  ? data.singleCollectibleModel!.details!.name.toString() +
+              data.singleProductModel != null
+                  ? data.singleProductModel!.name.toString() +
                       "'s Details"
                   : "",
               textAlign: TextAlign.center,
@@ -206,130 +205,131 @@ class GraphHelper extends StatelessWidget {
                   fontSize: 15),
             ),
           ),
-          const SizedBox(height: 20,),
-
-         Expanded(
-          child:Container(
-
-          decoration: BoxDecoration(
-          border: Border.all(color: Colors.white,width: 0.5)
+          const SizedBox(
+            height: 20,
           ),
 
-         child: ListView(
-
-              children: <Widget>[
-              ItemDetails(
-                text: "Floor Price",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.floorPrice.toString()
-                    : "",
-              ),
-
-              const SizedBox(height: 0.5,),
-
-              ItemDetails(
-                text: "Owner",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.owner.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 0.5)),
+              child: ListView(children: <Widget>[
                 ItemDetails(
-                text: "Edition",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.edition.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
+                  text: "Floor Price",
+                  text1: data.singleProductModel != null
+                      ? data.singleProductModel!.floorPrice
+                          .toString()
+                      : "",
+                ),
+                const SizedBox(
+                  height: 0.5,
+                ),
                 ItemDetails(
-                text: "Name",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.name.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
+                  text: "Owner",
+                  text1: data.singleProductModel != null
+                      ? data.singleProductModel!.owner.toString()
+                      : "",
+                ),
+                const SizedBox(
+                  height: 0.5,
+                ),
                 ItemDetails(
-                text: "Drop Date",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.dropDate.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
+                  text: "Edition",
+                  text1: data.singleProductModel != null
+                      ? data.singleProductModel!.edition.toString()
+                      : "",
+                ),
+                const SizedBox(
+                  height: 0.5,
+                ),
                 ItemDetails(
-                text: "List Price",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.listPrice.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
+                  text: "Name",
+                  text1: data.singleProductModel != null
+                      ? data.singleProductModel!.name.toString()
+                      : "",
+                ),
+                const SizedBox(
+                  height: 0.5,
+                ),
                 ItemDetails(
-                text: "Editions",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.editions.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
+                  text: "Drop Date",
+                  text1: data.singleProductModel != null
+                      ? data.singleProductModel!.dropDate
+                          .toString()
+                      : "",
+                ),
+                const SizedBox(
+                  height: 0.5,
+                ),
                 ItemDetails(
-                text: "Edition Type",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.editionType.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
+                  text: "List Price",
+                  text1: data.singleProductModel != null
+                      ? data.singleProductModel!.listPrice
+                          .toString()
+                      : "",
+                ),
+                const SizedBox(
+                  height: 0.5,
+                ),
                 ItemDetails(
-                text: "Season",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.season.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
+                  text: "Editions",
+                  text1: data.singleProductModel != null
+                      ? data.singleProductModel!.editions
+                          .toString()
+                      : "",
+                ),
+                const SizedBox(
+                  height: 0.5,
+                ),
                 ItemDetails(
-                text: "Rarity",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.rarity.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
+                  text: "Edition Type",
+                  text1: data.singleProductModel != null
+                      ? data.singleProductModel!.editionType
+                          .toString()
+                      : "",
+                ),
+                const SizedBox(
+                  height: 0.5,
+                ),
                 ItemDetails(
-                text: "Brand",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.brand.toString()
-                    : "",
-              ),
-
-                const SizedBox(height: 0.5,),
-
+                  text: "Season",
+                  text1: data.singleProductModel != null
+                      ? data.singleProductModel!.season.toString()
+                      : "",
+                ),
+                const SizedBox(
+                  height: 0.5,
+                ),
                 ItemDetails(
-                text: "Series",
-                text1: data.singleCollectibleModel != null
-                    ? data.singleCollectibleModel!.details!.series.toString()
-                    : "",
-              ),
-            ]
-           ),
-           ),
-         ),
-        SizedBox(height: 20,),
-
-
+                  text: "Rarity",
+                  text1: data.singleProductModel != null
+                      ? data.singleProductModel!.rarity.toString()
+                      : "",
+                ),
+                const SizedBox(
+                  height: 0.5,
+                ),
+                ItemDetails(
+                  text: "Brand",
+                  text1: data.singleProductModel != null
+                      ? data.singleProductModel!.brand.toString()
+                      : "",
+                ),
+                const SizedBox(
+                  height: 0.5,
+                ),
+                ItemDetails(
+                  text: "Series",
+                  text1: data.singleProductModel != null
+                      ? data.singleProductModel!.series.toString()
+                      : "",
+                ),
+              ]),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
         ]),
       );
     });

@@ -8,15 +8,15 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'dart:math' as math;
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
-import 'package:ketemaa/features/market/presentation/vault/mysets_card.dart';
-import 'package:ketemaa/features/market/presentation/vault/vaule_collectibles_card.dart';
-import 'package:ketemaa/features/market/presentation/vault/vault_comics_card.dart';
+import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
+import 'package:ketemaa/features/vault/vault_comics_card.dart';
 
 import 'package:ketemaa/graph/graph_helper.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/utilities/shimmer/loading.dart';
 import '../../../../graph/designhelper.dart';
+import 'mysets_card.dart';
 
 class Vault extends StatefulWidget {
   @override
@@ -103,17 +103,14 @@ class _VaultState extends State<Vault> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Container(
-                      height: Get.height * .22,
-                      child: SizedBox(
-                        width: Get.width,
-                        child: data.collectiblesModel != null
-                            ? MysetsCard(
-                                list: data
-                                    .collectiblesModel!.collectibles!.results,
-                              )
-                            : const LoadingExample(),
-                      )),
+                  SizedBox(
+                    height: Get.height * .23,
+                    child: data.collectiblesModel != null
+                        ? MysetsCard(
+                            list: data.collectiblesModel!.results,
+                          )
+                        : const LoadingExample(),
+                  ),
                   SizedBox(
                     height: Get.height * .02,
                   ),
@@ -129,17 +126,14 @@ class _VaultState extends State<Vault> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Container(
-                      height: Get.height * .22,
-                      child: SizedBox(
-                        width: Get.width,
-                        child: data.collectiblesModel != null
-                            ? MysetsCard(
-                                list: data
-                                    .collectiblesModel!.collectibles!.results,
-                              )
-                            : const LoadingExample(),
-                      )),
+                  SizedBox(
+                    height: Get.height * .23,
+                    child: data.collectiblesModel != null
+                        ? MysetsCard(
+                            list: data.collectiblesModel!.results,
+                          )
+                        : const LoadingExample(),
+                  ),
                 ],
               ),
               Positioned(
@@ -267,8 +261,7 @@ class _VaultState extends State<Vault> {
                                   if (percent < 0.0)
                                     //toRotateIcon
                                     const RotationTransition(
-                                      turns:
-                                          AlwaysStoppedAnimation(45 / 360),
+                                      turns: AlwaysStoppedAnimation(45 / 360),
                                       child: Icon(
                                         Icons.arrow_downward,
                                         size: 18,
@@ -277,8 +270,7 @@ class _VaultState extends State<Vault> {
                                     )
                                   else
                                     const RotationTransition(
-                                      turns:
-                                          AlwaysStoppedAnimation(45 / 360),
+                                      turns: AlwaysStoppedAnimation(45 / 360),
                                       child: Icon(
                                         Icons.arrow_upward,
                                         size: 18,

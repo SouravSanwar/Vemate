@@ -9,7 +9,6 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/market_card_shimmer.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
-import 'package:ketemaa/features/market/presentation/vault/vaule_collectibles_card.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/utilities/app_assets/app_assets.dart';
@@ -21,22 +20,24 @@ import '../Components/commics_item_card.dart';
 import '../../home/components/name_row.dart';
 
 class Market extends StatefulWidget {
+  const Market({Key? key}) : super(key: key);
+
   @override
   State<Market> createState() => _MarketState();
 }
 
 class _MarketState extends State<Market> {
-  var fetchData;
+  GetData? getData;
 
   TextEditingController textController = TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
-    fetchData = Provider.of<GetData>(context, listen: false);
+    getData = Provider.of<GetData>(context, listen: false);
 
-    fetchData.getCollectibles();
-    fetchData.getComics();
+    getData!.getCollectibles();
+    //getData!.getComics();
     super.initState();
   }
 
@@ -48,6 +49,7 @@ class _MarketState extends State<Market> {
 
   //For Filter
   List<Rarity>? selectedUserList = [];
+
   void _openFilterDialog() async {
     await FilterListDialog.display<Rarity>(
       context,
@@ -72,6 +74,7 @@ class _MarketState extends State<Market> {
       },
     );
   }
+
   //For Filter
 
   @override
@@ -81,36 +84,16 @@ class _MarketState extends State<Market> {
     SharedPreferenceController.to.getToken();
 
     return Scaffold(
-      /* appBar: AppBar(
-        title: Text("Market"),
-        backgroundColor: Colors.green,
-        actions:<Widget> [
-          AnimSearchBar(
-            width: MediaQuery.of(context).size.width *.95,
-            textController: textController,
-            onSuffixTap: () {
-              setState(() {
-                textController.clear();
-              });
-            },
-            rtl: true,
-            animationDurationInMilli: 500,
-            color: Colors.green,
-          ),
-
-
-        ],
-      ),*/
-      backgroundColor: Color(0xff272E49),
+      backgroundColor: AppColors.backgroundColor,
       body: Consumer<GetData>(builder: (context, data, child) {
         return Padding(
-          padding: EdgeInsets.only(top: AppDimension.padding_16),
+          padding: EdgeInsets.only(top: AppDimension.padding_8),
           child: Stack(
-            //shrinkWrap: true,
             children: [
               AppSpaces.spaces_height_20,
               ListView(
                 children: [
+                  ///Search Bar
                   Padding(
                     padding: EdgeInsets.only(
                       left: AppDimension.padding_8,
@@ -118,29 +101,27 @@ class _MarketState extends State<Market> {
                     ),
                     child: Row(
                       children: [
-
                         Expanded(
                           child: Container(
-                            height: 60,
-                            padding: EdgeInsets.all(10),
+                            //height: 60,
+                            padding: const EdgeInsets.all(5),
                             child: TextField(
                               textInputAction: TextInputAction.search,
                               decoration: InputDecoration(
                                   filled: true,
-                                  fillColor: Color(0xff2F3758),
+                                  fillColor: AppColors.lightBackgroundColor,
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                     borderSide: const BorderSide(
                                       color: Color(0xff455181),
                                     ),
                                   ),
-                                  focusedBorder: const UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xff2F3758)),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: AppColors.primaryColor),
                                     //  when the TextFormField in focused
                                   ),
                                   prefixIcon: const InkWell(
-
                                     child: Icon(
                                       Icons.search,
                                       color: Colors.grey,
@@ -150,37 +131,24 @@ class _MarketState extends State<Market> {
                                     onTap: () {
                                       _openFilterDialog();
                                     },
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.filter_list,
-                                      color: Color(0xff926FDF),
+                                      color: AppColors.primaryColor,
                                     ),
                                   ),
-                                  contentPadding: EdgeInsets.all(10.0),
+                                  contentPadding: const EdgeInsets.all(5.0),
                                   hintText: 'Search ',
-                                  hintStyle: TextStyle(color: Colors.grey)),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.grey)),
                               onChanged: (string) {},
                             ),
                           ),
                         ),
-                        /*  Expanded(
-                          flex: 1,
-                        child: GestureDetector(
-                              onTap: (){
-                                _openFilterDialog();
-                              },
-
-                            child: Image.asset(
-                              'assets/media/icon/filter.png',
-                              height: 25.0,
-                              width: 15.0,
-                              color: Colors.white,
-                            ),
-                        ),
-                        ),*/
                       ],
                     ),
                   ),
-                  AppSpaces.spaces_height_5,
+
+                  ///Tab
                   Padding(
                     padding: EdgeInsets.only(
                       left: AppDimension.padding_8,
@@ -260,27 +228,20 @@ class _MarketState extends State<Market> {
                       ],
                     ),
                   ),
-                  AppSpaces.spaces_height_10,
+
+                  ///Body
                   Container(
                     child: collectibleSelected == true
                         ? SizedBox(
                             height: Get.height,
                             child: data.collectiblesModel != null
                                 ? CollectiblesItemCard(
-                                    list: data.collectiblesModel!.collectibles!
-                                        .results,
+                                    list: data.collectiblesModel!.results,
                                   )
                                 : const LoadingExample(),
                           )
                         : (comicSelected == true
-                            ? SizedBox(
-                                height: Get.height,
-                                child: data.comicsModel != null
-                                    ? CommicsItemCard(
-                                        list: data.comicsModel!.comics!.results,
-                                      )
-                                    : const LoadingExample(),
-                              )
+                            ? const ComicsItemCard()
                             : const Center(
                                 child: Text('Brand'),
                               )),
@@ -297,6 +258,7 @@ class _MarketState extends State<Market> {
 
 class Rarity {
   final String? name;
+
   Rarity({this.name});
 }
 

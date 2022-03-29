@@ -22,6 +22,14 @@ class AppColors {
   static Color buy_button_color = const Color(0xff578811);
   static Color divider_color = const Color(0xff81878d);
 
+
+  static Gradient graphGradientColors = const LinearGradient(
+    colors: [
+      Color(0xff23b6e6),
+      Color(0xff02d31a),
+    ],
+  );
+
   static Gradient purpleGradient=const LinearGradient(
     colors: [
       Color(0xff8760EE),
@@ -44,8 +52,8 @@ class AppColors {
       Color(0xff3F496A),
       Color(0xff374162),
       Color(0xff303B5B),
-      const Color(0xff584D9F),
-      const Color(0xff393E6B),
+      Color(0xff584D9F),
+      Color(0xff393E6B),
     ],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,

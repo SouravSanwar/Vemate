@@ -118,8 +118,7 @@ class _MCPState extends State<MCP> {
                             height: Get.height,
                             child: data.collectiblesModel != null
                                 ? CollectiblesMCPCard(
-                                    list: data.collectiblesModel!.collectibles!
-                                        .results,
+                                    list: data.collectiblesModel!.results,
                                   )
                                 : const MCPCardShimmer(),
                           )
@@ -128,7 +127,7 @@ class _MCPState extends State<MCP> {
                                 height: Get.height,
                                 child: data.comicsModel != null
                                     ? ComicsMcpCard(
-                                        list: data.comicsModel!.comics!.results,
+                                        list: data.comicsModel!.results,
                                       )
                                     : const MCPCardShimmer(),
                               )

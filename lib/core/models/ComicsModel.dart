@@ -1,14 +1,14 @@
 import 'package:get/get.dart';
 
-class CollectiblesModel {
-  CollectiblesModel({
+class ComicsModel {
+  ComicsModel({
     this.count,
     this.next,
     this.previous,
     this.results,
   });
 
-  CollectiblesModel.fromJson(dynamic json) {
+  ComicsModel.fromJson(dynamic json) {
     count = json['count'];
     next = json['next'];
     previous = json['previous'];
@@ -69,7 +69,6 @@ class Results {
         graph?.add(Graph.fromJson(v));
       });
     }
-
     if (rarity == 'Rare') {
       rarePoint = 2;
       cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);

@@ -1,14 +1,14 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:ketemaa/core/models/CommicsModel.dart';
+import 'package:ketemaa/core/models/ComicsModel.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
 import 'package:ketemaa/core/models/SingleCollectibleModel.dart';
 import 'package:ketemaa/core/models/SingleComicModel.dart';
+import 'package:ketemaa/core/models/SingleProductModel.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/main.dart';
 import '../models/CollectiblesModel.dart';
@@ -19,6 +19,8 @@ class GetData extends ChangeNotifier {
 
   ComicsModel? comicsModel;
   SingleComicModel? singleComicModel;
+
+  SingleProductModel? singleProductModel;
 
   ProfileModel? profileModel;
 
@@ -47,17 +49,41 @@ class GetData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getCollectibles() async {
+  Future getCollectibles({int offset = 0}) async {
     collectiblesModel = null;
-    final response = await http.get(Uri.parse(
-      Urls.collectibles,
-    ));
+    final response = await http.get(
+      Uri.parse(
+        Urls.mainUrl +
+            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset',
+      ),
+      headers: requestToken,
+    );
 
     var data = json.decode(response.body.toString());
 
     printInfo(info: data.toString());
 
     collectiblesModel = CollectiblesModel.fromJson(data);
+
+    notifyListeners();
+  }
+
+  Future getSingleProduct(int? id) async {
+    singleProductModel = null;
+    final response = await http.get(
+      Uri.parse(
+        Urls.singleProduct + id!.toString(),
+      ),
+      headers: requestToken,
+    );
+
+    printInfo(info: Urls.singleProduct + id.toString());
+
+    var data = json.decode(response.body.toString());
+
+    printInfo(info: data.toString());
+
+    singleProductModel = SingleProductModel.fromJson(data);
 
     notifyListeners();
   }
@@ -79,17 +105,26 @@ class GetData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getComics() async {
-    comicsModel = null;
-    final response = await http.get(Uri.parse(
-      Urls.comics,
-    ));
+  Future getComics({int offset = 0}) async {
+    final response = await http.get(
+      Uri.parse(
+        Urls.mainUrl +
+            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset',
+      ),
+      headers: requestToken,
+    );
 
     var data = json.decode(response.body.toString());
 
     printInfo(info: data.toString());
 
-    comicsModel = ComicsModel.fromJson(data);
+    if (comicsModel != null) {
+      if (offset == 0) comicsModel!.results!.clear();
+
+      comicsModel!.results!.addAll(ComicsModel.fromJson(data).results!);
+    } else {
+      comicsModel = ComicsModel.fromJson(data);
+    }
 
     notifyListeners();
   }

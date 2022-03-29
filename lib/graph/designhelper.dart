@@ -15,8 +15,6 @@ class DesignHelper extends StatefulWidget {
 }
 
 class _DesignHelperState extends State<DesignHelper> {
-
-
   @override
   void initState() {
     _color = Colors.green;
@@ -28,36 +26,30 @@ class _DesignHelperState extends State<DesignHelper> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Get.width*.2,
-        height: Get.height*.05,
+        width: Get.width * .2,
+        height: Get.height * .05,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           gradient: AppColors.purpleGradient, // set border width
           borderRadius: const BorderRadius.all(
               Radius.circular(20.0)), // set rounded corner radius
         ),
-      child: MaterialButton(
-      child: widget.child,
-
-      onPressed: () {
-        widget.onPressed();
-      },
-
-    )
-    );
+        child: MaterialButton(
+          child: widget.child,
+          onPressed: () {
+            widget.onPressed();
+          },
+        ));
   }
 }
 
-
-
 class CustomTextField extends StatelessWidget {
-
-  final TextEditingController ? controller;
+  final TextEditingController? controller;
   final IconData? data;
   final IconData? data1;
   final String? hintText;
-  bool? input=true;
-  bool? isObsecre= true;
+  bool? input = true;
+  bool? isObsecre = true;
   bool? enabled = true; //user location
 
   CustomTextField({
@@ -69,7 +61,6 @@ class CustomTextField extends StatelessWidget {
     this.isObsecre,
     this.enabled,
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +74,6 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.all(5.0),
       margin: const EdgeInsets.all(5.0),
       child: TextFormField(
-
         enabled: enabled,
         controller: controller,
         obscureText: isObsecre!,
@@ -103,32 +93,28 @@ class CustomTextField extends StatelessWidget {
           suffixIcon: IconButton(
             color: Colors.green,
             onPressed: () {
-              isObsecre=!isObsecre!;
-            }, icon: Icon(
-              data1
-
+              isObsecre = !isObsecre!;
+            },
+            icon: Icon(data1),
           ),
-          ),
-
           focusColor: Theme.of(context).primaryColor,
           hintText: hintText,
-
         ),
       ),
     );
   }
 }
 
-
 //For Items of graphn page
-class ItemDetails extends StatelessWidget{
-
+class ItemDetails extends StatelessWidget {
   final String? text;
   final String? text1;
-  ItemDetails ({
+
+  ItemDetails({
     this.text,
     this.text1,
   });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -139,54 +125,46 @@ class ItemDetails extends StatelessWidget{
       ),
       child: Row(
         children: [
-         Expanded(
-             flex: 3,
-             child: Container(
-               child: Text(
-                 text!,style: TextStyle(
-                    color: AppColors.greyWhite,
-                     fontSize: 15,
-                    fontWeight: FontWeight.bold
-               ),
-               ),
-               decoration: BoxDecoration(
-                 gradient: AppColors.purpleGradient,
-               ),
-               padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 12)
-
-           ),
-         ),
           Expanded(
-             flex: 7,
+            flex: 3,
             child: Container(
-              child: Text(
-                text1!,style: TextStyle(
-                  color: AppColors.greyWhite,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold
-              ),
-              ),
-
-              padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2)
-
-            ),
-         ),
+                child: Text(
+                  text!,
+                  style: TextStyle(
+                      color: AppColors.greyWhite,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+                ),
+                decoration: BoxDecoration(
+                  gradient: AppColors.purpleGradient,
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 12)),
+          ),
+          Expanded(
+            flex: 7,
+            child: Container(
+                child: Text(
+                  text1!,
+                  style: TextStyle(
+                      color: AppColors.greyWhite,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 2)),
+          ),
         ],
       ),
     );
   }
-
 }
 
-
-
-
-
-class Shader extends StatelessWidget{
+class Shader extends StatelessWidget {
   final Icon? icon;
-  Shader({
-    this.icon
-  });
+
+  Shader({this.icon});
+
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
@@ -201,8 +179,6 @@ class Shader extends StatelessWidget{
             tileMode: TileMode.repeated,
           ).createShader(bounds);
         },
-
-        child: icon
-    );
+        child: icon);
   }
 }

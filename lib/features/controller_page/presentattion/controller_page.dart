@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/home/presentation/home.dart';
-import 'package:ketemaa/features/market/presentation/vault/vault.dart';
 import 'package:ketemaa/features/mcp/presentation/mcp.dart';
 
 import 'package:ketemaa/features/profile/presentation/profile.dart';
+import 'package:ketemaa/features/vault/vault.dart';
 import 'package:ketemaa/main.dart';
 
 import '../../market/presentation/market.dart';
@@ -46,7 +46,7 @@ class ControllerPage extends StatelessWidget {
             transitionCurve: curve,
           ),
           bottomNavigationBar: SizedBox(
-            height: 65,
+            //height: 65,
             child: getBottomBar(),
           ));
     });

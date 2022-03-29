@@ -5,14 +5,14 @@ import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 
 class CategoryCard extends StatelessWidget {
-  String? name;
-  Gradient? gradient;
+  final String? name;
+  final Gradient? gradient;
 
-
-  CategoryCard({
+  const CategoryCard({
+    Key? key,
     this.name,
     this.gradient,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +25,11 @@ class CategoryCard extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: gradient,
           border: Border.all(
-              color: Color(0xffB391DC),
-            ),
-          borderRadius: BorderRadius.all(
+            color: AppColors.primaryColor,
+          ),
+          borderRadius: const BorderRadius.all(
             Radius.circular(12),
           ),
-
         ),
         child: Padding(
           padding: EdgeInsets.all(AppDimension.padding_10),

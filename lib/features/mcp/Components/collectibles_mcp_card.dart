@@ -41,7 +41,6 @@ class _CollectiblesMCPCardState extends State<CollectiblesMCPCard> {
             child: Container(
               width: Get.width * .5,
               decoration: BoxDecoration(
-                color: widget.list![index].rarityColor,
                 borderRadius: BorderRadius.circular(8.0),
                 boxShadow: [
                   BoxShadow(
@@ -109,7 +108,7 @@ class _CollectiblesMCPCardState extends State<CollectiblesMCPCard> {
                                 ),
                                 AppSpaces.spaces_width_5,
                                 Text(
-                                  widget.list![index].cpp.toString(),
+                                  widget.list![index].floorPrice.toString(),
                                   textAlign: TextAlign.end,
                                   style: Get.textTheme.bodyText1!
                                       .copyWith(color: Colors.black),
@@ -128,7 +127,7 @@ class _CollectiblesMCPCardState extends State<CollectiblesMCPCard> {
                                 ),
                                 AppSpaces.spaces_width_5,
                                 Text(
-                                  widget.list![index].rarePoint.toString(),
+                                  widget.list![index].rarity.toString(),
                                   textAlign: TextAlign.end,
                                   style: Get.textTheme.bodyText1!
                                       .copyWith(color: Colors.black),

@@ -11,6 +11,7 @@ import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/widgets/profile_divider.dart';
+import 'package:ketemaa/features/vault/vault.dart';
 
 import 'package:ketemaa/graph/designhelper.dart';
 import 'package:provider/provider.dart';
@@ -21,8 +22,6 @@ import 'package:store_redirect/store_redirect.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../core/utilities/app_colors/app_colors.dart';
-import '../../market/presentation/vault/vault.dart';
-import '../../market/presentation/vault/vaule_collectibles_card.dart';
 import 'custom_app_bar.dart';
 
 class Profile extends StatefulWidget {

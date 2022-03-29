@@ -7,24 +7,25 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/graph/graph_helper.dart';
 import 'package:provider/provider.dart';
 import '../core/Provider/getData.dart';
+
 class ChartExample extends StatefulWidget {
   int? id;
+
   ChartExample({Key? key, this.id}) : super(key: key);
 
   @override
   _ChartExampleState createState() => _ChartExampleState();
 }
 
-
 class _ChartExampleState extends State<ChartExample> {
   var collectible = Get.arguments;
 
   bool _isLoaded = false;
   int _currentIndex = 0;
-
 
   TextEditingController nameController = TextEditingController();
 
@@ -34,14 +35,12 @@ class _ChartExampleState extends State<ChartExample> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController locationController = TextEditingController();
 
-
-
   @override
   void initState() {
     super.initState();
 
     var fetchData = Provider.of<GetData>(context, listen: false);
-    fetchData.getSingleCollectible(widget.id);
+    fetchData.getSingleProduct(widget.id);
 
     // make _isLoaded true after 2 seconds
     Future.delayed(const Duration(seconds: 2), () {
@@ -54,21 +53,19 @@ class _ChartExampleState extends State<ChartExample> {
   @override
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff272E49),
-        elevation: 4,
-        title: Text(
-          data.singleCollectibleModel != null
-              ? data.singleCollectibleModel!.details!.name.toString()
-              : "",
-          style: TextStyle(
-              color: gh.c? Colors.blueGrey.shade300:Colors.green,
-              fontSize: 18,
-              fontWeight: FontWeight.bold
-
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0xff272E49),
+          elevation: 4,
+          title: Text(
+            data.singleCollectibleModel != null
+                ? data.singleCollectibleModel!.details!.name.toString()
+                : "",
+            style: TextStyle(
+                color: gh.c ? Colors.blueGrey.shade300 : Colors.green,
+                fontSize: 18,
+                fontWeight: FontWeight.bold),
           ),
-        ),
 /*        actions: [
           IconButton(
             icon: Icon(gh.c?null:Icons.list_alt),
@@ -96,60 +93,35 @@ class _ChartExampleState extends State<ChartExample> {
           ),
 
         ],*/
-      ),
-
-      backgroundColor: Color(0xff272E49),
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverToBoxAdapter(
-              child: Container(
-
-                padding: const EdgeInsets.all(20),
-                width: double.infinity,
-                child:/* Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
+        ),
+        backgroundColor: AppColors.backgroundColor,
+        body: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverToBoxAdapter(
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  width: double.infinity,
+                  child: FadeInUp(
+                    duration: Duration(milliseconds: 100),
+                    child: Container(
                       width: double.infinity,
-                      child: Column(
-                        children: [
-                          FadeInUp(
-                            duration: Duration(milliseconds: 100),
-                            child: Text(
-                                  data.singleCollectibleModel != null
-                                  ?  "Floor Price: "+data.singleCollectibleModel!.details!.floorPrice.toString()
-                                      : "",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: Colors.blueGrey.shade300, fontSize: 20),)),
-                          SizedBox(height: 20,),
-
-                        ],
+                      height: 250,
+                      child: LineChart(
+                        mainData(),
+                        swapAnimationDuration: Duration(milliseconds: 1000),
+                        // Optional
+                        swapAnimationCurve: Curves.bounceIn, // Optional
                       ),
-                    ),*/
-                    FadeInUp(
-                      duration: Duration(milliseconds: 100),
-                      child: Container(
-                        width: double.infinity,
-                        height: 250,
-                        child: LineChart(
-                          mainData(),
-                          swapAnimationDuration: Duration(milliseconds: 1000), // Optional
-                          swapAnimationCurve: Curves.bounceIn, // Optional
-
-                      ),
-                     )
                     ),
-
-              ),
-            )
-          ];
-        },
-        body: GraphHelper(),
-      ),
-
-    );
+                  ),
+                ),
+              )
+            ];
+          },
+          body: GraphHelper(),
+        ),
+      );
     });
   }
 
@@ -164,17 +136,16 @@ class _ChartExampleState extends State<ChartExample> {
         show: false,
       ),
       gridData: FlGridData(
-        show: false,
-        horizontalInterval: 1.6,
-        getDrawingHorizontalLine: (value) {
-          return FlLine(
-            dashArray: const [3, 3],
-            color: const Color(0xff37434d).withOpacity(0.2),
-            strokeWidth: 2,
-          );
-        },
-        drawVerticalLine: false
-      ),
+          show: false,
+          horizontalInterval: 1.6,
+          getDrawingHorizontalLine: (value) {
+            return FlLine(
+              dashArray: const [3, 3],
+              color: const Color(0xff37434d).withOpacity(0.2),
+              strokeWidth: 2,
+            );
+          },
+          drawVerticalLine: false),
       titlesData: FlTitlesData(
         show: true,
         rightTitles: SideTitles(showTitles: false),
@@ -184,9 +155,7 @@ class _ChartExampleState extends State<ChartExample> {
           reservedSize: 40,
           interval: 1,
           getTextStyles: (context, value) => const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 8),
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 8),
           getTitles: (value) {
             switch (value.toInt()) {
               case 0:
@@ -226,7 +195,6 @@ class _ChartExampleState extends State<ChartExample> {
             fontWeight: FontWeight.bold,
             fontSize: 12,
           ),
-
           getTitles: (value) {
             switch (value.toInt()) {
               case 1:
@@ -252,40 +220,41 @@ class _ChartExampleState extends State<ChartExample> {
       maxY: 10,
       lineBarsData: [
         LineChartBarData(
-          spots: _isLoaded ? [
-
-            FlSpot(0, 3),
-            FlSpot(2.9, 2),
-            FlSpot(4.4, 3),
-            FlSpot(6.4, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 4),
-            FlSpot(12, 5),
-            FlSpot(16, 1),
-            FlSpot(20, 8),
-            FlSpot(24, 2),
-            FlSpot(28, 4.1),
-            FlSpot(32, 5),
-            FlSpot(36, 2.9),
-            FlSpot(40, 1.8),
-            FlSpot(44, 3),
-          ] : [
-            FlSpot(0, 0),
-            FlSpot(2.4, 0),
-            FlSpot(4.4, 0),
-            FlSpot(6.4, 0),
-            FlSpot(8, 0),
-            FlSpot(9.5, 0),
-            FlSpot(12, 0),
-            FlSpot(16, 0),
-            FlSpot(20, 0),
-            FlSpot(24, 0),
-            FlSpot(28, 0),
-            FlSpot(32, 0),
-            FlSpot(36, 0),
-            FlSpot(40, 0),
-            FlSpot(44, 0),
-          ],
+          spots: _isLoaded
+              ? [
+                  FlSpot(0, 3),
+                  FlSpot(2.9, 2),
+                  FlSpot(4.4, 3),
+                  FlSpot(6.4, 3.1),
+                  FlSpot(8, 4),
+                  FlSpot(9.5, 4),
+                  FlSpot(12, 5),
+                  FlSpot(16, 1),
+                  FlSpot(20, 8),
+                  FlSpot(24, 2),
+                  FlSpot(28, 4.1),
+                  FlSpot(32, 5),
+                  FlSpot(36, 2.9),
+                  FlSpot(40, 1.8),
+                  FlSpot(44, 3),
+                ]
+              : [
+                  FlSpot(0, 0),
+                  FlSpot(2.4, 0),
+                  FlSpot(4.4, 0),
+                  FlSpot(6.4, 0),
+                  FlSpot(8, 0),
+                  FlSpot(9.5, 0),
+                  FlSpot(12, 0),
+                  FlSpot(16, 0),
+                  FlSpot(20, 0),
+                  FlSpot(24, 0),
+                  FlSpot(28, 0),
+                  FlSpot(32, 0),
+                  FlSpot(36, 0),
+                  FlSpot(40, 0),
+                  FlSpot(44, 0),
+                ],
           isCurved: true,
           colors: gradientColors,
           barWidth: 2,
@@ -293,18 +262,15 @@ class _ChartExampleState extends State<ChartExample> {
             show: false,
           ),
           belowBarData: BarAreaData(
-            show: true,
-            gradientFrom: Offset(0, 0),
-            gradientTo: Offset(0, 1),
-            colors: [
-              Color(0xff02d39a).withOpacity(0.1),
-              Color(0xff02d39a).withOpacity(0),
-            ]
-          ),
+              show: true,
+              gradientFrom: Offset(0, 0),
+              gradientTo: Offset(0, 1),
+              colors: [
+                Color(0xff02d39a).withOpacity(0.1),
+                Color(0xff02d39a).withOpacity(0),
+              ]),
         ),
       ],
     );
-
   }
-
 }

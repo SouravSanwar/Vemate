@@ -6,33 +6,40 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../core/Provider/getData.dart';
-import '../../../core/models/CommicsModel.dart';
+import '../../../core/models/ComicsModel.dart';
 import '../../../graph/chart_example.dart';
 import 'package:ketemaa/graph/graph_helper.dart';
 
-class CommicsItemCard extends StatefulWidget {
-  List<Results>? list;
-
-
-  CommicsItemCard({
-    this.list,
-  });
+class ComicsItemCard extends StatefulWidget {
+  const ComicsItemCard({Key? key}) : super(key: key);
 
   @override
-  State<CommicsItemCard> createState() => _CommicsItemCardState();
-
+  State<ComicsItemCard> createState() => _ComicsItemCardState();
 }
 
-class _CommicsItemCardState extends State<CommicsItemCard> {
+class _ComicsItemCardState extends State<ComicsItemCard> {
   bool _isLoaded = false;
   String? firstHalf;
+
+  int offset = 0;
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
+  GlobalKey _contentKey = GlobalKey();
+  GlobalKey _refreshkey = GlobalKey();
+
+  GetData? getData;
 
   @override
   void initState() {
     super.initState();
+    getData = Provider.of<GetData>(context, listen: false);
+
+    getData!.getComics();
 
     // make _isLoaded true after 2 seconds
     Future.delayed(const Duration(seconds: 2), () {
@@ -44,67 +51,81 @@ class _CommicsItemCardState extends State<CommicsItemCard> {
 
   @override
   Widget build(BuildContext context) {
-    double percent = 3.30;
-
-
-    return Padding(
-      padding: EdgeInsets.only(
-        left: AppDimension.padding_8,
-        right: AppDimension.padding_8,
-      ),
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: widget.list!.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Container(
-              width: Get.width,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [
-                    Color(0xff454F70),
-                    Color(0xff3F496A),
-                    Color(0xff374162),
-                    Color(0xff303B5B),
-                  ],
+    return Consumer<GetData>(builder: (context, data, child) {
+      return SizedBox(
+        height: Get.height*.7,
+        child: data.comicsModel != null
+            ? SmartRefresher(
+                key: _refreshkey,
+                controller: refreshController,
+                enablePullDown: true,
+                enablePullUp: true,
+                header: WaterDropMaterialHeader(
+                  color: AppColors.primaryColor,
                 ),
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              child: InkWell(
-                onTap: () {
-                  Get.to(() => ChartExample(id: widget.list![index].id));
-                  Flushbar(
-                    title: "Hey buddy",
-                    message: "You selected ${widget.list![index].name}",
-                    duration: const Duration(seconds: 1),
-                  ).show(context);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                          height: 60,
-                          width: 60,
-                          decoration: BoxDecoration(
-                              color: Color(0xD3C89EF3),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Color(0xff454F70))),
-                          alignment: Alignment.center,
-                          child: Text(
-                            widget.list![index].name
-                                .toString()[0]
-                                .toUpperCase(),
-                            style: TextStyle(
-                                color: Colors.deepPurpleAccent,
-                                fontSize: 35,
-                                fontWeight: FontWeight.bold),
-                          )
+                footer: const ClassicFooter(
+                  loadStyle: LoadStyle.ShowWhenLoading,
+                ),
+                onRefresh: _onRefresh,
+                onLoading: _onLoading,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: AlwaysScrollableScrollPhysics(),
+                  itemCount: data.comicsModel!.results!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Container(
+                        width: Get.width,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xff454F70),
+                              Color(0xff3F496A),
+                              Color(0xff374162),
+                              Color(0xff303B5B),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(() => ChartExample(
+                                id: data.comicsModel!.results![index].id));
+                            Flushbar(
+                              title: "Hey buddy",
+                              message:
+                                  "You selected ${data.comicsModel!.results![index].name}",
+                              duration: const Duration(seconds: 1),
+                            ).show(context);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                    height: 60,
+                                    width: 60,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.primaryColor
+                                            .withOpacity(.8),
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            color: const Color(0xff454F70))),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      data.comicsModel!.results![index].name
+                                          .toString()[0]
+                                          .toUpperCase(),
+                                      style: TextStyle(
+                                          color: AppColors.lightBackgroundColor,
+                                          fontSize: 35,
+                                          fontWeight: FontWeight.bold),
+                                    )
 
-                        /*Initicon(
-                          text: widget.list![index].name.toString()[0],
+                                    /*Initicon(
+                          text: data.comicsModel!.results![index].name.toString()[0],
                           color:Colors.primaries[Random().nextInt(Colors.primaries.length)],
                           backgroundColor:Colors.white,
                           borderRadius: BorderRadius.circular(10),
@@ -112,196 +133,259 @@ class _CommicsItemCardState extends State<CommicsItemCard> {
 
                         ),*/
 
-                      ),
-                      AppSpaces.spaces_width_5,
-                      Expanded(
-                        flex: 11,
-
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: <Widget>[
+                                    ),
+                                AppSpaces.spaces_width_5,
                                 Expanded(
-                                  flex: 5,
-
-                                  child: Text(
-                                    widget.list![index].name.toString().length >13
-                                        ? widget.list![index].name.toString().substring(0,12)+"......"
-                                        : widget.list![index].name.toString(),
-
-                                    textAlign: TextAlign.start,
-                                    style: Get.textTheme.bodyText2!.copyWith(
-                                        color: AppColors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 13),
-                                  ),
-                                ),
-                                SizedBox(width: 2,),
-                                Expanded(
-                                    flex: 3,
-                                    child: Text(
-                                      widget.list![index].listing.toString(),
-                                      textAlign: TextAlign.start,
-                                      style: Get.textTheme.bodyText1!.copyWith(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 10),
-                                    )
-                                ),
-                              ],
-                            ),
-                            AppSpaces.spaces_height_10,
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child:Text(
-                                    widget.list![index].publisher.toString(),
-                                    textAlign: TextAlign.start,
-                                    style: Get.textTheme.bodyText1!.copyWith(
-                                        color: AppColors.white.withOpacity(0.9),
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 10),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child:Text(
-                                    widget.list![index].rarity.toString(),
-                                    textAlign: TextAlign.start,
-                                    style: Get.textTheme.bodyText1!.copyWith(
-                                        color: AppColors.white.withOpacity(0.9),
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 10),
-                                  ),
-                                ),
-
-                              ],
-                            ),
-                            AppSpaces.spaces_height_10,
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child:Text(
-                                    r"$"+ widget.list![index].floorPrice.toString(),
-                                    textAlign: TextAlign.start,
-                                    style: Get.textTheme.bodyText1!.copyWith(
-                                        color: AppColors.white.withOpacity(0.9),
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 12),
-                                  ),
-                                ),
-                                SizedBox(width: 2,),
-                                Expanded(
-                                  flex: 3,
-                                  child:Text(
-                                    "MCP "+widget.list![index].rarePoint.toString(),
-                                    textAlign: TextAlign.start,
-                                    style: Get.textTheme.bodyText1!.copyWith(
-                                        color: AppColors.white.withOpacity(0.9),
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 10),
-                                  ),
-                                ),
-
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                      Expanded(
-                        flex: 5,
-                        // add this
-
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 25,
-                              child: LineChart(
-                                mainData(),// Optional
-                                swapAnimationCurve:
-                                Curves.linear, // Optional
-                              ),
-                            ),
-                            AppSpaces.spaces_height_10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child:Text(
-                                    r"$"+ widget.list![index].cpp.toString()+"7",
-                                    textAlign: TextAlign.start,
-                                    style: Get.textTheme.bodyText1!.copyWith(
-                                        color: AppColors.white.withOpacity(0.9),
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12),
-                                  ),
-                                ),
-                                Expanded(
-                                  child:Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                  flex: 11,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        percent < 0.0
-                                            ? percent.toString()
-                                            : "+" + percent.toString(),
-                                        textAlign: TextAlign.end,
-                                        style: Get.textTheme.bodyText1!.copyWith(
-                                            color: percent < 0.0
-                                                ? Colors.red
-                                                : Colors.green,
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 10),
+                                      Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                              flex: 5,
+                                              child: SizedBox(
+                                                height: Get.height * .02,
+                                                child: Text(
+                                                  data.comicsModel!
+                                                      .results![index].name
+                                                      .toString(),
+                                                  textAlign: TextAlign.start,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: Get
+                                                      .textTheme.bodyText2!
+                                                      .copyWith(
+                                                          color:
+                                                              AppColors.white,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 13),
+                                                ),
+                                              )),
+                                          AppSpaces.spaces_width_5,
+                                          Expanded(
+                                              flex: 3,
+                                              child: Text(
+                                                data.comicsModel!
+                                                    .results![index].edition
+                                                    .toString(),
+                                                textAlign: TextAlign.start,
+                                                style: Get.textTheme.bodyText1!
+                                                    .copyWith(
+                                                        color: AppColors.white,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                        fontSize: 10),
+                                              )),
+                                        ],
                                       ),
-                                      if (percent < 0.0)
-                                        Icon(
-                                          Icons.arrow_downward,
-                                          color: Colors.red,
-                                          size: 12,
-                                        )
-                                      else
-                                        Icon(
-                                          Icons.arrow_upward,
-                                          color: Colors.green,
-                                          size: 12,
-                                        )
+                                      AppSpaces.spaces_height_10,
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 5,
+                                            child: Text(
+                                              data.comicsModel!.results![index]
+                                                  .brand
+                                                  .toString(),
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText1!
+                                                  .copyWith(
+                                                      color: AppColors.greyWhite
+                                                          .withOpacity(0.8),
+                                                      fontWeight:
+                                                          FontWeight.w900,
+                                                      fontSize: 10),
+                                            ),
+                                          ),
+                                          AppSpaces.spaces_width_5,
+                                          Expanded(
+                                            flex: 3,
+                                            child: Text(
+                                              data.comicsModel!.results![index]
+                                                  .rarity
+                                                  .toString(),
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText1!
+                                                  .copyWith(
+                                                      color: AppColors.greyWhite
+                                                          .withOpacity(0.8),
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      fontSize: 10),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      AppSpaces.spaces_height_10,
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 5,
+                                            child: Text(
+                                              '\$' +
+                                                  data
+                                                      .comicsModel!
+                                                      .results![index]
+                                                      .floorPrice
+                                                      .toString(),
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText1!
+                                                  .copyWith(
+                                                      color: AppColors.greyWhite
+                                                          .withOpacity(0.8),
+                                                      fontWeight:
+                                                          FontWeight.w900,
+                                                      fontSize: 12),
+                                            ),
+                                          ),
+                                          AppSpaces.spaces_width_5,
+                                          Expanded(
+                                            flex: 3,
+                                            child: Text(
+                                              "MCP " +
+                                                  data.comicsModel!
+                                                      .results![index].rarePoint
+                                                      .toString(),
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText1!
+                                                  .copyWith(
+                                                      color: AppColors.greyWhite
+                                                          .withOpacity(0.8),
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      fontSize: 10),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 5,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        height: 25,
+                                        child: LineChart(
+                                          mainData(), // Optional
+                                          swapAnimationCurve:
+                                              Curves.linear, // Optional
+                                        ),
+                                      ),
+                                      AppSpaces.spaces_height_10,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              '\$${data.comicsModel!.results![index].cpp}',
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText1!
+                                                  .copyWith(
+                                                      color: AppColors.white
+                                                          .withOpacity(0.9),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 12),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  data
+                                                      .comicsModel!
+                                                      .results![index]
+                                                      .priceChangePercent!
+                                                      .percent!
+                                                      .toString(),
+                                                  textAlign: TextAlign.end,
+                                                  style: Get
+                                                      .textTheme.bodyText1!
+                                                      .copyWith(
+                                                          color: data
+                                                                      .comicsModel!
+                                                                      .results![
+                                                                          index]
+                                                                      .priceChangePercent!
+                                                                      .sign ==
+                                                                  'decrease'
+                                                              ? Colors.red
+                                                              : Colors.green,
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                          fontSize: 10),
+                                                ),
+                                                if (data
+                                                        .comicsModel!
+                                                        .results![index]
+                                                        .priceChangePercent!
+                                                        .sign ==
+                                                    'decrease')
+                                                  const Icon(
+                                                    Icons.arrow_downward,
+                                                    color: Colors.red,
+                                                    size: 12,
+                                                  )
+                                                else
+                                                  const Icon(
+                                                    Icons.arrow_upward,
+                                                    color: Colors.green,
+                                                    size: 12,
+                                                  )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
                               ],
                             ),
-
-                          ],
+                          ),
                         ),
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
+              )
+            : const LoadingExample(),
+      );
+    });
+  }
+
+  Future<void> _onRefresh() async {
+    await Future.delayed(Duration(seconds: 2));
+
+    getData!.getComics();
+
+    setState(() {
+      refreshController.refreshCompleted();
+      offset = 0;
+    });
+  }
+
+  Future<void> _onLoading() async {
+    offset = offset + 20;
+
+    getData!.getComics(offset: offset);
+
+    await Future.delayed(Duration(seconds: 2));
+
+    if (mounted) {
+      setState(() {
+        refreshController.loadComplete();
+      });
+    }
   }
 
   List<Color> gradientColors = [
@@ -333,8 +417,7 @@ class _CommicsItemCardState extends State<CommicsItemCard> {
           showTitles: true,
           reservedSize: 40,
           interval: 1,
-          getTextStyles: (context, value) =>
-          const TextStyle(
+          getTextStyles: (context, value) => const TextStyle(
               color: Color(0xff68737d),
               fontWeight: FontWeight.bold,
               fontSize: 8),
@@ -372,8 +455,7 @@ class _CommicsItemCardState extends State<CommicsItemCard> {
         leftTitles: SideTitles(
           showTitles: true,
           interval: 1,
-          getTextStyles: (context, value) =>
-          const TextStyle(
+          getTextStyles: (context, value) => const TextStyle(
             color: Color(0xff67727d),
             fontWeight: FontWeight.bold,
             fontSize: 12,
@@ -405,39 +487,39 @@ class _CommicsItemCardState extends State<CommicsItemCard> {
         LineChartBarData(
           spots: _isLoaded
               ? [
-            FlSpot(0, 0),
-            FlSpot(2.9, 2),
-            FlSpot(4.4, 3),
-            FlSpot(6.4, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 4),
-            FlSpot(12, 5),
-            FlSpot(16, 1),
-            FlSpot(20, 8),
-            FlSpot(24, 2),
-            FlSpot(28, 4.1),
-            FlSpot(32, 5),
-            FlSpot(36, 2.9),
-            FlSpot(40, 1.8),
-            FlSpot(44, 6),
-          ]
+                  const FlSpot(0, 0),
+                  const FlSpot(2.9, 2),
+                  const FlSpot(4.4, 3),
+                  const FlSpot(6.4, 3.1),
+                  const FlSpot(8, 4),
+                  const FlSpot(9.5, 4),
+                  const FlSpot(12, 5),
+                  const FlSpot(16, 1),
+                  const FlSpot(20, 8),
+                  const FlSpot(24, 2),
+                  const FlSpot(28, 4.1),
+                  const FlSpot(32, 5),
+                  const FlSpot(36, 2.9),
+                  const FlSpot(40, 1.8),
+                  const FlSpot(44, 6),
+                ]
               : [
-            FlSpot(0, 0),
-            FlSpot(2.4, 0),
-            FlSpot(4.4, 0),
-            FlSpot(6.4, 0),
-            FlSpot(8, 0),
-            FlSpot(9.5, 0),
-            FlSpot(12, 0),
-            FlSpot(16, 0),
-            FlSpot(20, 0),
-            FlSpot(24, 0),
-            FlSpot(28, 0),
-            FlSpot(32, 0),
-            FlSpot(36, 0),
-            FlSpot(40, 0),
-            FlSpot(44, 0),
-          ],
+                  const FlSpot(0, 0),
+                  const FlSpot(2.4, 0),
+                  const FlSpot(4.4, 0),
+                  const FlSpot(6.4, 0),
+                  const FlSpot(8, 0),
+                  const FlSpot(9.5, 0),
+                  const FlSpot(12, 0),
+                  const FlSpot(16, 0),
+                  const FlSpot(20, 0),
+                  const FlSpot(24, 0),
+                  const FlSpot(28, 0),
+                  const FlSpot(32, 0),
+                  const FlSpot(36, 0),
+                  const FlSpot(40, 0),
+                  const FlSpot(44, 0),
+                ],
           isCurved: true,
           colors: gradientColors,
           barWidth: 2,
@@ -456,6 +538,4 @@ class _CommicsItemCardState extends State<CommicsItemCard> {
       ],
     );
   }
-
 }
-
