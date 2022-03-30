@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ComicsModel {
   ComicsModel({
@@ -115,15 +117,18 @@ class Results {
 class Graph {
   Graph({
     this.hour,
+    this.inHour,
     this.total,
   });
 
   Graph.fromJson(dynamic json) {
     hour = json['hour'];
     total = json['total'];
+    inHour = DateFormat('hh a').format(DateTime.parse(hour!));
   }
 
   String? hour;
+  var inHour;
   double? total;
 
   Map<String, dynamic> toJson() {

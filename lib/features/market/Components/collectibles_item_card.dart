@@ -62,7 +62,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
               ),
               child: InkWell(
                 onTap: () {
-                  Get.to(() => ChartExample(id: widget.list![index].id));
+                  //Get.to(() => ChartExample(id: widget.list![index].id));
                   Flushbar(
                     title: "Hey buddy",
                     message: "You selected ${widget.list![index].name}",

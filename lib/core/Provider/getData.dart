@@ -42,7 +42,7 @@ class GetData extends ChangeNotifier {
 
     var data = json.decode(response.body.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
 
     profileModel = ProfileModel.fromJson(data);
 
@@ -61,23 +61,23 @@ class GetData extends ChangeNotifier {
 
     var data = json.decode(response.body.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
 
     collectiblesModel = CollectiblesModel.fromJson(data);
 
     notifyListeners();
   }
 
-  Future getSingleProduct(int? id) async {
+  Future getSingleProduct(int? id, {int graphType = 0}) async {
     singleProductModel = null;
     final response = await http.get(
       Uri.parse(
-        Urls.singleProduct + id!.toString(),
+        Urls.singleProduct + '$id?graph_type=$graphType',
       ),
       headers: requestToken,
     );
 
-    printInfo(info: Urls.singleProduct + id.toString());
+    printInfo(info: Urls.singleProduct + '$id?graph_type=0');
 
     var data = json.decode(response.body.toString());
 
@@ -116,7 +116,7 @@ class GetData extends ChangeNotifier {
 
     var data = json.decode(response.body.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
 
     if (comicsModel != null) {
       if (offset == 0) comicsModel!.results!.clear();

@@ -7,6 +7,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
+import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -53,7 +54,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return SizedBox(
-        height: Get.height*.7,
+        height: Get.height * .7,
         child: data.comicsModel != null
             ? SmartRefresher(
                 key: _refreshkey,
@@ -90,8 +91,16 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                         ),
                         child: InkWell(
                           onTap: () {
-                            Get.to(() => ChartExample(
-                                id: data.comicsModel!.results![index].id));
+                            Get.to(
+                              () => ComicDetails(),
+                              arguments: data.comicsModel!.results![index],
+                            );
+
+                            /*Get.to(
+                              () => ChartExample(
+                                  id: data.comicsModel!.results![index].id),
+                              arguments: data.comicsModel!.results![index]
+                            );*/
                             Flushbar(
                               title: "Hey buddy",
                               message:
@@ -105,35 +114,25 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Container(
-                                    height: 60,
-                                    width: 60,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.primaryColor
-                                            .withOpacity(.8),
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            color: const Color(0xff454F70))),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      data.comicsModel!.results![index].name
-                                          .toString()[0]
-                                          .toUpperCase(),
-                                      style: TextStyle(
-                                          color: AppColors.lightBackgroundColor,
-                                          fontSize: 35,
-                                          fontWeight: FontWeight.bold),
-                                    )
-
-                                    /*Initicon(
-                          text: data.comicsModel!.results![index].name.toString()[0],
-                          color:Colors.primaries[Random().nextInt(Colors.primaries.length)],
-                          backgroundColor:Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          size: 55,
-
-                        ),*/
-
-                                    ),
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.primaryColor
+                                          .withOpacity(.8),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: const Color(0xff454F70))),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    data.comicsModel!.results![index].name
+                                        .toString()[0]
+                                        .toUpperCase(),
+                                    style: TextStyle(
+                                        color: AppColors.lightBackgroundColor,
+                                        fontSize: 35,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                                 AppSpaces.spaces_width_5,
                                 Expanded(
                                   flex: 11,
@@ -165,19 +164,20 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                               )),
                                           AppSpaces.spaces_width_5,
                                           Expanded(
-                                              flex: 3,
-                                              child: Text(
-                                                data.comicsModel!
-                                                    .results![index].edition
-                                                    .toString(),
-                                                textAlign: TextAlign.start,
-                                                style: Get.textTheme.bodyText1!
-                                                    .copyWith(
-                                                        color: AppColors.white,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                        fontSize: 10),
-                                              )),
+                                            flex: 3,
+                                            child: Text(
+                                              data.comicsModel!.results![index]
+                                                  .edition
+                                                  .toString(),
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText1!
+                                                  .copyWith(
+                                                      color: AppColors.white,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      fontSize: 10),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       AppSpaces.spaces_height_10,
@@ -487,7 +487,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
         LineChartBarData(
           spots: _isLoaded
               ? [
-                  const FlSpot(0, 0),
+                  const FlSpot(0, 100),
                   const FlSpot(2.9, 2),
                   const FlSpot(4.4, 3),
                   const FlSpot(6.4, 3.1),
@@ -504,7 +504,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                   const FlSpot(44, 6),
                 ]
               : [
-                  const FlSpot(0, 0),
+                  const FlSpot(0, 100),
                   const FlSpot(2.4, 0),
                   const FlSpot(4.4, 0),
                   const FlSpot(6.4, 0),

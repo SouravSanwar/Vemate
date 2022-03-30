@@ -63,7 +63,7 @@ class _MysetsCardState extends State<MysetsCard> {
               ),
               child: InkWell(
                 onTap: () {
-                  Get.to(() => ChartExample(id: widget.list![index].id));
+                  //Get.to(() => ChartExample(id: widget.list![index].id));
                 },
                 child: Container(
                     decoration: BoxDecoration(
