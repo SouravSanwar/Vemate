@@ -15,10 +15,12 @@ class AppLanguageString {
   static String USERNAME = 'user_name';
   static String PASSWORD = 'Password';
   static String CONFIRMPASSWORD = 'confirm_password';
+  static String NEWPASSWORD = 'new_password';
   static String SIGN_UP = 'Sign_Up';
   static String lOG_IN = 'Log_In';
   static String RESET_PASS = 'Reset';
   static String UPDATE_INFO = 'Update Info';
+  static String UPDATE_Pass = 'Update Password';
   static var AND = "and";
   static var EMAIL_IS_REQUIRED = "Email_is_required";
   static var VALIDATION_FAILED = "Validation_Failed";

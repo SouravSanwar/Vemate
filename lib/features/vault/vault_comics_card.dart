@@ -108,7 +108,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                             child:Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                SizedBox(width: Get.width*.1,),
+                                SizedBox(width: Get.width*.05,),
                                 Text(
                                   percent < 0.0
                                       ? percent.toString()

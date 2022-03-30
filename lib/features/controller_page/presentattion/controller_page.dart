@@ -4,10 +4,8 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/home/presentation/home.dart';
-import 'package:ketemaa/features/mcp/presentation/mcp.dart';
-
-import 'package:ketemaa/features/profile/presentation/profile.dart';
 import 'package:ketemaa/features/vault/vault.dart';
+
 import 'package:ketemaa/main.dart';
 
 import '../../market/presentation/market.dart';
@@ -62,42 +60,7 @@ class ControllerPage extends StatelessWidget {
     }
   }
 
-/*  getBottomBar() {
 
-    return Container(
-
-      decoration: BoxDecoration(
-        color: Colors.black45,
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(20),
-          topLeft: Radius.circular(20),
-        ),
-      ),
-
-      child:BottomNavigationBar(
-
-      backgroundColor: Colors.black54,
-      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-      selectedFontSize: 12,
-      unselectedFontSize: 12,
-      currentIndex: ControllerPageController.to.currentPage.value,
-      onTap: (index) {
-        ControllerPageController.to.currentPage.value = index;
-      },
-      selectedItemColor: Colors.purpleAccent,
-      unselectedItemColor: AppColors.white,
-      type: BottomNavigationBarType.fixed,
-      items: List.generate(
-        ControllerPageController.to.bottomBarData!.length,
-        (index) => BottomNavigationBarItem(
-          icon: Icon(icons[index]),
-          label: names[index],
-        ),
-      ),
-    ),
-
-    );
-  }*/
 
   getBottomBar() {
     return ClipRRect(

@@ -10,7 +10,6 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/_controller/sign_up_controller.dart';
-import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
@@ -21,6 +20,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+
   PostData? postData;
 
   @override
@@ -31,7 +31,6 @@ class _SignUpState extends State<SignUp> {
 
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,35 +61,49 @@ class _SignUpState extends State<SignUp> {
                             fontWeight: FontWeight.bold, color: Colors.grey),
                       )),
                   AppSpaces.spaces_height_25,
+
                   TextInputField(
                     labelText: "Username",
-                    height: .09,
+                    height: Get.height * .04,
                     textType: TextInputType.text,
                     controller: SignUpController.to.nameController,
                   ),
-                  AppSpaces.spaces_height_15,
+
+                  SizedBox(
+                    height: Get.height * .022,
+                  ),
                   TextInputField(
                     labelText: "E-mail",
-                    height: .09,
+                    height: Get.height * .04,
                     textType: TextInputType.emailAddress,
                     controller: SignUpController.to.emailController,
                   ),
-                  AppSpaces.spaces_height_15,
+
+                  SizedBox(
+                    height: 15,
+                  ),
                   PasswordInputField(
                       labelText: "Password",
-                      height: .09,
+                      height: Get.height * .04,
                       textType: TextInputType.text,
                       controller: SignUpController.to.passwordController),
-                  AppSpaces.spaces_height_15,
+
+                  SizedBox(
+                    height: Get.height * .022,
+                  ),
+
                   PasswordInputField(
                       labelText: "Confirm Password",
-                      height: .09,
+                      height: Get.height * .04,
                       textType: TextInputType.text,
                       controller:
                           SignUpController.to.confirmPasswordController),
-                  const SizedBox(
-                    height: 50,
+                  //AppSpaces.spaces_height_5,
+
+                  SizedBox(
+                    height: Get.height * .07,
                   ),
+
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 15),
                     padding: EdgeInsets.symmetric(horizontal: 7),
@@ -109,26 +122,26 @@ class _SignUpState extends State<SignUp> {
                           "birth_year": "1852",
                           "fcm_device_id": "3",
                           "password":
-                              SignUpController.to.passwordController.text
+                          SignUpController.to.passwordController.text
                         };
 
                         printInfo(info: body.toString());
 
                         SignUpController.to.passwordController.text ==
-                                SignUpController
-                                    .to.confirmPasswordController.text
+                            SignUpController
+                                .to.confirmPasswordController.text
                             ? postData!.signUp(context, body)
                             : Flushbar(
                           backgroundColor: AppColors.lightBackgroundColor,
-                                flushbarPosition: FlushbarPosition.BOTTOM,
-                                isDismissible: false,
-                                duration: const Duration(seconds: 3),
-                                messageText: const Text(
-                                  "Password didn't match",
-                                  style: TextStyle(
-                                      fontSize: 16.0, color: Colors.green),
-                                ),
-                              ).show(context);
+                          flushbarPosition: FlushbarPosition.BOTTOM,
+                          isDismissible: false,
+                          duration: const Duration(seconds: 3),
+                          messageText: const Text(
+                            "Password didn't match",
+                            style: TextStyle(
+                                fontSize: 16.0, color: Colors.green),
+                          ),
+                        ).show(context);
                       },
                       child: Text(
                         AppLanguageString.SIGN_UP.tr.toUpperCase(),

@@ -1,6 +1,3 @@
-import 'dart:ffi';
-import 'package:animate_do/animate_do.dart';
-import 'package:another_flushbar/flushbar.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +11,7 @@ import '../../../core/utilities/app_spaces/app_spaces.dart';
 
 class CollectiblesItemCard extends StatefulWidget {
   List<Results>? list;
+
 
   CollectiblesItemCard({
     this.list,
@@ -43,12 +41,14 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
   Widget build(BuildContext context) {
     double percent = 3.30;
 
+
     return Padding(
       padding: EdgeInsets.only(
         left: AppDimension.padding_8,
         right: AppDimension.padding_8,
       ),
       child: ListView.builder(
+
         shrinkWrap: true,
         itemCount: widget.list!.length,
         itemBuilder: (BuildContext context, int index) {
@@ -62,12 +62,9 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
               ),
               child: InkWell(
                 onTap: () {
-                  //Get.to(() => ChartExample(id: widget.list![index].id));
-                  Flushbar(
-                    title: "Hey buddy",
-                    message: "You selected ${widget.list![index].name}",
-                    duration: const Duration(seconds: 1),
-                  ).show(context);
+                  Get.to(() => ChartExample(id: widget.list![index].id));
+
+
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -75,10 +72,10 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                          height: 60,
-                          width: 60,
+                          height: Get.height*.078,
+                          width: Get.height*.078,
                           decoration: BoxDecoration(
-                              color: AppColors.primaryColor.withOpacity(.8),
+                              color: Color(0xD3C89EF3),
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(color: Color(0xff454F70))),
                           alignment: Alignment.center,
@@ -86,193 +83,181 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                             widget.list![index].name
                                 .toString()[0]
                                 .toUpperCase(),
-                            style: TextStyle(
-                                color: AppColors.lightBackgroundColor,
+                            style: const TextStyle(
+                                color: Colors.deepPurpleAccent,
                                 fontSize: 35,
                                 fontWeight: FontWeight.bold),
                           )
 
-                          /*Initicon(
-                          text: widget.list![index].name.toString()[0],
-                          color:Colors.primaries[Random().nextInt(Colors.primaries.length)],
-                          backgroundColor:Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          size: 55,
 
-                        ),*/
 
                           ),
                       AppSpaces.spaces_width_5,
                       Expanded(
                         flex: 11,
+
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Row(
                               children: <Widget>[
                                 Expanded(
-                                    flex: 5,
-                                    child: SizedBox(
-                                      height: Get.height * .02,
-                                      child: Text(
-                                        widget.list![index].name.toString(),
-                                        textAlign: TextAlign.start,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Get.textTheme.bodyText2!
-                                            .copyWith(
-                                                color: AppColors.white,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 13),
-                                      ),
-                                    )),
-                                AppSpaces.spaces_width_5,
-                                Expanded(
-                                    flex: 3,
-                                    child: Text(
-                                      widget.list![index].edition.toString(),
-                                      textAlign: TextAlign.start,
-                                      style: Get.textTheme.bodyText1!.copyWith(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 10),
-                                    )),
-                              ],
-                            ),
-                            AppSpaces.spaces_height_10,
-                            Row(
-                              children: [
-                                Expanded(
                                   flex: 5,
-                                  child: Text(
-                                    widget.list![index].brand.toString(),
+                                  child: Container(
+                                    height: Get.height*.02,
+                                    child:Text(
+                                    widget.list![index].name.toString().length >13
+                                        ? widget.list![index].name.toString().substring(0,12)+"....."
+                                        : widget.list![index].name.toString(),
+
                                     textAlign: TextAlign.start,
-                                    style: Get.textTheme.bodyText1!.copyWith(
-                                        color: AppColors.greyWhite
-                                            .withOpacity(0.8),
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 10),
+                                    style: Get.textTheme.bodyText2!.copyWith(
+                                        color: AppColors.white,
+                                        fontWeight: FontWeight.w600,
+                                    fontSize: 13),
                                   ),
+                                  )
                                 ),
-                                AppSpaces.spaces_width_5,
+                                SizedBox(width: 2,),
                                 Expanded(
                                   flex: 3,
                                   child: Text(
-                                    widget.list![index].rarity.toString(),
+                                    widget.list![index].edition.toString(),
                                     textAlign: TextAlign.start,
                                     style: Get.textTheme.bodyText1!.copyWith(
-                                        color: AppColors.greyWhite
-                                            .withOpacity(0.8),
+                                        color: AppColors.white,
                                         fontWeight: FontWeight.w300,
-                                        fontSize: 10),
-                                  ),
+                                    fontSize: 10),
+                                  )
                                 ),
                               ],
                             ),
                             AppSpaces.spaces_height_10,
                             Row(
+                                children: [
+                                  Expanded(
+                                    flex: 5,
+                                    child:Text(
+                                  widget.list![index].brand.toString(),
+                                  textAlign: TextAlign.start,
+                                  style: Get.textTheme.bodyText1!.copyWith(
+                                      color: AppColors.greyWhite.withOpacity(0.8),
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 10),
+                                  ),
+                                ),
+                              Expanded(
+                                flex: 3,
+                                child:Text(
+                                  widget.list![index].rarity.toString(),
+                                  textAlign: TextAlign.start,
+                                  style: Get.textTheme.bodyText1!.copyWith(
+                                      color: AppColors.greyWhite.withOpacity(0.8),
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 10),
+                                ),
+                              ),
+
+                              ],
+                            ),
+                          AppSpaces.spaces_height_10,
+                            Row(
                               children: [
                                 Expanded(
                                   flex: 5,
-                                  child: Text(
-                                    '\$' +
-                                        widget.list![index].floorPrice
-                                            .toString(),
+                                  child:Text(
+                                    r"$"+ widget.list![index].floorPrice.toString(),
                                     textAlign: TextAlign.start,
                                     style: Get.textTheme.bodyText1!.copyWith(
-                                        color: AppColors.greyWhite
-                                            .withOpacity(0.8),
+                                        color: AppColors.greyWhite.withOpacity(0.8),
                                         fontWeight: FontWeight.w900,
                                         fontSize: 12),
                                   ),
                                 ),
-                                AppSpaces.spaces_width_5,
+                                SizedBox(width: 2,),
                                 Expanded(
                                   flex: 3,
-                                  child: Text(
-                                    "MCP " +
-                                        widget.list![index].rarePoint
-                                            .toString(),
+                                  child:Text(
+                                    "MCP "+widget.list![index].rarePoint.toString(),
                                     textAlign: TextAlign.start,
                                     style: Get.textTheme.bodyText1!.copyWith(
-                                        color: AppColors.greyWhite
-                                            .withOpacity(0.8),
+                                        color: AppColors.greyWhite.withOpacity(0.8),
                                         fontWeight: FontWeight.w300,
                                         fontSize: 10),
                                   ),
                                 ),
+
                               ],
                             ),
                           ],
                         ),
                       ),
+
                       Expanded(
                         flex: 5,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              height: 25,
-                              child: LineChart(
-                                mainData(), // Optional
-                                swapAnimationCurve: Curves.linear, // Optional
-                              ),
-                            ),
-                            AppSpaces.spaces_height_10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    '\$${widget.list![index].cpp}',
-                                    textAlign: TextAlign.start,
-                                    style: Get.textTheme.bodyText1!.copyWith(
-                                        color: AppColors.white.withOpacity(0.9),
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        widget.list![index].priceChangePercent!
-                                            .percent!
-                                            .toString(),
-                                        textAlign: TextAlign.end,
-                                        style: Get.textTheme.bodyText1!
-                                            .copyWith(
-                                                color: widget
-                                                            .list![index]
-                                                            .priceChangePercent!
-                                                            .sign ==
-                                                        'decrease'
-                                                    ? Colors.red
-                                                    : Colors.green,
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 10),
+                        // add this
+
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                          Container(
+                                      height: Get.height*.03,
+                                      child: LineChart(
+                                        mainData(),// Optional
+                                        swapAnimationCurve:
+                                        Curves.linear, // Optional
                                       ),
-                                      if (widget.list![index]
-                                              .priceChangePercent!.sign ==
-                                          'decrease')
-                                        const Icon(
-                                          Icons.arrow_downward,
-                                          color: Colors.red,
-                                          size: 12,
-                                        )
-                                      else
-                                        const Icon(
-                                          Icons.arrow_upward,
-                                          color: Colors.green,
-                                          size: 12,
-                                        )
-                                    ],
+                                    ),
+                              AppSpaces.spaces_height_10,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child:Text(
+                                     r"$"+ widget.list![index].cpp.toString()+"7",
+                                      textAlign: TextAlign.start,
+                                      style: Get.textTheme.bodyText1!.copyWith(
+                                          color: AppColors.white.withOpacity(0.9),
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                                  Expanded(
+                                    child:Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          percent < 0.0
+                                              ? percent.toString()
+                                              : "+" + percent.toString(),
+                                          textAlign: TextAlign.end,
+                                          style: Get.textTheme.bodyText1!.copyWith(
+                                              color: percent < 0.0
+                                                  ? Colors.red
+                                                  : Colors.green,
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 10),
+                                        ),
+                                        if (percent < 0.0)
+                                          const Icon(
+                                            Icons.arrow_downward,
+                                            color: Colors.red,
+                                            size: 12,
+                                          )
+                                        else
+                                          const Icon(
+                                            Icons.arrow_upward,
+                                            color: Colors.green,
+                                            size: 12,
+                                          )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                            ],
+                          ),
                       ),
                     ],
                   ),
@@ -382,8 +367,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
       maxY: 10,
       lineBarsData: [
         LineChartBarData(
-          spots: _isLoaded
-              ? const [
+          spots:[
                   FlSpot(0, 0),
                   FlSpot(2.9, 2),
                   FlSpot(4.4, 3),
@@ -399,23 +383,6 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                   FlSpot(36, 2.9),
                   FlSpot(40, 1.8),
                   FlSpot(44, 6),
-                ]
-              : const [
-                  FlSpot(0, 0),
-                  FlSpot(2.4, 0),
-                  FlSpot(4.4, 0),
-                  FlSpot(6.4, 0),
-                  FlSpot(8, 0),
-                  FlSpot(9.5, 0),
-                  FlSpot(12, 0),
-                  FlSpot(16, 0),
-                  FlSpot(20, 0),
-                  FlSpot(24, 0),
-                  FlSpot(28, 0),
-                  FlSpot(32, 0),
-                  FlSpot(36, 0),
-                  FlSpot(40, 0),
-                  FlSpot(44, 0),
                 ],
           isCurved: true,
           colors: gradientColors,
@@ -423,14 +390,6 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
           dotData: FlDotData(
             show: false,
           ),
-          /*belowBarData: BarAreaData(
-              show: true,
-              gradientFrom: Offset(0, 0),
-              gradientTo: Offset(0, 1),
-              colors: [
-                Colors.grey.shade800,
-                Colors.grey.shade700,
-              ]),*/
         ),
       ],
     );

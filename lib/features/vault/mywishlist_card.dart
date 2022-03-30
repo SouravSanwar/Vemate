@@ -1,3 +1,6 @@
+import 'dart:ffi';
+import 'package:animate_do/animate_do.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,18 +13,18 @@ import 'package:ketemaa/graph/graph_helper.dart';
 import '../../../../core/models/CollectiblesModel.dart';
 import '../../../../core/utilities/app_colors/app_colors.dart';
 
-class MysetsCard extends StatefulWidget {
+class MywishlistCard extends StatefulWidget {
   List<Results>? list;
 
-  MysetsCard({
+  MywishlistCard({
     this.list,
   });
 
   @override
-  State<MysetsCard> createState() => _MysetsCardState();
+  State<MywishlistCard> createState() => _MywishlistCardState();
 }
 
-class _MysetsCardState extends State<MysetsCard> {
+class _MywishlistCardState extends State<MywishlistCard> {
   bool _isLoaded = false;
   String? firstHalf;
 
@@ -83,7 +86,7 @@ class _MysetsCardState extends State<MysetsCard> {
                               child: LineChart(
                                 mainData(), // Optional
                                 swapAnimationCurve:
-                                    Curves.easeInOutQuad, // Optional
+                                Curves.easeInOutQuad, // Optional
                               ),
                             ),
                             new Divider(
@@ -94,9 +97,9 @@ class _MysetsCardState extends State<MysetsCard> {
                               child: Text(
                                 widget.list![index].name.toString().length > 15
                                     ? widget.list![index].name
-                                            .toString()
-                                            .substring(0, 14) +
-                                        "....."
+                                    .toString()
+                                    .substring(0, 14) +
+                                    "....."
                                     : widget.list![index].name.toString(),
                                 textAlign: TextAlign.start,
                                 style: Get.textTheme.bodyText2!.copyWith(
@@ -110,10 +113,10 @@ class _MysetsCardState extends State<MysetsCard> {
                             ),
                             Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 5),
+                                const EdgeInsets.symmetric(horizontal: 5),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
                                       flex: 2,
@@ -125,16 +128,16 @@ class _MysetsCardState extends State<MysetsCard> {
                                           textAlign: TextAlign.start,
                                           style: Get.textTheme.bodyText2!
                                               .copyWith(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 11),
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 11),
                                         ),
                                       ),
                                     ),
                                     Expanded(
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                        MainAxisAlignment.end,
                                         children: [
                                           Text(
                                             percent < 0.0
@@ -143,11 +146,11 @@ class _MysetsCardState extends State<MysetsCard> {
                                             textAlign: TextAlign.end,
                                             style: Get.textTheme.bodyText1!
                                                 .copyWith(
-                                                    color: percent < 0.0
-                                                        ? Colors.red
-                                                        : Colors.green,
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 11),
+                                                color: percent < 0.0
+                                                    ? Colors.red
+                                                    : Colors.green,
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 11),
                                           ),
                                           if (percent < 0.0)
                                             const Icon(
@@ -277,39 +280,39 @@ class _MysetsCardState extends State<MysetsCard> {
         LineChartBarData(
           spots: _isLoaded
               ? [
-                  FlSpot(0, 0),
-                  FlSpot(2.9, 2),
-                  FlSpot(4.4, 3),
-                  FlSpot(6.4, 3.1),
-                  FlSpot(8, 4),
-                  FlSpot(9.5, 4),
-                  FlSpot(12, 5),
-                  FlSpot(16, 1),
-                  FlSpot(20, 8),
-                  FlSpot(24, 2),
-                  FlSpot(28, 4.1),
-                  FlSpot(32, 5),
-                  FlSpot(36, 2.9),
-                  FlSpot(40, 1.8),
-                  FlSpot(44, 6),
-                ]
+            FlSpot(0, 0),
+            FlSpot(2.9, 2),
+            FlSpot(4.4, 3),
+            FlSpot(6.4, 3.1),
+            FlSpot(8, 4),
+            FlSpot(9.5, 4),
+            FlSpot(12, 5),
+            FlSpot(16, 1),
+            FlSpot(20, 8),
+            FlSpot(24, 2),
+            FlSpot(28, 4.1),
+            FlSpot(32, 5),
+            FlSpot(36, 2.9),
+            FlSpot(40, 1.8),
+            FlSpot(44, 6),
+          ]
               : [
-                  FlSpot(0, 0),
-                  FlSpot(2.4, 0),
-                  FlSpot(4.4, 0),
-                  FlSpot(6.4, 0),
-                  FlSpot(8, 0),
-                  FlSpot(9.5, 0),
-                  FlSpot(12, 0),
-                  FlSpot(16, 0),
-                  FlSpot(20, 0),
-                  FlSpot(24, 0),
-                  FlSpot(28, 0),
-                  FlSpot(32, 0),
-                  FlSpot(36, 0),
-                  FlSpot(40, 0),
-                  FlSpot(44, 0),
-                ],
+            FlSpot(0, 0),
+            FlSpot(2.4, 0),
+            FlSpot(4.4, 0),
+            FlSpot(6.4, 0),
+            FlSpot(8, 0),
+            FlSpot(9.5, 0),
+            FlSpot(12, 0),
+            FlSpot(16, 0),
+            FlSpot(20, 0),
+            FlSpot(24, 0),
+            FlSpot(28, 0),
+            FlSpot(32, 0),
+            FlSpot(36, 0),
+            FlSpot(40, 0),
+            FlSpot(44, 0),
+          ],
           isCurved: true,
           colors: gradientColors,
           barWidth: 2,

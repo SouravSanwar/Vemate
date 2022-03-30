@@ -209,127 +209,19 @@ class GraphHelper extends StatelessWidget {
             height: 20,
           ),
 
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 0.5)),
-              child: ListView(children: <Widget>[
-                ItemDetails(
-                  text: "Floor Price",
-                  text1: data.singleProductModel != null
-                      ? data.singleProductModel!.floorPrice
-                          .toString()
-                      : "",
-                ),
-                const SizedBox(
-                  height: 0.5,
-                ),
-                ItemDetails(
-                  text: "Owner",
-                  text1: data.singleProductModel != null
-                      ? data.singleProductModel!.owner.toString()
-                      : "",
-                ),
-                const SizedBox(
-                  height: 0.5,
-                ),
-                ItemDetails(
-                  text: "Edition",
-                  text1: data.singleProductModel != null
-                      ? data.singleProductModel!.edition.toString()
-                      : "",
-                ),
-                const SizedBox(
-                  height: 0.5,
-                ),
-                ItemDetails(
-                  text: "Name",
-                  text1: data.singleProductModel != null
-                      ? data.singleProductModel!.name.toString()
-                      : "",
-                ),
-                const SizedBox(
-                  height: 0.5,
-                ),
-                ItemDetails(
-                  text: "Drop Date",
-                  text1: data.singleProductModel != null
-                      ? data.singleProductModel!.dropDate
-                          .toString()
-                      : "",
-                ),
-                const SizedBox(
-                  height: 0.5,
-                ),
-                ItemDetails(
-                  text: "List Price",
-                  text1: data.singleProductModel != null
-                      ? data.singleProductModel!.listPrice
-                          .toString()
-                      : "",
-                ),
-                const SizedBox(
-                  height: 0.5,
-                ),
-                ItemDetails(
-                  text: "Editions",
-                  text1: data.singleProductModel != null
-                      ? data.singleProductModel!.editions
-                          .toString()
-                      : "",
-                ),
-                const SizedBox(
-                  height: 0.5,
-                ),
-                ItemDetails(
-                  text: "Edition Type",
-                  text1: data.singleProductModel != null
-                      ? data.singleProductModel!.editionType
-                          .toString()
-                      : "",
-                ),
-                const SizedBox(
-                  height: 0.5,
-                ),
-                ItemDetails(
-                  text: "Season",
-                  text1: data.singleProductModel != null
-                      ? data.singleProductModel!.season.toString()
-                      : "",
-                ),
-                const SizedBox(
-                  height: 0.5,
-                ),
-                ItemDetails(
-                  text: "Rarity",
-                  text1: data.singleProductModel != null
-                      ? data.singleProductModel!.rarity.toString()
-                      : "",
-                ),
-                const SizedBox(
-                  height: 0.5,
-                ),
-                ItemDetails(
-                  text: "Brand",
-                  text1: data.singleProductModel != null
-                      ? data.singleProductModel!.brand.toString()
-                      : "",
-                ),
-                const SizedBox(
-                  height: 0.5,
-                ),
-                ItemDetails(
-                  text: "Series",
-                  text1: data.singleProductModel != null
-                      ? data.singleProductModel!.series.toString()
-                      : "",
-                ),
-              ]),
-            ),
+         Expanded(
+          child:Container(
+
+          decoration: BoxDecoration(
+          border: Border.all(color: Colors.white,width: 0.5)
           ),
-          SizedBox(
-            height: 20,
-          ),
+
+         child: ItemDetails(),
+           ),
+         ),
+        SizedBox(height: 20,),
+
+
         ]),
       );
     });

@@ -1,22 +1,18 @@
-import 'package:anim_search_bar/anim_search_bar.dart';
-import 'package:filter_list/filter_list.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'dart:math' as math;
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
 import 'package:ketemaa/features/vault/vault_comics_card.dart';
-
 import 'package:ketemaa/graph/graph_helper.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../core/utilities/shimmer/loading.dart';
-import '../../../../graph/designhelper.dart';
 import 'mysets_card.dart';
+import 'mywishlist_card.dart';
 
 class Vault extends StatefulWidget {
   @override
@@ -28,11 +24,13 @@ class _VaultState extends State<Vault> {
   double scrnHeight = Get.height;
   double scrnWidth = Get.width;
 
+  String? selectedValue;
+
   @override
   void initState() {
     super.initState();
 
-    // make _isLoaded true after 2 seconds
+
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isLoaded = true;
@@ -40,7 +38,6 @@ class _VaultState extends State<Vault> {
     });
   }
 
-  //For Filter
 
   @override
   Widget build(BuildContext context) {
@@ -49,306 +46,334 @@ class _VaultState extends State<Vault> {
     SharedPreferenceController.to.getToken();
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Color(0xff272E49),
       body: Consumer<GetData>(builder: (context, data, child) {
         return Padding(
-          padding: const EdgeInsets.only(top: 0.0),
+          padding: EdgeInsets.symmetric(horizontal: 5),
           child: Stack(
             //shrinkWrap: true,
             children: [
-              ListView(
+              Column(
                 children: [
-                  SizedBox(height: Get.height * .2),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left:
-                            Get.width * .06), //apply padding to all four sides
-                    child: const Text(
-                      "My Collectibles",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  VaultCollectiblesCard(),
-                  SizedBox(
-                    height: Get.height * .02,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left:
-                            Get.width * .06), //apply padding to all four sides
-                    child: const Text(
-                      "My Comics",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  VaultComicsCard(),
-                  SizedBox(
-                    height: Get.height * .02,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left:
-                            Get.width * .06), //apply padding to all four sides
-                    child: const Text(
-                      "My Sets",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  SizedBox(
-                    height: Get.height * .23,
-                    child: data.collectiblesModel != null
-                        ? MysetsCard(
-                            list: data.collectiblesModel!.results,
-                          )
-                        : const LoadingExample(),
-                  ),
-                  SizedBox(
-                    height: Get.height * .02,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left:
-                            Get.width * .06), //apply padding to all four sides
-                    child: const Text(
-                      "My Wishlist",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  SizedBox(
-                    height: Get.height * .23,
-                    child: data.collectiblesModel != null
-                        ? MysetsCard(
-                            list: data.collectiblesModel!.results,
-                          )
-                        : const LoadingExample(),
-                  ),
-                ],
-              ),
-              Positioned(
-                top: Get.height * .03,
-                left: 0.0,
-                right: 0.0,
-                child: ClipPath(
-                  clipper: WaveClip(),
-                  child: Container(
-                    width: Get.width,
-                    height: Get.height * .25,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.cardGradient,
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: Get.width * .05,
-                        ),
-                        Row(children: [
+                  Container(
+                    clipBehavior: Clip.antiAlias,
+                      width: Get.width,
+                      height: Get.height * .22,
+                      decoration: BoxDecoration(
+                        gradient: AppColors.cardGradient,
+                        borderRadius: BorderRadius.vertical(bottom: Radius.circular(40.0)),
+                      ),
+                      child: Column(
+                        children: [
                           SizedBox(
-                            width: Get.width * .05,
+                            height: Get.width * .15,
                           ),
-                          Text(
-                            "My Vault",
-                            textAlign: TextAlign.start,
-                            style: Get.textTheme.bodyText2!.copyWith(
-                                color: AppColors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 22),
-                          ),
-                        ]),
-                        SizedBox(
-                          height: Get.height * .015,
-                        ),
-                        Row(
-                          children: [
+                          Row(children: [
                             SizedBox(
                               width: Get.width * .05,
                             ),
-                            Expanded(
-                              flex: 4,
-                              child: Text(
-                                "Vault Value",
-                                textAlign: TextAlign.start,
-                                style: Get.textTheme.bodyText2!.copyWith(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
-                              ),
+                            Text(
+                              "My Vault",
+                              textAlign: TextAlign.start,
+                              style: Get.textTheme.bodyText2!.copyWith(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 22),
                             ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                "MCP",
-                                textAlign: TextAlign.start,
-                                style: Get.textTheme.bodyText2!.copyWith(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Container(
-                                width: Get.width * .15,
-                                height: Get.height * .03,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  gradient: AppColors
-                                      .purpleGradient, // set border width
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(
-                                          16.0)), // set rounded corner radius
-                                ),
-                                child: Text(
-                                  r"$" + "456",
-                                  textAlign: TextAlign.start,
-                                  style: Get.textTheme.bodyText2!.copyWith(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15),
-                                ),
-                              ),
-                            ),
-                            const Expanded(
-                              flex: 4,
-                              child: Text(""),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: Get.width * .05,
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: Text(
-                                r"$" + "4563",
-                                textAlign: TextAlign.start,
-                                style: Get.textTheme.bodyText2!.copyWith(
-                                    color: AppColors.grey,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                "187",
-                                textAlign: TextAlign.start,
-                                style: Get.textTheme.bodyText2!.copyWith(
-                                    color: AppColors.grey,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  if (percent < 0.0)
-                                    //toRotateIcon
-                                    const RotationTransition(
-                                      turns: AlwaysStoppedAnimation(45 / 360),
-                                      child: Icon(
-                                        Icons.arrow_downward,
-                                        size: 18,
-                                        color: Colors.red,
+                          ]),
+                          SizedBox(
+                            height: Get.height * .03,
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 9,
+                                  child:Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: Get.width * .05,
+                                          ),
+                                          Expanded(
+                                            flex: 4,
+                                            child: Text(
+                                              "Vault Value",
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText2!.copyWith(
+                                                  color: AppColors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 2,
+                                            child: Text(
+                                              "MCP",
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText2!.copyWith(
+                                                  color: AppColors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 3,
+                                            child: Container(
+                                              width: Get.width * .15,
+                                              height: Get.height * .03,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                gradient: AppColors
+                                                    .purpleGradient, // set border width
+                                                borderRadius: const BorderRadius.all(
+                                                    Radius.circular(
+                                                        16.0),
+                                                ), // set rounded corner radius
+                                              ),
+                                              child: Text(
+                                                r"$" + "456",
+                                                textAlign: TextAlign.start,
+                                                style: Get.textTheme.bodyText2!.copyWith(
+                                                    color: AppColors.white,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 14),
+                                              ),
+                                            ),
+                                          ),
+
+                                        ],
                                       ),
-                                    )
-                                  else
-                                    const RotationTransition(
-                                      turns: AlwaysStoppedAnimation(45 / 360),
-                                      child: Icon(
-                                        Icons.arrow_upward,
-                                        size: 18,
-                                        color: Colors.green,
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: Get.width * .05,
+                                          ),
+                                          Expanded(
+                                            flex: 4,
+                                            child: Text(
+                                              r"$" + "4563",
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText2!.copyWith(
+                                                  color: AppColors.grey,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 2,
+                                            child: Text(
+                                              "187",
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText2!.copyWith(
+                                                  color: AppColors.grey,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 3,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                if (percent < 0.0)
+                                                //toRotateIcon
+                                                  const RotationTransition(
+                                                    turns: AlwaysStoppedAnimation(
+                                                        45 / 360),
+                                                    child: Icon(
+                                                      Icons.arrow_downward,
+                                                      size: 18,
+                                                      color: Colors.red,
+                                                    ),
+                                                  )
+                                                else
+                                                  const RotationTransition(
+                                                    turns: AlwaysStoppedAnimation(
+                                                        45 / 360),
+                                                    child: Icon(
+                                                      Icons.arrow_upward,
+                                                      size: 18,
+                                                      color: Colors.green,
+                                                    ),
+                                                  ),
+                                                Text(
+                                                  percent < 0.0
+                                                      ? percent.toString()
+                                                      : percent.toString() + "%",
+                                                  textAlign: TextAlign.end,
+                                                  style: TextStyle(
+                                                      color: percent < 0.0
+                                                          ? Colors.red
+                                                          : Colors.green,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 14
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+
+                                        ],
                                       ),
+
+                                    ],
+                                  )
+                              ),
+                              Expanded(
+                                  flex:5,
+                                  child:Container(
+                                    padding: EdgeInsets.only(
                                     ),
-                                  Text(
-                                    percent < 0.0
-                                        ? percent.toString()
-                                        : percent.toString() + "%",
-                                    textAlign: TextAlign.end,
-                                    style: TextStyle(
-                                      color: percent < 0.0
-                                          ? Colors.red
-                                          : Colors.green,
-                                      fontWeight: FontWeight.bold,
+                                    alignment: Alignment.centerLeft,
+                                    height: Get.height * .05,
+                                    child: LineChart(
+                                      mainData(), // Optional
+                                      swapAnimationCurve:
+                                      Curves.easeInOutBack, // Optional
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                            const Expanded(
-                              flex: 4,
-                              child: Text(""),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(
-                            left: Get.width * .2,
-                          ),
-                          alignment: Alignment.centerLeft,
-                          height: Get.height * .07,
-                          child: LineChart(
-                            mainData(), // Optional
-                            swapAnimationCurve:
-                                Curves.easeInOutBack, // Optional
-                          ),
-                        ),
-                        Positioned(
-                          top: Get.height * .21,
-                          left: Get.width * .62,
-                          right: 0.0,
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: const Text(
-                              "24H",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            width: Get.width * .12,
-                            height: Get.width * .12,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              gradient: AppColors.purpleGradient,
-                            ),
-                          ),
-                        ),
-                      ],
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
+
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.only(top: Get.height * .26),
+                child: ListView(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: Get.width *
+                              .06), //apply padding to all four sides
+                      child: const Text(
+                        "My Collectibles",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    VaultCollectiblesCard(),
+                    SizedBox(
+                      height: Get.height * .02,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: Get.width *
+                              .06), //apply padding to all four sides
+                      child: const Text(
+                        "My Comics",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    VaultComicsCard(),
+                    SizedBox(
+                      height: Get.height * .02,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: Get.width *
+                              .06), //apply padding to all four sides
+                      child: const Text(
+                        "My Sets",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                        height: Get.height * .22,
+                        child: SizedBox(
+                          width: Get.width,
+                          child: data.collectiblesModel != null
+                              ? MysetsCard(
+                                  list: data
+                                      .collectiblesModel!.results,
+                                )
+                              : LoadingExample(),
+                        )),
+                    SizedBox(
+                      height: Get.height * .02,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: Get.width *
+                              .06), //apply padding to all four sides
+                      child: const Text(
+                        "My Wishlist",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                        height: Get.height * .22,
+                        child: SizedBox(
+                          width: Get.width,
+                          child: data.collectiblesModel != null
+                              ? MywishlistCard(
+                                  list: data
+                                      .collectiblesModel!.results,
+                                )
+                              : LoadingExample(),
+                        )),
+                    SizedBox(
+                      height: Get.height * .02,
+                    ),
+                  ],
                 ),
               ),
               Positioned(
-                top: Get.height * .21,
+                top: Get.height * .188,
                 left: Get.width * .62,
                 right: 0.0,
                 child: Container(
                   alignment: Alignment.center,
-                  child: const Text(
-                    "24H",
-                    style: TextStyle(
-                      color: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton2(
+                      hint: const Text(
+                        '24H',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.white,
+                        ),
+                      ),
+                      items: <String>[' 24H'' 7D', ' 30D', ' 1Y']
+                          .map((item) => DropdownMenuItem<String>(
+                                value: "24 H",
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ))
+                          .toList(),
+                      value: selectedValue,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedValue = value as String;
+                        });
+                      },
+                      alignment: Alignment.center,
+                      dropdownDecoration:
+                          BoxDecoration(gradient: AppColors.purpleGradient),
                     ),
                   ),
-                  width: Get.width * .12,
-                  height: Get.width * .12,
+                  width: Get.width * .125,
+                  height: Get.width * .125,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: AppColors.purpleGradient,
@@ -458,38 +483,38 @@ class _VaultState extends State<Vault> {
         LineChartBarData(
           spots: _isLoaded
               ? [
-                  const FlSpot(0, 0),
-                  const FlSpot(2.9, 2),
-                  const FlSpot(4.4, 3),
-                  const FlSpot(6.4, 3.1),
-                  const FlSpot(8, 4),
-                  const FlSpot(9.5, 4),
-                  const FlSpot(12, 5),
-                  const FlSpot(16, 1),
-                  const FlSpot(20, 8),
-                  const FlSpot(24, 2),
-                  const FlSpot(28, 4.1),
-                  const FlSpot(32, 5),
-                  const FlSpot(36, 2.9),
-                  const FlSpot(40, 1.8),
-                  const FlSpot(44, 6),
+                  FlSpot(0, 0),
+                  FlSpot(2.9, 2),
+                  FlSpot(4.4, 3),
+                  FlSpot(6.4, 3.1),
+                  FlSpot(8, 4),
+                  FlSpot(9.5, 4),
+                  FlSpot(12, 5),
+                  FlSpot(16, 1),
+                  FlSpot(20, 8),
+                  FlSpot(24, 2),
+                  FlSpot(28, 4.1),
+                  FlSpot(32, 5),
+                  FlSpot(36, 2.9),
+                  FlSpot(40, 1.8),
+                  FlSpot(44, 6),
                 ]
               : [
-                  const FlSpot(0, 0),
-                  const FlSpot(2.4, 0),
-                  const FlSpot(4.4, 0),
-                  const FlSpot(6.4, 0),
-                  const FlSpot(8, 0),
-                  const FlSpot(9.5, 0),
-                  const FlSpot(12, 0),
-                  const FlSpot(16, 0),
-                  const FlSpot(20, 0),
-                  const FlSpot(24, 0),
-                  const FlSpot(28, 0),
-                  const FlSpot(32, 0),
-                  const FlSpot(36, 0),
-                  const FlSpot(40, 0),
-                  const FlSpot(44, 0),
+                  FlSpot(0, 0),
+                  FlSpot(2.4, 0),
+                  FlSpot(4.4, 0),
+                  FlSpot(6.4, 0),
+                  FlSpot(8, 0),
+                  FlSpot(9.5, 0),
+                  FlSpot(12, 0),
+                  FlSpot(16, 0),
+                  FlSpot(20, 0),
+                  FlSpot(24, 0),
+                  FlSpot(28, 0),
+                  FlSpot(32, 0),
+                  FlSpot(36, 0),
+                  FlSpot(40, 0),
+                  FlSpot(44, 0),
                 ],
           isCurved: true,
           colors: gradientColors,
@@ -499,8 +524,8 @@ class _VaultState extends State<Vault> {
           ),
           belowBarData: BarAreaData(
               show: true,
-              gradientFrom: const Offset(0, 0),
-              gradientTo: const Offset(0, 1),
+              gradientFrom: Offset(0, 0),
+              gradientTo: Offset(0, 1),
               colors: [
                 const Color(0xff8053B7),
                 const Color(0xff8053B7),
@@ -510,43 +535,5 @@ class _VaultState extends State<Vault> {
         ),
       ],
     );
-  }
-}
-
-class WaveClip extends CustomClipper<Path> {
-  late final double? adjust = 0;
-
-  @override
-  Path getClip(Size size) {
-    Path path = new Path();
-    path.lineTo(0.0, size.height * 0.60 - 10);
-
-    var startpoints = Offset(size.width * 0.273, size.height * 0.819 - adjust!);
-    var startcontrolpoints =
-        Offset(size.width * 0.166, size.height * 0.84 - adjust!);
-    path.quadraticBezierTo(startcontrolpoints.dx, startcontrolpoints.dy,
-        startpoints.dx, startpoints.dy);
-
-    var midpoints = Offset(size.width * 0.6666, size.height * 0.790 - adjust!);
-    var midcontrolpoints =
-        Offset(size.width * 0.5, size.height * 0.80 - adjust!);
-
-    path.quadraticBezierTo(
-        midcontrolpoints.dx, midcontrolpoints.dy, midpoints.dx, midpoints.dy);
-
-    var endpoints = Offset(size.width, size.height);
-    var endcontrolpoints =
-        Offset(size.width * 0.833, size.height * 0.79 - adjust!);
-
-    path.quadraticBezierTo(
-        endcontrolpoints.dx, endcontrolpoints.dy, endpoints.dx, endpoints.dy);
-
-    path.lineTo(size.width, 0.0);
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
   }
 }

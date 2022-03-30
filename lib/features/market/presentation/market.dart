@@ -1,4 +1,3 @@
-import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,19 +5,14 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
-import 'package:ketemaa/core/utilities/shimmer/market_card_shimmer.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/graph/test_graph.dart';
 import 'package:provider/provider.dart';
-
-import '../../../core/utilities/app_assets/app_assets.dart';
 import '../../../core/utilities/shimmer/loading.dart';
-import '../../profile/widgets/custom_text_field.dart';
 import '../Components/category_card.dart';
 import '../Components/collectibles_item_card.dart';
 import '../Components/commics_item_card.dart';
-import '../../home/components/name_row.dart';
 
 class Market extends StatefulWidget {
   const Market({Key? key}) : super(key: key);
@@ -62,9 +56,6 @@ class _MarketState extends State<Market> {
       validateSelectedItem: (list, val) => list!.contains(val),
       controlButtons: [ContolButtonType.All, ContolButtonType.Reset],
       onItemSearch: (user, query) {
-        /// When search query change in search bar then this method will be called
-        ///
-        /// Check if items contains query
         return user.name!.toLowerCase().contains(query.toLowerCase());
       },
       onApplyButtonClick: (list) {
@@ -104,7 +95,7 @@ class _MarketState extends State<Market> {
                       children: [
                         Expanded(
                           child: Container(
-                            //height: 60,
+                            //height: Get.height*.08,
                             padding: const EdgeInsets.all(5),
                             child: TextField(
                               textInputAction: TextInputAction.search,

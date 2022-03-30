@@ -54,7 +54,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     Get.put(ProfileController());
 
     ProfileController.to.userNameTextFiledController.text =
-        profileModel!.nickname!;
+    profileModel!.nickname!;
     ProfileController.to.emailTextFiledController.text = profileModel!.email!;
     ProfileController.to.sellerImageUrl =
         profileModel!.profileImage!.mobile!.src.toString();
@@ -221,7 +221,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     setState(() {
       _isLoading = false;
       _fileName =
-          _paths != null ? _paths!.map((e) => e.name).toString() : '...';
+      _paths != null ? _paths!.map((e) => e.name).toString() : '...';
       _userAborted = _paths == null;
     });
   }
