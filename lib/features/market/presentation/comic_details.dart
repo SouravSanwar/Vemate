@@ -24,12 +24,14 @@ class ComicDetails extends StatefulWidget {
 class _ComicDetailsState extends State<ComicDetails> {
   Results results = Get.arguments;
 
+  GetData? getData;
+
   @override
   void initState() {
     super.initState();
 
-    var fetchData = Provider.of<GetData>(context, listen: false);
-    fetchData.getSingleProduct(results.id);
+    getData = Provider.of<GetData>(context, listen: false);
+    getData!.getSingleProduct(results.id);
   }
 
   @override

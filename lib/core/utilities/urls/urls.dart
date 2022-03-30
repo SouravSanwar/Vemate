@@ -18,7 +18,11 @@ class Urls {
   /*static String collectibles =
       mainUrl + '/api/v1/veve/public/products/?type=0&limit=20&offset=0';*/
   static String singleProduct = mainUrl + '/api/v1/veve/public/products/';
+
+
   static String singleCollectible = mainUrl + '/collectible/';
+
+
 
   static String comics = mainUrl + '/comics';
   static String singleComic = mainUrl + '/comic/';

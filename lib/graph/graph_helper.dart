@@ -32,7 +32,25 @@ class gh {
       ww = '10PM';
 }
 
-class GraphHelper extends StatelessWidget {
+class GraphHelper extends StatefulWidget {
+  final int? id;
+
+  const GraphHelper({Key? key, this.id}) : super(key: key);
+
+  @override
+  State<GraphHelper> createState() => _GraphHelperState();
+}
+
+class _GraphHelperState extends State<GraphHelper> {
+  GetData? getData;
+
+  @override
+  void initState() {
+    super.initState();
+
+    getData = Provider.of<GetData>(context, listen: false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
@@ -97,7 +115,9 @@ class GraphHelper extends StatelessWidget {
                   width: 5,
                 ),
                 DesignHelper(
-                  onPressed: () {},
+                  onPressed: () {
+                    getData!.getSingleProduct(widget.id, graphType: 1);
+                  },
                   child: const Text(
                     "7D",
                     style: TextStyle(
@@ -195,8 +215,7 @@ class GraphHelper extends StatelessWidget {
             duration: Duration(milliseconds: 1000),
             child: Text(
               data.singleProductModel != null
-                  ? data.singleProductModel!.name.toString() +
-                      "'s Details"
+                  ? data.singleProductModel!.name.toString() + "'s Details"
                   : "",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -209,19 +228,16 @@ class GraphHelper extends StatelessWidget {
             height: 20,
           ),
 
-         Expanded(
-          child:Container(
-
-          decoration: BoxDecoration(
-          border: Border.all(color: Colors.white,width: 0.5)
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 0.5)),
+              child: ItemDetails(),
+            ),
           ),
-
-         child: ItemDetails(),
-           ),
-         ),
-        SizedBox(height: 20,),
-
-
+          SizedBox(
+            height: 20,
+          ),
         ]),
       );
     });
