@@ -71,31 +71,21 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       )),*/
                   TextInputField(
                     labelText: "Username",
-                    height: .09,
+                    height: Get.height*.04,
                     textType: TextInputType.emailAddress,
                     controller: SigninController.to.emailTextFiledController,
                   ),
 
-                  SizedBox(height: 15,),
-                  /*Container(
-                      width: Get.width * .9,
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: const Text(
-                        "Password",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey,
-                            fontSize: 12),
-                      )),*/
-                  //AppSpaces.spaces_height_5,
+                  SizedBox(height: Get.height*.022,),
+
                   PasswordInputField(
                       labelText: "Password",
-                      height: .09,
+                      height: Get.height*.04,
                       textType: TextInputType.text,
                       controller:
                           SigninController.to.passwordTextFiledController),
-                  const SizedBox(
-                    height: 5,
+                 SizedBox(
+                      height: Get.height*.0234,
                   ),
                   TextButton(
                     onPressed: () {
@@ -112,9 +102,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                               fontSize: 12),
                         )),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  SizedBox(height: Get.height*.022,),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 15),
                     padding: EdgeInsets.symmetric(horizontal: 7),
@@ -127,14 +115,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     child: TextButton(
                       onPressed: () {
                         Get.toNamed(AppRoutes.CONTROLLER_PAGE);
-                        /*SigninController.to.signIn(
-                          email: SigninController
-                              .to.emailTextFiledController.text
-                              .toString(),
-                          password: SigninController
-                              .to.passwordTextFiledController.text
-                              .toString(),
-                        );*/
+
                       },
                       child: Text(
                         AppLanguageString.lOG_IN.tr.toUpperCase(),
@@ -179,8 +160,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 80, // <-- Your width
-                    height: 50,
+                    width: Get.height*.1,
+                    height: Get.height*.067,
                     child: ElevatedButton(
                       onPressed: () {},
                       child: Image.asset('assets/media/icon/google.png'),
@@ -195,8 +176,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     ),
                   ),
                   SizedBox(
-                    width: 80, // <-- Your width
-                    height: 50,
+                    width: Get.height*.1,
+                    height: Get.height*.067,
                     child: ElevatedButton(
                       onPressed: () {},
                       child: Image.asset(
@@ -209,13 +190,12 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           side: BorderSide(
                               width: 1.0, color: AppColors.primaryColor),
                           primary: Color(0xff272E49)
-                          // <-- Splash color
                           ),
                     ),
                   ),
                   SizedBox(
-                    width: 80, // <-- Your width
-                    height: 50,
+                    width: Get.height*.1,
+                    height: Get.height*.067,
                     child: ElevatedButton(
                       onPressed: () {},
                       child: Image.asset(
@@ -234,13 +214,9 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 ],
               ),
 
-              /*ocialLoginButton(
-                  image: AppAsset.google_icon,
-                  text: AppLanguageString.GOOGLE_LOGIN.tr
-              ),*/
 
               SizedBox(
-                height: 70,
+                height: Get.height*.09,
               ),
               Center(
                 child: InkWell(

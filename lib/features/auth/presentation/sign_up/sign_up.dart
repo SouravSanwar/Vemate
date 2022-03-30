@@ -47,85 +47,41 @@ class _SignUpState extends State<SignUp> {
                         fontWeight: FontWeight.bold, color: Colors.grey),
                   )),
               AppSpaces.spaces_height_25,
-             /* Container(
-                  width: Get.width * .9,
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: const Text(
-                    "Username",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                        fontSize: 12),
-                  )),*/
+
 
               TextInputField(
                 labelText: "Username",
-                height: .09,
+                height: Get.height*.04,
                 textType: TextInputType.text,
                 controller: SignUpController.to.nameController,
               ),
-              //AppSpaces.spaces_height_5,
-              SizedBox(height: 15,),
-              /*Container(
-                  width: Get.width * .9,
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: const Text(
-                    "E-mail",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                        fontSize: 12),
-                  )),*/
+
+              SizedBox(height: Get.height*.022,),
               TextInputField(
                 labelText: "E-mail",
-                height: .09,
+                height: Get.height*.04,
                 textType: TextInputType.emailAddress,
                 controller: SignUpController.to.emailController,
               ),
 
-              //AppSpaces.spaces_height_5,
               SizedBox(height: 15,),
-              /*Container(
-                  width: Get.width * .9,
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: const Text(
-                    "Password",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                        fontSize: 12),
-                  )),*/
-
-
               PasswordInputField(
                   labelText: "Password",
-                  height: .09,
+                  height: Get.height*.04,
                   textType: TextInputType.text,
                   controller: SignUpController.to.passwordController),
-              //AppSpaces.spaces_height_5,
-             SizedBox(height: 15,),
+
+              SizedBox(height: Get.height*.022,),
 
 
-              /* Container(
-                  width: Get.width * .9,
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: const Text(
-                    "Confirm Password",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                        fontSize: 12),
-                  )),*/
               PasswordInputField(
                   labelText: "Confirm Password",
-                  height: .09,
+                  height: Get.height*.04,
                   textType: TextInputType.text,
                   controller: SignUpController.to.confirmPasswordController),
               //AppSpaces.spaces_height_5,
 
-              const SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: Get.height*.07,),
 
               Container( margin: EdgeInsets.symmetric(horizontal: 15),
                 padding: EdgeInsets.symmetric(horizontal: 7),

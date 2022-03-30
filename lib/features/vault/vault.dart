@@ -6,15 +6,12 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
-import 'package:ketemaa/features/market/vault/mysets_card.dart';
-import 'package:ketemaa/features/market/vault/vaule_collectibles_card.dart';
-import 'package:ketemaa/features/market/vault/vault_comics_card.dart';
-import 'package:ketemaa/features/market/vault/wave_clip.dart';
-
+import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
+import 'package:ketemaa/features/vault/vault_comics_card.dart';
 import 'package:ketemaa/graph/graph_helper.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../core/utilities/shimmer/loading.dart';
+import 'mysets_card.dart';
 import 'mywishlist_card.dart';
 
 class Vault extends StatefulWidget {
@@ -33,7 +30,7 @@ class _VaultState extends State<Vault> {
   void initState() {
     super.initState();
 
-    // make _isLoaded true after 2 seconds
+
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isLoaded = true;
@@ -41,7 +38,6 @@ class _VaultState extends State<Vault> {
     });
   }
 
-  //For Filter
 
   @override
   Widget build(BuildContext context) {
@@ -59,19 +55,17 @@ class _VaultState extends State<Vault> {
             children: [
               Column(
                 children: [
-                  ClipPath(
-                    clipper: WaveClip(),
-                    child: Container(
+                  Container(
                       width: Get.width,
-                      height: Get.height * .25,
+                      height: Get.height * .22,
                       decoration: BoxDecoration(
                         gradient: AppColors.cardGradient,
-                        borderRadius: BorderRadius.circular(12.0),
+                        borderRadius: BorderRadius.vertical(bottom: Radius.circular(40.0)),
                       ),
                       child: Column(
                         children: [
                           SizedBox(
-                            height: Get.width * .1,
+                            height: Get.width * .15,
                           ),
                           Row(children: [
                             SizedBox(
@@ -87,154 +81,164 @@ class _VaultState extends State<Vault> {
                             ),
                           ]),
                           SizedBox(
-                            height: Get.height * .01,
+                            height: Get.height * .03,
                           ),
                           Row(
                             children: [
-                              SizedBox(
-                                width: Get.width * .05,
-                              ),
                               Expanded(
-                                flex: 4,
-                                child: Text(
-                                  "Vault Value",
-                                  textAlign: TextAlign.start,
-                                  style: Get.textTheme.bodyText2!.copyWith(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Text(
-                                  "MCP",
-                                  textAlign: TextAlign.start,
-                                  style: Get.textTheme.bodyText2!.copyWith(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Container(
-                                  width: Get.width * .15,
-                                  height: Get.height * .03,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    gradient: AppColors
-                                        .purpleGradient, // set border width
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(
-                                            16.0)), // set rounded corner radius
-                                  ),
-                                  child: Text(
-                                    r"$" + "456",
-                                    textAlign: TextAlign.start,
-                                    style: Get.textTheme.bodyText2!.copyWith(
-                                        color: AppColors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 4,
-                                child: Text(""),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: Get.width * .05,
-                              ),
-                              Expanded(
-                                flex: 4,
-                                child: Text(
-                                  r"$" + "4563",
-                                  textAlign: TextAlign.start,
-                                  style: Get.textTheme.bodyText2!.copyWith(
-                                      color: AppColors.grey,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Text(
-                                  "187",
-                                  textAlign: TextAlign.start,
-                                  style: Get.textTheme.bodyText2!.copyWith(
-                                      color: AppColors.grey,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    if (percent < 0.0)
-                                      //toRotateIcon
-                                      const RotationTransition(
-                                        turns: AlwaysStoppedAnimation(
-                                            45 / 360),
-                                        child: Icon(
-                                          Icons.arrow_downward,
-                                          size: 18,
-                                          color: Colors.red,
-                                        ),
-                                      )
-                                    else
-                                      const RotationTransition(
-                                        turns: AlwaysStoppedAnimation(
-                                            45 / 360),
-                                        child: Icon(
-                                          Icons.arrow_upward,
-                                          size: 18,
-                                          color: Colors.green,
-                                        ),
+                                flex: 9,
+                                  child:Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: Get.width * .05,
+                                          ),
+                                          Expanded(
+                                            flex: 4,
+                                            child: Text(
+                                              "Vault Value",
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText2!.copyWith(
+                                                  color: AppColors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 2,
+                                            child: Text(
+                                              "MCP",
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText2!.copyWith(
+                                                  color: AppColors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 3,
+                                            child: Container(
+                                              width: Get.width * .15,
+                                              height: Get.height * .03,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                gradient: AppColors
+                                                    .purpleGradient, // set border width
+                                                borderRadius: const BorderRadius.all(
+                                                    Radius.circular(
+                                                        16.0),
+                                                ), // set rounded corner radius
+                                              ),
+                                              child: Text(
+                                                r"$" + "456",
+                                                textAlign: TextAlign.start,
+                                                style: Get.textTheme.bodyText2!.copyWith(
+                                                    color: AppColors.white,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 14),
+                                              ),
+                                            ),
+                                          ),
+
+                                        ],
                                       ),
-                                    Text(
-                                      percent < 0.0
-                                          ? percent.toString()
-                                          : percent.toString() + "%",
-                                      textAlign: TextAlign.end,
-                                      style: TextStyle(
-                                        color: percent < 0.0
-                                            ? Colors.red
-                                            : Colors.green,
-                                        fontWeight: FontWeight.bold,
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: Get.width * .05,
+                                          ),
+                                          Expanded(
+                                            flex: 4,
+                                            child: Text(
+                                              r"$" + "4563",
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText2!.copyWith(
+                                                  color: AppColors.grey,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 2,
+                                            child: Text(
+                                              "187",
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText2!.copyWith(
+                                                  color: AppColors.grey,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 3,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                if (percent < 0.0)
+                                                //toRotateIcon
+                                                  const RotationTransition(
+                                                    turns: AlwaysStoppedAnimation(
+                                                        45 / 360),
+                                                    child: Icon(
+                                                      Icons.arrow_downward,
+                                                      size: 18,
+                                                      color: Colors.red,
+                                                    ),
+                                                  )
+                                                else
+                                                  const RotationTransition(
+                                                    turns: AlwaysStoppedAnimation(
+                                                        45 / 360),
+                                                    child: Icon(
+                                                      Icons.arrow_upward,
+                                                      size: 18,
+                                                      color: Colors.green,
+                                                    ),
+                                                  ),
+                                                Text(
+                                                  percent < 0.0
+                                                      ? percent.toString()
+                                                      : percent.toString() + "%",
+                                                  textAlign: TextAlign.end,
+                                                  style: TextStyle(
+                                                      color: percent < 0.0
+                                                          ? Colors.red
+                                                          : Colors.green,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 14
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+
+                                        ],
                                       ),
+
+                                    ],
+                                  )
+                              ),
+                              Expanded(
+                                  flex:5,
+                                  child:Container(
+                                    padding: EdgeInsets.only(
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 4,
-                                child: Text(""),
-                              ),
+                                    alignment: Alignment.centerLeft,
+                                    height: Get.height * .05,
+                                    child: LineChart(
+                                      mainData(), // Optional
+                                      swapAnimationCurve:
+                                      Curves.easeInOutBack, // Optional
+                                    ),
+                                  ),
+                              )
                             ],
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(
-                              left: Get.width * .2,
-                            ),
-                            alignment: Alignment.centerLeft,
-                            height: Get.height * .07,
-                            child: LineChart(
-                              mainData(), // Optional
-                              swapAnimationCurve:
-                                  Curves.easeInOutBack, // Optional
-                            ),
-                          ),
+                          )
                         ],
                       ),
                     ),
-                  ),
+
                 ],
               ),
               Container(
@@ -329,11 +333,12 @@ class _VaultState extends State<Vault> {
                 ),
               ),
               Positioned(
-                top: Get.height * .18,
+                top: Get.height * .188,
                 left: Get.width * .62,
                 right: 0.0,
                 child: Container(
                   alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(horizontal: 5),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton2(
                       hint: const Text(

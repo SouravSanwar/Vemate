@@ -63,42 +63,7 @@ class ControllerPage extends StatelessWidget {
     }
   }
 
-/*  getBottomBar() {
 
-    return Container(
-
-      decoration: BoxDecoration(
-        color: Colors.black45,
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(20),
-          topLeft: Radius.circular(20),
-        ),
-      ),
-
-      child:BottomNavigationBar(
-
-      backgroundColor: Colors.black54,
-      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-      selectedFontSize: 12,
-      unselectedFontSize: 12,
-      currentIndex: ControllerPageController.to.currentPage.value,
-      onTap: (index) {
-        ControllerPageController.to.currentPage.value = index;
-      },
-      selectedItemColor: Colors.purpleAccent,
-      unselectedItemColor: AppColors.white,
-      type: BottomNavigationBarType.fixed,
-      items: List.generate(
-        ControllerPageController.to.bottomBarData!.length,
-        (index) => BottomNavigationBarItem(
-          icon: Icon(icons[index]),
-          label: names[index],
-        ),
-      ),
-    ),
-
-    );
-  }*/
 
   getBottomBar() {
     return ClipRRect(
@@ -132,33 +97,5 @@ class ControllerPage extends StatelessWidget {
           ),
         );
 
-    /*return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topRight: Radius.circular(40),
-        topLeft: Radius.circular(40),
-      ),
-      child:BottomNavigationBar(
-
-
-      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-      selectedFontSize: 12,
-      unselectedFontSize: 12,
-      currentIndex: ControllerPageController.to.currentPage.value,
-      onTap: (index) {
-        ControllerPageController.to.currentPage.value = index;
-      },
-      selectedItemColor: Colors.purpleAccent,
-      unselectedItemColor: AppColors.white,
-      type: BottomNavigationBarType.fixed,
-      items: List.generate(
-        ControllerPageController.to.bottomBarData!.length,
-        (index) => BottomNavigationBarItem(
-          icon: Icon(icons[index]),
-          label: names[index],
-        ),
-      ),
-    ),
-
-    );*/
   }
 }

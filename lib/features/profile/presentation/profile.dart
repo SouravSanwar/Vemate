@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/_controller/shader.dart';
@@ -12,7 +14,8 @@ import 'package:store_redirect/store_redirect.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../core/utilities/app_colors/app_colors.dart';
-import '../../market/vault/vault.dart';
+import '../../auth/reset_pass/enter_new_pass.dart';
+import '../../vault/vault.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -69,12 +72,11 @@ class _ProfileState extends State<Profile> {
                 ListView(
                   shrinkWrap: true,
                   children: [
-                    const SizedBox(
-                      height: 50,
-                    ),
+                    SizedBox(height: Get.height*.05,),
 
 
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.center, children: [
                       Container(
                         child: CircleAvatar(
                           radius: MediaQuery.of(context).size.width * .15,
@@ -94,10 +96,10 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const Text(
+
+                    SizedBox(height: Get.height*.01,),
+
+                    const Text(
                         'User Name',
                         style: TextStyle(
                             color: Colors.white,
@@ -108,7 +110,7 @@ class _ProfileState extends State<Profile> {
                     ]
                     ),
 
-                   SizedBox(height: 50,),
+                   SizedBox(height: Get.height*.07,),
                     CustomProfileElements(
                         Icons.person,
                         "Profile Edit",
@@ -118,12 +120,7 @@ class _ProfileState extends State<Profile> {
                                     builder: (c) => EditProfilePage()));
                         }
                     ),
-                   /* Image.asset(
-                      'assets/media/image/edit.png',
-                      height: 25,
-                      width: 25,
-                      color: Colors.white,
-                    ),*/
+
                     CustomProfileElements(
                         Icons.help_outline,
                         "Help and Support",
@@ -156,7 +153,12 @@ class _ProfileState extends State<Profile> {
                     CustomProfileElements(
                         Icons.info_outline_rounded,
                         "About Vemate'",
-                            (){}
+                            () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (c) => EnterNewPassword()));
+                        }
                     ),
 
                   ],

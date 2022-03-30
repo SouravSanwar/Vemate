@@ -107,7 +107,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                             child:Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                SizedBox(width: Get.width*.1,),
+                                SizedBox(width: Get.width*.05,),
                                 Text(
                                   percent < 0.0
                                       ? percent.toString()
@@ -250,8 +250,8 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
       maxY: 10,
       lineBarsData: [
         LineChartBarData(
-          spots:true
-              ? [
+          spots:
+               [
             FlSpot(0, 0),
             FlSpot(2.9, 2),
             FlSpot(4.4, 3),
@@ -267,23 +267,6 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
             FlSpot(36, 2.9),
             FlSpot(40, 1.8),
             FlSpot(44, 6),
-          ]
-              : [
-            FlSpot(0, 0),
-            FlSpot(2.4, 0),
-            FlSpot(4.4, 0),
-            FlSpot(6.4, 0),
-            FlSpot(8, 0),
-            FlSpot(9.5, 0),
-            FlSpot(12, 0),
-            FlSpot(16, 0),
-            FlSpot(20, 0),
-            FlSpot(24, 0),
-            FlSpot(28, 0),
-            FlSpot(32, 0),
-            FlSpot(36, 0),
-            FlSpot(40, 0),
-            FlSpot(44, 0),
           ],
           isCurved: true,
           colors: gradientColors,
@@ -291,14 +274,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
           dotData: FlDotData(
             show: false,
           ),
-          /*belowBarData: BarAreaData(
-              show: true,
-              gradientFrom: Offset(0, 0),
-              gradientTo: Offset(0, 1),
-              colors: [
-                Colors.grey.shade800,
-                Colors.grey.shade700,
-              ]),*/
+
         ),
       ],
     );

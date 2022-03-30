@@ -56,14 +56,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.all(2.0),
-            child: Container(
-              width: Get.width*.37,
-              height: Get.height*.22,
-              decoration: BoxDecoration(
-                gradient: AppColors.purpleGradient,
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              child: InkWell(
+            child: InkWell(
                 onTap: () {
                   Get.to(() => ChartExample(id: widget.list![index].id));
                 },
@@ -74,7 +67,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                         width: Get.width*.37,
                         height: Get.height*.22,
                         decoration: BoxDecoration(
-                            color: Color(0xD3C89EF3),
+                            gradient: AppColors.cardGradient,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(color: Color(0xff454F70))),
                         alignment: Alignment.topCenter,
@@ -207,7 +200,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                 ),
 
               ),
-            ),
+
           );
         },
       ),
@@ -311,8 +304,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
       maxY: 10,
       lineBarsData: [
         LineChartBarData(
-          spots: _isLoaded
-              ? [
+          spots: [
             FlSpot(0, 0),
             FlSpot(2.9, 2),
             FlSpot(4.4, 3),
@@ -328,23 +320,6 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
             FlSpot(36, 2.9),
             FlSpot(40, 1.8),
             FlSpot(44, 6),
-          ]
-              : [
-            FlSpot(0, 0),
-            FlSpot(2.4, 0),
-            FlSpot(4.4, 0),
-            FlSpot(6.4, 0),
-            FlSpot(8, 0),
-            FlSpot(9.5, 0),
-            FlSpot(12, 0),
-            FlSpot(16, 0),
-            FlSpot(20, 0),
-            FlSpot(24, 0),
-            FlSpot(28, 0),
-            FlSpot(32, 0),
-            FlSpot(36, 0),
-            FlSpot(40, 0),
-            FlSpot(44, 0),
           ],
           isCurved: true,
           colors: gradientColors,

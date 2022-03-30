@@ -1,6 +1,3 @@
-import 'dart:ffi';
-import 'package:animate_do/animate_do.dart';
-import 'package:another_flushbar/flushbar.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -66,11 +63,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
               child: InkWell(
                 onTap: () {
                   Get.to(() => ChartExample(id: widget.list![index].id));
-                  Flushbar(
-                    title: "Hey buddy",
-                    message: "You selected ${widget.list![index].name}",
-                    duration: const Duration(seconds: 1),
-                  ).show(context);
+
+
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -78,8 +72,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                          height: 60,
-                          width: 60,
+                          height: Get.height*.078,
+                          width: Get.height*.078,
                           decoration: BoxDecoration(
                               color: Color(0xD3C89EF3),
                               borderRadius: BorderRadius.circular(10),
@@ -95,14 +89,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                 fontWeight: FontWeight.bold),
                           )
 
-                          /*Initicon(
-                          text: widget.list![index].name.toString()[0],
-                          color:Colors.primaries[Random().nextInt(Colors.primaries.length)],
-                          backgroundColor:Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          size: 55,
 
-                        ),*/
 
                           ),
                       AppSpaces.spaces_width_5,
@@ -213,8 +200,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                      height: 25,
+                          Container(
+                                      height: Get.height*.03,
                                       child: LineChart(
                                         mainData(),// Optional
                                         swapAnimationCurve:
@@ -380,8 +367,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
       maxY: 10,
       lineBarsData: [
         LineChartBarData(
-          spots: _isLoaded
-              ? [
+          spots:[
                   FlSpot(0, 0),
                   FlSpot(2.9, 2),
                   FlSpot(4.4, 3),
@@ -397,23 +383,6 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                   FlSpot(36, 2.9),
                   FlSpot(40, 1.8),
                   FlSpot(44, 6),
-                ]
-              : [
-                  FlSpot(0, 0),
-                  FlSpot(2.4, 0),
-                  FlSpot(4.4, 0),
-                  FlSpot(6.4, 0),
-                  FlSpot(8, 0),
-                  FlSpot(9.5, 0),
-                  FlSpot(12, 0),
-                  FlSpot(16, 0),
-                  FlSpot(20, 0),
-                  FlSpot(24, 0),
-                  FlSpot(28, 0),
-                  FlSpot(32, 0),
-                  FlSpot(36, 0),
-                  FlSpot(40, 0),
-                  FlSpot(44, 0),
                 ],
           isCurved: true,
           colors: gradientColors,
@@ -421,14 +390,6 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
           dotData: FlDotData(
             show: false,
           ),
-          /*belowBarData: BarAreaData(
-              show: true,
-              gradientFrom: Offset(0, 0),
-              gradientTo: Offset(0, 1),
-              colors: [
-                Colors.grey.shade800,
-                Colors.grey.shade700,
-              ]),*/
         ),
       ],
     );

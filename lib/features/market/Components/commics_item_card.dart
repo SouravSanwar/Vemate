@@ -74,11 +74,7 @@ class _CommicsItemCardState extends State<CommicsItemCard> {
               child: InkWell(
                 onTap: () {
                   Get.to(() => ChartExample(id: widget.list![index].id));
-                  Flushbar(
-                    title: "Hey buddy",
-                    message: "You selected ${widget.list![index].name}",
-                    duration: const Duration(seconds: 1),
-                  ).show(context);
+
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -86,8 +82,8 @@ class _CommicsItemCardState extends State<CommicsItemCard> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                          height: 60,
-                          width: 60,
+                          height: Get.height*.078,
+                          width: Get.height*.078,
                           decoration: BoxDecoration(
                               color: Color(0xD3C89EF3),
                               borderRadius: BorderRadius.circular(10),
@@ -97,20 +93,11 @@ class _CommicsItemCardState extends State<CommicsItemCard> {
                             widget.list![index].name
                                 .toString()[0]
                                 .toUpperCase(),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.deepPurpleAccent,
                                 fontSize: 35,
                                 fontWeight: FontWeight.bold),
                           )
-
-                        /*Initicon(
-                          text: widget.list![index].name.toString()[0],
-                          color:Colors.primaries[Random().nextInt(Colors.primaries.length)],
-                          backgroundColor:Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          size: 55,
-
-                        ),*/
 
                       ),
                       AppSpaces.spaces_width_5,
@@ -212,21 +199,6 @@ class _CommicsItemCardState extends State<CommicsItemCard> {
                         ),
                       ),
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                       Expanded(
                         flex: 5,
                         // add this
@@ -235,7 +207,7 @@ class _CommicsItemCardState extends State<CommicsItemCard> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
-                              height: 25,
+                              height: Get.height*.03,
                               child: LineChart(
                                 mainData(),// Optional
                                 swapAnimationCurve:

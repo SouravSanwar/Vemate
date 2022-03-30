@@ -68,8 +68,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
                         ),
                         Positioned(
-                            bottom: 10,
-                            right: 55,
+                            bottom:Get.height*.01,
+                            right: Get.height*.055,
                             child: RawMaterialButton(
                               onPressed: () {
                                 _getImage();
@@ -86,32 +86,30 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 80,
+                SizedBox(
+                  height: Get.height*.08,
                 ),
                 TextInputField(
                   labelText: AppLanguageString.USERNAME.tr,
-                  height: .09,
+                  height: Get.height*.04,
                   textType: TextInputType.emailAddress,
                   controller: SigninController.to.emailTextFiledController,
                 ),
-                AppSpaces.spaces_height_5,
+                SizedBox(height: Get.height*.022,),
                 TextInputField(
                   labelText: AppLanguageString.EMAIL.tr,
-                  height: .09,
+                  height: Get.height*.04,
                   textType: TextInputType.emailAddress,
                   controller: SigninController.to.emailTextFiledController,
                 ),
-                AppSpaces.spaces_height_5,
+                SizedBox(height: Get.height*.022,),
                PasswordInputField(
                 labelText: AppLanguageString.PASSWORD.tr,
-                height: .09,
+                   height: Get.height*.04,
                 textType: TextInputType.text,
                 controller: SigninController.to.passwordTextFiledController),
 
-                const SizedBox(
-                  height: 50,
-                ),
+                SizedBox(height: Get.height*.07,),
 
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 15),
@@ -139,5 +137,5 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-      }
+}
 
