@@ -92,8 +92,9 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                         child: InkWell(
                           onTap: () {
                             Get.to(
-                              () => ComicDetails(),
-                              arguments: data.comicsModel!.results![index],
+                              () => ComicDetails(
+                                productId: data.comicsModel!.results![index].id,
+                              ),
                             );
 
                             /*Get.to(

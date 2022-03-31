@@ -10,20 +10,21 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/ComicsModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/graph/graph_helper.dart';
 import 'package:ketemaa/graph/test_graph.dart';
 import 'package:provider/provider.dart';
 
 class ComicDetails extends StatefulWidget {
-  const ComicDetails({Key? key}) : super(key: key);
+  final int? productId;
+
+  const ComicDetails({Key? key, this.productId}) : super(key: key);
 
   @override
   _ComicDetailsState createState() => _ComicDetailsState();
 }
 
 class _ComicDetailsState extends State<ComicDetails> {
-  Results results = Get.arguments;
-
   GetData? getData;
 
   @override
@@ -31,7 +32,7 @@ class _ComicDetailsState extends State<ComicDetails> {
     super.initState();
 
     getData = Provider.of<GetData>(context, listen: false);
-    getData!.getSingleProduct(results.id);
+    getData!.getSingleProduct(widget.productId);
   }
 
   @override
@@ -52,29 +53,32 @@ class _ComicDetailsState extends State<ComicDetails> {
           ),
         ),
         backgroundColor: AppColors.backgroundColor,
-        body: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverToBoxAdapter(
-                child: Container(
-                  padding: const EdgeInsets.all(20),
-                  width: double.infinity,
-                  child: FadeInUp(
-                    duration: Duration(milliseconds: 100),
-                    child: Container(
-                      width: double.infinity,
-                      height: 250,
-                      child: GraphTest(
-                        graphList: data.singleProductModel!.graph,
+        body: data.singleProductModel != null
+            ? NestedScrollView(
+                headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
+                  return <Widget>[
+                    SliverToBoxAdapter(
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        width: double.infinity,
+                        child: FadeInUp(
+                          duration: Duration(milliseconds: 100),
+                          child: Container(
+                            width: double.infinity,
+                            height: 250,
+                            child: GraphTest(
+                              graphList: data.singleProductModel!.graph,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
+                    )
+                  ];
+                },
+                body: GraphHelper(),
               )
-            ];
-          },
-          body: GraphHelper(),
-        ),
+            : LoadingExample(),
       );
     });
   }

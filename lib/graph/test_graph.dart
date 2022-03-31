@@ -20,20 +20,21 @@ class _GraphTestState extends State<GraphTest> {
       children: [
         Expanded(
           child: SfCartesianChart(
-              primaryXAxis: CategoryAxis(),
-              title: ChartTitle(text: 'Half yearly sales analysis'),
-              tooltipBehavior: TooltipBehavior(enable: true),
-              series: <ChartSeries<Graph, String>>[
-                LineSeries<Graph, String>(
-                    dataSource: widget.graphList!,
-                    xValueMapper: (Graph plot, _) => plot.formattedTime,
-                    yValueMapper: (Graph plot, _) => plot.price,
-                    xAxisName: 'Duration',
-                    yAxisName: 'Total',
-                    name: 'Comic',
-                    // Enable data label
-                    dataLabelSettings: const DataLabelSettings(isVisible: true))
-              ]),
+            primaryXAxis: CategoryAxis(),
+            //title: ChartTitle(text: 'Half yearly sales analysis'),
+            tooltipBehavior: TooltipBehavior(enable: true),
+            series: <ChartSeries<Graph, String>>[
+              LineSeries<Graph, String>(
+                dataSource: widget.graphList!,
+                xValueMapper: (Graph plot, _) => plot.formattedTime,
+                yValueMapper: (Graph plot, _) => plot.price,
+                xAxisName: 'Duration',
+                yAxisName: 'Total',
+                name: 'Comic',
+                //dataLabelSettings: const DataLabelSettings(isVisible: true),
+              )
+            ],
+          ),
         ),
         /*Expanded(
           child: Padding(
