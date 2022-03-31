@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/features/auth/reset_pass/enter_new_pass.dart';
+import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/_controller/shader.dart';
 import 'package:ketemaa/features/profile/widgets/profile_divider.dart';
@@ -80,7 +81,7 @@ class _ProfileState extends State<Profile> {
                               backgroundColor: Color(0xff272E49),
                               backgroundImage: null,
                               child: Shader(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.person,
                                   size: 100,
                                 ),
@@ -116,7 +117,10 @@ class _ProfileState extends State<Profile> {
                           MaterialPageRoute(builder: (c) => EditProfilePage()));
                     }),
                     CustomProfileElements(
-                        Icons.help_outline, "Help and Support", () {}),
+                        Icons.help_outline, "Help and Support", () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (c) => OtpPage()));
+                    }),
                     CustomProfileElements(
                         Icons.privacy_tip_outlined, "Privacy Policy", () {}),
                     CustomProfileElements(Icons.rate_review_outlined, "Rate",

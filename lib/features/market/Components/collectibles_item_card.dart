@@ -261,7 +261,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 5,
+                                  flex: 6,
                                   // add this
 
                                   child: Column(
@@ -285,7 +285,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               r"$" +
                                                   data.collectiblesModel!
                                                       .results![index].cpp
-                                                      .toString() +
+                                                      !.toStringAsFixed(1) +
                                                   "7",
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!

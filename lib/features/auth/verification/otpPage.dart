@@ -84,7 +84,9 @@ class _OtpPageState extends State<OtpPage> {
           width: MediaQuery.of(context).size.width,
           child: ListView(
             children: <Widget>[
-              AppSpaces.spaces_height_15,
+              SizedBox(
+                height: Get.height * .05,
+              ),
               SizedBox(
                 height: Get.height * .2,
                 width: Get.width * 1,
@@ -97,7 +99,10 @@ class _OtpPageState extends State<OtpPage> {
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
                   'Email Verification',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -110,13 +115,13 @@ class _OtpPageState extends State<OtpPage> {
                       children: [
                         TextSpan(
                             text: "${prefs!.getString('email')}",
-                            style: const TextStyle(
-                                color: Colors.black,
+                            style:  TextStyle(
                                 fontWeight: FontWeight.bold,
+                                color: AppColors.primaryColor,
                                 fontSize: 15)),
                       ],
                       style:
-                          const TextStyle(color: Colors.black54, fontSize: 15)),
+                          const TextStyle(color: Colors.white, fontSize: 15)),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -209,7 +214,7 @@ class _OtpPageState extends State<OtpPage> {
                 children: [
                   const Text(
                     "Didn't receive the code? ",
-                    style: TextStyle(color: Colors.black54, fontSize: 15),
+                    style: TextStyle(color: Colors.white, fontSize: 15),
                   ),
                   TextButton(
                       onPressed: () {

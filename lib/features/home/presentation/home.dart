@@ -27,11 +27,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final items = [
-    "assets/media/slider/11.jpg",
-    "assets/media/slider/12.jpg",
-    "assets/media/slider/13.jpg",
-  ];
+
   int? currentIndex = 1;
   bool? allSelected = true;
   bool? dropSelected = false;
@@ -108,8 +104,14 @@ class _HomeState extends State<Home> {
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 15.0,
                                   ),
-                                  child: Container(
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (c) => Profile()));
+                                    },
+                                    child:Container(
                                     child: CircleAvatar(
+
                                       radius:
                                           MediaQuery.of(context).size.width *
                                               .06,
@@ -132,7 +134,7 @@ class _HomeState extends State<Home> {
                                       ),
                                     ),
                                   ),
-                                ),
+                                ),),
                               ],
                             ),
                             Padding(

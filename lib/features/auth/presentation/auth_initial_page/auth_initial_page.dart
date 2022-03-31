@@ -49,7 +49,9 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppSpaces.spaces_height_15,
+              SizedBox(
+                height: Get.height * .05,
+              ),
               SizedBox(
                 height: Get.height * .2,
                 width: Get.width * 1,

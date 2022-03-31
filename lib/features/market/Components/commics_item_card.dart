@@ -485,7 +485,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
         LineChartBarData(
           spots: _isLoaded
               ? [
-                  const FlSpot(0, 100),
+                  const FlSpot(0, 4),
                   const FlSpot(2.9, 2),
                   const FlSpot(4.4, 3),
                   const FlSpot(6.4, 3.1),

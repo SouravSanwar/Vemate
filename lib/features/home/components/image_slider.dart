@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 class ImageSlider extends StatelessWidget{
 
   final items=[
-    "slider/11.jpg",
-    "slider/12.jpg",
-    "slider/13.jpg",];
+    "assets/media/slider/11.jpg",
+    "assets/media/slider/12.jpg",
+    "assets/media/slider/13.jpg",];
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -156,24 +156,12 @@ class _GraphHelperState extends State<GraphHelper> {
                         ),
                       ),
                     ),
+],
 
-                    const SizedBox(
-                      width: 5,
                     ),
+                  ),
 
-                    //FOR 60 DAYS
-                    DesignHelper(
-                      onPressed: () {},
-                      child: const Text(
-                        "All",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+
               AppSpaces.spaces_height_40,
               // recent transactions
               FadeInUp(

@@ -66,33 +66,7 @@ class _ChartExampleState extends State<ChartExample> {
                 fontSize: 18,
                 fontWeight: FontWeight.bold),
           ),
-/*        actions: [
-          IconButton(
-            icon: Icon(gh.c?null:Icons.list_alt),
-            color: gh.c?Colors.blueGrey.shade300:Colors.green,
-            padding: const EdgeInsets.only(right: 20),
-            onPressed: () {
-              setState(() {
-                gh.c = !gh.c;
-              });
 
-            },
-
-          ),
-          IconButton(
-            icon: Icon(Icons.notifications),
-            color: gh.c?Colors.blueGrey.shade300:Colors.green,
-            padding: const EdgeInsets.only(right: 20),
-            onPressed: () {
-              setState(() {
-                gh.c = !gh.c;
-              });
-
-            },
-
-          ),
-
-        ],*/
         ),
         backgroundColor: AppColors.backgroundColor,
         body: NestedScrollView(

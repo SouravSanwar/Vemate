@@ -84,19 +84,6 @@ class SigninController extends GetxController {
     });
   }
 
-  /*fetchUserLogin() async {
-    Either<QueryResult, Failure> _response = await _authRepository.signIn(
-        email:, password:);
-    _response.fold((l) {
-      printInfo(info: " Success Data :: " + l.data.toString());
-      try {
-        userLogin.value = UserLoginModel.fromJson(l.data!);
-      } on Exception catch (e) {
-        Right(DataNotFound());
-      }
-      printInfo(info: " Error Data :: " + l.data.toString());
-    }, (r) => printInfo(info: r.toString()));
-  }*/
 
   _signInValidation() {
     bool isValidated = false;
