@@ -79,293 +79,298 @@ class _HomeState extends State<Home> {
       backgroundColor: const Color(0xff272E49),
       body: Consumer<GetData>(
         builder: (context, data, child) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Stack(
-              //shrinkWrap: true,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: Get.height * .06),
-                  child: Column(
+          return data.profileModel != null
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Stack(
+                    //shrinkWrap: true,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12.0, vertical: 5.0),
-                                  child: SizedBox(
-                                    height: Get.height * .04,
-                                    width: Get.height * .04,
-                                    child: Image.asset(
-                                      'assets/media/icon/logo v.png',
-                                      fit: BoxFit.fill,
+                      Container(
+                        padding: EdgeInsets.only(top: Get.height * .06),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12.0, vertical: 5.0),
+                                        child: SizedBox(
+                                          height: Get.height * .04,
+                                          width: Get.height * .04,
+                                          child: Image.asset(
+                                            'assets/media/icon/logo v.png',
+                                            fit: BoxFit.fill,
+                                          ),
+                                        )),
+                                    Text(
+                                      "Hi, ${data.profileModel!.nickname.toString()}",
+                                      style: Get.textTheme.headline1!.copyWith(
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.w500),
                                     ),
-                                  )),
-                              Text(
-                                "Hi, ${data.profileModel!.nickname.toString()}",
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0,
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (c) => const Profile()));
+                                    },
+                                    child: Container(
+                                      child: CircleAvatar(
+                                        radius:
+                                            MediaQuery.of(context).size.width *
+                                                .06,
+                                        backgroundColor:
+                                            const Color(0xff272E49),
+                                        backgroundImage: null,
+                                        child: Shader(
+                                          icon: const Icon(
+                                            Icons.person,
+                                            size: 30,
+                                          ),
+                                        ),
+
+                                        // Icon(Icons.person,size: 100,)
+                                      ),
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: AppColors.greyWhite,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: AppDimension.padding_8,
+                                right: AppDimension.padding_8,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      height: Get.height * .08,
+                                      padding: const EdgeInsets.all(10),
+                                      child: TextField(
+                                        textInputAction: TextInputAction.search,
+                                        decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor: const Color(0xff2F3758),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
+                                              borderSide: const BorderSide(
+                                                color: Color(0xff455181),
+                                              ),
+                                            ),
+                                            focusedBorder:
+                                                const UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Color(0xff2F3758)),
+                                              //  when the TextFormField in focused
+                                            ),
+                                            prefixIcon: const InkWell(
+                                              child: Icon(
+                                                Icons.search,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                            suffixIcon: InkWell(
+                                              onTap: () {
+                                                _openFilterDialog();
+                                              },
+                                              child: const Icon(
+                                                Icons.filter_list,
+                                                color: Color(0xff926FDF),
+                                              ),
+                                            ),
+                                            contentPadding:
+                                                const EdgeInsets.all(10.0),
+                                            hintText: 'Search ',
+                                            hintStyle: const TextStyle(
+                                                color: Colors.grey)),
+                                        onChanged: (string) {},
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: Get.height * .2),
+                        child: ListView(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15.0, vertical: 5.0),
+                              child: Text(
+                                'News',
                                 style: Get.textTheme.headline1!.copyWith(
                                     color: AppColors.white,
                                     fontWeight: FontWeight.w500),
                               ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0,
                             ),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (c) => const Profile()));
-                              },
-                              child: Container(
-                                child: CircleAvatar(
-                                  radius:
-                                      MediaQuery.of(context).size.width * .06,
-                                  backgroundColor: const Color(0xff272E49),
-                                  backgroundImage: null,
-                                  child: Shader(
-                                    icon: const Icon(
-                                      Icons.person,
-                                      size: 30,
+                            AppSpaces.spaces_height_10,
+                            ImageSlider(),
+                            AppSpaces.spaces_height_10,
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 10, bottom: 0, left: 15, right: 15),
+                              child: Text(
+                                'My Vault',
+                                style: Get.textTheme.headline1!.copyWith(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            HomeVaultCard(),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 10, bottom: 0, left: 15, right: 15),
+                              child: Text(
+                                'Newest',
+                                style: Get.textTheme.headline1!.copyWith(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      currentIndex = 1;
+                                      setState(() {
+                                        allSelected = true;
+                                        dropSelected = false;
+                                        setsSelected = false;
+                                        priceSelected = false;
+                                      });
+                                    },
+                                    child: CategoryCard(
+                                      name: 'All',
+                                      gradient: allSelected == true
+                                          ? AppColors.purpleGradient
+                                          : const LinearGradient(
+                                              colors: [
+                                                Color(0xff272E49),
+                                                Color(0xff272E49),
+                                              ],
+                                            ),
                                     ),
                                   ),
-
-                                  // Icon(Icons.person,size: 100,)
                                 ),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: AppColors.greyWhite,
-                                    width: 1.0,
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      currentIndex = 2;
+                                      setState(() {
+                                        allSelected = false;
+                                        dropSelected = true;
+                                        setsSelected = false;
+                                        priceSelected = false;
+                                      });
+                                    },
+                                    child: CategoryCard(
+                                      name: 'Drop',
+                                      gradient: dropSelected == true
+                                          ? AppColors.purpleGradient
+                                          : const LinearGradient(
+                                              colors: [
+                                                Color(0xff272E49),
+                                                Color(0xff272E49),
+                                              ],
+                                            ),
+                                    ),
                                   ),
                                 ),
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      currentIndex = 3;
+                                      setState(() {
+                                        allSelected = false;
+                                        dropSelected = false;
+                                        setsSelected = true;
+                                        priceSelected = false;
+                                      });
+                                    },
+                                    child: CategoryCard(
+                                      name: 'Sets',
+                                      gradient: setsSelected == true
+                                          ? AppColors.purpleGradient
+                                          : const LinearGradient(
+                                              colors: [
+                                                Color(0xff272E49),
+                                                Color(0xff272E49),
+                                              ],
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      currentIndex = 4;
+                                      setState(() {
+                                        allSelected = false;
+                                        dropSelected = false;
+                                        setsSelected = false;
+                                        priceSelected = true;
+                                      });
+                                    },
+                                    child: CategoryCard(
+                                      name: 'Price',
+                                      gradient: priceSelected == true
+                                          ? AppColors.purpleGradient
+                                          : const LinearGradient(
+                                              colors: [
+                                                Color(0xff272E49),
+                                                Color(0xff272E49),
+                                              ],
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: Get.height * .22,
+                              child: SizedBox(
+                                width: Get.width,
+                                child: data.collectiblesModel != null
+                                    ? VaultNewItemCard(
+                                        list: data.collectiblesModel!.results,
+                                      )
+                                    : const LoadingExample(),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: AppDimension.padding_8,
-                          right: AppDimension.padding_8,
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: Get.height * .08,
-                                padding: const EdgeInsets.all(10),
-                                child: TextField(
-                                  textInputAction: TextInputAction.search,
-                                  decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: const Color(0xff2F3758),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0),
-                                        borderSide: const BorderSide(
-                                          color: Color(0xff455181),
-                                        ),
-                                      ),
-                                      focusedBorder: const UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color(0xff2F3758)),
-                                        //  when the TextFormField in focused
-                                      ),
-                                      prefixIcon: const InkWell(
-                                        child: Icon(
-                                          Icons.search,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      suffixIcon: InkWell(
-                                        onTap: () {
-                                          _openFilterDialog();
-                                        },
-                                        child: const Icon(
-                                          Icons.filter_list,
-                                          color: Color(0xff926FDF),
-                                        ),
-                                      ),
-                                      contentPadding:
-                                          const EdgeInsets.all(10.0),
-                                      hintText: 'Search ',
-                                      hintStyle:
-                                          const TextStyle(color: Colors.grey)),
-                                  onChanged: (string) {},
-                                ),
-                              ),
+                            SizedBox(
+                              height: Get.height * .02,
                             ),
                           ],
                         ),
                       ),
                     ],
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: Get.height * .2),
-                  child: ListView(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15.0, vertical: 5.0),
-                        child: Text(
-                          'News',
-                          style: Get.textTheme.headline1!.copyWith(
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                      AppSpaces.spaces_height_10,
-                      ImageSlider(),
-                      AppSpaces.spaces_height_10,
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10, bottom: 0, left: 15, right: 15),
-                        child: Text(
-                          'My Vault',
-                          style: Get.textTheme.headline1!.copyWith(
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                      HomeVaultCard(),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10, bottom: 0, left: 15, right: 15),
-                        child: Text(
-                          'Newest',
-                          style: Get.textTheme.headline1!.copyWith(
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                currentIndex = 1;
-                                setState(() {
-                                  allSelected = true;
-                                  dropSelected = false;
-                                  setsSelected = false;
-                                  priceSelected = false;
-                                });
-                              },
-                              child: CategoryCard(
-                                name: 'All',
-                                gradient: allSelected == true
-                                    ? AppColors.purpleGradient
-                                    : const LinearGradient(
-                                        colors: [
-                                          Color(0xff272E49),
-                                          Color(0xff272E49),
-                                        ],
-                                      ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                currentIndex = 2;
-                                setState(() {
-                                  allSelected = false;
-                                  dropSelected = true;
-                                  setsSelected = false;
-                                  priceSelected = false;
-                                });
-                              },
-                              child: CategoryCard(
-                                name: 'Drop',
-                                gradient: dropSelected == true
-                                    ? AppColors.purpleGradient
-                                    : const LinearGradient(
-                                        colors: [
-                                          Color(0xff272E49),
-                                          Color(0xff272E49),
-                                        ],
-                                      ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                currentIndex = 3;
-                                setState(() {
-                                  allSelected = false;
-                                  dropSelected = false;
-                                  setsSelected = true;
-                                  priceSelected = false;
-                                });
-                              },
-                              child: CategoryCard(
-                                name: 'Sets',
-                                gradient: setsSelected == true
-                                    ? AppColors.purpleGradient
-                                    : const LinearGradient(
-                                        colors: [
-                                          Color(0xff272E49),
-                                          Color(0xff272E49),
-                                        ],
-                                      ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                currentIndex = 4;
-                                setState(() {
-                                  allSelected = false;
-                                  dropSelected = false;
-                                  setsSelected = false;
-                                  priceSelected = true;
-                                });
-                              },
-                              child: CategoryCard(
-                                name: 'Price',
-                                gradient: priceSelected == true
-                                    ? AppColors.purpleGradient
-                                    : const LinearGradient(
-                                        colors: [
-                                          Color(0xff272E49),
-                                          Color(0xff272E49),
-                                        ],
-                                      ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: Get.height * .22,
-                        child: SizedBox(
-                          width: Get.width,
-                          child: data.collectiblesModel != null
-                              ? VaultNewItemCard(
-                                  list: data.collectiblesModel!.results,
-                                )
-                              : const LoadingExample(),
-                        ),
-                      ),
-                      SizedBox(
-                        height: Get.height * .02,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
+                )
+              : const LoadingExample();
         },
       ),
     );

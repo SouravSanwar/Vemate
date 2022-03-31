@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -156,11 +157,9 @@ class _GraphHelperState extends State<GraphHelper> {
                         ),
                       ),
                     ),
-],
-
-                    ),
-                  ),
-
+                  ],
+                ),
+              ),
 
               AppSpaces.spaces_height_40,
               // recent transactions
@@ -292,127 +291,108 @@ class _GraphHelperState extends State<GraphHelper> {
                 ),
               ),
               AppSpaces.spaces_height_20,
-              SizedBox(
-                width: Get.width,
-                child: Row(
-                  children: [
-                    data.checkWishlistModel!.isFound == false
-                        ? InkWell(
-                            onTap: () {
-                              var body = {
-                                "product": data.singleProductModel!.id,
-                                "type": 1
-                              };
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      var body = {
+                        "product": data.singleProductModel!.id,
+                        "type": 1
+                      };
 
-                              postData!.addToWishlist(
-                                context,
-                                body,
-                                data.singleProductModel!.id,
-                              );
-                            },
-                            child: Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: Get.width * .5,
-                                decoration: BoxDecoration(
-                                  gradient: AppColors.purpleGradient,
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0,
-                                      right: 8.0,
-                                      top: 15,
-                                      bottom: 15),
-                                  child: Text(
-                                    'Add to Wishlist',
-                                    style: Get.textTheme.bodyMedium,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        : Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: Get.width * .5,
-                              decoration: BoxDecoration(
-                                gradient: AppColors.purpleGradient,
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(15),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8.0, right: 8.0, top: 15, bottom: 15),
-                                child: Text(
+                      data.checkWishlistModel!.isFound == false
+                          ? postData!.addToWishlist(
+                              context,
+                              body,
+                              data.singleProductModel!.id,
+                            )
+                          : Flushbar(
+                              flushbarPosition: FlushbarPosition.BOTTOM,
+                              isDismissible: false,
+                              duration: const Duration(seconds: 3),
+                              messageText: const Text(
+                                "Product already in your wishlist",
+                                style: TextStyle(
+                                    fontSize: 16.0, color: Colors.green),
+                              )).show(context);
+                    },
+                    child: Expanded(
+                      flex: 1,
+                      child: Container(
+                        width: Get.width * .45,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          gradient: AppColors.purpleGradient,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, right: 8.0, top: 15, bottom: 15),
+                          child: data.checkWishlistModel!.isFound == false
+                              ? Text(
+                                  'Add to Wishlist',
+                                  style: Get.textTheme.bodyMedium,
+                                )
+                              : Text(
                                   'Already in Wishlist',
                                   style: Get.textTheme.bodyMedium,
                                 ),
-                              ),
-                            ),
-                          ),
-                    AppSpaces.spaces_width_2,
-                    data.checkSetCheck!.isFound == false
-                        ? InkWell(
-                            onTap: () {
-                              var body = {
-                                "product": data.singleProductModel!.id,
-                                "type": 0
-                              };
+                        ),
+                      ),
+                    ),
+                  ),
+                  AppSpaces.spaces_width_2,
+                  InkWell(
+                    onTap: () {
+                      var body = {
+                        "product": data.singleProductModel!.id,
+                        "type": 0
+                      };
 
-                              postData!.addToSet(
-                                context,
-                                body,
-                                data.singleProductModel!.id,
-                              );
-                            },
-                            child: Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: Get.width * .4,
-                                decoration: BoxDecoration(
-                                  gradient: AppColors.purpleGradient,
-                                  //color: AppColors.primaryColor,
-                                  borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(15),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0,
-                                      right: 8.0,
-                                      top: 15,
-                                      bottom: 15),
-                                  child: Text('Add to Set',
-                                      style: Get.textTheme.bodyMedium),
-                                ),
-                              ),
-                            ),
-                          )
-                        : Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: Get.width * .4,
-                              decoration: BoxDecoration(
-                                gradient: AppColors.purpleGradient,
-                                //color: AppColors.primaryColor,
-                                borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(15),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8.0, right: 8.0, top: 15, bottom: 15),
-                                child: Text('Already in Set',
-                                    style: Get.textTheme.bodyMedium),
-                              ),
-                            ),
+                      data.checkSetCheck!.isFound == false
+                          ? postData!.addToSet(
+                              context,
+                              body,
+                              data.singleProductModel!.id,
+                            )
+                          : Flushbar(
+                              flushbarPosition: FlushbarPosition.BOTTOM,
+                              isDismissible: false,
+                              duration: const Duration(seconds: 3),
+                              messageText: const Text(
+                                "Product already in your set",
+                                style: TextStyle(
+                                    fontSize: 16.0, color: Colors.green),
+                              )).show(context);
+                    },
+                    child: Expanded(
+                      flex: 1,
+                      child: Container(
+                        width: Get.width * .45,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          gradient: AppColors.purpleGradient,
+                          //color: AppColors.primaryColor,
+                          borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(15),
                           ),
-                  ],
-                ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, right: 8.0, top: 15, bottom: 15),
+                          child: data.checkSetCheck!.isFound == false
+                              ? Text('Add to Set',
+                                  style: Get.textTheme.bodyMedium)
+                              : Text('Already in Set',
+                                  style: Get.textTheme.bodyMedium),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               )
             ],
           ),
