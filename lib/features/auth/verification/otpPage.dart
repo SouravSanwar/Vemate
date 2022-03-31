@@ -141,7 +141,7 @@ class _OtpPageState extends State<OtpPage> {
                       obscureText: true,
                       obscuringCharacter: '*',
                       obscuringWidget: Image.asset(
-                        "assets/media/image/transfer.png",
+                        "assets/media/icon/logo v.png",
                       ),
                       blinkWhenObscuring: true,
                       animationType: AnimationType.fade,

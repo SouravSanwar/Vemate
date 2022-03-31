@@ -54,7 +54,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     Get.put(ProfileController());
 
     ProfileController.to.userNameTextFiledController.text =
-    profileModel!.nickname!;
+        profileModel!.nickname!;
     ProfileController.to.emailTextFiledController.text = profileModel!.email!;
     ProfileController.to.sellerImageUrl =
         profileModel!.profileImage!.mobile!.src.toString();
@@ -69,7 +69,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<GetData>(builder: (context, data, child){
+    return Consumer<GetData>(builder: (context, data, child) {
       return Scaffold(
         backgroundColor: const Color(0xff272E49),
         body: ListView(
@@ -87,23 +87,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     backgroundImage: ProfileController.to.sellerImageUrl == ""
                         ? null
                         : NetworkImage(
-                      Urls.mainUrl +
-                          data.profileModel!.profileImage!
-                              .mobile!.src
-                              .toString(),
-                    ),
+                            Urls.mainUrl +
+                                data.profileModel!.profileImage!.mobile!.src
+                                    .toString(),
+                          ),
                     child: ProfileController.to.sellerImageUrl == ""
                         ? Shader(
-                      icon: const Icon(
-                        Icons.person_add_alt_1_rounded,
-                        size: 100,
-                      ),
-                    )
+                            icon: const Icon(
+                              Icons.person_add_alt_1_rounded,
+                              size: 100,
+                            ),
+                          )
                         : null,
                   ),
                   Positioned(
-                    bottom:Get.height*.01,
-                    right: Get.height*.055,
+                    bottom: Get.height * .01,
+                    right: Get.height * .055,
                     child: RawMaterialButton(
                       onPressed: () {
                         setState(() {
@@ -126,23 +125,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             SizedBox(
-              height: Get.height*.08,
+              height: Get.height * .08,
             ),
             TextInputField(
               labelText: AppLanguageString.USERNAME.tr,
-              height: Get.height*.04,
+              height: Get.height * .04,
               textType: TextInputType.emailAddress,
               controller: ProfileController.to.userNameTextFiledController,
             ),
-            SizedBox(height: Get.height*.022,),
+            SizedBox(
+              height: Get.height * .022,
+            ),
             TextInputField(
               labelText: AppLanguageString.EMAIL.tr,
-              height: Get.height*.04,
+              height: Get.height * .04,
               textType: TextInputType.emailAddress,
               controller: ProfileController.to.emailTextFiledController,
             ),
-
-            SizedBox(height: Get.height*.07,),
+            SizedBox(
+              height: Get.height * .07,
+            ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               padding: const EdgeInsets.symmetric(horizontal: 7),
@@ -156,7 +158,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 onPressed: () {
                   var body = {
                     "nickname":
-                    ProfileController.to.userNameTextFiledController.text,
+                        ProfileController.to.userNameTextFiledController.text,
                     "email": ProfileController.to.emailTextFiledController.text
                   };
                   postData!.updateProfile(context, body);
@@ -204,7 +206,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
           fileKey: fileKey,
           files: fileList);
 
-
       printInfo(info: 'Files' + fileList.toString());
       printInfo(info: 'Files' + _paths.toString());
     } on PlatformException catch (e) {
@@ -216,7 +217,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     setState(() {
       _isLoading = false;
       _fileName =
-      _paths != null ? _paths!.map((e) => e.name).toString() : '...';
+          _paths != null ? _paths!.map((e) => e.name).toString() : '...';
       _userAborted = _paths == null;
     });
   }

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading.dart';
+import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/reset_pass/enter_new_pass.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/_controller/shader.dart';
 import 'package:ketemaa/features/profile/widgets/profile_divider.dart';
+import 'package:provider/provider.dart';
 
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share_plus/share_plus.dart';
@@ -22,23 +26,12 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  //Imagepicker
-  XFile? imageXFile;
-  final ImagePicker _picker = ImagePicker();
-  String sellerImageUrl = "";
-
-  Future<void> _getImage() async {
-    imageXFile = await _picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      imageXFile;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     final _dialog = RatingDialog(
-      title: Text('Rate Us On App Store or Play Store'),
-      message: Text(''),
+      title: const Text('Rate Us On App Store or Play Store'),
+      message: const Text(''),
       image: Image.asset('slider/12.png'),
       submitButtonText: 'Submit',
       onCancelled: () => print('cancelled'),
@@ -55,99 +48,115 @@ class _ProfileState extends State<Profile> {
 
     return SafeArea(
       minimum: EdgeInsets.zero,
-      child: Scaffold(
-        backgroundColor: Color(0xff272E49),
-        body: Container(
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: AppDimension.padding_8,
-              right: AppDimension.padding_8,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ListView(
-                  shrinkWrap: true,
-                  children: [
-                    SizedBox(
-                      height: Get.height * .05,
+      child: Consumer<GetData>(builder: (context, data, child) {
+        return data.profileModel != null
+            ? Scaffold(
+                backgroundColor: AppColors.backgroundColor,
+                body: Container(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: AppDimension.padding_8,
+                      right: AppDimension.padding_8,
                     ),
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            child: CircleAvatar(
-                              radius: MediaQuery.of(context).size.width * .15,
-                              backgroundColor: Color(0xff272E49),
-                              backgroundImage: null,
-                              child: Shader(
-                                icon: const Icon(
-                                  Icons.person,
-                                  size: 100,
-                                ),
-                              ),
-
-                              // Icon(Icons.person,size: 100,)
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ListView(
+                          shrinkWrap: true,
+                          children: [
+                            SizedBox(
+                              height: Get.height * .05,
                             ),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: AppColors.greyWhite,
-                                width: 2.0,
-                              ),
+                            Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    child:
+                                        data.profileModel!.profileImage != null
+                                            ? CircleAvatar(
+                                                radius: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    .15,
+                                                backgroundColor:
+                                                    const Color(0xff272E49),
+                                                backgroundImage: NetworkImage(
+                                                  Urls.mainUrl +
+                                                      data
+                                                          .profileModel!
+                                                          .profileImage!
+                                                          .mobile!
+                                                          .src
+                                                          .toString(),
+                                                ),
+                                              )
+                                            : CircleAvatar(
+                                                radius: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    .15,
+                                                backgroundColor:
+                                                    const Color(0xff272E49),
+                                                backgroundImage: AssetImage(
+                                                    'assets/media/image/profile.png'),
+                                              ),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: AppColors.greyWhite,
+                                        width: 2.0,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: Get.height * .01,
+                                  ),
+                                  Text(
+                                    data.profileModel!.nickname.toString(),
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.0),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ]),
+                            SizedBox(
+                              height: Get.height * .07,
                             ),
-                          ),
-                          SizedBox(
-                            height: Get.height * .01,
-                          ),
-                          const Text(
-                            'User Name',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0),
-                            textAlign: TextAlign.center,
-                          ),
-                        ]),
-                    SizedBox(
-                      height: Get.height * .07,
+                            CustomProfileElements(Icons.person, "Profile Edit",
+                                () {
+                              Get.to(
+                                () => EditProfilePage(),
+                                arguments: data.profileModel,
+                              );
+                            }),
+                            CustomProfileElements(
+                                Icons.help_outline, "Help and Support", () {}),
+                            CustomProfileElements(Icons.privacy_tip_outlined,
+                                "Privacy Policy", () {}),
+                            CustomProfileElements(
+                                Icons.rate_review_outlined, "Rate", () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => _dialog,
+                              );
+                            }),
+                            CustomProfileElements(Icons.share, "Share Vemate",
+                                () {
+                              Share.share(
+                                  'Visit Vemate Website:\n https://www.vemate.com/');
+                            }),
+                            CustomProfileElements(Icons.info_outline_rounded,
+                                "About Vemate", () {}),
+                          ],
+                        ),
+                      ],
                     ),
-                    CustomProfileElements(Icons.person, "Profile Edit", () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (c) => EditProfilePage()));
-                    }),
-                    CustomProfileElements(
-                        Icons.help_outline, "Help and Support", () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (c) => OtpPage()));
-                    }),
-                    CustomProfileElements(
-                        Icons.privacy_tip_outlined, "Privacy Policy", () {}),
-                    CustomProfileElements(Icons.rate_review_outlined, "Rate",
-                        () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => _dialog,
-                      );
-                    }),
-                    CustomProfileElements(Icons.share, "Share Vemate", () {
-                      Share.share(
-                          'Visit Vemate Website:\n https://www.vemate.com/');
-                    }),
-                    CustomProfileElements(
-                        Icons.info_outline_rounded, "About Vemate'", () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (c) => EnterNewPassword()));
-                    }),
-                  ],
+                  ),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ),
+              )
+            : LoadingExample();
+      }),
     );
   }
 }
