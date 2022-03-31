@@ -224,14 +224,7 @@ class _MarketState extends State<Market> {
                   ///Body
                   Container(
                     child: collectibleSelected == true
-                        ? SizedBox(
-                            height: Get.height,
-                            child: data.collectiblesModel != null
-                                ? CollectiblesItemCard(
-                                    list: data.collectiblesModel!.results,
-                                  )
-                                : const LoadingExample(),
-                          )
+                        ? const CollectiblesItemCard()
                         : (comicSelected == true
                             ? const ComicsItemCard()
                             : Container()),

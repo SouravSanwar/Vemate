@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:ketemaa/core/Provider/getData.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
@@ -395,6 +395,92 @@ class PostData extends ChangeNotifier {
               style: TextStyle(fontSize: 16.0, color: Colors.green),
             )).show(context);
       }
+    } else {
+      Navigator.of(context).pop();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Something went wrong",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    }
+    notifyListeners();
+  }
+
+  Future addToWishlist(BuildContext context, var body, int? id) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingExample());
+
+    printInfo(info: body.toString());
+
+    final response = await http.post(Uri.parse(Urls.commonStorage),
+        body: json.encode(body), headers: requestHeadersWithToken);
+    print(response.body.toString());
+    var x = json.decode(response.body);
+
+    if (response.statusCode == 200 ||
+        response.statusCode == 401 ||
+        response.statusCode == 403 ||
+        response.statusCode == 500 ||
+        response.statusCode == 201) {
+      Navigator.of(context).pop();
+      getData = Provider.of<GetData>(context, listen: false);
+      await getData!.checkWishlist(id!);
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Success",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    } else {
+      Navigator.of(context).pop();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Something went wrong",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    }
+    notifyListeners();
+  }
+
+  Future addToSet(BuildContext context, var body, int? id) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingExample());
+
+    printInfo(info: body.toString());
+
+    final response = await http.post(Uri.parse(Urls.commonStorage),
+        body: json.encode(body), headers: requestHeadersWithToken);
+    print(response.body.toString());
+    var x = json.decode(response.body);
+
+    if (response.statusCode == 200 ||
+        response.statusCode == 401 ||
+        response.statusCode == 403 ||
+        response.statusCode == 500 ||
+        response.statusCode == 201) {
+      Navigator.of(context).pop();
+      getData = Provider.of<GetData>(context, listen: false);
+      await getData!.checkSetList(id!);
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Success",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
     } else {
       Navigator.of(context).pop();
       Flushbar(

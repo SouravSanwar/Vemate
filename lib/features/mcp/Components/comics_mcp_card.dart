@@ -46,7 +46,7 @@ class ComicsMcpCard extends StatelessWidget {
                 onTap: () {
                   var fetchData =
                       Provider.of<GetData>(Get.overlayContext!, listen: false);
-                  fetchData.getSingleComic(list![index].id);
+                  //fetchData.getSingleComic(list![index].id);
 
                   Flushbar(
                     title: "Hey buddy",

@@ -26,10 +26,16 @@ class _VaultState extends State<Vault> {
 
   String? selectedValue;
 
+  GetData? getData;
+
   @override
   void initState() {
     super.initState();
 
+    getData = Provider.of<GetData>(context, listen: false);
+
+    getData!.getSetList();
+    getData!.getWishList();
 
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
@@ -38,7 +44,6 @@ class _VaultState extends State<Vault> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     Get.put(ControllerPageController());
@@ -46,10 +51,10 @@ class _VaultState extends State<Vault> {
     SharedPreferenceController.to.getToken();
 
     return Scaffold(
-      backgroundColor: Color(0xff272E49),
+      backgroundColor: const Color(0xff272E49),
       body: Consumer<GetData>(builder: (context, data, child) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Stack(
             //shrinkWrap: true,
             children: [
@@ -57,189 +62,191 @@ class _VaultState extends State<Vault> {
                 children: [
                   Container(
                     clipBehavior: Clip.antiAlias,
-                      width: Get.width,
-                      height: Get.height * .22,
-                      decoration: BoxDecoration(
-                        gradient: AppColors.cardGradient,
-                        borderRadius: BorderRadius.vertical(bottom: Radius.circular(40.0)),
-                      ),
-                      child: Column(
-                        children: [
+                    width: Get.width,
+                    height: Get.height * .22,
+                    decoration: BoxDecoration(
+                      gradient: AppColors.cardGradient,
+                      borderRadius: const BorderRadius.vertical(
+                          bottom: Radius.circular(40.0)),
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: Get.width * .15,
+                        ),
+                        Row(children: [
                           SizedBox(
-                            height: Get.width * .15,
+                            width: Get.width * .05,
                           ),
-                          Row(children: [
-                            SizedBox(
-                              width: Get.width * .05,
-                            ),
-                            Text(
-                              "My Vault",
-                              textAlign: TextAlign.start,
-                              style: Get.textTheme.bodyText2!.copyWith(
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 22),
-                            ),
-                          ]),
-                          SizedBox(
-                            height: Get.height * .03,
+                          Text(
+                            "My Vault",
+                            textAlign: TextAlign.start,
+                            style: Get.textTheme.bodyText2!.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 22),
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 9,
-                                  child:Column(
+                        ]),
+                        SizedBox(
+                          height: Get.height * .03,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 9,
+                              child: Column(
+                                children: [
+                                  Row(
                                     children: [
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: Get.width * .05,
-                                          ),
-                                          Expanded(
-                                            flex: 4,
-                                            child: Text(
-                                              "Vault Value",
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText2!.copyWith(
+                                      SizedBox(
+                                        width: Get.width * .05,
+                                      ),
+                                      Expanded(
+                                        flex: 4,
+                                        child: Text(
+                                          "Vault Value",
+                                          textAlign: TextAlign.start,
+                                          style: Get.textTheme.bodyText2!
+                                              .copyWith(
                                                   color: AppColors.white,
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 14),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Text(
-                                              "MCP",
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText2!.copyWith(
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          "MCP",
+                                          textAlign: TextAlign.start,
+                                          style: Get.textTheme.bodyText2!
+                                              .copyWith(
                                                   color: AppColors.white,
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 14),
-                                            ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 3,
+                                        child: Container(
+                                          width: Get.width * .15,
+                                          height: Get.height * .03,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            gradient: AppColors.purpleGradient,
+                                            // set border width
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(16.0),
+                                            ), // set rounded corner radius
                                           ),
-                                          Expanded(
-                                            flex: 3,
-                                            child: Container(
-                                              width: Get.width * .15,
-                                              height: Get.height * .03,
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                gradient: AppColors
-                                                    .purpleGradient, // set border width
-                                                borderRadius: const BorderRadius.all(
-                                                    Radius.circular(
-                                                        16.0),
-                                                ), // set rounded corner radius
-                                              ),
-                                              child: Text(
-                                                r"$" + "456",
-                                                textAlign: TextAlign.start,
-                                                style: Get.textTheme.bodyText2!.copyWith(
+                                          child: Text(
+                                            r"$" "456",
+                                            textAlign: TextAlign.start,
+                                            style: Get.textTheme.bodyText2!
+                                                .copyWith(
                                                     color: AppColors.white,
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 14),
-                                              ),
-                                            ),
                                           ),
-
-                                        ],
+                                        ),
                                       ),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: Get.width * .05,
-                                          ),
-                                          Expanded(
-                                            flex: 4,
-                                            child: Text(
-                                              r"$" + "4563",
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText2!.copyWith(
-                                                  color: AppColors.grey,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 14),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Text(
-                                              "187",
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText2!.copyWith(
-                                                  color: AppColors.grey,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 14),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 3,
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                if (percent < 0.0)
-                                                //toRotateIcon
-                                                  const RotationTransition(
-                                                    turns: AlwaysStoppedAnimation(
-                                                        45 / 360),
-                                                    child: Icon(
-                                                      Icons.arrow_downward,
-                                                      size: 18,
-                                                      color: Colors.red,
-                                                    ),
-                                                  )
-                                                else
-                                                  const RotationTransition(
-                                                    turns: AlwaysStoppedAnimation(
-                                                        45 / 360),
-                                                    child: Icon(
-                                                      Icons.arrow_upward,
-                                                      size: 18,
-                                                      color: Colors.green,
-                                                    ),
-                                                  ),
-                                                Text(
-                                                  percent < 0.0
-                                                      ? percent.toString()
-                                                      : percent.toString() + "%",
-                                                  textAlign: TextAlign.end,
-                                                  style: TextStyle(
-                                                      color: percent < 0.0
-                                                          ? Colors.red
-                                                          : Colors.green,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 14
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-
-                                        ],
-                                      ),
-
                                     ],
-                                  )
-                              ),
-                              Expanded(
-                                  flex:5,
-                                  child:Container(
-                                    padding: EdgeInsets.only(
-                                    ),
-                                    alignment: Alignment.centerLeft,
-                                    height: Get.height * .05,
-                                    child: LineChart(
-                                      mainData(), // Optional
-                                      swapAnimationCurve:
-                                      Curves.easeInOutBack, // Optional
-                                    ),
                                   ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: Get.width * .05,
+                                      ),
+                                      Expanded(
+                                        flex: 4,
+                                        child: Text(
+                                          r"$" "4563",
+                                          textAlign: TextAlign.start,
+                                          style: Get.textTheme.bodyText2!
+                                              .copyWith(
+                                                  color: AppColors.grey,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          "187",
+                                          textAlign: TextAlign.start,
+                                          style: Get.textTheme.bodyText2!
+                                              .copyWith(
+                                                  color: AppColors.grey,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 3,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            if (percent < 0.0)
+                                              //toRotateIcon
+                                              const RotationTransition(
+                                                turns: AlwaysStoppedAnimation(
+                                                    45 / 360),
+                                                child: Icon(
+                                                  Icons.arrow_downward,
+                                                  size: 18,
+                                                  color: Colors.red,
+                                                ),
+                                              )
+                                            else
+                                              const RotationTransition(
+                                                turns: AlwaysStoppedAnimation(
+                                                    45 / 360),
+                                                child: Icon(
+                                                  Icons.arrow_upward,
+                                                  size: 18,
+                                                  color: Colors.green,
+                                                ),
+                                              ),
+                                            Text(
+                                              percent < 0.0
+                                                  ? percent.toString()
+                                                  : percent.toString() + "%",
+                                              textAlign: TextAlign.end,
+                                              style: TextStyle(
+                                                  color: percent < 0.0
+                                                      ? Colors.red
+                                                      : Colors.green,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 14),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: Container(
+                                padding: const EdgeInsets.only(),
+                                alignment: Alignment.centerLeft,
+                                height: Get.height * .05,
+                                child: LineChart(
 
+                                  mainData(), // Optional
+                                  swapAnimationCurve:
+                                      Curves.easeInOutBack, // Optional
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
               Container(
@@ -290,16 +297,15 @@ class _VaultState extends State<Vault> {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                         height: Get.height * .22,
                         child: SizedBox(
                           width: Get.width,
-                          child: data.collectiblesModel != null
+                          child: data.setListModel != null
                               ? MysetsCard(
-                                  list: data
-                                      .collectiblesModel!.results,
+                                  list: data.setListModel!.results,
                                 )
-                              : LoadingExample(),
+                              : const LoadingExample(),
                         )),
                     SizedBox(
                       height: Get.height * .02,
@@ -316,16 +322,15 @@ class _VaultState extends State<Vault> {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                         height: Get.height * .22,
                         child: SizedBox(
                           width: Get.width,
-                          child: data.collectiblesModel != null
+                          child: data.wishListModel != null
                               ? MywishlistCard(
-                                  list: data
-                                      .collectiblesModel!.results,
+                                  list: data.wishListModel!.results,
                                 )
-                              : LoadingExample(),
+                              : const LoadingExample(),
                         )),
                     SizedBox(
                       height: Get.height * .02,
@@ -339,7 +344,7 @@ class _VaultState extends State<Vault> {
                 right: 0.0,
                 child: Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton2(
                       hint: const Text(
@@ -349,7 +354,7 @@ class _VaultState extends State<Vault> {
                           color: Colors.white,
                         ),
                       ),
-                      items: <String>[' 24H'' 7D', ' 30D', ' 1Y']
+                      items: <String>[' 24H' ' 7D', ' 30D', ' 1Y']
                           .map((item) => DropdownMenuItem<String>(
                                 value: "24 H",
                                 child: Text(
@@ -483,38 +488,38 @@ class _VaultState extends State<Vault> {
         LineChartBarData(
           spots: _isLoaded
               ? [
-                  FlSpot(0, 0),
-                  FlSpot(2.9, 2),
-                  FlSpot(4.4, 3),
-                  FlSpot(6.4, 3.1),
-                  FlSpot(8, 4),
-                  FlSpot(9.5, 4),
-                  FlSpot(12, 5),
-                  FlSpot(16, 1),
-                  FlSpot(20, 8),
-                  FlSpot(24, 2),
-                  FlSpot(28, 4.1),
-                  FlSpot(32, 5),
-                  FlSpot(36, 2.9),
-                  FlSpot(40, 1.8),
-                  FlSpot(44, 6),
+                  const FlSpot(0, 0),
+                  const FlSpot(2.9, 2),
+                  const FlSpot(4.4, 3),
+                  const FlSpot(6.4, 3.1),
+                  const FlSpot(8, 4),
+                  const FlSpot(9.5, 4),
+                  const FlSpot(12, 5),
+                  const FlSpot(16, 1),
+                  const FlSpot(20, 8),
+                  const FlSpot(24, 2),
+                  const FlSpot(28, 4.1),
+                  const FlSpot(32, 5),
+                  const FlSpot(36, 2.9),
+                  const FlSpot(40, 1.8),
+                  const FlSpot(44, 6),
                 ]
               : [
-                  FlSpot(0, 0),
-                  FlSpot(2.4, 0),
-                  FlSpot(4.4, 0),
-                  FlSpot(6.4, 0),
-                  FlSpot(8, 0),
-                  FlSpot(9.5, 0),
-                  FlSpot(12, 0),
-                  FlSpot(16, 0),
-                  FlSpot(20, 0),
-                  FlSpot(24, 0),
-                  FlSpot(28, 0),
-                  FlSpot(32, 0),
-                  FlSpot(36, 0),
-                  FlSpot(40, 0),
-                  FlSpot(44, 0),
+                  const FlSpot(0, 0),
+                  const FlSpot(2.4, 0),
+                  const FlSpot(4.4, 0),
+                  const FlSpot(6.4, 0),
+                  const FlSpot(8, 0),
+                  const FlSpot(9.5, 0),
+                  const FlSpot(12, 0),
+                  const FlSpot(16, 0),
+                  const FlSpot(20, 0),
+                  const FlSpot(24, 0),
+                  const FlSpot(28, 0),
+                  const FlSpot(32, 0),
+                  const FlSpot(36, 0),
+                  const FlSpot(40, 0),
+                  const FlSpot(44, 0),
                 ],
           isCurved: true,
           colors: gradientColors,
@@ -524,8 +529,8 @@ class _VaultState extends State<Vault> {
           ),
           belowBarData: BarAreaData(
               show: true,
-              gradientFrom: Offset(0, 0),
-              gradientTo: Offset(0, 1),
+              gradientFrom: const Offset(0, 0),
+              gradientTo: const Offset(0, 1),
               colors: [
                 const Color(0xff8053B7),
                 const Color(0xff8053B7),

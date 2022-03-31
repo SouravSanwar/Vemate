@@ -55,7 +55,7 @@ class _ChartExampleState extends State<ChartExample> {
     return Consumer<GetData>(builder: (context, data, child) {
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xff272E49),
+          backgroundColor: const Color(0xff272E49),
           elevation: 4,
           title: Text(
             data.singleCollectibleModel != null
@@ -103,13 +103,13 @@ class _ChartExampleState extends State<ChartExample> {
                   padding: const EdgeInsets.all(20),
                   width: double.infinity,
                   child: FadeInUp(
-                    duration: Duration(milliseconds: 100),
+                    duration: const Duration(milliseconds: 100),
                     child: Container(
                       width: double.infinity,
                       height: 250,
                       child: LineChart(
                         mainData(),
-                        swapAnimationDuration: Duration(milliseconds: 1000),
+                        swapAnimationDuration: const Duration(milliseconds: 1000),
                         // Optional
                         swapAnimationCurve: Curves.bounceIn, // Optional
                       ),
@@ -119,7 +119,7 @@ class _ChartExampleState extends State<ChartExample> {
               )
             ];
           },
-          body: GraphHelper(),
+          body: const GraphHelper(),
         ),
       );
     });
@@ -222,38 +222,38 @@ class _ChartExampleState extends State<ChartExample> {
         LineChartBarData(
           spots: _isLoaded
               ? [
-                  FlSpot(0, 3),
-                  FlSpot(2.9, 2),
-                  FlSpot(4.4, 3),
-                  FlSpot(6.4, 3.1),
-                  FlSpot(8, 4),
-                  FlSpot(9.5, 4),
-                  FlSpot(12, 5),
-                  FlSpot(16, 1),
-                  FlSpot(20, 8),
-                  FlSpot(24, 2),
-                  FlSpot(28, 4.1),
-                  FlSpot(32, 5),
-                  FlSpot(36, 2.9),
-                  FlSpot(40, 1.8),
-                  FlSpot(44, 3),
+                  const FlSpot(0, 3),
+                  const FlSpot(2.9, 2),
+                  const FlSpot(4.4, 3),
+                  const FlSpot(6.4, 3.1),
+                  const FlSpot(8, 4),
+                  const FlSpot(9.5, 4),
+                  const FlSpot(12, 5),
+                  const FlSpot(16, 1),
+                  const FlSpot(20, 8),
+                  const FlSpot(24, 2),
+                  const FlSpot(28, 4.1),
+                  const FlSpot(32, 5),
+                  const FlSpot(36, 2.9),
+                  const FlSpot(40, 1.8),
+                  const FlSpot(44, 3),
                 ]
               : [
-                  FlSpot(0, 0),
-                  FlSpot(2.4, 0),
-                  FlSpot(4.4, 0),
-                  FlSpot(6.4, 0),
-                  FlSpot(8, 0),
-                  FlSpot(9.5, 0),
-                  FlSpot(12, 0),
-                  FlSpot(16, 0),
-                  FlSpot(20, 0),
-                  FlSpot(24, 0),
-                  FlSpot(28, 0),
-                  FlSpot(32, 0),
-                  FlSpot(36, 0),
-                  FlSpot(40, 0),
-                  FlSpot(44, 0),
+                  const FlSpot(0, 0),
+                  const FlSpot(2.4, 0),
+                  const FlSpot(4.4, 0),
+                  const FlSpot(6.4, 0),
+                  const FlSpot(8, 0),
+                  const FlSpot(9.5, 0),
+                  const FlSpot(12, 0),
+                  const FlSpot(16, 0),
+                  const FlSpot(20, 0),
+                  const FlSpot(24, 0),
+                  const FlSpot(28, 0),
+                  const FlSpot(32, 0),
+                  const FlSpot(36, 0),
+                  const FlSpot(40, 0),
+                  const FlSpot(44, 0),
                 ],
           isCurved: true,
           colors: gradientColors,
@@ -263,11 +263,11 @@ class _ChartExampleState extends State<ChartExample> {
           ),
           belowBarData: BarAreaData(
               show: true,
-              gradientFrom: Offset(0, 0),
-              gradientTo: Offset(0, 1),
+              gradientFrom: const Offset(0, 0),
+              gradientTo: const Offset(0, 1),
               colors: [
-                Color(0xff02d39a).withOpacity(0.1),
-                Color(0xff02d39a).withOpacity(0),
+                const Color(0xff02d39a).withOpacity(0.1),
+                const Color(0xff02d39a).withOpacity(0),
               ]),
         ),
       ],

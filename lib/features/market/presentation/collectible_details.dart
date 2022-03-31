@@ -10,16 +10,16 @@ import 'package:ketemaa/graph/graph_helper.dart';
 import 'package:ketemaa/graph/test_graph.dart';
 import 'package:provider/provider.dart';
 
-class ComicDetails extends StatefulWidget {
+class CollectibleDetails extends StatefulWidget {
   final int? productId;
 
-  const ComicDetails({Key? key, this.productId}) : super(key: key);
+  const CollectibleDetails({Key? key, this.productId}) : super(key: key);
 
   @override
-  _ComicDetailsState createState() => _ComicDetailsState();
+  _CollectibleDetailsState createState() => _CollectibleDetailsState();
 }
 
-class _ComicDetailsState extends State<ComicDetails> {
+class _CollectibleDetailsState extends State<CollectibleDetails> {
   GetData? getData;
 
   @override
@@ -61,8 +61,8 @@ class _ComicDetailsState extends State<ComicDetails> {
                         padding: const EdgeInsets.all(20),
                         width: double.infinity,
                         child: FadeInUp(
-                          duration: Duration(milliseconds: 100),
-                          child: Container(
+                          duration: const Duration(milliseconds: 100),
+                          child: SizedBox(
                             width: double.infinity,
                             height: 250,
                             child: GraphTest(
@@ -74,9 +74,9 @@ class _ComicDetailsState extends State<ComicDetails> {
                     )
                   ];
                 },
-                body: GraphHelper(),
+                body: const GraphHelper(),
               )
-            : LoadingExample(),
+            : const LoadingExample(),
       );
     });
   }

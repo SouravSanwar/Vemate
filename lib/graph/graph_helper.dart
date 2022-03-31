@@ -1,5 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ketemaa/core/Provider/postData.dart';
+import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:provider/provider.dart';
 
@@ -46,11 +49,15 @@ class GraphHelper extends StatefulWidget {
 class _GraphHelperState extends State<GraphHelper> {
   GetData? getData;
 
+  PostData? postData;
+
   @override
   void initState() {
     super.initState();
 
     getData = Provider.of<GetData>(context, listen: false);
+
+    postData = Provider.of<PostData>(context, listen: false);
   }
 
   @override
@@ -58,12 +65,12 @@ class _GraphHelperState extends State<GraphHelper> {
     return Consumer<GetData>(
       builder: (context, data, child) {
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.only(left: 8, right: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               FadeInUp(
-                duration: Duration(milliseconds: 100),
+                duration: const Duration(milliseconds: 100),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -118,12 +125,9 @@ class _GraphHelperState extends State<GraphHelper> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 5,
-              ),
-
+              AppSpaces.spaces_height_5,
               FadeInUp(
-                duration: Duration(milliseconds: 1000),
+                duration: const Duration(milliseconds: 1000),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -170,12 +174,10 @@ class _GraphHelperState extends State<GraphHelper> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 40,
-              ),
+              AppSpaces.spaces_height_40,
               // recent transactions
               FadeInUp(
-                duration: Duration(milliseconds: 1000),
+                duration: const Duration(milliseconds: 1000),
                 child: Text(
                   data.singleProductModel != null
                       ? data.singleProductModel!.name.toString() + "'s Details"
@@ -187,10 +189,7 @@ class _GraphHelperState extends State<GraphHelper> {
                       fontSize: 15),
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-
+              AppSpaces.spaces_height_20,
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
@@ -304,7 +303,129 @@ class _GraphHelperState extends State<GraphHelper> {
                   ]),
                 ),
               ),
-              AppSpaces.spaces_height_40,
+              AppSpaces.spaces_height_20,
+              SizedBox(
+                width: Get.width,
+                child: Row(
+                  children: [
+                    data.checkWishlistModel!.isFound == false
+                        ? InkWell(
+                            onTap: () {
+                              var body = {
+                                "product": data.singleProductModel!.id,
+                                "type": 1
+                              };
+
+                              postData!.addToWishlist(
+                                context,
+                                body,
+                                data.singleProductModel!.id,
+                              );
+                            },
+                            child: Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: Get.width * .5,
+                                decoration: BoxDecoration(
+                                  gradient: AppColors.purpleGradient,
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0,
+                                      right: 8.0,
+                                      top: 15,
+                                      bottom: 15),
+                                  child: Text(
+                                    'Add to Wishlist',
+                                    style: Get.textTheme.bodyMedium,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : Expanded(
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: Get.width * .5,
+                              decoration: BoxDecoration(
+                                gradient: AppColors.purpleGradient,
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, right: 8.0, top: 15, bottom: 15),
+                                child: Text(
+                                  'Already in Wishlist',
+                                  style: Get.textTheme.bodyMedium,
+                                ),
+                              ),
+                            ),
+                          ),
+                    AppSpaces.spaces_width_2,
+                    data.checkSetCheck!.isFound == false
+                        ? InkWell(
+                            onTap: () {
+                              var body = {
+                                "product": data.singleProductModel!.id,
+                                "type": 0
+                              };
+
+                              postData!.addToSet(
+                                context,
+                                body,
+                                data.singleProductModel!.id,
+                              );
+                            },
+                            child: Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: Get.width * .4,
+                                decoration: BoxDecoration(
+                                  gradient: AppColors.purpleGradient,
+                                  //color: AppColors.primaryColor,
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(15),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0,
+                                      right: 8.0,
+                                      top: 15,
+                                      bottom: 15),
+                                  child: Text('Add to Set',
+                                      style: Get.textTheme.bodyMedium),
+                                ),
+                              ),
+                            ),
+                          )
+                        : Expanded(
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: Get.width * .4,
+                              decoration: BoxDecoration(
+                                gradient: AppColors.purpleGradient,
+                                //color: AppColors.primaryColor,
+                                borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(15),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, right: 8.0, top: 15, bottom: 15),
+                                child: Text('Already in Set',
+                                    style: Get.textTheme.bodyMedium),
+                              ),
+                            ),
+                          ),
+                  ],
+                ),
+              )
             ],
           ),
         );

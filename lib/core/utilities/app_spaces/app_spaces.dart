@@ -30,6 +30,8 @@ class AppSpaces {
   static Padding spaces_height_160 =
       const Padding(padding: EdgeInsets.only(top: 160));
 
+  static Padding spaces_width_2 =
+      const Padding(padding: EdgeInsets.only(left: 2));
   static Padding spaces_width_5 =
       const Padding(padding: EdgeInsets.only(left: 5));
   static Padding spaces_width_10 =

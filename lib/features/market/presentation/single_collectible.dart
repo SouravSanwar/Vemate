@@ -24,7 +24,7 @@ class _SingleCollectibleViewState extends State<SingleCollectibleView> {
     // TODO: implement initState
 
     var fetchData = Provider.of<GetData>(context, listen: false);
-    fetchData.getSingleCollectible(widget.id);
+    //fetchData.getSingleCollectible(widget.id);
 
     super.initState();
   }

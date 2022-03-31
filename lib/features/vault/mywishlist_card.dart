@@ -1,24 +1,21 @@
-import 'dart:ffi';
-import 'package:animate_do/animate_do.dart';
-import 'package:another_flushbar/flushbar.dart';
-import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
-import 'package:ketemaa/graph/chart_example.dart';
+import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/graph/graph_helper.dart';
+import 'package:ketemaa/core/models/WishListModel.dart';
 
-import '../../../../core/models/CollectiblesModel.dart';
 import '../../../../core/utilities/app_colors/app_colors.dart';
 
 class MywishlistCard extends StatefulWidget {
-  List<Results>? list;
+  final List<Results>? list;
 
   MywishlistCard({
+    Key? key,
     this.list,
-  });
+  }) : super(key: key);
 
   @override
   State<MywishlistCard> createState() => _MywishlistCardState();
@@ -42,8 +39,6 @@ class _MywishlistCardState extends State<MywishlistCard> {
 
   @override
   Widget build(BuildContext context) {
-    double percent = 3.30;
-
     return Padding(
       padding: EdgeInsets.only(
         left: AppDimension.padding_8,
@@ -55,122 +50,132 @@ class _MywishlistCardState extends State<MywishlistCard> {
         itemCount: widget.list!.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.all(2.0),
+            padding: const EdgeInsets.all(4.0),
             child: Container(
               width: Get.width * .37,
-              height: Get.height * .22,
+              //height: Get.height * .22,
               decoration: BoxDecoration(
                 gradient: AppColors.purpleGradient,
                 borderRadius: BorderRadius.circular(12.0),
               ),
               child: InkWell(
                 onTap: () {
-                  Get.to(() => ChartExample(id: widget.list![index].id));
+                  /*Get.to(() => ChartExample(id: widget.list![index].id));*/
+
+                  widget.list![index].productDetail!.type == 1
+                      ? Get.to(() => ComicDetails(
+                            productId: widget.list![index].productDetail!.id!,
+                          ))
+                      : Container();
+
+                  printInfo(
+                      info: 'Set Clicked: ' +
+                          widget.list![index].productDetail!.type.toString());
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                        width: Get.width * .37,
-                        height: Get.height * .22,
-                        decoration: BoxDecoration(
-                            gradient: AppColors.cardGradient,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Color(0xff454F70))),
-                        alignment: Alignment.topCenter,
-                        child: Column(
-                          children: [
-                            Container(
-                              height: Get.height * .1,
-                              width: Get.width * .3,
-                              child: LineChart(
-                                mainData(), // Optional
-                                swapAnimationCurve:
-                                Curves.easeInOutQuad, // Optional
-                              ),
+                      width: Get.width * .37,
+                      //height: Get.height * .22,
+                      decoration: BoxDecoration(
+                          gradient: AppColors.cardGradient,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Color(0xff454F70))),
+                      alignment: Alignment.topCenter,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: Get.height * .1,
+                            width: Get.width * .3,
+                            child: LineChart(
+                              mainData(), // Optional
+                              swapAnimationCurve:
+                                  Curves.easeInOutQuad, // Optional
                             ),
-                            new Divider(
+                          ),
+                          const Divider(
+                            color: Colors.white,
+                          ),
+                          Text(
+                            widget.list![index].productDetail!.name.toString(),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.left,
+                            style: Get.textTheme.bodyText2!.copyWith(
                               color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 12,
                             ),
-                            Container(
-                              height: Get.height * .02,
-                              child: Text(
-                                widget.list![index].name.toString().length > 15
-                                    ? widget.list![index].name
-                                    .toString()
-                                    .substring(0, 14) +
-                                    "....."
-                                    : widget.list![index].name.toString(),
-                                textAlign: TextAlign.start,
-                                style: Get.textTheme.bodyText2!.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12),
-                              ),
-                            ),
-                            SizedBox(
-                              height: Get.height * .02,
-                            ),
-                            Padding(
-                                padding:
-                                const EdgeInsets.symmetric(horizontal: 5),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        height: Get.height * .02,
-                                        child: Text(
-                                          r"$" + widget.list![index].floorPrice
-                                              .toString(),
-                                          textAlign: TextAlign.start,
-                                          style: Get.textTheme.bodyText2!
-                                              .copyWith(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 11),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            percent < 0.0
-                                                ? percent.toString()
-                                                : "+" + percent.toString(),
-                                            textAlign: TextAlign.end,
-                                            style: Get.textTheme.bodyText1!
-                                                .copyWith(
-                                                color: percent < 0.0
+                          ),
+                          SizedBox(
+                            height: Get.height * .02,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 5.0, right: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    r"$" +
+                                        widget.list![index].productDetail!
+                                            .floorPrice
+                                            .toString(),
+                                    textAlign: TextAlign.start,
+                                    style: Get.textTheme.bodyText2!.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 11),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        widget.list![index].productDetail!
+                                            .priceChangePercent!.percent!
+                                            .toString(),
+                                        textAlign: TextAlign.end,
+                                        style: Get.textTheme.bodyText1!
+                                            .copyWith(
+                                                color: widget
+                                                            .list![index]
+                                                            .productDetail!
+                                                            .priceChangePercent!
+                                                            .sign ==
+                                                        'decrease'
                                                     ? Colors.red
                                                     : Colors.green,
                                                 fontWeight: FontWeight.w300,
-                                                fontSize: 11),
-                                          ),
-                                          if (percent < 0.0)
-                                            const Icon(
-                                              Icons.arrow_downward,
-                                              color: Colors.red,
-                                              size: 14,
-                                            )
-                                          else
-                                            const Icon(
-                                              Icons.arrow_upward,
-                                              color: Colors.green,
-                                              size: 14,
-                                            )
-                                        ],
+                                                fontSize: 10),
                                       ),
-                                    ),
-                                  ],
-                                )),
-                          ],
-                        )),
+                                      if (widget.list![index].productDetail!
+                                              .priceChangePercent!.sign ==
+                                          'decrease')
+                                        const Icon(
+                                          Icons.arrow_downward,
+                                          color: Colors.red,
+                                          size: 12,
+                                        )
+                                      else
+                                        const Icon(
+                                          Icons.arrow_upward,
+                                          color: Colors.green,
+                                          size: 12,
+                                        )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -280,39 +285,39 @@ class _MywishlistCardState extends State<MywishlistCard> {
         LineChartBarData(
           spots: _isLoaded
               ? [
-            FlSpot(0, 0),
-            FlSpot(2.9, 2),
-            FlSpot(4.4, 3),
-            FlSpot(6.4, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 4),
-            FlSpot(12, 5),
-            FlSpot(16, 1),
-            FlSpot(20, 8),
-            FlSpot(24, 2),
-            FlSpot(28, 4.1),
-            FlSpot(32, 5),
-            FlSpot(36, 2.9),
-            FlSpot(40, 1.8),
-            FlSpot(44, 6),
-          ]
+                  FlSpot(0, 0),
+                  FlSpot(2.9, 2),
+                  FlSpot(4.4, 3),
+                  FlSpot(6.4, 3.1),
+                  FlSpot(8, 4),
+                  FlSpot(9.5, 4),
+                  FlSpot(12, 5),
+                  FlSpot(16, 1),
+                  FlSpot(20, 8),
+                  FlSpot(24, 2),
+                  FlSpot(28, 4.1),
+                  FlSpot(32, 5),
+                  FlSpot(36, 2.9),
+                  FlSpot(40, 1.8),
+                  FlSpot(44, 6),
+                ]
               : [
-            FlSpot(0, 0),
-            FlSpot(2.4, 0),
-            FlSpot(4.4, 0),
-            FlSpot(6.4, 0),
-            FlSpot(8, 0),
-            FlSpot(9.5, 0),
-            FlSpot(12, 0),
-            FlSpot(16, 0),
-            FlSpot(20, 0),
-            FlSpot(24, 0),
-            FlSpot(28, 0),
-            FlSpot(32, 0),
-            FlSpot(36, 0),
-            FlSpot(40, 0),
-            FlSpot(44, 0),
-          ],
+                  FlSpot(0, 0),
+                  FlSpot(2.4, 0),
+                  FlSpot(4.4, 0),
+                  FlSpot(6.4, 0),
+                  FlSpot(8, 0),
+                  FlSpot(9.5, 0),
+                  FlSpot(12, 0),
+                  FlSpot(16, 0),
+                  FlSpot(20, 0),
+                  FlSpot(24, 0),
+                  FlSpot(28, 0),
+                  FlSpot(32, 0),
+                  FlSpot(36, 0),
+                  FlSpot(40, 0),
+                  FlSpot(44, 0),
+                ],
           isCurved: true,
           colors: gradientColors,
           barWidth: 2,

@@ -15,14 +15,15 @@ class Urls {
   static String updateProfilePic =
       mainUrl + '/api/v1/account/public/users/upload_profile_image/';
 
-  /*static String collectibles =
-      mainUrl + '/api/v1/veve/public/products/?type=0&limit=20&offset=0';*/
   static String singleProduct = mainUrl + '/api/v1/veve/public/products/';
 
+  static String commonStorage = mainUrl + '/api/v1/veve/public/common-storage/';
 
-  static String singleCollectible = mainUrl + '/collectible/';
+  static String checkWishlist = mainUrl +
+      '/api/v1/veve/public/common-storage/check_duplicate/?type=1&product_id=';
 
-
+  static String checkSet = mainUrl +
+      '/api/v1/veve/public/common-storage/check_duplicate/?type=0&product_id=';
 
   static String comics = mainUrl + '/comics';
   static String singleComic = mainUrl + '/comic/';

@@ -4,11 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:ketemaa/core/models/CheckSetCheck.dart';
+import 'package:ketemaa/core/models/CheckWishlistModel.dart';
 import 'package:ketemaa/core/models/ComicsModel.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
+import 'package:ketemaa/core/models/SetListModel.dart';
 import 'package:ketemaa/core/models/SingleCollectibleModel.dart';
 import 'package:ketemaa/core/models/SingleComicModel.dart';
 import 'package:ketemaa/core/models/SingleProductModel.dart';
+import 'package:ketemaa/core/models/WishListModel.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/main.dart';
 import '../models/CollectiblesModel.dart';
@@ -23,6 +27,12 @@ class GetData extends ChangeNotifier {
   SingleProductModel? singleProductModel;
 
   ProfileModel? profileModel;
+
+  CheckWishlistModel? checkWishlistModel;
+  CheckSetCheck? checkSetCheck;
+
+  WishListModel? wishListModel;
+  SetListModel? setListModel;
 
   Map<String, String> requestHeadersWithToken = {
     'Content-type': 'application/json',
@@ -50,7 +60,6 @@ class GetData extends ChangeNotifier {
   }
 
   Future getCollectibles({int offset = 0}) async {
-    collectiblesModel = null;
     final response = await http.get(
       Uri.parse(
         Urls.mainUrl +
@@ -63,44 +72,13 @@ class GetData extends ChangeNotifier {
 
     //printInfo(info: data.toString());
 
-    collectiblesModel = CollectiblesModel.fromJson(data);
+    if (collectiblesModel != null) {
+      if (offset == 0) collectiblesModel!.results!.clear();
 
-    notifyListeners();
-  }
-
-  Future getSingleProduct(int? id, {int graphType = 0}) async {
-    singleProductModel = null;
-    final response = await http.get(
-      Uri.parse(
-        Urls.singleProduct + '$id?graph_type=$graphType',
-      ),
-      headers: requestToken,
-    );
-
-    printInfo(info: Urls.singleProduct + '$id?graph_type=0');
-
-    var data = json.decode(response.body.toString());
-
-    printInfo(info: data.toString());
-
-    singleProductModel = SingleProductModel.fromJson(data);
-
-    notifyListeners();
-  }
-
-  Future getSingleCollectible(int? id) async {
-    singleCollectibleModel = null;
-    final response = await http.get(Uri.parse(
-      Urls.singleCollectible + id!.toString(),
-    ));
-
-    printInfo(info: Urls.singleCollectible + id.toString());
-
-    var data = json.decode(response.body.toString());
-
-    printInfo(info: data.toString());
-
-    singleCollectibleModel = SingleCollectibleModel.fromJson(data);
+      collectiblesModel!.results!.addAll(CollectiblesModel.fromJson(data).results!);
+    } else {
+      collectiblesModel = CollectiblesModel.fromJson(data);
+    }
 
     notifyListeners();
   }
@@ -129,19 +107,93 @@ class GetData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getSingleComic(int? id) async {
-    singleComicModel = null;
-    final response = await http.get(Uri.parse(
-      Urls.singleComic + id!.toString(),
-    ));
+  Future getSingleProduct(int? id, {int graphType = 0}) async {
+    singleProductModel = null;
+    final response = await http.get(
+      Uri.parse(
+        Urls.singleProduct + '$id?graph_type=$graphType',
+      ),
+      headers: requestToken,
+    );
 
-    printInfo(info: Urls.singleComic + id.toString());
+    printInfo(info: Urls.singleProduct + '$id?graph_type=0');
 
     var data = json.decode(response.body.toString());
 
     printInfo(info: data.toString());
 
-    singleComicModel = SingleComicModel.fromJson(data);
+    singleProductModel = SingleProductModel.fromJson(data);
+
+    notifyListeners();
+  }
+
+  Future checkWishlist(int id) async {
+    checkWishlistModel = null;
+    final response = await http.get(
+      Uri.parse(
+        Urls.checkWishlist + id.toString(),
+      ),
+      headers: requestToken,
+    );
+
+    var data = json.decode(response.body.toString());
+
+    printInfo(info: data.toString());
+
+    checkWishlistModel = CheckWishlistModel.fromJson(data);
+
+    notifyListeners();
+  }
+
+  Future checkSetList(int id) async {
+    checkSetCheck = null;
+    final response = await http.get(
+      Uri.parse(
+        Urls.checkSet + id.toString(),
+      ),
+      headers: requestToken,
+    );
+
+    var data = json.decode(response.body.toString());
+
+    printInfo(info: data.toString());
+
+    checkSetCheck = CheckSetCheck.fromJson(data);
+
+    notifyListeners();
+  }
+
+  Future getWishList() async {
+    wishListModel = null;
+    final response = await http.get(
+      Uri.parse(
+        Urls.commonStorage + '?type=1',
+      ),
+      headers: requestToken,
+    );
+
+    var data = json.decode(response.body.toString());
+
+    printInfo(info: data.toString());
+
+    wishListModel = WishListModel.fromJson(data);
+
+    notifyListeners();
+  }
+
+  Future getSetList() async {
+    setListModel = null;
+    final response = await http.get(
+      Uri.parse(
+        Urls.commonStorage + '?type=0',
+      ),
+      headers: requestToken,
+    );
+
+    var data = json.decode(response.body.toString());
+
+    printInfo(info: data.toString());
+    setListModel = SetListModel.fromJson(data);
 
     notifyListeners();
   }
