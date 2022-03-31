@@ -21,7 +21,7 @@ class ItemDetailsHelper extends StatelessWidget{
       child: Row(
         children: [
           Expanded(
-            flex: 3,
+            flex: 4,
             child: Container(
                 child: Text(
                   text!,style: TextStyle(
@@ -38,7 +38,7 @@ class ItemDetailsHelper extends StatelessWidget{
             ),
           ),
           Expanded(
-            flex: 7,
+            flex: 6,
             child: Container(
                 child: Text(
                   text1!,style: TextStyle(
