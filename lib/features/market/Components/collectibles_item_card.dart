@@ -194,7 +194,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                       ),
 
                       Expanded(
-                        flex: 5,
+                        flex: 6,
                         // add this
 
                           child: Column(
@@ -214,7 +214,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                 children: [
                                   Expanded(
                                     child:Text(
-                                     r"$"+ widget.list![index].cpp.toString()+"7",
+                                     r"$"+ widget.list![index].cpp!.toStringAsFixed(1)+"7",
                                       textAlign: TextAlign.start,
                                       style: Get.textTheme.bodyText1!.copyWith(
                                           color: AppColors.white.withOpacity(0.9),

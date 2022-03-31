@@ -66,33 +66,7 @@ class _ChartExampleState extends State<ChartExample> {
                 fontSize: 18,
                 fontWeight: FontWeight.bold),
           ),
-/*        actions: [
-          IconButton(
-            icon: Icon(gh.c?null:Icons.list_alt),
-            color: gh.c?Colors.blueGrey.shade300:Colors.green,
-            padding: const EdgeInsets.only(right: 20),
-            onPressed: () {
-              setState(() {
-                gh.c = !gh.c;
-              });
 
-            },
-
-          ),
-          IconButton(
-            icon: Icon(Icons.notifications),
-            color: gh.c?Colors.blueGrey.shade300:Colors.green,
-            padding: const EdgeInsets.only(right: 20),
-            onPressed: () {
-              setState(() {
-                gh.c = !gh.c;
-              });
-
-            },
-
-          ),
-
-        ],*/
         ),
         backgroundColor: AppColors.backgroundColor,
         body: NestedScrollView(
@@ -220,8 +194,7 @@ class _ChartExampleState extends State<ChartExample> {
       maxY: 10,
       lineBarsData: [
         LineChartBarData(
-          spots: _isLoaded
-              ? [
+          spots: [
                   FlSpot(0, 3),
                   FlSpot(2.9, 2),
                   FlSpot(4.4, 3),
@@ -237,23 +210,6 @@ class _ChartExampleState extends State<ChartExample> {
                   FlSpot(36, 2.9),
                   FlSpot(40, 1.8),
                   FlSpot(44, 3),
-                ]
-              : [
-                  FlSpot(0, 0),
-                  FlSpot(2.4, 0),
-                  FlSpot(4.4, 0),
-                  FlSpot(6.4, 0),
-                  FlSpot(8, 0),
-                  FlSpot(9.5, 0),
-                  FlSpot(12, 0),
-                  FlSpot(16, 0),
-                  FlSpot(20, 0),
-                  FlSpot(24, 0),
-                  FlSpot(28, 0),
-                  FlSpot(32, 0),
-                  FlSpot(36, 0),
-                  FlSpot(40, 0),
-                  FlSpot(44, 0),
                 ],
           isCurved: true,
           colors: gradientColors,

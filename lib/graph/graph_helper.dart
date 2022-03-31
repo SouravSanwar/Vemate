@@ -89,28 +89,13 @@ class _GraphHelperState extends State<GraphHelper> {
                     gh.ww = '10PM';
                   },
                   child: const Text(
-                    "1H",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-
-                //FOR 7 DAYS
-                DesignHelper(
-                  onPressed: () {
-                    // Navigator.of(context).pushReplacementNamed('/');
-                  },
-                  child: const Text(
                     "24H",
                     style: TextStyle(
                       color: Colors.white,
                     ),
                   ),
                 ),
+
                 const SizedBox(
                   width: 5,
                 ),
@@ -139,29 +124,6 @@ class _GraphHelperState extends State<GraphHelper> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-
-          FadeInUp(
-            duration: Duration(milliseconds: 1000),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                //FOR 60 DAYS
-                DesignHelper(
-                  onPressed: () {},
-                  child: const Text(
-                    "60D",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-
                 const SizedBox(
                   width: 5,
                 ),
@@ -189,24 +151,11 @@ class _GraphHelperState extends State<GraphHelper> {
                     ),
                   ),
                 ),
-
-                const SizedBox(
-                  width: 5,
-                ),
-
-                //FOR 60 DAYS
-                DesignHelper(
-                  onPressed: () {},
-                  child: const Text(
-                    "All",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
+
+
           const SizedBox(
             height: 40,
           ),

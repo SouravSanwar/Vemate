@@ -102,8 +102,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         : null,
                   ),
                   Positioned(
-                    bottom: 10,
-                    right: 55,
+                    bottom:Get.height*.01,
+                    right: Get.height*.055,
                     child: RawMaterialButton(
                       onPressed: () {
                         setState(() {
@@ -125,29 +125,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 80,
+            SizedBox(
+              height: Get.height*.08,
             ),
             TextInputField(
               labelText: AppLanguageString.USERNAME.tr,
-              height: .09,
+              height: Get.height*.04,
               textType: TextInputType.emailAddress,
               controller: ProfileController.to.userNameTextFiledController,
             ),
-            AppSpaces.spaces_height_10,
+            SizedBox(height: Get.height*.022,),
             TextInputField(
               labelText: AppLanguageString.EMAIL.tr,
-              height: .09,
+              height: Get.height*.04,
               textType: TextInputType.emailAddress,
               controller: ProfileController.to.emailTextFiledController,
             ),
-            /*AppSpaces.spaces_height_10,
-          PasswordInputField(
-              labelText: AppLanguageString.PASSWORD.tr,
-              height: .09,
-              textType: TextInputType.text,
-              controller: ProfileController.to.passwordTextFiledController),*/
-            AppSpaces.spaces_height_50,
+
+            SizedBox(height: Get.height*.07,),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               padding: const EdgeInsets.symmetric(horizontal: 7),
