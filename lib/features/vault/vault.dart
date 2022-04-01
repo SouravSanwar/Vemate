@@ -53,7 +53,7 @@ class _VaultState extends State<Vault> {
     return Scaffold(
       backgroundColor: const Color(0xff272E49),
       body: Consumer<GetData>(builder: (context, data, child) {
-        return Padding(
+        return data.vaultStatsModel != null?  Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Stack(
             children: [
@@ -404,7 +404,7 @@ class _VaultState extends State<Vault> {
               ),
             ],
           ),
-        );
+        ): LoadingExample();
       }),
     );
   }

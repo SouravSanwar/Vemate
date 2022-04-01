@@ -23,9 +23,9 @@ class VaultStatsModel {
     comic = json['comic'] != null ? Comic.fromJson(json['comic']) : null;
   }
 
-  double? totalVaultValue;
+  var totalVaultValue;
   int? mcp;
-  int? totalPriceChange;
+  var totalPriceChange;
   var totalPercentChange;
   Collectible? collectible;
   Comic? comic;
@@ -70,10 +70,10 @@ class Comic {
     mcp = json['mcp'];
   }
 
-  double? totalComicValue;
+  var totalComicValue;
   String? sign;
   var changePercent;
-  double? changePrice;
+  var changePrice;
   List<ComicGraph>? comicGraph;
   int? mcp;
 
@@ -140,10 +140,10 @@ class Collectible {
     mcp = json['mcp'];
   }
 
-  int? totalCollectibleValue;
+  var totalCollectibleValue;
   String? sign;
   var changePercent;
-  int? changePrice;
+  var changePrice;
   List<CollectibleGraph>? collectibleGraph;
   int? mcp;
 
