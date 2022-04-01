@@ -17,14 +17,19 @@ class _ProductGraphState extends State<ProductGraph> {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
+      plotAreaBorderWidth: 0,
       primaryXAxis: CategoryAxis(
+        axisBorderType: AxisBorderType.withoutTopAndBottom,
         majorGridLines: const MajorGridLines(width: 0),
         labelIntersectAction: AxisLabelIntersectAction.hide,
         labelRotation: 270,
         labelAlignment: LabelAlignment.start,
         maximumLabels: 7,
       ),
+
       primaryYAxis: CategoryAxis(
+        axisBorderType: AxisBorderType.withoutTopAndBottom,
+        borderWidth: 0,
         majorGridLines: const MajorGridLines(width: 0),
         labelIntersectAction: AxisLabelIntersectAction.hide,
         labelRotation: 0,

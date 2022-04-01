@@ -8,6 +8,7 @@ import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/graph/chart_example.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../core/Provider/getData.dart';
 import '../../../core/models/CollectiblesModel.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
@@ -254,14 +255,62 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Container(
-                                        height: Get.height * .03,
-                                        child: LineChart(
+                                        height: Get.height * .05,
+                                        child: SfCartesianChart(
+                                          plotAreaBorderWidth: 0,
+                                          primaryXAxis: CategoryAxis(
+                                            isVisible: false,
+                                            majorGridLines:
+                                            const MajorGridLines(width: 0),
+                                            labelIntersectAction:
+                                            AxisLabelIntersectAction.hide,
+                                            labelRotation: 270,
+                                            labelAlignment:
+                                            LabelAlignment.start,
+                                            maximumLabels: 7,
+                                          ),
+                                          primaryYAxis: CategoryAxis(
+                                            isVisible: false,
+                                            majorGridLines:
+                                            const MajorGridLines(width: 0),
+                                            labelIntersectAction:
+                                            AxisLabelIntersectAction.hide,
+                                            labelRotation: 0,
+                                            labelAlignment:
+                                            LabelAlignment.start,
+                                            maximumLabels: 10,
+                                          ),
+                                          tooltipBehavior:
+                                          TooltipBehavior(enable: true),
+                                          series: <ChartSeries<Graph, String>>[
+                                            LineSeries<Graph, String>(
+                                              color: data
+                                                .collectiblesModel!
+                                                .results![
+                                            index]
+                                                .priceChangePercent!
+                                                .sign ==
+                                            'decrease'
+                                            ? Colors.red
+                                                : Colors.green,
+                                              dataSource: data.collectiblesModel!
+                                                  .results![index].graph!,
+                                              xValueMapper: (Graph plot, _) =>
+                                              plot.hour,
+                                              yValueMapper: (Graph plot, _) =>
+                                              plot.total,
+                                              xAxisName: 'Duration',
+                                              yAxisName: 'Total',
+                                            )
+                                          ],
+                                        ),/*LineChart(
                                           mainData(), // Optional
                                           swapAnimationCurve:
                                               Curves.linear, // Optional
-                                        ),
+                                        ),*/
                                       ),
                                       AppSpaces.spaces_height_10,
+
                                       Row(
                                         mainAxisAlignment:
                                         MainAxisAlignment.start,

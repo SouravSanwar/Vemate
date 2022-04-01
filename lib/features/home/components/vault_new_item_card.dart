@@ -90,6 +90,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                               bgColor: Colors.white,
                               width: Get.width*.37,
                               height: Get.height*.08,
+                              blur: 2,
                               child: Column(
                                 children: [
 

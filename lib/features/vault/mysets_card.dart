@@ -5,9 +5,12 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/graph/graph_helper.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
+import '../../core/Provider/getData.dart';
 import '../../core/models/SetListModel.dart';
+import '../market/presentation/collectible_details.dart';
 
 class MysetsCard extends StatefulWidget {
   final List<Results>? list;
@@ -39,152 +42,159 @@ class _MysetsCardState extends State<MysetsCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: AppDimension.padding_8,
-        right: AppDimension.padding_8,
-      ),
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: widget.list!.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Container(
-              width: Get.width * .37,
-              //height: Get.height * .22,
-              decoration: BoxDecoration(
-                gradient: AppColors.purpleGradient,
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              child: InkWell(
-                onTap: () {
-                  /*Get.to(() => ChartExample(id: widget.list![index].id));*/
+    return Consumer<GetData>(builder: (context, data, child) {
+      return Padding(
+        padding: EdgeInsets.only(
+          left: AppDimension.padding_8,
+          right: AppDimension.padding_8,
+        ),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemCount: widget.list!.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Container(
+                width: Get.width * .37,
+                //height: Get.height * .22,
+                decoration: BoxDecoration(
+                  gradient: AppColors.purpleGradient,
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: InkWell(
+                  onTap: () {
+                    /*Get.to(() => ChartExample(id: widget.list![index].id));*/
 
-                  widget.list![index].productDetail!.type == 1
-                      ? Get.to(() => ComicDetails(
-                            productId: widget.list![index].productDetail!.id!,
-                          ))
-                      : Container();
+                    widget.list![index].productDetail!.type == 1
+                        ? Get.to(() =>
+                        ComicDetails(
+                          productId: widget.list![index].productDetail!.id!,
+                        ))
+                        : CollectibleDetails(
+                      productId:
+                      data.collectiblesModel!.results![index].id,
+                    );
 
-                  printInfo(
-                      info: 'Set Clicked: ' +
-                          widget.list![index].productDetail!.type.toString());
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      width: Get.width * .37,
-                      //height: Get.height * .22,
-                      decoration: BoxDecoration(
-                          gradient: AppColors.cardGradient,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Color(0xff454F70))),
-                      alignment: Alignment.topCenter,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: Get.height * .1,
-                            width: Get.width * .3,
-                            child: LineChart(
-                              mainData(), // Optional
-                              swapAnimationCurve:
-                                  Curves.easeInOutQuad, // Optional
+
+
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        width: Get.width * .37,
+                        //height: Get.height * .22,
+                        decoration: BoxDecoration(
+                            gradient: AppColors.cardGradient,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Color(0xff454F70))),
+                        alignment: Alignment.topCenter,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: Get.height * .1,
+                              width: Get.width * .3,
+                              child: LineChart(
+                                mainData(), // Optional
+                                swapAnimationCurve:
+                                Curves.easeInOutQuad, // Optional
+                              ),
                             ),
-                          ),
-                          const Divider(
-                            color: Colors.white,
-                          ),
-                          Text(
-                            widget.list![index].productDetail!.name
-                                .toString(),
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style: Get.textTheme.bodyText2!.copyWith(
+                            const Divider(
                               color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12,
                             ),
-                          ),
-                          SizedBox(
-                            height: Get.height * .02,
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 5.0, right: 5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    r"$" +
-                                        widget.list![index].productDetail!
-                                            .floorPrice
-                                            .toString(),
-                                    textAlign: TextAlign.start,
-                                    style: Get.textTheme.bodyText2!.copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 11),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        widget.list![index].productDetail!
-                                            .priceChangePercent!.percent!
-                                            .toString(),
-                                        textAlign: TextAlign.end,
-                                        style: Get.textTheme.bodyText1!
-                                            .copyWith(
-                                                color: widget
-                                                            .list![index]
-                                                            .productDetail!
-                                                            .priceChangePercent!
-                                                            .sign ==
-                                                        'decrease'
-                                                    ? Colors.red
-                                                    : Colors.green,
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 10),
-                                      ),
-                                      if (widget.list![index].productDetail!
-                                              .priceChangePercent!.sign ==
-                                          'decrease')
-                                        const Icon(
-                                          Icons.arrow_downward,
-                                          color: Colors.red,
-                                          size: 12,
-                                        )
-                                      else
-                                        const Icon(
-                                          Icons.arrow_upward,
-                                          color: Colors.green,
-                                          size: 12,
-                                        )
-                                    ],
-                                  ),
-                                ),
-                              ],
+                            Text(
+                              widget.list![index].productDetail!.name
+                                  .toString(),
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                              style: Get.textTheme.bodyText2!.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              height: Get.height * .02,
+                            ),
+                            Padding(
+                              padding:
+                              const EdgeInsets.only(left: 5.0, right: 5.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      r"$" +
+                                          widget.list![index].productDetail!
+                                              .floorPrice
+                                              .toString(),
+                                      textAlign: TextAlign.start,
+                                      style: Get.textTheme.bodyText2!.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 11),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          widget.list![index].productDetail!
+                                              .priceChangePercent!.percent!
+                                              .toString() + "%",
+                                          textAlign: TextAlign.end,
+                                          style: Get.textTheme.bodyText1!
+                                              .copyWith(
+                                              color: widget
+                                                  .list![index]
+                                                  .productDetail!
+                                                  .priceChangePercent!
+                                                  .sign ==
+                                                  'decrease'
+                                                  ? Colors.red
+                                                  : Colors.green,
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 10),
+                                        ),
+                                        if (widget.list![index].productDetail!
+                                            .priceChangePercent!.sign ==
+                                            'decrease')
+                                          const Icon(
+                                            Icons.arrow_downward,
+                                            color: Colors.red,
+                                            size: 12,
+                                          )
+                                        else
+                                          const Icon(
+                                            Icons.arrow_upward,
+                                            color: Colors.green,
+                                            size: 12,
+                                          )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
-      ),
-    );
+            );
+          },
+        ),
+      );
+    }
+      );
   }
 
   List<Color> gradientColors = [

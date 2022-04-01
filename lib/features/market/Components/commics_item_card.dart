@@ -271,9 +271,11 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       SizedBox(
-                                        height: 25,
+                                        height: Get.height * .05,
                                         child: SfCartesianChart(
+                                          plotAreaBorderWidth: 0,
                                           primaryXAxis: CategoryAxis(
+                                            isVisible: false,
                                             majorGridLines:
                                                 const MajorGridLines(width: 0),
                                             labelIntersectAction:
@@ -284,6 +286,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                             maximumLabels: 7,
                                           ),
                                           primaryYAxis: CategoryAxis(
+                                            isVisible: false,
                                             majorGridLines:
                                                 const MajorGridLines(width: 0),
                                             labelIntersectAction:
@@ -297,7 +300,14 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                               TooltipBehavior(enable: true),
                                           series: <ChartSeries<Graph, String>>[
                                             LineSeries<Graph, String>(
-                                              color: Colors.lime,
+                                              color: data.comicsModel!
+                                                  .results![
+                                              index]
+                                                  .priceChangePercent!
+                                                  .sign ==
+                                                  'decrease'
+                                                  ? Colors.red
+                                                  : Colors.green,
                                               dataSource: data.comicsModel!
                                                   .results![index].graph!,
                                               xValueMapper: (Graph plot, _) =>
