@@ -7,6 +7,8 @@ class Urls {
       mainUrl + '/api/v1/account/public/users/verify_code/';
   static String resendCode =
       mainUrl + '/api/v1/account/public/users/send_verification_code/';
+  static String forgotPass =
+      mainUrl + '/api/v1/account/public/users/forget_password/';
   static String logIn = mainUrl + '/api/v1/account/public/users/signin/';
 
   static String userInfo = mainUrl + '/api/v1/account/public/users/profile/';

@@ -58,15 +58,14 @@ class _ChartExampleState extends State<ChartExample> {
           backgroundColor: const Color(0xff272E49),
           elevation: 4,
           title: Text(
-            data.singleCollectibleModel != null
-                ? data.singleCollectibleModel!.details!.name.toString()
+            data.collectiblesModel != null
+                ? data.collectiblesModel!.results![0].name.toString()
                 : "",
             style: TextStyle(
                 color: gh.c ? Colors.blueGrey.shade300 : Colors.green,
                 fontSize: 18,
                 fontWeight: FontWeight.bold),
           ),
-
         ),
         backgroundColor: AppColors.backgroundColor,
         body: NestedScrollView(
@@ -83,7 +82,8 @@ class _ChartExampleState extends State<ChartExample> {
                       height: 250,
                       child: LineChart(
                         mainData(),
-                        swapAnimationDuration: const Duration(milliseconds: 1000),
+                        swapAnimationDuration:
+                            const Duration(milliseconds: 1000),
                         // Optional
                         swapAnimationCurve: Curves.bounceIn, // Optional
                       ),

@@ -4,11 +4,8 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
 import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
-import 'package:ketemaa/core/utilities/common_widgets/app_loading.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
-import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import '../presentation/sign_in/_controller/sign_in_controller.dart';
 
 class EnterNewPassword extends StatefulWidget {

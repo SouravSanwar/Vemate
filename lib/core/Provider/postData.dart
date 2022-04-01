@@ -176,11 +176,54 @@ class PostData extends ChangeNotifier {
     }
   }
 
-  Future resendCode(BuildContext context, var body) async {
-    /*showDialog(
+  Future forgotPassword(BuildContext context, var body) async {
+    showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const CircularProgressIndicator());*/
+        builder: (_) => const LoadingExample());
+
+    printInfo(info: body.toString());
+
+    final response = await http.post(Uri.parse(Urls.forgotPass),
+        body: json.encode(body), headers: requestHeaders);
+
+    /*var x = json.decode(response.body);
+
+    printInfo(info: response.body.toString());*/
+
+    if (response.statusCode == 200 ||
+        response.statusCode == 401 ||
+        response.statusCode == 403 ||
+        response.statusCode == 500 ||
+        response.statusCode == 201) {
+      Get.to(() => const AuthInitialPage());
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          title: "Password Updated",
+          messageText: const Text(
+            "Please Login Again",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    } else {
+      Navigator.of(context).pop();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Something went wrong",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    }
+  }
+
+  Future resendCode(BuildContext context, var body) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingExample());
 
     printInfo(info: body.toString());
 
@@ -196,8 +239,6 @@ class PostData extends ChangeNotifier {
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
-      printInfo(info: 'From if');
-
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
@@ -206,44 +247,6 @@ class PostData extends ChangeNotifier {
             "Code send successfully",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
-      try {
-        /*if (x['code'] == 'True') {
-
-          Flushbar(
-              flushbarPosition: FlushbarPosition.BOTTOM,
-              isDismissible: false,
-              duration: const Duration(seconds: 3),
-              messageText: Text(
-                x['message'],
-                style: const TextStyle(fontSize: 16.0, color: Colors.green),
-              ))
-            .show(context);
-        } else {
-          Navigator.of(context).pop();
-
-          Flushbar(
-              flushbarPosition: FlushbarPosition.BOTTOM,
-              isDismissible: false,
-              duration: const Duration(seconds: 3),
-              messageText: const Text(
-                "Invalid Information",
-                style: TextStyle(fontSize: 16.0, color: Colors.green),
-              ))
-            .show(context);
-        }*/
-      } catch (e) {
-        printInfo(info: 'From catch');
-        Navigator.of(context).pop();
-        Flushbar(
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            isDismissible: false,
-            duration: const Duration(seconds: 3),
-            messageText: const Text(
-              "Something went wrong",
-              style: TextStyle(fontSize: 16.0, color: Colors.green),
-            )).show(context);
-        return response.body;
-      }
     } else {
       printInfo(info: 'From else');
       Navigator.of(context).pop();
@@ -262,7 +265,7 @@ class PostData extends ChangeNotifier {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const CircularProgressIndicator());
+        builder: (_) => const LoadingExample());
 
     printInfo(info: body.toString());
 

@@ -19,10 +19,8 @@ import '../models/CollectiblesModel.dart';
 
 class GetData extends ChangeNotifier {
   CollectiblesModel? collectiblesModel;
-  SingleCollectibleModel? singleCollectibleModel;
 
   ComicsModel? comicsModel;
-  SingleComicModel? singleComicModel;
 
   SingleProductModel? singleProductModel;
 

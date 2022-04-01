@@ -1,20 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_image_slider/carousel.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/language/language_string.dart';
-import 'package:ketemaa/core/utilities/app_assets/app_assets.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
-import 'package:ketemaa/core/utilities/common_widgets/image_slider.dart';
-import 'package:ketemaa/core/utilities/common_widgets/social_login_button.dart';
-import 'package:ketemaa/graph/designhelper.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/utilities/app_dimension/app_dimension.dart';
 import '../../../../core/utilities/common_widgets/password_input_field.dart';
 import '../../../../core/utilities/common_widgets/text_input_field.dart';
 import '../sign_in/_controller/sign_in_controller.dart';
@@ -75,21 +69,21 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   AppSpaces.spaces_height_25,
                   TextInputField(
                     labelText: "Username",
-                    height: Get.height*.04,
+                    height: Get.height * .04,
                     textType: TextInputType.emailAddress,
                     controller: SigninController.to.userNameTextFiledController,
                   ),
-
-                  SizedBox(height: Get.height*.022,),
-
+                  SizedBox(
+                    height: Get.height * .022,
+                  ),
                   PasswordInputField(
                       labelText: "Password",
-                      height: Get.height*.04,
+                      height: Get.height * .04,
                       textType: TextInputType.text,
                       controller:
                           SigninController.to.passwordTextFiledController),
-                 SizedBox(
-                      height: Get.height*.0234,
+                  SizedBox(
+                    height: Get.height * .0234,
                   ),
                   TextButton(
                     onPressed: () {
@@ -106,7 +100,9 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                               fontSize: 12),
                         )),
                   ),
-                  SizedBox(height: Get.height*.022,),
+                  SizedBox(
+                    height: Get.height * .022,
+                  ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 15),
                     padding: const EdgeInsets.symmetric(horizontal: 7),
@@ -119,8 +115,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     child: TextButton(
                       onPressed: () {
                         var body = {
-                          "username":
-                              SigninController.to.userNameTextFiledController.text,
+                          "username": SigninController
+                              .to.userNameTextFiledController.text,
                           "password": SigninController
                               .to.passwordTextFiledController.text,
                         };
@@ -172,8 +168,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: Get.height*.1,
-                    height: Get.height*.067,
+                    width: Get.height * .1,
+                    height: Get.height * .067,
                     child: ElevatedButton(
                       onPressed: () {},
                       child: Image.asset('assets/media/icon/google.png'),
@@ -186,8 +182,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     ),
                   ),
                   SizedBox(
-                    width: Get.height*.1,
-                    height: Get.height*.067,
+                    width: Get.height * .1,
+                    height: Get.height * .067,
                     child: ElevatedButton(
                       onPressed: () {},
                       child: Image.asset(
@@ -203,8 +199,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     ),
                   ),
                   SizedBox(
-                    width: Get.height*.1,
-                    height: Get.height*.067,
+                    width: Get.height * .1,
+                    height: Get.height * .067,
                     child: ElevatedButton(
                       onPressed: () {},
                       child: Image.asset(
@@ -221,9 +217,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 ],
               ),
 
-
               SizedBox(
-                height: Get.height*.09,
+                height: Get.height * .09,
               ),
               Center(
                 child: InkWell(
@@ -240,6 +235,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 12),
                         ),
+                        AppSpaces.spaces_width_5,
                         Text(
                           "Register For Free",
                           style: TextStyle(
