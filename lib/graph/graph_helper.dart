@@ -70,7 +70,7 @@ class _GraphHelperState extends State<GraphHelper> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              FadeInUp(
+             /* FadeInUp(
                 duration: const Duration(milliseconds: 100),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -161,7 +161,7 @@ class _GraphHelperState extends State<GraphHelper> {
                 ),
               ),
 
-              AppSpaces.spaces_height_40,
+              AppSpaces.spaces_height_40,*/
               // recent transactions
               FadeInUp(
                 duration: const Duration(milliseconds: 1000),

@@ -6,6 +6,7 @@ import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/graph/graph_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
 import '../../core/Provider/getData.dart';
@@ -71,10 +72,10 @@ class _MysetsCardState extends State<MysetsCard> {
                         ComicDetails(
                           productId: widget.list![index].productDetail!.id!,
                         ))
-                        : CollectibleDetails(
+                        : Get.to(()=>CollectibleDetails(
                       productId:
-                      data.collectiblesModel!.results![index].id,
-                    );
+                      widget.list![index].productDetail!.id!,
+                    ));
 
 
 
@@ -95,10 +96,52 @@ class _MysetsCardState extends State<MysetsCard> {
                             SizedBox(
                               height: Get.height * .1,
                               width: Get.width * .3,
-                              child: LineChart(
-                                mainData(), // Optional
-                                swapAnimationCurve:
-                                Curves.easeInOutQuad, // Optional
+                              child: SfCartesianChart(
+                                plotAreaBorderWidth: 0,
+                                primaryXAxis: CategoryAxis(
+                                  isVisible: false,
+                                  majorGridLines:
+                                  const MajorGridLines(width: 0),
+                                  labelIntersectAction:
+                                  AxisLabelIntersectAction.hide,
+                                  labelRotation: 270,
+                                  labelAlignment:
+                                  LabelAlignment.start,
+                                  maximumLabels: 7,
+                                ),
+                                primaryYAxis: CategoryAxis(
+                                  isVisible: false,
+                                  majorGridLines:
+                                  const MajorGridLines(width: 0),
+                                  labelIntersectAction:
+                                  AxisLabelIntersectAction.hide,
+                                  labelRotation: 0,
+                                  labelAlignment:
+                                  LabelAlignment.start,
+                                  maximumLabels: 10,
+                                ),
+                                tooltipBehavior:
+                                TooltipBehavior(enable: true),
+                                series: <ChartSeries<Graph, String>>[
+                                  LineSeries<Graph, String>(
+                                    color: data.setListModel!
+                                        .results![
+                                    index]
+                                        .productDetail!
+                                        .graph ==
+                                        'decrease'
+                                        ? Colors.red
+                                        : Colors.green,
+                                    dataSource: data.setListModel!
+                                        .results![index].productDetail!.graph!,
+                                    xValueMapper: (Graph plot, _) =>
+                                    plot.hour,
+                                    yValueMapper: (Graph plot, _) =>
+                                    plot.total,
+                                    xAxisName: 'Duration',
+                                    yAxisName: 'Total',
+                                  )
+                                ],
                               ),
                             ),
                             const Divider(

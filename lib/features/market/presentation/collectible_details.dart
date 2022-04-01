@@ -65,9 +65,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                           child: SizedBox(
                             width: double.infinity,
                             height: 250,
-                            child: ProductGraph(
+                            child:data.singleProductModel!.graph != null ? ProductGraph(
                               graphList: data.singleProductModel!.graph,
-                            ),
+                            ):Container(),
                           ),
                         ),
                       ),
