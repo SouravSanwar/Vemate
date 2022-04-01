@@ -39,7 +39,7 @@ class _ProductGraphState extends State<ProductGraph> {
       tooltipBehavior: TooltipBehavior(enable: true),
       series: <ChartSeries<Graph, String>>[
         LineSeries<Graph, String>(
-          color: Colors.lime,
+          color: Colors.green,
           dataSource: widget.graphList!,
           xValueMapper: (Graph plot, _) => plot.formattedTime,
           yValueMapper: (Graph plot, _) => plot.price,
