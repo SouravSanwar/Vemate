@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/home/components/name_row.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
 import 'package:provider/provider.dart';
@@ -125,22 +126,25 @@ class _HomeState extends State<Home> {
                                               builder: (c) => const Profile()));
                                     },
                                     child: Container(
-                                      child: CircleAvatar(
-                                        radius:
-                                            MediaQuery.of(context).size.width *
-                                                .06,
-                                        backgroundColor:
-                                            const Color(0xff272E49),
-                                        backgroundImage: null,
-                                        child: Shader(
-                                          icon: const Icon(
-                                            Icons.person,
-                                            size: 30,
-                                          ),
-                                        ),
-
-                                        // Icon(Icons.person,size: 100,)
-                                      ),
+                                      child: data.profileModel!.profileImage !=
+                                              null
+                                          ? CircleAvatar(
+                                              radius: 15,
+                                              backgroundImage: NetworkImage(
+                                                Urls.mainUrl +
+                                                    data
+                                                        .profileModel!
+                                                        .profileImage!
+                                                        .mobile!
+                                                        .src
+                                                        .toString(),
+                                              ),
+                                            )
+                                          : const CircleAvatar(
+                                              radius: 15,
+                                              backgroundImage: AssetImage(
+                                                  'assets/media/image/profile.png'),
+                                            ),
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         border: Border.all(

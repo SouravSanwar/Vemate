@@ -68,35 +68,27 @@ class _ProfileState extends State<Profile> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              child:
-                                  data.profileModel!.profileImage != null
-                                      ? CircleAvatar(
-                                          radius: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
+                              child: data.profileModel!.profileImage != null
+                                  ? CircleAvatar(
+                                      radius:
+                                          MediaQuery.of(context).size.width *
                                               .15,
-                                          backgroundColor:
-                                              const Color(0xff272E49),
-                                          backgroundImage: NetworkImage(
-                                            Urls.mainUrl +
-                                                data
-                                                    .profileModel!
-                                                    .profileImage!
-                                                    .mobile!
-                                                    .src
-                                                    .toString(),
-                                          ),
-                                        )
-                                      : CircleAvatar(
-                                          radius: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
+                                      backgroundColor: const Color(0xff272E49),
+                                      backgroundImage: NetworkImage(
+                                        Urls.mainUrl +
+                                            data.profileModel!.profileImage!
+                                                .mobile!.src
+                                                .toString(),
+                                      ),
+                                    )
+                                  : CircleAvatar(
+                                      radius:
+                                          MediaQuery.of(context).size.width *
                                               .15,
-                                          backgroundColor:
-                                              const Color(0xff272E49),
-                                          backgroundImage: const AssetImage(
-                                              'assets/media/image/profile.png'),
-                                        ),
+                                      backgroundColor: const Color(0xff272E49),
+                                      backgroundImage: const AssetImage(
+                                          'assets/media/image/profile.png'),
+                                    ),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
@@ -120,8 +112,7 @@ class _ProfileState extends State<Profile> {
                       SizedBox(
                         height: Get.height * .07,
                       ),
-                      CustomProfileElements(Icons.person, "Profile Edit",
-                          () {
+                      CustomProfileElements(Icons.person, "Profile Edit", () {
                         Get.to(
                           () => EditProfilePage(),
                           arguments: data.profileModel,
@@ -129,22 +120,21 @@ class _ProfileState extends State<Profile> {
                       }),
                       CustomProfileElements(
                           Icons.help_outline, "Help and Support", () {}),
-                      CustomProfileElements(Icons.privacy_tip_outlined,
-                          "Privacy Policy", () {}),
                       CustomProfileElements(
-                          Icons.rate_review_outlined, "Rate", () {
+                          Icons.privacy_tip_outlined, "Privacy Policy", () {}),
+                      CustomProfileElements(Icons.rate_review_outlined, "Rate",
+                          () {
                         showDialog(
                           context: context,
                           builder: (context) => _dialog,
                         );
                       }),
-                      CustomProfileElements(Icons.share, "Share Vemate",
-                          () {
+                      CustomProfileElements(Icons.share, "Share Vemate", () {
                         Share.share(
                             'Visit Vemate Website:\n https://www.vemate.com/');
                       }),
-                      CustomProfileElements(Icons.info_outline_rounded,
-                          "About Vemate", () {}),
+                      CustomProfileElements(
+                          Icons.info_outline_rounded, "About Vemate", () {}),
                       CustomProfileElements(Icons.logout, "Log Out", () {
                         Get.offAll(() => const AuthInitialPage());
                         prefs!.clear();

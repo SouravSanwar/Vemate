@@ -56,8 +56,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     ProfileController.to.userNameTextFiledController.text =
         profileModel!.nickname!;
     ProfileController.to.emailTextFiledController.text = profileModel!.email!;
-    ProfileController.to.sellerImageUrl =
-        profileModel!.profileImage!.mobile!.src.toString();
 
     postFile = Provider.of<PostFile>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
@@ -71,7 +69,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return Scaffold(
-        backgroundColor: const Color(0xff272E49),
+        backgroundColor: AppColors.backgroundColor,
         body: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           physics: const BouncingScrollPhysics(),
@@ -84,14 +82,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   CircleAvatar(
                     radius: MediaQuery.of(context).size.width * .25,
                     backgroundColor: const Color(0xff2F3758),
-                    backgroundImage: ProfileController.to.sellerImageUrl == ""
+                    backgroundImage: profileModel!.profileImage == null
                         ? null
                         : NetworkImage(
                             Urls.mainUrl +
                                 data.profileModel!.profileImage!.mobile!.src
                                     .toString(),
                           ),
-                    child: ProfileController.to.sellerImageUrl == ""
+                    child: profileModel!.profileImage == null
                         ? Shader(
                             icon: const Icon(
                               Icons.person_add_alt_1_rounded,

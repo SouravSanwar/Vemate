@@ -54,7 +54,7 @@ class ControllerPage extends StatelessWidget {
     if (index == 0) {
       return const Home();
     } else if (index == 1) {
-      return Market();
+      return const Market();
     } else {
       return Vault();
     }
