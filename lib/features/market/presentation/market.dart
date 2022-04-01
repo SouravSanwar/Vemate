@@ -113,8 +113,9 @@ class _MarketState extends State<Market> {
                                         color: AppColors.primaryColor),
                                     //  when the TextFormField in focused
                                   ),
-                                  prefixIcon: const InkWell(
-                                    child: Icon(
+                                  prefixIcon: InkWell(
+                                    onTap: () {},
+                                    child: const Icon(
                                       Icons.search,
                                       color: Colors.grey,
                                     ),
