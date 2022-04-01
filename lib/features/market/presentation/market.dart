@@ -7,7 +7,7 @@ import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
-import 'package:ketemaa/graph/test_graph.dart';
+import 'package:ketemaa/graph/product_graph.dart';
 import 'package:provider/provider.dart';
 import '../../../core/utilities/shimmer/loading.dart';
 import '../Components/category_card.dart';
