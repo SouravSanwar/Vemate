@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
       backgroundColor: const Color(0xff272E49),
       body: Consumer<GetData>(
         builder: (context, data, child) {
-          return data.profileModel != null
+          return data.profileModel != null && data.vaultStatsModel != null
               ? Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Stack(

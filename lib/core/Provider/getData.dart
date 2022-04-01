@@ -8,6 +8,7 @@ import 'package:ketemaa/core/models/CheckSetCheck.dart';
 import 'package:ketemaa/core/models/CheckWishlistModel.dart';
 import 'package:ketemaa/core/models/ComicsModel.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
+import 'package:ketemaa/core/models/SearchCollectiblesModel.dart';
 import 'package:ketemaa/core/models/SetListModel.dart';
 import 'package:ketemaa/core/models/SingleProductModel.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
@@ -18,6 +19,7 @@ import '../models/CollectiblesModel.dart';
 
 class GetData extends ChangeNotifier {
   CollectiblesModel? collectiblesModel;
+  SearchCollectiblesModel? searchCollectiblesModel;
 
   ComicsModel? comicsModel;
 
@@ -78,6 +80,32 @@ class GetData extends ChangeNotifier {
           .addAll(CollectiblesModel.fromJson(data).results!);
     } else {
       collectiblesModel = CollectiblesModel.fromJson(data);
+    }
+
+    notifyListeners();
+  }
+
+  Future searchCollectibles(String? keyWord, {int offset = 0}) async {
+    final response = await http.get(
+      Uri.parse(
+        Urls.mainUrl +
+            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset'
+                '&name=$keyWord',
+      ),
+      headers: requestToken,
+    );
+
+    var data = json.decode(response.body.toString());
+
+    //printInfo(info: data.toString());
+
+    if (searchCollectiblesModel != null) {
+      if (offset == 0) searchCollectiblesModel!.results!.clear();
+
+      searchCollectiblesModel!.results!
+          .addAll(SearchCollectiblesModel.fromJson(data).results!);
+    } else {
+      searchCollectiblesModel = SearchCollectiblesModel.fromJson(data);
     }
 
     notifyListeners();
