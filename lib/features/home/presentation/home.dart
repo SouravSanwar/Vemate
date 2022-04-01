@@ -44,6 +44,8 @@ class _HomeState extends State<Home> {
 
     getData!.getUserInfo();
 
+    getData!.getVaultStats();
+
     super.initState();
   }
 
@@ -243,7 +245,9 @@ class _HomeState extends State<Home> {
                                     fontWeight: FontWeight.w500),
                               ),
                             ),
-                            HomeVaultCard(),
+                            HomeVaultCard(
+                              vaultStatsModel: data.vaultStatsModel,
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(
                                   top: 10, bottom: 0, left: 15, right: 15),

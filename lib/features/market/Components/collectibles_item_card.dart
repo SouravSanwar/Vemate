@@ -261,59 +261,59 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                           primaryXAxis: CategoryAxis(
                                             isVisible: false,
                                             majorGridLines:
-                                            const MajorGridLines(width: 0),
+                                                const MajorGridLines(width: 0),
                                             labelIntersectAction:
-                                            AxisLabelIntersectAction.hide,
+                                                AxisLabelIntersectAction.hide,
                                             labelRotation: 270,
                                             labelAlignment:
-                                            LabelAlignment.start,
+                                                LabelAlignment.start,
                                             maximumLabels: 7,
                                           ),
                                           primaryYAxis: CategoryAxis(
                                             isVisible: false,
                                             majorGridLines:
-                                            const MajorGridLines(width: 0),
+                                                const MajorGridLines(width: 0),
                                             labelIntersectAction:
-                                            AxisLabelIntersectAction.hide,
+                                                AxisLabelIntersectAction.hide,
                                             labelRotation: 0,
                                             labelAlignment:
-                                            LabelAlignment.start,
+                                                LabelAlignment.start,
                                             maximumLabels: 10,
                                           ),
                                           tooltipBehavior:
-                                          TooltipBehavior(enable: true),
+                                              TooltipBehavior(enable: true),
                                           series: <ChartSeries<Graph, String>>[
                                             LineSeries<Graph, String>(
                                               color: data
-                                                .collectiblesModel!
-                                                .results![
-                                            index]
-                                                .priceChangePercent!
-                                                .sign ==
-                                            'decrease'
-                                            ? Colors.red
-                                                : Colors.green,
-                                              dataSource: data.collectiblesModel!
-                                                  .results![index].graph!,
+                                                          .collectiblesModel!
+                                                          .results![index]
+                                                          .priceChangePercent!
+                                                          .sign ==
+                                                      'decrease'
+                                                  ? Colors.red
+                                                  : Colors.green,
+                                              dataSource: data
+                                                  .collectiblesModel!
+                                                  .results![index]
+                                                  .graph!,
                                               xValueMapper: (Graph plot, _) =>
-                                              plot.hour,
+                                                  plot.hour,
                                               yValueMapper: (Graph plot, _) =>
-                                              plot.total,
+                                                  plot.total,
                                               xAxisName: 'Duration',
                                               yAxisName: 'Total',
                                             )
                                           ],
-                                        ),/*LineChart(
+                                        ), /*LineChart(
                                           mainData(), // Optional
                                           swapAnimationCurve:
                                               Curves.linear, // Optional
                                         ),*/
                                       ),
                                       AppSpaces.spaces_height_10,
-
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         children: [
                                           Expanded(
                                             child: Text(
@@ -321,17 +321,17 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                  color: AppColors.white
-                                                      .withOpacity(0.9),
-                                                  fontWeight:
-                                                  FontWeight.w400,
-                                                  fontSize: 12),
+                                                      color: AppColors.white
+                                                          .withOpacity(0.9),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 12),
                                             ),
                                           ),
                                           Expanded(
                                             child: Row(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                                  MainAxisAlignment.end,
                                               children: [
                                                 Text(
                                                   data
@@ -344,24 +344,24 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   style: Get
                                                       .textTheme.bodyText1!
                                                       .copyWith(
-                                                      color: data
-                                                          .collectiblesModel!
-                                                          .results![
-                                                      index]
-                                                          .priceChangePercent!
-                                                          .sign ==
-                                                          'decrease'
-                                                          ? Colors.red
-                                                          : Colors.green,
-                                                      fontWeight:
-                                                      FontWeight.w300,
-                                                      fontSize: 10),
+                                                          color: data
+                                                                      .collectiblesModel!
+                                                                      .results![
+                                                                          index]
+                                                                      .priceChangePercent!
+                                                                      .sign ==
+                                                                  'decrease'
+                                                              ? Colors.red
+                                                              : Colors.green,
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                          fontSize: 10),
                                                 ),
                                                 if (data
-                                                    .collectiblesModel!
-                                                    .results![index]
-                                                    .priceChangePercent!
-                                                    .sign ==
+                                                        .collectiblesModel!
+                                                        .results![index]
+                                                        .priceChangePercent!
+                                                        .sign ==
                                                     'decrease')
                                                   const Icon(
                                                     Icons.arrow_downward,

@@ -9,9 +9,8 @@ import 'package:ketemaa/core/models/CheckWishlistModel.dart';
 import 'package:ketemaa/core/models/ComicsModel.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
 import 'package:ketemaa/core/models/SetListModel.dart';
-import 'package:ketemaa/core/models/SingleCollectibleModel.dart';
-import 'package:ketemaa/core/models/SingleComicModel.dart';
 import 'package:ketemaa/core/models/SingleProductModel.dart';
+import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/models/WishListModel.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/main.dart';
@@ -31,6 +30,8 @@ class GetData extends ChangeNotifier {
 
   WishListModel? wishListModel;
   SetListModel? setListModel;
+
+  VaultStatsModel? vaultStatsModel;
 
   Map<String, String> requestHeadersWithToken = {
     'Content-type': 'application/json',
@@ -73,7 +74,8 @@ class GetData extends ChangeNotifier {
     if (collectiblesModel != null) {
       if (offset == 0) collectiblesModel!.results!.clear();
 
-      collectiblesModel!.results!.addAll(CollectiblesModel.fromJson(data).results!);
+      collectiblesModel!.results!
+          .addAll(CollectiblesModel.fromJson(data).results!);
     } else {
       collectiblesModel = CollectiblesModel.fromJson(data);
     }
@@ -192,6 +194,23 @@ class GetData extends ChangeNotifier {
 
     printInfo(info: data.toString());
     setListModel = SetListModel.fromJson(data);
+
+    notifyListeners();
+  }
+
+  Future getVaultStats() async {
+    vaultStatsModel = null;
+    final response = await http.get(
+      Uri.parse(
+        Urls.vaultStats,
+      ),
+      headers: requestToken,
+    );
+
+    var data = json.decode(response.body.toString());
+
+    printInfo(info: data.toString());
+    vaultStatsModel = VaultStatsModel.fromJson(data);
 
     notifyListeners();
   }
