@@ -28,6 +28,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
+        clipBehavior: Clip.antiAlias,
           width: Get.width,
           decoration: BoxDecoration(
             gradient: AppColors.cardGradient,

@@ -60,7 +60,7 @@ class Comic {
     totalComicValue = json['total_comic_value'];
     sign = json['sign'];
     changePercent = double.parse(json['change_percent'].toString()).toPrecision(2);
-    changePrice = json['change_price'];
+    changePrice = double.parse(json['change_price'].toString()).toPrecision(2);
     if (json['comic_graph'] != null) {
       comicGraph = [];
       json['comic_graph'].forEach((v) {
