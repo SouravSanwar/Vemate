@@ -9,16 +9,16 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../../core/models/SearchCollectiblesModel.dart';
+import '../../../core/models/SearchComicsModel.dart';
 
-class SearchCollectiblePage extends StatefulWidget {
-  const SearchCollectiblePage({Key? key}) : super(key: key);
+class SearchComicsPage extends StatefulWidget {
+  const SearchComicsPage({Key? key}) : super(key: key);
 
   @override
-  _SearchCollectiblePageState createState() => _SearchCollectiblePageState();
+  _SearchComicsPageState createState() => _SearchComicsPageState();
 }
 
-class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
+class _SearchComicsPageState extends State<SearchComicsPage> {
   double? _height, _width;
   double? _pixelRatio;
   bool? large;
@@ -79,14 +79,14 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                 disabledBorder: InputBorder.none,
                 contentPadding:
                     EdgeInsets.only(left: 15, bottom: 11, top: 13, right: 15),
-                hintText: "Search Collectible",
+                hintText: "Search Comics",
                 hintStyle: TextStyle(color: Colors.black38)),
             onChanged: (text) {
               text = searchController.text;
               searchText =
                   searchController.text != '' ? searchController.text : '';
               setState(() {
-                getData!.searchCollectibles(searchText);
+                getData!.searchComics(searchText);
               });
             },
             autofocus: true,
@@ -98,9 +98,9 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
           height: _height! * .9,
           width: _width,
           padding: const EdgeInsets.only(bottom: 10),
-          child: data.searchCollectiblesModel != null
+          child: data.searchComicsModel != null
               ? ListView.builder(
-                  itemCount: data.searchCollectiblesModel!.results!.length,
+                  itemCount: data.searchComicsModel!.results!.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return InkWell(
@@ -108,8 +108,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                         Get.to(
                           () => const CollectibleDetails(),
                           transition: Transition.zoom,
-                          arguments:
-                              data.searchCollectiblesModel!.results![index],
+                          arguments: data.searchComicsModel!.results![index],
                         );
                       },
                       child: Padding(
@@ -135,8 +134,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                           color: const Color(0xff454F70))),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    data.searchCollectiblesModel!
-                                        .results![index].name
+                                    data.searchComicsModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
                                     style: const TextStyle(
@@ -158,7 +156,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                               child: SizedBox(
                                                 height: Get.height * .02,
                                                 child: Text(
-                                                  data.searchCollectiblesModel!
+                                                  data.searchComicsModel!
                                                       .results![index].name
                                                       .toString(),
                                                   overflow:
@@ -180,7 +178,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                           Expanded(
                                               flex: 3,
                                               child: Text(
-                                                data.searchCollectiblesModel!
+                                                data.searchComicsModel!
                                                     .results![index].edition
                                                     .toString(),
                                                 textAlign: TextAlign.start,
@@ -199,7 +197,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                           Expanded(
                                             flex: 5,
                                             child: Text(
-                                              data.searchCollectiblesModel!
+                                              data.searchComicsModel!
                                                   .results![index].brand
                                                   .toString(),
                                               textAlign: TextAlign.start,
@@ -215,7 +213,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                           Expanded(
                                             flex: 3,
                                             child: Text(
-                                              data.searchCollectiblesModel!
+                                              data.searchComicsModel!
                                                   .results![index].rarity
                                                   .toString(),
                                               textAlign: TextAlign.start,
@@ -238,7 +236,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                             child: Text(
                                               r"$" +
                                                   data
-                                                      .searchCollectiblesModel!
+                                                      .searchComicsModel!
                                                       .results![index]
                                                       .floorPrice
                                                       .toString(),
@@ -259,7 +257,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                             flex: 3,
                                             child: Text(
                                               "MCP " +
-                                                  data.searchCollectiblesModel!
+                                                  data.searchComicsModel!
                                                       .results![index].rarePoint
                                                       .toString(),
                                               textAlign: TextAlign.start,
@@ -313,7 +311,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                           series: <ChartSeries<Graph, String>>[
                                             LineSeries<Graph, String>(
                                               color: data
-                                                          .searchCollectiblesModel!
+                                                          .searchComicsModel!
                                                           .results![index]
                                                           .priceChangePercent!
                                                           .sign ==
@@ -321,7 +319,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                   ? Colors.red
                                                   : Colors.green,
                                               dataSource: data
-                                                  .searchCollectiblesModel!
+                                                  .searchComicsModel!
                                                   .results![index]
                                                   .graph!,
                                               xValueMapper: (Graph plot, _) =>
@@ -345,7 +343,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              '\$${data.searchCollectiblesModel!.results![index].cpp}',
+                                              '\$${data.searchComicsModel!.results![index].cpp}',
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
@@ -363,7 +361,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                               children: [
                                                 Text(
                                                   data
-                                                      .searchCollectiblesModel!
+                                                      .searchComicsModel!
                                                       .results![index]
                                                       .priceChangePercent!
                                                       .percent!
@@ -373,7 +371,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                       .textTheme.bodyText1!
                                                       .copyWith(
                                                           color: data
-                                                                      .searchCollectiblesModel!
+                                                                      .searchComicsModel!
                                                                       .results![
                                                                           index]
                                                                       .priceChangePercent!
@@ -386,7 +384,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                           fontSize: 10),
                                                 ),
                                                 if (data
-                                                        .searchCollectiblesModel!
+                                                        .searchComicsModel!
                                                         .results![index]
                                                         .priceChangePercent!
                                                         .sign ==

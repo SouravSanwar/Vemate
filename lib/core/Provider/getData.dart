@@ -9,6 +9,7 @@ import 'package:ketemaa/core/models/CheckWishlistModel.dart';
 import 'package:ketemaa/core/models/ComicsModel.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
 import 'package:ketemaa/core/models/SearchCollectiblesModel.dart';
+import 'package:ketemaa/core/models/SearchComicsModel.dart';
 import 'package:ketemaa/core/models/SetListModel.dart';
 import 'package:ketemaa/core/models/SingleProductModel.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
@@ -22,6 +23,7 @@ class GetData extends ChangeNotifier {
   SearchCollectiblesModel? searchCollectiblesModel;
 
   ComicsModel? comicsModel;
+  SearchComicsModel? searchComicsModel;
 
   SingleProductModel? singleProductModel;
 
@@ -97,7 +99,7 @@ class GetData extends ChangeNotifier {
 
     var data = json.decode(response.body.toString());
 
-    //printInfo(info: data.toString());
+    printInfo(info: data.toString());
 
     if (searchCollectiblesModel != null) {
       if (offset == 0) searchCollectiblesModel!.results!.clear();
@@ -130,6 +132,32 @@ class GetData extends ChangeNotifier {
       comicsModel!.results!.addAll(ComicsModel.fromJson(data).results!);
     } else {
       comicsModel = ComicsModel.fromJson(data);
+    }
+
+    notifyListeners();
+  }
+
+  Future searchComics(String? keyWord, {int offset = 0}) async {
+    final response = await http.get(
+      Uri.parse(
+        Urls.mainUrl +
+            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset'
+                '&name=$keyWord',
+      ),
+      headers: requestToken,
+    );
+
+    var data = json.decode(response.body.toString());
+
+    printInfo(info: data.toString());
+
+    if (searchComicsModel != null) {
+      if (offset == 0) searchComicsModel!.results!.clear();
+
+      searchComicsModel!.results!
+          .addAll(SearchComicsModel.fromJson(data).results!);
+    } else {
+      searchComicsModel = SearchComicsModel.fromJson(data);
     }
 
     notifyListeners();

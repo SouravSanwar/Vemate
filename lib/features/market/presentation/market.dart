@@ -7,6 +7,8 @@ import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:ketemaa/features/market/presentation/collectibles_search_page.dart';
+import 'package:ketemaa/features/market/presentation/comic_search_page.dart';
 import 'package:ketemaa/graph/product_graph.dart';
 import 'package:provider/provider.dart';
 import '../../../core/utilities/shimmer/loading.dart';
@@ -91,7 +93,46 @@ class _MarketState extends State<Market> {
                       left: AppDimension.padding_8,
                       right: AppDimension.padding_8,
                     ),
-                    child: Row(
+                    child: InkWell(
+                      onTap: () {
+                        currentIndex == 1
+                            ? Get.to(() => const SearchCollectiblePage())
+                            : (currentIndex == 2
+                                ? Get.to(() => const SearchComicsPage())
+                                : null);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          //gradient: gradient,
+                          border: Border.all(
+                            color: AppColors.lightBackgroundColor,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(12),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(AppDimension.padding_8),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.search,
+                                color: Colors.grey,
+                              ),
+                              AppSpaces.spaces_width_10,
+                              Text(
+                                'Search',
+                                textAlign: TextAlign.center,
+                                style: Get.textTheme.bodyText1!
+                                    .copyWith(color: AppColors.white),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    /*child: Row(
                       children: [
                         Expanded(
                           child: Container(
@@ -114,7 +155,11 @@ class _MarketState extends State<Market> {
                                     //  when the TextFormField in focused
                                   ),
                                   prefixIcon: InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      currentIndex == 1
+                                          ? const SearchCollectiblePage()
+                                          : null;
+                                    },
                                     child: const Icon(
                                       Icons.search,
                                       color: Colors.grey,
@@ -138,7 +183,7 @@ class _MarketState extends State<Market> {
                           ),
                         ),
                       ],
-                    ),
+                    ),*/
                   ),
 
                   ///Tab
