@@ -9,9 +9,12 @@ import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../core/Provider/getData.dart';
 import 'package:ketemaa/graph/graph_helper.dart';
+
+import '../../../core/models/ComicsModel.dart';
 
 class ComicsItemCard extends StatefulWidget {
   const ComicsItemCard({Key? key}) : super(key: key);
@@ -269,11 +272,48 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                     children: [
                                       SizedBox(
                                         height: 25,
-                                        child: LineChart(
+                                        child: SfCartesianChart(
+                                          primaryXAxis: CategoryAxis(
+                                            majorGridLines:
+                                                const MajorGridLines(width: 0),
+                                            labelIntersectAction:
+                                                AxisLabelIntersectAction.hide,
+                                            labelRotation: 270,
+                                            labelAlignment:
+                                                LabelAlignment.start,
+                                            maximumLabels: 7,
+                                          ),
+                                          primaryYAxis: CategoryAxis(
+                                            majorGridLines:
+                                                const MajorGridLines(width: 0),
+                                            labelIntersectAction:
+                                                AxisLabelIntersectAction.hide,
+                                            labelRotation: 0,
+                                            labelAlignment:
+                                                LabelAlignment.start,
+                                            maximumLabels: 10,
+                                          ),
+                                          tooltipBehavior:
+                                              TooltipBehavior(enable: true),
+                                          series: <ChartSeries<Graph, String>>[
+                                            LineSeries<Graph, String>(
+                                              color: Colors.lime,
+                                              dataSource: data.comicsModel!
+                                                  .results![index].graph!,
+                                              xValueMapper: (Graph plot, _) =>
+                                                  plot.inHour,
+                                              yValueMapper: (Graph plot, _) =>
+                                                  plot.total,
+                                              xAxisName: 'Duration',
+                                              yAxisName: 'Total',
+                                            )
+                                          ],
+                                        ),
+                                        /*child: LineChart(
                                           mainData(), // Optional
                                           swapAnimationCurve:
                                               Curves.linear, // Optional
-                                        ),
+                                        ),*/
                                       ),
                                       AppSpaces.spaces_height_10,
                                       Row(
