@@ -31,9 +31,19 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     final _dialog = RatingDialog(
-      title: const Text('Rate Us On App Store or Play Store'),
-      message: const Text(''),
-      image: Image.asset('slider/12.png'),
+      starSize: 35.0,
+      initialRating: 5.0,
+      title: Text(
+        'Rate Us On App Store or Play Store',
+        textAlign: TextAlign.center,
+        style: Get.textTheme.headlineMedium!,
+      ),
+      message: Text(
+        '',
+        textAlign: TextAlign.center,
+        style: Get.textTheme.bodyMedium!,
+      ),
+      image: Image.asset('assets/media/image/vemate.png'),
       submitButtonText: 'Submit',
       onCancelled: () => print('cancelled'),
       onSubmitted: (response) {

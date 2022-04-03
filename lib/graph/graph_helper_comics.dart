@@ -335,29 +335,26 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
                                 fontSize: 16.0, color: Colors.green),
                           )).show(context);
                     },
-                    child: Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: Get.width * .45,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          gradient: AppColors.purpleGradient,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                          ),
+                    child: Container(
+                      width: Get.width * .45,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        gradient: AppColors.purpleGradient,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(15),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, right: 8.0, top: 15, bottom: 15),
-                          child: data.checkWishlistModel!.isFound == false
-                              ? Text(
-                            'Add to Wishlist',
-                            style: Get.textTheme.bodyMedium,
-                          )
-                              : Text(
-                            'Already in Wishlist',
-                            style: Get.textTheme.bodyMedium,
-                          ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 8.0, right: 8.0, top: 15, bottom: 15),
+                        child: data.checkWishlistModel!.isFound == false
+                            ? Text(
+                          'Add to Wishlist',
+                          style: Get.textTheme.bodyMedium,
+                        )
+                            : Text(
+                          'Already in Wishlist',
+                          style: Get.textTheme.bodyMedium,
                         ),
                       ),
                     ),
@@ -386,27 +383,24 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
                                 fontSize: 16.0, color: Colors.green),
                           )).show(context);
                     },
-                    child: Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: Get.width * .45,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          gradient: AppColors.purpleGradient,
-                          //color: AppColors.primaryColor,
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(15),
-                          ),
+                    child: Container(
+                      width: Get.width * .45,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        gradient: AppColors.purpleGradient,
+                        //color: AppColors.primaryColor,
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(15),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, right: 8.0, top: 15, bottom: 15),
-                          child: data.checkSetCheck!.isFound == false
-                              ? Text('Add to Set',
-                              style: Get.textTheme.bodyMedium)
-                              : Text('Already in Set',
-                              style: Get.textTheme.bodyMedium),
-                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 8.0, right: 8.0, top: 15, bottom: 15),
+                        child: data.checkSetCheck!.isFound == false
+                            ? Text('Add to Set',
+                            style: Get.textTheme.bodyMedium)
+                            : Text('Already in Set',
+                            style: Get.textTheme.bodyMedium),
                       ),
                     ),
                   ),

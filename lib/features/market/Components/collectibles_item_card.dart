@@ -350,13 +350,13 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   const Icon(
                                                     Icons.arrow_downward,
                                                     color: Colors.red,
-                                                    size: 12,
+                                                    size: 10,
                                                   )
                                                 else
                                                   const Icon(
                                                     Icons.arrow_upward,
                                                     color: Colors.green,
-                                                    size: 12,
+                                                    size: 10,
                                                   )
                                               ],
                                             ),

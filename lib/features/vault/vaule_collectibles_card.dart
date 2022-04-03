@@ -82,41 +82,46 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                       height: Get.height * .09,
                       child: widget.data!.collectibleGraph == null
                           ? Container()
-                          : SfCartesianChart(
-                              plotAreaBorderWidth: 0,
-                              primaryXAxis: CategoryAxis(
-                                isVisible: false,
-                                majorGridLines: const MajorGridLines(width: 0),
-                                labelIntersectAction:
-                                    AxisLabelIntersectAction.hide,
-                                labelRotation: 270,
-                                labelAlignment: LabelAlignment.start,
-                                maximumLabels: 7,
+                          : SizedBox(
+                              height: Get.height * .05,
+                              child: SfCartesianChart(
+                                plotAreaBorderWidth: 0,
+                                primaryXAxis: CategoryAxis(
+                                  isVisible: false,
+                                  majorGridLines:
+                                      const MajorGridLines(width: 0),
+                                  labelIntersectAction:
+                                      AxisLabelIntersectAction.hide,
+                                  labelRotation: 270,
+                                  labelAlignment: LabelAlignment.start,
+                                  maximumLabels: 7,
+                                ),
+                                primaryYAxis: CategoryAxis(
+                                  isVisible: false,
+                                  majorGridLines:
+                                      const MajorGridLines(width: 0),
+                                  labelIntersectAction:
+                                      AxisLabelIntersectAction.hide,
+                                  labelRotation: 0,
+                                  labelAlignment: LabelAlignment.start,
+                                  maximumLabels: 10,
+                                ),
+                                tooltipBehavior: TooltipBehavior(enable: true),
+                                series: <ChartSeries<CollectibleGraph, String>>[
+                                  LineSeries<CollectibleGraph, String>(
+                                    color: widget.data!.sign! == 'decrease'
+                                        ? Colors.red
+                                        : Colors.green,
+                                    dataSource: widget.data!.collectibleGraph!,
+                                    xValueMapper: (CollectibleGraph plot, _) =>
+                                        plot.inHour,
+                                    yValueMapper: (CollectibleGraph plot, _) =>
+                                        plot.total,
+                                    xAxisName: 'Duration',
+                                    yAxisName: 'Total',
+                                  )
+                                ],
                               ),
-                              primaryYAxis: CategoryAxis(
-                                isVisible: false,
-                                majorGridLines: const MajorGridLines(width: 0),
-                                labelIntersectAction:
-                                    AxisLabelIntersectAction.hide,
-                                labelRotation: 0,
-                                labelAlignment: LabelAlignment.start,
-                                maximumLabels: 10,
-                              ),
-                              tooltipBehavior: TooltipBehavior(enable: true),
-                              series: <ChartSeries<CollectibleGraph, String>>[
-                                LineSeries<CollectibleGraph, String>(
-                                  color: widget.data!.sign! == 'decrease'
-                                      ? Colors.red
-                                      : Colors.green,
-                                  dataSource: widget.data!.collectibleGraph!,
-                                  xValueMapper: (CollectibleGraph plot, _) =>
-                                      plot.inHour,
-                                  yValueMapper: (CollectibleGraph plot, _) =>
-                                      plot.total,
-                                  xAxisName: 'Duration',
-                                  yAxisName: 'Total',
-                                )
-                              ],
                             ),
                     ),
                     SizedBox(
@@ -141,12 +146,14 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                               ),
                               Text(
                                 widget.data!.changePercent! < 0.0
-                                    ? widget.data!.changePercent!.toStringAsFixed(2)
-                                    : widget.data!.changePercent!.toStringAsFixed(2) +
+                                    ? widget.data!.changePercent!
+                                        .toStringAsFixed(2)
+                                    : widget.data!.changePercent!
+                                            .toStringAsFixed(2) +
                                         "%",
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
-                                  color: widget.data!.changePercent! < 0.0
+                                  color: widget.data!.sign == 'decrease'
                                       ? Colors.red
                                       : Colors.green,
                                   fontWeight: FontWeight.bold,
@@ -155,7 +162,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                               SizedBox(
                                 width: Get.width * .01,
                               ),
-                              if (widget.data!.changePercent! < 0.0)
+                              if (widget.data!.sign == 'decrease')
                                 const Icon(
                                   Icons.arrow_downward,
                                   color: Colors.red,

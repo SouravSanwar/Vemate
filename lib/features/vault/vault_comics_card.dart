@@ -65,7 +65,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                         ),
                       ),
                       AppSpaces.spaces_height_5,
-                       Text(
+                      Text(
                         '\$' + widget.data!.mcp!.toString(),
                         style: const TextStyle(
                             color: Colors.grey, fontWeight: FontWeight.bold),
@@ -81,46 +81,49 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                   padding: const EdgeInsets.only(left: 30, top: 10, right: 10),
                   child: Column(
                     children: [
-                      Container(
+                      Text('Try'),
+                      SizedBox(
                         height: Get.height * .07,
                         child: widget.data!.comicGraph == null
                             ? Container()
                             : SfCartesianChart(
-                          plotAreaBorderWidth: 0,
-                          primaryXAxis: CategoryAxis(
-                            isVisible: false,
-                            majorGridLines: const MajorGridLines(width: 0),
-                            labelIntersectAction:
-                            AxisLabelIntersectAction.hide,
-                            labelRotation: 270,
-                            labelAlignment: LabelAlignment.start,
-                            maximumLabels: 7,
-                          ),
-                          primaryYAxis: CategoryAxis(
-                            isVisible: false,
-                            majorGridLines: const MajorGridLines(width: 0),
-                            labelIntersectAction:
-                            AxisLabelIntersectAction.hide,
-                            labelRotation: 0,
-                            labelAlignment: LabelAlignment.start,
-                            maximumLabels: 10,
-                          ),
-                          tooltipBehavior: TooltipBehavior(enable: true),
-                          series: <ChartSeries<ComicGraph, String>>[
-                            LineSeries<ComicGraph, String>(
-                              color: widget.data!.sign! == 'decrease'
-                                  ? Colors.red
-                                  : Colors.green,
-                              dataSource: widget.data!.comicGraph!,
-                              xValueMapper: (ComicGraph plot, _) =>
-                              plot.inHour,
-                              yValueMapper: (ComicGraph plot, _) =>
-                              plot.total,
-                              xAxisName: 'Duration',
-                              yAxisName: 'Total',
-                            )
-                          ],
-                        ),
+                                plotAreaBorderWidth: 0,
+                                primaryXAxis: CategoryAxis(
+                                  isVisible: false,
+                                  majorGridLines:
+                                      const MajorGridLines(width: 0),
+                                  labelIntersectAction:
+                                      AxisLabelIntersectAction.hide,
+                                  labelRotation: 270,
+                                  labelAlignment: LabelAlignment.start,
+                                  maximumLabels: 7,
+                                ),
+                                primaryYAxis: CategoryAxis(
+                                  isVisible: false,
+                                  majorGridLines:
+                                      const MajorGridLines(width: 0),
+                                  labelIntersectAction:
+                                      AxisLabelIntersectAction.hide,
+                                  labelRotation: 0,
+                                  labelAlignment: LabelAlignment.start,
+                                  maximumLabels: 10,
+                                ),
+                                tooltipBehavior: TooltipBehavior(enable: true),
+                                series: <ChartSeries<ComicGraph, String>>[
+                                  LineSeries<ComicGraph, String>(
+                                    color: widget.data!.sign! == 'decrease'
+                                        ? Colors.red
+                                        : Colors.green,
+                                    dataSource: widget.data!.comicGraph!,
+                                    xValueMapper: (ComicGraph plot, _) =>
+                                        plot.inHour,
+                                    yValueMapper: (ComicGraph plot, _) =>
+                                        plot.total,
+                                    xAxisName: 'Duration',
+                                    yAxisName: 'Total',
+                                  )
+                                ],
+                              ),
                       ),
                       SizedBox(
                         height: Get.height * .038,
@@ -144,12 +147,15 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                                   width: Get.width * .03,
                                 ),
                                 Text(
-                                    widget.data!.changePercent! < 0.0
-                                      ? widget.data!.changePercent!.toStringAsFixed(2)
-                                      : widget.data!.changePercent!.toStringAsFixed(2) + "%",
+                                  widget.data!.changePercent! < 0.0
+                                      ? widget.data!.changePercent!
+                                          .toStringAsFixed(2)
+                                      : widget.data!.changePercent!
+                                              .toStringAsFixed(2) +
+                                          "%",
                                   textAlign: TextAlign.end,
                                   style: TextStyle(
-                                    color: widget.data!.changePercent! < 0.0
+                                    color: widget.data!.sign == 'decrease'
                                         ? Colors.red
                                         : Colors.green,
                                     fontWeight: FontWeight.bold,
@@ -158,7 +164,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                                 SizedBox(
                                   width: Get.width * .01,
                                 ),
-                                if (widget.data!.changePercent! < 0.0)
+                                if (widget.data!.sign == 'decrease')
                                   const Icon(
                                     Icons.arrow_downward,
                                     color: Colors.red,

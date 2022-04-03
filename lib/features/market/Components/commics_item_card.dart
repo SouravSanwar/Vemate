@@ -113,7 +113,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                 ),
                                 AppSpaces.spaces_width_5,
                                 Expanded(
-                                  flex: 11,
+                                  flex: 10,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -358,13 +358,13 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                   const Icon(
                                                     Icons.arrow_downward,
                                                     color: Colors.red,
-                                                    size: 12,
+                                                    size: 10,
                                                   )
                                                 else
                                                   const Icon(
                                                     Icons.arrow_upward,
                                                     color: Colors.green,
-                                                    size: 12,
+                                                    size: 10,
                                                   )
                                               ],
                                             ),

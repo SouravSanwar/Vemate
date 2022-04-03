@@ -187,7 +187,7 @@ class _HomeState extends State<Home> {
                       vaultStatsModel: data.vaultStatsModel,
                     ),
 
-                    Padding(
+                    /*Padding(
                       padding: const EdgeInsets.only(
                           top: 10, bottom: 0, left: 15, right: 15),
                       child: Text(
@@ -208,7 +208,7 @@ class _HomeState extends State<Home> {
                         )
                             : const LoadingExample(),
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
               )
