@@ -5,6 +5,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -106,9 +107,9 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                     return InkWell(
                       onTap: () {
                         Get.to(
-                          () => const CollectibleDetails(),
-                          transition: Transition.zoom,
-                          arguments: data.searchComicsModel!.results![index],
+                          () => ComicDetails(
+                            productId: data.searchComicsModel!.results![index].id,
+                          ),
                         );
                       },
                       child: Padding(

@@ -82,7 +82,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                   child: Column(
                     children: [
                       Container(
-                        height: Get.height * .09,
+                        height: Get.height * .07,
                         child: widget.data!.comicGraph == null
                             ? Container()
                             : SfCartesianChart(
@@ -141,12 +141,12 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 SizedBox(
-                                  width: Get.width * .05,
+                                  width: Get.width * .03,
                                 ),
                                 Text(
                                     widget.data!.changePercent! < 0.0
-                                      ? widget.data!.changePercent!.toString()
-                                      : widget.data!.changePercent!.toString() + "%",
+                                      ? widget.data!.changePercent!.toStringAsFixed(2)
+                                      : widget.data!.changePercent!.toStringAsFixed(2) + "%",
                                   textAlign: TextAlign.end,
                                   style: TextStyle(
                                     color: widget.data!.changePercent! < 0.0

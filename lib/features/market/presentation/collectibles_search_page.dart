@@ -106,10 +106,11 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                     return InkWell(
                       onTap: () {
                         Get.to(
-                          () => const CollectibleDetails(),
-                          transition: Transition.zoom,
-                          arguments:
-                              data.searchCollectiblesModel!.results![index],
+                          () => CollectibleDetails(
+                            productId:
+                            data.searchCollectiblesModel!.results![index].id,
+                          ),
+
                         );
                       },
                       child: Padding(

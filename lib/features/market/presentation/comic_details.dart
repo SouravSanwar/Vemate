@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
-import 'package:ketemaa/graph/graph_helper.dart';
+import 'package:ketemaa/graph/graph_helper_comics.dart';
 import 'package:ketemaa/graph/product_graph.dart';
 import 'package:provider/provider.dart';
 
@@ -74,7 +74,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                     )
                   ];
                 },
-                body: GraphHelper(),
+                body: GraphHelperComics(),
               )
             : LoadingExample(),
       );

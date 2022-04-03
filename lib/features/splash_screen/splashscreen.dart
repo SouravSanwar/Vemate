@@ -69,22 +69,14 @@ class SplashScreenState extends State<SplashScreen>
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
-                  child: Text("Copyright © Vemate All rights reserved."))
-            ],
-          ),
+
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(
-                'assets/media/slider/12.png',
-                width: animation.value * 250,
-                height: animation.value * 250,
+                'assets/media/image/vemate.png',
+                width: animation.value * 450,
+                height: animation.value * 450,
               ),
             ],
           ),

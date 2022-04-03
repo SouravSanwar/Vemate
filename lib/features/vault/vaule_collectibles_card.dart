@@ -137,12 +137,12 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               SizedBox(
-                                width: Get.width * .05,
+                                width: Get.width * .03,
                               ),
                               Text(
                                 widget.data!.changePercent! < 0.0
-                                    ? widget.data!.changePercent!.toString()
-                                    : widget.data!.changePercent!.toString() +
+                                    ? widget.data!.changePercent!.toStringAsFixed(2)
+                                    : widget.data!.changePercent!.toStringAsFixed(2) +
                                         "%",
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
