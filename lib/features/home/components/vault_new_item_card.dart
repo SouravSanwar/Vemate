@@ -84,10 +84,11 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                             ),
                             SizedBox(height: Get.height*.08,),
                             BlurryContainer(
+
                               padding: const EdgeInsets.all(3.0),
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
-                              bgColor: Colors.white,
+                              bgColor: Color(0xff454F70),
                               width: Get.width*.37,
                               height: Get.height*.08,
                               blur: 2,

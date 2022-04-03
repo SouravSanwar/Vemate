@@ -85,17 +85,6 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                               ),
                             );
 
-                            /*Get.to(
-                              () => ChartExample(
-                                  id: data.comicsModel!.results![index].id),
-                              arguments: data.comicsModel!.results![index]
-                            );*/
-                            Flushbar(
-                              title: "Hey buddy",
-                              message:
-                                  "You selected ${data.comicsModel!.results![index].name}",
-                              duration: const Duration(seconds: 1),
-                            ).show(context);
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
@@ -342,7 +331,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                       .results![index]
                                                       .priceChangePercent!
                                                       .percent!
-                                                      .toString(),
+                                                      .toStringAsFixed(2)+"%",
                                                   textAlign: TextAlign.end,
                                                   style: Get
                                                       .textTheme.bodyText1!

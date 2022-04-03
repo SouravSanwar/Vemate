@@ -39,6 +39,7 @@ class _ProductGraphState extends State<ProductGraph> {
       tooltipBehavior: TooltipBehavior(enable: true),
       series: <ChartSeries<Graph, String>>[
         LineSeries<Graph, String>(
+
           color: Colors.green,
           dataSource: widget.graphList!,
           xValueMapper: (Graph plot, _) => plot.formattedTime,
@@ -46,9 +47,10 @@ class _ProductGraphState extends State<ProductGraph> {
           xAxisName: 'Duration',
           yAxisName: 'Total',
           dataLabelSettings: const DataLabelSettings(
-            isVisible: true,
+            isVisible: false ,
             angle: 270,
           ),
+
         )
       ],
     );

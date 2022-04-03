@@ -87,7 +87,7 @@ class _ProfileState extends State<Profile> {
                                               .15,
                                       backgroundColor: const Color(0xff272E49),
                                       backgroundImage: const AssetImage(
-                                          'assets/media/image/profile.png'),
+                                          'assets/media/image/vemate.png'),
                                     ),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,

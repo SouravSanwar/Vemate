@@ -323,7 +323,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       .results![index]
                                                       .priceChangePercent!
                                                       .percent!
-                                                      .toString(),
+                                                      .toStringAsFixed(2)+"%",
                                                   textAlign: TextAlign.end,
                                                   style: Get
                                                       .textTheme.bodyText1!
