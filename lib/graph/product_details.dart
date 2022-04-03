@@ -9,45 +9,17 @@ import 'package:provider/provider.dart';
 
 import '../core/Provider/getData.dart';
 import 'components/item_details_helper.dart';
-import 'designhelper.dart';
 
-class gh {
-  static bool c = true;
-  static var aa = '0AM',
-      bb = '2AM',
-      cc = '4AM',
-      dd = '6AM',
-      ee = '8AM',
-      ff = '10AM',
-      gg = '12PM',
-      hh = '2PM',
-      ii = '4PM',
-      jj = '6PM',
-      kk = '8PM',
-      ll = '10PM',
-      mm = '2AM',
-      nn = '4AM',
-      oo = '6AM',
-      pp = '8AM',
-      qq = '10AM',
-      rr = '12PM',
-      ss = '2PM',
-      tt = '4PM',
-      uu = '6PM',
-      vv = '8PM',
-      ww = '10PM';
-}
-
-class GraphHelper extends StatefulWidget {
+class ProductDetails extends StatefulWidget {
   final int? id;
 
-  const GraphHelper({Key? key, this.id}) : super(key: key);
+  const ProductDetails({Key? key, this.id}) : super(key: key);
 
   @override
-  State<GraphHelper> createState() => _GraphHelperState();
+  State<ProductDetails> createState() => _ProductDetailsState();
 }
 
-class _GraphHelperState extends State<GraphHelper> {
+class _ProductDetailsState extends State<ProductDetails> {
   GetData? getData;
 
   PostData? postData;
@@ -70,7 +42,7 @@ class _GraphHelperState extends State<GraphHelper> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-             /* FadeInUp(
+              /* FadeInUp(
                 duration: const Duration(milliseconds: 100),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -171,7 +143,7 @@ class _GraphHelperState extends State<GraphHelper> {
                       : "",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: gh.c ? Colors.blueGrey.shade300 : Colors.green,
+                      color: Colors.blueGrey.shade300,
                       fontWeight: FontWeight.bold,
                       fontSize: 15),
                 ),
@@ -290,7 +262,6 @@ class _GraphHelperState extends State<GraphHelper> {
                   ]),
                 ),
               ),
-              AppSpaces.spaces_height_20,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -317,30 +288,27 @@ class _GraphHelperState extends State<GraphHelper> {
                                     fontSize: 16.0, color: Colors.green),
                               )).show(context);
                     },
-                    child: Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: Get.width * .45,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          gradient: AppColors.purpleGradient,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                          ),
+                    child: Container(
+                      width: Get.width * .45,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        gradient: AppColors.purpleGradient,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(15),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, right: 8.0, top: 15, bottom: 15),
-                          child: data.checkWishlistModel!.isFound == false
-                              ? Text(
-                                  'Add to Wishlist',
-                                  style: Get.textTheme.bodyMedium,
-                                )
-                              : Text(
-                                  'Already in Wishlist',
-                                  style: Get.textTheme.bodyMedium,
-                                ),
-                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 8.0, right: 8.0, top: 15, bottom: 15),
+                        child: data.checkWishlistModel!.isFound == false
+                            ? Text(
+                                'Add to Wishlist',
+                                style: Get.textTheme.bodyMedium,
+                              )
+                            : Text(
+                                'Already in Wishlist',
+                                style: Get.textTheme.bodyMedium,
+                              ),
                       ),
                     ),
                   ),
@@ -368,27 +336,24 @@ class _GraphHelperState extends State<GraphHelper> {
                                     fontSize: 16.0, color: Colors.green),
                               )).show(context);
                     },
-                    child: Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: Get.width * .45,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          gradient: AppColors.purpleGradient,
-                          //color: AppColors.primaryColor,
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(15),
-                          ),
+                    child: Container(
+                      width: Get.width * .45,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        gradient: AppColors.purpleGradient,
+                        //color: AppColors.primaryColor,
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(15),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, right: 8.0, top: 15, bottom: 15),
-                          child: data.checkSetCheck!.isFound == false
-                              ? Text('Add to Set',
-                                  style: Get.textTheme.bodyMedium)
-                              : Text('Already in Set',
-                                  style: Get.textTheme.bodyMedium),
-                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 8.0, right: 8.0, top: 15, bottom: 15),
+                        child: data.checkSetCheck!.isFound == false
+                            ? Text('Add to Set',
+                                style: Get.textTheme.bodyMedium)
+                            : Text('Already in Set',
+                                style: Get.textTheme.bodyMedium),
                       ),
                     ),
                   ),

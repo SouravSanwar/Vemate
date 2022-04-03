@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 
-import 'package:ketemaa/graph/graph_helper.dart';
+import 'package:ketemaa/graph/product_details.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
@@ -227,148 +227,16 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                   left: Get.width * .02,
                 ),
                 height: Get.height * .12,
-                child: LineChart(
+                /*child: LineChart(
                   mainData(), // Optional
                   swapAnimationCurve: Curves.easeInOutBack, // Optional
-                ),
+                ),*/
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
             ],
           )),
-    );
-  }
-
-  List<Color> gradientColors = [];
-
-  LineChartData mainData() {
-    return LineChartData(
-      borderData: FlBorderData(
-        show: false,
-      ),
-      gridData: FlGridData(
-          show: false,
-          horizontalInterval: 1.6,
-          getDrawingHorizontalLine: (value) {
-            return FlLine(
-              dashArray: const [3, 3],
-              color: const Color(0xff37434d).withOpacity(0.2),
-              strokeWidth: 2,
-            );
-          },
-          drawVerticalLine: false),
-      titlesData: FlTitlesData(
-        show: false,
-        rightTitles: SideTitles(showTitles: false),
-        topTitles: SideTitles(showTitles: false),
-        bottomTitles: SideTitles(
-          showTitles: true,
-          reservedSize: 40,
-          interval: 1,
-          getTextStyles: (context, value) => const TextStyle(
-              color: Color(0xff68737d),
-              fontWeight: FontWeight.bold,
-              fontSize: 8),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 0:
-                return gh.aa;
-              case 4:
-                return gh.bb;
-              case 8:
-                return gh.cc;
-              case 12:
-                return gh.dd;
-              case 16:
-                return gh.ee;
-              case 20:
-                return gh.ff;
-              case 24:
-                return gh.gg;
-              case 28:
-                return gh.hh;
-              case 32:
-                return gh.ii;
-              case 36:
-                return gh.jj;
-              case 40:
-                return gh.kk;
-              case 44:
-                return gh.ll;
-            }
-            return '';
-          },
-          margin: 0,
-        ),
-        leftTitles: SideTitles(
-          showTitles: true,
-          interval: 1,
-          getTextStyles: (context, value) => const TextStyle(
-            color: Color(0xff67727d),
-            fontWeight: FontWeight.bold,
-            fontSize: 12,
-          ),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 1:
-                return '10';
-              case 3:
-                return '30';
-              case 5:
-                return '50';
-              case 7:
-                return '70';
-              case 9:
-                return '90';
-            }
-            return '';
-          },
-          reservedSize: 25,
-          margin: 0,
-        ),
-      ),
-      minX: 0,
-      maxX: 44,
-      minY: 0,
-      maxY: 10,
-      lineBarsData: [
-        LineChartBarData(
-          spots: [
-            FlSpot(0, 0),
-            FlSpot(2.9, 2),
-            FlSpot(4.4, 3),
-            FlSpot(6.4, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 4),
-            FlSpot(12, 5),
-            FlSpot(16, 1),
-            FlSpot(20, 8),
-            FlSpot(24, 2),
-            FlSpot(28, 4.1),
-            FlSpot(32, 5),
-            FlSpot(36, 2.9),
-            FlSpot(40, 1.8),
-            FlSpot(44, 6),
-          ],
-          isCurved: true,
-          colors: gradientColors,
-          barWidth: 1,
-          dotData: FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(
-              show: true,
-              gradientFrom: Offset(0, 0),
-              gradientTo: Offset(0, 1),
-              colors: [
-                const Color(0xff8053B7),
-                const Color(0xff8053B7),
-                const Color(0xff584D9F),
-                const Color(0xff393E6B),
-              ]),
-        ),
-      ],
     );
   }
 }

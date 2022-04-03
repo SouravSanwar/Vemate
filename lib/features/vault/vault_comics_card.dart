@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 
-import 'package:ketemaa/graph/graph_helper.dart';
+import 'package:ketemaa/graph/product_details.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 

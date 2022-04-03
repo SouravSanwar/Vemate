@@ -1,7 +1,7 @@
 /*
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:ketemaa/graph/graph_helper.dart';
+import 'package:ketemaa/graph/product_details.dart';
 
 
 List<Color> gradientColors = [

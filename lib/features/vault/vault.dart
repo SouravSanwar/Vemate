@@ -8,7 +8,7 @@ import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
 import 'package:ketemaa/features/vault/vault_comics_card.dart';
-import 'package:ketemaa/graph/graph_helper.dart';
+import 'package:ketemaa/graph/product_details.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/utilities/shimmer/loading.dart';
 import 'mysets_card.dart';

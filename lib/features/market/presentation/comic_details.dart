@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
-import 'package:ketemaa/graph/graph_helper.dart';
+import 'package:ketemaa/graph/product_details.dart';
 import 'package:ketemaa/graph/product_graph.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +45,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                 ? data.singleProductModel!.name.toString()
                 : "",
             style: TextStyle(
-                color: gh.c ? Colors.blueGrey.shade300 : Colors.green,
+                color:Colors.blueGrey.shade300,
                 fontSize: 18,
                 fontWeight: FontWeight.bold),
           ),
@@ -74,7 +74,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                     )
                   ];
                 },
-                body: GraphHelper(),
+                body: ProductDetails(),
               )
             : LoadingExample(),
       );
