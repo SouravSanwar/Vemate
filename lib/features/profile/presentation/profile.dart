@@ -6,14 +6,11 @@ import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
-import 'package:ketemaa/features/auth/reset_pass/enter_new_pass.dart';
-import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
-import 'package:ketemaa/features/profile/_controller/shader.dart';
 import 'package:ketemaa/features/profile/widgets/profile_divider.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:store_redirect/store_redirect.dart';
@@ -28,6 +25,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String _url = 'https://flutter.dev';
   @override
   Widget build(BuildContext context) {
     final _dialog = RatingDialog(
@@ -128,23 +126,32 @@ class _ProfileState extends State<Profile> {
                           arguments: data.profileModel,
                         );
                       }),
-                      CustomProfileElements(
-                          Icons.help_outline, "Help and Support", () {}),
+                     /* CustomProfileElements(
+                          Icons.help_outline, "Help and Support", () {}),*/
                       CustomProfileElements(
                           Icons.privacy_tip_outlined, "Privacy Policy", () {}),
-                      CustomProfileElements(Icons.rate_review_outlined, "Rate",
+                      /*CustomProfileElements(Icons.rate_review_outlined, "Rate",
                           () {
                         showDialog(
                           context: context,
                           builder: (context) => _dialog,
                         );
-                      }),
+                      }),*/
                       CustomProfileElements(Icons.share, "Share Vemate", () {
                         Share.share(
                             'Visit Vemate Website:\n https://www.vemate.com/');
                       }),
                       CustomProfileElements(
-                          Icons.info_outline_rounded, "About Vemate", () {}),
+                          Icons.info_outline_rounded, "About Vemate", () async{
+
+                       String url = 'https://www.vemate.com/';
+                        if (await canLaunch(url)) {
+                        await launch(url);
+                        } else {
+                        throw 'Could not launch $url';
+                        }
+
+                      }),
                       CustomProfileElements(Icons.logout, "Log Out", () {
                         Get.offAll(() => const AuthInitialPage());
                         prefs!.clear();

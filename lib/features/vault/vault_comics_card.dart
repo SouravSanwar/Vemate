@@ -78,7 +78,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
               Expanded(
                 flex: 6,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 30, top: 10, right: 10),
+                  padding: const EdgeInsets.only(left: 20, top: 10, right: 10),
                   child: Column(
                     children: [
 
@@ -162,7 +162,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: Get.width * .01,
+                                  width: Get.width * .005,
                                 ),
                                 if (widget.data!.sign == 'decrease')
                                   const Icon(
@@ -181,7 +181,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                           ),
                         ],
                       ),
-                      SizedBox(height: Get.height * .038,)
+                      SizedBox(height: Get.height * .02,)
                     ],
                   ),
                 ),

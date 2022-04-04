@@ -1,5 +1,4 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
@@ -8,7 +7,6 @@ import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
 import 'package:ketemaa/features/vault/vault_comics_card.dart';
-import 'package:ketemaa/graph/product_details.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/utilities/shimmer/loading.dart';
 import 'mysets_card.dart';
@@ -307,7 +305,7 @@ class _VaultState extends State<Vault> {
                           left: Get.width *
                               .06), //apply padding to all four sides
                       child: const Text(
-                        "My Sets",
+                        "My Vault",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -362,38 +360,14 @@ class _VaultState extends State<Vault> {
                 child: Container(
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton2(
-                      hint: const Text(
+                  child:  const Text(
                         '24H',
                         style: TextStyle(
-                          fontSize: 10,
+                          fontSize: 15,
                           color: Colors.white,
                         ),
                       ),
-                      items: <String>[' 24H' ' 7D', ' 30D', ' 1Y']
-                          .map((item) => DropdownMenuItem<String>(
-                                value: "24 H",
-                                child: Text(
-                                  item,
-                                  style: const TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                      value: selectedValue,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedValue = value as String;
-                        });
-                      },
-                      alignment: Alignment.center,
-                      dropdownDecoration:
-                          BoxDecoration(gradient: AppColors.purpleGradient),
-                    ),
-                  ),
+
                   width: Get.width * .125,
                   height: Get.width * .125,
                   decoration: BoxDecoration(

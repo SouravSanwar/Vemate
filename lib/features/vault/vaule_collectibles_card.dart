@@ -75,7 +75,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
             Expanded(
               flex: 6,
               child: Padding(
-                padding: const EdgeInsets.only(left: 30, top: 10, right: 10),
+                padding: const EdgeInsets.only(left: 20, top: 10, right: 10),
                 child: Column(
                   children: [
                     SizedBox(
@@ -178,7 +178,8 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(height: Get.height * .02,)
                   ],
                 ),
               ),

@@ -331,7 +331,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                               isDismissible: false,
                               duration: const Duration(seconds: 3),
                               messageText: const Text(
-                                "Product already in your set",
+                                "Product already in your Vault",
                                 style: TextStyle(
                                     fontSize: 16.0, color: Colors.green),
                               )).show(context);
@@ -350,9 +350,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                         padding: const EdgeInsets.only(
                             left: 8.0, right: 8.0, top: 15, bottom: 15),
                         child: data.checkSetCheck!.isFound == false
-                            ? Text('Add to Set',
+                            ? Text('Add to Vault',
                                 style: Get.textTheme.bodyMedium)
-                            : Text('Already in Set',
+                            : Text('Already in Vault',
                                 style: Get.textTheme.bodyMedium),
                       ),
                     ),

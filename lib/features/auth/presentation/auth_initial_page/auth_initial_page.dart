@@ -233,7 +233,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Do You Have An Account?",
+                          "Don't have an account?",
                           style: TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.bold,
