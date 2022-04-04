@@ -1,14 +1,11 @@
-import 'package:get/get.dart';
+class Test {
+  Test({
+      this.count, 
+      this.next, 
+      this.previous, 
+      this.results,});
 
-class CollectiblesModel {
-  CollectiblesModel({
-    this.count,
-    this.next,
-    this.previous,
-    this.results,
-  });
-
-  CollectiblesModel.fromJson(dynamic json) {
+  Test.fromJson(dynamic json) {
     count = json['count'];
     next = json['next'];
     previous = json['previous'];
@@ -19,10 +16,9 @@ class CollectiblesModel {
       });
     }
   }
-
   int? count;
   String? next;
-  dynamic previous;
+  String? previous;
   List<Results>? results;
 
   Map<String, dynamic> toJson() {
@@ -35,64 +31,49 @@ class CollectiblesModel {
     }
     return map;
   }
+
 }
 
 class Results {
   Results({
-    this.id,
-    this.type,
-    this.name,
-    this.edition,
-    this.brand,
-    this.rarity,
-    this.floorPrice,
-    this.priceChangePercent,
-    this.graph,
-    this.rarePoint,
-    this.cpp,
-  });
+      this.id, 
+      this.type, 
+      this.name, 
+      this.edition, 
+      this.parent, 
+      this.brand, 
+      this.rarity, 
+      this.floorPrice, 
+      this.priceChangePercent, 
+      this.graph,});
 
   Results.fromJson(dynamic json) {
     id = json['id'];
     type = json['type'];
     name = json['name'];
     edition = json['edition'];
+    parent = json['parent'];
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
     rarity = json['rarity'];
     floorPrice = json['floor_price'];
-    priceChangePercent = json['price_change_percent'] != null
-        ? PriceChangePercent.fromJson(json['price_change_percent'])
-        : null;
+    priceChangePercent = json['price_change_percent'] != null ? PriceChangePercent.fromJson(json['price_change_percent']) : null;
     if (json['graph'] != null) {
       graph = [];
       json['graph'].forEach((v) {
         graph?.add(Graph.fromJson(v));
       });
     }
-
-    if (rarity == 'Rare') {
-      rarePoint = 2;
-      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
-    } else if (rarity == 'Ultra Rare') {
-      rarePoint = 3;
-      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
-    } else {
-      rarePoint = 1;
-      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
-    }
   }
-
   int? id;
   int? type;
   String? name;
   String? edition;
+  dynamic parent;
   Brand? brand;
   String? rarity;
   String? floorPrice;
   PriceChangePercent? priceChangePercent;
   List<Graph>? graph;
-  int? rarePoint;
-  double? cpp;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -100,7 +81,10 @@ class Results {
     map['type'] = type;
     map['name'] = name;
     map['edition'] = edition;
-    map['brand'] = brand;
+    map['parent'] = parent;
+    if (brand != null) {
+      map['brand'] = brand?.toJson();
+    }
     map['rarity'] = rarity;
     map['floor_price'] = floorPrice;
     if (priceChangePercent != null) {
@@ -111,19 +95,18 @@ class Results {
     }
     return map;
   }
+
 }
 
 class Graph {
   Graph({
-    this.hour,
-    this.total,
-  });
+      this.hour, 
+      this.total,});
 
   Graph.fromJson(dynamic json) {
     hour = json['hour'];
     total = json['total'];
   }
-
   String? hour;
   double? total;
 
@@ -133,20 +116,19 @@ class Graph {
     map['total'] = total;
     return map;
   }
+
 }
 
 class PriceChangePercent {
   PriceChangePercent({
-    this.percent,
-    this.sign,
-  });
+      this.percent, 
+      this.sign,});
 
   PriceChangePercent.fromJson(dynamic json) {
-    percent = double.parse(json['percent'].toString()).toPrecision(2);
+    percent = json['percent'];
     sign = json['sign'];
   }
-
-  var percent;
+  int? percent;
   String? sign;
 
   Map<String, dynamic> toJson() {
@@ -155,12 +137,13 @@ class PriceChangePercent {
     map['sign'] = sign;
     return map;
   }
+
 }
 
 class Brand {
   Brand({
-    this.id,
-    this.name,});
+      this.id, 
+      this.name,});
 
   Brand.fromJson(dynamic json) {
     id = json['id'];

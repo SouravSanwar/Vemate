@@ -68,7 +68,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(
-                    labelText: "Username",
+                    labelText: "Username/Email",
                     height: Get.height * .04,
                     textType: TextInputType.emailAddress,
                     controller: SigninController.to.userNameTextFiledController,
@@ -120,7 +120,11 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           "password": SigninController
                               .to.passwordTextFiledController.text,
                         };
-                        postData!.logIn(context, body);
+                        postData!.logIn(context, body).whenComplete(() {
+                          SigninController.to.userNameTextFiledController
+                              .clear();
+                          SigninController.to.passwordTextFiledController.clear();
+                        });
                       },
                       child: Text(
                         AppLanguageString.lOG_IN.tr.toUpperCase(),

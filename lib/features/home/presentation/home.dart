@@ -189,7 +189,7 @@ class _HomeState extends State<Home> {
 
                     Padding(
                       padding: const EdgeInsets.only(
-                          top: 10, bottom: 0, left: 15, right: 15),
+                          top: 10, bottom: 10, left: 15, right: 15),
                       child: Text(
                         'Newest',
                         style: Get.textTheme.headline1!.copyWith(
@@ -209,6 +209,7 @@ class _HomeState extends State<Home> {
                             : const LoadingExample(),
                       ),
                     ),
+                    AppSpaces.spaces_height_10,
                   ],
                 ),
               )

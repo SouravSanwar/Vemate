@@ -31,8 +31,6 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
   void initState() {
     super.initState();
     getData = Provider.of<GetData>(context, listen: false);
-
-    getData!.getCollectibles();
   }
 
   @override
@@ -103,7 +101,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                 ),
                                 AppSpaces.spaces_width_5,
                                 Expanded(
-                                  flex: 11,
+                                  flex: 7,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -130,11 +128,9 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                           fontSize: 13),
                                                 ),
                                               )),
-                                          const SizedBox(
-                                            width: 2,
-                                          ),
+                                          AppSpaces.spaces_width_2,
                                           Expanded(
-                                              flex: 3,
+                                              flex: 2,
                                               child: Text(
                                                 data.collectiblesModel!
                                                     .results![index].edition
@@ -156,7 +152,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                             flex: 5,
                                             child: Text(
                                               data.collectiblesModel!
-                                                  .results![index].brand
+                                                  .results![index].brand!.name
                                                   .toString(),
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
@@ -169,7 +165,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 3,
+                                            flex: 2,
                                             child: Text(
                                               data.collectiblesModel!
                                                   .results![index].rarity
@@ -212,7 +208,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                             width: 2,
                                           ),
                                           Expanded(
-                                            flex: 3,
+                                            flex: 2,
                                             child: Text(
                                               "MCP " +
                                                   data.collectiblesModel!
@@ -233,12 +229,13 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                     ],
                                   ),
                                 ),
+                                AppSpaces.spaces_width_5,
                                 Expanded(
-                                  flex: 6,
+                                  flex: 3,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Container(
+                                      SizedBox(
                                         height: Get.height * .05,
                                         child: SfCartesianChart(
                                           plotAreaBorderWidth: 0,
@@ -300,18 +297,21 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Expanded(
-                                            child: Text(
-                                              '\$${data.collectiblesModel!.results![index].cpp}',
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText1!
-                                                  .copyWith(
-                                                      color: AppColors.white
-                                                          .withOpacity(0.9),
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: 12),
+                                            child: FittedBox(
+                                              child: Text(
+                                                '\$${data.collectiblesModel!.results![index].cpp}',
+                                                textAlign: TextAlign.start,
+                                                style: Get.textTheme.bodyText1!
+                                                    .copyWith(
+                                                        color: AppColors.white
+                                                            .withOpacity(0.9),
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 12),
+                                              ),
                                             ),
                                           ),
+                                          AppSpaces.spaces_width_2,
                                           Expanded(
                                             child: Row(
                                               mainAxisAlignment:

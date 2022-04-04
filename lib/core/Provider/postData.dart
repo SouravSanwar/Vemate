@@ -34,7 +34,7 @@ class PostData extends ChangeNotifier {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const CircularProgressIndicator());
+        builder: (_) => const LoadingExample());
 
     printInfo(info: body.toString());
 
@@ -109,7 +109,7 @@ class PostData extends ChangeNotifier {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const CircularProgressIndicator());
+        builder: (_) => const LoadingExample());
 
     printInfo(info: body.toString());
 
@@ -286,7 +286,8 @@ class PostData extends ChangeNotifier {
 
           Store(js, context);
 
-          printInfo(info: prefs!.getString('is_email_verified').toString());
+          printInfo(info:'Token from LogIn: '+ prefs!.getString
+            ('is_email_verified').toString());
 
           Get.to(() => ControllerPage());
 
