@@ -21,10 +21,10 @@ class VaultComicsCard extends StatefulWidget {
 }
 
 class _VaultComicsCardState extends State<VaultComicsCard> {
-  double percent = 3.30;
 
   @override
   Widget build(BuildContext context) {
+    printInfo(info: widget.data!.comicGraph![0].inHour);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -81,11 +81,10 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                   padding: const EdgeInsets.only(left: 20, top: 10, right: 10),
                   child: Column(
                     children: [
-
                       SizedBox(
                         height: Get.height * .07,
                         child: widget.data!.comicGraph == null
-                            ? Container(child:Text('Try'),)
+                            ? Text('Try')
                             : SfCartesianChart(
                                 plotAreaBorderWidth: 0,
                                 primaryXAxis: CategoryAxis(
@@ -181,7 +180,9 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                           ),
                         ],
                       ),
-                      SizedBox(height: Get.height * .02,)
+                      SizedBox(
+                        height: Get.height * .02,
+                      )
                     ],
                   ),
                 ),

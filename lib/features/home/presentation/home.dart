@@ -3,20 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
-import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
-import 'package:ketemaa/features/home/components/name_row.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
 import 'package:provider/provider.dart';
+import 'package:ketemaa/core/models/NewsModel.dart';
 
 import 'package:ketemaa/features/home/components/home_vault_card.dart';
-import 'package:ketemaa/features/profile/_controller/shader.dart';
 import 'package:provider/provider.dart';
 import '../../../core/Provider/getData.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/shimmer/loading.dart';
-import '../../market/Components/category_card.dart';
 import '../components/image_slider.dart';
 import '../components/vault_new_item_card.dart';
 
@@ -47,6 +44,8 @@ class _HomeState extends State<Home> {
     getData!.getVaultStats();
 
     getData!.getCollectibles();
+
+    getData!.getNews();
 
     super.initState();
   }
@@ -164,7 +163,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       AppSpaces.spaces_height_10,
-                      ImageSlider(),
+                      ImageSlider(news: data.newsModel!.results,),
                       AppSpaces.spaces_height_10,
                       Padding(
                         padding: const EdgeInsets.only(

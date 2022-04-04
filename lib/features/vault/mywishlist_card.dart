@@ -26,19 +26,10 @@ class MywishlistCard extends StatefulWidget {
 }
 
 class _MywishlistCardState extends State<MywishlistCard> {
-  bool _isLoaded = false;
-  String? firstHalf;
 
   @override
   void initState() {
     super.initState();
-
-    // make _isLoaded true after 2 seconds
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        _isLoaded = true;
-      });
-    });
   }
 
   @override
@@ -53,7 +44,8 @@ class _MywishlistCardState extends State<MywishlistCard> {
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: widget.list!.length,
+          itemCount:data.wishListModel!
+              .results!.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: const EdgeInsets.all(4.0),
@@ -66,14 +58,17 @@ class _MywishlistCardState extends State<MywishlistCard> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    widget.list![index].productDetail!.type == 1
+                    data.wishListModel!
+                        .results![index].productDetail!.type == 1
                         ? Get.to(() =>
                         ComicDetails(
-                          productId: widget.list![index].productDetail!.id!,
+                          productId: data.wishListModel!
+                              .results![index].productDetail!.id!,
                         ))
                         : Get.to(() =>CollectibleDetails(
 
-                      productId: widget.list![index].productDetail!.id!,
+                      productId: data.wishListModel!
+                          .results![index].productDetail!.id!,
                     ),);
                   },
                   child: Row(
@@ -123,8 +118,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                     color: data.wishListModel!
                                         .results![
                                     index]
-                                        .productDetail!
-                                        .graph ==
+                                        .productDetail!.priceChangePercent!.sign ==
                                         'decrease'
                                         ? Colors.red
                                         : Colors.green,
@@ -144,7 +138,8 @@ class _MywishlistCardState extends State<MywishlistCard> {
                               color: Colors.white,
                             ),
                             Text(
-                              widget.list![index].productDetail!.name
+                              data.wishListModel!
+                                  .results![index].productDetail!.name
                                   .toString(),
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
@@ -168,7 +163,8 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                     flex: 2,
                                     child: Text(
                                       r"$" +
-                                          widget.list![index].productDetail!
+                                          data.wishListModel!
+                                              .results![index].productDetail!
                                               .floorPrice
                                               .toString(),
                                       textAlign: TextAlign.start,
@@ -184,14 +180,15 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Text(
-                                          widget.list![index].productDetail!
+                                          data.wishListModel!
+                                              .results![index].productDetail!
                                               .priceChangePercent!.percent!
                                               .toString() + "%",
                                           textAlign: TextAlign.end,
                                           style: Get.textTheme.bodyText1!
                                               .copyWith(
-                                              color: widget
-                                                  .list![index]
+                                              color: data.wishListModel!
+                                                  .results![index]
                                                   .productDetail!
                                                   .priceChangePercent!
                                                   .sign ==
@@ -201,7 +198,8 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                               fontWeight: FontWeight.w300,
                                               fontSize: 10),
                                         ),
-                                        if (widget.list![index].productDetail!
+                                        if (data.wishListModel!
+                                            .results![index].productDetail!
                                             .priceChangePercent!.sign ==
                                             'decrease')
                                           const Icon(

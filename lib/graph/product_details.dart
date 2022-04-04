@@ -247,7 +247,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ItemDetailsHelper(
                       text: "Brand",
                       text1: data.singleProductModel != null
-                          ? data.singleProductModel!.brand.toString()
+                          ? data.singleProductModel!.brand!.name.toString()
                           : "",
                     ),
                     const SizedBox(
@@ -262,6 +262,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ]),
                 ),
               ),
+              AppSpaces.spaces_height_5,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -36,7 +36,7 @@ class SingleProductModel {
 
   SingleProductModel.fromJson(dynamic json) {
     id = json['id'];
-    brand = json['brand'];
+    brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
     if (json['graph'] != null) {
       graph = [];
       json['graph'].forEach((v) {
@@ -73,7 +73,7 @@ class SingleProductModel {
   }
 
   int? id;
-  dynamic brand;
+  Brand? brand;
   List<Graph>? graph;
   int? type;
   String? name;
@@ -164,4 +164,25 @@ class Graph {
     map['price'] = price;
     return map;
   }
+}
+
+class Brand {
+  Brand({
+    this.id,
+    this.name,});
+
+  Brand.fromJson(dynamic json) {
+    id = json['id'];
+    name = json['name'];
+  }
+  int? id;
+  String? name;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['name'] = name;
+    return map;
+  }
+
 }

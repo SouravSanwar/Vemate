@@ -7,6 +7,7 @@ import 'package:ketemaa/core/models/VaultStatusModel.dart';
 
 import 'package:ketemaa/graph/product_details.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
 
@@ -28,7 +29,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
-        clipBehavior: Clip.antiAlias,
+          clipBehavior: Clip.antiAlias,
           width: Get.width,
           decoration: BoxDecoration(
             gradient: AppColors.cardGradient,
@@ -99,13 +100,12 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       child: Container(
                         alignment: Alignment.center,
                         child: const Text(
-                              '24H',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15),
-                            ),
-
+                          '24H',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15),
+                        ),
                         width: Get.width * .15,
                         height: Get.height * .03,
                         decoration: BoxDecoration(
@@ -125,8 +125,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                   Expanded(
                     flex: 5,
                     child: Text(
-                      '\$' +
-                          widget.vaultStatsModel!.totalVaultValue.toString(),
+                      '\$' + widget.vaultStatsModel!.totalVaultValue.toString(),
                       textAlign: TextAlign.start,
                       style: Get.textTheme.bodyText2!.copyWith(
                           color: AppColors.grey,
@@ -203,9 +202,40 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                   left: Get.width * .02,
                 ),
                 height: Get.height * .12,
-                /*child: LineChart(
-                  mainData(), // Optional
-                  swapAnimationCurve: Curves.easeInOutBack, // Optional
+                /*child: SfCartesianChart(
+                  plotAreaBorderWidth: 0,
+                  primaryXAxis: CategoryAxis(
+                    isVisible: false,
+                    majorGridLines: const MajorGridLines(width: 0),
+                    labelIntersectAction: AxisLabelIntersectAction.hide,
+                    labelRotation: 270,
+                    labelAlignment: LabelAlignment.start,
+                    maximumLabels: 7,
+                  ),
+                  primaryYAxis: CategoryAxis(
+                    isVisible: false,
+                    majorGridLines: const MajorGridLines(width: 0),
+                    labelIntersectAction: AxisLabelIntersectAction.hide,
+                    labelRotation: 0,
+                    labelAlignment: LabelAlignment.start,
+                    maximumLabels: 10,
+                  ),
+                  tooltipBehavior: TooltipBehavior(enable: true),
+                  series: <ChartSeries<Graph, String>>[
+                    LineSeries<Graph, String>(
+                      color: data.collectiblesModel!.results![index]
+                                  .priceChangePercent!.sign ==
+                              'decrease'
+                          ? Colors.red
+                          : Colors.green,
+                      dataSource:
+                          data.collectiblesModel!.results![index].graph!,
+                      xValueMapper: (Graph plot, _) => plot.hour,
+                      yValueMapper: (Graph plot, _) => plot.total,
+                      xAxisName: 'Duration',
+                      yAxisName: 'Total',
+                    )
+                  ],
                 ),*/
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),

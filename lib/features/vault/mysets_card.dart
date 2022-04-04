@@ -26,8 +26,6 @@ class MysetsCard extends StatefulWidget {
 }
 
 class _MysetsCardState extends State<MysetsCard> {
-  bool _isLoaded = false;
-  String? firstHalf;
 
   @override
   void initState() {
@@ -46,7 +44,7 @@ class _MysetsCardState extends State<MysetsCard> {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
-            itemCount: widget.list!.length,
+            itemCount: data.setListModel!.results!.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: const EdgeInsets.all(4.0),
@@ -61,14 +59,14 @@ class _MysetsCardState extends State<MysetsCard> {
                     onTap: () {
                       /*Get.to(() => ChartExample(id: widget.list![index].id));*/
 
-                      widget.list![index].productDetail!.type == 1
+                      data.setListModel!.results![index].productDetail!.type == 1
                           ? Get.to(() => ComicDetails(
                                 productId:
-                                    widget.list![index].productDetail!.id!,
+                                data.setListModel!.results![index].productDetail!.id!,
                               ))
                           : Get.to(() => CollectibleDetails(
                                 productId:
-                                    widget.list![index].productDetail!.id!,
+                                data.setListModel!.results![index].productDetail!.id!,
                               ));
                     },
                     child: Row(
@@ -114,7 +112,8 @@ class _MysetsCardState extends State<MysetsCard> {
                                   series: <ChartSeries<Graph, String>>[
                                     LineSeries<Graph, String>(
                                       color: data.setListModel!.results![index]
-                                                  .productDetail!.graph ==
+                                                  .productDetail!
+                                          .priceChangePercent!.sign ==
                                               'decrease'
                                           ? Colors.red
                                           : Colors.green,
@@ -137,7 +136,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                 color: Colors.white,
                               ),
                               Text(
-                                widget.list![index].productDetail!.name
+                                data.setListModel!.results![index].productDetail!.name
                                     .toString(),
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
@@ -161,7 +160,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                       flex: 2,
                                       child: Text(
                                         r"$" +
-                                            widget.list![index].productDetail!
+                                            data.setListModel!.results![index].productDetail!
                                                 .floorPrice
                                                 .toString(),
                                         textAlign: TextAlign.start,
@@ -179,8 +178,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                             MainAxisAlignment.end,
                                         children: [
                                           Text(
-                                            widget
-                                                    .list![index]
+                                            data.setListModel!.results![index]
                                                     .productDetail!
                                                     .priceChangePercent!
                                                     .percent!
@@ -189,8 +187,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                             textAlign: TextAlign.end,
                                             style: Get.textTheme.bodyText1!
                                                 .copyWith(
-                                                    color: widget
-                                                                .list![index]
+                                                    color: data.setListModel!.results![index]
                                                                 .productDetail!
                                                                 .priceChangePercent!
                                                                 .sign ==
@@ -200,7 +197,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                                     fontWeight: FontWeight.w300,
                                                     fontSize: 10),
                                           ),
-                                          if (widget.list![index].productDetail!
+                                          if (data.setListModel!.results![index].productDetail!
                                                   .priceChangePercent!.sign ==
                                               'decrease')
                                             const Icon(

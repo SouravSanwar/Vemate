@@ -27,8 +27,11 @@ class Urls {
   static String checkSet = mainUrl +
       '/api/v1/veve/public/common-storage/check_duplicate/?type=0&product_id=';
 
-  static String vaultStats = mainUrl + '/api/v1/veve/public/common-storage/vaul'
-      't_stats/';
+  static String vaultStats = mainUrl +
+      '/api/v1/veve/public/common-storage/vaul'
+          't_stats/';
+
+  static String news = mainUrl + '/api/v1/home/public/news/';
 
   static String singleComic = mainUrl + '/comic/';
 }

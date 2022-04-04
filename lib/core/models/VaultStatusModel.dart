@@ -61,9 +61,9 @@ class Comic {
     sign = json['sign'];
     changePercent = double.parse(json['change_percent'].toString()).toPrecision(2);
     changePrice = double.parse(json['change_price'].toString()).toPrecision(2);
-    if (json['comic_graph'] != null) {
+    if (json['graph'] != null) {
       comicGraph = [];
-      json['comic_graph'].forEach((v) {
+      json['graph'].forEach((v) {
         comicGraph?.add(ComicGraph.fromJson(v));
       });
     }
@@ -84,7 +84,7 @@ class Comic {
     map['change_percent'] = changePercent;
     map['change_price'] = changePrice;
     if (comicGraph != null) {
-      map['comic_graph'] = comicGraph?.map((v) => v.toJson()).toList();
+      map['graph'] = comicGraph?.map((v) => v.toJson()).toList();
     }
     map['mcp'] = mcp;
     return map;
@@ -133,7 +133,7 @@ class Collectible {
     changePrice = json['change_price'];
     if (json['collectible_graph'] != null) {
       collectibleGraph = [];
-      json['collectible_graph'].forEach((v) {
+      json['graph'].forEach((v) {
         collectibleGraph?.add(CollectibleGraph.fromJson(v));
       });
     }
@@ -154,7 +154,7 @@ class Collectible {
     map['change_percent'] = changePercent;
     map['change_price'] = changePrice;
     if (collectibleGraph != null) {
-      map['collectible_graph'] =
+      map['graph'] =
           collectibleGraph?.map((v) => v.toJson()).toList();
     }
     map['mcp'] = mcp;

@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:ketemaa/core/models/CheckSetCheck.dart';
 import 'package:ketemaa/core/models/CheckWishlistModel.dart';
 import 'package:ketemaa/core/models/ComicsModel.dart';
+import 'package:ketemaa/core/models/NewsModel.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
 import 'package:ketemaa/core/models/SearchCollectiblesModel.dart';
 import 'package:ketemaa/core/models/SearchComicsModel.dart';
@@ -36,6 +37,8 @@ class GetData extends ChangeNotifier {
   SetListModel? setListModel;
 
   VaultStatsModel? vaultStatsModel;
+
+  NewsModel? newsModel;
 
   Map<String, String> requestHeadersWithToken = {
     'Content-type': 'application/json',
@@ -267,6 +270,23 @@ class GetData extends ChangeNotifier {
 
     printInfo(info: data.toString());
     vaultStatsModel = VaultStatsModel.fromJson(data);
+
+    notifyListeners();
+  }
+
+  Future getNews() async {
+    newsModel = null;
+    final response = await http.get(
+      Uri.parse(
+        Urls.news,
+      ),
+      headers: requestToken,
+    );
+
+    var data = json.decode(response.body.toString());
+
+    printInfo(info: data.toString());
+    newsModel = NewsModel.fromJson(data);
 
     notifyListeners();
   }
