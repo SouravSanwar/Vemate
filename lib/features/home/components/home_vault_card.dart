@@ -98,38 +98,14 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Container(
                         alignment: Alignment.center,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton2(
-                            hint: const Text(
+                        child: const Text(
                               '24H',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 15),
                             ),
-                            items: <String>['24H', '7D', '30D', '1Y']
-                                .map((item) => DropdownMenuItem<String>(
-                                      value: "24H",
-                                      child: Text(
-                                        item,
-                                        style: const TextStyle(
-                                          fontSize: 13,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ))
-                                .toList(),
-                            value: selectedValue,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedValue = value as String;
-                              });
-                            },
-                            alignment: Alignment.center,
-                            dropdownDecoration: BoxDecoration(
-                                gradient: AppColors.purpleGradient),
-                          ),
-                        ),
+
                         width: Get.width * .15,
                         height: Get.height * .03,
                         decoration: BoxDecoration(

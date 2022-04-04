@@ -37,7 +37,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return SizedBox(
-        height: Get.height * .7,
+        height: Get.height * .8,
         child: data.collectiblesModel != null
             ? SmartRefresher(
                 key: _refreshkey,
@@ -99,7 +99,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                AppSpaces.spaces_width_5,
+                                AppSpaces.spaces_width_2,
                                 Expanded(
                                   flex: 7,
                                   child: Column(
@@ -229,7 +229,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                     ],
                                   ),
                                 ),
-                                AppSpaces.spaces_width_5,
+                                AppSpaces.spaces_width_2,
                                 Expanded(
                                   flex: 3,
                                   child: Column(

@@ -240,7 +240,7 @@ class _MarketState extends State<Market> {
                             ),
                           ),
                         ),
-                        Expanded(
+                        /*Expanded(
                           child: InkWell(
                             onTap: () {
                               currentIndex = 3;
@@ -262,7 +262,7 @@ class _MarketState extends State<Market> {
                                     ),
                             ),
                           ),
-                        ),
+                        ),*/
                       ],
                     ),
                   ),

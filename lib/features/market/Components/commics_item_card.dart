@@ -42,7 +42,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return SizedBox(
-        height: Get.height * .7,
+        height: Get.height * .8,
         child: data.comicsModel != null
             ? SmartRefresher(
                 key: _refreshkey,
