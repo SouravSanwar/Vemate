@@ -81,7 +81,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                     SizedBox(
                       height: Get.height * .09,
                       child: widget.data!.collectibleGraph == null
-                          ? Container()
+                          ? Container(child: Text("try"))
                           : SizedBox(
                               height: Get.height * .05,
                               child: SfCartesianChart(
