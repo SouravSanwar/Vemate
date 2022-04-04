@@ -36,19 +36,11 @@ class _VaultState extends State<Vault> {
 
     getData!.getSetList();
     getData!.getWishList();
-
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        _isLoaded = true;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     Get.put(ControllerPageController());
-    double percent = 3.30;
-    SharedPreferenceController.to.getToken();
 
     return Scaffold(
       backgroundColor: const Color(0xff272E49),

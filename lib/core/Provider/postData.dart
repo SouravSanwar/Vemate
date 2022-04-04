@@ -284,7 +284,7 @@ class PostData extends ChangeNotifier {
         if (js['is_email_verified'] == true) {
           prefs = await SharedPreferences.getInstance();
 
-          Store(js, context);
+          await Store(js, context);
 
           printInfo(info:'Token from LogIn: '+ prefs!.getString
             ('is_email_verified').toString());
