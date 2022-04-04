@@ -165,7 +165,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                             flex: 5,
                                             child: Text(
                                               data.comicsModel!.results![index]
-                                                  .brand
+                                                  .series
                                                   .toString(),
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!

@@ -183,9 +183,11 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                 ),
               ),
             ),
+            SizedBox(height: Get.height * .038,)
           ],
         ),
       ),
+
     );
   }
 }

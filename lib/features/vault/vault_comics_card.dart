@@ -81,11 +81,11 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                   padding: const EdgeInsets.only(left: 30, top: 10, right: 10),
                   child: Column(
                     children: [
-                      Text('Try'),
+
                       SizedBox(
                         height: Get.height * .07,
                         child: widget.data!.comicGraph == null
-                            ? Container()
+                            ? Container(child:Text('Try'),)
                             : SfCartesianChart(
                                 plotAreaBorderWidth: 0,
                                 primaryXAxis: CategoryAxis(
@@ -116,7 +116,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                                         : Colors.green,
                                     dataSource: widget.data!.comicGraph!,
                                     xValueMapper: (ComicGraph plot, _) =>
-                                        plot.inHour,
+                                        plot.hour,
                                     yValueMapper: (ComicGraph plot, _) =>
                                         plot.total,
                                     xAxisName: 'Duration',
@@ -180,7 +180,8 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                             ),
                           ),
                         ],
-                      )
+                      ),
+                      SizedBox(height: Get.height * .038,)
                     ],
                   ),
                 ),

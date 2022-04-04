@@ -34,26 +34,45 @@ class ControllerPage extends StatelessWidget {
   Future<bool> _willPopCallback() async {
     Get.dialog(
       Dialog(
+        backgroundColor: const Color(0xff272E49),
         child: Container(
           width: Get.height * .25,
-          color: AppColors.lightBackgroundColor,
+          decoration: BoxDecoration(
+            gradient: AppColors.cardGradient,
+            borderRadius: BorderRadius.circular(12.0),
+          ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding:const EdgeInsets.symmetric(
+              horizontal: 8.0, vertical: 10.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                      border: Border(
-                    bottom:
-                        BorderSide(width: 2.0, color: AppColors.primaryColor),
-                  )),
-                  child: Text('Alart'),
+                  child: Row(
+                    children: [
+                       SizedBox(
+                            height: Get.height * .02,
+                            width: Get.height * .02,
+                            child: Image.asset(
+                              'assets/media/icon/logo v.png',
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                      SizedBox(width: Get.height * .01,),
+                      Text(
+                        "Vemate",
+                        style: Get.textTheme.headline1!
+                            .copyWith(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
                 ),
                 AppSpaces.spaces_height_10,
-                Text('Are you sure to exit?'),
+                const Text('Are you sure to exit?',style: TextStyle(color:Colors.white),),
                 AppSpaces.spaces_height_10,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -64,7 +83,7 @@ class ControllerPage extends StatelessWidget {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
+                          gradient: AppColors.purpleGradient,
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
@@ -74,9 +93,9 @@ class ControllerPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: Padding(
+                        child: const Padding(
                           padding: EdgeInsets.all(8.0),
-                          child: Text('No'),
+                          child: Text('No',style: TextStyle(color:Colors.white),),
                         ),
                       ),
                     ),
@@ -87,7 +106,7 @@ class ControllerPage extends StatelessWidget {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
+                          gradient: AppColors.purpleGradient,
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
@@ -97,9 +116,9 @@ class ControllerPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: Padding(
+                        child: const Padding(
                           padding: EdgeInsets.all(8.0),
-                          child: Text('Yes'),
+                          child: Text('Yes',style: TextStyle(color:Colors.white),),
                         ),
                       ),
                     ),
