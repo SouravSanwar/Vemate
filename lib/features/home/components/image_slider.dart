@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
+import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 
 class ImageSlider extends StatefulWidget {
@@ -35,7 +36,7 @@ class _ImageSliderState extends State<ImageSlider> {
           reverse: false,
           autoPlay: true,
           autoPlayInterval: const Duration(seconds: 2),
-          autoPlayAnimationDuration: const Duration(milliseconds: 500),
+          autoPlayAnimationDuration: const Duration(milliseconds: 1000),
           autoPlayCurve: Curves.fastOutSlowIn,
           enlargeCenterPage: true,
           scrollDirection: Axis.horizontal,
@@ -60,11 +61,15 @@ class _ImageSliderState extends State<ImageSlider> {
                 Container(
                   width: Get.width,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(.3),
+                    color: AppColors.backgroundColor.withOpacity(.5),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
-                    child: Text(widget.news![index].title.toString()),
+                    child: Text(
+                      widget.news![index].title.toString(),
+                      style: Get.textTheme.labelMedium!
+                          .copyWith(color: Colors.white),
+                    ),
                   ),
                 ),
               ],

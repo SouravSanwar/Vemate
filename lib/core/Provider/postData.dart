@@ -284,10 +284,9 @@ class PostData extends ChangeNotifier {
         if (js['is_email_verified'] == true) {
           prefs = await SharedPreferences.getInstance();
 
-          await Store(js, context);
+          prefs!.setString('token', js['token'].toString());
 
-          printInfo(info:'Token from LogIn: '+ prefs!.getString
-            ('is_email_verified').toString());
+          await Store(js, context);
 
           Get.to(() => ControllerPage());
 
@@ -336,7 +335,8 @@ class PostData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future updateProfile(BuildContext context, var body) async {
+  Future updateProfile(BuildContext context, var body, var
+  requestHeadersWithToken) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -413,7 +413,7 @@ class PostData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future addToWishlist(BuildContext context, var body, int? id) async {
+  Future addToWishlist(BuildContext context, var body, int? id, var requestHeadersWithToken) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -426,10 +426,9 @@ class PostData extends ChangeNotifier {
     print(response.body.toString());
     var x = json.decode(response.body);
 
+    printInfo(info: requestHeadersWithToken.toString());
+
     if (response.statusCode == 200 ||
-        response.statusCode == 401 ||
-        response.statusCode == 403 ||
-        response.statusCode == 500 ||
         response.statusCode == 201) {
       Navigator.of(context).pop();
       getData = Provider.of<GetData>(context, listen: false);
@@ -448,15 +447,15 @@ class PostData extends ChangeNotifier {
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
           duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Something went wrong",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          messageText: Text(
+            x["detail"],
+            style: const TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }
     notifyListeners();
   }
 
-  Future addToSet(BuildContext context, var body, int? id) async {
+  Future addToSet(BuildContext context, var body, int? id, var requestHeadersWithToken) async {
     showDialog(
         context: context,
         barrierDismissible: false,

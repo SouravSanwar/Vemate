@@ -26,6 +26,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   String _url = 'https://flutter.dev';
+
   @override
   Widget build(BuildContext context) {
     final _dialog = RatingDialog(
@@ -126,7 +127,7 @@ class _ProfileState extends State<Profile> {
                           arguments: data.profileModel,
                         );
                       }),
-                     /* CustomProfileElements(
+                      /* CustomProfileElements(
                           Icons.help_outline, "Help and Support", () {}),*/
                       CustomProfileElements(
                           Icons.privacy_tip_outlined, "Privacy Policy", () {}),
@@ -142,19 +143,23 @@ class _ProfileState extends State<Profile> {
                             'Visit Vemate Website:\n https://www.vemate.com/');
                       }),
                       CustomProfileElements(
-                          Icons.info_outline_rounded, "About Vemate", () async{
-
-                       String url = 'https://www.vemate.com/';
+                          Icons.info_outline_rounded, "About Vemate", () async {
+                        String url = 'https://www.vemate.com/';
                         if (await canLaunch(url)) {
-                        await launch(url);
+                          await launch(url);
                         } else {
-                        throw 'Could not launch $url';
+                          throw 'Could not launch $url';
                         }
-
                       }),
-                      CustomProfileElements(Icons.logout, "Log Out", () {
+                      CustomProfileElements(Icons.logout, "Log Out", () async {
+                        printInfo(info: data.profileModel!.nickname.toString());
+                        await Provider.of<GetData>(context, listen: false)
+                            .clearData();
+
+                        await prefs!.clear();
+
+                        Future.delayed(const Duration(seconds: 3));
                         Get.offAll(() => const AuthInitialPage());
-                        prefs!.clear();
                       }),
                     ],
                   ),

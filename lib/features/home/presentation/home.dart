@@ -25,7 +25,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int? currentIndex = 1;
   bool? allSelected = true;
   bool? dropSelected = false;
   bool? setsSelected = false;
@@ -83,7 +82,9 @@ class _HomeState extends State<Home> {
       backgroundColor: const Color(0xff272E49),
       body: Consumer<GetData>(
         builder: (context, data, child) {
-          return data.profileModel != null && data.vaultStatsModel != null
+          return data.profileModel != null &&
+                  data.vaultStatsModel != null &&
+                  data.newsModel != null
               ? SafeArea(
                   child: ListView(
                     shrinkWrap: true,
@@ -163,7 +164,9 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       AppSpaces.spaces_height_10,
-                      ImageSlider(news: data.newsModel!.results,),
+                      ImageSlider(
+                        news: data.newsModel!.results,
+                      ),
                       AppSpaces.spaces_height_10,
                       Padding(
                         padding: const EdgeInsets.only(

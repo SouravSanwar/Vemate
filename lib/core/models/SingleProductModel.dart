@@ -53,7 +53,7 @@ class SingleProductModel {
     dropDate = json['drop_date'];
     listPrice = json['list_price'];
     editions = json['editions'];
-    editionType = json['edition_type'];
+    editionType = json['edition_type'] ?? '';
     season = json['season'];
     rarity = json['rarity'];
     license = json['license'];
@@ -169,12 +169,14 @@ class Graph {
 class Brand {
   Brand({
     this.id,
-    this.name,});
+    this.name,
+  });
 
   Brand.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
   }
+
   int? id;
   String? name;
 
@@ -184,5 +186,4 @@ class Brand {
     map['name'] = name;
     return map;
   }
-
 }

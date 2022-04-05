@@ -58,9 +58,18 @@ class GetData extends ChangeNotifier {
 
     var data = json.decode(response.body.toString());
 
-    //printInfo(info: data.toString());
+    printInfo(info: requestToken.toString());
 
     profileModel = ProfileModel.fromJson(data);
+
+    notifyListeners();
+  }
+
+  clearData() {
+    profileModel = null;
+    vaultStatsModel = null;
+    wishListModel = null;
+    setListModel = null;
 
     notifyListeners();
   }
@@ -76,6 +85,9 @@ class GetData extends ChangeNotifier {
 
     var data = json.decode(response.body.toString());
 
+    printInfo(
+        info: Urls.mainUrl +
+            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset');
     //printInfo(info: data.toString());
 
     if (collectiblesModel != null) {
