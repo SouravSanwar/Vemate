@@ -53,7 +53,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       style: Get.textTheme.bodyText2!.copyWith(
                           color: AppColors.white,
                           fontWeight: FontWeight.w600,
-                          fontSize: 15),
+                          fontSize: 14),
                     ),
                   ),
                   Expanded(
@@ -64,11 +64,11 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       style: Get.textTheme.bodyText2!.copyWith(
                           color: AppColors.white,
                           fontWeight: FontWeight.w600,
-                          fontSize: 15),
+                          fontSize: 14),
                     ),
                   ),
                   Expanded(
-                    flex: 3,
+                    flex: 5,
                     child: Container(
                       width: Get.width * .15,
                       height: Get.height * .03,
@@ -80,12 +80,12 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       ),
                       child: Text(
                         '\$' +
-                            widget.vaultStatsModel!.totalPriceChange.toString(),
+                            widget.vaultStatsModel!.totalPriceChange.toStringAsFixed(2),
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText2!.copyWith(
                             color: AppColors.white,
                             fontWeight: FontWeight.w600,
-                            fontSize: 15),
+                            fontSize: 14),
                       ),
                     ),
                   ),
@@ -104,7 +104,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
-                              fontSize: 15),
+                              fontSize: 14),
                         ),
                         width: Get.width * .15,
                         height: Get.height * .03,
@@ -130,7 +130,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       style: Get.textTheme.bodyText2!.copyWith(
                           color: AppColors.grey,
                           fontWeight: FontWeight.w600,
-                          fontSize: 15),
+                          fontSize: 14),
                     ),
                   ),
                   Expanded(
@@ -141,11 +141,11 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       style: Get.textTheme.bodyText2!.copyWith(
                           color: AppColors.grey,
                           fontWeight: FontWeight.w600,
-                          fontSize: 15),
+                          fontSize: 14),
                     ),
                   ),
                   Expanded(
-                    flex: 3,
+                    flex: 5,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -173,7 +173,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                               ? widget.vaultStatsModel!.totalPercentChange!
                                   .toString()
                               : widget.vaultStatsModel!.totalPercentChange!
-                                      .toString() +
+                                      .toStringAsFixed(2) +
                                   "%",
                           textAlign: TextAlign.end,
                           style: TextStyle(
@@ -182,6 +182,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                 ? Colors.red
                                 : Colors.green,
                             fontWeight: FontWeight.bold,
+                            fontSize: 14,
                           ),
                         ),
                       ],

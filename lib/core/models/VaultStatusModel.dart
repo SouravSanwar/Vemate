@@ -127,17 +127,17 @@ class Collectible {
   });
 
   Collectible.fromJson(dynamic json) {
-    totalCollectibleValue = json['total_collectible_value'];
-    sign = json['sign'];
-    changePercent = double.parse(json['change_percent'].toString()).toPrecision(2);
-    changePrice = json['change_price'];
-    if (json['collectible_graph'] != null) {
-      collectibleGraph = [];
-      json['graph'].forEach((v) {
-        collectibleGraph?.add(CollectibleGraph.fromJson(v));
-      });
-    }
-    mcp = json['mcp'];
+  totalCollectibleValue = json['total_collectible_value'];
+  sign = json['sign'];
+  changePercent = double.parse(json['change_percent'].toString()).toPrecision(2);
+  changePrice = double.parse(json['change_price'].toString()).toPrecision(2);
+  if (json['graph'] != null) {
+    collectibleGraph = [];
+  json['graph'].forEach((v) {
+    collectibleGraph?.add(CollectibleGraph.fromJson(v));
+  });
+  }
+  mcp = json['mcp'];
   }
 
   var totalCollectibleValue;
@@ -153,12 +153,12 @@ class Collectible {
     map['sign'] = sign;
     map['change_percent'] = changePercent;
     map['change_price'] = changePrice;
-    if (collectibleGraph != null) {
-      map['graph'] =
-          collectibleGraph?.map((v) => v.toJson()).toList();
-    }
-    map['mcp'] = mcp;
-    return map;
+
+      if (collectibleGraph != null) {
+        map['graph'] = collectibleGraph?.map((v) => v.toJson()).toList();
+      }
+      map['mcp'] = mcp;
+      return map;
   }
 }
 

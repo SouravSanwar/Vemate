@@ -45,7 +45,7 @@ class Results {
     this.type,
     this.name,
     this.edition,
-    this.brand,
+    this.series,
     this.rarity,
     this.floorPrice,
     this.priceChangePercent,
@@ -59,7 +59,7 @@ class Results {
     type = json['type'];
     name = json['name'];
     edition = json['edition'];
-    brand = json['brand'];
+    series= json['series'];
     rarity = json['rarity'];
     floorPrice = json['floor_price'];
     priceChangePercent = json['price_change_percent'] != null
@@ -87,7 +87,7 @@ class Results {
   int? type;
   String? name;
   String? edition;
-  dynamic brand;
+  String? series;
   String? rarity;
   String? floorPrice;
   PriceChangePercent? priceChangePercent;
@@ -101,7 +101,7 @@ class Results {
     map['type'] = type;
     map['name'] = name;
     map['edition'] = edition;
-    map['brand'] = brand;
+    map['series'] = series;
     map['rarity'] = rarity;
     map['floor_price'] = floorPrice;
     if (priceChangePercent != null) {

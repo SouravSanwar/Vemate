@@ -246,7 +246,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     ItemDetailsHelper(
                       text: "Brand",
-                      text1: data.singleProductModel != null
+                      text1: data.singleProductModel!.brand != null
                           ? data.singleProductModel!.brand!.name.toString()
                           : "",
                     ),

@@ -58,19 +58,19 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
       appBar: AppBar(
         elevation: 1.0,
         titleSpacing: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.grey),
         backgroundColor: AppColors.lightBackgroundColor,
         title: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: TextFormField(
             controller: searchController,
-            cursorColor: Colors.black,
+            cursorColor: Colors.grey,
             keyboardType: TextInputType.text,
-            style: const TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.white),
             decoration: const InputDecoration(
                 suffixIcon: Icon(
                   Icons.search,
-                  color: Colors.black,
+                  color: Colors.grey,
                 ),
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
@@ -80,7 +80,10 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                 contentPadding:
                     EdgeInsets.only(left: 15, bottom: 11, top: 13, right: 15),
                 hintText: "Search Collectible",
-                hintStyle: TextStyle(color: Colors.black38)),
+                hintStyle: TextStyle(color: Colors.white),
+
+
+            ),
             onChanged: (text) {
               text = searchController.text;
               searchText =
@@ -146,7 +149,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                AppSpaces.spaces_width_5,
+                                AppSpaces.spaces_width_2,
                                 Expanded(
                                   flex: 11,
                                   child: Column(
@@ -250,28 +253,15 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                           .withOpacity(0.8),
                                                       fontWeight:
                                                           FontWeight.w900,
-                                                      fontSize: 12),
+                                                      fontSize: 11),
                                             ),
                                           ),
                                           const SizedBox(
                                             width: 2,
                                           ),
-                                          Expanded(
+                                          const Expanded(
                                             flex: 3,
-                                            child: Text(
-                                              "MCP " +
-                                                  data.searchCollectiblesModel!
-                                                      .results![index].rarePoint
-                                                      .toString(),
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText1!
-                                                  .copyWith(
-                                                      color: AppColors.greyWhite
-                                                          .withOpacity(0.8),
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      fontSize: 10),
-                                            ),
+                                            child: Text(""),
                                           ),
                                         ],
                                       ),
@@ -354,7 +344,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                           .withOpacity(0.9),
                                                       fontWeight:
                                                           FontWeight.w400,
-                                                      fontSize: 12),
+                                                      fontSize: 11),
                                             ),
                                           ),
                                           Expanded(

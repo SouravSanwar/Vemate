@@ -201,27 +201,16 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                           .withOpacity(0.8),
                                                       fontWeight:
                                                           FontWeight.w900,
-                                                      fontSize: 12),
+                                                      fontSize: 11),
                                             ),
                                           ),
                                           const SizedBox(
                                             width: 2,
                                           ),
-                                          Expanded(
+                                          const Expanded(
                                             flex: 2,
                                             child: Text(
-                                              "MCP " +
-                                                  data.collectiblesModel!
-                                                      .results![index].rarePoint
-                                                      .toString(),
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText1!
-                                                  .copyWith(
-                                                      color: AppColors.greyWhite
-                                                          .withOpacity(0.8),
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      fontSize: 10),
+                                            ""
                                             ),
                                           ),
                                         ],
@@ -307,7 +296,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                             .withOpacity(0.9),
                                                         fontWeight:
                                                             FontWeight.w400,
-                                                        fontSize: 12),
+                                                        fontSize: 11),
                                               ),
                                             ),
                                           ),

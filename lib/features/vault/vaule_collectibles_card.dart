@@ -10,6 +10,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
+import '../../core/utilities/app_spaces/app_spaces.dart';
 
 class VaultCollectiblesCard extends StatefulWidget {
   final Collectible? data;
@@ -48,13 +49,13 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    AppSpaces.spaces_height_5,
                     Text(
                       '\$' + widget.data!.totalCollectibleValue!.toString(),
                       style: const TextStyle(
                           color: Colors.grey, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 30),
+                    AppSpaces.spaces_height_30,
                     const Text(
                       "MCP",
                       style: TextStyle(
@@ -62,12 +63,13 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    AppSpaces.spaces_height_5,
                     Text(
                       '\$' + widget.data!.mcp!.toString(),
                       style: const TextStyle(
                           color: Colors.grey, fontWeight: FontWeight.bold),
                     ),
+                    AppSpaces.spaces_height_10,
                   ],
                 ),
               ),
@@ -79,9 +81,9 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: Get.height * .09,
+                      height: Get.height * .07,
                       child: widget.data!.collectibleGraph == null
-                          ? Container(child: Text("try"))
+                          ? Container()
                           : SizedBox(
                               height: Get.height * .05,
                               child: SfCartesianChart(
@@ -114,7 +116,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                         : Colors.green,
                                     dataSource: widget.data!.collectibleGraph!,
                                     xValueMapper: (CollectibleGraph plot, _) =>
-                                        plot.inHour,
+                                        plot.hour,
                                     yValueMapper: (CollectibleGraph plot, _) =>
                                         plot.total,
                                     xAxisName: 'Duration',
@@ -133,7 +135,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                           width: Get.width * .1,
                         ),
                         Text(
-                          '\$' + widget.data!.changePrice!.toString(),
+                          '\$' + widget.data!.changePrice!.toStringAsFixed(2),
                           style: const TextStyle(
                               color: Colors.grey, fontWeight: FontWeight.bold),
                         ),
@@ -184,7 +186,6 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                 ),
               ),
             ),
-            SizedBox(height: Get.height * .038,)
           ],
         ),
       ),

@@ -24,7 +24,6 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
 
   @override
   Widget build(BuildContext context) {
-    printInfo(info: widget.data!.comicGraph![0].inHour);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -84,8 +83,10 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                       SizedBox(
                         height: Get.height * .07,
                         child: widget.data!.comicGraph == null
-                            ? Text('Try')
-                            : SfCartesianChart(
+                            ? Container()
+                            : SizedBox(
+                          height: Get.height * .05,
+                          child:  SfCartesianChart(
                                 plotAreaBorderWidth: 0,
                                 primaryXAxis: CategoryAxis(
                                   isVisible: false,
@@ -123,6 +124,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                                   )
                                 ],
                               ),
+                        ),
                       ),
                       SizedBox(
                         height: Get.height * .038,
@@ -133,7 +135,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                             width: Get.width * .1,
                           ),
                           Text(
-                            '\$' + widget.data!.changePrice!.toString(),
+                            '\$' + widget.data!.changePrice!.toStringAsFixed(2),
                             style: const TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.bold),

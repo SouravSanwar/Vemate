@@ -115,7 +115,7 @@ class _VaultState extends State<Vault> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 3,
+                                        flex: 5,
                                         child: Container(
                                           width: Get.width * .15,
                                           height: Get.height * .03,
@@ -132,7 +132,7 @@ class _VaultState extends State<Vault> {
                                             '\$' +
                                                 data.vaultStatsModel!
                                                     .totalPriceChange!
-                                                    .toString(),
+                                                    .toStringAsFixed(2),
                                             textAlign: TextAlign.start,
                                             style: Get.textTheme.bodyText2!
                                                 .copyWith(
@@ -155,7 +155,7 @@ class _VaultState extends State<Vault> {
                                           '\$' +
                                               data.vaultStatsModel!
                                                   .totalVaultValue!
-                                                  .toString(),
+                                                  .toStringAsFixed(2),
                                           textAlign: TextAlign.start,
                                           style: Get.textTheme.bodyText2!
                                               .copyWith(
@@ -179,7 +179,7 @@ class _VaultState extends State<Vault> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 3,
+                                        flex: 5,
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -213,10 +213,10 @@ class _VaultState extends State<Vault> {
                                                       0.0
                                                   ? data.vaultStatsModel!
                                                       .totalPercentChange!
-                                                      .toString()
+                                                      .toStringAsFixed(2)
                                                   : data.vaultStatsModel!
                                                           .totalPercentChange!
-                                                          .toString() +
+                                                          .toStringAsFixed(2) +
                                                       "%",
                                               textAlign: TextAlign.end,
                                               style: TextStyle(
@@ -237,7 +237,7 @@ class _VaultState extends State<Vault> {
                               ),
                             ),
                             Expanded(
-                              flex: 5,
+                              flex: 2,
                               child: Container(
                                 padding: const EdgeInsets.only(),
                                 alignment: Alignment.centerLeft,

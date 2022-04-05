@@ -163,7 +163,8 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                         children: [
                                           Expanded(
                                             flex: 5,
-                                            child: Text(
+                                            child:data.comicsModel!.results![index]
+                                                .series==null? Text("") : Text(
                                               data.comicsModel!.results![index]
                                                   .series
                                                   .toString(),
@@ -215,26 +216,13 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                           .withOpacity(0.8),
                                                       fontWeight:
                                                           FontWeight.w900,
-                                                      fontSize: 12),
+                                                      fontSize: 11),
                                             ),
                                           ),
                                           AppSpaces.spaces_width_5,
-                                          Expanded(
+                                          const Expanded(
                                             flex: 3,
-                                            child: Text(
-                                              "MCP " +
-                                                  data.comicsModel!
-                                                      .results![index].rarePoint
-                                                      .toString(),
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText1!
-                                                  .copyWith(
-                                                      color: AppColors.greyWhite
-                                                          .withOpacity(0.8),
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      fontSize: 10),
-                                            ),
+                                            child: Text("" ),
                                           ),
                                         ],
                                       ),
@@ -249,7 +237,8 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                     children: [
                                       SizedBox(
                                         height: Get.height * .05,
-                                        child: SfCartesianChart(
+                                        child: data.comicsModel!
+                                            .results![index].graph == null? Text("") : SfCartesianChart(
                                           plotAreaBorderWidth: 0,
                                           primaryXAxis: CategoryAxis(
                                             isVisible: false,
@@ -317,7 +306,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                           .withOpacity(0.9),
                                                       fontWeight:
                                                           FontWeight.w400,
-                                                      fontSize: 12),
+                                                      fontSize: 11),
                                             ),
                                           ),
                                           Expanded(
