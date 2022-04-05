@@ -127,6 +127,9 @@ class GetData extends ChangeNotifier {
 
     var data = json.decode(response.body.toString());
 
+    printInfo(
+        info: Urls.mainUrl +
+            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset');
     //printInfo(info: data.toString());
 
     if (comicsModel != null) {
