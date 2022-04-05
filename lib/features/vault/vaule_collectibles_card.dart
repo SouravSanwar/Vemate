@@ -137,7 +137,8 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                         Text(
                           '\$' + widget.data!.changePrice!.toStringAsFixed(2),
                           style: const TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
+                              color: Colors.grey, fontWeight: FontWeight
+                              .bold, fontSize: 10),
                         ),
                         Expanded(
                           child: Row(
@@ -147,14 +148,12 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                 width: Get.width * .03,
                               ),
                               Text(
-                                widget.data!.changePercent! < 0.0
-                                    ? widget.data!.changePercent!
-                                        .toStringAsFixed(2)
-                                    : widget.data!.changePercent!
+                                widget.data!.changePercent!
                                             .toStringAsFixed(2) +
                                         "%",
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
+                                  fontSize: 10,
                                   color: widget.data!.sign == 'decrease'
                                       ? Colors.red
                                       : Colors.green,
@@ -165,16 +164,20 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                 width: Get.width * .01,
                               ),
                               if (widget.data!.sign == 'decrease')
-                                const Icon(
-                                  Icons.arrow_downward,
-                                  color: Colors.red,
-                                  size: 18,
+                                Expanded(
+                                  child: const Icon(
+                                    Icons.arrow_downward,
+                                    color: Colors.red,
+                                    size: 18,
+                                  ),
                                 )
                               else
-                                const Icon(
-                                  Icons.arrow_upward,
-                                  color: Colors.green,
-                                  size: 18,
+                                Expanded(
+                                  child: const Icon(
+                                    Icons.arrow_upward,
+                                    color: Colors.green,
+                                    size: 18,
+                                  ),
                                 ),
                             ],
                           ),

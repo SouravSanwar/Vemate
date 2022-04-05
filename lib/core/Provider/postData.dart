@@ -340,13 +340,14 @@ class PostData extends ChangeNotifier {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const CircularProgressIndicator());
+        builder: (_) => const LoadingExample());
 
     printInfo(info: body.toString());
 
     final response = await http.patch(Uri.parse(Urls.updateUserInfo),
         body: json.encode(body), headers: requestHeadersWithToken);
     print(response.body.toString());
+    print(requestHeadersWithToken.toString());
     var x = json.decode(response.body);
 
     if (response.statusCode == 200 ||
