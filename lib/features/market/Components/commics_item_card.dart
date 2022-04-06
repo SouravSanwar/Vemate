@@ -92,8 +92,8 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Container(
-                                  height: 60,
-                                  width: 60,
+                                  height: Get.height * .078,
+                                  width: Get.height * .078,
                                   decoration: BoxDecoration(
                                       color: AppColors.primaryColor
                                           .withOpacity(.8),
@@ -111,16 +111,16 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                AppSpaces.spaces_width_5,
+                                AppSpaces.spaces_width_2,
                                 Expanded(
-                                  flex: 10,
+                                  flex: 7,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: <Widget>[
                                           Expanded(
-                                              flex: 5,
+                                              flex: 4,
                                               child: SizedBox(
                                                 height: Get.height * .02,
                                                 child: Text(
@@ -140,9 +140,9 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                           fontSize: 13),
                                                 ),
                                               )),
-                                          AppSpaces.spaces_width_5,
+                                          AppSpaces.spaces_width_2,
                                           Expanded(
-                                            flex: 3,
+                                            flex: 2,
                                             child: Text(
                                               data.comicsModel!.results![index]
                                                   .edition
@@ -162,12 +162,14 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 5,
+                                            flex: 4,
                                             child:data.comicsModel!.results![index]
                                                 .series==null? Text("") : Text(
                                               data.comicsModel!.results![index]
                                                   .series
                                                   .toString(),
+                                              overflow:
+                                              TextOverflow.ellipsis,
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
@@ -178,9 +180,9 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                       fontSize: 10),
                                             ),
                                           ),
-                                          AppSpaces.spaces_width_5,
+                                          AppSpaces.spaces_width_2,
                                           Expanded(
-                                            flex: 3,
+                                            flex: 2,
                                             child: Text(
                                               data.comicsModel!.results![index]
                                                   .rarity
@@ -201,7 +203,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 5,
+                                            flex: 4,
                                             child: Text(
                                               '\$' +
                                                   data
@@ -219,9 +221,9 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                       fontSize: 11),
                                             ),
                                           ),
-                                          AppSpaces.spaces_width_5,
+                                          AppSpaces.spaces_width_2,
                                           const Expanded(
-                                            flex: 3,
+                                            flex: 2,
                                             child: Text("" ),
                                           ),
                                         ],
@@ -229,11 +231,12 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                     ],
                                   ),
                                 ),
+                                AppSpaces.spaces_width_2,
                                 Expanded(
-                                  flex: 5,
+                                  flex: 4,
                                   child: Column(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.start,
                                     children: [
                                       SizedBox(
                                         height: Get.height * .05,
@@ -294,7 +297,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       AppSpaces.spaces_height_10,
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
                                             child: Text(
@@ -309,6 +312,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                       fontSize: 11),
                                             ),
                                           ),
+                                          AppSpaces.spaces_width_2,
                                           Expanded(
                                             child: Row(
                                               mainAxisAlignment:

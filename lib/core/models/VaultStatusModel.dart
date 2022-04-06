@@ -5,8 +5,10 @@ class VaultStatsModel {
   VaultStatsModel({
     this.totalVaultValue,
     this.mcp,
+    this.sign,
     this.totalPriceChange,
     this.totalPercentChange,
+    this.vaultStatsModelGraph,
     this.collectible,
     this.comic,
   });
@@ -14,6 +16,7 @@ class VaultStatsModel {
   VaultStatsModel.fromJson(dynamic json) {
     totalVaultValue = json['total_vault_value'];
     mcp = json['mcp'];
+    sign = json['sign'];
     totalPriceChange = json['total_price_change'];
     totalPercentChange =
         double.parse(json['total_percent_change'].toString()).toPrecision(2);
@@ -21,12 +24,22 @@ class VaultStatsModel {
         ? Collectible.fromJson(json['collectible'])
         : null;
     comic = json['comic'] != null ? Comic.fromJson(json['comic']) : null;
+
+
+    if (json['graph'] != null) {
+      vaultStatsModelGraph = [];
+      json['graph'].forEach((v) {
+        vaultStatsModelGraph?.add(VaultStatsModelGraph.fromJson(v));
+      });
+    }
   }
 
   var totalVaultValue;
   int? mcp;
+  String? sign;
   var totalPriceChange;
   var totalPercentChange;
+  List<VaultStatsModelGraph>? vaultStatsModelGraph;
   Collectible? collectible;
   Comic? comic;
 
@@ -34,6 +47,7 @@ class VaultStatsModel {
     final map = <String, dynamic>{};
     map['total_vault_value'] = totalVaultValue;
     map['mcp'] = mcp;
+    map['sign'] = sign;
     map['total_price_change'] = totalPriceChange;
     map['total_percent_change'] = totalPercentChange;
     if (collectible != null) {
@@ -42,6 +56,33 @@ class VaultStatsModel {
     if (comic != null) {
       map['comic'] = comic?.toJson();
     }
+    if (vaultStatsModelGraph != null) {
+      map['graph'] = vaultStatsModelGraph?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+}
+class VaultStatsModelGraph {
+  VaultStatsModelGraph({
+    this.hour,
+    this.total,
+    this.inHour,
+  });
+
+  VaultStatsModelGraph.fromJson(dynamic json) {
+    hour = json['hour'];
+    total = json['total'];
+    inHour = DateFormat('hh a').format(DateTime.parse(hour!));
+  }
+
+  String? hour;
+  var inHour;
+  double? total;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['hour'] = hour;
+    map['total'] = total;
     return map;
   }
 }

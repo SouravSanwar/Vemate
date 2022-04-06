@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
-import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 
 class CategoryCard extends StatelessWidget {
   final String? name;

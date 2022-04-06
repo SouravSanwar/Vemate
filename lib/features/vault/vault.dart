@@ -2,17 +2,19 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
+import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
 import 'package:ketemaa/features/vault/vault_comics_card.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../core/utilities/shimmer/loading.dart';
 import 'mysets_card.dart';
 import 'mywishlist_card.dart';
 
 class Vault extends StatefulWidget {
+
   @override
   State<Vault> createState() => _VaultState();
 }
@@ -52,7 +54,6 @@ class _VaultState extends State<Vault> {
                   Container(
                     clipBehavior: Clip.antiAlias,
                     width: Get.width,
-                    height: Get.height * .22,
                     decoration: BoxDecoration(
                       gradient: AppColors.cardGradient,
                       borderRadius: const BorderRadius.vertical(
@@ -77,7 +78,7 @@ class _VaultState extends State<Vault> {
                           ),
                         ]),
                         SizedBox(
-                          height: Get.height * .03,
+                          height: Get.height * .01,
                         ),
                         Row(
                           children: [
@@ -184,11 +185,8 @@ class _VaultState extends State<Vault> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            if (data.vaultStatsModel!
-                                                    .totalPercentChange! <
-                                                0.0)
-                                              //toRotateIcon
-                                              const RotationTransition(
+                                        data.vaultStatsModel!.sign! == 'decrease'?
+                                        const RotationTransition(
                                                 turns: AlwaysStoppedAnimation(
                                                     45 / 360),
                                                 child: Icon(
@@ -197,7 +195,7 @@ class _VaultState extends State<Vault> {
                                                   color: Colors.red,
                                                 ),
                                               )
-                                            else
+                                            :
                                               const RotationTransition(
                                                 turns: AlwaysStoppedAnimation(
                                                     45 / 360),
@@ -220,10 +218,7 @@ class _VaultState extends State<Vault> {
                                                       "%",
                                               textAlign: TextAlign.end,
                                               style: TextStyle(
-                                                  color: data.vaultStatsModel!
-                                                              .totalPercentChange! <
-                                                          0.0
-                                                      ? Colors.red
+                                                  color:data.vaultStatsModel!.sign! == 'decrease'? Colors.red
                                                       : Colors.green,
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 14),
@@ -236,24 +231,63 @@ class _VaultState extends State<Vault> {
                                 ],
                               ),
                             ),
-                            Expanded(
-                              flex: 2,
-                              child: Container(
-                                padding: const EdgeInsets.only(),
-                                alignment: Alignment.centerLeft,
-                                height: Get.height * .05,
-                                child: Container(),
-                              ),
-                            )
+
+
                           ],
-                        )
+                        ),
+                       Container(
+
+                            alignment: Alignment.centerLeft,
+                            height: Get.height * .1,
+                            child:SfCartesianChart(
+                              plotAreaBorderWidth: 0,
+                              primaryXAxis: CategoryAxis(
+                                isVisible: false,
+                                majorGridLines:
+                                const MajorGridLines(width: 0),
+                                labelIntersectAction:
+                                AxisLabelIntersectAction.hide,
+                                labelRotation: 270,
+                                labelAlignment: LabelAlignment.start,
+                                maximumLabels: 7,
+                              ),
+                              primaryYAxis: CategoryAxis(
+                                isVisible: false,
+                                majorGridLines:
+                                const MajorGridLines(width: 0),
+                                labelIntersectAction:
+                                AxisLabelIntersectAction.hide,
+                                labelRotation: 0,
+                                labelAlignment: LabelAlignment.start,
+                                maximumLabels: 10,
+                              ),
+                              tooltipBehavior: TooltipBehavior(enable: true),
+                              series: <ChartSeries<VaultStatsModelGraph, String>>[
+                                AreaSeries<VaultStatsModelGraph, String>(
+                                  color: data.vaultStatsModel!.sign! == 'decrease'
+                                      ? Colors.red
+                                      : Colors.green,
+                                  gradient: AppColors.graphGradient,
+                                  dataSource: data.vaultStatsModel!.vaultStatsModelGraph!,
+                                  xValueMapper: (VaultStatsModelGraph plot, _) =>
+                                  plot.hour,
+                                  yValueMapper: (VaultStatsModelGraph plot, _) =>
+                                  plot.total,
+                                  xAxisName: 'Duration',
+                                  yAxisName: 'Total',
+                                )
+                              ],
+                            ),
+                          ),
+
                       ],
                     ),
                   ),
+
                 ],
               ),
               Container(
-                padding: EdgeInsets.only(top: Get.height * .26),
+                padding: EdgeInsets.only(top: Get.height * .28),
                 child: ListView(
                   children: [
                     Padding(
@@ -346,7 +380,7 @@ class _VaultState extends State<Vault> {
                 ),
               ),
               Positioned(
-                top: Get.height * .188,
+                top: Get.height * .235,
                 left: Get.width * .62,
                 right: 0.0,
                 child: Container(

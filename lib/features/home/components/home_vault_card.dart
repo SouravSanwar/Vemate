@@ -4,12 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
+import 'package:ketemaa/core/models/VaultStatusModel.dart';
 
 import 'package:ketemaa/graph/product_details.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
+import '../../../core/models/VaultStatusModel.dart';
 
 class HomeVaultCard extends StatefulWidget {
   final VaultStatsModel? vaultStatsModel;
@@ -149,7 +151,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        if (widget.vaultStatsModel!.totalPercentChange! < 0.0)
+                    widget.vaultStatsModel!.sign! == 'decrease'?
                           //toRotateIcon
                           const RotationTransition(
                             turns: AlwaysStoppedAnimation(45 / 360),
@@ -159,7 +161,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                               color: Colors.red,
                             ),
                           )
-                        else
+                        :
                           const RotationTransition(
                             turns: AlwaysStoppedAnimation(45 / 360),
                             child: Icon(
@@ -177,8 +179,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   "%",
                           textAlign: TextAlign.end,
                           style: TextStyle(
-                            color: widget.vaultStatsModel!.totalPercentChange! <
-                                    0.0
+                            color:  widget.vaultStatsModel!.sign! == 'decrease'
                                 ? Colors.red
                                 : Colors.green,
                             fontWeight: FontWeight.bold,
@@ -203,46 +204,49 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                   left: Get.width * .02,
                 ),
                 height: Get.height * .12,
-                /*child: SfCartesianChart(
+                child: SfCartesianChart(
                   plotAreaBorderWidth: 0,
                   primaryXAxis: CategoryAxis(
                     isVisible: false,
-                    majorGridLines: const MajorGridLines(width: 0),
-                    labelIntersectAction: AxisLabelIntersectAction.hide,
+                    majorGridLines:
+                    const MajorGridLines(width: 0),
+                    labelIntersectAction:
+                    AxisLabelIntersectAction.hide,
                     labelRotation: 270,
                     labelAlignment: LabelAlignment.start,
                     maximumLabels: 7,
                   ),
                   primaryYAxis: CategoryAxis(
                     isVisible: false,
-                    majorGridLines: const MajorGridLines(width: 0),
-                    labelIntersectAction: AxisLabelIntersectAction.hide,
+                    majorGridLines:
+                    const MajorGridLines(width: 0),
+                    labelIntersectAction:
+                    AxisLabelIntersectAction.hide,
                     labelRotation: 0,
                     labelAlignment: LabelAlignment.start,
                     maximumLabels: 10,
                   ),
                   tooltipBehavior: TooltipBehavior(enable: true),
-                  series: <ChartSeries<Graph, String>>[
-                    LineSeries<Graph, String>(
-                      color: data.collectiblesModel!.results![index]
-                                  .priceChangePercent!.sign ==
-                              'decrease'
+                  series: <ChartSeries<VaultStatsModelGraph, String>>[
+                    LineSeries<VaultStatsModelGraph, String>(
+                      color: widget.vaultStatsModel!.sign! == 'decrease'
                           ? Colors.red
                           : Colors.green,
-                      dataSource:
-                          data.collectiblesModel!.results![index].graph!,
-                      xValueMapper: (Graph plot, _) => plot.hour,
-                      yValueMapper: (Graph plot, _) => plot.total,
+                      dataSource: widget.vaultStatsModel!.vaultStatsModelGraph!,
+                      xValueMapper: (VaultStatsModelGraph plot, _) =>
+                      plot.hour,
+                      yValueMapper: (VaultStatsModelGraph plot, _) =>
+                      plot.total,
                       xAxisName: 'Duration',
                       yAxisName: 'Total',
                     )
                   ],
-                ),*/
-                child: LineChart(
+                ),
+               /* child: LineChart(
                   mainData(), // Optional
                   swapAnimationCurve:
                   Curves.easeInOutBack, // Optional
-                ),
+                ),*/
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                 ),

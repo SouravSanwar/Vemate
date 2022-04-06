@@ -151,14 +151,14 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                 ),
                                 AppSpaces.spaces_width_2,
                                 Expanded(
-                                  flex: 11,
+                                  flex: 7,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: <Widget>[
                                           Expanded(
-                                              flex: 5,
+                                              flex: 4,
                                               child: SizedBox(
                                                 height: Get.height * .02,
                                                 child: Text(
@@ -178,11 +178,9 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                           fontSize: 13),
                                                 ),
                                               )),
-                                          const SizedBox(
-                                            width: 2,
-                                          ),
+                                          AppSpaces.spaces_width_2,
                                           Expanded(
-                                              flex: 3,
+                                              flex: 2,
                                               child: Text(
                                                 data.searchCollectiblesModel!
                                                     .results![index].edition
@@ -201,7 +199,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 5,
+                                            flex: 4,
                                             child: Text(
                                               data.searchCollectiblesModel!
                                                   .results![index].brand
@@ -216,8 +214,9 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                       fontSize: 10),
                                             ),
                                           ),
+                                          AppSpaces.spaces_width_2,
                                           Expanded(
-                                            flex: 3,
+                                            flex: 2,
                                             child: Text(
                                               data.searchCollectiblesModel!
                                                   .results![index].rarity
@@ -238,7 +237,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 5,
+                                            flex: 4,
                                             child: Text(
                                               r"$" +
                                                   data
@@ -256,11 +255,9 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                       fontSize: 11),
                                             ),
                                           ),
-                                          const SizedBox(
-                                            width: 2,
-                                          ),
+                                          AppSpaces.spaces_width_2,
                                           const Expanded(
-                                            flex: 3,
+                                            flex: 2,
                                             child: Text(""),
                                           ),
                                         ],
@@ -269,7 +266,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 6,
+                                  flex: 4,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [

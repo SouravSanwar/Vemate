@@ -46,6 +46,14 @@ class AppColors {
       Color(0xff303B5B),
     ],
   );
+  static LinearGradient graphGradient=const LinearGradient(
+    colors: [
+    Color(0xff8053B7),
+    Color(0xff8053B7),
+    Color(0xff584D9F),
+    Color(0xff393E6B),
+     ],
+  );
   static Gradient vaultBarGradient=const LinearGradient(
     colors: [
       Color(0xff454F70),
