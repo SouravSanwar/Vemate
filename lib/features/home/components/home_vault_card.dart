@@ -200,12 +200,10 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                 ],
               ),
               Container(
-                padding: EdgeInsets.only(
-                  left: Get.width * .02,
-                ),
                 height: Get.height * .12,
                 child: SfCartesianChart(
                   plotAreaBorderWidth: 0,
+                  margin: EdgeInsets.zero,
                   primaryXAxis: CategoryAxis(
                     isVisible: false,
                     majorGridLines:
@@ -228,10 +226,11 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                   ),
                   tooltipBehavior: TooltipBehavior(enable: true),
                   series: <ChartSeries<VaultStatsModelGraph, String>>[
-                    LineSeries<VaultStatsModelGraph, String>(
+                    SplineAreaSeries<VaultStatsModelGraph, String>(
                       color: widget.vaultStatsModel!.sign! == 'decrease'
                           ? Colors.red
                           : Colors.green,
+                      gradient: AppColors.graphGradient,
                       dataSource: widget.vaultStatsModel!.vaultStatsModelGraph!,
                       xValueMapper: (VaultStatsModelGraph plot, _) =>
                       plot.hour,
@@ -242,86 +241,10 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                     )
                   ],
                 ),
-               /* child: LineChart(
-                  mainData(), // Optional
-                  swapAnimationCurve:
-                  Curves.easeInOutBack, // Optional
-                ),*/
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
               ),
             ],
-          )),
-    );
-  }
-  List<Color> gradientColors = [];
-
-  LineChartData mainData() {
-    return LineChartData(
-      borderData: FlBorderData(
-        show: false,
+          )
       ),
-      gridData: FlGridData(
-          show: false,
-          horizontalInterval: 1.6,
-          getDrawingHorizontalLine: (value) {
-            return FlLine(
-              dashArray: const [3, 3],
-              color: const Color(0xff37434d).withOpacity(0.2),
-              strokeWidth: 2,
-            );
-          },
-          drawVerticalLine: false),
-      titlesData: FlTitlesData(
-        show: false,
-        rightTitles: SideTitles(showTitles: false),
-        topTitles: SideTitles(showTitles: false),
-        bottomTitles:SideTitles(showTitles: false),
-
-        leftTitles: SideTitles(showTitles: false),
-      ),
-      minX: 0,
-      maxX: 44,
-      minY: 0,
-      maxY: 10,
-      lineBarsData: [
-        LineChartBarData(
-          spots:  [
-            FlSpot(0, 0),
-            FlSpot(2.9, 2),
-            FlSpot(4.4, 3),
-            FlSpot(6.4, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 4),
-            FlSpot(12, 5),
-            FlSpot(16, 1),
-            FlSpot(20, 8),
-            FlSpot(24, 2),
-            FlSpot(28, 4.1),
-            FlSpot(32, 5),
-            FlSpot(36, 2.9),
-            FlSpot(40, 1.8),
-            FlSpot(44, 6),
-          ],
-          isCurved: true,
-          colors: gradientColors,
-          barWidth: 1,
-          dotData: FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(
-              show: true,
-              gradientFrom: Offset(0, 0),
-              gradientTo: Offset(0, 1),
-              colors: [
-                const Color(0xff8053B7),
-                const Color(0xff8053B7),
-                const Color(0xff584D9F),
-                const Color(0xff393E6B),
-              ]),
-        ),
-      ],
     );
   }
 }

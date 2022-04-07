@@ -46,13 +46,30 @@ class AppColors {
       Color(0xff303B5B),
     ],
   );
+  static Gradient vaultCardGradient=const LinearGradient(
+    colors: [
+      Color(0xff454F70),
+      Color(0xff3F496A),
+      Color(0xff374162),
+      Color(0xff303B5B),
+      Color(0xff584D9F),
+      Color(0xff393E6B),
+    ],
+    begin: Alignment.topCenter,
+    // end at the bottom
+    end: Alignment.bottomCenter,
+  );
   static LinearGradient graphGradient=const LinearGradient(
     colors: [
+    Color(0xff8053B7),
     Color(0xff8053B7),
     Color(0xff8053B7),
     Color(0xff584D9F),
     Color(0xff393E6B),
      ],
+    begin: Alignment.topCenter,
+    // end at the bottom
+    end: Alignment.bottomCenter,
   );
   static Gradient vaultBarGradient=const LinearGradient(
     colors: [
@@ -68,3 +85,4 @@ class AppColors {
   );
 
 }
+

@@ -320,11 +320,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                               yAxisName: 'Total',
                                             )
                                           ],
-                                        ), /*LineChart(
-                                        mainData(), // Optional
-                                        swapAnimationCurve:
-                                            Curves.linear, // Optional
-                                      ),*/
+                                        ),
                                       ),
                                       AppSpaces.spaces_height_10,
                                       Row(

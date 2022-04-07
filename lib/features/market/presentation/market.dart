@@ -124,10 +124,12 @@ class _MarketState extends State<Market> {
                                 style: Get.textTheme.bodyText1!
                                     .copyWith(color: AppColors.white),
                               ),
+
                             ],
                           ),
                         ),
                       ),
+                    ),
                     ),
 
                     /*child: Row(
@@ -182,7 +184,6 @@ class _MarketState extends State<Market> {
                         ),
                       ],
                     ),*/
-                  ),
 
                   ///Tab
                   Padding(

@@ -52,21 +52,6 @@ class _ImageSliderState extends State<ImageSlider> {
             ),
           );
         }),
-        /*items: widget.news!.map((index) {
-          return Builder(builder: (BuildContext) {
-            return Container(
-              width: MediaQuery.of(context).size.height,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12.0),
-                child: Image.network(
-                  Urls.mainUrl +
-                      widget.news![0].backgroundImage!.original!.src!,
-                  fit: BoxFit.fill,
-                ),
-              ),
-            );
-          });
-        }).toList(),*/
       ),
     );
   }

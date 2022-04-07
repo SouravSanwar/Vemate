@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
-
-import 'package:ketemaa/graph/product_details.dart';
+import 'package:ketemaa/features/vault/vault_comics_lists.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -24,7 +23,15 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return InkWell(
+      onTap: () {
+        Get.to(
+              () => VaultComicsList(),
+        );
+        /*Get.to(
+                                () => ChartExample(id: data.collectiblesModel!.results![index].id));*/
+      },
+      child:Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
           width: Get.width,
@@ -131,9 +138,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                       ),
                       Row(
                         children: [
-                          SizedBox(
-                            width: Get.width * .1,
-                          ),
+
                           Text(
                             '\$' + widget.data!.changePrice!.toStringAsFixed(2),
                             style: const TextStyle(
@@ -191,6 +196,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
               ),
             ],
           )),
+    ),
     );
   }
 }
