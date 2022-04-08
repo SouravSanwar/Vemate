@@ -141,7 +141,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 ],
               ),
 
-              /* AppSpaces.spaces_height_25,
+             /* AppSpaces.spaces_height_25,
               Container(),
               AppSpaces.spaces_height_25,
               Row(

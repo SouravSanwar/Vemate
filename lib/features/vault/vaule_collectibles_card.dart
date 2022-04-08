@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
-import 'package:ketemaa/features/vault/vault_collectibles_details.dart';
+import 'package:ketemaa/features/vault/vault_collectibles_lists.dart';
 import 'package:ketemaa/features/vault/vault_comics_lists.dart';
 
 import 'package:ketemaa/graph/product_details.dart';
