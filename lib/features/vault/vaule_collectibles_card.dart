@@ -172,20 +172,16 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                 width: Get.width * .01,
                               ),
                               if (widget.data!.sign == 'decrease')
-                                Expanded(
-                                  child: const Icon(
-                                    Icons.arrow_downward,
-                                    color: Colors.red,
-                                    size: 18,
-                                  ),
+                                const Icon(
+                                  Icons.arrow_downward,
+                                  color: Colors.red,
+                                  size: 18,
                                 )
                               else
-                                Expanded(
-                                  child: const Icon(
-                                    Icons.arrow_upward,
-                                    color: Colors.green,
-                                    size: 18,
-                                  ),
+                                const Icon(
+                                  Icons.arrow_upward,
+                                  color: Colors.green,
+                                  size: 18,
                                 ),
                             ],
                           ),

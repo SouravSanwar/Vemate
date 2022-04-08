@@ -32,17 +32,12 @@ class SingleProductModel {
     this.creationTime,
     this.updateTime,
     this.parent,
+    this.graphType,
   });
 
   SingleProductModel.fromJson(dynamic json) {
     id = json['id'];
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
-    if (json['graph'] != null) {
-      graph = [];
-      json['graph'].forEach((v) {
-        graph?.add(Graph.fromJson(v));
-      });
-    }
     type = json['type'];
     name = json['name'];
     description = json['description'];
@@ -70,6 +65,14 @@ class SingleProductModel {
     creationTime = json['creation_time'];
     updateTime = json['update_time'];
     parent = json['parent'];
+    graphType = json['graph_type'];
+
+    if (json['graph'] != null) {
+      graph = [];
+      json['graph'].forEach((v) {
+        graph?.add(Graph.fromJson(v));
+      });
+    }
   }
 
   int? id;
@@ -101,6 +104,7 @@ class SingleProductModel {
   String? characters;
   String? creationTime;
   String? updateTime;
+  String? graphType;
   dynamic parent;
 
   Map<String, dynamic> toJson() {
@@ -136,6 +140,7 @@ class SingleProductModel {
     map['characters'] = characters;
     map['creation_time'] = creationTime;
     map['update_time'] = updateTime;
+    map['graph_type'] = graphType;
     map['parent'] = parent;
     return map;
   }
@@ -145,18 +150,23 @@ class Graph {
   Graph({
     this.time,
     this.price,
-    this.formattedTime,
+    this.hourWiseTime,
+    this.dayWiseTime,
   });
 
   Graph.fromJson(dynamic json) {
     time = json['time'];
     price = json['price'];
-    formattedTime = DateFormat('hh a').format(DateTime.parse(time!));
+    if (time != null) {
+      hourWiseTime = DateFormat('hh a').format(DateTime.parse(time!));
+      dayWiseTime = DateFormat('EE').format(DateTime.parse(time!));
+    }
   }
 
   String? time;
   double? price;
-  var formattedTime;
+  String? hourWiseTime;
+  String? dayWiseTime;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

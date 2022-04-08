@@ -131,8 +131,7 @@ class GetData extends ChangeNotifier {
   Future getComics({int offset = 0}) async {
     final response = await http.get(
       Uri.parse(
-        Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset',
+        Urls.comic + '$offset',
       ),
       headers: requestToken,
     );
@@ -190,7 +189,7 @@ class GetData extends ChangeNotifier {
       headers: requestToken,
     );
 
-    printInfo(info: Urls.singleProduct + '$id?graph_type=0');
+    printInfo(info: Urls.singleProduct + '$id?graph_type=$graphType');
 
     var data = json.decode(response.body.toString());
 

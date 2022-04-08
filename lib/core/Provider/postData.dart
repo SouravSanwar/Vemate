@@ -40,9 +40,11 @@ class PostData extends ChangeNotifier {
 
     final response = await http.post(Uri.parse(Urls.signUp),
         body: json.encode(body), headers: requestHeaders);
+
     var x = json.decode(response.body);
 
     printInfo(info: x.toString());
+
     Map<String, dynamic> js = x;
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
@@ -52,9 +54,6 @@ class PostData extends ChangeNotifier {
       try {
         if (js.containsKey('id')) {
           prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              'is_email_verified', js['is_email_verified'].toString());
-          prefs!.setString('email', js['email'].toString());
 
           printInfo(info: prefs!.getString('is_email_verified').toString());
 
@@ -335,8 +334,8 @@ class PostData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future updateProfile(BuildContext context, var body, var
-  requestHeadersWithToken) async {
+  Future updateProfile(
+      BuildContext context, var body, var requestHeadersWithToken) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -414,7 +413,8 @@ class PostData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future addToWishlist(BuildContext context, var body, int? id, var requestHeadersWithToken) async {
+  Future addToWishlist(BuildContext context, var body, int? id,
+      var requestHeadersWithToken) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -429,8 +429,7 @@ class PostData extends ChangeNotifier {
 
     printInfo(info: requestHeadersWithToken.toString());
 
-    if (response.statusCode == 200 ||
-        response.statusCode == 201) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       Navigator.of(context).pop();
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.checkWishlist(id!);
@@ -456,7 +455,8 @@ class PostData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future addToSet(BuildContext context, var body, int? id, var requestHeadersWithToken) async {
+  Future addToSet(BuildContext context, var body, int? id,
+      var requestHeadersWithToken) async {
     showDialog(
         context: context,
         barrierDismissible: false,

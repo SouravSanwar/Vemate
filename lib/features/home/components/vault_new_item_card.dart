@@ -30,7 +30,6 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
 
   @override
   Widget build(BuildContext context) {
-    printInfo(info: widget.list![0].graph![0].hour.toString());
     return Padding(
       padding: EdgeInsets.only(
         left: AppDimension.padding_8,

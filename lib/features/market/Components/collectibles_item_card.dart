@@ -103,7 +103,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                 Expanded(
                                   flex: 7,
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Row(
                                         children: <Widget>[
@@ -164,8 +165,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       .name
                                                       .toString()
                                                   : '',
-                                              overflow:
-                                              TextOverflow.ellipsis,
+                                              overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
@@ -293,7 +293,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Expanded(
-                                              child: Text(
+                                            child: Text(
                                               '\$${data.collectiblesModel!.results![index].cpp.toString()}',
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
@@ -303,7 +303,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       fontWeight:
                                                           FontWeight.w400,
                                                       fontSize: 10),
-
+                                            ),
                                           ),
                                           AppSpaces.spaces_width_2,
                                           Expanded(

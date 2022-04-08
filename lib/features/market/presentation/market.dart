@@ -194,48 +194,54 @@ class _MarketState extends State<Market> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              currentIndex = 1;
-                              setState(() {
-                                collectibleSelected = true;
-                                comicSelected = false;
-                                brandSelected = false;
-                              });
-                            },
-                            child: CategoryCard(
-                              name: 'Collectibles',
-                              gradient: collectibleSelected == true
-                                  ? AppColors.purpleGradient
-                                  : const LinearGradient(
-                                      colors: [
-                                        Color(0xff272E49),
-                                        Color(0xff272E49),
-                                      ],
-                                    ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: () {
+                                currentIndex = 1;
+                                setState(() {
+                                  collectibleSelected = true;
+                                  comicSelected = false;
+                                  brandSelected = false;
+                                });
+                              },
+                              child: CategoryCard(
+                                name: 'Collectibles',
+                                gradient: collectibleSelected == true
+                                    ? AppColors.purpleGradient
+                                    : const LinearGradient(
+                                        colors: [
+                                          Color(0xff272E49),
+                                          Color(0xff272E49),
+                                        ],
+                                      ),
+                              ),
                             ),
                           ),
                         ),
                         Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              currentIndex = 2;
-                              setState(() {
-                                comicSelected = true;
-                                brandSelected = false;
-                                collectibleSelected = false;
-                              });
-                            },
-                            child: CategoryCard(
-                              name: 'Comics',
-                              gradient: comicSelected == true
-                                  ? AppColors.purpleGradient
-                                  : const LinearGradient(
-                                      colors: [
-                                        Color(0xff272E49),
-                                        Color(0xff272E49),
-                                      ],
-                                    ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: () {
+                                currentIndex = 2;
+                                setState(() {
+                                  comicSelected = true;
+                                  brandSelected = false;
+                                  collectibleSelected = false;
+                                });
+                              },
+                              child: CategoryCard(
+                                name: 'Comics',
+                                gradient: comicSelected == true
+                                    ? AppColors.purpleGradient
+                                    : const LinearGradient(
+                                        colors: [
+                                          Color(0xff272E49),
+                                          Color(0xff272E49),
+                                        ],
+                                      ),
+                              ),
                             ),
                           ),
                         ),
