@@ -52,7 +52,8 @@ class _MarketState extends State<Market> {
       listData: rarityList,
       selectedListData: selectedUserList,
       choiceChipLabel: (item) => item!.name,
-      backgroundColor: Colors.black45,
+      hideSearchField: true,
+      backgroundColor: AppColors.primaryColor,
       validateSelectedItem: (list, val) => list!.contains(val),
       controlButtons: [ContolButtonType.All, ContolButtonType.Reset],
       onItemSearch: (user, query) {
@@ -91,99 +92,61 @@ class _MarketState extends State<Market> {
                       left: AppDimension.padding_8,
                       right: AppDimension.padding_8,
                     ),
-                    child: InkWell(
-                      onTap: () {
-                        currentIndex == 1
-                            ? Get.to(() => const SearchCollectiblePage())
-                            : (currentIndex == 2
-                                ? Get.to(() => const SearchComicsPage())
-                                : null);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          //gradient: gradient,
-                          border: Border.all(
-                            color: AppColors.lightBackgroundColor,
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(12),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(AppDimension.padding_8),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.search,
-                                color: Colors.grey,
-                              ),
-                              AppSpaces.spaces_width_10,
-                              Text(
-                                'Search',
-                                textAlign: TextAlign.center,
-                                style: Get.textTheme.bodyText1!
-                                    .copyWith(color: AppColors.white),
-                              ),
 
-                            ],
-                          ),
-                        ),
+                  child:Container(
+                    decoration: BoxDecoration(
+                      //gradient: gradient,
+                      border: Border.all(
+                        color: AppColors.lightBackgroundColor,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(12),
                       ),
                     ),
-                    ),
-
-                    /*child: Row(
-                      children: [
-                        Expanded(
+                    child: Row(children: [
+                     InkWell(
+                          onTap: () {
+                            currentIndex == 1
+                                ? Get.to(() => const SearchCollectiblePage())
+                                : (currentIndex == 2
+                                    ? Get.to(() => const SearchComicsPage())
+                                    : null);
+                          },
                           child: Container(
-                            //height: Get.height*.08,
-                            padding: const EdgeInsets.all(5),
-                            child: TextField(
-                              textInputAction: TextInputAction.search,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: AppColors.lightBackgroundColor,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    borderSide: const BorderSide(
-                                      color: Color(0xff455181),
-                                    ),
+                            width: Get.width * .8,
+                            child: Padding(
+                              padding: EdgeInsets.all(AppDimension.padding_8),
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.search,
+                                    color: Colors.grey,
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: AppColors.primaryColor),
-                                    //  when the TextFormField in focused
+                                  AppSpaces.spaces_width_10,
+                                  Text(
+                                    'Search',
+                                    textAlign: TextAlign.center,
+                                    style: Get.textTheme.bodyText1!
+                                        .copyWith(color: AppColors.white),
                                   ),
-                                  prefixIcon: InkWell(
-                                    onTap: () {
-                                      currentIndex == 1
-                                          ? const SearchCollectiblePage()
-                                          : null;
-                                    },
-                                    child: const Icon(
-                                      Icons.search,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  suffixIcon: InkWell(
-                                    onTap: () {
-                                      _openFilterDialog();
-                                    },
-                                    child: Icon(
-                                      Icons.filter_list,
-                                      color: AppColors.primaryColor,
-                                    ),
-                                  ),
-                                  contentPadding: const EdgeInsets.all(5.0),
-                                  hintText: 'Search ',
-                                  hintStyle:
-                                      const TextStyle(color: Colors.grey)),
-                              onChanged: (string) {},
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ],
-                    ),*/
+                      InkWell(
+                        onTap: () {
+                          _openFilterDialog();
+                        },
+                        child: Icon(
+                          Icons.filter_list,
+                          color: AppColors.primaryColor,
+                          size: 40,
+                        ),
+                      ),
+                    ]),
+                  ),
+                  ),
 
                   ///Tab
                   Padding(

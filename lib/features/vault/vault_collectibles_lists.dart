@@ -76,7 +76,9 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
               itemCount: data.setListModel!.results!.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return InkWell(
+
+                return data.setListModel!.results![index].productDetail!.type==0
+                  ? InkWell(
                   onTap: () {
                     /*Get.to(() => ChartExample(id: widget.list![index].id));*/
 
@@ -169,8 +171,14 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                       Expanded(
                                         flex: 4,
                                         child: Text(
-                                          data.setListModel!.results![index].productDetail!.brand
-                                              .toString(),
+                                          data.setListModel!.results![index].productDetail!.type == 1
+                                              ?
+                                          data.setListModel!.results![index].productDetail!.series !=null
+                                              ?data.setListModel!.results![index].productDetail!.series.toString()
+                                              :""
+                                              :data.setListModel!.results![index].productDetail!.brand !=null
+                                              ?data.setListModel!.results![index].productDetail!.brand!.name.toString()
+                                              : "",
                                           textAlign: TextAlign.start,
                                           style: Get.textTheme.bodyText1!
                                               .copyWith(
@@ -282,11 +290,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                           yAxisName: 'Total',
                                         )
                                       ],
-                                    ), /*LineChart(
-                                        mainData(), // Optional
-                                        swapAnimationCurve:
-                                            Curves.linear, // Optional
-                                      ),*/
+                                    ),
                                   ),
                                   AppSpaces.spaces_height_10,
                                   Row(
@@ -362,7 +366,8 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                       ),
                     ),
                   ),
-                );
+                )
+                :Container();
               })
               : const LoadingExample(),
         );

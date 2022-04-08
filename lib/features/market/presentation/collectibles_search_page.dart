@@ -201,9 +201,9 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                           Expanded(
                                             flex: 4,
                                             child: Text(
-                                              data.searchCollectiblesModel!
-                                                  .results![index].brand
-                                                  .toString(),
+                                              data.searchCollectiblesModel!.results![index].brand !=null
+                                                  ?data.searchCollectiblesModel!.results![index].brand!.name.toString()
+                                                  : "",
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(

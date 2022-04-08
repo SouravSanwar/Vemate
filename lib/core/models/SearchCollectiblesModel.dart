@@ -57,7 +57,7 @@ class Results {
     type = json['type'];
     name = json['name'];
     edition = json['edition'];
-    brand = json['brand'];
+    brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
     rarity = json['rarity'];
     floorPrice = json['floor_price'];
     priceChangePercent = json['price_change_percent'] != null
@@ -86,7 +86,7 @@ class Results {
   int? type;
   String? name;
   String? edition;
-  dynamic brand;
+  Brand? brand;
   String? rarity;
   String? floorPrice;
   PriceChangePercent? priceChangePercent;
@@ -155,4 +155,25 @@ class PriceChangePercent {
     map['sign'] = sign;
     return map;
   }
+}
+
+class Brand {
+  Brand({
+    this.id,
+    this.name,});
+
+  Brand.fromJson(dynamic json) {
+    id = json['id'];
+    name = json['name'];
+  }
+  int? id;
+  String? name;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['name'] = name;
+    return map;
+  }
+
 }
