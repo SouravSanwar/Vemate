@@ -50,7 +50,6 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                     productId: widget.list![index].id,
                   ),
                 );
-                //Get.to(() => ProductDetails(id: widget.list![index].id));
               },
               child: Container(
                 width: Get.width * .37,

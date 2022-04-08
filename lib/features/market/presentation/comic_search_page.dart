@@ -146,14 +146,14 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                 ),
                                 AppSpaces.spaces_width_5,
                                 Expanded(
-                                  flex: 11,
+                                  flex: 7,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: <Widget>[
                                           Expanded(
-                                              flex: 5,
+                                              flex: 2,
                                               child: SizedBox(
                                                 height: Get.height * .02,
                                                 child: Text(
@@ -173,11 +173,9 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                           fontSize: 13),
                                                 ),
                                               )),
-                                          const SizedBox(
-                                            width: 2,
-                                          ),
+                                          AppSpaces.spaces_width_2,
                                           Expanded(
-                                              flex: 3,
+                                              flex: 2,
                                               child: Text(
                                                 data.searchComicsModel!
                                                     .results![index].edition
@@ -196,7 +194,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 5,
+                                            flex: 4,
                                             child: Text(
                                               data.searchComicsModel!
                                                   .results![index].series
@@ -211,8 +209,9 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                       fontSize: 10),
                                             ),
                                           ),
+                                          AppSpaces.spaces_width_2,
                                           Expanded(
-                                            flex: 3,
+                                            flex: 2,
                                             child: Text(
                                               data.searchComicsModel!
                                                   .results![index].rarity
@@ -233,7 +232,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 5,
+                                            flex: 4,
                                             child: Text(
                                               r"$" +
                                                   data
@@ -251,11 +250,9 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                       fontSize: 11),
                                             ),
                                           ),
-                                          const SizedBox(
-                                            width: 2,
-                                          ),
+                                          AppSpaces.spaces_width_2,
                                           const Expanded(
-                                            flex: 3,
+                                            flex: 2,
                                             child: Text(""),
                                           ),
                                         ],
@@ -264,7 +261,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 6,
+                                  flex: 4,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -318,11 +315,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                               yAxisName: 'Total',
                                             )
                                           ],
-                                        ), /*LineChart(
-                                        mainData(), // Optional
-                                        swapAnimationCurve:
-                                            Curves.linear, // Optional
-                                      ),*/
+                                        ),
                                       ),
                                       AppSpaces.spaces_height_10,
                                       Row(

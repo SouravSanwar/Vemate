@@ -103,12 +103,12 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                 Expanded(
                                   flex: 7,
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Row(
                                         children: <Widget>[
                                           Expanded(
-                                              flex: 5,
+                                              flex: 4,
                                               child: SizedBox(
                                                 height: Get.height * .02,
                                                 child: Text(
@@ -150,7 +150,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 5,
+                                            flex: 4,
                                             child: Text(
                                               data
                                                           .collectiblesModel!
@@ -164,6 +164,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       .name
                                                       .toString()
                                                   : '',
+                                              overflow:
+                                              TextOverflow.ellipsis,
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
@@ -174,6 +176,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       fontSize: 10),
                                             ),
                                           ),
+                                          AppSpaces.spaces_width_2,
                                           Expanded(
                                             flex: 2,
                                             child: Text(
@@ -196,7 +199,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 5,
+                                            flex: 4,
                                             child: Text(
                                               r"$" +
                                                   data
@@ -228,7 +231,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                 ),
                                 AppSpaces.spaces_width_2,
                                 Expanded(
-                                  flex: 3,
+                                  flex: 4,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -282,11 +285,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               yAxisName: 'Total',
                                             )
                                           ],
-                                        ), /*LineChart(
-                                          mainData(), // Optional
-                                          swapAnimationCurve:
-                                              Curves.linear, // Optional
-                                        ),*/
+                                        ),
                                       ),
                                       AppSpaces.spaces_height_10,
                                       Row(
@@ -294,8 +293,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Expanded(
-                                            child: Text(
-                                              '\$${data.collectiblesModel!.results![index].cpp}',
+                                              child: Text(
+                                              '\$${data.collectiblesModel!.results![index].cpp.toString()}',
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
@@ -304,7 +303,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       fontWeight:
                                                           FontWeight.w400,
                                                       fontSize: 10),
-                                            ),
+
                                           ),
                                           AppSpaces.spaces_width_2,
                                           Expanded(

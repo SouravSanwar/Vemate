@@ -219,8 +219,6 @@ class Rarity {
   Rarity({this.name});
 }
 
-/// Creating a global list for example purpose.
-/// Generally it should be within data class or where ever you want
 List<Rarity> rarityList = [
   Rarity(name: "Rare"),
   Rarity(name: "Ultra-Rare"),

@@ -4,12 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
+import 'package:ketemaa/core/models/VaultStatusModel.dart';
 
 import 'package:ketemaa/graph/product_details.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
+import '../../../core/models/VaultStatusModel.dart';
 
 class HomeVaultCard extends StatefulWidget {
   final VaultStatsModel? vaultStatsModel;
@@ -149,7 +151,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        if (widget.vaultStatsModel!.totalPercentChange! < 0.0)
+                    widget.vaultStatsModel!.sign! == 'decrease'?
                           //toRotateIcon
                           const RotationTransition(
                             turns: AlwaysStoppedAnimation(45 / 360),
@@ -159,7 +161,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                               color: Colors.red,
                             ),
                           )
-                        else
+                        :
                           const RotationTransition(
                             turns: AlwaysStoppedAnimation(45 / 360),
                             child: Icon(
@@ -177,8 +179,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   "%",
                           textAlign: TextAlign.end,
                           style: TextStyle(
-                            color: widget.vaultStatsModel!.totalPercentChange! <
-                                    0.0
+                            color:  widget.vaultStatsModel!.sign! == 'decrease'
                                 ? Colors.red
                                 : Colors.green,
                             fontWeight: FontWeight.bold,
@@ -199,125 +200,51 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                 ],
               ),
               Container(
-                padding: EdgeInsets.only(
-                  left: Get.width * .02,
-                ),
                 height: Get.height * .12,
-                /*child: SfCartesianChart(
+                child: SfCartesianChart(
                   plotAreaBorderWidth: 0,
+                  margin: EdgeInsets.zero,
                   primaryXAxis: CategoryAxis(
                     isVisible: false,
-                    majorGridLines: const MajorGridLines(width: 0),
-                    labelIntersectAction: AxisLabelIntersectAction.hide,
+                    majorGridLines:
+                    const MajorGridLines(width: 0),
+                    labelIntersectAction:
+                    AxisLabelIntersectAction.hide,
                     labelRotation: 270,
                     labelAlignment: LabelAlignment.start,
                     maximumLabels: 7,
                   ),
                   primaryYAxis: CategoryAxis(
                     isVisible: false,
-                    majorGridLines: const MajorGridLines(width: 0),
-                    labelIntersectAction: AxisLabelIntersectAction.hide,
+                    majorGridLines:
+                    const MajorGridLines(width: 0),
+                    labelIntersectAction:
+                    AxisLabelIntersectAction.hide,
                     labelRotation: 0,
                     labelAlignment: LabelAlignment.start,
                     maximumLabels: 10,
                   ),
                   tooltipBehavior: TooltipBehavior(enable: true),
-                  series: <ChartSeries<Graph, String>>[
-                    LineSeries<Graph, String>(
-                      color: data.collectiblesModel!.results![index]
-                                  .priceChangePercent!.sign ==
-                              'decrease'
+                  series: <ChartSeries<VaultStatsModelGraph, String>>[
+                    SplineAreaSeries<VaultStatsModelGraph, String>(
+                      color: widget.vaultStatsModel!.sign! == 'decrease'
                           ? Colors.red
                           : Colors.green,
-                      dataSource:
-                          data.collectiblesModel!.results![index].graph!,
-                      xValueMapper: (Graph plot, _) => plot.hour,
-                      yValueMapper: (Graph plot, _) => plot.total,
+                      gradient: AppColors.graphGradient,
+                      dataSource: widget.vaultStatsModel!.vaultStatsModelGraph!,
+                      xValueMapper: (VaultStatsModelGraph plot, _) =>
+                      plot.hour,
+                      yValueMapper: (VaultStatsModelGraph plot, _) =>
+                      plot.total,
                       xAxisName: 'Duration',
                       yAxisName: 'Total',
                     )
                   ],
-                ),*/
-                child: LineChart(
-                  mainData(), // Optional
-                  swapAnimationCurve:
-                  Curves.easeInOutBack, // Optional
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
             ],
-          )),
-    );
-  }
-  List<Color> gradientColors = [];
-
-  LineChartData mainData() {
-    return LineChartData(
-      borderData: FlBorderData(
-        show: false,
+          )
       ),
-      gridData: FlGridData(
-          show: false,
-          horizontalInterval: 1.6,
-          getDrawingHorizontalLine: (value) {
-            return FlLine(
-              dashArray: const [3, 3],
-              color: const Color(0xff37434d).withOpacity(0.2),
-              strokeWidth: 2,
-            );
-          },
-          drawVerticalLine: false),
-      titlesData: FlTitlesData(
-        show: false,
-        rightTitles: SideTitles(showTitles: false),
-        topTitles: SideTitles(showTitles: false),
-        bottomTitles:SideTitles(showTitles: false),
-
-        leftTitles: SideTitles(showTitles: false),
-      ),
-      minX: 0,
-      maxX: 44,
-      minY: 0,
-      maxY: 10,
-      lineBarsData: [
-        LineChartBarData(
-          spots:  [
-            FlSpot(0, 0),
-            FlSpot(2.9, 2),
-            FlSpot(4.4, 3),
-            FlSpot(6.4, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 4),
-            FlSpot(12, 5),
-            FlSpot(16, 1),
-            FlSpot(20, 8),
-            FlSpot(24, 2),
-            FlSpot(28, 4.1),
-            FlSpot(32, 5),
-            FlSpot(36, 2.9),
-            FlSpot(40, 1.8),
-            FlSpot(44, 6),
-          ],
-          isCurved: true,
-          colors: gradientColors,
-          barWidth: 1,
-          dotData: FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(
-              show: true,
-              gradientFrom: Offset(0, 0),
-              gradientTo: Offset(0, 1),
-              colors: [
-                const Color(0xff8053B7),
-                const Color(0xff8053B7),
-                const Color(0xff584D9F),
-                const Color(0xff393E6B),
-              ]),
-        ),
-      ],
     );
   }
 }
