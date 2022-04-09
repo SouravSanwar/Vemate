@@ -49,7 +49,7 @@ class GetData extends ChangeNotifier {
     'Authorization': 'token ${prefs!.getString('token')}',
   };
 
-  Future getUserInfo() async {
+  Future getUserInfo(var requestToken) async {
     profileModel = null;
     final response = await http.get(
       Uri.parse(Urls.userInfo),
@@ -58,7 +58,7 @@ class GetData extends ChangeNotifier {
 
     var data = json.decode(response.body.toString());
 
-    printInfo(info: requestToken.toString());
+    printInfo(info:'Home Page Token: '+ requestToken.toString());
 
     profileModel = ProfileModel.fromJson(data);
 

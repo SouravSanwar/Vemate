@@ -284,8 +284,14 @@ class PostData extends ChangeNotifier {
           prefs = await SharedPreferences.getInstance();
 
           prefs!.setString('token', js['token'].toString());
+          Map<String, String> requestToken = {
+            'Authorization': 'token ${js['token'].toString()}',
+          };
 
-          await Store(js, context);
+          getData = Provider.of<GetData>(context, listen: false);
+          await getData!.getUserInfo(requestToken);
+
+          Store(js, context);
 
           Get.to(() => ControllerPage());
 
@@ -357,8 +363,11 @@ class PostData extends ChangeNotifier {
       try {
         Map<String, dynamic> js = x;
         if (js['is_email_verified'] == true) {
+          Map<String, String> requestToken = {
+            'Authorization': 'token ${js['token'].toString()}',
+          };
           getData = Provider.of<GetData>(context, listen: false);
-          await getData!.getUserInfo();
+          await getData!.getUserInfo(requestToken);
           prefs = await SharedPreferences.getInstance();
 
           prefs!.setString('name', js['name'].toString());

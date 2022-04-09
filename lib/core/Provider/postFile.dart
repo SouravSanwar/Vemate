@@ -166,9 +166,12 @@ class PostFile extends ChangeNotifier {
         showData(
             url: url, body: body, method: method, response: result.toString());
         //return json.decode(result);
+        Map<String, String> requestToken = {
+          'Authorization': 'token ${prefs!.getString('token')}',
+        };
 
         var getData = Provider.of<GetData>(context, listen: false);
-        await getData.getUserInfo();
+        await getData.getUserInfo(requestToken);
 
 
         Flushbar(

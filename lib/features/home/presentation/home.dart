@@ -6,6 +6,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
 
@@ -31,14 +32,16 @@ class _HomeState extends State<Home> {
   bool? priceSelected = false;
 
   GetData? getData;
-
+  Map<String, String> requestToken = {
+    'Authorization': 'token ${prefs!.getString('token')}',
+  };
   @override
   void initState() {
     // TODO: implement initState
 
     getData = Provider.of<GetData>(context, listen: false);
 
-    getData!.getUserInfo();
+    getData!.getUserInfo(requestToken);
 
     getData!.getVaultStats();
 
