@@ -50,7 +50,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                     children: [
                       const Text(
                         "Comics Value",
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),

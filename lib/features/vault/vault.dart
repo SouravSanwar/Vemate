@@ -7,6 +7,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
 import 'package:ketemaa/features/vault/vault_comics_card.dart';
+import 'package:ketemaa/features/vault/my_wishlist_details.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../core/utilities/shimmer/loading.dart';
@@ -357,6 +358,9 @@ class _VaultState extends State<Vault> {
                           SizedBox(
                             height: Get.height * .02,
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children:[
                           Padding(
                             padding: EdgeInsets.only(
                                 left: Get.width *
@@ -368,6 +372,25 @@ class _VaultState extends State<Vault> {
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
                             ),
+                          ),
+                            InkWell(
+                                onTap: () {
+                                  Get.to(() =>WishListDetails());
+                                },
+                                child:Padding(
+                              padding: EdgeInsets.only(
+                                  right: Get.width *
+                                      .06), //apply padding to all four sides
+                              child: const Text(
+                              "See All",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                           ),
+                            ),
+                          ]
                           ),
                           SizedBox(
                               height: Get.height * .22,
