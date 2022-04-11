@@ -508,6 +508,44 @@ class PostData extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future deleteWishlist(BuildContext context, int? id) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingExample());
+
+    final response = await http.delete(Uri.parse(Urls.commonStorage + '$id/'),
+        headers: requestToken);
+
+    printInfo(info: response.statusCode.toString());
+    printInfo(info: Urls.commonStorage + '$id/');
+
+    if (response.statusCode == 204) {
+      Navigator.of(context).pop();
+      getData = Provider.of<GetData>(context, listen: false);
+      await getData!.getWishList();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Success",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    } else {
+      Navigator.of(context).pop();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Something went wrong",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    }
+    notifyListeners();
+  }
+
   Store(var mat, BuildContext context) async {
     prefs = await SharedPreferences.getInstance();
     prefs!.setString('user_id', mat['user_id'].toString());
