@@ -82,7 +82,8 @@ class ProductDetail {
       this.name, 
       this.edition, 
       this.parent, 
-      this.brand, 
+      this.brand,
+      this.series,
       this.rarity, 
       this.floorPrice, 
       this.priceChangePercent, 
@@ -94,7 +95,8 @@ class ProductDetail {
     name = json['name'];
     edition = json['edition'];
     parent = json['parent'];
-    brand = json['brand'];
+    brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
+    series = json['series'];
     rarity = json['rarity'];
     floorPrice = json['floor_price'];
     priceChangePercent = json['price_change_percent'] != null ? PriceChangePercent.fromJson(json['price_change_percent']) : null;
@@ -110,7 +112,8 @@ class ProductDetail {
   String? name;
   String? edition;
   dynamic parent;
-  dynamic brand;
+  Brand? brand;
+  String? series;
   String? rarity;
   String? floorPrice;
   PriceChangePercent? priceChangePercent;
@@ -124,6 +127,7 @@ class ProductDetail {
     map['edition'] = edition;
     map['parent'] = parent;
     map['brand'] = brand;
+    map['series'] = series;
     map['rarity'] = rarity;
     map['floor_price'] = floorPrice;
     if (priceChangePercent != null) {
@@ -132,6 +136,26 @@ class ProductDetail {
     if (graph != null) {
       map['graph'] = graph?.map((v) => v.toJson()).toList();
     }
+    return map;
+  }
+
+}
+class Brand {
+  Brand({
+    this.id,
+    this.name,});
+
+  Brand.fromJson(dynamic json) {
+    id = json['id'];
+    name = json['name'];
+  }
+  int? id;
+  String? name;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['name'] = name;
     return map;
   }
 

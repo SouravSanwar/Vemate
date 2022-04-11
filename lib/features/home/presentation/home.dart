@@ -163,7 +163,9 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       AppSpaces.spaces_height_10,
-                      ImageSlider(news: data.newsModel!.results,),
+                      ImageSlider(news: data.newsModel!.results !=null
+                        ?data.newsModel!.results
+                        :null),
                       AppSpaces.spaces_height_10,
                       Padding(
                         padding: const EdgeInsets.only(
