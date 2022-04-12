@@ -86,7 +86,10 @@ class _ResetPassState extends State<ResetPass> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        var body = {"email": emailController.text};
+                        var body = {
+                          "email": emailController.text,
+                          "reason": "forget_password",
+                        };
                         postData!.resendCode(context, body).whenComplete(
                               () => Get.to(
                                 () => const ForgotPassword(),

@@ -1,119 +1,150 @@
 class Test {
   Test({
-      this.count, 
-      this.next, 
-      this.previous, 
-      this.results,});
-
-  Test.fromJson(dynamic json) {
-    count = json['count'];
-    next = json['next'];
-    previous = json['previous'];
-    if (json['results'] != null) {
-      results = [];
-      json['results'].forEach((v) {
-        results?.add(Results.fromJson(v));
-      });
-    }
-  }
-  int? count;
-  String? next;
-  String? previous;
-  List<Results>? results;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['count'] = count;
-    map['next'] = next;
-    map['previous'] = previous;
-    if (results != null) {
-      map['results'] = results?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
-
-}
-
-class Results {
-  Results({
       this.id, 
+      this.brand, 
+      this.graph, 
+      this.graphType, 
+      this.priceChangePercent, 
       this.type, 
       this.name, 
-      this.edition, 
-      this.parent, 
-      this.brand, 
-      this.rarity, 
+      this.description, 
+      this.listing, 
       this.floorPrice, 
-      this.priceChangePercent, 
-      this.graph,});
+      this.owner, 
+      this.edition, 
+      this.dropDate, 
+      this.listPrice, 
+      this.editions, 
+      this.editionType, 
+      this.season, 
+      this.rarity, 
+      this.license, 
+      this.series, 
+      this.coverVariant, 
+      this.coverArtist, 
+      this.publisher, 
+      this.issue, 
+      this.pages, 
+      this.startYear, 
+      this.writers, 
+      this.artists, 
+      this.characters, 
+      this.creationTime, 
+      this.updateTime, 
+      this.parent,});
 
-  Results.fromJson(dynamic json) {
+  Test.fromJson(dynamic json) {
     id = json['id'];
-    type = json['type'];
-    name = json['name'];
-    edition = json['edition'];
-    parent = json['parent'];
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
-    rarity = json['rarity'];
-    floorPrice = json['floor_price'];
-    priceChangePercent = json['price_change_percent'] != null ? PriceChangePercent.fromJson(json['price_change_percent']) : null;
     if (json['graph'] != null) {
       graph = [];
       json['graph'].forEach((v) {
         graph?.add(Graph.fromJson(v));
       });
     }
+    graphType = json['graph_type'];
+    priceChangePercent = json['price_change_percent'] != null ? PriceChangePercent.fromJson(json['price_change_percent']) : null;
+    type = json['type'];
+    name = json['name'];
+    description = json['description'];
+    listing = json['listing'];
+    floorPrice = json['floor_price'];
+    owner = json['owner'];
+    edition = json['edition'];
+    dropDate = json['drop_date'];
+    listPrice = json['list_price'];
+    editions = json['editions'];
+    editionType = json['edition_type'];
+    season = json['season'];
+    rarity = json['rarity'];
+    license = json['license'];
+    series = json['series'];
+    coverVariant = json['cover_variant'];
+    coverArtist = json['cover_artist'];
+    publisher = json['publisher'];
+    issue = json['issue'];
+    pages = json['pages'];
+    startYear = json['start_year'];
+    writers = json['writers'];
+    artists = json['artists'];
+    characters = json['characters'];
+    creationTime = json['creation_time'];
+    updateTime = json['update_time'];
+    parent = json['parent'];
   }
   int? id;
+  Brand? brand;
+  List<Graph>? graph;
+  String? graphType;
+  PriceChangePercent? priceChangePercent;
   int? type;
   String? name;
-  String? edition;
-  dynamic parent;
-  Brand? brand;
-  String? rarity;
+  String? description;
+  int? listing;
   String? floorPrice;
-  PriceChangePercent? priceChangePercent;
-  List<Graph>? graph;
+  String? owner;
+  String? edition;
+  String? dropDate;
+  String? listPrice;
+  String? editions;
+  String? editionType;
+  String? season;
+  String? rarity;
+  String? license;
+  String? series;
+  dynamic coverVariant;
+  dynamic coverArtist;
+  dynamic publisher;
+  dynamic issue;
+  dynamic pages;
+  dynamic startYear;
+  dynamic writers;
+  dynamic artists;
+  dynamic characters;
+  String? creationTime;
+  String? updateTime;
+  dynamic parent;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
-    map['type'] = type;
-    map['name'] = name;
-    map['edition'] = edition;
-    map['parent'] = parent;
     if (brand != null) {
       map['brand'] = brand?.toJson();
-    }
-    map['rarity'] = rarity;
-    map['floor_price'] = floorPrice;
-    if (priceChangePercent != null) {
-      map['price_change_percent'] = priceChangePercent?.toJson();
     }
     if (graph != null) {
       map['graph'] = graph?.map((v) => v.toJson()).toList();
     }
-    return map;
-  }
-
-}
-
-class Graph {
-  Graph({
-      this.hour, 
-      this.total,});
-
-  Graph.fromJson(dynamic json) {
-    hour = json['hour'];
-    total = json['total'];
-  }
-  String? hour;
-  double? total;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['hour'] = hour;
-    map['total'] = total;
+    map['graph_type'] = graphType;
+    if (priceChangePercent != null) {
+      map['price_change_percent'] = priceChangePercent?.toJson();
+    }
+    map['type'] = type;
+    map['name'] = name;
+    map['description'] = description;
+    map['listing'] = listing;
+    map['floor_price'] = floorPrice;
+    map['owner'] = owner;
+    map['edition'] = edition;
+    map['drop_date'] = dropDate;
+    map['list_price'] = listPrice;
+    map['editions'] = editions;
+    map['edition_type'] = editionType;
+    map['season'] = season;
+    map['rarity'] = rarity;
+    map['license'] = license;
+    map['series'] = series;
+    map['cover_variant'] = coverVariant;
+    map['cover_artist'] = coverArtist;
+    map['publisher'] = publisher;
+    map['issue'] = issue;
+    map['pages'] = pages;
+    map['start_year'] = startYear;
+    map['writers'] = writers;
+    map['artists'] = artists;
+    map['characters'] = characters;
+    map['creation_time'] = creationTime;
+    map['update_time'] = updateTime;
+    map['parent'] = parent;
     return map;
   }
 
@@ -121,20 +152,45 @@ class Graph {
 
 class PriceChangePercent {
   PriceChangePercent({
-      this.percent, 
+      this.changePercent, 
       this.sign,});
 
   PriceChangePercent.fromJson(dynamic json) {
-    percent = json['percent'];
+    changePercent = json['change_percent'];
     sign = json['sign'];
   }
-  int? percent;
+  double? changePercent;
   String? sign;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['percent'] = percent;
+    map['change_percent'] = changePercent;
     map['sign'] = sign;
+    return map;
+  }
+
+}
+
+class Graph {
+  Graph({
+      this.floorPrice, 
+      this.creationTime, 
+      this.date,});
+
+  Graph.fromJson(dynamic json) {
+    floorPrice = json['floor_price'];
+    creationTime = json['creation_time'];
+    date = json['date'];
+  }
+  double? floorPrice;
+  String? creationTime;
+  String? date;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['floor_price'] = floorPrice;
+    map['creation_time'] = creationTime;
+    map['date'] = date;
     return map;
   }
 

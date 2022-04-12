@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
-import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_email.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/sign_up.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
@@ -14,7 +13,6 @@ class AppRoutes {
   static String RESET_PASS = "/reset_pass";
   static String MAIN_AUTH = "/auth_initial_page";
   static String SIGN_UP = "/sign_up";
-  static String SIGN_IN_EMAIL = "/sign_in_email";
   static String MARKET = "/market";
   static String CONTROLLER_PAGE = "/controller_page";
   static String EDIT_PROFILE = "/edit_profile";
@@ -36,10 +34,6 @@ class AppRoutes {
       GetPage(
         name: SIGN_UP,
         page: () => const SignUp(),
-      ),
-      GetPage(
-        name: SIGN_IN_EMAIL,
-        page: () => const SignInWithEmail(),
       ),
       GetPage(
         name: MARKET,

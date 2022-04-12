@@ -168,7 +168,9 @@ class _HomeState extends State<Home> {
                       ),
                       AppSpaces.spaces_height_10,
                       ImageSlider(
-                        news: data.newsModel!.results,
+                        news: data.newsModel!.results!=null
+                        ?data.newsModel!.results
+                        :null
                       ),
                       AppSpaces.spaces_height_10,
                       Padding(

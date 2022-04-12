@@ -58,7 +58,7 @@ class GetData extends ChangeNotifier {
 
     var data = json.decode(response.body.toString());
 
-    printInfo(info:'Home Page Token: '+ requestToken.toString());
+    printInfo(info: 'Home Page Token: ' + requestToken.toString());
 
     profileModel = ProfileModel.fromJson(data);
 
@@ -236,20 +236,26 @@ class GetData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getWishList() async {
-    wishListModel = null;
+  Future getWishList({int offset = 0}) async {
     final response = await http.get(
       Uri.parse(
-        Urls.commonStorage + '?type=1',
+        Urls.commonStorage + '?type=1&limit=20&offset=$offset',
       ),
       headers: requestToken,
     );
 
     var data = json.decode(response.body.toString());
 
+    printInfo(info: Urls.commonStorage + '?type=1&limit=20&offset=$offset');
     printInfo(info: data.toString());
 
-    wishListModel = WishListModel.fromJson(data);
+    if (wishListModel != null) {
+      if (offset == 0) wishListModel!.results!.clear();
+
+      wishListModel!.results!.addAll(WishListModel.fromJson(data).results!);
+    } else {
+      wishListModel = WishListModel.fromJson(data);
+    }
 
     notifyListeners();
   }

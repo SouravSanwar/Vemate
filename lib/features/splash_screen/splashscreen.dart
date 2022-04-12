@@ -32,8 +32,6 @@ class SplashScreenState extends State<SplashScreen>
     prefs!.getString('token') != null
         ? Get.to(() => ControllerPage())
         : Get.to(() => const AuthInitialPage());
-    //Get.to(() => ControllerPage());
-    //Get.to(() => const AuthInitialPage());
   }
 
   @override
@@ -69,7 +67,6 @@ class SplashScreenState extends State<SplashScreen>
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
