@@ -30,8 +30,7 @@ class Urls {
       '/api/v1/veve/public/common-storage/check_duplicate/?type=0&product_id=';
 
   static String vaultStats = mainUrl +
-      '/api/v1/veve/public/common-storage/vaul'
-          't_stats/';
+      '/api/v1/veve/public/common-storage/vault_stats/';
 
   static String news = mainUrl + '/api/v1/home/public/news/';
 
