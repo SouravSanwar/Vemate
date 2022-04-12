@@ -134,8 +134,7 @@ class _VaultState extends State<Vault> {
                                               child: Text(
                                                 '\$' +
                                                     data.vaultStatsModel!
-                                                        .totalPriceChange!
-                                                        .toStringAsFixed(2),
+                                                        .totalPriceChange!.toString(),
                                                 textAlign: TextAlign.start,
                                                 style: Get.textTheme.bodyText2!
                                                     .copyWith(

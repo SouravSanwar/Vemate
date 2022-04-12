@@ -70,7 +70,7 @@ class _WishListPageState extends State<WishListPage> {
                 enablePullDown: true,
                 enablePullUp: true,
                 header: WaterDropMaterialHeader(
-                  color: AppColors.primaryColor,
+                  color: AppColors.backgroundColor,
                 ),
                 footer: const ClassicFooter(
                   loadStyle: LoadStyle.ShowWhenLoading,
@@ -412,7 +412,7 @@ class _WishListPageState extends State<WishListPage> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.start,
                                                   children: [
-                                                    Expanded(
+                                                    /*Expanded(
                                                       child: Text(
                                                         '',
                                                         textAlign:
@@ -429,7 +429,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                         .w400,
                                                                 fontSize: 11),
                                                       ),
-                                                    ),
+                                                    ),*/
                                                     Expanded(
                                                       child: Row(
                                                         mainAxisAlignment:
