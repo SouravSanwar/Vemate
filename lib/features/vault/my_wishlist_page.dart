@@ -57,7 +57,6 @@ class _WishListPageState extends State<WishListPage> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.redAccent,
         title: Text(
           'My Wishlists',
           style: Get.textTheme.headline2!.copyWith(color: Colors.white),
