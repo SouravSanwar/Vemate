@@ -9,7 +9,9 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class ProductGraph extends StatefulWidget {
   final List<Graph>? graphList;
   final String? graphType;
-  const ProductGraph({Key? key, this.graphList, this.graphType}) : super(key: key);
+
+  const ProductGraph({Key? key, this.graphList, this.graphType})
+      : super(key: key);
 
   @override
   State<ProductGraph> createState() => _ProductGraphState();
@@ -44,19 +46,20 @@ class _ProductGraphState extends State<ProductGraph> {
                 LineSeries<Graph, String>(
                   color: Colors.green,
                   dataSource: data.singleProductModel!.graph!,
-                  xValueMapper: (plot, _) => widget.graphType == '0' ? plot
-                  .hourWiseTime : plot.dayWiseTime,
-                  yValueMapper: (plot, _) => plot.price,
+                  xValueMapper: (plot, _) => widget.graphType == '0'
+                      ? plot.hourWiseTime
+                      : plot.dayWiseTime,
+                  yValueMapper: (plot, _) => plot.floorPrice,
                   xAxisName: 'Duration',
                   yAxisName: 'Total',
                   dataLabelSettings: const DataLabelSettings(
                     isVisible: false,
                     angle: 270,
                   ),
-                )
+                ),
               ],
             )
-          : LoadingExample();
+          : const LoadingExample();
     });
   }
 }

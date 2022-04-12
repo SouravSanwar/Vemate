@@ -21,10 +21,6 @@ class OtpPage extends StatefulWidget {
 
 class _OtpPageState extends State<OtpPage> {
   TextEditingController textEditingController = TextEditingController();
-
-  // ..text = "123456";
-
-  // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
 
   double _height = 0;
@@ -115,7 +111,7 @@ class _OtpPageState extends State<OtpPage> {
                       children: [
                         TextSpan(
                             text: "${prefs!.getString('email')}",
-                            style:  TextStyle(
+                            style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.primaryColor,
                                 fontSize: 15)),
@@ -218,7 +214,10 @@ class _OtpPageState extends State<OtpPage> {
                   ),
                   TextButton(
                       onPressed: () {
-                        var body = {"email": "${prefs!.getString('email')}"};
+                        var body = {
+                          "email": "${prefs!.getString('email')}",
+                          "reason": "verify",
+                        };
 
                         postData!.resendCode(context, body);
                       },

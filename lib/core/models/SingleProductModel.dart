@@ -148,33 +148,37 @@ class SingleProductModel {
 
 class Graph {
   Graph({
-    this.time,
-    this.price,
+    this.floorPrice,
+    this.creationTime,
+    this.date,
     this.hourWiseTime,
-    this.dayWiseTime,
-  });
+    this.dayWiseTime,});
 
   Graph.fromJson(dynamic json) {
-    time = json['time'];
-    price = json['price'];
-    if (time != null) {
-      hourWiseTime = DateFormat('hh a').format(DateTime.parse(time!));
-      dayWiseTime = DateFormat('EE').format(DateTime.parse(time!));
+    floorPrice = json['floor_price'];
+    creationTime = json['creation_time'];
+    date = json['date'];
+    if (date != null) {
+      hourWiseTime = DateFormat('hh a').format(DateTime.parse(date!));
+      dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
     }
   }
-
-  String? time;
-  double? price;
+  double? floorPrice;
+  String? creationTime;
+  String? date;
   String? hourWiseTime;
   String? dayWiseTime;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['time'] = time;
-    map['price'] = price;
+    map['floor_price'] = floorPrice;
+    map['creation_time'] = creationTime;
+    map['date'] = date;
     return map;
   }
+
 }
+
 
 class Brand {
   Brand({

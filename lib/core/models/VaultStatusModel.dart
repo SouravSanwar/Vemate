@@ -16,15 +16,15 @@ class VaultStatsModel {
   VaultStatsModel.fromJson(dynamic json) {
     totalVaultValue = json['total_vault_value'];
     mcp = json['mcp'];
-    sign = json['sign'];
-    totalPriceChange = json['total_price_change'];
-    totalPercentChange =
-        double.parse(json['total_percent_change'].toString()).toPrecision(2);
+    sign = json['sign'] ?? '';
+    totalPriceChange = json['total_price_change'] ?? '';
+    totalPercentChange = json['total_percent_change'] ?? 0.0;
+    /*totalPercentChange =
+        double.parse(json['total_percent_change'].toString()).toPrecision(2);*/
     collectible = json['collectible'] != null
         ? Collectible.fromJson(json['collectible'])
         : null;
     comic = json['comic'] != null ? Comic.fromJson(json['comic']) : null;
-
 
     if (json['graph'] != null) {
       vaultStatsModelGraph = [];
@@ -62,6 +62,7 @@ class VaultStatsModel {
     return map;
   }
 }
+
 class VaultStatsModelGraph {
   VaultStatsModelGraph({
     this.hour,
@@ -100,7 +101,8 @@ class Comic {
   Comic.fromJson(dynamic json) {
     totalComicValue = json['total_comic_value'];
     sign = json['sign'];
-    changePercent = double.parse(json['change_percent'].toString()).toPrecision(2);
+    changePercent =
+        double.parse(json['change_percent'].toString()).toPrecision(2);
     changePrice = double.parse(json['change_price'].toString()).toPrecision(2);
     if (json['graph'] != null) {
       comicGraph = [];
@@ -168,17 +170,18 @@ class Collectible {
   });
 
   Collectible.fromJson(dynamic json) {
-  totalCollectibleValue = json['total_collectible_value'];
-  sign = json['sign'];
-  changePercent = double.parse(json['change_percent'].toString()).toPrecision(2);
-  changePrice = double.parse(json['change_price'].toString()).toPrecision(2);
-  if (json['graph'] != null) {
-    collectibleGraph = [];
-  json['graph'].forEach((v) {
-    collectibleGraph?.add(CollectibleGraph.fromJson(v));
-  });
-  }
-  mcp = json['mcp'];
+    totalCollectibleValue = json['total_collectible_value'];
+    sign = json['sign'] ?? '';
+    changePercent =
+        double.parse(json['change_percent'].toString()).toPrecision(2);
+    changePrice = double.parse(json['change_price'].toString()).toPrecision(2);
+    if (json['graph'] != null) {
+      collectibleGraph = [];
+      json['graph'].forEach((v) {
+        collectibleGraph?.add(CollectibleGraph.fromJson(v));
+      });
+    }
+    mcp = json['mcp'];
   }
 
   var totalCollectibleValue;
@@ -195,11 +198,11 @@ class Collectible {
     map['change_percent'] = changePercent;
     map['change_price'] = changePrice;
 
-      if (collectibleGraph != null) {
-        map['graph'] = collectibleGraph?.map((v) => v.toJson()).toList();
-      }
-      map['mcp'] = mcp;
-      return map;
+    if (collectibleGraph != null) {
+      map['graph'] = collectibleGraph?.map((v) => v.toJson()).toList();
+    }
+    map['mcp'] = mcp;
+    return map;
   }
 }
 
