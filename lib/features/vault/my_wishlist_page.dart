@@ -61,6 +61,7 @@ class _WishListPageState extends State<WishListPage> {
           'My Wishlists',
           style: Get.textTheme.headline2!.copyWith(color: Colors.white),
         ),
+        backgroundColor: AppColors.backgroundColor,
       ),
       body: Consumer<GetData>(builder: (context, data, child) {
         return data.wishListModel != null
@@ -70,7 +71,7 @@ class _WishListPageState extends State<WishListPage> {
                 enablePullDown: true,
                 enablePullUp: true,
                 header: WaterDropMaterialHeader(
-                  color: AppColors.backgroundColor,
+                  color: AppColors.primaryColor,
                 ),
                 footer: const ClassicFooter(
                   loadStyle: LoadStyle.ShowWhenLoading,
@@ -434,7 +435,7 @@ class _WishListPageState extends State<WishListPage> {
                                                       child: Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
-                                                                .end,
+                                                                .start,
                                                         children: [
                                                           Text(
                                                             data
@@ -502,8 +503,8 @@ class _WishListPageState extends State<WishListPage> {
                                 ),
                               ),
                               Positioned(
-                                top: 0.0,
-                                right: 0.0,
+                                bottom: 5.0,
+                                right: 10.0,
                                 child: InkWell(
                                   onTap: () {
                                     postData!.deleteWishlist(context,
@@ -512,7 +513,7 @@ class _WishListPageState extends State<WishListPage> {
                                   },
                                   child: const Icon(
                                     Icons.delete_forever,
-                                    color: Colors.redAccent,
+                                    color: Colors.grey,
                                   ),
                                 ),
                               ),
