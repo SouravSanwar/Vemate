@@ -62,6 +62,7 @@ class _WishListPageState extends State<WishListPage> {
           'My Wishlists',
           style: Get.textTheme.headline2!.copyWith(color: Colors.white),
         ),
+        backgroundColor: AppColors.backgroundColor,
       ),
       body: Consumer<GetData>(builder: (context, data, child) {
         return data.wishListModel != null
@@ -413,7 +414,7 @@ class _WishListPageState extends State<WishListPage> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.start,
                                                   children: [
-                                                    Expanded(
+                                                    /*Expanded(
                                                       child: Text(
                                                         '',
                                                         textAlign:
@@ -430,12 +431,12 @@ class _WishListPageState extends State<WishListPage> {
                                                                         .w400,
                                                                 fontSize: 11),
                                                       ),
-                                                    ),
+                                                    ),*/
                                                     Expanded(
                                                       child: Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
-                                                                .end,
+                                                                .start,
                                                         children: [
                                                           Text(
                                                             data
@@ -503,8 +504,8 @@ class _WishListPageState extends State<WishListPage> {
                                 ),
                               ),
                               Positioned(
-                                top: 0.0,
-                                right: 0.0,
+                                bottom: 5.0,
+                                right: 10.0,
                                 child: InkWell(
                                   onTap: () {
                                     postData!.deleteWishlist(context,
@@ -513,7 +514,7 @@ class _WishListPageState extends State<WishListPage> {
                                   },
                                   child: const Icon(
                                     Icons.delete_forever,
-                                    color: Colors.redAccent,
+                                    color: Colors.grey,
                                   ),
                                 ),
                               ),
