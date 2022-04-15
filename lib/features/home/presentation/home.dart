@@ -191,7 +191,7 @@ class _HomeState extends State<Home> {
                             top: 10, bottom: 10, left: 15, right: 15),
                         child: Text(
                           'Newest',
-                          style: Get.textTheme.headline1!.copyWith(
+                          style: Get.textTheme.headline2!.copyWith(
                               color: AppColors.white,
                               fontWeight: FontWeight.w500),
                         ),

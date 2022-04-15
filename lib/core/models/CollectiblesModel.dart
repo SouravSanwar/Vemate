@@ -56,6 +56,7 @@ class Results {
     id = json['id'];
     type = json['type'];
     name = json['name'];
+    cpp = json['changed_price'];
     edition = json['edition'];
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
     rarity = json['rarity'];
@@ -70,16 +71,6 @@ class Results {
       });
     }
 
-    if (rarity == 'Rare') {
-      rarePoint = 2;
-      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
-    } else if (rarity == 'Ultra Rare') {
-      rarePoint = 3;
-      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
-    } else {
-      rarePoint = 1;
-      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
-    }
   }
 
   int? id;
@@ -99,6 +90,7 @@ class Results {
     map['id'] = id;
     map['type'] = type;
     map['name'] = name;
+    map['changed_price'] = cpp;
     map['edition'] = edition;
     map['brand'] = brand;
     map['rarity'] = rarity;

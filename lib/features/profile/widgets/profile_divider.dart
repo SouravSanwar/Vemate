@@ -110,7 +110,7 @@ class CustomProfileElements extends StatelessWidget {
                       ),),
                     ],),
                     Shader(
-                      icon: Icon(Icons.arrow_right,color: Colors.white,),
+                      icon: Icon(Icons.arrow_forward_ios,color: Colors.white,size: 20,),
                     ),
 
                   ],)

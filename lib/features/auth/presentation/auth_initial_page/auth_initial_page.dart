@@ -95,7 +95,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                         alignment: Alignment.bottomRight,
                         width: Get.width * .9,
                         child: const Text(
-                          "Forgot Password?",
+                          "Forgot password?",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.grey,

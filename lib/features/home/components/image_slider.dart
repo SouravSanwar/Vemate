@@ -35,7 +35,7 @@ class _ImageSliderState extends State<ImageSlider> {
           enableInfiniteScroll: true,
           reverse: false,
           autoPlay: true,
-          autoPlayInterval: const Duration(seconds: 2),
+          autoPlayInterval: const Duration(seconds: 5),
           autoPlayAnimationDuration: const Duration(milliseconds: 1000),
           autoPlayCurve: Curves.fastOutSlowIn,
           enlargeCenterPage: true,

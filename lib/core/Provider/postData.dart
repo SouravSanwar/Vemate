@@ -54,6 +54,9 @@ class PostData extends ChangeNotifier {
       try {
         if (js.containsKey('id')) {
           prefs = await SharedPreferences.getInstance();
+          prefs!.setString(
+              'is_email_verified', js['is_email_verified'].toString());
+          prefs!.setString('email', js['email'].toString());
 
           printInfo(info: prefs!.getString('is_email_verified').toString());
 

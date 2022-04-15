@@ -95,7 +95,7 @@ class _SignUpState extends State<SignUp> {
                   ),
 
                   PasswordInputField(
-                      labelText: "Confirm Password",
+                      labelText: "Confirm password",
                       height: Get.height * .04,
                       textType: TextInputType.text,
                       controller:

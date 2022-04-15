@@ -143,7 +143,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                       children: [
 
                         Text(
-                          '\$' + widget.data!.changePrice!.toStringAsFixed(2),
+                          '\$' +widget.data!.changePrice.toString(),
                           style: const TextStyle(
                               color: Colors.grey, fontWeight: FontWeight
                               .bold, fontSize: 10),
@@ -156,8 +156,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                 width: Get.width * .03,
                               ),
                               Text(
-                                widget.data!.changePercent!
-                                            .toStringAsFixed(2) +
+                                widget.data!.changePercent!.toString() +
                                         "%",
                                 textAlign: TextAlign.end,
                                 style: TextStyle(

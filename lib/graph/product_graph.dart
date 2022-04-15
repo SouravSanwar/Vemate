@@ -18,12 +18,24 @@ class ProductGraph extends StatefulWidget {
 }
 
 class _ProductGraphState extends State<ProductGraph> {
+  late ZoomPanBehavior _zoomPanBehavior;
+
+  @override
+  void initState(){
+    _zoomPanBehavior = ZoomPanBehavior(
+      enablePinching: true,
+      zoomMode: ZoomMode.x,
+      enablePanning: true,
+    );
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return data.singleProductModel != null
           ? SfCartesianChart(
               plotAreaBorderWidth: 0,
+              zoomPanBehavior: _zoomPanBehavior,
               primaryXAxis: CategoryAxis(
                 axisBorderType: AxisBorderType.withoutTopAndBottom,
                 majorGridLines: const MajorGridLines(width: 0),
