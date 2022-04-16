@@ -103,7 +103,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                 Expanded(
                                   flex: 7,
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Row(
                                         children: <Widget>[
@@ -130,19 +131,20 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               )),
                                           AppSpaces.spaces_width_2,
                                           Expanded(
-                                              flex: 2,
-                                              child: Text(
-                                                data.collectiblesModel!
-                                                    .results![index].edition
-                                                    .toString(),
-                                                textAlign: TextAlign.start,
-                                                style: Get.textTheme.bodyText1!
-                                                    .copyWith(
-                                                        color: AppColors.white,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                        fontSize: 10),
-                                              )),
+                                            flex: 2,
+                                            child: Text(
+                                              data.collectiblesModel!
+                                                  .results![index].edition
+                                                  .toString(),
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText1!
+                                                  .copyWith(
+                                                      color: AppColors.white,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      fontSize: 10),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       AppSpaces.spaces_height_10,
@@ -151,11 +153,19 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                           Expanded(
                                             flex: 4,
                                             child: Text(
-                                              data.collectiblesModel!
-                                                  .results![index].brand!.name
-                                                  .toString(),
-                                              overflow:
-                                              TextOverflow.ellipsis,
+                                              data
+                                                          .collectiblesModel!
+                                                          .results![index]
+                                                          .brand !=
+                                                      null
+                                                  ? data
+                                                      .collectiblesModel!
+                                                      .results![index]
+                                                      .brand!
+                                                      .name
+                                                      .toString()
+                                                  : '',
+                                              overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
@@ -212,9 +222,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                           ),
                                           const Expanded(
                                             flex: 2,
-                                            child: Text(
-                                            ""
-                                            ),
+                                            child: Text(""),
                                           ),
                                         ],
                                       ),
@@ -285,17 +293,17 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Expanded(
-                                              child: Text(
-                                                '\$${data.collectiblesModel!.results![index].cpp.toString()}',
-                                                textAlign: TextAlign.start,
-                                                style: Get.textTheme.bodyText1!
-                                                    .copyWith(
-                                                        color: AppColors.white
-                                                            .withOpacity(0.9),
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 11),
-                                              ),
+                                            child: Text(
+                                              '\$${data.collectiblesModel!.results![index].cpp.toString()}',
+                                              textAlign: TextAlign.start,
+                                              style: Get.textTheme.bodyText1!
+                                                  .copyWith(
+                                                      color: AppColors.white
+                                                          .withOpacity(0.9),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 10),
+                                            ),
                                           ),
                                           AppSpaces.spaces_width_2,
                                           Expanded(
@@ -305,11 +313,12 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               children: [
                                                 Text(
                                                   data
-                                                      .collectiblesModel!
-                                                      .results![index]
-                                                      .priceChangePercent!
-                                                      .percent!
-                                                      .toStringAsFixed(2)+"%",
+                                                          .collectiblesModel!
+                                                          .results![index]
+                                                          .priceChangePercent!
+                                                          .percent!
+                                                          .toStringAsFixed(2) +
+                                                      "%",
                                                   textAlign: TextAlign.end,
                                                   style: Get
                                                       .textTheme.bodyText1!
@@ -333,16 +342,20 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                         .priceChangePercent!
                                                         .sign ==
                                                     'decrease')
-                                                  const Icon(
-                                                    Icons.arrow_downward,
-                                                    color: Colors.red,
-                                                    size: 10,
+                                                  const Expanded(
+                                                    child: Icon(
+                                                      Icons.arrow_downward,
+                                                      color: Colors.red,
+                                                      size: 10,
+                                                    ),
                                                   )
                                                 else
-                                                  const Icon(
-                                                    Icons.arrow_upward,
-                                                    color: Colors.green,
-                                                    size: 10,
+                                                  const Expanded(
+                                                    child: Icon(
+                                                      Icons.arrow_upward,
+                                                      color: Colors.green,
+                                                      size: 10,
+                                                    ),
                                                   )
                                               ],
                                             ),

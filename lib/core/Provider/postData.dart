@@ -40,9 +40,11 @@ class PostData extends ChangeNotifier {
 
     final response = await http.post(Uri.parse(Urls.signUp),
         body: json.encode(body), headers: requestHeaders);
+
     var x = json.decode(response.body);
 
     printInfo(info: x.toString());
+
     Map<String, dynamic> js = x;
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
@@ -284,10 +286,15 @@ class PostData extends ChangeNotifier {
         if (js['is_email_verified'] == true) {
           prefs = await SharedPreferences.getInstance();
 
-          await Store(js, context);
+          prefs!.setString('token', js['token'].toString());
+          Map<String, String> requestToken = {
+            'Authorization': 'token ${js['token'].toString()}',
+          };
 
-          printInfo(info:'Token from LogIn: '+ prefs!.getString
-            ('is_email_verified').toString());
+          getData = Provider.of<GetData>(context, listen: false);
+          await getData!.getUserInfo(requestToken);
+
+          Store(js, context);
 
           Get.to(() => ControllerPage());
 
@@ -336,17 +343,19 @@ class PostData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future updateProfile(BuildContext context, var body) async {
+  Future updateProfile(
+      BuildContext context, var body, var requestHeadersWithToken) async {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const CircularProgressIndicator());
+        builder: (_) => const LoadingExample());
 
     printInfo(info: body.toString());
 
     final response = await http.patch(Uri.parse(Urls.updateUserInfo),
         body: json.encode(body), headers: requestHeadersWithToken);
     print(response.body.toString());
+    print(requestHeadersWithToken.toString());
     var x = json.decode(response.body);
 
     if (response.statusCode == 200 ||
@@ -357,8 +366,11 @@ class PostData extends ChangeNotifier {
       try {
         Map<String, dynamic> js = x;
         if (js['is_email_verified'] == true) {
+          Map<String, String> requestToken = {
+            'Authorization': 'token ${js['token'].toString()}',
+          };
           getData = Provider.of<GetData>(context, listen: false);
-          await getData!.getUserInfo();
+          await getData!.getUserInfo(requestToken);
           prefs = await SharedPreferences.getInstance();
 
           prefs!.setString('name', js['name'].toString());
@@ -413,7 +425,50 @@ class PostData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future addToWishlist(BuildContext context, var body, int? id) async {
+  Future addToWishlist(BuildContext context, var body, int? id,
+      var requestHeadersWithToken) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingExample());
+
+    printInfo(info: body.toString());
+
+    final response = await http.post(Uri.parse(Urls.commonStorage),
+        body: json.encode(body), headers: requestHeadersWithToken);
+    print(response.body.toString());
+    var x = json.decode(response.body);
+
+    printInfo(info: requestHeadersWithToken.toString());
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      Navigator.of(context).pop();
+      getData = Provider.of<GetData>(context, listen: false);
+      await getData!.checkWishlist(id!);
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Success",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    } else {
+      Navigator.of(context).pop();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: Text(
+            x["detail"],
+            style: const TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    }
+    notifyListeners();
+  }
+
+  Future addToSet(BuildContext context, var body, int? id,
+      var requestHeadersWithToken) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -433,7 +488,7 @@ class PostData extends ChangeNotifier {
         response.statusCode == 201) {
       Navigator.of(context).pop();
       getData = Provider.of<GetData>(context, listen: false);
-      await getData!.checkWishlist(id!);
+      await getData!.checkSetList(id!);
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
@@ -456,27 +511,22 @@ class PostData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future addToSet(BuildContext context, var body, int? id) async {
+  Future deleteWishlist(BuildContext context, int? id) async {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingExample());
 
-    printInfo(info: body.toString());
+    final response = await http.delete(Uri.parse(Urls.commonStorage + '$id/'),
+        headers: requestToken);
 
-    final response = await http.post(Uri.parse(Urls.commonStorage),
-        body: json.encode(body), headers: requestHeadersWithToken);
-    print(response.body.toString());
-    var x = json.decode(response.body);
+    printInfo(info: response.statusCode.toString());
+    printInfo(info: Urls.commonStorage + '$id/');
 
-    if (response.statusCode == 200 ||
-        response.statusCode == 401 ||
-        response.statusCode == 403 ||
-        response.statusCode == 500 ||
-        response.statusCode == 201) {
+    if (response.statusCode == 204) {
       Navigator.of(context).pop();
       getData = Provider.of<GetData>(context, listen: false);
-      await getData!.checkSetList(id!);
+      await getData!.getWishList();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,

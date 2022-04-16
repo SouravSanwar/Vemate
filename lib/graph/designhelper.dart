@@ -37,7 +37,9 @@ class _DesignHelperState extends State<DesignHelper> {
         child: MaterialButton(
           child: widget.child,
           onPressed: () {
-            widget.onPressed();
+            setState(() {
+              widget.onPressed();
+            });
           },
         ));
   }

@@ -81,8 +81,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                             const BorderRadius.all(Radius.circular(8.0)),
                       ),
                       child: Text(
-                        '\$' +
-                            widget.vaultStatsModel!.totalPriceChange.toStringAsFixed(2),
+                        '\$' + widget.vaultStatsModel!.totalPriceChange.toString(),
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText2!.copyWith(
                             color: AppColors.white,
@@ -151,35 +150,29 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                    widget.vaultStatsModel!.sign! == 'decrease'?
-                          //toRotateIcon
-                          const RotationTransition(
-                            turns: AlwaysStoppedAnimation(45 / 360),
-                            child: Icon(
-                              Icons.arrow_downward,
-                              size: 18,
-                              color: Colors.red,
-                            ),
-                          )
-                        :
-                          const RotationTransition(
-                            turns: AlwaysStoppedAnimation(45 / 360),
-                            child: Icon(
-                              Icons.arrow_upward,
-                              size: 18,
-                              color: Colors.green,
-                            ),
-                          ),
-                        Text(
-                          widget.vaultStatsModel!.totalPercentChange! < 0.0
-                              ? widget.vaultStatsModel!.totalPercentChange!
-                                  .toString()
-                              : widget.vaultStatsModel!.totalPercentChange!
-                                      .toStringAsFixed(2) +
+                        widget.vaultStatsModel!.sign! == 'decrease'
+                            ?
+                            const RotationTransition(
+                                turns: AlwaysStoppedAnimation(45 / 360),
+                                child: Icon(
+                                  Icons.arrow_downward,
+                                  size: 18,
+                                  color: Colors.red,
+                                ),
+                              )
+                            : const RotationTransition(
+                                turns: AlwaysStoppedAnimation(45 / 360),
+                                child: Icon(
+                                  Icons.arrow_upward,
+                                  size: 18,
+                                  color: Colors.green,
+                                ),
+                              ),
+                        Text(widget.vaultStatsModel!.totalPercentChange!.toString()+
                                   "%",
                           textAlign: TextAlign.end,
                           style: TextStyle(
-                            color:  widget.vaultStatsModel!.sign! == 'decrease'
+                            color: widget.vaultStatsModel!.sign! == 'decrease'
                                 ? Colors.red
                                 : Colors.green,
                             fontWeight: FontWeight.bold,
@@ -206,20 +199,16 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                   margin: EdgeInsets.zero,
                   primaryXAxis: CategoryAxis(
                     isVisible: false,
-                    majorGridLines:
-                    const MajorGridLines(width: 0),
-                    labelIntersectAction:
-                    AxisLabelIntersectAction.hide,
+                    majorGridLines: const MajorGridLines(width: 0),
+                    labelIntersectAction: AxisLabelIntersectAction.hide,
                     labelRotation: 270,
                     labelAlignment: LabelAlignment.start,
                     maximumLabels: 7,
                   ),
                   primaryYAxis: CategoryAxis(
                     isVisible: false,
-                    majorGridLines:
-                    const MajorGridLines(width: 0),
-                    labelIntersectAction:
-                    AxisLabelIntersectAction.hide,
+                    majorGridLines: const MajorGridLines(width: 0),
+                    labelIntersectAction: AxisLabelIntersectAction.hide,
                     labelRotation: 0,
                     labelAlignment: LabelAlignment.start,
                     maximumLabels: 10,
@@ -232,10 +221,9 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                           : Colors.green,
                       gradient: AppColors.graphGradient,
                       dataSource: widget.vaultStatsModel!.vaultStatsModelGraph!,
-                      xValueMapper: (VaultStatsModelGraph plot, _) =>
-                      plot.hour,
+                      xValueMapper: (VaultStatsModelGraph plot, _) => plot.hour,
                       yValueMapper: (VaultStatsModelGraph plot, _) =>
-                      plot.total,
+                          plot.total,
                       xAxisName: 'Duration',
                       yAxisName: 'Total',
                     )
@@ -243,8 +231,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                 ),
               ),
             ],
-          )
-      ),
+          )),
     );
   }
 }

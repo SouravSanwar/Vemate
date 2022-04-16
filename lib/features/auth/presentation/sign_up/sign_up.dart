@@ -20,7 +20,6 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-
   PostData? postData;
 
   @override
@@ -31,6 +30,7 @@ class _SignUpState extends State<SignUp> {
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +95,7 @@ class _SignUpState extends State<SignUp> {
                   ),
 
                   PasswordInputField(
-                      labelText: "Confirm Password",
+                      labelText: "Confirm password",
                       height: Get.height * .04,
                       textType: TextInputType.text,
                       controller:
@@ -124,26 +124,26 @@ class _SignUpState extends State<SignUp> {
                           "birth_year": "1852",
                           "fcm_device_id": "3",
                           "password":
-                          SignUpController.to.passwordController.text
+                              SignUpController.to.passwordController.text
                         };
 
                         printInfo(info: body.toString());
 
                         SignUpController.to.passwordController.text ==
-                            SignUpController
-                                .to.confirmPasswordController.text
+                                SignUpController
+                                    .to.confirmPasswordController.text
                             ? postData!.signUp(context, body)
                             : Flushbar(
-                          backgroundColor: AppColors.lightBackgroundColor,
-                          flushbarPosition: FlushbarPosition.BOTTOM,
-                          isDismissible: false,
-                          duration: const Duration(seconds: 3),
-                          messageText: const Text(
-                            "Password didn't match",
-                            style: TextStyle(
-                                fontSize: 16.0, color: Colors.green),
-                          ),
-                        ).show(context);
+                                backgroundColor: AppColors.lightBackgroundColor,
+                                flushbarPosition: FlushbarPosition.BOTTOM,
+                                isDismissible: false,
+                                duration: const Duration(seconds: 3),
+                                messageText: const Text(
+                                  "Password didn't match",
+                                  style: TextStyle(
+                                      fontSize: 16.0, color: Colors.green),
+                                ),
+                              ).show(context);
                       },
                       child: Text(
                         AppLanguageString.SIGN_UP.tr.toUpperCase(),

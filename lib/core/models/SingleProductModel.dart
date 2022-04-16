@@ -32,17 +32,12 @@ class SingleProductModel {
     this.creationTime,
     this.updateTime,
     this.parent,
+    this.graphType,
   });
 
   SingleProductModel.fromJson(dynamic json) {
     id = json['id'];
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
-    if (json['graph'] != null) {
-      graph = [];
-      json['graph'].forEach((v) {
-        graph?.add(Graph.fromJson(v));
-      });
-    }
     type = json['type'];
     name = json['name'];
     description = json['description'];
@@ -53,7 +48,7 @@ class SingleProductModel {
     dropDate = json['drop_date'];
     listPrice = json['list_price'];
     editions = json['editions'];
-    editionType = json['edition_type'];
+    editionType = json['edition_type'] ?? '';
     season = json['season'];
     rarity = json['rarity'];
     license = json['license'];
@@ -70,6 +65,14 @@ class SingleProductModel {
     creationTime = json['creation_time'];
     updateTime = json['update_time'];
     parent = json['parent'];
+    graphType = json['graph_type'];
+
+    if (json['graph'] != null) {
+      graph = [];
+      json['graph'].forEach((v) {
+        graph?.add(Graph.fromJson(v));
+      });
+    }
   }
 
   int? id;
@@ -101,6 +104,7 @@ class SingleProductModel {
   String? characters;
   String? creationTime;
   String? updateTime;
+  String? graphType;
   dynamic parent;
 
   Map<String, dynamic> toJson() {
@@ -136,6 +140,7 @@ class SingleProductModel {
     map['characters'] = characters;
     map['creation_time'] = creationTime;
     map['update_time'] = updateTime;
+    map['graph_type'] = graphType;
     map['parent'] = parent;
     return map;
   }
@@ -143,38 +148,49 @@ class SingleProductModel {
 
 class Graph {
   Graph({
-    this.time,
-    this.price,
-    this.formattedTime,
-  });
+    this.floorPrice,
+    this.creationTime,
+    this.date,
+    this.hourWiseTime,
+    this.dayWiseTime,});
 
   Graph.fromJson(dynamic json) {
-    time = json['time'];
-    price = json['price'];
-    formattedTime = DateFormat('hh a').format(DateTime.parse(time!));
+    floorPrice = json['floor_price'];
+    creationTime = json['creation_time'];
+    date = json['date'];
+    if (date != null) {
+      hourWiseTime = DateFormat('hh a').format(DateTime.parse(date!));
+      dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
+    }
   }
-
-  String? time;
-  double? price;
-  var formattedTime;
+  double? floorPrice;
+  String? creationTime;
+  String? date;
+  String? hourWiseTime;
+  String? dayWiseTime;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['time'] = time;
-    map['price'] = price;
+    map['floor_price'] = floorPrice;
+    map['creation_time'] = creationTime;
+    map['date'] = date;
     return map;
   }
+
 }
+
 
 class Brand {
   Brand({
     this.id,
-    this.name,});
+    this.name,
+  });
 
   Brand.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
   }
+
   int? id;
   String? name;
 
@@ -184,5 +200,4 @@ class Brand {
     map['name'] = name;
     return map;
   }
-
 }

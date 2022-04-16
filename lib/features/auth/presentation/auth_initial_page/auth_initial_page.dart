@@ -7,6 +7,7 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/utilities/common_widgets/password_input_field.dart';
@@ -35,6 +36,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
   @override
   Widget build(BuildContext context) {
     Get.put(SigninController());
+    printInfo(info: 'Auth Token: ' + prefs!.getString('token').toString());
 
     return Scaffold(
       backgroundColor: const Color(0xff272E49),
@@ -93,7 +95,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                         alignment: Alignment.bottomRight,
                         width: Get.width * .9,
                         child: const Text(
-                          "Forgot Password?",
+                          "Forgot password?",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.grey,
@@ -138,7 +140,6 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   )
                 ],
               ),
-
 
               SizedBox(
                 height: Get.height * .09,

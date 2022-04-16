@@ -1,4 +1,4 @@
-package com.w3kernel.ketemaa
+package com.vemateltd.vemate
 
 import io.flutter.embedding.android.FlutterActivity
 

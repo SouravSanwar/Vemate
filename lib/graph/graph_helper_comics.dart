@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 import '../core/Provider/getData.dart';
@@ -318,22 +319,28 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
                         "product": data.singleProductModel!.id,
                         "type": 1
                       };
+                      Map<String, String> requestHeadersWithToken = {
+                        'Content-type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'token ${prefs!.getString('token')}',
+                      };
 
                       data.checkWishlistModel!.isFound == false
                           ? postData!.addToWishlist(
-                        context,
-                        body,
-                        data.singleProductModel!.id,
-                      )
+                              context,
+                              body,
+                              data.singleProductModel!.id,
+                              requestHeadersWithToken,
+                            )
                           : Flushbar(
-                          flushbarPosition: FlushbarPosition.BOTTOM,
-                          isDismissible: false,
-                          duration: const Duration(seconds: 3),
-                          messageText: const Text(
-                            "Product already in your wishlist",
-                            style: TextStyle(
-                                fontSize: 16.0, color: Colors.green),
-                          )).show(context);
+                              flushbarPosition: FlushbarPosition.BOTTOM,
+                              isDismissible: false,
+                              duration: const Duration(seconds: 3),
+                              messageText: const Text(
+                                "Product already in your wishlist",
+                                style: TextStyle(
+                                    fontSize: 16.0, color: Colors.green),
+                              )).show(context);
                     },
                     child: Container(
                       width: Get.width * .45,
@@ -349,13 +356,13 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
                             left: 8.0, right: 8.0, top: 15, bottom: 15),
                         child: data.checkWishlistModel!.isFound == false
                             ? Text(
-                          'Add to Wishlist',
-                          style: Get.textTheme.bodyMedium,
-                        )
+                                'Add to Wishlist',
+                                style: Get.textTheme.bodyMedium,
+                              )
                             : Text(
-                          'Already in Wishlist',
-                          style: Get.textTheme.bodyMedium,
-                        ),
+                                'Already in Wishlist',
+                                style: Get.textTheme.bodyMedium,
+                              ),
                       ),
                     ),
                   ),
@@ -366,22 +373,28 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
                         "product": data.singleProductModel!.id,
                         "type": 0
                       };
+                      Map<String, String> requestHeadersWithToken = {
+                        'Content-type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'token ${prefs!.getString('token')}',
+                      };
 
                       data.checkSetCheck!.isFound == false
                           ? postData!.addToSet(
-                        context,
-                        body,
-                        data.singleProductModel!.id,
-                      )
+                              context,
+                              body,
+                              data.singleProductModel!.id,
+                              requestHeadersWithToken,
+                            )
                           : Flushbar(
-                          flushbarPosition: FlushbarPosition.BOTTOM,
-                          isDismissible: false,
-                          duration: const Duration(seconds: 3),
-                          messageText: const Text(
-                            "Product already in your Vault",
-                            style: TextStyle(
-                                fontSize: 16.0, color: Colors.green),
-                          )).show(context);
+                              flushbarPosition: FlushbarPosition.BOTTOM,
+                              isDismissible: false,
+                              duration: const Duration(seconds: 3),
+                              messageText: const Text(
+                                "Product already in your Vault",
+                                style: TextStyle(
+                                    fontSize: 16.0, color: Colors.green),
+                              )).show(context);
                     },
                     child: Container(
                       width: Get.width * .45,
@@ -398,9 +411,9 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
                             left: 8.0, right: 8.0, top: 15, bottom: 15),
                         child: data.checkSetCheck!.isFound == false
                             ? Text('Add to Vault',
-                            style: Get.textTheme.bodyMedium)
+                                style: Get.textTheme.bodyMedium)
                             : Text('Already in Vault',
-                            style: Get.textTheme.bodyMedium),
+                                style: Get.textTheme.bodyMedium),
                       ),
                     ),
                   ),

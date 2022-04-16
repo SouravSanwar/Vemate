@@ -49,7 +49,7 @@ class GetData extends ChangeNotifier {
     'Authorization': 'token ${prefs!.getString('token')}',
   };
 
-  Future getUserInfo() async {
+  Future getUserInfo(var requestToken) async {
     profileModel = null;
     final response = await http.get(
       Uri.parse(Urls.userInfo),
@@ -58,9 +58,18 @@ class GetData extends ChangeNotifier {
 
     var data = json.decode(response.body.toString());
 
-    //printInfo(info: data.toString());
+    printInfo(info: 'Home Page Token: ' + requestToken.toString());
 
     profileModel = ProfileModel.fromJson(data);
+
+    notifyListeners();
+  }
+
+  clearData() {
+    profileModel = null;
+    vaultStatsModel = null;
+    wishListModel = null;
+    setListModel = null;
 
     notifyListeners();
   }
@@ -76,6 +85,9 @@ class GetData extends ChangeNotifier {
 
     var data = json.decode(response.body.toString());
 
+    printInfo(
+        info: Urls.mainUrl +
+            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset');
     //printInfo(info: data.toString());
 
     if (collectiblesModel != null) {
@@ -119,14 +131,16 @@ class GetData extends ChangeNotifier {
   Future getComics({int offset = 0}) async {
     final response = await http.get(
       Uri.parse(
-        Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset',
+        Urls.comic + '$offset',
       ),
       headers: requestToken,
     );
 
     var data = json.decode(response.body.toString());
 
+    printInfo(
+        info: Urls.mainUrl +
+            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset');
     //printInfo(info: data.toString());
 
     if (comicsModel != null) {
@@ -175,7 +189,7 @@ class GetData extends ChangeNotifier {
       headers: requestToken,
     );
 
-    printInfo(info: Urls.singleProduct + '$id?graph_type=0');
+    printInfo(info: Urls.singleProduct + '$id?graph_type=$graphType');
 
     var data = json.decode(response.body.toString());
 
@@ -222,20 +236,26 @@ class GetData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getWishList() async {
-    wishListModel = null;
+  Future getWishList({int offset = 0}) async {
     final response = await http.get(
       Uri.parse(
-        Urls.commonStorage + '?type=1',
+        Urls.commonStorage + '?type=1&limit=20&offset=$offset',
       ),
       headers: requestToken,
     );
 
     var data = json.decode(response.body.toString());
 
+    printInfo(info: Urls.commonStorage + '?type=1&limit=20&offset=$offset');
     printInfo(info: data.toString());
 
-    wishListModel = WishListModel.fromJson(data);
+    if (wishListModel != null) {
+      if (offset == 0) wishListModel!.results!.clear();
+
+      wishListModel!.results!.addAll(WishListModel.fromJson(data).results!);
+    } else {
+      wishListModel = WishListModel.fromJson(data);
+    }
 
     notifyListeners();
   }

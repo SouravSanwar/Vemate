@@ -17,6 +17,8 @@ class Urls {
   static String updateProfilePic =
       mainUrl + '/api/v1/account/public/users/upload_profile_image/';
 
+  static String comic = mainUrl + '/api/v1/veve/public/products/?type=1&limit=20&offset=';
+
   static String singleProduct = mainUrl + '/api/v1/veve/public/products/';
 
   static String commonStorage = mainUrl + '/api/v1/veve/public/common-storage/';
@@ -28,8 +30,7 @@ class Urls {
       '/api/v1/veve/public/common-storage/check_duplicate/?type=0&product_id=';
 
   static String vaultStats = mainUrl +
-      '/api/v1/veve/public/common-storage/vaul'
-          't_stats/';
+      '/api/v1/veve/public/common-storage/vault_stats/';
 
   static String news = mainUrl + '/api/v1/home/public/news/';
 

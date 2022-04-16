@@ -12,13 +12,13 @@ import 'package:ketemaa/core/models/ProfileModel.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/profile/_controller/profile_controller.dart';
 import 'package:ketemaa/graph/designhelper.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/language/language_string.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
 import '../../../core/utilities/common_widgets/text_input_field.dart';
-
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -156,7 +156,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ProfileController.to.userNameTextFiledController.text,
                     "email": ProfileController.to.emailTextFiledController.text
                   };
-                  postData!.updateProfile(context, body);
+
+                  Map<String, String> requestHeadersWithToken = {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': 'token ${prefs!.getString('token')}',
+                  };
+                  postData!
+                      .updateProfile(context, body, requestHeadersWithToken);
                 },
                 child: Text(
                   AppLanguageString.UPDATE_INFO.toUpperCase(),

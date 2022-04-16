@@ -6,6 +6,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
 
@@ -25,21 +26,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int? currentIndex = 1;
   bool? allSelected = true;
   bool? dropSelected = false;
   bool? setsSelected = false;
   bool? priceSelected = false;
 
   GetData? getData;
-
+  Map<String, String> requestToken = {
+    'Authorization': 'token ${prefs!.getString('token')}',
+  };
   @override
   void initState() {
     // TODO: implement initState
 
     getData = Provider.of<GetData>(context, listen: false);
 
-    getData!.getUserInfo();
+    getData!.getUserInfo(requestToken);
 
     getData!.getVaultStats();
 
@@ -83,7 +85,9 @@ class _HomeState extends State<Home> {
       backgroundColor: const Color(0xff272E49),
       body: Consumer<GetData>(
         builder: (context, data, child) {
-          return data.profileModel != null && data.vaultStatsModel != null
+          return data.profileModel != null &&
+                  data.vaultStatsModel != null &&
+                  data.newsModel != null
               ? SafeArea(
                   child: ListView(
                     shrinkWrap: true,
@@ -163,7 +167,11 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       AppSpaces.spaces_height_10,
-                      ImageSlider(news: data.newsModel!.results,),
+                      ImageSlider(
+                        news: data.newsModel!.results!=null
+                        ?data.newsModel!.results
+                        :null
+                      ),
                       AppSpaces.spaces_height_10,
                       Padding(
                         padding: const EdgeInsets.only(
@@ -183,7 +191,7 @@ class _HomeState extends State<Home> {
                             top: 10, bottom: 10, left: 15, right: 15),
                         child: Text(
                           'Newest',
-                          style: Get.textTheme.headline1!.copyWith(
+                          style: Get.textTheme.headline2!.copyWith(
                               color: AppColors.white,
                               fontWeight: FontWeight.w500),
                         ),

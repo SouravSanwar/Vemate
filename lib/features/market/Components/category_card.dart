@@ -15,28 +15,24 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(
-        AppDimension.padding_8,
-      ),
-      child: Container(
-        width: Get.width,
-        decoration: BoxDecoration(
-          gradient: gradient,
-          border: Border.all(
-            color: AppColors.primaryColor,
-          ),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(12),
-          ),
+    return Container(
+      width: Get.width,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        gradient: gradient,
+        border: Border.all(
+          color: AppColors.primaryColor,
         ),
-        child: Padding(
-          padding: EdgeInsets.all(AppDimension.padding_10),
-          child: Text(
-            name.toString(),
-            textAlign: TextAlign.center,
-            style: Get.textTheme.bodyText1!.copyWith(color: AppColors.white),
-          ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(12),
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(AppDimension.padding_10),
+        child: Text(
+          name.toString(),
+          textAlign: TextAlign.center,
+          style: Get.textTheme.bodyText1!.copyWith(color: AppColors.white),
         ),
       ),
     );

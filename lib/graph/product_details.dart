@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 import '../core/Provider/getData.dart';
@@ -42,99 +43,6 @@ class _ProductDetailsState extends State<ProductDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              /* FadeInUp(
-                duration: const Duration(milliseconds: 100),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    DesignHelper(
-                      onPressed: () {},
-                      child: const Text(
-                        "1H",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-
-                    //FOR 7 DAYS
-                    DesignHelper(
-                      onPressed: () {},
-                      child: const Text(
-                        "24H",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    DesignHelper(
-                      onPressed: () {
-                        getData!.getSingleProduct(widget.id, graphType: 1);
-                      },
-                      child: const Text(
-                        "7D",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    AppSpaces.spaces_height_5,
-                    //FOR 30 DAYS
-                    DesignHelper(
-                      onPressed: () {},
-                      child: const Text(
-                        "30D",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              AppSpaces.spaces_height_5,
-              FadeInUp(
-                duration: const Duration(milliseconds: 1000),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    //FOR 60 DAYS
-                    DesignHelper(
-                      onPressed: () {},
-                      child: const Text(
-                        "60D",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(
-                      width: 5,
-                    ),
-
-                    //FOR 1 YEAR
-                    DesignHelper(
-                      onPressed: () {},
-                      child: const Text(
-                        "1Y",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              AppSpaces.spaces_height_40,*/
-              // recent transactions
               FadeInUp(
                 duration: const Duration(milliseconds: 1000),
                 child: Text(
@@ -273,11 +181,18 @@ class _ProductDetailsState extends State<ProductDetails> {
                         "type": 1
                       };
 
+                      Map<String, String> requestHeadersWithToken = {
+                        'Content-type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'token ${prefs!.getString('token')}',
+                      };
+
                       data.checkWishlistModel!.isFound == false
                           ? postData!.addToWishlist(
                               context,
                               body,
                               data.singleProductModel!.id,
+                              requestHeadersWithToken,
                             )
                           : Flushbar(
                               flushbarPosition: FlushbarPosition.BOTTOM,
@@ -320,12 +235,18 @@ class _ProductDetailsState extends State<ProductDetails> {
                         "product": data.singleProductModel!.id,
                         "type": 0
                       };
+                      Map<String, String> requestHeadersWithToken = {
+                        'Content-type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'token ${prefs!.getString('token')}',
+                      };
 
                       data.checkSetCheck!.isFound == false
                           ? postData!.addToSet(
                               context,
                               body,
                               data.singleProductModel!.id,
+                              requestHeadersWithToken,
                             )
                           : Flushbar(
                               flushbarPosition: FlushbarPosition.BOTTOM,
