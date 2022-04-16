@@ -23,7 +23,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => PostData()),
         ChangeNotifierProvider(create: (_) => PostFile()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
