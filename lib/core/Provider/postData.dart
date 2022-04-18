@@ -366,17 +366,12 @@ class PostData extends ChangeNotifier {
       try {
         Map<String, dynamic> js = x;
         if (js['is_email_verified'] == true) {
-          Map<String, String> requestToken = {
-            'Authorization': 'token ${js['token'].toString()}',
-          };
           getData = Provider.of<GetData>(context, listen: false);
-          await getData!.getUserInfo(requestToken);
+          await getData!.getUserInfo(requestHeadersWithToken);
           prefs = await SharedPreferences.getInstance();
 
           prefs!.setString('name', js['name'].toString());
           prefs!.setString('email', js['email'].toString());
-
-          printInfo(info: prefs!.getString('is_email_verified').toString());
 
           Navigator.of(context).pop();
 
@@ -442,9 +437,9 @@ class PostData extends ChangeNotifier {
     printInfo(info: requestHeadersWithToken.toString());
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      Navigator.of(context).pop();
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.checkWishlist(id!);
+      Navigator.of(context).pop();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
@@ -481,14 +476,11 @@ class PostData extends ChangeNotifier {
     print(response.body.toString());
     var x = json.decode(response.body);
 
-    if (response.statusCode == 200 ||
-        response.statusCode == 401 ||
-        response.statusCode == 403 ||
-        response.statusCode == 500 ||
-        response.statusCode == 201) {
-      Navigator.of(context).pop();
+    if (response.statusCode == 200 || response.statusCode == 201) {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.checkSetList(id!);
+      Navigator.of(context).pop();
+
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,

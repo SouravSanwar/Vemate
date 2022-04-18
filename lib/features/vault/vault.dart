@@ -36,6 +36,8 @@ class _VaultState extends State<Vault> {
 
     getData!.getSetList();
     getData!.getWishList();
+
+    getData!.getVaultStats();
   }
 
   @override
@@ -134,7 +136,8 @@ class _VaultState extends State<Vault> {
                                               child: Text(
                                                 '\$' +
                                                     data.vaultStatsModel!
-                                                        .totalPriceChange!.toString(),
+                                                        .totalPriceChange!
+                                                        .toString(),
                                                 textAlign: TextAlign.start,
                                                 style: Get.textTheme.bodyText2!
                                                     .copyWith(

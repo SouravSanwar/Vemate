@@ -57,6 +57,7 @@ class _WishListPageState extends State<WishListPage> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
+        elevation: 1.0,
         title: Text(
           'My Wishlists',
           style: Get.textTheme.headline2!.copyWith(color: Colors.white),
@@ -98,22 +99,24 @@ class _WishListPageState extends State<WishListPage> {
                                       data.wishListModel!.results![index]
                                                   .productDetail!.type ==
                                               0
-                                          ? Get.to(() => () {
-                                                CollectibleDetails(
-                                                  productId: data
-                                                      .wishListModel!
-                                                      .results![index]
-                                                      .productDetail!
-                                                      .id!,
-                                                );
-                                              })
-                                          : Get.to(() => ComicDetails(
+                                          ? Get.to(
+                                              () => CollectibleDetails(
                                                 productId: data
                                                     .wishListModel!
                                                     .results![index]
                                                     .productDetail!
                                                     .id!,
-                                              ));
+                                              ),
+                                            )
+                                          : Get.to(
+                                              () => ComicDetails(
+                                                productId: data
+                                                    .wishListModel!
+                                                    .results![index]
+                                                    .productDetail!
+                                                    .id!,
+                                              ),
+                                            );
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.all(5.0),
