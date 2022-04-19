@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
-class Shader extends StatelessWidget{
+class Shader extends StatelessWidget {
   final Icon? icon;
-  Shader({
-    this.icon
-  });
+  const Shader({this.icon});
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
@@ -19,8 +17,6 @@ class Shader extends StatelessWidget{
             tileMode: TileMode.repeated,
           ).createShader(bounds);
         },
-
-        child: icon
-    );
+        child: icon);
   }
 }

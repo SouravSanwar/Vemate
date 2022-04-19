@@ -4,7 +4,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/Provider/postFile.dart';
@@ -17,6 +16,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/language/language_string.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
+import '../../../core/utilities/app_dimension/app_dimension.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
 import '../../../core/utilities/common_widgets/text_input_field.dart';
 
@@ -33,7 +33,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String? _extension;
   bool _isLoading = false;
   bool _userAborted = false;
-  FileType _pickingType = FileType.image;
+  final FileType _pickingType = FileType.image;
   List<File>? files = <File>[];
   List<File>? fileList = <File>[];
   final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
@@ -58,7 +58,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     postData = Provider.of<PostData>(context, listen: false);
     getData = Provider.of<GetData>(context, listen: false);
 
-    // TODO: implement initState
     super.initState();
   }
 
@@ -68,109 +67,139 @@ class _EditProfilePageState extends State<EditProfilePage> {
       return Scaffold(
         backgroundColor: AppColors.backgroundColor,
         body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.zero,
           physics: const BouncingScrollPhysics(),
           children: [
-            AppSpaces.spaces_height_100,
-            InkWell(
-              child: Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: MediaQuery.of(context).size.width * .25,
-                    backgroundColor: const Color(0xff2F3758),
-                    backgroundImage: profileModel!.profileImage == null
-                        ? null
-                        : NetworkImage(
-                            Urls.mainUrl +
-                                data.profileModel!.profileImage!.mobile!.src
-                                    .toString(),
-                          ),
-                    child: profileModel!.profileImage == null
-                        ? Shader(
-                            icon: const Icon(
-                              Icons.person_add_alt_1_rounded,
-                              size: 100,
-                            ),
-                          )
-                        : null,
-                  ),
-                  Positioned(
-                    bottom: Get.height * .01,
-                    right: Get.height * .055,
-                    child: RawMaterialButton(
-                      onPressed: () {
-                        setState(() {
-                          _pickFiles();
-                        });
-                      },
-                      elevation: 2.0,
-                      fillColor: const Color(0xFFF5F6F9),
-                      child: Shader(
-                        icon: const Icon(
-                          Icons.camera_alt,
-                          size: 20,
-                        ),
-                      ),
-                      padding: const EdgeInsets.all(15.0),
-                      shape: const CircleBorder(),
+            AppSpaces.spaces_height_30,
+            Padding(
+              padding: EdgeInsets.only(
+                left: AppDimension.padding_8,
+                right: AppDimension.padding_8,
+              ),
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Shader(
+                      icon: const Icon(Icons.arrow_back),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: Get.height * .08,
-            ),
-            TextInputField(
-              labelText: AppLanguageString.USERNAME.tr,
-              height: Get.height * .04,
-              textType: TextInputType.emailAddress,
-              controller: ProfileController.to.userNameTextFiledController,
-            ),
-            SizedBox(
-              height: Get.height * .022,
-            ),
-            TextInputField(
-              labelText: AppLanguageString.EMAIL.tr,
-              height: Get.height * .04,
-              textType: TextInputType.emailAddress,
-              controller: ProfileController.to.emailTextFiledController,
-            ),
-            SizedBox(
-              height: Get.height * .07,
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 15),
-              padding: const EdgeInsets.symmetric(horizontal: 7),
-              width: Get.width,
-              decoration: BoxDecoration(
-                gradient: AppColors.purpleGradient, // set border width
-                borderRadius: const BorderRadius.all(
-                    Radius.circular(20.0)), // set rounded corner radius
-              ),
-              child: TextButton(
-                onPressed: () {
-                  var body = {
-                    "nickname":
-                        ProfileController.to.userNameTextFiledController.text,
-                    "email": ProfileController.to.emailTextFiledController.text
-                  };
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  AppSpaces.spaces_height_50,
+                  InkWell(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        CircleAvatar(
+                          radius: MediaQuery.of(context).size.width * .25,
+                          backgroundColor: const Color(0xff2F3758),
+                          backgroundImage: profileModel!.profileImage == null
+                              ? null
+                              : NetworkImage(
+                                  Urls.mainUrl +
+                                      data.profileModel!.profileImage!.mobile!
+                                          .src
+                                          .toString(),
+                                ),
+                          child: profileModel!.profileImage == null
+                              ? Shader(
+                                  icon: const Icon(
+                                    Icons.person_add_alt_1_rounded,
+                                    size: 100,
+                                  ),
+                                )
+                              : null,
+                        ),
+                        Positioned(
+                          bottom: Get.height * .01,
+                          right: Get.height * .055,
+                          child: RawMaterialButton(
+                            onPressed: () {
+                              setState(() {
+                                _pickFiles();
+                              });
+                            },
+                            elevation: 2.0,
+                            fillColor: const Color(0xFFF5F6F9),
+                            child: Shader(
+                              icon: const Icon(
+                                Icons.camera_alt,
+                                size: 20,
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(15.0),
+                            shape: const CircleBorder(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: Get.height * .08,
+                  ),
+                  TextInputField(
+                    labelText: AppLanguageString.USERNAME.tr,
+                    height: Get.height * .04,
+                    textType: TextInputType.emailAddress,
+                    controller:
+                        ProfileController.to.userNameTextFiledController,
+                  ),
+                  SizedBox(
+                    height: Get.height * .022,
+                  ),
+                  TextInputField(
+                    labelText: AppLanguageString.EMAIL.tr,
+                    height: Get.height * .04,
+                    textType: TextInputType.emailAddress,
+                    controller: ProfileController.to.emailTextFiledController,
+                  ),
+                  SizedBox(
+                    height: Get.height * .07,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 7),
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                      gradient: AppColors.purpleGradient, // set border width
+                      borderRadius: const BorderRadius.all(
+                          Radius.circular(20.0)), // set rounded corner radius
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        var body = {
+                          "nickname": ProfileController
+                              .to.userNameTextFiledController.text,
+                          "email":
+                              ProfileController.to.emailTextFiledController.text
+                        };
 
-                  Map<String, String> requestHeadersWithToken = {
-                    'Content-type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'token ${prefs!.getString('token')}',
-                  };
-                  postData!
-                      .updateProfile(context, body, requestHeadersWithToken);
-                },
-                child: Text(
-                  AppLanguageString.UPDATE_INFO.toUpperCase(),
-                  style: Get.textTheme.button!.copyWith(color: Colors.white),
-                ),
+                        Map<String, String> requestHeadersWithToken = {
+                          'Content-type': 'application/json',
+                          'Accept': 'application/json',
+                          'Authorization': 'token ${prefs!.getString('token')}',
+                        };
+                        postData!.updateProfile(
+                            context, body, requestHeadersWithToken);
+                      },
+                      child: Text(
+                        AppLanguageString.UPDATE_INFO.toUpperCase(),
+                        style:
+                            Get.textTheme.button!.copyWith(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         ),
       );
