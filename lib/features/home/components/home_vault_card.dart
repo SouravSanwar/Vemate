@@ -81,7 +81,8 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                             const BorderRadius.all(Radius.circular(8.0)),
                       ),
                       child: Text(
-                        '\$' + widget.vaultStatsModel!.totalPriceChange.toString(),
+                        '\$' +
+                            widget.vaultStatsModel!.totalPriceChange.toString(),
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText2!.copyWith(
                             color: AppColors.white,
@@ -151,8 +152,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         widget.vaultStatsModel!.sign! == 'decrease'
-                            ?
-                            const RotationTransition(
+                            ? const RotationTransition(
                                 turns: AlwaysStoppedAnimation(45 / 360),
                                 child: Icon(
                                   Icons.arrow_downward,
@@ -168,8 +168,10 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   color: Colors.green,
                                 ),
                               ),
-                        Text(widget.vaultStatsModel!.totalPercentChange!.toString()+
-                                  "%",
+                        Text(
+                          widget.vaultStatsModel!.totalPercentChange!
+                                  .toString() +
+                              "%",
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             color: widget.vaultStatsModel!.sign! == 'decrease'
@@ -192,7 +194,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                   ),
                 ],
               ),
-              Container(
+              SizedBox(
                 height: Get.height * .12,
                 child: SfCartesianChart(
                   plotAreaBorderWidth: 0,

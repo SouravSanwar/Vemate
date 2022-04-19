@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
@@ -21,7 +22,7 @@ class SigninController extends GetxController {
   TextEditingController passwordTextFiledController = TextEditingController();
 
   //repo
-  AuthRepository _authRepository = AuthenticationRemoteRepository();
+  final AuthRepository _authRepository = AuthenticationRemoteRepository();
 
   RxString responseValue = "".obs;
   RxBool loading = false.obs;
@@ -30,7 +31,10 @@ class SigninController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    if (kDebugMode) {
+      userNameTextFiledController.text = "sanwarulhaque1165@gmail.com";
+      passwordTextFiledController.text = "vem@te12";
+    }
     super.onInit();
   }
 
@@ -53,9 +57,8 @@ class SigninController extends GetxController {
           userLogin.value.loginUser!.success == true
               ? Get.toNamed(AppRoutes.CONTROLLER_PAGE)
               : printInfo(
-              info:
-              'False :${SigninController.to.userLogin.value.loginUser!
-                  .success}');
+                  info:
+                      'False :${SigninController.to.userLogin.value.loginUser!.success}');
 
           SharedPreferenceController.to
               .storeToken(userLogin.value.loginUser!.access);
@@ -64,7 +67,7 @@ class SigninController extends GetxController {
           print(
               "Error Model: ${userLogin.value.errorModel!.errors![0].message}");
         }
-      } on Exception catch (e) {
+      } on Exception {
         Right(DataNotFound());
 
         loading.value = false;
@@ -83,7 +86,6 @@ class SigninController extends GetxController {
       loading.value = false;
     });
   }
-
 
   _signInValidation() {
     bool isValidated = false;

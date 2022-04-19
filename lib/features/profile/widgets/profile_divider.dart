@@ -23,12 +23,11 @@ class ProfileDetailsDivider extends StatelessWidget {
   }
 }
 
-
-class ProfileItem extends StatelessWidget{
+class ProfileItem extends StatelessWidget {
   final Icon? icon;
   final Image? image;
   final Text? text;
-  ProfileItem({
+  const ProfileItem({
     this.icon,
     this.image,
     this.text,
@@ -48,26 +47,22 @@ class ProfileItem extends StatelessWidget{
           AppSpaces.spaces_width_10,
           const Text(
             'Profile Edit',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 15.0),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
           ),
-          Spacer(),
+          const Spacer(),
           const Icon(Icons.navigate_next)
         ],
       ),
     );
   }
-
 }
 
 class CustomProfileElements extends StatelessWidget {
-
   final IconData? icon;
   final String? text;
-  final  onTap;
+  final onTap;
 
-
-  CustomProfileElements(this.icon, this.text, this.onTap);
+  const CustomProfileElements(this.icon, this.text, this.onTap);
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +70,8 @@ class CustomProfileElements extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Container(
-
         child: InkWell(
-          onTap:onTap,
+            onTap: onTap,
             splashColor: Colors.orangeAccent,
             child: Container(
                 decoration: BoxDecoration(
@@ -91,31 +85,37 @@ class CustomProfileElements extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
-
                 height: 50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Row(children: <Widget>[
-                      SizedBox(width: 10,),
-                      Shader(
-                        icon: Icon(icon,color: Colors.white),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                      ),
-                      Text(text.toString(), style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.white
-                      ),),
-                    ],),
-                    Shader(
-                      icon: Icon(Icons.arrow_forward_ios,color: Colors.white,size: 20,),
+                    Row(
+                      children: <Widget>[
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Shader(
+                          icon: Icon(icon, color: Colors.white),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                        ),
+                        Text(
+                          text.toString(),
+                          style: const TextStyle(
+                              fontSize: 16, color: Colors.white),
+                        ),
+                      ],
                     ),
-
-                  ],)
-            )
-        ),
+                    Shader(
+                      icon: const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ],
+                ))),
       ),
     );
   }

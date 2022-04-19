@@ -6,6 +6,7 @@ import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
+import 'package:ketemaa/features/profile/_controller/shader.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/widgets/profile_divider.dart';
 import 'package:ketemaa/main.dart';
@@ -15,8 +16,6 @@ import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:store_redirect/store_redirect.dart';
 
-import 'package:image_picker/image_picker.dart';
-
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
@@ -25,7 +24,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String _url = 'https://flutter.dev';
+  final String _url = 'https://flutter.dev';
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +69,18 @@ class _ProfileState extends State<Profile> {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      SizedBox(
-                        height: Get.height * .05,
+                      // SizedBox(height: Get.height * .05),
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            icon: const Shader(
+                              icon: Icon(Icons.arrow_back),
+                            ),
+                          ),
+                        ],
                       ),
                       Column(
                           mainAxisAlignment: MainAxisAlignment.center,
