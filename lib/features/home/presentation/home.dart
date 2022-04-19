@@ -100,10 +100,10 @@ class _HomeState extends State<Home> {
                             children: [
                               Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 12.0, vertical: 5.0),
+                                      horizontal: 10.0, vertical: 5.0),
                                   child: SizedBox(
-                                    height: Get.height * .04,
-                                    width: Get.height * .04,
+                                    height: Get.height * .06,
+                                    width: Get.height * .06,
                                     child: Image.asset(
                                       'assets/media/icon/logo v.png',
                                       fit: BoxFit.fill,

@@ -268,7 +268,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                           tooltipBehavior:
                                               TooltipBehavior(enable: true),
                                           series: <ChartSeries<Graph, String>>[
-                                            SplineAreaSeries<Graph, String>(
+                                            LineSeries<Graph, String>(
                                               color: data
                                                           .comicsModel!
                                                           .results![index]
@@ -277,7 +277,6 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                       'decrease'
                                                   ? Colors.red
                                                   : Colors.green,
-                                              gradient: AppColors.graphGradient,
                                               dataSource: data.comicsModel!
                                                   .results![index].graph!,
                                               xValueMapper: (Graph plot, _) =>

@@ -72,8 +72,8 @@ class SplashScreenState extends State<SplashScreen>
             children: <Widget>[
               Image.asset(
                 'assets/media/image/vemate.png',
-                width: animation.value * 450,
-                height: animation.value * 450,
+                width: animation.value * 400,
+                height: animation.value * 400,
               ),
             ],
           ),

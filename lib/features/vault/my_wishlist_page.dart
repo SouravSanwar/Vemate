@@ -12,8 +12,6 @@ import 'package:ketemaa/features/controller_page/controller/controller_page_cont
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
-import 'package:ketemaa/features/vault/my_wishlist_collectibles_list.dart';
-import 'package:ketemaa/features/vault/my_wishlist_comics_list.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';

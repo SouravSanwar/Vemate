@@ -84,8 +84,8 @@ class _OtpPageState extends State<OtpPage> {
                 height: Get.height * .05,
               ),
               SizedBox(
-                height: Get.height * .2,
-                width: Get.width * 1,
+                height: Get.height * .18,
+                width: Get.width * .9,
                 child: Image.asset(
                   'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
