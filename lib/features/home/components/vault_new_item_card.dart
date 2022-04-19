@@ -69,7 +69,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                     ),
                     AppSpaces.spaces_height_10,
                     Container(
-                      width: Get.width * .3,
+                      width: Get.width,
                       height: 25,
                       child: SfCartesianChart(
                         plotAreaBorderWidth: 0,
@@ -91,13 +91,14 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                         ),
                         tooltipBehavior: TooltipBehavior(enable: true),
                         series: <ChartSeries<Graph, String>>[
-                          LineSeries<Graph, String>(
+                          SplineAreaSeries<Graph, String>(
                             color:
                                 widget.list![index].priceChangePercent!.sign ==
                                         'decrease'
                                     ? Colors.red
                                     : Colors.green,
                             dataSource: widget.list![index].graph!,
+                            gradient: AppColors.graphGradient,
                             xValueMapper: (Graph plot, _) => plot.hour,
                             yValueMapper: (Graph plot, _) => plot.total,
                             xAxisName: 'Duration',

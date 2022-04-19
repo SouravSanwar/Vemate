@@ -1,5 +1,3 @@
-import 'package:another_flushbar/flushbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -25,8 +23,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
   int offset = 0;
   RefreshController refreshController =
       RefreshController(initialRefresh: false);
-  GlobalKey _contentKey = GlobalKey();
-  GlobalKey _refreshkey = GlobalKey();
+  final GlobalKey _refreshKey = GlobalKey();
 
   GetData? getData;
 
@@ -45,7 +42,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
         height: Get.height * .8,
         child: data.comicsModel != null
             ? SmartRefresher(
-                key: _refreshkey,
+                key: _refreshKey,
                 controller: refreshController,
                 enablePullDown: true,
                 enablePullUp: true,
@@ -59,7 +56,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                 onLoading: _onLoading,
                 child: ListView.builder(
                   shrinkWrap: true,
-                  physics: AlwaysScrollableScrollPhysics(),
+                  physics: const AlwaysScrollableScrollPhysics(),
                   itemCount: data.comicsModel!.results!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
@@ -113,7 +110,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                 ),
                                 AppSpaces.spaces_width_2,
                                 Expanded(
-                                  flex: 7,
+                                  flex: 6,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -164,7 +161,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                           Expanded(
                                             flex: 4,
                                             child:data.comicsModel!.results![index]
-                                                .series==null? Text("") : Text(
+                                                .series==null? const Text("") : Text(
                                               data.comicsModel!.results![index]
                                                   .series
                                                   .toString(),
@@ -241,7 +238,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       SizedBox(
                                         height: Get.height * .05,
                                         child: data.comicsModel!
-                                            .results![index].graph == null? Text("") : SfCartesianChart(
+                                            .results![index].graph == null? const Text("") : SfCartesianChart(
                                           plotAreaBorderWidth: 0,
                                           primaryXAxis: CategoryAxis(
                                             isVisible: false,
@@ -390,7 +387,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
   }
 
   Future<void> _onRefresh() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     getData!.getComics();
 
@@ -405,7 +402,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
 
     getData!.getComics(offset: offset);
 
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     if (mounted) {
       setState(() {
