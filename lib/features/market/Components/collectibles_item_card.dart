@@ -264,7 +264,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                           tooltipBehavior:
                                               TooltipBehavior(enable: true),
                                           series: <ChartSeries<Graph, String>>[
-                                            LineSeries<Graph, String>(
+                                            SplineAreaSeries<Graph, String>(
                                               color: data
                                                           .collectiblesModel!
                                                           .results![index]
@@ -273,6 +273,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       'decrease'
                                                   ? Colors.red
                                                   : Colors.green,
+                                              gradient: AppColors.graphGradient,
                                               dataSource: data
                                                   .collectiblesModel!
                                                   .results![index]
