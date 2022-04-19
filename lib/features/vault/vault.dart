@@ -133,10 +133,13 @@ class _VaultState extends State<Vault> {
                                                 ), // set rounded corner radius
                                               ),
                                               child: Text(
-                                                '\$' +
-                                                    data.vaultStatsModel!
-                                                        .totalPriceChange!
-                                                        .toString(),
+                                                '\$${data.vaultStatsModel!
+                                                    .totalPriceChange !=null
+                                                    ?data.vaultStatsModel!
+                                                    .totalPriceChange!.toStringAsFixed(2)
+                                                    :""
+                                                }',
+
                                                 textAlign: TextAlign.start,
                                                 style: Get.textTheme.bodyText2!
                                                     .copyWith(

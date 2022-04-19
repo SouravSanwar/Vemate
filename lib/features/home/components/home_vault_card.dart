@@ -73,7 +73,10 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                             const BorderRadius.all(Radius.circular(8.0)),
                       ),
                       child: Text(
-                        '\$' + widget.vaultStatsModel!.totalPriceChange.toString(),
+                        '\$${widget.vaultStatsModel!.totalPriceChange !=null
+                            ?widget.vaultStatsModel!.totalPriceChange!.toStringAsFixed(2)
+                            :""
+                        }',
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText2!.copyWith(
                             color: AppColors.white,
