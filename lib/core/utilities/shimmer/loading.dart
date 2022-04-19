@@ -9,7 +9,6 @@ class LoadingExample extends StatefulWidget {
 }
 
 class _LoadingExampleState extends State<LoadingExample> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +18,8 @@ class _LoadingExampleState extends State<LoadingExample> {
           Container(
             alignment: Alignment.center,
             width: 100,
-            child: const LoadingIndicator(
+            child:
+            const LoadingIndicator(
               indicatorType: Indicator.ballPulseSync,
               colors: [
                 Color(0xff8760EE),

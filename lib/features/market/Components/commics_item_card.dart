@@ -288,11 +288,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                             )
                                           ],
                                         ),
-                                        /*child: LineChart(
-                                          mainData(), // Optional
-                                          swapAnimationCurve:
-                                              Curves.linear, // Optional
-                                        ),*/
+
                                       ),
                                       AppSpaces.spaces_height_10,
                                       Row(
@@ -301,7 +297,18 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              '\$${data.comicsModel!.results![index].cpp}',
+                                              '\$${data.comicsModel!
+                                                  .results![index]
+                                                  .priceChangePercent!
+                                                  .changePrice !=null
+                                                  ?data.comicsModel!
+                                                  .results![index]
+                                                  .priceChangePercent!
+                                                  .changePrice!
+                                                  .toStringAsFixed(2)
+                                                  :""
+
+                                              }',
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(

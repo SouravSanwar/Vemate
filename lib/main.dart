@@ -15,7 +15,11 @@ import 'core/utilities/app_theme/app_theme.dart';
 
 SharedPreferences? prefs;
 
+
+
 Future<void> main() async {
+
+
   runApp(
     MultiProvider(
       providers: [
@@ -28,29 +32,6 @@ Future<void> main() async {
   );
 }
 
-/*Future<void> main() async {
-  await runZonedGuarded(() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-        options: const FirebaseOptions(
-      apiKey: 'AIzaSyCQneEWwRwpA1srjWETD8VatowLTg9uYMY',
-      appId: '1:262038982259:android:762524d18b11e2af626406',
-      messagingSenderId: '262038982259',
-      authDomain: 'react-native-firebase-testing.firebaseapp.com',
-      projectId: 'ketemaa-6a075',
-    ));
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-    runApp(
-      GraphQLProvider(
-        client: AppGraphQLConfiguration.client,
-        child: const CacheProvider(child: MyApp()),
-      ),
-    );
-  }, (error, stackTrace) {
-    FirebaseCrashlytics.instance.recordError(error, stackTrace);
-  });
-}*/
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -61,7 +42,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.themeData(),
       getPages: AppRoutes.appRoutesList(),
-      initialRoute: AppRoutes.INITAL_SCREEN,
+      initialRoute:  AppRoutes.INITAL_SCREEN,
       translations: Language(),
       locale: const Locale('en', 'US'),
     );

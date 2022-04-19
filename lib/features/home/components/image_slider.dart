@@ -16,11 +16,7 @@ class ImageSlider extends StatefulWidget {
 }
 
 class _ImageSliderState extends State<ImageSlider> {
-  final items = [
-    "assets/media/slider/11.jpg",
-    "assets/media/slider/12.jpg",
-    "assets/media/slider/13.jpg",
-  ];
+
 
   @override
   Widget build(BuildContext context) {

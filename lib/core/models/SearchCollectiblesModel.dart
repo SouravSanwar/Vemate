@@ -56,6 +56,7 @@ class Results {
     id = json['id'];
     type = json['type'];
     name = json['name'];
+    cpp = json['changed_price'];
     edition = json['edition'];
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
     rarity = json['rarity'];
@@ -70,16 +71,6 @@ class Results {
       });
     }
 
-    if (rarity == 'Rare') {
-      rarePoint = 2;
-      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
-    } else if (rarity == 'Ultra Rare') {
-      rarePoint = 3;
-      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
-    } else {
-      rarePoint = 1;
-      cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
-    }
   }
 
   int? id;
@@ -99,6 +90,7 @@ class Results {
     map['id'] = id;
     map['type'] = type;
     map['name'] = name;
+    map['changed_price'] = cpp;
     map['edition'] = edition;
     map['brand'] = brand;
     map['rarity'] = rarity;
@@ -138,20 +130,24 @@ class Graph {
 class PriceChangePercent {
   PriceChangePercent({
     this.percent,
+    this.cp,
     this.sign,
   });
 
   PriceChangePercent.fromJson(dynamic json) {
     percent = double.parse(json['percent'].toString()).toPrecision(2);
+    cp = double.parse(json['changed_price'].toString()).toPrecision(2);
     sign = json['sign'];
   }
 
   var percent;
+  var cp;
   String? sign;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['percent'] = percent;
+    map['changed_price'] = cp;
     map['sign'] = sign;
     return map;
   }

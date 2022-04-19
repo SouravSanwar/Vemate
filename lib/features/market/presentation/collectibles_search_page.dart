@@ -329,7 +329,18 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              '\$${data.searchCollectiblesModel!.results![index].cpp}',
+                                      '\$${data.searchCollectiblesModel!
+                                          .results![index]
+                                              .priceChangePercent!
+                                              .cp !=null
+                                          ?data.searchCollectiblesModel!
+                                          .results![index]
+                                          .priceChangePercent!
+                                          .cp!
+                                          .toStringAsFixed(2)
+                                        :""
+
+                                         }',
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(

@@ -324,7 +324,18 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              '\$${data.searchComicsModel!.results![index].cpp}',
+                                              '\$${data.searchComicsModel!
+                                                  .results![index]
+                                                  .priceChangePercent!
+                                                  .changePrice !=null
+                                                  ?data.searchComicsModel!
+                                                  .results![index]
+                                                  .priceChangePercent!
+                                                  .changePrice!
+                                                  .toStringAsFixed(2)
+                                                  :""
+
+                                              }',
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
@@ -346,7 +357,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                       .results![index]
                                                       .priceChangePercent!
                                                       .percent!
-                                                      .toString(),
+                                                      .toStringAsFixed(2),
                                                   textAlign: TextAlign.end,
                                                   style: Get
                                                       .textTheme.bodyText1!

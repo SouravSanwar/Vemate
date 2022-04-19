@@ -294,7 +294,18 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              '\$${data.collectiblesModel!.results![index].cpp.toString()}',
+                                              '\$${data.collectiblesModel!
+                                                  .results![index]
+                                                  .priceChangePercent!
+                                                  .changePrice !=null
+                                              ?data.collectiblesModel!
+                                                  .results![index]
+                                                  .priceChangePercent!
+                                                  .changePrice!
+                                                  .toStringAsFixed(2)
+                                              :""
+
+                                              }',
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
@@ -312,8 +323,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   MainAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                  data
-                                                          .collectiblesModel!
+                                                  data.collectiblesModel!
                                                           .results![index]
                                                           .priceChangePercent!
                                                           .percent!

@@ -61,6 +61,7 @@ dependencies:
   dropdown_button2: ^1.2.2
   url_launcher: ^6.0.20
   swipeable_tile: ^1.0.0+6
+  internet_connection_checker: ^0.0.1+3
 
 
 dev_dependencies:

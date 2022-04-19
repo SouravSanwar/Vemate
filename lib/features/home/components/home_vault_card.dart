@@ -58,21 +58,13 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                           fontSize: 14),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     flex: 2,
-                    child: Text(
-                      "MCP",
-                      textAlign: TextAlign.start,
-                      style: Get.textTheme.bodyText2!.copyWith(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14),
-                    ),
+                    child: Text(""),
                   ),
                   Expanded(
-                    flex: 5,
+                    flex: 6,
                     child: Container(
-                      width: Get.width * .15,
                       height: Get.height * .03,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -134,19 +126,12 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                           fontSize: 14),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     flex: 2,
-                    child: Text(
-                      '\$' + widget.vaultStatsModel!.mcp.toString(),
-                      textAlign: TextAlign.start,
-                      style: Get.textTheme.bodyText2!.copyWith(
-                          color: AppColors.grey,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14),
-                    ),
+                    child: Text(""),
                   ),
                   Expanded(
-                    flex: 5,
+                    flex: 6,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -168,7 +153,16 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   color: Colors.green,
                                 ),
                               ),
-                        Text(widget.vaultStatsModel!.totalPercentChange!.toString()+
+                        Text(widget.vaultStatsModel!
+                            .totalPercentChange! <
+                            0.0
+                            ? widget.vaultStatsModel!
+                            .totalPercentChange!
+                            .toStringAsFixed(2)
+                            : widget.vaultStatsModel!
+                            .totalPercentChange!
+                            .toStringAsFixed(
+                            2) +
                                   "%",
                           textAlign: TextAlign.end,
                           style: TextStyle(

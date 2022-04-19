@@ -14,6 +14,7 @@ import 'components/item_details_helper.dart';
 class ProductDetails extends StatefulWidget {
   final int? id;
 
+
   const ProductDetails({Key? key, this.id}) : super(key: key);
 
   @override
@@ -24,6 +25,8 @@ class _ProductDetailsState extends State<ProductDetails> {
   GetData? getData;
 
   PostData? postData;
+  bool isAddedVault=false;
+  bool isAddedWishlist=false;
 
   @override
   void initState() {
@@ -175,6 +178,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
+
                     onTap: () {
                       var body = {
                         "product": data.singleProductModel!.id,

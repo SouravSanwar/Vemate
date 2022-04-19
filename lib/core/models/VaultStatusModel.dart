@@ -101,8 +101,8 @@ class Comic {
   Comic.fromJson(dynamic json) {
     totalComicValue = json['total_comic_value'];
     sign = json['sign'];
-    changePercent =json['change_percent'].toString();
-    changePrice = json['change_price'].toString();
+    changePercent =double.parse(json['total_percent_change'].toString()).toPrecision(2);
+    changePrice = double.parse(json['total_price_change'].toString()).toPrecision(2);
     if (json['graph'] != null) {
       comicGraph = [];
       json['graph'].forEach((v) {
@@ -123,8 +123,8 @@ class Comic {
     final map = <String, dynamic>{};
     map['total_comic_value'] = totalComicValue;
     map['sign'] = sign;
-    map['change_percent'] = changePercent;
-    map['change_price'] = changePrice;
+    map['total_percent_change'] = changePercent;
+    map['total_price_change'] = changePrice;
     if (comicGraph != null) {
       map['graph'] = comicGraph?.map((v) => v.toJson()).toList();
     }
@@ -171,9 +171,9 @@ class Collectible {
   Collectible.fromJson(dynamic json) {
     totalCollectibleValue = json['total_collectible_value'];
     sign = json['sign'] ?? '';
-    changePercent =json['change_percent'].toString();
+    changePercent =double.parse(json['total_percent_change'].toString()).toPrecision(2);
 
-    changePrice = json['change_price'].toString();
+    changePrice = double.parse(json['total_price_change'].toString()).toPrecision(2);
     if (json['graph'] != null) {
       collectibleGraph = [];
       json['graph'].forEach((v) {
@@ -194,8 +194,8 @@ class Collectible {
     final map = <String, dynamic>{};
     map['total_collectible_value'] = totalCollectibleValue;
     map['sign'] = sign;
-    map['change_percent'] = changePercent;
-    map['change_price'] = changePrice;
+    map['total_percent_change'] = changePercent;
+    map['total_price_change'] = changePrice;
 
     if (collectibleGraph != null) {
       map['graph'] = collectibleGraph?.map((v) => v.toJson()).toList();

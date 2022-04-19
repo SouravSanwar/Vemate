@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
+import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
@@ -29,10 +30,13 @@ class _VaultComicsListState extends State<VaultComicsList> {
 
   TextEditingController searchController = TextEditingController();
   GetData? getData;
+  PostData? postData;
+  int offset = 0;
 
   @override
   void initState() {
     getData = Provider.of<GetData>(context, listen: false);
+    postData = Provider.of<PostData>(context, listen: false);
     // TODO: implement initState
     super.initState();
   }
@@ -224,9 +228,30 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                         ),
                                       ),
                                       AppSpaces.spaces_width_2,
-                                      const Expanded(
+                                      Expanded(
                                         flex: 2,
-                                        child: Text(""),
+                                        child: Text(
+                                          '\$${data.setListModel!
+                                              .results![index]
+                                              .productDetail!
+                                              .priceChangePercent!.changePrice !=null
+                                              ?data.setListModel!
+                                              .results![index]
+                                              .productDetail!
+                                              .priceChangePercent!.changePrice!
+                                              .toStringAsFixed(2)
+                                              :""
+
+                                          }',
+                                          textAlign: TextAlign.start,
+                                          style: Get.textTheme.bodyText1!
+                                              .copyWith(
+                                              color: AppColors.white
+                                                  .withOpacity(0.9),
+                                              fontWeight:
+                                              FontWeight.w400,
+                                              fontSize: 11),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -296,25 +321,12 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                   AppSpaces.spaces_height_10,
                                   Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.start,
+                                    MainAxisAlignment.end,
                                     children: [
-                                      Expanded(
-                                        child: Text(
-                                          '',
-                                          textAlign: TextAlign.start,
-                                          style: Get.textTheme.bodyText1!
-                                              .copyWith(
-                                              color: AppColors.white
-                                                  .withOpacity(0.9),
-                                              fontWeight:
-                                              FontWeight.w400,
-                                              fontSize: 11),
-                                        ),
-                                      ),
                                       Expanded(
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.end,
+                                          MainAxisAlignment.start,
                                           children: [
                                             Text(
                                               data.setListModel!.results![index]
@@ -357,6 +369,17 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                           ],
                                         ),
                                       ),
+                                      InkWell(
+                                        onTap: () {
+                                          postData!.deleteWishlist(context,
+                                              data.setListModel!.results![index].id);
+                                          printInfo(info: 'On Tapped');
+                                        },
+                                        child: const Icon(
+                                          Icons.delete_forever,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ],
@@ -374,5 +397,29 @@ class _VaultComicsListState extends State<VaultComicsList> {
         );
       }),
     );
+  }
+  Future<void> _onRefresh() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    getData!.getWishList();
+
+    setState(() {
+      refreshController.refreshCompleted();
+      offset = 0;
+    });
+  }
+
+  Future<void> _onLoading() async {
+    offset = offset + 20;
+
+    getData!.getWishList(offset: offset);
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (mounted) {
+      setState(() {
+        refreshController.loadComplete();
+      });
+    }
   }
 }

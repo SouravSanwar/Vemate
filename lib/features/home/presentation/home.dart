@@ -11,7 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
 
 import 'package:ketemaa/features/home/components/home_vault_card.dart';
-import 'package:provider/provider.dart';
+
+
 import '../../../core/Provider/getData.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/shimmer/loading.dart';
@@ -211,7 +212,9 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 )
-              : const LoadingExample();
+              :
+            const LoadingExample();
+
         },
       ),
     );

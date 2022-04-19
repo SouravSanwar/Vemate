@@ -105,23 +105,22 @@ class _VaultState extends State<Vault> {
                                                       fontSize: 14),
                                             ),
                                           ),
-                                          Expanded(
+                                          const Expanded(
                                             flex: 2,
-                                            child: Text(
-                                              "MCP",
+                                            child: Text(""
+                                              /*"MCP",
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(
                                                       color: AppColors.white,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 14),
+                                                      fontSize: 14),*/
                                             ),
                                           ),
                                           Expanded(
                                             flex: 5,
                                             child: Container(
-                                              width: Get.width * .15,
                                               height: Get.height * .03,
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
@@ -168,10 +167,10 @@ class _VaultState extends State<Vault> {
                                                       fontSize: 14),
                                             ),
                                           ),
-                                          Expanded(
+                                          const Expanded(
                                             flex: 2,
-                                            child: Text(
-                                              '\$' +
+                                            child: Text(""
+                                             /* '\$' +
                                                   data.vaultStatsModel!.mcp!
                                                       .toString(),
                                               textAlign: TextAlign.start,
@@ -180,7 +179,7 @@ class _VaultState extends State<Vault> {
                                                       color: AppColors.grey,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 14),
+                                                      fontSize: 14),*/
                                             ),
                                           ),
                                           Expanded(
