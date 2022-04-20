@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
@@ -29,9 +30,12 @@ class SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> navigationPage() async {
-    prefs!.getString('token') != null
+
+    VersionControl.initConfig();
+    VersionControl.initPackageInfo();
+    /*prefs!.getString('token') != null
         ? Get.to(() => ControllerPage())
-        : Get.to(() => const AuthInitialPage());
+        : Get.to(() => const AuthInitialPage());*/
   }
 
   @override
