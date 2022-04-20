@@ -1,9 +1,12 @@
+import 'package:ketemaa/core/functions/html_parser.dart';
+
 class NewsModel {
   NewsModel({
-      this.count, 
-      this.next, 
-      this.previous, 
-      this.results,});
+    this.count,
+    this.next,
+    this.previous,
+    this.results,
+  });
 
   NewsModel.fromJson(dynamic json) {
     count = json['count'];
@@ -16,6 +19,7 @@ class NewsModel {
       });
     }
   }
+
   int? count;
   dynamic next;
   dynamic previous;
@@ -31,28 +35,31 @@ class NewsModel {
     }
     return map;
   }
-
 }
 
 class Results {
   Results({
-      this.id, 
-      this.backgroundImage, 
-      this.title, 
-      this.text, 
-      this.btnLabel, 
-      this.btnLink, 
-      this.creationTime,});
+    this.id,
+    this.backgroundImage,
+    this.title,
+    this.text,
+    this.btnLabel,
+    this.btnLink,
+    this.creationTime,
+  });
 
   Results.fromJson(dynamic json) {
     id = json['id'];
-    backgroundImage = json['background_image'] != null ? BackgroundImage.fromJson(json['background_image']) : null;
+    backgroundImage = json['background_image'] != null
+        ? BackgroundImage.fromJson(json['background_image'])
+        : null;
     title = json['title'];
-    text = json['text'];
+    text = parseHtmlString(json['text'].toString());
     btnLabel = json['btn_label'];
     btnLink = json['btn_link'];
     creationTime = json['creation_time'];
   }
+
   int? id;
   BackgroundImage? backgroundImage;
   String? title;
@@ -74,16 +81,18 @@ class Results {
     map['creation_time'] = creationTime;
     return map;
   }
-
 }
 
 class BackgroundImage {
   BackgroundImage({
-      this.original,});
+    this.original,
+  });
 
   BackgroundImage.fromJson(dynamic json) {
-    original = json['original'] != null ? Original.fromJson(json['original']) : null;
+    original =
+        json['original'] != null ? Original.fromJson(json['original']) : null;
   }
+
   Original? original;
 
   Map<String, dynamic> toJson() {
@@ -93,15 +102,15 @@ class BackgroundImage {
     }
     return map;
   }
-
 }
 
 class Original {
   Original({
-      this.src, 
-      this.width, 
-      this.height, 
-      this.alt,});
+    this.src,
+    this.width,
+    this.height,
+    this.alt,
+  });
 
   Original.fromJson(dynamic json) {
     src = json['src'];
@@ -109,6 +118,7 @@ class Original {
     height = json['height'];
     alt = json['alt'];
   }
+
   String? src;
   int? width;
   int? height;
@@ -122,5 +132,4 @@ class Original {
     map['alt'] = alt;
     return map;
   }
-
 }

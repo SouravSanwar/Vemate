@@ -68,7 +68,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                           fontWeight: FontWeight.bold),
                     ),
                     AppSpaces.spaces_height_10,
-                    Container(
+                    SizedBox(
                       width: Get.width,
                       height: 25,
                       child: SfCartesianChart(

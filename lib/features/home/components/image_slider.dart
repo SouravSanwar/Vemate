@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
+import 'package:ketemaa/features/home/presentation/news_details.dart';
 
 class ImageSlider extends StatefulWidget {
   final List<Results>? news;
@@ -38,37 +39,42 @@ class _ImageSliderState extends State<ImageSlider> {
           scrollDirection: Axis.horizontal,
         ),
         items: List<Widget>.generate(widget.news!.length, (int index) {
-          return Container(
-            width: MediaQuery.of(context).size.height,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(5)),
-              image: DecorationImage(
-                image: NetworkImage(
-                  Urls.mainUrl +
-                      widget.news![index].backgroundImage!.original!.src!,
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    color: AppColors.backgroundColor.withOpacity(.5),
+          return InkWell(
+            onTap: (){
+              Get.to(()=> NewsDetails(), arguments: widget.news![index]);
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.height,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    Urls.mainUrl +
+                        widget.news![index].backgroundImage!.original!.src!,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Text(
-                      widget.news![index].title.toString(),
-                      style: Get.textTheme.labelMedium!
-                          .copyWith(color: Colors.white),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                      color: AppColors.backgroundColor.withOpacity(.5),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Text(
+                        widget.news![index].title.toString(),
+                        style: Get.textTheme.labelMedium!
+                            .copyWith(color: Colors.white),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         }),

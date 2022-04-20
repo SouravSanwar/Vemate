@@ -12,7 +12,6 @@ import 'package:ketemaa/core/models/NewsModel.dart';
 
 import 'package:ketemaa/features/home/components/home_vault_card.dart';
 
-
 import '../../../core/Provider/getData.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/shimmer/loading.dart';
@@ -36,6 +35,7 @@ class _HomeState extends State<Home> {
   Map<String, String> requestToken = {
     'Authorization': 'token ${prefs!.getString('token')}',
   };
+
   @override
   void initState() {
     // TODO: implement initState
@@ -156,6 +156,8 @@ class _HomeState extends State<Home> {
                           ),
                         ],
                       ),
+
+                      ///News
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15.0, vertical: 5.0),
@@ -169,10 +171,9 @@ class _HomeState extends State<Home> {
                       ),
                       AppSpaces.spaces_height_10,
                       ImageSlider(
-                        news: data.newsModel!.results!=null
-                        ?data.newsModel!.results
-                        :null
-                      ),
+                          news: data.newsModel != null
+                              ? data.newsModel!.results
+                              : null),
                       AppSpaces.spaces_height_10,
                       Padding(
                         padding: const EdgeInsets.only(
@@ -212,9 +213,7 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 )
-              :
-            const LoadingExample();
-
+              : const LoadingExample();
         },
       ),
     );
