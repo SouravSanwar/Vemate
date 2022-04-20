@@ -15,10 +15,7 @@ import 'core/utilities/app_theme/app_theme.dart';
 
 SharedPreferences? prefs;
 
-
-
 Future<void> main() async {
-
 
   runApp(
     MultiProvider(
