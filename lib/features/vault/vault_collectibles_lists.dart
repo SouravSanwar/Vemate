@@ -356,7 +356,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                         enable: true),
                                                 series: <
                                                     ChartSeries<Graph, String>>[
-                                                  SplineAreaSeries<Graph, String>(
+                                                  LineSeries<Graph, String>(
                                                     color: data
                                                                 .setListModel!
                                                                 .results![index]
@@ -367,7 +367,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                         ? Colors.red
                                                         : Colors.green,
 
-                                                    gradient: AppColors.graphGradient,
+
                                                     dataSource: data
                                                         .setListModel!
                                                         .results![index]

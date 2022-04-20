@@ -63,18 +63,14 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                       ),
                       AppSpaces.spaces_height_30,
                       const Text(
-                        "MCP",
+                        "",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       AppSpaces.spaces_height_5,
-                      Text(
-                        '\$' + widget.data!.mcp!.toString(),
-                        style: const TextStyle(
-                            color: Colors.grey, fontWeight: FontWeight.bold),
-                      ),
+                      Text(""),
                       AppSpaces.spaces_height_10,
                     ],
                   ),
@@ -142,12 +138,12 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                           Text(
                             '\$${widget.data!.changePrice !=null
                                 ?widget.data!.changePrice.toStringAsFixed(2)
-                                :""
+                                :"0.0"
                             }',
                             style: const TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 10),
+                                fontSize: 14),
                           ),
                           Expanded(
                             child: Row(
@@ -158,8 +154,8 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                                 ),
                                 Text(
                                   widget.data!.changePercent != null
-                                      ? widget.data!.changePercent.toStringAsFixed(2)
-                                      : ""
+                                      ? widget.data!.changePercent.toStringAsFixed(2)+ "%"
+                                      : "0.0"
                                       + "%",
                                   textAlign: TextAlign.end,
                                   style: TextStyle(
@@ -167,7 +163,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                                           ? Colors.red
                                           : Colors.green,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 10),
+                                      fontSize: 14),
                                 ),
                                 SizedBox(
                                   width: Get.width * .005,

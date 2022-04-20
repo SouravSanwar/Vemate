@@ -46,8 +46,8 @@ class _ResetPassState extends State<ResetPass> {
             children: [
               AppSpaces.spaces_height_15,
               SizedBox(
-                height: Get.height * .2,
-                width: Get.width * 1,
+                height: Get.height * .18,
+                width: Get.width * .9,
                 child: Image.asset(
                   'assets/media/image/vemate.png',
                   fit: BoxFit.cover,

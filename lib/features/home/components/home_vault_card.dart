@@ -1,12 +1,8 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:fl_chart/fl_chart.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
-import 'package:ketemaa/core/models/VaultStatusModel.dart';
-
-import 'package:ketemaa/graph/product_details.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -75,7 +71,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       child: Text(
                         '\$${widget.vaultStatsModel!.totalPriceChange !=null
                             ?widget.vaultStatsModel!.totalPriceChange!.toStringAsFixed(2)
-                            :""
+                            :"0.0"
                         }',
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText2!.copyWith(
@@ -121,7 +117,11 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                   Expanded(
                     flex: 5,
                     child: Text(
-                      '\$' + widget.vaultStatsModel!.totalVaultValue.toString(),
+                      '\$${widget.vaultStatsModel!.totalVaultValue !=null
+                          ?widget.vaultStatsModel!.totalVaultValue!.toStringAsFixed(2)
+                          :"0.0"
+                      }',
+
                       textAlign: TextAlign.start,
                       style: Get.textTheme.bodyText2!.copyWith(
                           color: AppColors.grey,
@@ -161,12 +161,11 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                             0.0
                             ? widget.vaultStatsModel!
                             .totalPercentChange!
-                            .toStringAsFixed(2)
+                            .toStringAsFixed(2)+"%"
                             : widget.vaultStatsModel!
                             .totalPercentChange!
                             .toStringAsFixed(
-                            2) +
-                                  "%",
+                            2) +"%",
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             color: widget.vaultStatsModel!.sign! == 'decrease'

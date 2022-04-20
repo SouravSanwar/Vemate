@@ -67,17 +67,14 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                         ),
                         AppSpaces.spaces_height_30,
                         const Text(
-                          "MCP",
+                          "",
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         AppSpaces.spaces_height_5,
-                        Text(
-                          '\$' + widget.data!.mcp!.toString(),
-                          style: const TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        Text(""
                         ),
                         AppSpaces.spaces_height_10,
                       ],
@@ -148,11 +145,11 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                         Row(
                           children: [
                             Text(
-                              '\$${widget.data!.changePrice != null ? widget.data!.changePrice.toStringAsFixed(2) : ""}',
+                              '\$${widget.data!.changePrice != null ? widget.data!.changePrice.toStringAsFixed(2): "0.0"}',
                               style: const TextStyle(
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 10),
+                                  fontSize: 14),
                             ),
                             Expanded(
                               child: Row(
@@ -164,11 +161,11 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                   Text(
                                     widget.data!.changePercent != null
                                         ? widget.data!.changePercent
-                                            .toStringAsFixed(2)
-                                        : "" + "%",
+                                            .toStringAsFixed(2)+ "%"
+                                        : "0.0" + "%",
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
-                                      fontSize: 10,
+                                      fontSize: 14,
                                       color: widget.data!.sign == 'decrease'
                                           ? Colors.red
                                           : Colors.green,
