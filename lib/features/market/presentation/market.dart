@@ -134,7 +134,7 @@ class _MarketState extends State<Market> {
                             ),
                           ),
                         ),
-                      InkWell(
+                      /*InkWell(
                         onTap: () {
                           _openFilterDialog();
                         },
@@ -143,7 +143,7 @@ class _MarketState extends State<Market> {
                           color: AppColors.primaryColor,
                           size: 40,
                         ),
-                      ),
+                      ),*/
                     ]),
                   ),
                   ),

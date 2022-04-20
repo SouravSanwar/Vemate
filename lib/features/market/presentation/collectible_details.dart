@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:get/get.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -39,19 +39,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.backgroundColor,
-          elevation: 1,
-          title: Text(
-            data.singleProductModel != null
-                ? data.singleProductModel!.name.toString()
-                : "",
-            style: TextStyle(
-                color: Colors.blueGrey.shade300,
-                fontSize: 18,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
+
         backgroundColor: AppColors.backgroundColor,
         body: data.singleProductModel != null
             ? NestedScrollView(
@@ -61,6 +49,42 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                     SliverToBoxAdapter(
                       child: Column(
                         children: [
+                          SizedBox(height:Get.height*.05 ,),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                            child: Row(
+
+                              children: [
+                                Expanded(
+                                  flex:2,
+                                  child:InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.grey,
+                                  ),
+
+                                ),
+                                ),
+                                Expanded(
+                                  flex:10,
+                                  child:Text(
+                                  data.singleProductModel != null
+                                      ? data.singleProductModel!.name.toString()
+                                      : "",
+                                  style: TextStyle(
+                                      color: Colors.blueGrey.shade300,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                 ),
+
+                              ],
+                            ),
+
+                          ),
                           Container(
                             padding: const EdgeInsets.all(20),
                             width: double.infinity,

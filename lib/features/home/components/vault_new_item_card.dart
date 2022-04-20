@@ -91,14 +91,13 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                         ),
                         tooltipBehavior: TooltipBehavior(enable: true),
                         series: <ChartSeries<Graph, String>>[
-                          SplineAreaSeries<Graph, String>(
+                          LineSeries<Graph, String>(
                             color:
                                 widget.list![index].priceChangePercent!.sign ==
                                         'decrease'
                                     ? Colors.red
                                     : Colors.green,
                             dataSource: widget.list![index].graph!,
-                            gradient: AppColors.graphGradient,
                             xValueMapper: (Graph plot, _) => plot.hour,
                             yValueMapper: (Graph plot, _) => plot.total,
                             xAxisName: 'Duration',

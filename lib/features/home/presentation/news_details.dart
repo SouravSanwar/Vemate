@@ -25,7 +25,7 @@ class _NewsDetailsState extends State<NewsDetails> {
         backgroundColor: AppColors.backgroundColor,
         title: Text(
           news!.title.toString(),
-          style: Get.textTheme.bodyLarge!.copyWith(color: Colors.white),
+          style: Get.textTheme.bodyLarge!.copyWith(color: Colors.white,fontSize: 20),
         ),
       ),
       body: Padding(
