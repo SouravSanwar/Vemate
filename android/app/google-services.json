@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "889011737153",
+    "project_id": "vemate-12b10",
+    "storage_bucket": "vemate-12b10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889011737153:android:c4f43a6d53c4ee4c952cc0",
+        "android_client_info": {
+          "package_name": "com.vemateltd.vemate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "889011737153-chpjoafnnjcfcsfggd7pt5vlmbeuhmqk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgpGYZXOzokSZIPQ47znxO1JdSeSrKgdQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "889011737153-chpjoafnnjcfcsfggd7pt5vlmbeuhmqk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
