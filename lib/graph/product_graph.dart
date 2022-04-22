@@ -23,6 +23,8 @@ class _ProductGraphState extends State<ProductGraph> {
 
   @override
   void initState(){
+
+
     _zoomPanBehavior = ZoomPanBehavior(
       enablePinching: true,
       zoomMode: ZoomMode.x,
@@ -33,31 +35,58 @@ class _ProductGraphState extends State<ProductGraph> {
   @override
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
-      return data.singleProductModel != null
+      return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Container(
+      width: Get.width,
+      decoration: BoxDecoration(
+      gradient: AppColors.cardGradient,
+      borderRadius: BorderRadius.circular(12.0),
+      ),
+      child:data.singleProductModel != null
           ? SfCartesianChart(
               plotAreaBorderWidth: 0,
               zoomPanBehavior: _zoomPanBehavior,
               primaryXAxis: CategoryAxis(
                 axisBorderType: AxisBorderType.withoutTopAndBottom,
-                majorGridLines: const MajorGridLines(width: 0),
+                majorGridLines: const MajorGridLines(width: 0,),
+                majorTickLines: const MajorTickLines(width: 0),
+                axisLine: AxisLine(width: 0),
                 labelIntersectAction: AxisLabelIntersectAction.hide,
-                labelRotation: 270,
+                labelRotation:0,
+                labelStyle: const TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Roboto',
+                    fontSize:8,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w900
+                ),
                 labelAlignment: LabelAlignment.start,
-                maximumLabels: 7,
+                maximumLabels: 12,
               ),
-              primaryYAxis: CategoryAxis(
+              primaryYAxis: NumericAxis(
                 axisBorderType: AxisBorderType.withoutTopAndBottom,
                 borderWidth: 0,
-                majorGridLines: const MajorGridLines(width: 0),
+                axisLine: AxisLine(width: 0),
+                majorGridLines: const MajorGridLines(width: 0,),
+                majorTickLines: const MajorTickLines(width: 0),
                 labelIntersectAction: AxisLabelIntersectAction.hide,
                 labelRotation: 0,
+                labelStyle: const TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Roboto',
+                    fontSize:10,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w900
+                ),
                 labelAlignment: LabelAlignment.start,
                 maximumLabels: 24,
               ),
-              tooltipBehavior: TooltipBehavior(enable: true),
               series: <ChartSeries<Graph, String>>[
                 SplineAreaSeries<Graph, String>(
                   dataSource: data.singleProductModel!.graph!,
+                  borderColor: Color(0xff2093D7),
+                  borderWidth: 1,
                   gradient: AppColors.graphGradient,
                   xValueMapper: (plot, _) => widget.graphType == '0'
                       ? plot.hourWiseTime
@@ -65,6 +94,7 @@ class _ProductGraphState extends State<ProductGraph> {
                   yValueMapper: (plot, _) => plot.floorPrice,
                   xAxisName: 'Duration',
                   yAxisName: 'Total',
+                   enableTooltip: true,
                   dataLabelSettings: const DataLabelSettings(
                     isVisible: false,
                     angle: 270,
@@ -72,7 +102,9 @@ class _ProductGraphState extends State<ProductGraph> {
                 ),
               ],
             )
-          : const LoadingExample();
+          : const LoadingExample()
+              )
+      );
     });
   }
 }

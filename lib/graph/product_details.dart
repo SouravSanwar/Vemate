@@ -46,11 +46,11 @@ class _ProductDetailsState extends State<ProductDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              FadeInUp(
-                duration: const Duration(milliseconds: 1000),
+              Container(
+                alignment: Alignment.topLeft,
                 child: Text(
                   data.singleProductModel != null
-                      ? data.singleProductModel!.name.toString() + "'s Details"
+                      ? "About " + data.singleProductModel!.name.toString()
                       : "",
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -173,7 +173,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ]),
                 ),
               ),
-              AppSpaces.spaces_height_5,
+              /*AppSpaces.spaces_height_5,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -284,7 +284,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                   ),
                 ],
-              )
+              )*/
             ],
           ),
         );

@@ -9,6 +9,7 @@ import '../features/auth/reset_pass/reset_pass.dart';
 import '../features/market/presentation/market.dart';
 
 class AppRoutes {
+
   static String INITAL_SCREEN = "/";
   static String RESET_PASS = "/reset_pass";
   static String MAIN_AUTH = "/auth_initial_page";
@@ -21,7 +22,7 @@ class AppRoutes {
     return [
       GetPage(
         name: INITAL_SCREEN,
-        page: () => const SplashScreen(),
+        page: () =>  SplashScreen(),
       ),
       GetPage(
         name: RESET_PASS,

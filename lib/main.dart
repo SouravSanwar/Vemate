@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
+import 'package:ketemaa/features/profile/instruction/instruction_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'app_routes/app_routes.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.themeData(),
       getPages: AppRoutes.appRoutesList(),
-      initialRoute:  AppRoutes.INITAL_SCREEN,
+      home: InstructionsScreen(),
       translations: Language(),
       locale: const Locale('en', 'US'),
     );

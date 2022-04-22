@@ -30,9 +30,7 @@ class ItemDetailsHelper extends StatelessWidget{
                     fontWeight: FontWeight.bold
                 ),
                 ),
-                decoration: BoxDecoration(
-                  gradient: AppColors.purpleGradient,
-                ),
+
                 padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 12)
 
             ),

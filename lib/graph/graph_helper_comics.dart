@@ -71,106 +71,14 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              /* FadeInUp(
-                duration: const Duration(milliseconds: 100),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    DesignHelper(
-                      onPressed: () {},
-                      child: const Text(
-                        "1H",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
 
-                    //FOR 7 DAYS
-                    DesignHelper(
-                      onPressed: () {},
-                      child: const Text(
-                        "24H",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    DesignHelper(
-                      onPressed: () {
-                        getData!.getSingleProduct(widget.id, graphType: 1);
-                      },
-                      child: const Text(
-                        "7D",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    AppSpaces.spaces_height_5,
-                    //FOR 30 DAYS
-                    DesignHelper(
-                      onPressed: () {},
-                      child: const Text(
-                        "30D",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              AppSpaces.spaces_height_5,
-              FadeInUp(
-                duration: const Duration(milliseconds: 1000),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    //FOR 60 DAYS
-                    DesignHelper(
-                      onPressed: () {},
-                      child: const Text(
-                        "60D",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(
-                      width: 5,
-                    ),
-
-                    //FOR 1 YEAR
-                    DesignHelper(
-                      onPressed: () {},
-                      child: const Text(
-                        "1Y",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              AppSpaces.spaces_height_40,*/
-              // recent transactions
-              FadeInUp(
-                duration: const Duration(milliseconds: 1000),
+              Container(
+                alignment: Alignment.topLeft,
                 child: Text(
                   data.singleProductModel != null
                       ? data.singleProductModel!.name.toString() + "'s Details"
                       : "",
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                   style: TextStyle(
                       color: gh.c ? Colors.blueGrey.shade300 : Colors.green,
                       fontWeight: FontWeight.bold,
@@ -310,115 +218,7 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
                 ),
               ),
               AppSpaces.spaces_height_20,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      var body = {
-                        "product": data.singleProductModel!.id,
-                        "type": 1
-                      };
-                      Map<String, String> requestHeadersWithToken = {
-                        'Content-type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'token ${prefs!.getString('token')}',
-                      };
 
-                      data.checkWishlistModel!.isFound == false
-                          ? postData!.addToWishlist(
-                              context,
-                              body,
-                              data.singleProductModel!.id,
-                              requestHeadersWithToken,
-                            )
-                          : Flushbar(
-                              flushbarPosition: FlushbarPosition.BOTTOM,
-                              isDismissible: false,
-                              duration: const Duration(seconds: 3),
-                              messageText: const Text(
-                                "Product already in your wishlist",
-                                style: TextStyle(
-                                    fontSize: 16.0, color: Colors.green),
-                              )).show(context);
-                    },
-                    child: Container(
-                      width: Get.width * .45,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        gradient: AppColors.purpleGradient,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8.0, right: 8.0, top: 15, bottom: 15),
-                        child: data.checkWishlistModel!.isFound == false
-                            ? Text(
-                                'Add to Wishlist',
-                                style: Get.textTheme.bodyMedium,
-                              )
-                            : Text(
-                                'Already in Wishlist',
-                                style: Get.textTheme.bodyMedium,
-                              ),
-                      ),
-                    ),
-                  ),
-                  AppSpaces.spaces_width_2,
-                  InkWell(
-                    onTap: () {
-                      var body = {
-                        "product": data.singleProductModel!.id,
-                        "type": 0
-                      };
-                      Map<String, String> requestHeadersWithToken = {
-                        'Content-type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'token ${prefs!.getString('token')}',
-                      };
-
-                      data.checkSetCheck!.isFound == false
-                          ? postData!.addToSet(
-                              context,
-                              body,
-                              data.singleProductModel!.id,
-                              requestHeadersWithToken,
-                            )
-                          : Flushbar(
-                              flushbarPosition: FlushbarPosition.BOTTOM,
-                              isDismissible: false,
-                              duration: const Duration(seconds: 3),
-                              messageText: const Text(
-                                "Product already in your Vault",
-                                style: TextStyle(
-                                    fontSize: 16.0, color: Colors.green),
-                              )).show(context);
-                    },
-                    child: Container(
-                      width: Get.width * .45,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        gradient: AppColors.purpleGradient,
-                        //color: AppColors.primaryColor,
-                        borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(15),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8.0, right: 8.0, top: 15, bottom: 15),
-                        child: data.checkSetCheck!.isFound == false
-                            ? Text('Add to Vault',
-                                style: Get.textTheme.bodyMedium)
-                            : Text('Already in Vault',
-                                style: Get.textTheme.bodyMedium),
-                      ),
-                    ),
-                  ),
-                ],
-              )
             ],
           ),
         );

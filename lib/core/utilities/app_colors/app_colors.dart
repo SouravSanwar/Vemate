@@ -61,11 +61,10 @@ class AppColors {
   );
   static LinearGradient graphGradient=const LinearGradient(
     colors: [
-    Color(0xff8053B7),
-    Color(0xff8053B7),
-    Color(0xff8053B7),
-    Color(0xff584D9F),
-    Color(0xff393E6B),
+      Color(0xff5E5966),
+      Color(0xff385179),
+      Color(0xff27477A),
+      Color(0xff284479),
      ],
     begin: Alignment.topCenter,
     // end at the bottom
