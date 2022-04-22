@@ -95,8 +95,8 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
       //rtl: true, // Display as right-to-left
       back: Container(),
       skip: Container(),
-      next: const Icon(Icons.arrow_forward),
-      done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
+      next: const Icon(Icons.arrow_forward,color: Colors.white,),
+      done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600,color: Colors.white,fontSize: 18)),
       curve: Curves.fastLinearToSlowEaseIn,
       controlsMargin: const EdgeInsets.all(16),
       controlsPadding: kIsWeb
