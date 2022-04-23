@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-    getData!.getUserInfo(requestToken);
+    getData!.getUserInfo();
 
     getData!.getVaultStats();
 

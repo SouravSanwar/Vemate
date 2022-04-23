@@ -287,14 +287,11 @@ class PostData extends ChangeNotifier {
           prefs = await SharedPreferences.getInstance();
 
           prefs!.setString('token', js['token'].toString());
-          Map<String, String> requestToken = {
-            'Authorization': 'token ${js['token'].toString()}',
-          };
 
           getData = Provider.of<GetData>(context, listen: false);
-          await getData!.getUserInfo(requestToken);
+          await getData!.getUserInfo();
 
-          Store(js, context);
+          await Store(js, context);
 
           Get.to(() => ControllerPage());
 
@@ -367,7 +364,7 @@ class PostData extends ChangeNotifier {
         Map<String, dynamic> js = x;
         if (js['is_email_verified'] == true) {
           getData = Provider.of<GetData>(context, listen: false);
-          await getData!.getUserInfo(requestHeadersWithToken);
+          await getData!.getUserInfo();
           prefs = await SharedPreferences.getInstance();
 
           prefs!.setString('name', js['name'].toString());
@@ -557,6 +554,7 @@ class PostData extends ChangeNotifier {
       Navigator.of(context).pop();
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.getSetList();
+      await getData!.getVaultStats();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
@@ -591,6 +589,7 @@ class PostData extends ChangeNotifier {
     prefs!.setString('image', mat['image'].toString());
     prefs!.setString('is_email_verified', mat['is_email_verified'].toString());
     prefs!.setString('token', mat['token'].toString());
+    prefs!.setString('is_2fa', mat['is_2fa'].toString());
     prefs!.setBool("is_login", true);
 
     print(prefs!.get('token'));

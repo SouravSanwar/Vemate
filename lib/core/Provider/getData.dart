@@ -40,16 +40,11 @@ class GetData extends ChangeNotifier {
 
   NewsModel? newsModel;
 
-  Map<String, String> requestHeadersWithToken = {
-    'Content-type': 'application/json',
-    'Accept': 'application/json',
-    'Authorization': 'token ${prefs!.getString('token')}',
-  };
   Map<String, String> requestToken = {
     'Authorization': 'token ${prefs!.getString('token')}',
   };
 
-  Future getUserInfo(var requestToken) async {
+  Future getUserInfo() async {
     profileModel = null;
     final response = await http.get(
       Uri.parse(Urls.userInfo),

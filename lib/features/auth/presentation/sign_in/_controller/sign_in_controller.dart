@@ -18,13 +18,5 @@ class SigninController extends GetxController {
 
   Rx<UserLoginModel> userLogin = UserLoginModel().obs;
 
-  @override
-  void onInit() {
-    if (kDebugMode) {
-      userNameTextFiledController.text = "sanwarulhaque1165@gmail.com";
-      passwordTextFiledController.text = "vem@te12";
-    }
-    super.onInit();
-  }
 
 }
