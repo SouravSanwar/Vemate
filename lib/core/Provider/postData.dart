@@ -9,6 +9,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
+import 'package:ketemaa/features/auth/presentation/sign_in/verify_2fa.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/main.dart';
@@ -101,7 +102,7 @@ class PostData extends ChangeNotifier {
           duration: const Duration(seconds: 3),
           messageText: Text(
             js.toString(),
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
+            style: const TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }
     notifyListeners();
@@ -305,12 +306,82 @@ class PostData extends ChangeNotifier {
         if (js['is_email_verified'] == true) {
           prefs = await SharedPreferences.getInstance();
 
-          prefs!.setString('token', js['token'].toString());
+          //await Store(js, context);
 
-          getData = Provider.of<GetData>(context, listen: false);
-          await getData!.getUserInfo();
+          js['is_2fa'] == true
+              ? Get.to(() => const Verify2FA())
+              : Store(js, context);
 
-          await Store(js, context);
+          Flushbar(
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              isDismissible: false,
+              duration: const Duration(seconds: 3),
+              messageText: const Text(
+                "Login Successful",
+                style: TextStyle(fontSize: 16.0, color: Colors.green),
+              )).show(context);
+        } else {
+          Navigator.of(context).pop();
+
+          Flushbar(
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              isDismissible: false,
+              duration: const Duration(seconds: 3),
+              messageText: const Text(
+                "Invalid Information",
+                style: TextStyle(fontSize: 16.0, color: Colors.green),
+              )).show(context);
+        }
+      } catch (e) {
+        Navigator.of(context).pop();
+        Flushbar(
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            isDismissible: false,
+            duration: const Duration(seconds: 3),
+            messageText: const Text(
+              "Something went wrong",
+              style: TextStyle(fontSize: 16.0, color: Colors.green),
+            )).show(context);
+      }
+    } else {
+      Navigator.of(context).pop();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Something went wrong",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    }
+    notifyListeners();
+  }
+
+  Future logInWith2FA(BuildContext context, var body) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingExample());
+
+    printInfo(info: body.toString());
+    printInfo(info: Urls.logInWith2FA.toString());
+
+    final response = await http.post(Uri.parse(Urls.logInWith2FA),
+        body: json.encode(body), headers: requestHeaders);
+    var x = json.decode(response.body);
+
+    printInfo(info: x);
+
+    if (response.statusCode == 200 ||
+        response.statusCode == 401 ||
+        response.statusCode == 403 ||
+        response.statusCode == 500 ||
+        response.statusCode == 201) {
+      try {
+        Map<String, dynamic> js = x;
+        if (js['is_email_verified'] == true) {
+          prefs = await SharedPreferences.getInstance();
+          Store(js, context);
 
           //Get.to(() => ControllerPage());
 
@@ -608,10 +679,13 @@ class PostData extends ChangeNotifier {
     prefs!.setString('image', mat['image'].toString());
     prefs!.setString('is_email_verified', mat['is_email_verified'].toString());
     prefs!.setString('token', mat['token'].toString());
-    prefs!.setString('is_2fa', mat['is_2fa'].toString());
+    prefs!.setBool('is_2fa', mat['is_2fa']);
     prefs!.setBool("is_login", true);
 
     print(prefs!.get('token'));
+
+    getData = Provider.of<GetData>(context, listen: false);
+    await getData!.getUserInfo();
 
     Get.to(() => ControllerPage());
   }

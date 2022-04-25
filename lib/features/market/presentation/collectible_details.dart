@@ -250,7 +250,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                          Wrap(
+                          Row(
                             children: <Widget>[
                               Expanded(
                                   child: Padding(
