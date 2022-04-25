@@ -34,13 +34,25 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
       //onPressed: () => _onIntroEnd(context),
       key: introKey,
       globalBackgroundColor: AppColors.backgroundColor,
-      globalHeader:const Align(
-        alignment: Alignment.topRight,
-        child:  Padding(
-            padding: EdgeInsets.only(top: 50, right: 35 ),
-            child: Text("Skip",style: TextStyle(color: Colors.white),)
-          ),
+      globalHeader:Container(
+        padding: EdgeInsets.symmetric(horizontal: 30,vertical: 50),
+        child: FlatButton(
 
+          textColor: Colors.white,
+          padding: EdgeInsets.all(8.0),
+          splashColor: Colors.blueAccent,
+          onPressed: () {
+            Get.to(() => const SplashScreen());
+          },
+          child: const Align(
+
+            alignment: Alignment.topRight,
+            child: Text(
+                "Skip",
+                style: TextStyle(fontSize: 20.0),
+            ),
+          )
+        ),
       ),
 
       pages: [

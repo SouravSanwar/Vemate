@@ -30,7 +30,8 @@ class _DesignHelperState extends State<DesignHelper> {
         height: Get.height * .05,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          gradient: AppColors.purpleGradient, // set border width
+          gradient: AppColors.purpleGradient,
+          // set border width
           borderRadius: const BorderRadius.all(
               Radius.circular(20.0)), // set rounded corner radius
         ),

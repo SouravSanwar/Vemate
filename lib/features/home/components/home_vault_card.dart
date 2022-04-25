@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
@@ -91,12 +92,8 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Container(
                         alignment: Alignment.center,
-                        child: const Text(
-                          '24H',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14),
+                        child:DropDown(
+                          AppColors.backgroundColor
                         ),
                         width: Get.width * .15,
                         height: Get.height * .03,

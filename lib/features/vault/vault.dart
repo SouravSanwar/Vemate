@@ -5,6 +5,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
 import 'package:ketemaa/features/vault/vault_comics_card.dart';
 import 'package:ketemaa/features/vault/my_wishlist_page.dart';
@@ -20,7 +21,9 @@ class Vault extends StatefulWidget {
 }
 
 class _VaultState extends State<Vault> {
-  bool _isLoaded = false;
+
+
+
   double scrnHeight = Get.height;
   double scrnWidth = Get.width;
 
@@ -412,21 +415,17 @@ class _VaultState extends State<Vault> {
                       ),
                     ),
                     Positioned(
+
                       top: Get.height * .235,
                       left: Get.width * .62,
                       right: 0.0,
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: const Text(
-                          '24H',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                          ),
+                        child: DropDown(
+                            Color(0xffA984E5)
                         ),
-                        width: Get.width * .125,
-                        height: Get.width * .125,
+
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           gradient: AppColors.purpleGradient,
@@ -440,4 +439,5 @@ class _VaultState extends State<Vault> {
       }),
     );
   }
+
 }
