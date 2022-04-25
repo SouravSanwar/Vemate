@@ -1,10 +1,11 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ketemaa/features/vault/dropdown.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
@@ -20,60 +21,32 @@ class HomeVaultCard extends StatefulWidget {
 }
 
 class _HomeVaultCardState extends State<HomeVaultCard> {
-  double percent = 3.30;
-  String? selectedValue;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Container(
-          clipBehavior: Clip.antiAlias,
-          width: Get.width,
-          decoration: BoxDecoration(
-            gradient: AppColors.cardGradient,
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          child: Column(
-            children: [
-              SizedBox(
-                height: Get.height * .01,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: Get.width * .03,
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Text(
-                      "Vault Value",
-                      textAlign: TextAlign.start,
-                      style: Get.textTheme.bodyText2!.copyWith(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14),
+      child: Consumer<GetData>(builder: (context, data, child) {
+        return Container(
+            clipBehavior: Clip.antiAlias,
+            width: Get.width,
+            decoration: BoxDecoration(
+              gradient: AppColors.cardGradient,
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: Get.height * .01,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: Get.width * .03,
                     ),
-                  ),
-                  const Expanded(
-                    flex: 2,
-                    child: Text(""),
-                  ),
-                  Expanded(
-                    flex: 6,
-                    child: Container(
-                      height: Get.height * .03,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        gradient: AppColors.purpleGradient, // set border width
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8.0)),
-                      ),
+                    Expanded(
+                      flex: 5,
                       child: Text(
-                        '\$${widget.vaultStatsModel!.totalPriceChange !=null
-                            ?widget.vaultStatsModel!.totalPriceChange!.toStringAsFixed(2)
-                            :"0.0"
-                        }',
+                        "Vault Value",
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText2!.copyWith(
                             color: AppColors.white,
@@ -81,150 +54,167 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                             fontSize: 14),
                       ),
                     ),
-                  ),
-                  const Expanded(
-                    flex: 2,
-                    child: Text(""),
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                    const Expanded(
+                      flex: 2,
+                      child: Text(""),
+                    ),
+                    Expanded(
+                      flex: 6,
                       child: Container(
-                        alignment: Alignment.center,
-                        child:DropDown(
-                          AppColors.backgroundColor
-                        ),
-                        width: Get.width * .15,
                         height: Get.height * .03,
+                        alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.primaryColor),
-                          borderRadius: BorderRadius.circular(8.0),
+                          gradient: AppColors.purpleGradient,
+                          // set border width
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        child: Text(
+                          '\$${data.vaultStatsModel!.totalPriceChange != null ? data.vaultStatsModel!.totalPriceChange!.toStringAsFixed(2) : "0.0"}',
+                          textAlign: TextAlign.start,
+                          style: Get.textTheme.bodyText2!.copyWith(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: Get.width * .03,
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Text(
-                      '\$${widget.vaultStatsModel!.totalVaultValue !=null
-                          ?widget.vaultStatsModel!.totalVaultValue!.toStringAsFixed(2)
-                          :"0.0"
-                      }',
-
-                      textAlign: TextAlign.start,
-                      style: Get.textTheme.bodyText2!.copyWith(
-                          color: AppColors.grey,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14),
+                    const Expanded(
+                      flex: 2,
+                      child: Text(""),
                     ),
-                  ),
-                  const Expanded(
-                    flex: 2,
-                    child: Text(""),
-                  ),
-                  Expanded(
-                    flex: 6,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        widget.vaultStatsModel!.sign! == 'decrease'
-                            ?
-                            const RotationTransition(
-                                turns: AlwaysStoppedAnimation(45 / 360),
-                                child: Icon(
-                                  Icons.arrow_downward,
-                                  size: 18,
-                                  color: Colors.red,
-                                ),
-                              )
-                            : const RotationTransition(
-                                turns: AlwaysStoppedAnimation(45 / 360),
-                                child: Icon(
-                                  Icons.arrow_upward,
-                                  size: 18,
-                                  color: Colors.green,
-                                ),
-                              ),
-                        Text(widget.vaultStatsModel!
-                            .totalPercentChange! <
-                            0.0
-                            ? widget.vaultStatsModel!
-                            .totalPercentChange!
-                            .toStringAsFixed(2)+"%"
-                            : widget.vaultStatsModel!
-                            .totalPercentChange!
-                            .toStringAsFixed(
-                            2) +"%",
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                            color: widget.vaultStatsModel!.sign! == 'decrease'
-                                ? Colors.red
-                                : Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
+                    Expanded(
+                      flex: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: DropDown(AppColors.backgroundColor),
+                          width: Get.width * .15,
+                          height: Get.height * .03,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: AppColors.primaryColor),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  const Expanded(
-                    flex: 2,
-                    child: Text(""),
-                  ),
-                  const Expanded(
-                    flex: 4,
-                    child: Text(""),
-                  ),
-                ],
-              ),
-              Container(
-                height: Get.height * .12,
-                child: SfCartesianChart(
-                  plotAreaBorderWidth: 0,
-                  margin: EdgeInsets.zero,
-                  primaryXAxis: CategoryAxis(
-                    isVisible: false,
-                    majorGridLines: const MajorGridLines(width: 0),
-                    labelIntersectAction: AxisLabelIntersectAction.hide,
-                    labelRotation: 270,
-                    labelAlignment: LabelAlignment.start,
-                    maximumLabels: 7,
-                  ),
-                  primaryYAxis: CategoryAxis(
-                    isVisible: false,
-                    majorGridLines: const MajorGridLines(width: 0),
-                    labelIntersectAction: AxisLabelIntersectAction.hide,
-                    labelRotation: 0,
-                    labelAlignment: LabelAlignment.start,
-                    maximumLabels: 10,
-                  ),
-                  tooltipBehavior: TooltipBehavior(enable: true),
-                  series: <ChartSeries<VaultStatsModelGraph, String>>[
-                    SplineAreaSeries<VaultStatsModelGraph, String>(
-                      color: widget.vaultStatsModel!.sign! == 'decrease'
-                          ? Colors.red
-                          : Colors.green,
-                      gradient: AppColors.graphGradient,
-                      dataSource: widget.vaultStatsModel!.vaultStatsModelGraph!,
-                      xValueMapper: (VaultStatsModelGraph plot, _) => plot.hour,
-                      yValueMapper: (VaultStatsModelGraph plot, _) =>
-                          plot.total,
-                      xAxisName: 'Duration',
-                      yAxisName: 'Total',
-                    )
                   ],
                 ),
-              ),
-            ],
-          )),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: Get.width * .03,
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: Text(
+                        '\$${data.vaultStatsModel!.totalVaultValue != null ? data.vaultStatsModel!.totalVaultValue!.toStringAsFixed(2) : "0.0"}',
+                        textAlign: TextAlign.start,
+                        style: Get.textTheme.bodyText2!.copyWith(
+                            color: AppColors.grey,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14),
+                      ),
+                    ),
+                    const Expanded(
+                      flex: 2,
+                      child: Text(""),
+                    ),
+                    Expanded(
+                      flex: 6,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          data.vaultStatsModel!.sign! == 'decrease'
+                              ? const RotationTransition(
+                                  turns: AlwaysStoppedAnimation(45 / 360),
+                                  child: Icon(
+                                    Icons.arrow_downward,
+                                    size: 18,
+                                    color: Colors.red,
+                                  ),
+                                )
+                              : const RotationTransition(
+                                  turns: AlwaysStoppedAnimation(45 / 360),
+                                  child: Icon(
+                                    Icons.arrow_upward,
+                                    size: 18,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                          Text(
+                            data.vaultStatsModel!.totalPercentChange! < 0.0
+                                ? data.vaultStatsModel!.totalPercentChange!
+                                        .toStringAsFixed(2) +
+                                    "%"
+                                : data.vaultStatsModel!.totalPercentChange!
+                                        .toStringAsFixed(2) +
+                                    "%",
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                              color: data.vaultStatsModel!.sign! == 'decrease'
+                                  ? Colors.red
+                                  : Colors.green,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Expanded(
+                      flex: 2,
+                      child: Text(""),
+                    ),
+                    const Expanded(
+                      flex: 4,
+                      child: Text(""),
+                    ),
+                  ],
+                ),
+                Container(
+                  height: Get.height * .12,
+                  child: SfCartesianChart(
+                    plotAreaBorderWidth: 0,
+                    margin: EdgeInsets.zero,
+                    primaryXAxis: CategoryAxis(
+                      isVisible: false,
+                      majorGridLines: const MajorGridLines(width: 0),
+                      labelIntersectAction: AxisLabelIntersectAction.hide,
+                      labelRotation: 270,
+                      labelAlignment: LabelAlignment.start,
+                      maximumLabels: 7,
+                    ),
+                    primaryYAxis: CategoryAxis(
+                      isVisible: false,
+                      majorGridLines: const MajorGridLines(width: 0),
+                      labelIntersectAction: AxisLabelIntersectAction.hide,
+                      labelRotation: 0,
+                      labelAlignment: LabelAlignment.start,
+                      maximumLabels: 10,
+                    ),
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <ChartSeries<VaultStatsModelGraph, String>>[
+                      SplineAreaSeries<VaultStatsModelGraph, String>(
+                        color: data.vaultStatsModel!.sign! == 'decrease'
+                            ? Colors.red
+                            : Colors.green,
+                        gradient: AppColors.graphGradient,
+                        dataSource: data.vaultStatsModel!.vaultStatsModelGraph!,
+                        xValueMapper: (VaultStatsModelGraph plot, _) =>
+                            plot.hour,
+                        yValueMapper: (VaultStatsModelGraph plot, _) =>
+                            plot.total,
+                        xAxisName: 'Duration',
+                        yAxisName: 'Total',
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ));
+      }),
     );
   }
 }

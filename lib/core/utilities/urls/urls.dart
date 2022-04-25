@@ -1,6 +1,6 @@
 class Urls {
-  //static String mainUrl = 'https://market.vemate.com';
-  static String mainUrl = 'http://167.71.134.124';
+  static String mainUrl = 'https://market.vemate.com';
+  //static String mainUrl = 'http://167.71.134.124';
 
   static String signUp = mainUrl + '/api/v1/account/public/users/signup/';
   static String verifyCode =
@@ -30,7 +30,7 @@ class Urls {
       '/api/v1/veve/public/common-storage/check_duplicate/?type=0&product_id=';
 
   static String vaultStats = mainUrl +
-      '/api/v1/veve/public/common-storage/vault_stats/';
+      '/api/v1/veve/public/common-storage/vault_stats';
 
   static String news = mainUrl + '/api/v1/home/public/news/';
 }

@@ -573,7 +573,7 @@ class PostData extends ChangeNotifier {
       Navigator.of(context).pop();
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.getSetList();
-      await getData!.getVaultStats();
+      await getData!.getVaultStats(0);
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,

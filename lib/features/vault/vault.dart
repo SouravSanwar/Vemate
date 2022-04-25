@@ -40,7 +40,7 @@ class _VaultState extends State<Vault> {
     getData!.getSetList();
     getData!.getWishList();
 
-    getData!.getVaultStats();
+    getData!.getVaultStats(0);
   }
 
   @override

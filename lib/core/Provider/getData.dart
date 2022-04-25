@@ -272,14 +272,16 @@ class GetData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getVaultStats() async {
+  Future getVaultStats(int graphType) async {
     vaultStatsModel = null;
     final response = await http.get(
       Uri.parse(
-        Urls.vaultStats,
+        Urls.vaultStats + '?graph_type=$graphType',
       ),
       headers: requestToken,
     );
+
+    printInfo(info: Urls.vaultStats + '?graph_type=$graphType');
 
     var data = json.decode(response.body.toString());
 
