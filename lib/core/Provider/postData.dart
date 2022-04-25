@@ -209,15 +209,34 @@ class PostData extends ChangeNotifier {
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     } else {
+      Map<String, dynamic> js = json.decode(response.body);
       Navigator.of(context).pop();
-      Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 5),
-          messageText: Text(
-            response.body.toString(),
-            style: const TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+      js.containsKey('password')
+          ? Flushbar(
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              isDismissible: false,
+              duration: const Duration(seconds: 5),
+              messageText: Text(
+                js['password'][0].toString(),
+                style: const TextStyle(fontSize: 16.0, color: Colors.green),
+              )).show(context)
+          : (js.containsKey('code')
+              ? Flushbar(
+                  flushbarPosition: FlushbarPosition.BOTTOM,
+                  isDismissible: false,
+                  duration: const Duration(seconds: 5),
+                  messageText: Text(
+                    js['code'][0].toString(),
+                    style: const TextStyle(fontSize: 16.0, color: Colors.green),
+                  )).show(context)
+              : Flushbar(
+                  flushbarPosition: FlushbarPosition.BOTTOM,
+                  isDismissible: false,
+                  duration: const Duration(seconds: 5),
+                  messageText: Text(
+                    js['email'][0].toString(),
+                    style: const TextStyle(fontSize: 16.0, color: Colors.green),
+                  )).show(context));
     }
   }
 
