@@ -1,5 +1,5 @@
 class Urls {
-  //static String mainUrl = 'https://veve-api.herokuapp.com/vmate';
+  //static String mainUrl = 'https://market.vemate.com';
   static String mainUrl = 'http://167.71.134.124';
 
   static String signUp = mainUrl + '/api/v1/account/public/users/signup/';
@@ -33,6 +33,4 @@ class Urls {
       '/api/v1/veve/public/common-storage/vault_stats/';
 
   static String news = mainUrl + '/api/v1/home/public/news/';
-
-  static String singleComic = mainUrl + '/comic/';
 }

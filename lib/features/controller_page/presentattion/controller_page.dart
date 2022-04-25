@@ -3,13 +3,17 @@ import 'dart:io';
 import 'package:bottom_bar_page_transition/bottom_bar_page_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/Provider/app_update.dart';
+import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/features/Designs/update_alert_dialog.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/home/presentation/home.dart';
 import 'package:ketemaa/features/vault/vault.dart';
 
 import 'package:ketemaa/main.dart';
+import 'package:provider/provider.dart';
 
 import '../../market/presentation/market.dart';
 
@@ -42,8 +46,8 @@ class ControllerPage extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Padding(
-            padding:const EdgeInsets.symmetric(
-              horizontal: 8.0, vertical: 10.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,19 +56,20 @@ class ControllerPage extends StatelessWidget {
                 Container(
                   child: Row(
                     children: [
-                       SizedBox(
-                            height: Get.height * .02,
-                            width: Get.height * .02,
-                            child: Image.asset(
-                              'assets/media/icon/logo v.png',
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                      SizedBox(width: Get.height * .01,),
+                      SizedBox(
+                        height: Get.height * .02,
+                        width: Get.height * .02,
+                        child: Image.asset(
+                          'assets/media/icon/logo v.png',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      SizedBox(
+                        width: Get.height * .01,
+                      ),
                       Text(
                         "Vemate",
-                        style: Get.textTheme.headline1!
-                            .copyWith(
+                        style: Get.textTheme.headline1!.copyWith(
                             color: AppColors.white,
                             fontWeight: FontWeight.w500),
                       ),
@@ -72,7 +77,10 @@ class ControllerPage extends StatelessWidget {
                   ),
                 ),
                 AppSpaces.spaces_height_10,
-                const Text('Are you sure to exit?',style: TextStyle(color:Colors.white),),
+                const Text(
+                  'Are you sure to exit?',
+                  style: TextStyle(color: Colors.white),
+                ),
                 AppSpaces.spaces_height_10,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -95,7 +103,10 @@ class ControllerPage extends StatelessWidget {
                         ),
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
-                          child: Text('No',style: TextStyle(color:Colors.white),),
+                          child: Text(
+                            'No',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
@@ -118,7 +129,10 @@ class ControllerPage extends StatelessWidget {
                         ),
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
-                          child: Text('Yes',style: TextStyle(color:Colors.white),),
+                          child: Text(
+                            'Yes',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
@@ -141,20 +155,48 @@ class ControllerPage extends StatelessWidget {
 
       return WillPopScope(
         onWillPop: _willPopCallback,
-        child: Scaffold(
-            backgroundColor: const Color(0xff272E49),
-            body: BottomBarPageTransition(
-              builder: (_, index) => getBody(index),
-              currentIndex: ControllerPageController.to.currentPage.value,
-              totalLength: ControllerPageController.to.bottomBarData!.length,
-              transitionType: transitionType,
-              transitionDuration: duration,
-              transitionCurve: curve,
+        child: Stack(
+          children: [
+            Scaffold(
+                backgroundColor: const Color(0xff272E49),
+                body: BottomBarPageTransition(
+                  builder: (_, index) => getBody(index),
+                  currentIndex: ControllerPageController.to.currentPage.value,
+                  totalLength:
+                      ControllerPageController.to.bottomBarData!.length,
+                  transitionType: transitionType,
+                  transitionDuration: duration,
+                  transitionCurve: curve,
+                ),
+                bottomNavigationBar: SizedBox(
+                  //height: 65,
+                  child: getBottomBar(),
+                )),
+            Positioned(
+              left: 0,
+              right: 0,
+              child: Platform.isIOS
+                  ? Consumer<AppUpdate>(builder: (context, data, child) {
+                      return VersionControl.remoteConfig
+                                      .getInt("ios_version_code") >
+                                  int.parse(
+                                      VersionControl.packageInfo.buildNumber) &&
+                              data.isUpdate == true
+                          ? const AppUpdateAlert()
+                          : Container();
+                    })
+                  : Consumer<AppUpdate>(builder: (context, data, child) {
+                      return VersionControl.remoteConfig
+                                      .getInt("android_version_code") >
+                                  int.parse(
+                                      VersionControl.packageInfo.buildNumber) &&
+                              data.isUpdate == true
+                          ? const AppUpdateAlert()
+                          : Container();
+                    }),
             ),
-            bottomNavigationBar: SizedBox(
-              //height: 65,
-              child: getBottomBar(),
-            )),
+          ],
+        ),
       );
     });
   }
