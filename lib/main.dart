@@ -45,7 +45,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.themeData(),
       getPages: AppRoutes.appRoutesList(),
-      home: InstructionsScreen(),
+      //home: InstructionsScreen(),
+      initialRoute: AppRoutes.INITAL_SCREEN,
       translations: Language(),
       locale: const Locale('en', 'US'),
     );

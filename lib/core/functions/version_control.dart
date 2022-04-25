@@ -2,6 +2,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
+import 'package:ketemaa/features/instruction/instruction_screen.dart';
 import 'package:ketemaa/main.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -36,8 +37,13 @@ class VersionControl {
     if (remoteConfig.getInt("version_code").toString().isNotEmpty) {
       prefs!.getString('token') != null
           ? Get.to(() => ControllerPage())
-          : Get.to(() => const AuthInitialPage());
+          : Get.to(() => const InstructionsScreen());
     }
+    /*if (remoteConfig.getInt("version_code").toString().isNotEmpty) {
+      prefs!.getString('token') != null
+          ? Get.to(() => ControllerPage())
+          : Get.to(() => const AuthInitialPage());
+    }*/
 
     fetchConfig();
   }

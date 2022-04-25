@@ -189,9 +189,9 @@ class PostData extends ChangeNotifier {
     final response = await http.post(Uri.parse(Urls.forgotPass),
         body: json.encode(body), headers: requestHeaders);
 
-    /*var x = json.decode(response.body);
+    //var x = json.decode(response.body);
 
-    printInfo(info: response.body.toString());*/
+    printInfo(info: response.body.toString());
 
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
@@ -213,10 +213,10 @@ class PostData extends ChangeNotifier {
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
-          duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Something went wrong",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          duration: const Duration(seconds: 5),
+          messageText: Text(
+            response.body.toString(),
+            style: const TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }
   }
@@ -293,7 +293,7 @@ class PostData extends ChangeNotifier {
 
           await Store(js, context);
 
-          Get.to(() => ControllerPage());
+          //Get.to(() => ControllerPage());
 
           Flushbar(
               flushbarPosition: FlushbarPosition.BOTTOM,
@@ -593,5 +593,7 @@ class PostData extends ChangeNotifier {
     prefs!.setBool("is_login", true);
 
     print(prefs!.get('token'));
+
+    Get.to(() => ControllerPage());
   }
 }
