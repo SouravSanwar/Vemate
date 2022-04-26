@@ -15,6 +15,7 @@ import 'core/Provider/getData.dart';
 import 'core/Provider/postFile.dart';
 import 'core/language/language.dart';
 import 'core/utilities/app_theme/app_theme.dart';
+import 'package:flutter/services.dart';
 
 SharedPreferences? prefs;
 
@@ -23,6 +24,11 @@ int fa = 0;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   runApp(
     MultiProvider(

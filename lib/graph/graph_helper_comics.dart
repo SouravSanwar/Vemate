@@ -75,12 +75,12 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
                     const SizedBox(
                       height: 0.5,
                     ),
-                    ItemDetailsHelper(
+                    /*ItemDetailsHelper(
                       text: "Owner",
                       text1: data.singleProductModel != null
                           ? data.singleProductModel!.owner.toString()
                           : "",
-                    ),
+                    ),*/
                     const SizedBox(
                       height: 0.5,
                     ),
