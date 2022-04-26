@@ -25,7 +25,6 @@ class _ImageSliderState extends State<ImageSlider> {
       child: CarouselSlider(
         options: CarouselOptions(
           height: MediaQuery.of(context).size.height * .17,
-          aspectRatio: 16 / 9,
           viewportFraction: 0.8,
           initialPage: 0,
           //again starts from first image

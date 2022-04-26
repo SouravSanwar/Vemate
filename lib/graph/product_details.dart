@@ -50,7 +50,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 alignment: Alignment.topLeft,
                 child: Text(
                   data.singleProductModel != null
-                      ? "About " + data.singleProductModel!.name.toString()
+                      ? data.singleProductModel!.name.toString()+ "'s Details"
                       : "",
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -173,118 +173,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ]),
                 ),
               ),
-              /*AppSpaces.spaces_height_5,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-
-                    onTap: () {
-                      var body = {
-                        "product": data.singleProductModel!.id,
-                        "type": 1
-                      };
-
-                      Map<String, String> requestHeadersWithToken = {
-                        'Content-type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'token ${prefs!.getString('token')}',
-                      };
-
-                      data.checkWishlistModel!.isFound == false
-                          ? postData!.addToWishlist(
-                              context,
-                              body,
-                              data.singleProductModel!.id,
-                              requestHeadersWithToken,
-                            )
-                          : Flushbar(
-                              flushbarPosition: FlushbarPosition.BOTTOM,
-                              isDismissible: false,
-                              duration: const Duration(seconds: 3),
-                              messageText: const Text(
-                                "Product already in your wishlist",
-                                style: TextStyle(
-                                    fontSize: 16.0, color: Colors.green),
-                              )).show(context);
-                    },
-                    child: Container(
-                      width: Get.width * .45,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        gradient: AppColors.purpleGradient,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8.0, right: 8.0, top: 15, bottom: 15),
-                        child: data.checkWishlistModel!.isFound == false
-                            ? Text(
-                                'Add to Wishlist',
-                                style: Get.textTheme.bodyMedium,
-                              )
-                            : Text(
-                                'Already in Wishlist',
-                                style: Get.textTheme.bodyMedium,
-                              ),
-                      ),
-                    ),
-                  ),
-                  AppSpaces.spaces_width_2,
-                  InkWell(
-                    onTap: () {
-                      var body = {
-                        "product": data.singleProductModel!.id,
-                        "type": 0
-                      };
-                      Map<String, String> requestHeadersWithToken = {
-                        'Content-type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'token ${prefs!.getString('token')}',
-                      };
-
-                      data.checkSetCheck!.isFound == false
-                          ? postData!.addToSet(
-                              context,
-                              body,
-                              data.singleProductModel!.id,
-                              requestHeadersWithToken,
-                            )
-                          : Flushbar(
-                              flushbarPosition: FlushbarPosition.BOTTOM,
-                              isDismissible: false,
-                              duration: const Duration(seconds: 3),
-                              messageText: const Text(
-                                "Product already in your Vault",
-                                style: TextStyle(
-                                    fontSize: 16.0, color: Colors.green),
-                              )).show(context);
-                    },
-                    child: Container(
-                      width: Get.width * .45,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        gradient: AppColors.purpleGradient,
-                        //color: AppColors.primaryColor,
-                        borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(15),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8.0, right: 8.0, top: 15, bottom: 15),
-                        child: data.checkSetCheck!.isFound == false
-                            ? Text('Add to Vault',
-                                style: Get.textTheme.bodyMedium)
-                            : Text('Already in Vault',
-                                style: Get.textTheme.bodyMedium),
-                      ),
-                    ),
-                  ),
-                ],
-              )*/
             ],
           ),
         );

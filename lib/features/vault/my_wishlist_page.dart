@@ -57,7 +57,7 @@ class _WishListPageState extends State<WishListPage> {
       appBar: AppBar(
         elevation: 1.0,
         title: Text(
-          'My Wishlists',
+          'My Wishlist',
           style: Get.textTheme.headline2!.copyWith(color: Colors.white),
         ),
         backgroundColor: AppColors.backgroundColor,

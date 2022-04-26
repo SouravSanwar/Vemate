@@ -12,32 +12,7 @@ import '../core/Provider/getData.dart';
 import 'components/item_details_helper.dart';
 import 'designhelper.dart';
 
-class gh {
-  static bool c = true;
-  static var aa = '0AM',
-      bb = '2AM',
-      cc = '4AM',
-      dd = '6AM',
-      ee = '8AM',
-      ff = '10AM',
-      gg = '12PM',
-      hh = '2PM',
-      ii = '4PM',
-      jj = '6PM',
-      kk = '8PM',
-      ll = '10PM',
-      mm = '2AM',
-      nn = '4AM',
-      oo = '6AM',
-      pp = '8AM',
-      qq = '10AM',
-      rr = '12PM',
-      ss = '2PM',
-      tt = '4PM',
-      uu = '6PM',
-      vv = '8PM',
-      ww = '10PM';
-}
+
 
 class GraphHelperComics extends StatefulWidget {
   final int? id;
@@ -69,7 +44,7 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
         return Container(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment : MainAxisAlignment.center,
             children: [
 
               Container(
@@ -80,7 +55,7 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
                       : "",
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                      color: gh.c ? Colors.blueGrey.shade300 : Colors.green,
+                      color: Colors.blueGrey.shade300,
                       fontWeight: FontWeight.bold,
                       fontSize: 15),
                 ),
@@ -217,7 +192,6 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
                   ]),
                 ),
               ),
-              AppSpaces.spaces_height_20,
 
             ],
           ),

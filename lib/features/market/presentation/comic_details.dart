@@ -247,10 +247,11 @@ class _ComicDetailsState extends State<ComicDetails> {
                                   fontWeight: FontWeight.bold),),
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                               Container(
+                                    width:MediaQuery.of(context).size.width*.18,
+                                    padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 8),
                                     child: InkWell(
                                       onTap: () {
                                         currentIndex = 1;
@@ -274,13 +275,13 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         ),
                                       ),
                                     ),
-                                  )
+
                               ),
 
                               ///7 Days
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                             Container(
+                                  width:MediaQuery.of(context).size.width*.18,
+                                  padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 8),
                                   child: InkWell(
                                     onTap: () {
                                       currentIndex = 2;
@@ -305,12 +306,11 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     ),
                                   ),
                                 ),
-                              ),
 
                               ///30 Days
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                        Container(
+                          width:MediaQuery.of(context).size.width*.18,
+                          padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 8),
                                   child: InkWell(
                                     onTap: () {
                                       currentIndex = 1;
@@ -335,12 +335,11 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     ),
                                   ),
                                 ),
-                              ),
 
                               ///60 Days
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                      Container(
+                      width:MediaQuery.of(context).size.width*.18,
+                        padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 8),
                                   child: InkWell(
                                     onTap: () {
                                       currentIndex = 1;
@@ -365,11 +364,11 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     ),
                                   ),
                                 ),
-                              ),
 
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+
+                      Container(
+                      width:MediaQuery.of(context).size.width*.18,
+                        padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 8),
                                   child: InkWell(
                                     onTap: () {
                                       currentIndex = 1;
@@ -394,7 +393,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     ),
                                   ),
                                 ),
-                              ),
+
                             ],
                           ),
 
