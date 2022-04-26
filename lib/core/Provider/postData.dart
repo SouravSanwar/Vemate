@@ -507,6 +507,76 @@ class PostData extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future enDe2FA(BuildContext context, var requestHeadersWithToken) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingExample());
+
+    final response = await http.post(Uri.parse(Urls.check2FA),
+        headers: requestHeadersWithToken);
+    printInfo(info: requestHeadersWithToken.toString());
+    var x = json.decode(response.body);
+    printInfo(info: x.toString());
+
+    if (response.statusCode == 200 ||
+        response.statusCode == 401 ||
+        response.statusCode == 403 ||
+        response.statusCode == 500 ||
+        response.statusCode == 201) {
+      try {
+        Map<String, dynamic> js = x;
+        if (js.containsKey('status_2fa')) {
+          getData = Provider.of<GetData>(context, listen: false);
+          await getData!.getUserInfo();
+
+          Navigator.of(context).pop();
+
+          Flushbar(
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              isDismissible: false,
+              duration: const Duration(seconds: 3),
+              messageText: Text(
+                js['msg'].toString(),
+                style: const TextStyle(fontSize: 16.0, color: Colors.green),
+              )).show(context);
+        } else {
+          Navigator.of(context).pop();
+
+          Flushbar(
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              isDismissible: false,
+              duration: const Duration(seconds: 3),
+              messageText: const Text(
+                "Invalid Information",
+                style: TextStyle(fontSize: 16.0, color: Colors.green),
+              )).show(context);
+        }
+      } catch (e) {
+        Navigator.of(context).pop();
+        Flushbar(
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            isDismissible: false,
+            duration: const Duration(seconds: 3),
+            messageText: const Text(
+              "Something went wrong",
+              style: TextStyle(fontSize: 16.0, color: Colors.green),
+            )).show(context);
+      }
+    } else {
+      Navigator.of(context).pop();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Something went wrong",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    }
+    notifyListeners();
+  }
+
   Future addToWishlist(BuildContext context, var body, int? id,
       var requestHeadersWithToken) async {
     showDialog(

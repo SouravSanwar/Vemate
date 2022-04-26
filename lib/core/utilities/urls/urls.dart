@@ -17,6 +17,8 @@ class Urls {
       mainUrl + '/api/v1/account/public/users/profile/';
   static String updateProfilePic =
       mainUrl + '/api/v1/account/public/users/upload_profile_image/';
+  static String check2FA =
+      mainUrl + '/api/v1/account/public/users/enable_disable_2fa/';
 
   static String comic = mainUrl + '/api/v1/veve/public/products/?type=1&limit=20&offset=';
 
