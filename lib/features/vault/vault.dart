@@ -422,10 +422,7 @@ class _VaultState extends State<Vault> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: DropDown(
-                            Color(0xffA984E5)
-                        ),
-
+                        child: Text("24H"),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           gradient: AppColors.purpleGradient,
