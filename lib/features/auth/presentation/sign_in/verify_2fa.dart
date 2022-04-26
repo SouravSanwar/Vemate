@@ -8,6 +8,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_2fa.dart';
 import 'package:ketemaa/features/auth/reset_pass/forgot_pass.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 class Verify2FA extends StatefulWidget {
@@ -27,6 +28,17 @@ class _Verify2FAState extends State<Verify2FA> {
     // TODO: implement initState
 
     postData = Provider.of<PostData>(context, listen: false);
+
+    printInfo(info: 'Email: ' + prefs!.getString('email').toString());
+    var body = {
+      "email": prefs!.getString('email').toString(),
+      "reason": "verify",
+    };
+    postData!.resendCode(context, body).whenComplete(
+          () => Get.to(
+            () => const SignIn2FA(),
+      ),
+    );
 
     super.initState();
   }
@@ -89,13 +101,13 @@ class _Verify2FAState extends State<Verify2FA> {
                         postData!.resendCode(context, body).whenComplete(
                               () => Get.to(
                                 () => const SignIn2FA(),
-                          ),
-                        );
+                              ),
+                            );
                       },
                       child: Text(
                         'Send Code'.toUpperCase(),
                         style:
-                        Get.textTheme.button!.copyWith(color: Colors.white),
+                            Get.textTheme.button!.copyWith(color: Colors.white),
                       ),
                     ),
                   ),

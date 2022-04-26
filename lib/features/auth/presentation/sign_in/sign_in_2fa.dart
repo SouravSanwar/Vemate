@@ -38,7 +38,14 @@ class _SignIn2FAState extends State<SignIn2FA> {
   void initState() {
     // TODO: implement initState
 
+    emailController.text = prefs!.getString('email').toString();
+
     postData = Provider.of<PostData>(context, listen: false);
+    /*var body = {
+      "email": emailController.text,
+      "reason": "verify",
+    };
+    postData!.resendCode(context, body);*/
 
     super.initState();
   }

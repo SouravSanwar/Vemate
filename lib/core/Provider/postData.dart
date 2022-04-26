@@ -9,6 +9,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
+import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_2fa.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/verify_2fa.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
@@ -18,6 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PostData extends ChangeNotifier {
   GetData? getData;
+  PostData? postData;
   Map<String, String> requestHeaders = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
@@ -305,12 +307,23 @@ class PostData extends ChangeNotifier {
         Map<String, dynamic> js = x;
         if (js['is_email_verified'] == true) {
           prefs = await SharedPreferences.getInstance();
-
+          prefs!.setString('email', js['email'].toString());
           //await Store(js, context);
+          var body = {
+            "email": js['email'].toString(),
+            "reason": "verify",
+          };
+
+          postData = Provider.of<PostData>(context, listen: false);
 
           js['is_2fa'] == true
-              ? Get.to(() => const Verify2FA())
+              ? postData!
+                  .resendCode(context, body)
+                  .whenComplete(() => Get.to(() => const SignIn2FA()))
               : Store(js, context);
+
+          /*Navigator.of(context).pop();
+          await postData!.resendCode(context, body);*/
 
           Flushbar(
               flushbarPosition: FlushbarPosition.BOTTOM,
