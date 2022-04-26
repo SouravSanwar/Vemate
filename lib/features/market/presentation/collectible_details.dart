@@ -56,6 +56,18 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
     return Consumer<GetData>(builder: (context, data, child) {
       return Scaffold(
         backgroundColor: AppColors.backgroundColor,
+        appBar: AppBar(
+          elevation: 1.0,
+          titleSpacing: 0,
+          iconTheme: const IconThemeData(color: Colors.grey),
+          backgroundColor: AppColors.lightBackgroundColor,
+          title: Text(
+            data.singleProductModel != null
+                ? data.singleProductModel!.name.toString()
+                : "",
+            style: Get.textTheme.headline2!.copyWith(color: Colors.white),
+          ),
+        ),
         body: data.singleProductModel != null
             ? NestedScrollView(
                 headerSliverBuilder:
@@ -64,42 +76,6 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                     SliverToBoxAdapter(
                       child: Column(
                         children: [
-                          SizedBox(
-                            height: Get.height * .05,
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Get.width * .03),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Icon(
-                                      Icons.arrow_back_ios,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 10,
-                                  child: Text(
-                                    data.singleProductModel != null
-                                        ? data.singleProductModel!.name
-                                            .toString()
-                                        : "",
-                                    style: TextStyle(
-                                        color: Colors.blueGrey.shade300,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 50, vertical: 20),
