@@ -18,6 +18,7 @@ class ProfileModel {
       this.isEmailVerified, 
       this.joinDate, 
       this.isActive, 
+      this.fa,
       this.isStaff,});
 
   ProfileModel.fromJson(dynamic json) {
@@ -39,6 +40,7 @@ class ProfileModel {
     isEmailVerified = json['is_email_verified'];
     joinDate = json['join_date'];
     isActive = json['is_active'];
+    fa = json['is_2fa'];
     isStaff = json['is_staff'];
   }
   int? id;
@@ -59,6 +61,7 @@ class ProfileModel {
   bool? isEmailVerified;
   String? joinDate;
   bool? isActive;
+  bool? fa;
   bool? isStaff;
 
   Map<String, dynamic> toJson() {
@@ -85,6 +88,7 @@ class ProfileModel {
     map['is_email_verified'] = isEmailVerified;
     map['join_date'] = joinDate;
     map['is_active'] = isActive;
+    map['is_2fa'] = fa;
     map['is_staff'] = isStaff;
     return map;
   }

@@ -53,7 +53,7 @@ class GetData extends ChangeNotifier {
 
     var data = json.decode(response.body.toString());
 
-    printInfo(info: 'Home Page Token: ' + requestToken.toString());
+    printInfo(info: 'getUserInfo: ' + requestToken.toString());
 
     profileModel = ProfileModel.fromJson(data);
 

@@ -18,6 +18,8 @@ import 'core/utilities/app_theme/app_theme.dart';
 
 SharedPreferences? prefs;
 
+int fa = 0;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
