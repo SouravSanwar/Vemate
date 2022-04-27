@@ -42,34 +42,6 @@ class _MarketState extends State<Market> {
   bool? brandSelected = false;
   TextEditingController searchController = TextEditingController();
 
-  //For Filter
-  List<Rarity>? selectedUserList = [];
-
-  void _openFilterDialog() async {
-    await FilterListDialog.display<Rarity>(
-      context,
-      hideSelectedTextCount: true,
-      listData: rarityList,
-      selectedListData: selectedUserList,
-      choiceChipLabel: (item) => item!.name,
-      hideSearchField: true,
-      backgroundColor: AppColors.primaryColor,
-      validateSelectedItem: (list, val) => list!.contains(val),
-      controlButtons: [ContolButtonType.All, ContolButtonType.Reset],
-      onItemSearch: (user, query) {
-        return user.name!.toLowerCase().contains(query.toLowerCase());
-      },
-      onApplyButtonClick: (list) {
-        setState(() {
-          selectedUserList = List.from(list!);
-        });
-        Navigator.pop(context);
-      },
-    );
-  }
-
-  //For Filter
-
   @override
   Widget build(BuildContext context) {
     Get.put(ControllerPageController());
@@ -85,6 +57,7 @@ class _MarketState extends State<Market> {
             children: [
               AppSpaces.spaces_height_20,
               ListView(
+                physics: NeverScrollableScrollPhysics(),
                 children: [
                   ///Search Bar
                   Padding(
@@ -92,20 +65,20 @@ class _MarketState extends State<Market> {
                       left: AppDimension.padding_8,
                       right: AppDimension.padding_8,
                     ),
-
-                  child:Container(
-                    decoration: BoxDecoration(
-                      //gradient: gradient,
-                      border: Border.all(
-                        color: AppColors.lightBackgroundColor,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        //gradient: gradient,
+                        border: Border.all(
+                          color: AppColors.lightBackgroundColor,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(12),
+                        ),
                       ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(12),
-                      ),
-                    ),
-                    child: Row(children: [
-                     InkWell(
+                      child: Row(children: [
+                        InkWell(
                           onTap: () {
+                            data.searchCollectiblesModel = null;
                             currentIndex == 1
                                 ? Get.to(() => const SearchCollectiblePage())
                                 : (currentIndex == 2
@@ -134,7 +107,7 @@ class _MarketState extends State<Market> {
                             ),
                           ),
                         ),
-                      /*InkWell(
+                        /*InkWell(
                         onTap: () {
                           _openFilterDialog();
                         },
@@ -144,8 +117,8 @@ class _MarketState extends State<Market> {
                           size: 40,
                         ),
                       ),*/
-                    ]),
-                  ),
+                      ]),
+                    ),
                   ),
 
                   ///Tab

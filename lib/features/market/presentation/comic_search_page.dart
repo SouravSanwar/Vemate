@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
@@ -24,9 +25,9 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
   double? _pixelRatio;
   bool? large;
   bool? medium;
-  int page = 1;
+  int offset = 0;
   RefreshController refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController(initialRefresh: false);
   GlobalKey _contentKey = GlobalKey();
   GlobalKey _refreshkey = GlobalKey();
 
@@ -34,6 +35,11 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
 
   TextEditingController searchController = TextEditingController();
   GetData? getData;
+  bool? common = false;
+  bool? uncommon = false;
+  bool? rare = false;
+  bool? ultraRare = false;
+  bool? secretRare = false;
 
   @override
   void initState() {
@@ -87,7 +93,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
               searchText =
                   searchController.text != '' ? searchController.text : '';
               setState(() {
-                getData!.searchComics(searchText);
+                getData!.searchComics(keyWord: searchText!);
               });
             },
             autofocus: true,
@@ -95,321 +101,624 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
         ),
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
-        return Container(
-          height: _height! * .9,
-          width: _width,
-          padding: const EdgeInsets.only(bottom: 10),
-          child: data.searchComicsModel != null
-              ? ListView.builder(
-                  itemCount: data.searchComicsModel!.results!.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return InkWell(
+        return SmartRefresher(
+          key: _refreshkey,
+          controller: refreshController,
+          enablePullDown: true,
+          enablePullUp: true,
+          header: WaterDropMaterialHeader(
+            color: AppColors.primaryColor,
+          ),
+          footer: const ClassicFooter(
+            loadStyle: LoadStyle.ShowWhenLoading,
+          ),
+          onRefresh: _onRefresh,
+          onLoading: _onLoading,
+          child: ListView(
+            children: [
+              Wrap(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
                       onTap: () {
-                        Get.to(
-                          () => ComicDetails(
-                            productId: data.searchComicsModel!.results![index].id,
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Container(
-                          width: Get.width,
-                          decoration: BoxDecoration(
-                            gradient: AppColors.cardGradient,
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  height: Get.height * .078,
-                                  width: Get.height * .078,
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xD3C89EF3),
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          color: const Color(0xff454F70))),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    data.searchComicsModel!.results![index].name
-                                        .toString()[0]
-                                        .toUpperCase(),
-                                    style: const TextStyle(
-                                        color: Colors.deepPurpleAccent,
-                                        fontSize: 35,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                AppSpaces.spaces_width_5,
-                                Expanded(
-                                  flex: 7,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                              flex: 2,
-                                              child: SizedBox(
-                                                height: Get.height * .02,
-                                                child: Text(
-                                                  data.searchComicsModel!
-                                                      .results![index].name
-                                                      .toString(),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.start,
-                                                  style: Get
-                                                      .textTheme.bodyText2!
-                                                      .copyWith(
-                                                          color:
-                                                              AppColors.white,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 13),
-                                                ),
-                                              )),
-                                          AppSpaces.spaces_width_2,
-                                          Expanded(
-                                              flex: 2,
-                                              child: Text(
-                                                data.searchComicsModel!
-                                                    .results![index].edition
-                                                    .toString(),
-                                                textAlign: TextAlign.start,
-                                                style: Get.textTheme.bodyText1!
-                                                    .copyWith(
-                                                        color: AppColors.white,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                        fontSize: 10),
-                                              )),
-                                        ],
-                                      ),
-                                      AppSpaces.spaces_height_10,
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 4,
-                                            child: Text(
-                                              data.searchComicsModel!
-                                                  .results![index].series
-                                                  .toString(),
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText1!
-                                                  .copyWith(
-                                                      color: AppColors.greyWhite
-                                                          .withOpacity(0.8),
-                                                      fontWeight:
-                                                          FontWeight.w900,
-                                                      fontSize: 10),
-                                            ),
-                                          ),
-                                          AppSpaces.spaces_width_2,
-                                          Expanded(
-                                            flex: 2,
-                                            child: Text(
-                                              data.searchComicsModel!
-                                                  .results![index].rarity
-                                                  .toString(),
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText1!
-                                                  .copyWith(
-                                                      color: AppColors.greyWhite
-                                                          .withOpacity(0.8),
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      fontSize: 10),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      AppSpaces.spaces_height_10,
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 4,
-                                            child: Text(
-                                              r"$" +
-                                                  data
-                                                      .searchComicsModel!
-                                                      .results![index]
-                                                      .floorPrice
-                                                      .toString(),
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText1!
-                                                  .copyWith(
-                                                      color: AppColors.greyWhite
-                                                          .withOpacity(0.8),
-                                                      fontWeight:
-                                                          FontWeight.w900,
-                                                      fontSize: 11),
-                                            ),
-                                          ),
-                                          AppSpaces.spaces_width_2,
-                                          const Expanded(
-                                            flex: 2,
-                                            child: Text(""),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 4,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: Get.height * .05,
-                                        child: SfCartesianChart(
-                                          plotAreaBorderWidth: 0,
-                                          primaryXAxis: CategoryAxis(
-                                            isVisible: false,
-                                            majorGridLines:
-                                                const MajorGridLines(width: 0),
-                                            labelIntersectAction:
-                                                AxisLabelIntersectAction.hide,
-                                            labelRotation: 270,
-                                            labelAlignment:
-                                                LabelAlignment.start,
-                                            maximumLabels: 7,
-                                          ),
-                                          primaryYAxis: CategoryAxis(
-                                            isVisible: false,
-                                            majorGridLines:
-                                                const MajorGridLines(width: 0),
-                                            labelIntersectAction:
-                                                AxisLabelIntersectAction.hide,
-                                            labelRotation: 0,
-                                            labelAlignment:
-                                                LabelAlignment.start,
-                                            maximumLabels: 10,
-                                          ),
-                                          tooltipBehavior:
-                                              TooltipBehavior(enable: true),
-                                          series: <ChartSeries<Graph, String>>[
-                                            LineSeries<Graph, String>(
-                                              color: data
-                                                          .searchComicsModel!
-                                                          .results![index]
-                                                          .priceChangePercent!
-                                                          .sign ==
-                                                      'decrease'
-                                                  ? Colors.red
-                                                  : Colors.green,
-                                              dataSource: data
-                                                  .searchComicsModel!
-                                                  .results![index]
-                                                  .graph!,
-                                              xValueMapper: (Graph plot, _) =>
-                                                  plot.hour,
-                                              yValueMapper: (Graph plot, _) =>
-                                                  plot.total,
-                                              xAxisName: 'Duration',
-                                              yAxisName: 'Total',
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      AppSpaces.spaces_height_10,
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              '\$${data.searchComicsModel!
-                                                  .results![index]
-                                                  .priceChangePercent!
-                                                  .changePrice !=null
-                                                  ?data.searchComicsModel!
-                                                  .results![index]
-                                                  .priceChangePercent!
-                                                  .changePrice!
-                                                  .toStringAsFixed(2)
-                                                  :""
+                        setState(() {
+                          data.searchComicsModel = null;
+                          common = true;
+                          uncommon = false;
+                          rare = false;
+                          ultraRare = false;
+                          secretRare = false;
 
-                                              }',
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText1!
-                                                  .copyWith(
-                                                      color: AppColors.white
-                                                          .withOpacity(0.9),
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: 11),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  data
-                                                      .searchComicsModel!
-                                                      .results![index]
-                                                      .priceChangePercent!
-                                                      .percent!
-                                                      .toStringAsFixed(2),
-                                                  textAlign: TextAlign.end,
-                                                  style: Get
-                                                      .textTheme.bodyText1!
-                                                      .copyWith(
-                                                          color: data
-                                                                      .searchComicsModel!
-                                                                      .results![
-                                                                          index]
-                                                                      .priceChangePercent!
-                                                                      .sign ==
-                                                                  'decrease'
-                                                              ? Colors.red
-                                                              : Colors.green,
-                                                          fontWeight:
-                                                              FontWeight.w300,
-                                                          fontSize: 10),
-                                                ),
-                                                if (data
-                                                        .searchComicsModel!
-                                                        .results![index]
-                                                        .priceChangePercent!
-                                                        .sign ==
-                                                    'decrease')
-                                                  const Icon(
-                                                    Icons.arrow_downward,
-                                                    color: Colors.red,
-                                                    size: 12,
-                                                  )
-                                                else
-                                                  const Icon(
-                                                    Icons.arrow_upward,
-                                                    color: Colors.green,
-                                                    size: 12,
-                                                  )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                          getData!.searchComics(rarity: 'common');
+                        });
+                      },
+                      child: Container(
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          gradient: common == true
+                              ? AppColors.purpleGradient
+                              : const LinearGradient(
+                                  colors: [
+                                    Color(0xff272E49),
+                                    Color(0xff272E49),
+                                  ],
                                 ),
-                              ],
-                            ),
+                          border: Border.all(
+                            color: AppColors.primaryColor,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(AppDimension.padding_10),
+                          child: Text(
+                            'Common',
+                            textAlign: TextAlign.center,
+                            style: Get.textTheme.bodyText1!
+                                .copyWith(color: AppColors.white),
                           ),
                         ),
                       ),
-                    );
-                  })
-              : const LoadingExample(),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          data.searchComicsModel = null;
+                          common = false;
+                          uncommon = true;
+                          rare = false;
+                          ultraRare = false;
+                          secretRare = false;
+
+                          getData!.searchComics(rarity: 'uncommon');
+                        });
+                      },
+                      child: Container(
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          gradient: uncommon == true
+                              ? AppColors.purpleGradient
+                              : const LinearGradient(
+                                  colors: [
+                                    Color(0xff272E49),
+                                    Color(0xff272E49),
+                                  ],
+                                ),
+                          border: Border.all(
+                            color: AppColors.primaryColor,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(AppDimension.padding_10),
+                          child: Text(
+                            'Uncommon',
+                            textAlign: TextAlign.center,
+                            style: Get.textTheme.bodyText1!
+                                .copyWith(color: AppColors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          data.searchComicsModel = null;
+                          common = false;
+                          uncommon = false;
+                          rare = true;
+                          ultraRare = false;
+                          secretRare = false;
+
+                          getData!.searchComics(rarity: 'rare');
+                        });
+                      },
+                      child: Container(
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          gradient: rare == true
+                              ? AppColors.purpleGradient
+                              : const LinearGradient(
+                                  colors: [
+                                    Color(0xff272E49),
+                                    Color(0xff272E49),
+                                  ],
+                                ),
+                          border: Border.all(
+                            color: AppColors.primaryColor,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(AppDimension.padding_10),
+                          child: Text(
+                            'Rare',
+                            textAlign: TextAlign.center,
+                            style: Get.textTheme.bodyText1!
+                                .copyWith(color: AppColors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          data.searchComicsModel = null;
+                          common = false;
+                          uncommon = false;
+                          rare = false;
+                          ultraRare = true;
+                          secretRare = false;
+                          getData!.searchComics(rarity: 'ultra rare');
+                        });
+                      },
+                      child: Container(
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          gradient: ultraRare == true
+                              ? AppColors.purpleGradient
+                              : const LinearGradient(
+                                  colors: [
+                                    Color(0xff272E49),
+                                    Color(0xff272E49),
+                                  ],
+                                ),
+                          border: Border.all(
+                            color: AppColors.primaryColor,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(AppDimension.padding_10),
+                          child: Text(
+                            'Ultra Rare',
+                            textAlign: TextAlign.center,
+                            style: Get.textTheme.bodyText1!
+                                .copyWith(color: AppColors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          data.searchComicsModel = null;
+                          common = false;
+                          uncommon = false;
+                          rare = false;
+                          ultraRare = false;
+                          secretRare = true;
+                          getData!.searchComics(rarity: 'secret rare');
+                        });
+                      },
+                      child: Container(
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          gradient: secretRare == true
+                              ? AppColors.purpleGradient
+                              : const LinearGradient(
+                                  colors: [
+                                    Color(0xff272E49),
+                                    Color(0xff272E49),
+                                  ],
+                                ),
+                          border: Border.all(
+                            color: AppColors.primaryColor,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(AppDimension.padding_10),
+                          child: Text(
+                            'Secret Rare',
+                            textAlign: TextAlign.center,
+                            style: Get.textTheme.bodyText1!
+                                .copyWith(color: AppColors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                width: _width,
+                padding: const EdgeInsets.only(bottom: 10),
+                child: data.searchComicsModel != null
+                    ? ListView.builder(
+                        itemCount: data.searchComicsModel!.results!.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Get.to(
+                                () => ComicDetails(
+                                  productId:
+                                      data.searchComicsModel!.results![index].id,
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Container(
+                                width: Get.width,
+                                decoration: BoxDecoration(
+                                  gradient: AppColors.cardGradient,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        height: Get.height * .078,
+                                        width: Get.height * .078,
+                                        decoration: BoxDecoration(
+                                            color: const Color(0xD3C89EF3),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: const Color(0xff454F70))),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          data.searchComicsModel!.results![index]
+                                              .name
+                                              .toString()[0]
+                                              .toUpperCase(),
+                                          style: const TextStyle(
+                                              color: Colors.deepPurpleAccent,
+                                              fontSize: 35,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      AppSpaces.spaces_width_5,
+                                      Expanded(
+                                        flex: 7,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: <Widget>[
+                                                Expanded(
+                                                    flex: 2,
+                                                    child: SizedBox(
+                                                      height: Get.height * .02,
+                                                      child: Text(
+                                                        data.searchComicsModel!
+                                                            .results![index].name
+                                                            .toString(),
+                                                        overflow:
+                                                            TextOverflow.ellipsis,
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: Get
+                                                            .textTheme.bodyText2!
+                                                            .copyWith(
+                                                                color: AppColors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 13),
+                                                      ),
+                                                    )),
+                                                AppSpaces.spaces_width_2,
+                                                Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                      data.searchComicsModel!
+                                                          .results![index].edition
+                                                          .toString(),
+                                                      textAlign: TextAlign.start,
+                                                      style: Get
+                                                          .textTheme.bodyText1!
+                                                          .copyWith(
+                                                              color:
+                                                                  AppColors.white,
+                                                              fontWeight:
+                                                                  FontWeight.w300,
+                                                              fontSize: 10),
+                                                    )),
+                                              ],
+                                            ),
+                                            AppSpaces.spaces_height_10,
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: Text(
+                                                    data.searchComicsModel!
+                                                        .results![index].series
+                                                        .toString(),
+                                                    textAlign: TextAlign.start,
+                                                    style: Get
+                                                        .textTheme.bodyText1!
+                                                        .copyWith(
+                                                            color: AppColors
+                                                                .greyWhite
+                                                                .withOpacity(0.8),
+                                                            fontWeight:
+                                                                FontWeight.w900,
+                                                            fontSize: 10),
+                                                  ),
+                                                ),
+                                                AppSpaces.spaces_width_2,
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: Text(
+                                                    data.searchComicsModel!
+                                                        .results![index].rarity
+                                                        .toString(),
+                                                    textAlign: TextAlign.start,
+                                                    style: Get
+                                                        .textTheme.bodyText1!
+                                                        .copyWith(
+                                                            color: AppColors
+                                                                .greyWhite
+                                                                .withOpacity(0.8),
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                            fontSize: 10),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            AppSpaces.spaces_height_10,
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: Text(
+                                                    r"$" +
+                                                        data
+                                                            .searchComicsModel!
+                                                            .results![index]
+                                                            .floorPrice
+                                                            .toString(),
+                                                    textAlign: TextAlign.start,
+                                                    style: Get
+                                                        .textTheme.bodyText1!
+                                                        .copyWith(
+                                                            color: AppColors
+                                                                .greyWhite
+                                                                .withOpacity(0.8),
+                                                            fontWeight:
+                                                                FontWeight.w900,
+                                                            fontSize: 11),
+                                                  ),
+                                                ),
+                                                AppSpaces.spaces_width_2,
+                                                const Expanded(
+                                                  flex: 2,
+                                                  child: Text(""),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 4,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              height: Get.height * .05,
+                                              child: SfCartesianChart(
+                                                plotAreaBorderWidth: 0,
+                                                primaryXAxis: CategoryAxis(
+                                                  isVisible: false,
+                                                  majorGridLines:
+                                                      const MajorGridLines(
+                                                          width: 0),
+                                                  labelIntersectAction:
+                                                      AxisLabelIntersectAction
+                                                          .hide,
+                                                  labelRotation: 270,
+                                                  labelAlignment:
+                                                      LabelAlignment.start,
+                                                  maximumLabels: 7,
+                                                ),
+                                                primaryYAxis: CategoryAxis(
+                                                  isVisible: false,
+                                                  majorGridLines:
+                                                      const MajorGridLines(
+                                                          width: 0),
+                                                  labelIntersectAction:
+                                                      AxisLabelIntersectAction
+                                                          .hide,
+                                                  labelRotation: 0,
+                                                  labelAlignment:
+                                                      LabelAlignment.start,
+                                                  maximumLabels: 10,
+                                                ),
+                                                tooltipBehavior:
+                                                    TooltipBehavior(enable: true),
+                                                series: <
+                                                    ChartSeries<Graph, String>>[
+                                                  LineSeries<Graph, String>(
+                                                    color: data
+                                                                .searchComicsModel!
+                                                                .results![index]
+                                                                .priceChangePercent!
+                                                                .sign ==
+                                                            'decrease'
+                                                        ? Colors.red
+                                                        : Colors.green,
+                                                    dataSource: data
+                                                        .searchComicsModel!
+                                                        .results![index]
+                                                        .graph!,
+                                                    xValueMapper:
+                                                        (Graph plot, _) =>
+                                                            plot.hour,
+                                                    yValueMapper:
+                                                        (Graph plot, _) =>
+                                                            plot.total,
+                                                    xAxisName: 'Duration',
+                                                    yAxisName: 'Total',
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            AppSpaces.spaces_height_10,
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    '\$${data.searchComicsModel!.results![index].priceChangePercent!.changePrice != null ? data.searchComicsModel!.results![index].priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
+                                                    textAlign: TextAlign.start,
+                                                    style: Get
+                                                        .textTheme.bodyText1!
+                                                        .copyWith(
+                                                            color: AppColors.white
+                                                                .withOpacity(0.9),
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontSize: 11),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        data
+                                                            .searchComicsModel!
+                                                            .results![index]
+                                                            .priceChangePercent!
+                                                            .percent!
+                                                            .toStringAsFixed(2),
+                                                        textAlign: TextAlign.end,
+                                                        style: Get.textTheme.bodyText1!.copyWith(
+                                                            color: data
+                                                                        .searchComicsModel!
+                                                                        .results![
+                                                                            index]
+                                                                        .priceChangePercent!
+                                                                        .sign ==
+                                                                    'decrease'
+                                                                ? Colors.red
+                                                                : Colors.green,
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                            fontSize: 10),
+                                                      ),
+                                                      if (data
+                                                              .searchComicsModel!
+                                                              .results![index]
+                                                              .priceChangePercent!
+                                                              .sign ==
+                                                          'decrease')
+                                                        const Icon(
+                                                          Icons.arrow_downward,
+                                                          color: Colors.red,
+                                                          size: 12,
+                                                        )
+                                                      else
+                                                        const Icon(
+                                                          Icons.arrow_upward,
+                                                          color: Colors.green,
+                                                          size: 12,
+                                                        )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        })
+                    : const LoadingExample(),
+              ),
+            ],
+          ),
         );
       }),
     );
+  }
+
+  Future<void> _onRefresh() async {
+    await Future.delayed(const Duration(seconds: 2));
+    if (common == true) {
+      getData!.searchComics(rarity: 'common');
+    } else if (uncommon == true) {
+      getData!.searchComics(rarity: 'uncommon');
+    } else if (rare == true) {
+      getData!.searchComics(rarity: 'rare');
+    } else if (ultraRare == true) {
+      getData!.searchComics(rarity: 'ultra rare');
+    } else if (secretRare == true) {
+      getData!.searchComics(rarity: 'secret rare');
+    } else {
+      getData!.searchComics(keyWord: searchText!);
+    }
+
+    setState(() {
+      refreshController.refreshCompleted();
+      offset = 0;
+    });
+  }
+
+  Future<void> _onLoading() async {
+    offset = offset + 20;
+
+    if (common == true) {
+      getData!.searchComics(rarity: 'common', offset: offset);
+    } else if (uncommon == true) {
+      getData!.searchComics(rarity: 'uncommon', offset: offset);
+    } else if (rare == true) {
+      getData!.searchComics(rarity: 'rare', offset: offset);
+    } else if (ultraRare == true) {
+      getData!.searchComics(rarity: 'ultra rare', offset: offset);
+    } else if (secretRare == true) {
+      getData!.searchComics(rarity: 'secret rare', offset: offset);
+    } else {
+      getData!.searchComics(keyWord: searchText!, offset: offset);
+    }
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (mounted) {
+      setState(() {
+        refreshController.loadComplete();
+      });
+    }
   }
 }

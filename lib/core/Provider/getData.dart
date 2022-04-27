@@ -97,12 +97,12 @@ class GetData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future searchCollectibles(String? keyWord, {int offset = 0}) async {
+  Future searchCollectibles(
+      {String keyWord = '', String rarity = '', int offset = 0}) async {
     final response = await http.get(
       Uri.parse(
         Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset'
-                '&name=$keyWord',
+            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&rarity=$rarity&name=$keyWord',
       ),
       headers: requestToken,
     );
@@ -149,12 +149,11 @@ class GetData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future searchComics(String? keyWord, {int offset = 0}) async {
+  Future searchComics({String keyWord = '', String rarity = '', int offset = 0}) async {
     final response = await http.get(
       Uri.parse(
         Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset'
-                '&name=$keyWord',
+            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset&rarity=$rarity&name=$keyWord',
       ),
       headers: requestToken,
     );
