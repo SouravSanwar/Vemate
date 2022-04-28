@@ -1,3 +1,4 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
@@ -27,7 +28,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
   bool? medium;
   int offset = 0;
   RefreshController refreshController =
-  RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: false);
   GlobalKey _contentKey = GlobalKey();
   GlobalKey _refreshkey = GlobalKey();
 
@@ -40,6 +41,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
   bool? rare = false;
   bool? ultraRare = false;
   bool? secretRare = false;
+
+  bool filterOn = false;
 
   @override
   void initState() {
@@ -75,10 +78,6 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
             keyboardType: TextInputType.text,
             style: const TextStyle(color: Colors.white),
             decoration: const InputDecoration(
-                suffixIcon: Icon(
-                  Icons.search,
-                  color: Colors.grey,
-                ),
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
@@ -99,6 +98,27 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
             autofocus: true,
           ),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  filterOn = !filterOn;
+                });
+              },
+              child: filterOn == true
+                  ? const Icon(
+                      CommunityMaterialIcons.close,
+                      color: Colors.grey,
+                    )
+                  : const Icon(
+                      CommunityMaterialIcons.filter_variant,
+                      color: Colors.grey,
+                    ),
+            ),
+          ),
+        ],
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
         return SmartRefresher(
@@ -116,233 +136,240 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
           onLoading: _onLoading,
           child: ListView(
             children: [
-              Wrap(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          data.searchComicsModel = null;
-                          common = true;
-                          uncommon = false;
-                          rare = false;
-                          ultraRare = false;
-                          secretRare = false;
+              filterOn == true
+                  ? Wrap(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                data.searchComicsModel = null;
+                                common = true;
+                                uncommon = false;
+                                rare = false;
+                                ultraRare = false;
+                                secretRare = false;
 
-                          getData!.searchComics(rarity: 'common');
-                        });
-                      },
-                      child: Container(
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          gradient: common == true
-                              ? AppColors.purpleGradient
-                              : const LinearGradient(
-                                  colors: [
-                                    Color(0xff272E49),
-                                    Color(0xff272E49),
-                                  ],
+                                getData!.searchComics(rarity: 'common');
+                              });
+                            },
+                            child: Container(
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
+                                gradient: common == true
+                                    ? AppColors.purpleGradient
+                                    : const LinearGradient(
+                                        colors: [
+                                          Color(0xff272E49),
+                                          Color(0xff272E49),
+                                        ],
+                                      ),
+                                border: Border.all(
+                                  color: AppColors.primaryColor,
                                 ),
-                          border: Border.all(
-                            color: AppColors.primaryColor,
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                              ),
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.all(AppDimension.padding_10),
+                                child: Text(
+                                  'Common',
+                                  textAlign: TextAlign.center,
+                                  style: Get.textTheme.bodyText1!
+                                      .copyWith(color: AppColors.white),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.all(AppDimension.padding_10),
-                          child: Text(
-                            'Common',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.bodyText1!
-                                .copyWith(color: AppColors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          data.searchComicsModel = null;
-                          common = false;
-                          uncommon = true;
-                          rare = false;
-                          ultraRare = false;
-                          secretRare = false;
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                data.searchComicsModel = null;
+                                common = false;
+                                uncommon = true;
+                                rare = false;
+                                ultraRare = false;
+                                secretRare = false;
 
-                          getData!.searchComics(rarity: 'uncommon');
-                        });
-                      },
-                      child: Container(
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          gradient: uncommon == true
-                              ? AppColors.purpleGradient
-                              : const LinearGradient(
-                                  colors: [
-                                    Color(0xff272E49),
-                                    Color(0xff272E49),
-                                  ],
+                                getData!.searchComics(rarity: 'uncommon');
+                              });
+                            },
+                            child: Container(
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
+                                gradient: uncommon == true
+                                    ? AppColors.purpleGradient
+                                    : const LinearGradient(
+                                        colors: [
+                                          Color(0xff272E49),
+                                          Color(0xff272E49),
+                                        ],
+                                      ),
+                                border: Border.all(
+                                  color: AppColors.primaryColor,
                                 ),
-                          border: Border.all(
-                            color: AppColors.primaryColor,
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                              ),
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.all(AppDimension.padding_10),
+                                child: Text(
+                                  'Uncommon',
+                                  textAlign: TextAlign.center,
+                                  style: Get.textTheme.bodyText1!
+                                      .copyWith(color: AppColors.white),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.all(AppDimension.padding_10),
-                          child: Text(
-                            'Uncommon',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.bodyText1!
-                                .copyWith(color: AppColors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          data.searchComicsModel = null;
-                          common = false;
-                          uncommon = false;
-                          rare = true;
-                          ultraRare = false;
-                          secretRare = false;
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                data.searchComicsModel = null;
+                                common = false;
+                                uncommon = false;
+                                rare = true;
+                                ultraRare = false;
+                                secretRare = false;
 
-                          getData!.searchComics(rarity: 'rare');
-                        });
-                      },
-                      child: Container(
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          gradient: rare == true
-                              ? AppColors.purpleGradient
-                              : const LinearGradient(
-                                  colors: [
-                                    Color(0xff272E49),
-                                    Color(0xff272E49),
-                                  ],
+                                getData!.searchComics(rarity: 'rare');
+                              });
+                            },
+                            child: Container(
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
+                                gradient: rare == true
+                                    ? AppColors.purpleGradient
+                                    : const LinearGradient(
+                                        colors: [
+                                          Color(0xff272E49),
+                                          Color(0xff272E49),
+                                        ],
+                                      ),
+                                border: Border.all(
+                                  color: AppColors.primaryColor,
                                 ),
-                          border: Border.all(
-                            color: AppColors.primaryColor,
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(AppDimension.padding_10),
-                          child: Text(
-                            'Rare',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.bodyText1!
-                                .copyWith(color: AppColors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          data.searchComicsModel = null;
-                          common = false;
-                          uncommon = false;
-                          rare = false;
-                          ultraRare = true;
-                          secretRare = false;
-                          getData!.searchComics(rarity: 'ultra rare');
-                        });
-                      },
-                      child: Container(
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          gradient: ultraRare == true
-                              ? AppColors.purpleGradient
-                              : const LinearGradient(
-                                  colors: [
-                                    Color(0xff272E49),
-                                    Color(0xff272E49),
-                                  ],
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(5),
                                 ),
-                          border: Border.all(
-                            color: AppColors.primaryColor,
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(AppDimension.padding_10),
-                          child: Text(
-                            'Ultra Rare',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.bodyText1!
-                                .copyWith(color: AppColors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          data.searchComicsModel = null;
-                          common = false;
-                          uncommon = false;
-                          rare = false;
-                          ultraRare = false;
-                          secretRare = true;
-                          getData!.searchComics(rarity: 'secret rare');
-                        });
-                      },
-                      child: Container(
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          gradient: secretRare == true
-                              ? AppColors.purpleGradient
-                              : const LinearGradient(
-                                  colors: [
-                                    Color(0xff272E49),
-                                    Color(0xff272E49),
-                                  ],
+                              ),
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.all(AppDimension.padding_10),
+                                child: Text(
+                                  'Rare',
+                                  textAlign: TextAlign.center,
+                                  style: Get.textTheme.bodyText1!
+                                      .copyWith(color: AppColors.white),
                                 ),
-                          border: Border.all(
-                            color: AppColors.primaryColor,
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5),
+                              ),
+                            ),
                           ),
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.all(AppDimension.padding_10),
-                          child: Text(
-                            'Secret Rare',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.bodyText1!
-                                .copyWith(color: AppColors.white),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                data.searchComicsModel = null;
+                                common = false;
+                                uncommon = false;
+                                rare = false;
+                                ultraRare = true;
+                                secretRare = false;
+                                getData!.searchComics(rarity: 'ultra rare');
+                              });
+                            },
+                            child: Container(
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
+                                gradient: ultraRare == true
+                                    ? AppColors.purpleGradient
+                                    : const LinearGradient(
+                                        colors: [
+                                          Color(0xff272E49),
+                                          Color(0xff272E49),
+                                        ],
+                                      ),
+                                border: Border.all(
+                                  color: AppColors.primaryColor,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                              ),
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.all(AppDimension.padding_10),
+                                child: Text(
+                                  'Ultra Rare',
+                                  textAlign: TextAlign.center,
+                                  style: Get.textTheme.bodyText1!
+                                      .copyWith(color: AppColors.white),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                data.searchComicsModel = null;
+                                common = false;
+                                uncommon = false;
+                                rare = false;
+                                ultraRare = false;
+                                secretRare = true;
+                                getData!.searchComics(rarity: 'secret rare');
+                              });
+                            },
+                            child: Container(
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
+                                gradient: secretRare == true
+                                    ? AppColors.purpleGradient
+                                    : const LinearGradient(
+                                        colors: [
+                                          Color(0xff272E49),
+                                          Color(0xff272E49),
+                                        ],
+                                      ),
+                                border: Border.all(
+                                  color: AppColors.primaryColor,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                              ),
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.all(AppDimension.padding_10),
+                                child: Text(
+                                  'Secret Rare',
+                                  textAlign: TextAlign.center,
+                                  style: Get.textTheme.bodyText1!
+                                      .copyWith(color: AppColors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Container(),
               Container(
                 width: _width,
                 padding: const EdgeInsets.only(bottom: 10),
@@ -356,8 +383,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                             onTap: () {
                               Get.to(
                                 () => ComicDetails(
-                                  productId:
-                                      data.searchComicsModel!.results![index].id,
+                                  productId: data
+                                      .searchComicsModel!.results![index].id,
                                 ),
                               );
                             },
@@ -382,11 +409,12 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             border: Border.all(
-                                                color: const Color(0xff454F70))),
+                                                color:
+                                                    const Color(0xff454F70))),
                                         alignment: Alignment.center,
                                         child: Text(
-                                          data.searchComicsModel!.results![index]
-                                              .name
+                                          data.searchComicsModel!
+                                              .results![index].name
                                               .toString()[0]
                                               .toUpperCase(),
                                           style: const TextStyle(
@@ -409,15 +437,17 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                     child: SizedBox(
                                                       height: Get.height * .02,
                                                       child: Text(
-                                                        data.searchComicsModel!
-                                                            .results![index].name
+                                                        data
+                                                            .searchComicsModel!
+                                                            .results![index]
+                                                            .name
                                                             .toString(),
-                                                        overflow:
-                                                            TextOverflow.ellipsis,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         textAlign:
                                                             TextAlign.start,
-                                                        style: Get
-                                                            .textTheme.bodyText2!
+                                                        style: Get.textTheme
+                                                            .bodyText2!
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .white,
@@ -431,17 +461,21 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                 Expanded(
                                                     flex: 2,
                                                     child: Text(
-                                                      data.searchComicsModel!
-                                                          .results![index].edition
+                                                      data
+                                                          .searchComicsModel!
+                                                          .results![index]
+                                                          .edition
                                                           .toString(),
-                                                      textAlign: TextAlign.start,
+                                                      textAlign:
+                                                          TextAlign.start,
                                                       style: Get
                                                           .textTheme.bodyText1!
                                                           .copyWith(
-                                                              color:
-                                                                  AppColors.white,
+                                                              color: AppColors
+                                                                  .white,
                                                               fontWeight:
-                                                                  FontWeight.w300,
+                                                                  FontWeight
+                                                                      .w300,
                                                               fontSize: 10),
                                                     )),
                                               ],
@@ -461,7 +495,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .greyWhite
-                                                                .withOpacity(0.8),
+                                                                .withOpacity(
+                                                                    0.8),
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 10),
@@ -480,7 +515,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .greyWhite
-                                                                .withOpacity(0.8),
+                                                                .withOpacity(
+                                                                    0.8),
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10),
@@ -506,7 +542,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .greyWhite
-                                                                .withOpacity(0.8),
+                                                                .withOpacity(
+                                                                    0.8),
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 11),
@@ -559,7 +596,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                   maximumLabels: 10,
                                                 ),
                                                 tooltipBehavior:
-                                                    TooltipBehavior(enable: true),
+                                                    TooltipBehavior(
+                                                        enable: true),
                                                 series: <
                                                     ChartSeries<Graph, String>>[
                                                   LineSeries<Graph, String>(
@@ -599,8 +637,10 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.white
-                                                                .withOpacity(0.9),
+                                                            color: AppColors
+                                                                .white
+                                                                .withOpacity(
+                                                                    0.9),
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 11),
@@ -618,7 +658,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                             .priceChangePercent!
                                                             .percent!
                                                             .toStringAsFixed(2),
-                                                        textAlign: TextAlign.end,
+                                                        textAlign:
+                                                            TextAlign.end,
                                                         style: Get.textTheme.bodyText1!.copyWith(
                                                             color: data
                                                                         .searchComicsModel!
