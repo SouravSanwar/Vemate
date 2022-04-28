@@ -414,24 +414,28 @@ class _VaultState extends State<Vault> {
                         ],
                       ),
                     ),
-                    Positioned(
-
-                      top: Get.height * .235,
-                      left: Get.width * .62,
-                      right: 0.0,
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: DropDown(
-                            Color(0xffA984E5)
-                        ),
-
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: AppColors.purpleGradient,
-                        ),
-                      ),
-                    ),
+          Positioned(
+            top: Get.height * .235,
+            left: Get.width * .62,
+            right: 0.0,
+            child: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: const Text(
+                '24H',
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
+                ),
+              ),
+              width: Get.width * .125,
+              height: Get.width * .125,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: AppColors.purpleGradient,
+              ),
+            ),
+          ),
                   ],
                 ),
               )

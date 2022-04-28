@@ -19,7 +19,7 @@ class VersionControl {
     final PackageInfo info = await PackageInfo.fromPlatform();
 
     packageInfo = info;
-    print(packageInfo.buildNumber);
+    print("buildNumber${packageInfo.buildNumber}");
   }
 
   static void fetchConfig() async {

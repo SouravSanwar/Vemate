@@ -89,7 +89,11 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Container(
                           alignment: Alignment.center,
-                          child: DropDown(AppColors.backgroundColor),
+                          child: const Text("24H",style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                          ),
                           width: Get.width * .15,
                           height: Get.height * .03,
                           decoration: BoxDecoration(

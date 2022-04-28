@@ -56,18 +56,6 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
     return Consumer<GetData>(builder: (context, data, child) {
       return Scaffold(
         backgroundColor: AppColors.backgroundColor,
-        appBar: AppBar(
-          elevation: 1.0,
-          titleSpacing: 0,
-          iconTheme: const IconThemeData(color: Colors.grey),
-          backgroundColor: AppColors.lightBackgroundColor,
-          title: Text(
-            data.singleProductModel != null
-                ? data.singleProductModel!.name.toString()
-                : "",
-            style: Get.textTheme.headline2!.copyWith(color: Colors.white),
-          ),
-        ),
         body: data.singleProductModel != null
             ? NestedScrollView(
                 headerSliverBuilder:
@@ -76,6 +64,42 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                     SliverToBoxAdapter(
                       child: Column(
                         children: [
+                          SizedBox(
+                            height: Get.height * .05,
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Get.width * .03),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Icon(
+                                      Icons.arrow_back_ios,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 10,
+                                  child: Text(
+                                    data.singleProductModel != null
+                                        ? data.singleProductModel!.name
+                                            .toString()
+                                        : "",
+                                    style: TextStyle(
+                                        color: Colors.blueGrey.shade300,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 50, vertical: 20),
@@ -227,14 +251,15 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                             ),
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Expanded(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                              Container(
+                                width:MediaQuery.of(context).size.width*.18,
+                                padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 8),
                                 child: InkWell(
                                   onTap: () {
                                     currentIndex = 1;
-                                    hour = true;
+                                    hour= true;
                                     week = false;
                                     month = false;
                                     two_month = false;
@@ -244,140 +269,135 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   },
                                   child: CategoryCard(
                                     name: '24H',
-                                    gradient: hour == true
+                                    gradient: hour== true
                                         ? AppColors.purpleGradient
                                         : const LinearGradient(
-                                            colors: [
-                                              Color(0xff272E49),
-                                              Color(0xff272E49),
-                                            ],
-                                          ),
+                                      colors: [
+                                        Color(0xff272E49),
+                                        Color(0xff272E49),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              )),
+
+                              ),
 
                               ///7 Days
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: InkWell(
-                                    onTap: () {
-                                      currentIndex = 2;
-                                      hour = false;
-                                      week = true;
-                                      month = false;
-                                      two_month = false;
-                                      year = false;
-                                      getData!.getSingleProduct(
-                                          widget.productId,
-                                          graphType: 1);
-                                    },
-                                    child: CategoryCard(
-                                      name: '7D',
-                                      gradient: week == true
-                                          ? AppColors.purpleGradient
-                                          : const LinearGradient(
-                                              colors: [
-                                                Color(0xff272E49),
-                                                Color(0xff272E49),
-                                              ],
-                                            ),
+                              Container(
+                                width:MediaQuery.of(context).size.width*.18,
+                                padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 8),
+                                child: InkWell(
+                                  onTap: () {
+                                    currentIndex = 2;
+                                    hour= false;
+                                    week = true;
+                                    month = false;
+                                    two_month = false;
+                                    year = false;
+                                    getData!.getSingleProduct(widget.productId,
+                                        graphType: 1);
+                                  },
+                                  child: CategoryCard(
+                                    name: '7D',
+                                    gradient: week== true
+                                        ? AppColors.purpleGradient
+                                        : const LinearGradient(
+                                      colors: [
+                                        Color(0xff272E49),
+                                        Color(0xff272E49),
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
 
                               ///30 Days
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: InkWell(
-                                    onTap: () {
-                                      currentIndex = 1;
-                                      hour = false;
-                                      week = false;
-                                      month = true;
-                                      two_month = false;
-                                      year = false;
-                                      getData!.getSingleProduct(
-                                          widget.productId,
-                                          graphType: 2);
-                                    },
-                                    child: CategoryCard(
-                                      name: '30D',
-                                      gradient: month == true
-                                          ? AppColors.purpleGradient
-                                          : const LinearGradient(
-                                              colors: [
-                                                Color(0xff272E49),
-                                                Color(0xff272E49),
-                                              ],
-                                            ),
+                              Container(
+                                width:MediaQuery.of(context).size.width*.18,
+                                padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 8),
+                                child: InkWell(
+                                  onTap: () {
+                                    currentIndex = 1;
+                                    hour= false;
+                                    week = false;
+                                    month = true;
+                                    two_month = false;
+                                    year = false;
+                                    getData!.getSingleProduct(widget.productId,
+                                        graphType: 2);
+                                  },
+                                  child: CategoryCard(
+                                    name: '30D',
+                                    gradient: month== true
+                                        ? AppColors.purpleGradient
+                                        : const LinearGradient(
+                                      colors: [
+                                        Color(0xff272E49),
+                                        Color(0xff272E49),
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
 
                               ///60 Days
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: InkWell(
-                                    onTap: () {
-                                      currentIndex = 1;
-                                      hour = false;
-                                      week = false;
-                                      month = false;
-                                      two_month = true;
-                                      year = false;
-                                      getData!.getSingleProduct(
-                                          widget.productId,
-                                          graphType: 3);
-                                    },
-                                    child: CategoryCard(
-                                      name: '60D',
-                                      gradient: two_month == true
-                                          ? AppColors.purpleGradient
-                                          : const LinearGradient(
-                                              colors: [
-                                                Color(0xff272E49),
-                                                Color(0xff272E49),
-                                              ],
-                                            ),
+                              Container(
+                                width:MediaQuery.of(context).size.width*.18,
+                                padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 8),
+                                child: InkWell(
+                                  onTap: () {
+                                    currentIndex = 1;
+                                    hour= false;
+                                    week = false;
+                                    month = false;
+                                    two_month = true;
+                                    year = false;
+                                    getData!.getSingleProduct(widget.productId,
+                                        graphType: 3);
+                                  },
+                                  child: CategoryCard(
+                                    name: '60D',
+                                    gradient: two_month== true
+                                        ? AppColors.purpleGradient
+                                        : const LinearGradient(
+                                      colors: [
+                                        Color(0xff272E49),
+                                        Color(0xff272E49),
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
 
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: InkWell(
-                                    onTap: () {
-                                      currentIndex = 1;
-                                      hour = false;
-                                      week = false;
-                                      month = false;
-                                      two_month = false;
-                                      year = true;
-                                      getData!.getSingleProduct(
-                                          widget.productId,
-                                          graphType: 4);
-                                    },
-                                    child: CategoryCard(
-                                      name: '1Y',
-                                      gradient: year == true
-                                          ? AppColors.purpleGradient
-                                          : const LinearGradient(
-                                              colors: [
-                                                Color(0xff272E49),
-                                                Color(0xff272E49),
-                                              ],
-                                            ),
+
+                              Container(
+                                width:MediaQuery.of(context).size.width*.18,
+                                padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 8),
+                                child: InkWell(
+                                  onTap: () {
+                                    currentIndex = 1;
+                                    hour= false;
+                                    week = false;
+                                    month = false;
+                                    two_month = false;
+                                    year = true;
+                                    getData!.getSingleProduct(widget.productId,
+                                        graphType: 4);
+                                  },
+                                  child: CategoryCard(
+                                    name: '1Y',
+                                    gradient: year== true
+                                        ? AppColors.purpleGradient
+                                        : const LinearGradient(
+                                      colors: [
+                                        Color(0xff272E49),
+                                        Color(0xff272E49),
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
+
                             ],
                           ),
                           Container(

@@ -38,7 +38,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    final _dialog = RatingDialog(
+    /*final _dialog = RatingDialog(
       starSize: 35.0,
       initialRating: 5.0,
       title: Text(
@@ -63,7 +63,7 @@ class _ProfileState extends State<Profile> {
               androidAppId: 'com.xinxian.shop', iOSAppId: 'com.xinxian.shop');
         }
       },
-    );
+    );*/
 
     return SafeArea(
       minimum: EdgeInsets.zero,
@@ -148,8 +148,15 @@ class _ProfileState extends State<Profile> {
                       }),
                       /* CustomProfileElements(
                           Icons.help_outline, "Help and Support", () {}),*/
-                      CustomProfileElements(
-                          Icons.privacy_tip_outlined, "Privacy Policy", () {}),
+                      /*CustomProfileElements(
+                          Icons.privacy_tip_outlined, "Privacy Policy", () async {
+                        String url = 'https://pages.flycricket.io/vemate-0/privacy.html';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      }),*/
                       /*CustomProfileElements(Icons.rate_review_outlined, "Rate",
                           () {
                         showDialog(
