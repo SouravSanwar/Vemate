@@ -13,7 +13,6 @@ class ItemDetailsHelper extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 42,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         gradient: AppColors.cardGradient,

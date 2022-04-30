@@ -43,146 +43,102 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
       builder: (context, data, child) {
         return Container(
           padding: const EdgeInsets.only(left: 8, right: 8),
-          child: Column(
-            mainAxisAlignment : MainAxisAlignment.center,
-            children: [
-
-              Container(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  data.singleProductModel != null
-                      ? data.singleProductModel!.name.toString() + "'s Details"
-                      : "",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: Colors.blueGrey.shade300,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15),
-                ),
-              ),
-              AppSpaces.spaces_height_20,
-              Expanded(
+          child: Expanded(
                 child: Container(
+                  clipBehavior: Clip.antiAlias,
+                  width: Get.width,
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 0.5)),
+                    gradient: AppColors.cardGradient,
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   child: ListView(children: <Widget>[
+                    SizedBox(
+                      height: Get.height*.01,
+                    ),
                     ItemDetailsHelper(
                       text: "Floor Price",
                       text1: data.singleProductModel != null
                           ? data.singleProductModel!.floorPrice.toString()
                           : "",
                     ),
-                    const SizedBox(
-                      height: 0.5,
-                    ),
-                    /*ItemDetailsHelper(
-                      text: "Owner",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.owner.toString()
-                          : "",
-                    ),*/
-                    const SizedBox(
-                      height: 0.5,
-                    ),
+                    divider(),
                     ItemDetailsHelper(
                       text: "Edition",
                       text1: data.singleProductModel != null
                           ? data.singleProductModel!.edition.toString()
                           : "",
                     ),
-                    const SizedBox(
-                      height: 0.5,
-                    ),
+                    divider(),
                     ItemDetailsHelper(
                       text: "Cover Variant",
                       text1: data.singleProductModel != null
                           ? data.singleProductModel!.coverVariant.toString()
                           : "",
                     ),
-                    const SizedBox(
-                      height: 0.5,
-                    ),
+                    divider(),
                     ItemDetailsHelper(
                       text: "Cover Artitst",
                       text1: data.singleProductModel != null
                           ? data.singleProductModel!.coverArtist.toString()
                           : "",
                     ),
-                    const SizedBox(
-                      height: 0.5,
-                    ),
+                    divider(),
                     ItemDetailsHelper(
                       text: "Publisher",
                       text1: data.singleProductModel != null
                           ? data.singleProductModel!.publisher.toString()
                           : "",
                     ),
-                    const SizedBox(
-                      height: 0.5,
-                    ),
+                    divider(),
                     ItemDetailsHelper(
                       text: "Series",
                       text1: data.singleProductModel != null
                           ? data.singleProductModel!.series.toString()
                           : "",
                     ),
-                    const SizedBox(
-                      height: 0.5,
-                    ),
+                    divider(),
                     ItemDetailsHelper(
                       text: "Issue",
                       text1: data.singleProductModel != null
                           ? data.singleProductModel!.issue.toString()
                           : "",
                     ),
-                    const SizedBox(
-                      height: 0.5,
-                    ),
+                    divider(),
                     ItemDetailsHelper(
                       text: "Pages",
                       text1: data.singleProductModel != null
                           ? data.singleProductModel!.pages.toString()
                           : "",
                     ),
-                    const SizedBox(
-                      height: 0.5,
-                    ),
+                    divider(),
                     ItemDetailsHelper(
                       text: "Start Year",
                       text1: data.singleProductModel != null
                           ? data.singleProductModel!.startYear.toString()
                           : "",
                     ),
-                    const SizedBox(
-                      height: 0.5,
-                    ),
+                    divider(),
                     ItemDetailsHelper(
                       text: "Writers",
                       text1: data.singleProductModel != null
                           ? data.singleProductModel!.writers.toString()
                           : "",
                     ),
-                    const SizedBox(
-                      height: 0.5,
-                    ),
+                    divider(),
                     ItemDetailsHelper(
                       text: "Artists",
                       text1: data.singleProductModel != null
                           ? data.singleProductModel!.artists.toString()
                           : "",
                     ),
-                    const SizedBox(
-                      height: 0.5,
-                    ),
+                    divider(),
                     ItemDetailsHelper(
                       text: "Characters",
                       text1: data.singleProductModel != null
                           ? data.singleProductModel!.characters.toString()
                           : "",
                     ),
-                    const SizedBox(
-                      height: 0.5,
-                    ),
+                    divider(),
                     ItemDetailsHelper(
                       text: "Editions",
                       text1: data.singleProductModel != null
@@ -193,10 +149,11 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
                 ),
               ),
 
-            ],
-          ),
+
+
         );
       },
     );
   }
 }
+

@@ -107,16 +107,16 @@ class _MarketState extends State<Market> {
                             ),
                           ),
                         ),
-                        /*InkWell(
+                        InkWell(
                         onTap: () {
-                          _openFilterDialog();
+
                         },
                         child: Icon(
                           Icons.filter_list,
                           color: AppColors.primaryColor,
                           size: 40,
                         ),
-                      ),*/
+                      ),
                       ]),
                     ),
                   ),

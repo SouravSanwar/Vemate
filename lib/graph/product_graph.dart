@@ -45,6 +45,7 @@ class _ProductGraphState extends State<ProductGraph> {
       ),
       child:data.singleProductModel != null
           ? SfCartesianChart(
+
               plotAreaBorderWidth: 0,
               zoomPanBehavior: _zoomPanBehavior,
               primaryXAxis: CategoryAxis(
@@ -65,6 +66,7 @@ class _ProductGraphState extends State<ProductGraph> {
                 maximumLabels: 12,
               ),
               primaryYAxis: NumericAxis(
+
                 axisBorderType: AxisBorderType.withoutTopAndBottom,
                 borderWidth: 0,
                 axisLine: AxisLine(width: 0),
@@ -91,6 +93,7 @@ class _ProductGraphState extends State<ProductGraph> {
                   xValueMapper: (plot, _) => widget.graphType == '0'
                       ? plot.hourWiseTime
                       : plot.dayWiseTime,
+
                   yValueMapper: (plot, _) => plot.floorPrice,
                   xAxisName: 'Duration',
                   yAxisName: 'Total',
