@@ -334,7 +334,11 @@ class PostData extends ChangeNotifier {
                 style: TextStyle(fontSize: 16.0, color: Colors.green),
               )).show(context);
         } else {
-          Navigator.of(context).pop();
+          prefs!.setString('email', js['email'].toString());
+
+
+          Get.to(() => OtpPage());
+          /*Navigator.of(context).pop();
 
           Flushbar(
               flushbarPosition: FlushbarPosition.BOTTOM,
@@ -343,7 +347,7 @@ class PostData extends ChangeNotifier {
               messageText: const Text(
                 "Invalid Information",
                 style: TextStyle(fontSize: 16.0, color: Colors.green),
-              )).show(context);
+              )).show(context);*/
         }
       } catch (e) {
         Navigator.of(context).pop();

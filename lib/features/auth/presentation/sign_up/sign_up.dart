@@ -9,6 +9,7 @@ import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
+import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/_controller/sign_up_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -35,126 +36,133 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff272E49),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: Get.height * .05,
-              ),
-              Container(
-                height: Get.height * .18,
-                width: Get.width * .9,
-                child: Image.asset(
-                  'assets/media/image/vemate.png',
-                  fit: BoxFit.cover,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                BackPreviousScreen(),
+                SizedBox(
+                  height: Get.height * .07,
                 ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                      width: Get.width * .9,
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: const Text(
-                        "REGISTER",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.grey),
-                      )),
-                  AppSpaces.spaces_height_25,
+                Container(
+                  height: Get.height * .18,
+                  width: Get.width * .9,
+                  child: Image.asset(
+                    'assets/media/image/vemate.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                SizedBox(
+                  height: Get.height * .02,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        width: Get.width * .9,
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: const Text(
+                          "REGISTER",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.grey),
+                        )),
+                    AppSpaces.spaces_height_25,
 
-                  TextInputField(
-                    labelText: "Username",
-                    height: Get.height * .04,
-                    textType: TextInputType.text,
-                    controller: SignUpController.to.nameController,
-                  ),
-
-                  SizedBox(
-                    height: Get.height * .022,
-                  ),
-                  TextInputField(
-                    labelText: "E-mail",
-                    height: Get.height * .04,
-                    textType: TextInputType.emailAddress,
-                    controller: SignUpController.to.emailController,
-                  ),
-
-                  SizedBox(
-                    height: 15,
-                  ),
-                  PasswordInputField(
-                      labelText: "Password",
+                    TextInputField(
+                      labelText: "Username",
                       height: Get.height * .04,
                       textType: TextInputType.text,
-                      controller: SignUpController.to.passwordController),
-
-                  SizedBox(
-                    height: Get.height * .022,
-                  ),
-
-                  PasswordInputField(
-                      labelText: "Confirm password",
-                      height: Get.height * .04,
-                      textType: TextInputType.text,
-                      controller:
-                          SignUpController.to.confirmPasswordController),
-                  //AppSpaces.spaces_height_5,
-
-                  SizedBox(
-                    height: Get.height * .07,
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 15),
-                    padding: EdgeInsets.symmetric(horizontal: 7),
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.purpleGradient, // set border width
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(20.0)), // set rounded corner radius
+                      controller: SignUpController.to.nameController,
                     ),
-                    child: TextButton(
-                      onPressed: () {
-                        var body = {
-                          "nickname": SignUpController.to.nameController.text,
-                          "email": SignUpController.to.emailController.text,
-                          "gender": "0",
-                          "birth_year": "1852",
-                          "fcm_device_id": "3",
-                          "password":
-                              SignUpController.to.passwordController.text
-                        };
 
-                        printInfo(info: body.toString());
+                    SizedBox(
+                      height: Get.height * .022,
+                    ),
+                    TextInputField(
+                      labelText: "Email",
+                      height: Get.height * .04,
+                      textType: TextInputType.emailAddress,
+                      controller: SignUpController.to.emailController,
+                    ),
 
-                        SignUpController.to.passwordController.text ==
-                                SignUpController
-                                    .to.confirmPasswordController.text
-                            ? postData!.signUp(context, body)
-                            : Flushbar(
-                                backgroundColor: AppColors.lightBackgroundColor,
-                                flushbarPosition: FlushbarPosition.BOTTOM,
-                                isDismissible: false,
-                                duration: const Duration(seconds: 3),
-                                messageText: const Text(
-                                  "Password didn't match",
-                                  style: TextStyle(
-                                      fontSize: 16.0, color: Colors.green),
-                                ),
-                              ).show(context);
-                      },
-                      child: Text(
-                        AppLanguageString.SIGN_UP.tr.toUpperCase(),
-                        style:
-                            Get.textTheme.button!.copyWith(color: Colors.white),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    PasswordInputField(
+                        labelText: "Password",
+                        height: Get.height * .04,
+                        textType: TextInputType.text,
+                        controller: SignUpController.to.passwordController),
+
+                    SizedBox(
+                      height: Get.height * .022,
+                    ),
+
+                    PasswordInputField(
+                        labelText: "Confirm password",
+                        height: Get.height * .04,
+                        textType: TextInputType.text,
+                        controller:
+                            SignUpController.to.confirmPasswordController),
+                    //AppSpaces.spaces_height_5,
+
+                    SizedBox(
+                      height: Get.height * .07,
+                    ),
+
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      padding: EdgeInsets.symmetric(horizontal: 7),
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        gradient: AppColors.purpleGradient, // set border width
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(25.0)), // set rounded corner radius
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          var body = {
+                            "nickname": SignUpController.to.nameController.text,
+                            "email": SignUpController.to.emailController.text,
+                            "gender": "0",
+                            "birth_year": "1852",
+                            "fcm_device_id": "3",
+                            "password":
+                                SignUpController.to.passwordController.text
+                          };
+
+                          printInfo(info: body.toString());
+
+                          SignUpController.to.passwordController.text ==
+                                  SignUpController
+                                      .to.confirmPasswordController.text
+                              ? postData!.signUp(context, body)
+                              : Flushbar(
+                                  backgroundColor:
+                                      AppColors.lightBackgroundColor,
+                                  flushbarPosition: FlushbarPosition.BOTTOM,
+                                  isDismissible: false,
+                                  duration: const Duration(seconds: 3),
+                                  messageText: const Text(
+                                    "Password didn't match",
+                                    style: TextStyle(
+                                        fontSize: 16.0, color: Colors.red),
+                                  ),
+                                ).show(context);
+                        },
+                        child: Text(
+                          AppLanguageString.SIGN_UP.tr.toUpperCase(),
+                          style: Get.textTheme.button!
+                              .copyWith(color: Colors.white),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

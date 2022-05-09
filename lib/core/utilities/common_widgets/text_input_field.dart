@@ -36,7 +36,7 @@ class _TextInputFieldState extends State<TextInputField> {
         border: Border.all(
             color: AppColors.grey, // set border color
             width: 1.5), // set border width
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
             Radius.circular(25.0)), // set rounded corner radius
       ),
       child: widget.controller == 'emailController'

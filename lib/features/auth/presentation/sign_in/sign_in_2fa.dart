@@ -59,7 +59,9 @@ class _SignIn2FAState extends State<SignIn2FA> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppSpaces.spaces_height_15,
+              SizedBox(
+                height: Get.height * .07,
+              ),
               SizedBox(
                 height: Get.height * .18,
                 width: Get.width * .9,
@@ -68,7 +70,9 @@ class _SignIn2FAState extends State<SignIn2FA> {
                   fit: BoxFit.cover,
                 ),
               ),
-              //AppSpaces.spaces_height_15,
+              SizedBox(
+                height: Get.height * .02,
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -114,7 +118,7 @@ class _SignIn2FAState extends State<SignIn2FA> {
                     decoration: BoxDecoration(
                       gradient: AppColors.purpleGradient, // set border width
                       borderRadius: const BorderRadius.all(
-                          Radius.circular(20.0)), // set rounded corner radius
+                          Radius.circular(25.0)), // set rounded corner radius
                     ),
                     child: TextButton(
                       onPressed: () {

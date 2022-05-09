@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/main.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
@@ -80,8 +81,9 @@ class _OtpPageState extends State<OtpPage> {
           width: MediaQuery.of(context).size.width,
           child: ListView(
             children: <Widget>[
+              BackPreviousScreen(),
               SizedBox(
-                height: Get.height * .05,
+                height: Get.height * .07,
               ),
               SizedBox(
                 height: Get.height * .18,
@@ -90,6 +92,9 @@ class _OtpPageState extends State<OtpPage> {
                   'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
+              ),
+              SizedBox(
+                height: Get.height * .02,
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -134,32 +139,22 @@ class _OtpPageState extends State<OtpPage> {
                         fontWeight: FontWeight.bold,
                       ),
                       length: 6,
-                      obscureText: true,
-                      obscuringCharacter: '*',
-                      obscuringWidget: Image.asset(
-                        "assets/media/icon/logo v.png",
-                      ),
                       blinkWhenObscuring: true,
                       animationType: AnimationType.fade,
-                      validator: (v) {
-                        if (v!.length < 6) {
-                          return "I'm from validator";
-                        } else {
-                          return null;
-                        }
-                      },
+
                       pinTheme: PinTheme(
                         selectedFillColor: AppColors.primaryColor,
                         selectedColor: AppColors.lightBackgroundColor,
                         inactiveFillColor: AppColors.lightBackgroundColor,
                         inactiveColor: AppColors.primaryColor,
+                        activeColor: AppColors.borderColor,
                         shape: PinCodeFieldShape.box,
                         borderRadius: BorderRadius.circular(5),
                         fieldHeight: 50,
                         fieldWidth: 40,
-                        activeFillColor: Colors.white,
+                        activeFillColor: AppColors.primaryColor,
                       ),
-                      cursorColor: Colors.black,
+                      cursorColor: Colors.white,
                       animationDuration: const Duration(milliseconds: 300),
                       enableActiveFill: true,
                       errorAnimationController: errorController,
@@ -237,10 +232,10 @@ class _OtpPageState extends State<OtpPage> {
                 decoration: BoxDecoration(
                   gradient: AppColors.purpleGradient, // set border width
                   borderRadius: const BorderRadius.all(
-                      Radius.circular(20.0)), // set rounded corner radius
+                      Radius.circular(25.0)), // set rounded corner radius
                 ),
-                margin:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
+                margin: EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(horizontal: 7),
                 child: ButtonTheme(
                   height: 50,
                   child: TextButton(
