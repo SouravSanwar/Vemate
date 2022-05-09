@@ -5,11 +5,13 @@ import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 
 class CategoryCard extends StatelessWidget {
   final String? name;
+  final String? print;
   final Gradient? gradient;
 
   const CategoryCard({
     Key? key,
     this.name,
+    this.print,
     this.gradient,
   }) : super(key: key);
 

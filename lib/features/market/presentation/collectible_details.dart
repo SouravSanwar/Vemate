@@ -435,7 +435,21 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                 ),
                               ),
                             ),
-                            AppSpaces.spaces_height_25,
+                            Container(
+                              alignment: Alignment.topLeft,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Text(
+                                data.singleProductModel != null
+                                    ? data.singleProductModel!.name.toString() + "'s Details"
+                                    : "",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: Colors.blueGrey.shade300,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              ),
+                            ),
+                            AppSpaces.spaces_height_15,
                           ],
                         ),
                       )

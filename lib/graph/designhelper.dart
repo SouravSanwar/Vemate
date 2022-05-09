@@ -185,3 +185,22 @@ class Shader extends StatelessWidget {
         child: icon);
   }
 }
+
+class divider extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Column(
+        children: const [
+          Divider(
+            height: 8,
+            color: Colors.black,
+            thickness: .5,
+          ),
+        ],
+      ),
+    );
+  }
+
+}

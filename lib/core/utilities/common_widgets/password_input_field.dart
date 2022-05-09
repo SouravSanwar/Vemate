@@ -25,26 +25,26 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.only(left: 20,right: 5),
       decoration: BoxDecoration(
-        color: Color(0xff2F3758),
+        color: const Color(0xff2F3758),
         border: Border.all(
             color: AppColors.grey, // set border color
             width: 1.5), // set border width
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
             Radius.circular(25.0)), // set rounded corner radius
       ),
       child: TextField(
 
-        style: TextStyle(color: Colors.white,
+        style: const TextStyle(color: Colors.white,
                          fontSize: 18.0),
         controller: widget.controller,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
             hintText: widget.labelText,
-            hintStyle: TextStyle( fontSize: 15),
-            labelStyle:TextStyle(color: Colors.blue,),
+            hintStyle: const TextStyle( fontSize: 15),
+            labelStyle:const TextStyle(color: Colors.blue,),
             border: InputBorder.none,
             suffixIcon: IconButton(
               splashColor:Color(0xff2F3758),
@@ -54,10 +54,10 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
                 });
               },
               icon: _toggleVisibility
-                  ? Icon(Icons.visibility,
-              color: Color(0xffA984E5),)
-                  : Icon(Icons.visibility_off,
-              color: Color(0xffA984E5),),
+                  ? const Icon(Icons.visibility,
+              color: Colors.grey,)
+                  : const Icon(Icons.visibility_off,
+              color: Colors.grey,),
             )),
         obscureText: _toggleVisibility,
       ),

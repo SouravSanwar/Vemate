@@ -46,7 +46,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                height: Get.height * .05,
+                height: Get.height * .07,
               ),
               SizedBox(
                 height: Get.height * .18,
@@ -56,7 +56,9 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   fit: BoxFit.cover,
                 ),
               ),
-              //AppSpaces.spaces_height_15,
+              SizedBox(
+                height: Get.height * .02,
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -85,7 +87,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       controller:
                           SigninController.to.passwordTextFiledController),
                   SizedBox(
-                    height: Get.height * .0234,
+                    height: Get.height * .0124,
                   ),
                   TextButton(
                     onPressed: () {
@@ -112,7 +114,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     decoration: BoxDecoration(
                       gradient: AppColors.purpleGradient, // set border width
                       borderRadius: const BorderRadius.all(
-                          Radius.circular(20.0)), // set rounded corner radius
+                          Radius.circular(25.0)), // set rounded corner radius
                     ),
                     child: TextButton(
                       onPressed: () {
@@ -123,9 +125,9 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                               .to.passwordTextFiledController.text,
                         };
                         setState(() {
+
                           postData!.logIn(context, body).whenComplete(() {
-                            SigninController.to.userNameTextFiledController
-                                .clear();
+                            SigninController.to.userNameTextFiledController;
                             SigninController.to.passwordTextFiledController
                                 .clear();
                           });
@@ -157,7 +159,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           style: TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.bold,
-                              fontSize: 12),
+                              fontSize: 15),
                         ),
                         AppSpaces.spaces_width_5,
                         Text(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
+import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/reset_pass/forgot_pass.dart';
 import 'package:provider/provider.dart';
 
@@ -44,7 +45,10 @@ class _ResetPassState extends State<ResetPass> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppSpaces.spaces_height_15,
+              BackPreviousScreen(),
+              SizedBox(
+                height: Get.height * .07,
+              ),
               SizedBox(
                 height: Get.height * .18,
                 width: Get.width * .9,
@@ -53,7 +57,9 @@ class _ResetPassState extends State<ResetPass> {
                   fit: BoxFit.cover,
                 ),
               ),
-              //AppSpaces.spaces_height_15,
+              SizedBox(
+                height: Get.height * .02,
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -67,7 +73,7 @@ class _ResetPassState extends State<ResetPass> {
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(
-                    labelText: "Enter e-mail",
+                    labelText: "Enter email",
                     height: .09,
                     textType: TextInputType.emailAddress,
                     controller: emailController,
@@ -82,7 +88,7 @@ class _ResetPassState extends State<ResetPass> {
                     decoration: BoxDecoration(
                       gradient: AppColors.purpleGradient, // set border width
                       borderRadius: const BorderRadius.all(
-                          Radius.circular(20.0)), // set rounded corner radius
+                          Radius.circular(25.0)), // set rounded corner radius
                     ),
                     child: TextButton(
                       onPressed: () {

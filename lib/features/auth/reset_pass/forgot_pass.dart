@@ -7,6 +7,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
+import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:provider/provider.dart';
 import '../presentation/sign_in/_controller/sign_in_controller.dart';
 
@@ -42,7 +43,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppSpaces.spaces_height_15,
+              BackPreviousScreen(),
+              SizedBox(
+                height: Get.height * .07,
+              ),
               SizedBox(
                 height: Get.height * .18,
                 width: Get.width * .9,
@@ -51,7 +55,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   fit: BoxFit.cover,
                 ),
               ),
-              //AppSpaces.spaces_height_15,
+              SizedBox(
+                height: Get.height * .02,
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -97,7 +103,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     decoration: BoxDecoration(
                       gradient: AppColors.purpleGradient, // set border width
                       borderRadius: const BorderRadius.all(
-                          Radius.circular(20.0)), // set rounded corner radius
+                          Radius.circular(25.0)), // set rounded corner radius
                     ),
                     child: TextButton(
                       onPressed: () {

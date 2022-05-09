@@ -171,7 +171,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     decoration: BoxDecoration(
                       gradient: AppColors.purpleGradient, // set border width
                       borderRadius: const BorderRadius.all(
-                          Radius.circular(20.0)), // set rounded corner radius
+                          Radius.circular(25.0)), // set rounded corner radius
                     ),
                     child: TextButton(
                       onPressed: () {
