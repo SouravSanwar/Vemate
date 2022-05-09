@@ -41,11 +41,11 @@ class _OtpPageState extends State<OtpPage> {
     errorController = StreamController<ErrorAnimationType>();
 
     postData = Provider.of<PostData>(context, listen: false);
-    var body = {
+   /* var body = {
       "email": prefs!.getString('email').toString(),
       "reason": "verify",
     };
-    postData!.resendCode(context, body);
+    postData!.resendCode(context, body);*/
 
     super.initState();
   }
