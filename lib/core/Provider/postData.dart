@@ -336,8 +336,13 @@ class PostData extends ChangeNotifier {
         } else {
           prefs!.setString('email', js['email'].toString());
 
-
-          Get.to(() => OtpPage());
+          var body = {
+            "email": js['email'].toString(),
+            "reason": "verify",
+          };
+          postData = Provider.of<PostData>(context, listen: false);
+          postData!.resendCode(context, body)
+              .whenComplete(() => Get.to(() => OtpPage()));
           /*Navigator.of(context).pop();
 
           Flushbar(
