@@ -1,11 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:another_flushbar/flushbar.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
@@ -13,7 +9,6 @@ import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/main.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OtpPage extends StatefulWidget {
   @override
@@ -24,11 +19,6 @@ class _OtpPageState extends State<OtpPage> {
   TextEditingController textEditingController = TextEditingController();
   StreamController<ErrorAnimationType>? errorController;
 
-  double _height = 0;
-  double _width = 0;
-  double _pixelRatio = 0;
-  bool _large = false;
-  bool _medium = false;
 
   bool hasError = false;
   String currentText = "";
@@ -41,11 +31,6 @@ class _OtpPageState extends State<OtpPage> {
     errorController = StreamController<ErrorAnimationType>();
 
     postData = Provider.of<PostData>(context, listen: false);
-    var body = {
-      "email": prefs!.getString('email').toString(),
-      "reason": "verify",
-    };
-    postData!.resendCode(context, body);
 
     super.initState();
   }
@@ -69,9 +54,6 @@ class _OtpPageState extends State<OtpPage> {
 
   @override
   Widget build(BuildContext context) {
-    _height = MediaQuery.of(context).size.height;
-    _width = MediaQuery.of(context).size.width;
-    _pixelRatio = MediaQuery.of(context).devicePixelRatio;
 
     return WillPopScope(
       onWillPop: () async {
