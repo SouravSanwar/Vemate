@@ -17,8 +17,14 @@ import 'package:provider/provider.dart';
 
 import '../../market/presentation/market.dart';
 
-class ControllerPage extends StatelessWidget {
+class ControllerPage extends StatefulWidget {
   ControllerPage({Key? key}) : super(key: key);
+
+  @override
+  State<ControllerPage> createState() => _ControllerPageState();
+}
+
+class _ControllerPageState extends State<ControllerPage> {
   List<String> names = [
     'Home',
     'Market',
@@ -32,8 +38,22 @@ class ControllerPage extends StatelessWidget {
   ];
 
   Duration duration = const Duration(milliseconds: 300);
+
   Curve curve = Curves.ease;
+
   TransitionType transitionType = TransitionType.fade;
+
+  AppUpdate? appUpdate;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    appUpdate = Provider.of<AppUpdate>(context, listen: false);
+
+    appUpdate!.getUpdateInfo();
+    super.initState();
+  }
 
   Future<bool> _willPopCallback() async {
     Get.dialog(
@@ -175,25 +195,16 @@ class ControllerPage extends StatelessWidget {
             Positioned(
               left: 0,
               right: 0,
-              child: Platform.isIOS
-                  ? Consumer<AppUpdate>(builder: (context, data, child) {
-                      return VersionControl.remoteConfig
-                                      .getInt("ios_version_code") >
-                                  int.parse(
-                                      VersionControl.packageInfo.buildNumber) &&
-                              data.isUpdate == true
-                          ? const AppUpdateAlert()
-                          : Container();
-                    })
-                  : Consumer<AppUpdate>(builder: (context, data, child) {
-                      return VersionControl.remoteConfig
-                                      .getInt("android_version_code") >
-                                  int.parse(
-                                      VersionControl.packageInfo.buildNumber) &&
-                              data.isUpdate == true
-                          ? const AppUpdateAlert()
-                          : Container();
-                    }),
+              child: Consumer<AppUpdate>(builder: (context, data, child) {
+                return data.appUpdator != null
+                    ? (int.parse(data.appUpdator!.name!.toString()) >
+                                int.parse(
+                                    VersionControl.packageInfo.buildNumber) &&
+                            data.isUpdate == true
+                        ? const AppUpdateAlert()
+                        : Container())
+                    : Container();
+              }),
             ),
           ],
         ),

@@ -36,4 +36,6 @@ class Urls {
       '/api/v1/veve/public/common-storage/vault_stats';
 
   static String news = mainUrl + '/api/v1/home/public/news/';
+
+  static String appUpdate = mainUrl + '/api/v1/veve/public/app-updater/';
 }

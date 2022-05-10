@@ -2,6 +2,7 @@ import 'package:filter_list/filter_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
@@ -32,6 +33,8 @@ class _HomeState extends State<Home> {
   bool? priceSelected = false;
 
   GetData? getData;
+  AppUpdate? appUpdate;
+
   Map<String, String> requestToken = {
     'Authorization': 'token ${prefs!.getString('token')}',
   };
