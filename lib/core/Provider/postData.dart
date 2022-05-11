@@ -292,11 +292,14 @@ class PostData extends ChangeNotifier {
         builder: (_) => const LoadingExample());
 
     printInfo(info: body.toString());
+    Map<String, dynamic> js;
 
     final response = await http.post(Uri.parse(Urls.logIn),
         body: json.encode(body), headers: requestHeaders);
     print(response.body.toString());
     var x = json.decode(response.body);
+
+    js = x;
 
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
@@ -304,11 +307,9 @@ class PostData extends ChangeNotifier {
         response.statusCode == 500 ||
         response.statusCode == 201) {
       try {
-        Map<String, dynamic> js = x;
         if (js['is_email_verified'] == true) {
           prefs = await SharedPreferences.getInstance();
           prefs!.setString('email', js['email'].toString());
-          //await Store(js, context);
           var body = {
             "email": js['email'].toString(),
             "reason": "verify",
@@ -321,9 +322,6 @@ class PostData extends ChangeNotifier {
                   .resendCode(context, body)
                   .whenComplete(() => Get.to(() => const SignIn2FA()))
               : Store(js, context);
-
-          /*Navigator.of(context).pop();
-          await postData!.resendCode(context, body);*/
 
           Flushbar(
               flushbarPosition: FlushbarPosition.BOTTOM,
@@ -341,7 +339,8 @@ class PostData extends ChangeNotifier {
             "reason": "verify",
           };
           postData = Provider.of<PostData>(context, listen: false);
-          postData!.resendCode(context, body)
+          postData!
+              .resendCode(context, body)
               .whenComplete(() => Get.to(() => OtpPage()));
           /*Navigator.of(context).pop();
 
@@ -360,21 +359,32 @@ class PostData extends ChangeNotifier {
             flushbarPosition: FlushbarPosition.BOTTOM,
             isDismissible: false,
             duration: const Duration(seconds: 3),
-            messageText: const Text(
+            messageText: Text(
               "Something went wrong",
               style: TextStyle(fontSize: 16.0, color: Colors.green),
             )).show(context);
       }
     } else {
       Navigator.of(context).pop();
-      Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Something went wrong",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+      if (js['username'] == null) {
+        Flushbar(
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            isDismissible: false,
+            duration: const Duration(seconds: 3),
+            messageText: Text(
+              js['password'].toString(),
+              style: TextStyle(fontSize: 16.0, color: Colors.green),
+            )).show(context);
+      } else {
+        Flushbar(
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            isDismissible: false,
+            duration: const Duration(seconds: 3),
+            messageText: Text(
+              js['username'].toString(),
+              style: TextStyle(fontSize: 16.0, color: Colors.green),
+            )).show(context);
+      }
     }
     notifyListeners();
   }
