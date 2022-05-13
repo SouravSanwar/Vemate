@@ -4,6 +4,7 @@ import 'package:bottom_bar_page_transition/bottom_bar_page_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
+import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
@@ -44,13 +45,15 @@ class _ControllerPageState extends State<ControllerPage> {
   TransitionType transitionType = TransitionType.fade;
 
   AppUpdate? appUpdate;
+  GetData? getData;
 
   @override
   void initState() {
     // TODO: implement initState
 
     appUpdate = Provider.of<AppUpdate>(context, listen: false);
-
+    /*getData = Provider.of<GetData>(context, listen: false);
+    getData!.getUserInfo();*/
     appUpdate!.getUpdateInfo();
     super.initState();
   }

@@ -39,7 +39,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-
     Get.put(SigninController());
     /*final _dialog = RatingDialog(
       starSize: 35.0,
@@ -332,14 +331,10 @@ class _ProfileState extends State<Profile> {
                           ),
                         );
                       }),
-                      CustomProfileElements(Icons.logout, "Log Out", () async {
-                        printInfo(info: data.profileModel!.nickname.toString());
-                        await Provider.of<GetData>(context, listen: false)
-                            .clearData();
+                      CustomProfileElements(Icons.logout, "Log Out", () {
+                        prefs!.clear();
 
-                        await prefs!.clear();
-
-                        SigninController.to.userNameTextFiledController.clear();                        await prefs!.clear();
+                        SigninController.to.userNameTextFiledController.clear();
                         SigninController.to.passwordTextFiledController.clear();
 
                         Get.offAll(() => const AuthInitialPage());

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -177,8 +178,8 @@ class PostData extends ChangeNotifier {
           isDismissible: false,
           duration: const Duration(seconds: 3),
           messageText: Text(
-            js['code'].toString() ,
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
+            js['code'].toString(),
+            style: const TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }
   }
@@ -361,7 +362,7 @@ class PostData extends ChangeNotifier {
             flushbarPosition: FlushbarPosition.BOTTOM,
             isDismissible: false,
             duration: const Duration(seconds: 3),
-            messageText: Text(
+            messageText: const Text(
               "Something went wrong",
               style: TextStyle(fontSize: 16.0, color: Colors.green),
             )).show(context);
@@ -375,7 +376,7 @@ class PostData extends ChangeNotifier {
             duration: const Duration(seconds: 3),
             messageText: Text(
               js['password'].toString(),
-              style: TextStyle(fontSize: 16.0, color: Colors.green),
+              style: const TextStyle(fontSize: 16.0, color: Colors.green),
             )).show(context);
       } else {
         Flushbar(
@@ -384,7 +385,7 @@ class PostData extends ChangeNotifier {
             duration: const Duration(seconds: 3),
             messageText: Text(
               js['username'].toString(),
-              style: TextStyle(fontSize: 16.0, color: Colors.green),
+              style: const TextStyle(fontSize: 16.0, color: Colors.green),
             )).show(context);
       }
     }
@@ -475,8 +476,12 @@ class PostData extends ChangeNotifier {
 
     final response = await http.patch(Uri.parse(Urls.updateUserInfo),
         body: json.encode(body), headers: requestHeadersWithToken);
-    print(response.body.toString());
-    print(requestHeadersWithToken.toString());
+    if (kDebugMode) {
+      print(response.body.toString());
+    }
+    if (kDebugMode) {
+      print(requestHeadersWithToken.toString());
+    }
     var x = json.decode(response.body);
 
     if (response.statusCode == 200 ||
@@ -788,9 +793,9 @@ class PostData extends ChangeNotifier {
 
     print(prefs!.get('token'));
 
-    getData = Provider.of<GetData>(context, listen: false);
-    await getData!.getUserInfo();
-
     Get.to(() => ControllerPage());
+
+    /*getData = Provider.of<GetData>(context, listen: false);
+    getData!.getUserInfo().whenComplete(() => Get.to(() => ControllerPage()));*/
   }
 }
