@@ -54,8 +54,8 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: AppColors.lightBackgroundColor,
-                      borderRadius: BorderRadius.circular(5)),
+                      gradient: AppColors.cardGradient,
+                      borderRadius: BorderRadius.circular(10)),
                   padding: const EdgeInsets.all(15),
                   width: _width,
                   child: Column(
@@ -71,11 +71,21 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                               children: [
                                 Text(
                                   "Vemate Update",
-                                  style: Get.textTheme.bodyLarge,
+                                  style: Get.textTheme.bodyText1!
+                                .copyWith(
+                            color: AppColors.white,
+                                fontWeight:
+                                FontWeight.w300,
+                                fontSize: 15),
                                 ),
                                 Text(
                                   "New Version ${data.appUpdator!.version!}",
-                                  style: Get.textTheme.bodySmall,
+                                    style: Get.textTheme.bodyText1!
+                                        .copyWith(
+                                        color: AppColors.white,
+                                        fontWeight:
+                                        FontWeight.w300,
+                                        fontSize: 10),
                                 ),
                                 AppSpaces.spaces_height_10,
                               ],
@@ -98,13 +108,23 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                       ),
                       AppSpaces.spaces_height_10,
                       Text(
-                        "What's New".toUpperCase(),
-                        style: Get.textTheme.bodyLarge,
+                        "What's New",
+                        style: Get.textTheme.bodyText1!
+                            .copyWith(
+                            color: AppColors.white,
+                            fontWeight:
+                            FontWeight.w300,
+                            fontSize: 15),
                       ),
                       AppSpaces.spaces_height_5,
                       Text(
                         data.appUpdator!.description!,
-                        style: Get.textTheme.bodySmall,
+                        style: Get.textTheme.bodyText1!
+                            .copyWith(
+                            color: AppColors.white,
+                            fontWeight:
+                            FontWeight.w300,
+                            fontSize: 10),
                       ),
                       AppSpaces.spaces_height_5,
                       Row(
@@ -120,14 +140,20 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                     child: Text(
                                       "May be Later",
                                       style: Get.textTheme.bodyLarge!.copyWith(
-                                          color: AppColors.primaryColor),
+                                          color: AppColors.white),
                                     ),
                                   ),
                                 )
                               : Container(),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ElevatedButton(
+                          Container(
+                            height: 35,
+                            decoration: BoxDecoration(
+                              gradient: AppColors.purpleGradient, // set border width
+                              borderRadius: const BorderRadius.all(
+                                  Radius.circular(10.0)), // set rounded corner radius
+                            ),
+
+                            child: TextButton(
                                 onPressed: () {
                                   if (Platform.isAndroid) {
                                     _launchURL(
@@ -137,11 +163,11 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                       "https://apps.apple.com/gt/app/merchant-bay/id1590720968");*/
                                   }
                                 },
-                                style: ElevatedButton.styleFrom(
-                                  primary:
-                                      AppColors.primaryColor.withOpacity(.7),
-                                ),
-                                child: const Text("Update")),
+
+                                child: Text("Update",
+                                    style: TextStyle(
+                                        color: AppColors.white)),
+                          )
                           )
                         ],
                       )
