@@ -121,9 +121,11 @@ class PostData extends ChangeNotifier {
     final response = await http.post(Uri.parse(Urls.verifyCode),
         body: json.encode(body), headers: requestHeaders);
 
-    /*var x = json.decode(response.body);
+    var x = json.decode(response.body);
 
-    printInfo(info: response.body.toString());*/
+    //printInfo(info: response.body.toString());
+
+    Map<String, dynamic> js = x;
 
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
@@ -174,8 +176,8 @@ class PostData extends ChangeNotifier {
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
           duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Something went wrong",
+          messageText: Text(
+            js['code'].toString() ,
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }

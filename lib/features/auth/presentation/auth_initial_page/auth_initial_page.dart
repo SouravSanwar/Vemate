@@ -126,11 +126,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                         };
                         setState(() {
 
-                          postData!.logIn(context, body).whenComplete(() {
-                            SigninController.to.userNameTextFiledController;
-                            SigninController.to.passwordTextFiledController
-                                .clear();
-                          });
+                          postData!.logIn(context, body);
                         });
                       },
                       child: Text(

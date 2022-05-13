@@ -11,12 +11,4 @@ class SigninController extends GetxController {
   TextEditingController userNameTextFiledController = TextEditingController();
   TextEditingController emailTextFiledController = TextEditingController();
   TextEditingController passwordTextFiledController = TextEditingController();
-
-
-  RxString responseValue = "".obs;
-  RxBool loading = false.obs;
-
-  Rx<UserLoginModel> userLogin = UserLoginModel().obs;
-
-
 }

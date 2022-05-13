@@ -8,6 +8,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
+import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_controller.dart';
 import 'package:ketemaa/features/profile/_controller/shader.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/widgets/profile_divider.dart';
@@ -38,6 +39,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+
+    Get.put(SigninController());
     /*final _dialog = RatingDialog(
       starSize: 35.0,
       initialRating: 5.0,
@@ -336,7 +339,9 @@ class _ProfileState extends State<Profile> {
 
                         await prefs!.clear();
 
-                        Future.delayed(const Duration(seconds: 3));
+                        SigninController.to.userNameTextFiledController.clear();                        await prefs!.clear();
+                        SigninController.to.passwordTextFiledController.clear();
+
                         Get.offAll(() => const AuthInitialPage());
                       }),
                     ],
