@@ -66,6 +66,9 @@ dependencies:
   package_info_plus: ^1.4.2
   introduction_screen: ^3.0.2
   community_material_icon: ^5.9.55
+  firebase_messaging: ^11.4.0
+  platform_device_id: ^1.0.1
+  flutter_local_notifications: ^9.5.3+1
 
 
 dev_dependencies:

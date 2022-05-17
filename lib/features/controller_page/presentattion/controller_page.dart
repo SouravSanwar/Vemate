@@ -1,9 +1,13 @@
 import 'dart:io';
 
 import 'package:bottom_bar_page_transition/bottom_bar_page_transition.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
+import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
@@ -16,6 +20,12 @@ import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 import '../../market/presentation/market.dart';
+import 'package:platform_device_id/platform_device_id.dart';
+
+
+String? token;
+
+
 
 class ControllerPage extends StatefulWidget {
   ControllerPage({Key? key}) : super(key: key);
@@ -25,6 +35,8 @@ class ControllerPage extends StatefulWidget {
 }
 
 class _ControllerPageState extends State<ControllerPage> {
+  PostData? postData;
+
   List<String> names = [
     'Home',
     'Market',
@@ -45,17 +57,55 @@ class _ControllerPageState extends State<ControllerPage> {
 
   AppUpdate? appUpdate;
 
+  FirebaseMessaging _messaging =FirebaseMessaging.instance;
+   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  FlutterLocalNotificationsPlugin();
+
   @override
   void initState() {
     // TODO: implement initState
+    postData = Provider.of<PostData>(context, listen: false);
 
     appUpdate = Provider.of<AppUpdate>(context, listen: false);
 
     appUpdate!.getUpdateInfo();
     super.initState();
+    getToken();
+    initMessaging();
+    initPlatformState();
   }
 
+  Future <void> _firebaseMsg(RemoteMessage message) async{
+    print("Handling a background message : ${message.messageId}");
+  }
+
+  Future<void> initPlatformState() async {
+
+
+    WidgetsFlutterBinding.ensureInitialized();
+    FirebaseMessaging.onBackgroundMessage(_firebaseMsg);
+    await Firebase.initializeApp();
+
+    print("Device Token:"+ token!);
+    var body = {
+      "fcm_device_id":token
+    };
+
+    Map<String, String> requestHeadersWithToken = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'token ${prefs!.getString('token')}',
+    };
+    postData!.updateProfile(
+        context, body, requestHeadersWithToken);
+
+
+
+  }
+
+
   Future<bool> _willPopCallback() async {
+
     Get.dialog(
       Dialog(
         backgroundColor: const Color(0xff272E49),
@@ -251,4 +301,39 @@ class _ControllerPageState extends State<ControllerPage> {
       ),
     );
   }
+
+
+  void getToken(){
+    _messaging.getToken().then((value){
+       token =value;
+
+    }
+    );
+  }
+
+  void initMessaging(){
+    var androidInit= const AndroidInitializationSettings('assets/media/icon/logo v.png');
+    var iosInit=IOSInitializationSettings();
+    var initSetting=InitializationSettings(android: androidInit,iOS: iosInit);
+    flutterLocalNotificationsPlugin=FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.initialize(initSetting);
+    var androidDetails=const AndroidNotificationDetails('1', 'Default',
+          channelDescription: "Channel Description",
+          importance: Importance.high,
+          priority: Priority.high);
+    var iosDetails=IOSNotificationDetails();
+    var generalNotificationDetails=NotificationDetails(android: androidDetails,iOS: iosDetails);
+    FirebaseMessaging.onMessage.listen((RemoteMessage message){
+      RemoteNotification? notification=message.notification;
+      AndroidNotification? android= message.notification!.android;
+      if(notification != null && android != null){
+        flutterLocalNotificationsPlugin.show(notification.hashCode, notification.title, notification.body, generalNotificationDetails);
+      }
+
+    });
+
+
+  }
 }
+
+
