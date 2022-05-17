@@ -99,14 +99,36 @@ class PostData extends ChangeNotifier {
       }
     } else {
       Navigator.of(context).pop();
-      Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 3),
-          messageText: Text(
-            js.toString(),
-            style: const TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+      if (js.containsKey('email')) {
+        Flushbar(
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            isDismissible: false,
+            duration: const Duration(seconds: 3),
+            messageText: Text(
+              js['email'][0].toString(),
+              style: const TextStyle(fontSize: 16.0, color: Colors.red),
+            )).show(context);
+      }
+      if (js.containsKey('nickname')) {
+        Flushbar(
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            isDismissible: false,
+            duration: const Duration(seconds: 3),
+            messageText: Text(
+              js['nickname'][0].toString(),
+              style: const TextStyle(fontSize: 16.0, color: Colors.red),
+            )).show(context);
+      }
+      if (js.containsKey('password')) {
+        Flushbar(
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            isDismissible: false,
+            duration: const Duration(seconds: 3),
+            messageText: Text(
+              js['password'][0].toString(),
+              style: const TextStyle(fontSize: 16.0, color: Colors.red),
+            )).show(context);
+      }
     }
     notifyListeners();
   }
@@ -178,8 +200,8 @@ class PostData extends ChangeNotifier {
           isDismissible: false,
           duration: const Duration(seconds: 3),
           messageText: Text(
-            js['code'].toString(),
-            style: const TextStyle(fontSize: 16.0, color: Colors.green),
+            js['code'][0].toString(),
+            style: const TextStyle(fontSize: 16.0, color: Colors.red),
           )).show(context);
     }
   }
@@ -345,16 +367,6 @@ class PostData extends ChangeNotifier {
           postData!
               .resendCode(context, body)
               .whenComplete(() => Get.to(() => OtpPage()));
-          /*Navigator.of(context).pop();
-
-          Flushbar(
-              flushbarPosition: FlushbarPosition.BOTTOM,
-              isDismissible: false,
-              duration: const Duration(seconds: 3),
-              messageText: const Text(
-                "Invalid Information",
-                style: TextStyle(fontSize: 16.0, color: Colors.green),
-              )).show(context);*/
         }
       } catch (e) {
         Navigator.of(context).pop();
@@ -373,10 +385,12 @@ class PostData extends ChangeNotifier {
         Flushbar(
             flushbarPosition: FlushbarPosition.BOTTOM,
             isDismissible: false,
-            duration: const Duration(seconds: 3),
+            //backgroundColor: Colors.red,
+            messageColor: Colors.red,
+            duration: const Duration(seconds: 5),
             messageText: Text(
-              js['password'].toString(),
-              style: const TextStyle(fontSize: 16.0, color: Colors.green),
+              js['password'][0].toString(),
+              style: const TextStyle(fontSize: 16.0, color: Colors.red),
             )).show(context);
       } else {
         Flushbar(
@@ -384,8 +398,8 @@ class PostData extends ChangeNotifier {
             isDismissible: false,
             duration: const Duration(seconds: 3),
             messageText: Text(
-              js['username'].toString(),
-              style: const TextStyle(fontSize: 16.0, color: Colors.green),
+              js['username'][0].toString(),
+              style: const TextStyle(fontSize: 16.0, color: Colors.red),
             )).show(context);
       }
     }
@@ -404,8 +418,7 @@ class PostData extends ChangeNotifier {
     final response = await http.post(Uri.parse(Urls.logInWith2FA),
         body: json.encode(body), headers: requestHeaders);
     var x = json.decode(response.body);
-
-    printInfo(info: x);
+    Map<String, dynamic> js = x;
 
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
@@ -413,7 +426,6 @@ class PostData extends ChangeNotifier {
         response.statusCode == 500 ||
         response.statusCode == 201) {
       try {
-        Map<String, dynamic> js = x;
         if (js['is_email_verified'] == true) {
           prefs = await SharedPreferences.getInstance();
           Store(js, context);
@@ -453,14 +465,27 @@ class PostData extends ChangeNotifier {
       }
     } else {
       Navigator.of(context).pop();
-      Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Something went wrong",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+      if (js['username'] == null) {
+        Flushbar(
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            isDismissible: false,
+            //backgroundColor: Colors.red,
+            messageColor: Colors.red,
+            duration: const Duration(seconds: 5),
+            messageText: Text(
+              js['password'][0].toString(),
+              style: const TextStyle(fontSize: 16.0, color: Colors.red),
+            )).show(context);
+      } else {
+        Flushbar(
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            isDismissible: false,
+            duration: const Duration(seconds: 3),
+            messageText: Text(
+              js['username'][0].toString(),
+              style: const TextStyle(fontSize: 16.0, color: Colors.red),
+            )).show(context);
+      }
     }
     notifyListeners();
   }
