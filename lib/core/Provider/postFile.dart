@@ -171,7 +171,7 @@ class PostFile extends ChangeNotifier {
         };
 
         var getData = Provider.of<GetData>(context, listen: false);
-        await getData.getUserInfo();
+        await getData.getUserInfo(requestToken);
 
 
         Flushbar(

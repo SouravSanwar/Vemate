@@ -44,11 +44,13 @@ class GetData extends ChangeNotifier {
     'Authorization': 'token ${prefs!.getString('token')}',
   };
 
-  Future getUserInfo() async {
+  Future getUserInfo(var requestToken) async {
     profileModel = null;
     final response = await http.get(
       Uri.parse(Urls.userInfo),
-      headers: requestToken,
+      headers: {
+        'Authorization': 'token ${prefs!.getString('token')}',
+      },
     );
 
     var data = json.decode(response.body.toString());

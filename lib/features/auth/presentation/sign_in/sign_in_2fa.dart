@@ -240,9 +240,6 @@ class _SignIn2FAState extends State<SignIn2FA> {
 
     print(prefs!.get('token'));
 
-    getData = Provider.of<GetData>(context, listen: false);
-    await getData!.getUserInfo();
-
     Get.to(() => ControllerPage());
   }
 }

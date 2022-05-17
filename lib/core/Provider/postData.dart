@@ -21,6 +21,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PostData extends ChangeNotifier {
   GetData? getData;
   PostData? postData;
+
+  String? token;
   Map<String, String> requestHeaders = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
@@ -509,6 +511,10 @@ class PostData extends ChangeNotifier {
     }
     var x = json.decode(response.body);
 
+    Map<String, String> requestToken = {
+      'Authorization': 'token ${prefs!.getString('token')}',
+    };
+
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
         response.statusCode == 403 ||
@@ -518,7 +524,7 @@ class PostData extends ChangeNotifier {
         Map<String, dynamic> js = x;
         if (js['is_email_verified'] == true) {
           getData = Provider.of<GetData>(context, listen: false);
-          await getData!.getUserInfo();
+          await getData!.getUserInfo(requestToken);
           prefs = await SharedPreferences.getInstance();
 
           prefs!.setString('name', js['name'].toString());
@@ -592,7 +598,6 @@ class PostData extends ChangeNotifier {
         Map<String, dynamic> js = x;
         if (js.containsKey('status_2fa')) {
           getData = Provider.of<GetData>(context, listen: false);
-          await getData!.getUserInfo();
 
           Navigator.of(context).pop();
 
@@ -816,11 +821,12 @@ class PostData extends ChangeNotifier {
     prefs!.setBool('is_2fa', mat['is_2fa']);
     prefs!.setBool("is_login", true);
 
+    token = prefs!.setString('token', mat['token'].toString()).toString();
+
     print(prefs!.get('token'));
 
-    Get.to(() => ControllerPage());
+    Get.offAll(() => ControllerPage());
 
-    /*getData = Provider.of<GetData>(context, listen: false);
-    getData!.getUserInfo().whenComplete(() => Get.to(() => ControllerPage()));*/
+    notifyListeners();
   }
 }

@@ -9,6 +9,13 @@ class LoadingExample extends StatefulWidget {
 }
 
 class _LoadingExampleState extends State<LoadingExample> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
