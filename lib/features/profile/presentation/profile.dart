@@ -40,7 +40,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     Get.put(SigninController());
-    /*final _dialog = RatingDialog(
+   final _dialog = RatingDialog(
       starSize: 35.0,
       initialRating: 5.0,
       title: Text(
@@ -62,10 +62,10 @@ class _ProfileState extends State<Profile> {
         if (response.rating < 3.0) {
         } else {
           StoreRedirect.redirect(
-              androidAppId: 'com.xinxian.shop', iOSAppId: 'com.xinxian.shop');
+              androidAppId: 'com.vemateltd.vemate', iOSAppId: 'com.vemateltd.vemate');
         }
       },
-    );*/
+    );
 
     return SafeArea(
       minimum: EdgeInsets.zero,
@@ -159,13 +159,13 @@ class _ProfileState extends State<Profile> {
                           throw 'Could not launch $url';
                         }
                       }),*/
-                      /*CustomProfileElements(Icons.rate_review_outlined, "Rate",
+                      CustomProfileElements(Icons.rate_review_outlined, "Rate",
                           () {
                         showDialog(
                           context: context,
                           builder: (context) => _dialog,
                         );
-                      }),*/
+                      }),
                       CustomProfileElements(Icons.share, "Share Vemate", () {
                         Share.share(
                             'Visit Vemate Website:\n https://www.vemate.com/');

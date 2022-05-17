@@ -21,9 +21,12 @@ SharedPreferences? prefs;
 
 int fa = 0;
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
