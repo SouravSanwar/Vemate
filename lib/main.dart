@@ -19,7 +19,7 @@ import 'package:flutter/services.dart';
 
 SharedPreferences? prefs;
 
-int fa = 0;
+bool filterOn = false;
 
 
 Future<void> main() async {
