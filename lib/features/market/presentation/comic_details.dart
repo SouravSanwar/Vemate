@@ -56,6 +56,29 @@ class _ComicDetailsState extends State<ComicDetails> {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return Scaffold(
+        appBar: AppBar(
+          elevation: 1.0,
+          titleSpacing: 0,
+          iconTheme: const IconThemeData(color: Colors.grey),
+          backgroundColor: AppColors.backgroundColor,
+          title: Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: Get.width * .03),
+            child: Expanded(
+              flex:10,
+              child:Text(
+                data.singleProductModel != null
+                    ? data.singleProductModel!.name.toString()
+                    : "",
+                style: TextStyle(
+                    color: Colors.blueGrey.shade300,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+
+          ),
+        ),
         backgroundColor: AppColors.backgroundColor,
         body: data.singleProductModel != null
             ? SafeArea(
@@ -66,43 +89,8 @@ class _ComicDetailsState extends State<ComicDetails> {
                       SliverToBoxAdapter(
                         child: Column(
                           children: [
-                            SizedBox(height:Get.height*.05 ,),
+                            SizedBox(height:Get.height*.01 ,),
 
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
-                              child: Row(
-
-                                children: [
-                                  Expanded(
-                                    flex:2,
-                                    child:InkWell(
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Icon(
-                                        Icons.arrow_back_ios,
-                                        color: Colors.grey,
-                                      ),
-
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex:10,
-                                    child:Text(
-                                      data.singleProductModel != null
-                                          ? data.singleProductModel!.name.toString()
-                                          : "",
-                                      style: TextStyle(
-                                          color: Colors.blueGrey.shade300,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-
-                            ),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20),
                               child:Container(
@@ -163,7 +151,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         )).show(context);
                                   },
                                   child: Container(
-                                    width: Get.width * .4,
+                                    width: Get.width * .42,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       gradient: AppColors.purpleGradient,
@@ -216,7 +204,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         )).show(context);
                                   },
                                   child: Container(
-                                    width: Get.width * .4,
+                                    width: Get.width * .42,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       gradient: AppColors.purpleGradient,

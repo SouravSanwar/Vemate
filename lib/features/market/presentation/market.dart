@@ -144,15 +144,15 @@ class _MarketState extends State<Market> {
                           onSelected: (value) {
                             filterOn = true;
                             if(value==1){
-                              passValue='common';
+                              passValue='Common';
                             }else if(value==2){
-                              passValue='uncommon';
+                              passValue='Uncommon';
                             }else if(value==3){
-                              passValue='rare';
+                              passValue='Rare';
                             }else if(value==4){
-                              passValue='ultra rare';
+                              passValue='Ultra Rare';
                             }else if(value==5){
-                              passValue='secret rare';
+                              passValue='Secret Rare';
                             }
                             data.searchCollectiblesModel = null;
                             currentIndex == 1

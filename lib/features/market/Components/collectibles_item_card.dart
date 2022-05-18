@@ -84,7 +84,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                   height: Get.height * .078,
                                   width: Get.height * .078,
                                   decoration: BoxDecoration(
-                                      color: const Color(0xD3C89EF3),
+                                      color: AppColors.primaryColor
+                                          .withOpacity(.8),
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
                                           color: const Color(0xff454F70))),
@@ -93,8 +94,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                     data.collectiblesModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
-                                    style: const TextStyle(
-                                        color: Colors.deepPurpleAccent,
+                                    style:  TextStyle(
+                                        color: AppColors.lightBackgroundColor,
                                         fontSize: 35,
                                         fontWeight: FontWeight.bold),
                                   ),

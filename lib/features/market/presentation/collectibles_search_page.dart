@@ -49,7 +49,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
 
   @override
   void init(){
-    getData!.searchCollectibles(rarity: filterValue[0].toString());
+    getData!.searchCollectibles(rarity: filterValue[0].toString().toLowerCase());
     print("Filter Value" +filterValue[0]);
   }
   @override
@@ -78,14 +78,14 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: filterOn ==false ?AppBar(
+      appBar: AppBar(
         elevation: 1.0,
         titleSpacing: 0,
         iconTheme: const IconThemeData(color: Colors.grey),
-        backgroundColor: AppColors.lightBackgroundColor,
+        backgroundColor: AppColors.backgroundColor,
         title: SizedBox(
           width: MediaQuery.of(context).size.width,
-          child: TextFormField(
+          child: filterOn ==false ?TextFormField(
             controller: searchController,
             cursorColor: Colors.grey,
             keyboardType: TextInputType.text,
@@ -110,10 +110,10 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
               });
             },
             autofocus: true,
-          ),
+          ):Text(filterValue[0]+" Collectibles",style: TextStyle(fontSize: 22),),
         ),
 
-      ):null,
+      ),
       body: Consumer<GetData>(builder: (content, data, child) {
         return SmartRefresher(
           key: _refreshkey,
@@ -167,7 +167,8 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                         height: Get.height * .078,
                                         width: Get.height * .078,
                                         decoration: BoxDecoration(
-                                            color: const Color(0xD3C89EF3),
+                                            color: AppColors.primaryColor
+                                                .withOpacity(.8),
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             border: Border.all(
@@ -179,8 +180,8 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                               .results![index].name
                                               .toString()[0]
                                               .toUpperCase(),
-                                          style: const TextStyle(
-                                              color: Colors.deepPurpleAccent,
+                                          style:  TextStyle(
+                                              color: AppColors.lightBackgroundColor,
                                               fontSize: 35,
                                               fontWeight: FontWeight.bold),
                                         ),
