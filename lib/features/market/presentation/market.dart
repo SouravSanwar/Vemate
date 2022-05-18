@@ -1,5 +1,6 @@
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -9,6 +10,7 @@ import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/market/presentation/collectibles_search_page.dart';
 import 'package:ketemaa/features/market/presentation/comic_search_page.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import '../Components/category_card.dart';
 import '../Components/collectibles_item_card.dart';
@@ -36,6 +38,7 @@ class _MarketState extends State<Market> {
     super.initState();
   }
 
+  var passValue="";
   int? currentIndex = 1;
   bool? collectibleSelected = true;
   bool? comicSelected = false;
@@ -78,10 +81,15 @@ class _MarketState extends State<Market> {
                       child: Row(children: [
                         InkWell(
                           onTap: () {
+                            setState(() {
+                              filterOn = false;
+                            });
                             data.searchCollectiblesModel = null;
+                            data.searchComicsModel = null;
                             currentIndex == 1
                                 ? Get.to(() => const SearchCollectiblePage())
-                                : (currentIndex == 2
+                                : (
+                                currentIndex == 2
                                     ? Get.to(() => const SearchComicsPage())
                                     : null);
                           },
@@ -107,16 +115,76 @@ class _MarketState extends State<Market> {
                             ),
                           ),
                         ),
-                        InkWell(
+                       /* InkWell(
                         onTap: () {
+                         *//* setState(() {
+                            filterOn = !filterOn;
+                          });
+                          data.searchCollectiblesModel = null;
+                          currentIndex == 1
+                              ? Get.to(() => const SearchCollectiblePage())
+                              : (currentIndex == 2
+                              ? Get.to(() => const SearchComicsPage())
+                              : null);*//*
 
-                        },
-                        child: Icon(
-                          Icons.filter_list,
-                          color: AppColors.primaryColor,
-                          size: 40,
-                        ),
-                      ),
+
+
+                        },*/
+                      PopupMenuButton(
+
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          color: AppColors.backgroundColor,
+                          icon: Icon(
+                            Icons.filter_list,
+                            color: AppColors.primaryColor,
+                            size: 30,
+
+                          ),
+                          onSelected: (value) {
+                            filterOn = true;
+                            if(value==1){
+                              passValue='Common';
+                            }else if(value==2){
+                              passValue='Uncommon';
+                            }else if(value==3){
+                              passValue='Rare';
+                            }else if(value==4){
+                              passValue='Ultra Rare';
+                            }else if(value==5){
+                              passValue='Secret Rare';
+                            }
+                            data.searchCollectiblesModel = null;
+                            currentIndex == 1
+                                ? Get.to(() => const SearchCollectiblePage(), arguments: [passValue])
+                                : (currentIndex == 2
+                                ? Get.to(() => const SearchComicsPage(),arguments: [passValue])
+                                : null);
+                          },
+                          itemBuilder: (context) => [
+                            const PopupMenuItem(
+                              value: 1,
+                              child: Text('Common',style: TextStyle(color: Colors.white),),
+                            ),
+                            const PopupMenuItem(
+                              value: 2,
+                              child: Text('Uncommon',style: TextStyle(color: Colors.white),),
+                            ),
+                            const PopupMenuItem(
+                              value: 3,
+                              child: Text('Rare',style: TextStyle(color: Colors.white),),
+                            ),
+                            const PopupMenuItem(
+                              value: 4,
+                              child: Text('Ultra Rare',style: TextStyle(color: Colors.white),),
+                            ),
+                            const PopupMenuItem(
+                              value: 5,
+                              child: Text('Secret Rare',style: TextStyle(color: Colors.white),),
+                            ),
+                          ])
+
+
                       ]),
                     ),
                   ),
@@ -231,6 +299,7 @@ class Rarity {
 
   Rarity({this.name});
 }
+
 
 /// Creating a global list for example purpose.
 /// Generally it should be within data class or where ever you want

@@ -8,6 +8,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -42,12 +43,24 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
   bool? ultraRare = false;
   bool? secretRare = false;
 
-  bool filterOn = false;
+  var filterValue=Get.arguments;
+
+  //bool filterOn = false;
 
   @override
+  void init(){
+    getData!.searchCollectibles(rarity: filterValue[0].toString().toLowerCase());
+    print("Filter Value" +filterValue[0]);
+  }
+  @override
   void initState() {
+
     getData = Provider.of<GetData>(context, listen: false);
     // TODO: implement initState
+    if(filterOn==true){
+      init();
+    }
+
     super.initState();
   }
 
@@ -69,10 +82,10 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
         elevation: 1.0,
         titleSpacing: 0,
         iconTheme: const IconThemeData(color: Colors.grey),
-        backgroundColor: AppColors.lightBackgroundColor,
+        backgroundColor: AppColors.backgroundColor,
         title: SizedBox(
           width: MediaQuery.of(context).size.width,
-          child: TextFormField(
+          child: filterOn ==false ?TextFormField(
             controller: searchController,
             cursorColor: Colors.grey,
             keyboardType: TextInputType.text,
@@ -97,29 +110,9 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
               });
             },
             autofocus: true,
-          ),
+          ):Text(filterValue[0]+" Collectibles",style: TextStyle(fontSize: 22),),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: InkWell(
-              onTap: () {
-                setState(() {
-                  filterOn = !filterOn;
-                });
-              },
-              child: filterOn == true
-                  ? const Icon(
-                      CommunityMaterialIcons.close,
-                      color: Colors.grey,
-                    )
-                  : const Icon(
-                      CommunityMaterialIcons.filter_variant,
-                      color: Colors.grey,
-                    ),
-            ),
-          ),
-        ],
+
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
         return SmartRefresher(
@@ -138,242 +131,6 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
           child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
             children: [
-              filterOn == true
-                  ? Wrap(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                data.searchCollectiblesModel = null;
-                                common = true;
-                                uncommon = false;
-                                rare = false;
-                                ultraRare = false;
-                                secretRare = false;
-
-                                getData!.searchCollectibles(rarity: 'common');
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
-                                gradient: common == true
-                                    ? AppColors.purpleGradient
-                                    : const LinearGradient(
-                                        colors: [
-                                          Color(0xff272E49),
-                                          Color(0xff272E49),
-                                        ],
-                                      ),
-                                border: Border.all(
-                                  color: AppColors.primaryColor,
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(5),
-                                ),
-                              ),
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.all(AppDimension.padding_10),
-                                child: Text(
-                                  'Common',
-                                  textAlign: TextAlign.center,
-                                  style: Get.textTheme.bodyText1!
-                                      .copyWith(color: AppColors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                data.searchCollectiblesModel = null;
-                                common = false;
-                                uncommon = true;
-                                rare = false;
-                                ultraRare = false;
-                                secretRare = false;
-
-                                getData!.searchCollectibles(rarity: 'uncommon');
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
-                                gradient: uncommon == true
-                                    ? AppColors.purpleGradient
-                                    : const LinearGradient(
-                                        colors: [
-                                          Color(0xff272E49),
-                                          Color(0xff272E49),
-                                        ],
-                                      ),
-                                border: Border.all(
-                                  color: AppColors.primaryColor,
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(5),
-                                ),
-                              ),
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.all(AppDimension.padding_10),
-                                child: Text(
-                                  'Uncommon',
-                                  textAlign: TextAlign.center,
-                                  style: Get.textTheme.bodyText1!
-                                      .copyWith(color: AppColors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                data.searchCollectiblesModel = null;
-                                common = false;
-                                uncommon = false;
-                                rare = true;
-                                ultraRare = false;
-                                secretRare = false;
-
-                                getData!.searchCollectibles(rarity: 'rare');
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
-                                gradient: rare == true
-                                    ? AppColors.purpleGradient
-                                    : const LinearGradient(
-                                        colors: [
-                                          Color(0xff272E49),
-                                          Color(0xff272E49),
-                                        ],
-                                      ),
-                                border: Border.all(
-                                  color: AppColors.primaryColor,
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(5),
-                                ),
-                              ),
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.all(AppDimension.padding_10),
-                                child: Text(
-                                  'Rare',
-                                  textAlign: TextAlign.center,
-                                  style: Get.textTheme.bodyText1!
-                                      .copyWith(color: AppColors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                data.searchCollectiblesModel = null;
-                                common = false;
-                                uncommon = false;
-                                rare = false;
-                                ultraRare = true;
-                                secretRare = false;
-                                getData!
-                                    .searchCollectibles(rarity: 'ultra rare');
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
-                                gradient: ultraRare == true
-                                    ? AppColors.purpleGradient
-                                    : const LinearGradient(
-                                        colors: [
-                                          Color(0xff272E49),
-                                          Color(0xff272E49),
-                                        ],
-                                      ),
-                                border: Border.all(
-                                  color: AppColors.primaryColor,
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(5),
-                                ),
-                              ),
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.all(AppDimension.padding_10),
-                                child: Text(
-                                  'Ultra Rare',
-                                  textAlign: TextAlign.center,
-                                  style: Get.textTheme.bodyText1!
-                                      .copyWith(color: AppColors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                data.searchCollectiblesModel = null;
-                                common = false;
-                                uncommon = false;
-                                rare = false;
-                                ultraRare = false;
-                                secretRare = true;
-                                getData!
-                                    .searchCollectibles(rarity: 'secret rare');
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
-                                gradient: secretRare == true
-                                    ? AppColors.purpleGradient
-                                    : const LinearGradient(
-                                        colors: [
-                                          Color(0xff272E49),
-                                          Color(0xff272E49),
-                                        ],
-                                      ),
-                                border: Border.all(
-                                  color: AppColors.primaryColor,
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(5),
-                                ),
-                              ),
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.all(AppDimension.padding_10),
-                                child: Text(
-                                  'Secret Rare',
-                                  textAlign: TextAlign.center,
-                                  style: Get.textTheme.bodyText1!
-                                      .copyWith(color: AppColors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  : Container(),
               Container(
                 width: _width,
                 padding: const EdgeInsets.only(bottom: 10),
@@ -410,7 +167,8 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                         height: Get.height * .078,
                                         width: Get.height * .078,
                                         decoration: BoxDecoration(
-                                            color: const Color(0xD3C89EF3),
+                                            color: AppColors.primaryColor
+                                                .withOpacity(.8),
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             border: Border.all(
@@ -422,8 +180,8 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                               .results![index].name
                                               .toString()[0]
                                               .toUpperCase(),
-                                          style: const TextStyle(
-                                              color: Colors.deepPurpleAccent,
+                                          style:  TextStyle(
+                                              color: AppColors.lightBackgroundColor,
                                               fontSize: 35,
                                               fontWeight: FontWeight.bold),
                                         ),
