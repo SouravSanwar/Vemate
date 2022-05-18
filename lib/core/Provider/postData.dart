@@ -524,7 +524,7 @@ class PostData extends ChangeNotifier {
         Map<String, dynamic> js = x;
         if (js['is_email_verified'] == true) {
           getData = Provider.of<GetData>(context, listen: false);
-          await getData!.getUserInfo(requestToken);
+          await getData!.getUserInfo();
           prefs = await SharedPreferences.getInstance();
 
           prefs!.setString('name', js['name'].toString());

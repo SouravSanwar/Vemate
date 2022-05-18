@@ -23,10 +23,7 @@ import 'package:provider/provider.dart';
 import '../../market/presentation/market.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 
-
 String? token;
-
-
 
 class ControllerPage extends StatefulWidget {
   ControllerPage({Key? key}) : super(key: key);
@@ -59,9 +56,9 @@ class _ControllerPageState extends State<ControllerPage> {
   AppUpdate? appUpdate;
   GetData? getData;
 
-  FirebaseMessaging _messaging =FirebaseMessaging.instance;
-   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+  FirebaseMessaging _messaging = FirebaseMessaging.instance;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   @override
   void initState() {
@@ -78,37 +75,27 @@ class _ControllerPageState extends State<ControllerPage> {
     initPlatformState();
   }
 
-  Future <void> _firebaseMsg(RemoteMessage message) async{
+  Future<void> _firebaseMsg(RemoteMessage message) async {
     print("Handling a background message : ${message.messageId}");
   }
 
   Future<void> initPlatformState() async {
-
-
     WidgetsFlutterBinding.ensureInitialized();
     FirebaseMessaging.onBackgroundMessage(_firebaseMsg);
     await Firebase.initializeApp();
 
-    print("Device Token:"+ token!);
-    var body = {
-      "fcm_device_id":token
-    };
+    print("Device Token:" + token!);
+    var body = {"fcm_device_id": token};
 
     Map<String, String> requestHeadersWithToken = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'token ${prefs!.getString('token')}',
     };
-    postData!.updateProfile(
-        context, body, requestHeadersWithToken);
-
-
-
+    postData!.updateProfile(context, body, requestHeadersWithToken);
   }
 
-
   Future<bool> _willPopCallback() async {
-
     Get.dialog(
       Dialog(
         backgroundColor: const Color(0xff272E49),
@@ -305,38 +292,34 @@ class _ControllerPageState extends State<ControllerPage> {
     );
   }
 
-
-  void getToken(){
-    _messaging.getToken().then((value){
-       token =value;
-
-    }
-    );
+  void getToken() {
+    _messaging.getToken().then((value) {
+      token = value;
+    });
   }
 
-  void initMessaging(){
-    var androidInit= const AndroidInitializationSettings('assets/media/icon/logo v.png');
-    var iosInit=IOSInitializationSettings();
-    var initSetting=InitializationSettings(android: androidInit,iOS: iosInit);
-    flutterLocalNotificationsPlugin=FlutterLocalNotificationsPlugin();
+  void initMessaging() {
+    var androidInit =
+        const AndroidInitializationSettings('assets/media/icon/logo v.png');
+    var iosInit = IOSInitializationSettings();
+    var initSetting =
+        InitializationSettings(android: androidInit, iOS: iosInit);
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.initialize(initSetting);
-    var androidDetails=const AndroidNotificationDetails('1', 'Default',
-          channelDescription: "Channel Description",
-          importance: Importance.high,
-          priority: Priority.high);
-    var iosDetails=IOSNotificationDetails();
-    var generalNotificationDetails=NotificationDetails(android: androidDetails,iOS: iosDetails);
-    FirebaseMessaging.onMessage.listen((RemoteMessage message){
-      RemoteNotification? notification=message.notification;
-      AndroidNotification? android= message.notification!.android;
-      if(notification != null && android != null){
-        flutterLocalNotificationsPlugin.show(notification.hashCode, notification.title, notification.body, generalNotificationDetails);
+    var androidDetails = const AndroidNotificationDetails('1', 'Default',
+        channelDescription: "Channel Description",
+        importance: Importance.high,
+        priority: Priority.high);
+    var iosDetails = IOSNotificationDetails();
+    var generalNotificationDetails =
+        NotificationDetails(android: androidDetails, iOS: iosDetails);
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification!.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(notification.hashCode,
+            notification.title, notification.body, generalNotificationDetails);
       }
-
     });
-
-
   }
 }
-
-

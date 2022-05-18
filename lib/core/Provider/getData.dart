@@ -15,8 +15,10 @@ import 'package:ketemaa/core/models/SetListModel.dart';
 import 'package:ketemaa/core/models/SingleProductModel.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/models/WishListModel.dart';
+import 'package:ketemaa/core/network/base_client.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/main.dart';
+import 'package:ketemaa/core/network/base_controller.dart';
 import '../models/CollectiblesModel.dart';
 
 class GetData extends ChangeNotifier {
@@ -44,16 +46,12 @@ class GetData extends ChangeNotifier {
     'Authorization': 'token ${prefs!.getString('token')}',
   };
 
-  Future getUserInfo(var requestToken) async {
+  Future getUserInfo() async {
     profileModel = null;
-    final response = await http.get(
-      Uri.parse(Urls.userInfo),
-      headers: {
-        'Authorization': 'token ${prefs!.getString('token')}',
-      },
-    );
 
-    var data = json.decode(response.body.toString());
+    final response = await BaseClient().get(Urls.userInfo);
+
+    var data = json.decode(response.toString());
 
     printInfo(info: 'getUserInfo: ' + data.toString());
 
@@ -72,19 +70,10 @@ class GetData extends ChangeNotifier {
   }
 
   Future getCollectibles({int offset = 0}) async {
-    final response = await http.get(
-      Uri.parse(
-        Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset',
-      ),
-      headers: requestToken,
-    );
+    final response = await BaseClient().get(Urls.mainUrl +
+        '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset');
 
-    var data = json.decode(response.body.toString());
-
-    printInfo(
-        info: Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset');
+    var data = json.decode(response.toString());
     //printInfo(info: data.toString());
 
     if (collectiblesModel != null) {
@@ -101,15 +90,10 @@ class GetData extends ChangeNotifier {
 
   Future searchCollectibles(
       {String keyWord = '', String rarity = '', int offset = 0}) async {
-    final response = await http.get(
-      Uri.parse(
-        Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&rarity=$rarity&name=$keyWord',
-      ),
-      headers: requestToken,
-    );
+    final response = await BaseClient().get(Urls.mainUrl +
+        '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&rarity=$rarity&name=$keyWord');
 
-    var data = json.decode(response.body.toString());
+    var data = json.decode(response.toString());
 
     printInfo(info: data.toString());
 
@@ -126,19 +110,9 @@ class GetData extends ChangeNotifier {
   }
 
   Future getComics({int offset = 0}) async {
-    final response = await http.get(
-      Uri.parse(
-        Urls.comic + '$offset',
-      ),
-      headers: requestToken,
-    );
+    final response = await BaseClient().get(Urls.comic + '$offset');
 
-    var data = json.decode(response.body.toString());
-
-    printInfo(
-        info: Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset');
-    //printInfo(info: data.toString());
+    var data = json.decode(response.toString());
 
     if (comicsModel != null) {
       if (offset == 0) comicsModel!.results!.clear();
@@ -151,18 +125,12 @@ class GetData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future searchComics({String keyWord = '', String rarity = '', int offset = 0}) async {
-    final response = await http.get(
-      Uri.parse(
-        Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset&rarity=$rarity&name=$keyWord',
-      ),
-      headers: requestToken,
-    );
+  Future searchComics(
+      {String keyWord = '', String rarity = '', int offset = 0}) async {
+    final response = await BaseClient().get(Urls.mainUrl +
+        '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset&rarity=$rarity&name=$keyWord');
 
-    var data = json.decode(response.body.toString());
-
-    printInfo(info: data.toString());
+    var data = json.decode(response.toString());
 
     if (searchComicsModel != null) {
       if (offset == 0) searchComicsModel!.results!.clear();
@@ -178,16 +146,12 @@ class GetData extends ChangeNotifier {
 
   Future getSingleProduct(int? id, {int graphType = 0}) async {
     singleProductModel = null;
-    final response = await http.get(
-      Uri.parse(
-        Urls.singleProduct + '$id?graph_type=$graphType',
-      ),
-      headers: requestToken,
-    );
+    final response = await BaseClient()
+        .get(Urls.singleProduct + '$id?graph_type=$graphType');
 
     printInfo(info: Urls.singleProduct + '$id?graph_type=$graphType');
 
-    var data = json.decode(response.body.toString());
+    var data = json.decode(response.toString());
 
     printInfo(info: data.toString());
 
@@ -198,14 +162,9 @@ class GetData extends ChangeNotifier {
 
   Future checkWishlist(int id) async {
     checkWishlistModel = null;
-    final response = await http.get(
-      Uri.parse(
-        Urls.checkWishlist + id.toString(),
-      ),
-      headers: requestToken,
-    );
+    final response = await BaseClient().get(Urls.checkWishlist + id.toString());
 
-    var data = json.decode(response.body.toString());
+    var data = json.decode(response.toString());
 
     printInfo(info: data.toString());
 
@@ -216,16 +175,9 @@ class GetData extends ChangeNotifier {
 
   Future checkSetList(int id) async {
     checkSetCheck = null;
-    final response = await http.get(
-      Uri.parse(
-        Urls.checkSet + id.toString(),
-      ),
-      headers: requestToken,
-    );
+    final response = await BaseClient().get(Urls.checkSet + id.toString());
 
-    var data = json.decode(response.body.toString());
-
-    printInfo(info: data.toString());
+    var data = json.decode(response.toString());
 
     checkSetCheck = CheckSetCheck.fromJson(data);
 
@@ -233,16 +185,11 @@ class GetData extends ChangeNotifier {
   }
 
   Future getWishList({int offset = 0}) async {
-    final response = await http.get(
-      Uri.parse(
-        Urls.commonStorage + '?type=1&limit=20&offset=$offset',
-      ),
-      headers: requestToken,
-    );
+    final response = await BaseClient()
+        .get(Urls.commonStorage + '?type=1&limit=20&offset=$offset');
 
-    var data = json.decode(response.body.toString());
+    var data = json.decode(response.toString());
 
-    printInfo(info: Urls.commonStorage + '?type=1&limit=20&offset=$offset');
     printInfo(info: data.toString());
 
     if (wishListModel != null) {
@@ -258,16 +205,12 @@ class GetData extends ChangeNotifier {
 
   Future getSetList() async {
     setListModel = null;
-    final response = await http.get(
-      Uri.parse(
-        Urls.commonStorage + '?type=0',
-      ),
-      headers: requestToken,
-    );
+    final response = await BaseClient().get(Urls.commonStorage + '?type=0');
 
-    var data = json.decode(response.body.toString());
+    var data = json.decode(response.toString());
 
     printInfo(info: data.toString());
+
     setListModel = SetListModel.fromJson(data);
 
     notifyListeners();
@@ -275,16 +218,12 @@ class GetData extends ChangeNotifier {
 
   Future getVaultStats(int graphType) async {
     vaultStatsModel = null;
-    final response = await http.get(
-      Uri.parse(
-        Urls.vaultStats + '?graph_type=$graphType',
-      ),
-      headers: requestToken,
-    );
+    final response =
+        await BaseClient().get(Urls.vaultStats + '?graph_type=$graphType');
 
     printInfo(info: Urls.vaultStats + '?graph_type=$graphType');
 
-    var data = json.decode(response.body.toString());
+    var data = json.decode(response.toString());
 
     printInfo(info: data.toString());
     vaultStatsModel = VaultStatsModel.fromJson(data);
@@ -294,14 +233,9 @@ class GetData extends ChangeNotifier {
 
   Future getNews() async {
     newsModel = null;
-    final response = await http.get(
-      Uri.parse(
-        Urls.news,
-      ),
-      headers: requestToken,
-    );
+    final response = await BaseClient().get(Urls.news);
 
-    var data = json.decode(response.body.toString());
+    var data = json.decode(response.toString());
 
     printInfo(info: data.toString());
     newsModel = NewsModel.fromJson(data);
