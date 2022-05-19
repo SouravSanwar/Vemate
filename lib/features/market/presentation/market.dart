@@ -38,7 +38,7 @@ class _MarketState extends State<Market> {
     super.initState();
   }
 
-  var passValue="";
+  var passValue = "";
   int? currentIndex = 1;
   bool? collectibleSelected = true;
   bool? comicSelected = false;
@@ -88,8 +88,7 @@ class _MarketState extends State<Market> {
                             data.searchComicsModel = null;
                             currentIndex == 1
                                 ? Get.to(() => const SearchCollectiblePage())
-                                : (
-                                currentIndex == 2
+                                : (currentIndex == 2
                                     ? Get.to(() => const SearchComicsPage())
                                     : null);
                           },
@@ -115,9 +114,9 @@ class _MarketState extends State<Market> {
                             ),
                           ),
                         ),
-                       /* InkWell(
+                        /* InkWell(
                         onTap: () {
-                         *//* setState(() {
+                         */ /* setState(() {
                             filterOn = !filterOn;
                           });
                           data.searchCollectiblesModel = null;
@@ -125,66 +124,79 @@ class _MarketState extends State<Market> {
                               ? Get.to(() => const SearchCollectiblePage())
                               : (currentIndex == 2
                               ? Get.to(() => const SearchComicsPage())
-                              : null);*//*
+                              : null);*/ /*
 
 
 
                         },*/
-                      PopupMenuButton(
-
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          color: AppColors.backgroundColor,
-                          icon: Icon(
-                            Icons.filter_list,
-                            color: AppColors.primaryColor,
-                            size: 30,
-
-                          ),
-                          onSelected: (value) {
-                            filterOn = true;
-                            if(value==1){
-                              passValue='Common';
-                            }else if(value==2){
-                              passValue='Uncommon';
-                            }else if(value==3){
-                              passValue='Rare';
-                            }else if(value==4){
-                              passValue='Ultra Rare';
-                            }else if(value==5){
-                              passValue='Secret Rare';
-                            }
-                            data.searchCollectiblesModel = null;
-                            currentIndex == 1
-                                ? Get.to(() => const SearchCollectiblePage(), arguments: [passValue])
-                                : (currentIndex == 2
-                                ? Get.to(() => const SearchComicsPage(),arguments: [passValue])
-                                : null);
-                          },
-                          itemBuilder: (context) => [
-                            const PopupMenuItem(
-                              value: 1,
-                              child: Text('Common',style: TextStyle(color: Colors.white),),
+                        PopupMenuButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            color: AppColors.backgroundColor,
+                            icon: Icon(
+                              Icons.filter_list,
+                              color: AppColors.primaryColor,
+                              size: 30,
                             ),
-                            const PopupMenuItem(
-                              value: 2,
-                              child: Text('Uncommon',style: TextStyle(color: Colors.white),),
-                            ),
-                            const PopupMenuItem(
-                              value: 3,
-                              child: Text('Rare',style: TextStyle(color: Colors.white),),
-                            ),
-                            const PopupMenuItem(
-                              value: 4,
-                              child: Text('Ultra Rare',style: TextStyle(color: Colors.white),),
-                            ),
-                            const PopupMenuItem(
-                              value: 5,
-                              child: Text('Secret Rare',style: TextStyle(color: Colors.white),),
-                            ),
-                          ])
-
-
+                            onSelected: (value) {
+                              filterOn = true;
+                              if (value == 1) {
+                                passValue = 'Common';
+                              } else if (value == 2) {
+                                passValue = 'Uncommon';
+                              } else if (value == 3) {
+                                passValue = 'Rare';
+                              } else if (value == 4) {
+                                passValue = 'Ultra Rare';
+                              } else if (value == 5) {
+                                passValue = 'Secret Rare';
+                              }
+                              data.searchCollectiblesModel = null;
+                              currentIndex == 1
+                                  ? Get.to(() => const SearchCollectiblePage(),
+                                      arguments: [passValue])
+                                  : (currentIndex == 2
+                                      ? Get.to(() => const SearchComicsPage(),
+                                          arguments: [passValue])
+                                      : null);
+                            },
+                            itemBuilder: (context) => [
+                                  const PopupMenuItem(
+                                    value: 1,
+                                    child: Text(
+                                      'Common',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  const PopupMenuItem(
+                                    value: 2,
+                                    child: Text(
+                                      'Uncommon',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  const PopupMenuItem(
+                                    value: 3,
+                                    child: Text(
+                                      'Rare',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  const PopupMenuItem(
+                                    value: 4,
+                                    child: Text(
+                                      'Ultra Rare',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  const PopupMenuItem(
+                                    value: 5,
+                                    child: Text(
+                                      'Secret Rare',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ])
                       ]),
                     ),
                   ),
@@ -299,7 +311,6 @@ class Rarity {
 
   Rarity({this.name});
 }
-
 
 /// Creating a global list for example purpose.
 /// Generally it should be within data class or where ever you want

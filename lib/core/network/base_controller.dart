@@ -1,10 +1,8 @@
-
+import 'package:ketemaa/core/network/app_exeptions.dart';
 import 'package:ketemaa/core/utilities/Dialog/dialog_helper.dart';
 
-import 'app_exeptions.dart';
-
 class BaseController {
-  void handleError(error) {
+  handleError(error) {
     hideLoading();
     if (error is BadRequestException) {
       var message = error.message;
