@@ -125,8 +125,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
           footer: const ClassicFooter(
             loadStyle: LoadStyle.ShowWhenLoading,
           ),
-          onRefresh: _onRefresh,
-          onLoading: _onLoading,
+          /*onRefresh: _onRefresh,
+          onLoading: _onLoading,*/
           child: ListView(
             children: [
 
@@ -475,7 +475,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
       }),
     );
   }
-
+/*
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
     if (common == true) {
@@ -522,5 +522,5 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
         refreshController.loadComplete();
       });
     }
-  }
+  }*/
 }

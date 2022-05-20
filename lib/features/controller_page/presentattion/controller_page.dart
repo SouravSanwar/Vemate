@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:bottom_bar_page_transition/bottom_bar_page_transition.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
@@ -24,6 +26,7 @@ import '../../market/presentation/market.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 
 String? token;
+
 
 class ControllerPage extends StatefulWidget {
   ControllerPage({Key? key}) : super(key: key);
@@ -323,3 +326,5 @@ class _ControllerPageState extends State<ControllerPage> {
     });
   }
 }
+
+

@@ -115,21 +115,7 @@ class _MarketState extends State<Market> {
                             ),
                           ),
                         ),
-                       /* InkWell(
-                        onTap: () {
-                         *//* setState(() {
-                            filterOn = !filterOn;
-                          });
-                          data.searchCollectiblesModel = null;
-                          currentIndex == 1
-                              ? Get.to(() => const SearchCollectiblePage())
-                              : (currentIndex == 2
-                              ? Get.to(() => const SearchComicsPage())
-                              : null);*//*
 
-
-
-                        },*/
                       PopupMenuButton(
 
                           shape: RoundedRectangleBorder(
