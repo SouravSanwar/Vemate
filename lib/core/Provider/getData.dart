@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:ketemaa/core/models/AlertModel.dart';
 import 'package:ketemaa/core/models/CheckSetCheck.dart';
 import 'package:ketemaa/core/models/CheckWishlistModel.dart';
 import 'package:ketemaa/core/models/ComicsModel.dart';
@@ -41,6 +42,8 @@ class GetData extends ChangeNotifier {
   VaultStatsModel? vaultStatsModel;
 
   NewsModel? newsModel;
+
+  AlertModel? alertModel;
 
   Map<String, String> requestToken = {
     'Authorization': 'token ${prefs!.getString('token')}',
@@ -239,6 +242,19 @@ class GetData extends ChangeNotifier {
 
     printInfo(info: data.toString());
     newsModel = NewsModel.fromJson(data);
+
+    notifyListeners();
+  }
+
+  Future getAlert() async {
+    alertModel = null;
+    final response = await BaseClient().get(Urls.alertList);
+
+    var data = json.decode(response.toString());
+
+    printInfo(info: data.toString());
+
+    alertModel = AlertModel.fromJson(data);
 
     notifyListeners();
   }

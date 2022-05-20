@@ -17,7 +17,59 @@ class BaseClient {
     var uri = Uri.parse(baseUrl);
 
     try {
-      var response = await http.get(uri, headers: {
+      var response = await http.get(
+        uri,
+        headers: {
+          'Authorization': 'token ${prefs!.getString('token')}',
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
+        },
+      ) /*.timeout(const Duration(seconds: TIME_OUT_DURATION))*/;
+      printInfo(info: uri.toString() + '+ token ${prefs!.getString('token')}');
+
+      return _processResponse(response);
+    } on SocketException {
+      throw FetchDataException('Server connection failed', uri.toString());
+    } on TimeoutException {
+      throw ApiNotRespondingException(
+          'API not responded in time', uri.toString());
+    }
+  }
+
+  //POST
+
+  Future<dynamic> post(String baseUrl, dynamic body) async {
+    var uri = Uri.parse(baseUrl);
+    var payload = json.encode(body);
+    try {
+      var response = await http.post(
+        uri,
+        body: payload,
+        headers: {
+          'Authorization': 'token ${prefs!.getString('token')}',
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
+        },
+      ).timeout(const Duration(seconds: TIME_OUT_DURATION));
+
+      return _processResponse(response);
+      throw BadRequestException(
+          '{"reason":"your message is incorrect", "reason_code":"invalid_message"}',
+          response.request!.url.toString());
+    } on SocketException {
+      throw FetchDataException('No Internet connection', uri.toString());
+    } on TimeoutException {
+      throw ApiNotRespondingException(
+          'API not responded in time', uri.toString());
+    }
+  }
+
+  //DELETE
+  Future<dynamic> delete(String baseUrl) async {
+    var uri = Uri.parse(baseUrl);
+
+    try {
+      var response = await http.delete(uri, headers: {
         'Authorization': 'token ${prefs!.getString('token')}',
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.acceptHeader: 'application/json',
@@ -33,54 +85,13 @@ class BaseClient {
     }
   }
 
-  //POST
-  Future<dynamic> post(String baseUrl, String api, dynamic payloadObj) async {
-    var uri = Uri.parse(baseUrl + api);
-    var payload = json.encode(payloadObj);
-    try {
-      var response = await http
-          .post(uri, body: payload)
-          .timeout(const Duration(seconds: TIME_OUT_DURATION));
-      throw BadRequestException(
-          '{"reason":"your message is incorrect", "reason_code":"invalid_message"}',
-          response.request!.url.toString());
-      return _processResponse(response);
-    } on SocketException {
-      throw FetchDataException('No Internet connection', uri.toString());
-    } on TimeoutException {
-      throw ApiNotRespondingException(
-          'API not responded in time', uri.toString());
-    }
-  }
-
-  Future<dynamic> postWithHeader(
-      String baseUrl, String api, dynamic payloadObj) async {
-    var uri = Uri.parse(baseUrl + api);
-    var payload = json.encode(payloadObj);
-    try {
-      var response = await http.post(uri, body: payload, headers: {
-        'Authorization': 'token ${prefs!.getString('token')}',
-      }).timeout(const Duration(seconds: TIME_OUT_DURATION));
-      throw BadRequestException(
-          '{"reason":"your message is incorrect", "reason_code":"invalid_message"}',
-          response.request!.url.toString());
-      return _processResponse(response);
-    } on SocketException {
-      throw FetchDataException('No Internet connection', uri.toString());
-    } on TimeoutException {
-      throw ApiNotRespondingException(
-          'API not responded in time', uri.toString());
-    }
-  }
-
-  //DELETE
   //OTHER
 
   dynamic _processResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
         var responseJson = utf8.decode(response.bodyBytes);
-        //print(response.request);
+        print(response.request);
         return responseJson;
         break;
       case 201:

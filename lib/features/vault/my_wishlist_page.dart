@@ -12,6 +12,7 @@ import 'package:ketemaa/features/controller_page/controller/controller_page_cont
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -35,6 +36,12 @@ class _WishListPageState extends State<WishListPage> {
       RefreshController(initialRefresh: false);
   GlobalKey _contentKey = GlobalKey();
   GlobalKey _refreshkey = GlobalKey();
+
+  Map<String, String> requestHeadersWithToken = {
+    'Content-type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'token ${prefs!.getString('token')}',
+  };
 
   @override
   void initState() {
@@ -508,8 +515,11 @@ class _WishListPageState extends State<WishListPage> {
                                 right: 10.0,
                                 child: InkWell(
                                   onTap: () {
-                                    postData!.deleteWishlist(context,
-                                        data.wishListModel!.results![index].id);
+                                    postData!.deleteWishlist(
+                                      context,
+                                      data.wishListModel!.results![index].id,
+                                      requestHeadersWithToken,
+                                    );
                                     printInfo(info: 'On Tapped');
                                   },
                                   child: const Icon(
