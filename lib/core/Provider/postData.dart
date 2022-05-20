@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:ketemaa/core/Provider/getData.dart';
+import 'package:ketemaa/core/network/base_client.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
@@ -66,7 +67,9 @@ class PostData extends ChangeNotifier {
 
           printInfo(info: prefs!.getString('is_email_verified').toString());
 
-          Get.to(() => OtpPage());
+          js['is_email_verified'] == true
+              ? Get.to(() => const AuthInitialPage())
+              : Get.to(() => OtpPage());
 
           Flushbar(
               flushbarPosition: FlushbarPosition.BOTTOM,
@@ -729,7 +732,7 @@ class PostData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future deleteWishlist(BuildContext context, int? id) async {
+  Future deleteWishlist(BuildContext context, int? id, var requestToken) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -767,7 +770,7 @@ class PostData extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future deleteSetList(BuildContext context, int? id) async {
+  Future deleteSetList(BuildContext context, int? id, var requestToken) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -800,6 +803,45 @@ class PostData extends ChangeNotifier {
           duration: const Duration(seconds: 3),
           messageText: const Text(
             "Something went wrong",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    }
+    notifyListeners();
+  }
+
+  Future createAlert(BuildContext context, var body) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingExample());
+
+    printInfo(info: body.toString());
+
+    final response = await BaseClient().post(Urls.creteAlert, body);
+
+    var data = json.decode(response);
+
+    printInfo(info: data.toString());
+
+    Map<String, dynamic> js = data;
+    if (js.containsKey('id')) {
+      Navigator.of(context).pop();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Created Successfully",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    } else {
+      Navigator.of(context).pop();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Invalid Information",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }

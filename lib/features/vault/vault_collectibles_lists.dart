@@ -6,6 +6,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -33,6 +34,12 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
   GetData? getData;
   PostData? postData;
   int offset = 0;
+
+  Map<String, String> requestHeadersWithToken = {
+    'Content-type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'token ${prefs!.getString('token')}',
+  };
 
   @override
   void initState() {
@@ -366,8 +373,6 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                             'decrease'
                                                         ? Colors.red
                                                         : Colors.green,
-
-
                                                     dataSource: data
                                                         .setListModel!
                                                         .results![index]
@@ -445,11 +450,11 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                 InkWell(
                                                   onTap: () {
                                                     postData!.deleteSetList(
-                                                        context,
-                                                        data
-                                                            .setListModel!
-                                                            .results![index]
-                                                            .id);
+                                                      context,
+                                                      data.setListModel!
+                                                          .results![index].id,
+                                                      requestHeadersWithToken,
+                                                    );
                                                   },
                                                   child: const Icon(
                                                     Icons.delete_forever,
