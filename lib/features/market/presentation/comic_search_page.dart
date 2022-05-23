@@ -45,11 +45,31 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
 
   var filterValue=Get.arguments;
 
+  String? rarityValue;
+
 
 
   @override
   void init(){
-    getData!.searchComics(rarity: filterValue[0].toString().toLowerCase());
+
+    rarityValue=filterValue[0].toString().toLowerCase();
+    getData!.searchComics(rarity: rarityValue!);
+
+    if(rarityValue=='common'){
+      common=true;
+    }
+    else if(rarityValue=='uncommon'){
+      uncommon=true;
+    }
+    else if(rarityValue=='rare'){
+      rare=true;
+    }
+    else if(rarityValue=='ultra rare'){
+      ultraRare=true;
+    }
+    else if(rarityValue=='secret rare'){
+      secretRare=true;
+    }
     print("Filter Value" +filterValue[0]);
   }
 
@@ -125,8 +145,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
           footer: const ClassicFooter(
             loadStyle: LoadStyle.ShowWhenLoading,
           ),
-          /*onRefresh: _onRefresh,
-          onLoading: _onLoading,*/
+          onRefresh: _onRefresh,
+          onLoading: _onLoading,
           child: ListView(
             children: [
 
@@ -475,7 +495,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
       }),
     );
   }
-/*
+
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
     if (common == true) {
@@ -512,7 +532,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
     } else if (secretRare == true) {
       getData!.searchComics(rarity: 'secret rare', offset: offset);
     } else {
-      getData!.searchComics(keyWord: searchText!, offset: offset);
+      getData!.searchComics(offset: offset);
     }
 
     await Future.delayed(const Duration(seconds: 2));
@@ -522,5 +542,5 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
         refreshController.loadComplete();
       });
     }
-  }*/
+  }
 }

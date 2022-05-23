@@ -10,12 +10,12 @@ import 'package:ketemaa/features/controller_page/presentattion/controller_page.d
 import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
 import 'package:ketemaa/features/vault/vault_comics_card.dart';
-import 'package:ketemaa/features/vault/my_wishlist_page.dart';
+import 'package:ketemaa/features/vault/Wishlist/my_wishlist_page.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../core/utilities/shimmer/loading.dart';
 import 'mysets_card.dart';
-import 'mywishlist_card.dart';
+import 'Wishlist/mywishlist_card.dart';
 
 class Vault extends StatefulWidget {
   @override
@@ -35,7 +35,7 @@ class _VaultState extends State<Vault> {
 
   @override
   void initState() {
-    getConnection();
+    //getConnection();
     super.initState();
 
     getData = Provider.of<GetData>(context, listen: false);
@@ -52,7 +52,7 @@ class _VaultState extends State<Vault> {
 
     return Scaffold(
       backgroundColor: const Color(0xff272E49),
-      body: checkInternet==false? Container(
+      body: /*checkInternet==false? Container(
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -68,12 +68,12 @@ class _VaultState extends State<Vault> {
                 iconSize: 50,
                 color: Colors.grey,
                 onPressed: () {
-                  getConnection();
+                  //getConnection();
                   },
             ),
           ],
         ),
-      ): Consumer<GetData>(builder: (context, data, child) {
+      ):*/ Consumer<GetData>(builder: (context, data, child) {
         return data.vaultStatsModel != null
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),

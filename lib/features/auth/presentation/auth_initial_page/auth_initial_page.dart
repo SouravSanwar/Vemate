@@ -125,7 +125,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           "password": SigninController
                               .to.passwordTextFiledController.text,
                         };
-                        getConnection();
+                        //getConnection();
 
                         setState(() {
 

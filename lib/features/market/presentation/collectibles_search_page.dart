@@ -44,12 +44,31 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
   bool? secretRare = false;
 
   var filterValue=Get.arguments;
+  String? rarityValue;
 
   //bool filterOn = false;
 
   @override
   void init(){
-    getData!.searchCollectibles(rarity: filterValue[0].toString().toLowerCase());
+    rarityValue=filterValue[0].toString().toLowerCase();
+    getData!.searchCollectibles(rarity: rarityValue!);
+
+    if(rarityValue=='common'){
+      common=true;
+    }
+    else if(rarityValue=='uncommon'){
+      uncommon=true;
+    }
+    else if(rarityValue=='rare'){
+      rare=true;
+    }
+    else if(rarityValue=='ultra rare'){
+      ultraRare=true;
+    }
+    else if(rarityValue=='secret rare'){
+      secretRare=true;
+    }
+
     print("Filter Value" +filterValue[0]);
   }
   @override
@@ -523,7 +542,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
     } else if (secretRare == true) {
       getData!.searchCollectibles(rarity: 'secret rare', offset: offset);
     } else {
-      getData!.searchCollectibles(keyWord: searchText!, offset: offset);
+      getData!.searchCollectibles( offset: offset);
     }
 
     await Future.delayed(const Duration(seconds: 2));

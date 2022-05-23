@@ -9,9 +9,9 @@ import 'package:ketemaa/core/models/WishListModel.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../../../core/utilities/app_colors/app_colors.dart';
-import '../../core/Provider/getData.dart';
-import '../market/presentation/collectible_details.dart';
+import '../../../../../core/utilities/app_colors/app_colors.dart';
+import '../../../core/Provider/getData.dart';
+import '../../market/presentation/collectible_details.dart';
 
 class MywishlistCard extends StatefulWidget {
   final List<Results>? list;
