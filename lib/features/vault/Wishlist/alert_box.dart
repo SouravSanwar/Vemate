@@ -1,31 +1,37 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
-import 'package:toggle_switch/toggle_switch.dart';
+import 'package:provider/provider.dart';
+import '../../../core/models/WishListModel.dart';
 
-bool? toggleValue = false;
-bool? hasDropDownValue = false;
+class ShowAlertBox extends StatefulWidget {
+  final Results? results;
 
-TextEditingController valueController = TextEditingController();
-
-class showAlertBox extends StatefulWidget {
-  const showAlertBox({Key? key}) : super(key: key);
+  const ShowAlertBox({Key? key, this.results}) : super(key: key);
 
   @override
-  _showAlertBoxState createState() => _showAlertBoxState();
+  _ShowAlertBoxState createState() => _ShowAlertBoxState();
 }
 
-class _showAlertBoxState extends State<showAlertBox> {
+class _ShowAlertBoxState extends State<ShowAlertBox> {
+  TextEditingController valueController = TextEditingController();
   String dropdownvalue = 'Price rises';
+  bool? toggleValue = false;
+  bool? hasDropDownValue = false;
 
-  // List of items in our dropdown menu
+  PostData? postData;
+  int? priceType;
 
   var items = [
+    'Price rises above',
+    'Price drops under',
     'Price rises',
     'Price drops',
   ];
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -47,24 +53,32 @@ class _showAlertBoxState extends State<showAlertBox> {
             "Alerts",
             style: TextStyle(fontSize: 22.0, color: Colors.white),
           ),
-          InkWell(
-            onTap: () {
-              printInfo(info: 'On Tapped');
-            },
-            child:  Text(
-              "Save",
-              style: TextStyle(fontSize: 18.0, color: Colors.purple),
-            ),
-          ),
+          toggleValue == true
+              ? InkWell(
+                  onTap: () {
+                    postData = Provider.of<PostData>(context, listen: false);
+                    var body = {
+                      "product": widget.results!.id,
+                      "type": 0,
+                      "price_type":priceType,
+                      "value": double.parse(valueController.text),
+                      "frequency": 5
+                    };
 
+                    postData!.createAlert(context, body);
+                  },
+                  child: Text(
+                    "Save",
+                    style: TextStyle(fontSize: 18.0, color: Colors.purple),
+                  ),
+                )
+              : Container(),
         ],
       ),
       content: Container(
           height: toggleValue == true ? 350 : 100,
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Column(
-
-
             children: [
               SizedBox(
                 height: 15,
@@ -147,90 +161,98 @@ class _showAlertBoxState extends State<showAlertBox> {
                             height: 15,
                           ),
                           TextFormField(
-                              textAlign: TextAlign.center,
-                              controller: valueController,
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 18.0),
-                              decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Colors.white, width: 1.0),
-                                  borderRadius: BorderRadius.circular(15.0),
+                            textAlign: TextAlign.center,
+                            controller: valueController,
+                            keyboardType: TextInputType.number,
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 18.0),
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.white, width: 1.0),
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.white, width: 1.0),
+                                borderRadius: BorderRadius.circular(
+                                  15.0,
                                 ),
-                                border: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Colors.white, width: 1.0),
-                                  borderRadius: BorderRadius.circular(
-                                    15.0,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Colors.white, width: 1.0),
-                                  borderRadius: BorderRadius.circular(
-                                    15.0,
-                                  ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.white, width: 1.0),
+                                borderRadius: BorderRadius.circular(
+                                  15.0,
                                 ),
                               ),
                             ),
+                          ),
                           const SizedBox(
                             height: 15,
                           ),
                           const Text(
                             "Type",
                             style:
-                            TextStyle(fontSize: 20.0, color: Colors.white),
+                                TextStyle(fontSize: 20.0, color: Colors.white),
                           ),
                           const SizedBox(
                             height: 15,
                           ),
                           DropdownButtonFormField(
-                              value: dropdownvalue,
-                              dropdownColor: AppColors.backgroundColor,
-                              decoration: InputDecoration(
-
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.grey, width: 2),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.grey, width: 2),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.grey, width: 2),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                filled: true,
-                                fillColor: AppColors.backgroundColor,
+                            value: dropdownvalue,
+                            dropdownColor: AppColors.backgroundColor,
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 2),
+                                borderRadius: BorderRadius.circular(20),
                               ),
-
-                              icon: const Icon(Icons.keyboard_arrow_down),
-                              items: items.map((String items) {
-                                return DropdownMenuItem(
-                                  value: items,
-                                  child: Text(
-                                    items,
-                                    style: TextStyle(color: Colors.white,fontSize: 18),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  dropdownvalue = newValue!;
-                                });
-                              },
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 2),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 2),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              filled: true,
+                              fillColor: AppColors.backgroundColor,
                             ),
-
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            items: items.map((String items) {
+                              return DropdownMenuItem(
+                                value: items,
+                                child: Text(
+                                  items,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                dropdownvalue = newValue!;
+                                /*'Price rises above',
+                                  'Price drops under',
+                                  'Price rises',
+                                  'Price drops',*/
+                                dropdownvalue == 'Price rises above'
+                                    ? priceType = 0
+                                    : dropdownvalue == 'Price drops under'
+                                        ? priceType = 1
+                                        : dropdownvalue == 'Price rises'
+                                            ? priceType = 2
+                                            : priceType = 3;
+                              });
+                            },
+                          ),
                         ],
                       ),
                     )
                   : Container(),
-
             ],
           )),
     );
