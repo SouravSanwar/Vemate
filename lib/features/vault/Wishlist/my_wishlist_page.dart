@@ -12,12 +12,13 @@ import 'package:ketemaa/features/controller_page/controller/controller_page_cont
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/vault/Wishlist/alert_box.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../core/models/WishListModel.dart';
+import '../../../core/models/WishListModel.dart';
 
 class WishListPage extends StatefulWidget {
   const WishListPage({Key? key}) : super(key: key);
@@ -307,6 +308,7 @@ class _WishListPageState extends State<WishListPage> {
                                                 ),
                                                 AppSpaces.spaces_height_10,
                                                 Row(
+
                                                   children: [
                                                     Expanded(
                                                       flex: 4,
@@ -336,10 +338,19 @@ class _WishListPageState extends State<WishListPage> {
                                                     const SizedBox(
                                                       width: 2,
                                                     ),
-                                                    const Expanded(
-                                                      flex: 2,
-                                                      child: Text(""),
+                                                   InkWell(
+                                                      onTap: () {
+                                                       showDialog(
+                                                            context: context,
+                                                            builder: (ctx) =>showAlertBox());
+                                                      },
+                                                      child:  Icon(
+                                                        Icons.notifications_none,
+                                                        color: AppColors.white,
+
+                                                      ),
                                                     ),
+
                                                   ],
                                                 ),
                                               ],
@@ -511,7 +522,7 @@ class _WishListPageState extends State<WishListPage> {
                                 ),
                               ),
                               Positioned(
-                                bottom: 5.0,
+                                bottom: 9.0,
                                 right: 10.0,
                                 child: InkWell(
                                   onTap: () {
@@ -522,9 +533,9 @@ class _WishListPageState extends State<WishListPage> {
                                     );
                                     printInfo(info: 'On Tapped');
                                   },
-                                  child: const Icon(
-                                    Icons.delete_forever,
-                                    color: Colors.grey,
+                                  child:  Icon(
+                                    Icons.delete,
+                                    color: AppColors.white,
                                   ),
                                 ),
                               ),
@@ -564,3 +575,4 @@ class _WishListPageState extends State<WishListPage> {
     }
   }
 }
+

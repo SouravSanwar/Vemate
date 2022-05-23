@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/network/base_client.dart';
+import 'package:ketemaa/core/network/base_controller.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
@@ -19,7 +20,7 @@ import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PostData extends ChangeNotifier {
+class PostData extends ChangeNotifier with BaseController{
   GetData? getData;
   PostData? postData;
 

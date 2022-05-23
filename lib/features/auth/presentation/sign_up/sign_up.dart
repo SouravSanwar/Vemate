@@ -22,6 +22,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   PostData? postData;
+  bool? passDigitCheck=true;
 
   @override
   void initState() {
@@ -96,8 +97,15 @@ class _SignUpState extends State<SignUp> {
                         textType: TextInputType.text,
                         controller: SignUpController.to.passwordController),
 
-                    SizedBox(
+                    Container(
+                      alignment: Alignment.topLeft,
+                      padding: const EdgeInsets.only(left: 35),
                       height: Get.height * .022,
+                      child: passDigitCheck == true
+                          ?const Text("*Min 6 characters with 1 uppercase, 1 number",
+                                style: TextStyle(color: Colors.grey,fontSize: 11),)
+                          : const Text("Password must be atleast 6 characters",
+                        style: TextStyle(color: Colors.red,fontSize: 11),),
                     ),
 
                     PasswordInputField(
@@ -122,6 +130,7 @@ class _SignUpState extends State<SignUp> {
                             Radius.circular(25.0)), // set rounded corner radius
                       ),
                       child: TextButton(
+
                         onPressed: () {
                           var body = {
                             "nickname": SignUpController.to.nameController.text,
@@ -133,24 +142,31 @@ class _SignUpState extends State<SignUp> {
                                 SignUpController.to.passwordController.text
                           };
 
-                          printInfo(info: body.toString());
 
-                          SignUpController.to.passwordController.text ==
-                                  SignUpController
-                                      .to.confirmPasswordController.text
-                              ? postData!.signUp(context, body)
-                              : Flushbar(
-                                  backgroundColor:
-                                      AppColors.lightBackgroundColor,
-                                  flushbarPosition: FlushbarPosition.BOTTOM,
-                                  isDismissible: false,
-                                  duration: const Duration(seconds: 3),
-                                  messageText: const Text(
-                                    "Password didn't match",
-                                    style: TextStyle(
-                                        fontSize: 16.0, color: Colors.red),
-                                  ),
-                                ).show(context);
+                          if(SignUpController.to.passwordController.text.length <6){
+                            passDigitCheck=false;
+
+                          }
+                          else {
+                            printInfo(info: body.toString());
+
+                            SignUpController.to.passwordController.text ==
+                                SignUpController
+                                    .to.confirmPasswordController.text
+                                ? postData!.signUp(context, body)
+                                : Flushbar(
+                              backgroundColor:
+                              AppColors.lightBackgroundColor,
+                              flushbarPosition: FlushbarPosition.BOTTOM,
+                              isDismissible: false,
+                              duration: const Duration(seconds: 3),
+                              messageText: const Text(
+                                "Password didn't match",
+                                style: TextStyle(
+                                    fontSize: 16.0, color: Colors.red),
+                              ),
+                            ).show(context);
+                          }
                         },
                         child: Text(
                           AppLanguageString.SIGN_UP.tr.toUpperCase(),

@@ -114,21 +114,6 @@ class _MarketState extends State<Market> {
                             ),
                           ),
                         ),
-                        /* InkWell(
-                        onTap: () {
-                         */ /* setState(() {
-                            filterOn = !filterOn;
-                          });
-                          data.searchCollectiblesModel = null;
-                          currentIndex == 1
-                              ? Get.to(() => const SearchCollectiblePage())
-                              : (currentIndex == 2
-                              ? Get.to(() => const SearchComicsPage())
-                              : null);*/ /*
-
-
-
-                        },*/
                         PopupMenuButton(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
@@ -196,7 +181,9 @@ class _MarketState extends State<Market> {
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
-                                ])
+                                ],
+
+                        )
                       ]),
                     ),
                   ),
@@ -305,18 +292,3 @@ class _MarketState extends State<Market> {
     );
   }
 }
-
-class Rarity {
-  final String? name;
-
-  Rarity({this.name});
-}
-
-/// Creating a global list for example purpose.
-/// Generally it should be within data class or where ever you want
-List<Rarity> rarityList = [
-  Rarity(name: "Rare"),
-  Rarity(name: "Ultra-Rare"),
-  Rarity(name: "Common"),
-  Rarity(name: "Uncommon"),
-];

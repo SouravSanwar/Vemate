@@ -2,6 +2,7 @@ import 'package:filter_list/filter_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/CheckInternet/check_internet.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
@@ -31,7 +32,6 @@ class _HomeState extends State<Home> {
   bool? dropSelected = false;
   bool? setsSelected = false;
   bool? priceSelected = false;
-
   GetData? getData;
   AppUpdate? appUpdate;
 
@@ -42,6 +42,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     // TODO: implement initState
+    //getConnection();
 
     getData = Provider.of<GetData>(context, listen: false);
 

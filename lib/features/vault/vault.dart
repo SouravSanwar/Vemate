@@ -1,19 +1,21 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/CheckInternet/check_internet.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
 import 'package:ketemaa/features/vault/vault_comics_card.dart';
-import 'package:ketemaa/features/vault/my_wishlist_page.dart';
+import 'package:ketemaa/features/vault/Wishlist/my_wishlist_page.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../core/utilities/shimmer/loading.dart';
 import 'mysets_card.dart';
-import 'mywishlist_card.dart';
+import 'Wishlist/mywishlist_card.dart';
 
 class Vault extends StatefulWidget {
   @override
@@ -33,6 +35,7 @@ class _VaultState extends State<Vault> {
 
   @override
   void initState() {
+    //getConnection();
     super.initState();
 
     getData = Provider.of<GetData>(context, listen: false);
@@ -49,7 +52,28 @@ class _VaultState extends State<Vault> {
 
     return Scaffold(
       backgroundColor: const Color(0xff272E49),
-      body: Consumer<GetData>(builder: (context, data, child) {
+      body: /*checkInternet==false? Container(
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children:  [
+            Text("No Internet Connection",style: const TextStyle(color: Colors.grey,fontSize: 20),),
+            SizedBox(
+              height: 20,
+            ),
+              IconButton(
+                icon: Icon(
+                  Icons.refresh,
+                ),
+                iconSize: 50,
+                color: Colors.grey,
+                onPressed: () {
+                  //getConnection();
+                  },
+            ),
+          ],
+        ),
+      ):*/ Consumer<GetData>(builder: (context, data, child) {
         return data.vaultStatsModel != null
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),

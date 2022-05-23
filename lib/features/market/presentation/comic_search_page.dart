@@ -45,9 +45,31 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
 
   var filterValue = Get.arguments;
 
+  String? rarityValue;
+
+
+
   @override
   void init() {
-    getData!.searchComics(rarity: filterValue[0].toString().toLowerCase());
+
+    rarityValue=filterValue[0].toString().toLowerCase();
+    getData!.searchComics(rarity: rarityValue!);
+
+    if(rarityValue=='common'){
+      common=true;
+    }
+    else if(rarityValue=='uncommon'){
+      uncommon=true;
+    }
+    else if(rarityValue=='rare'){
+      rare=true;
+    }
+    else if(rarityValue=='ultra rare'){
+      ultraRare=true;
+    }
+    else if(rarityValue=='secret rare'){
+      secretRare=true;
+    }
     print("Filter Value" + filterValue[0]);
   }
 
