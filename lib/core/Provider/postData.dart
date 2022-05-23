@@ -20,7 +20,7 @@ import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PostData extends ChangeNotifier with BaseController{
+class PostData extends ChangeNotifier with BaseController {
   GetData? getData;
   PostData? postData;
 
@@ -325,8 +325,10 @@ class PostData extends ChangeNotifier with BaseController{
     printInfo(info: body.toString());
     Map<String, dynamic> js;
 
-    final response = await http.post(Uri.parse(Urls.logIn),
-        body: json.encode(body), headers: requestHeaders);
+    final response = await http
+        .post(Uri.parse(Urls.logIn),
+            body: json.encode(body), headers: requestHeaders)
+        .catchError(handleError);
     print(response.body.toString());
     var x = json.decode(response.body);
 
@@ -818,7 +820,8 @@ class PostData extends ChangeNotifier with BaseController{
 
     printInfo(info: body.toString());
 
-    final response = await BaseClient().post(Urls.creteAlert, body);
+    final response =
+        await BaseClient().post(Urls.creteAlert, body).catchError(handleError);
 
     var data = json.decode(response);
 

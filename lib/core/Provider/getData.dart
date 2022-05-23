@@ -45,10 +45,6 @@ class GetData extends ChangeNotifier with BaseController{
 
   AlertModel? alertModel;
 
-  Map<String, String> requestToken = {
-    'Authorization': 'token ${prefs!.getString('token')}',
-  };
-
   Future getUserInfo() async {
     profileModel = null;
 
