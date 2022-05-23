@@ -43,21 +43,19 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
   bool? ultraRare = false;
   bool? secretRare = false;
 
-  var filterValue=Get.arguments;
-
-
+  var filterValue = Get.arguments;
 
   @override
-  void init(){
+  void init() {
     getData!.searchComics(rarity: filterValue[0].toString().toLowerCase());
-    print("Filter Value" +filterValue[0]);
+    print("Filter Value" + filterValue[0]);
   }
 
   @override
   void initState() {
     getData = Provider.of<GetData>(context, listen: false);
     // TODO: implement initState
-    if(filterOn==true){
+    if (filterOn == true) {
       init();
     }
 
@@ -85,33 +83,36 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
         backgroundColor: AppColors.backgroundColor,
         title: SizedBox(
           width: MediaQuery.of(context).size.width,
-          child:filterOn ==false ? TextFormField(
-            controller: searchController,
-            cursorColor: Colors.grey,
-            keyboardType: TextInputType.text,
-            style: const TextStyle(color: Colors.white),
-            decoration: const InputDecoration(
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-                contentPadding:
-                    EdgeInsets.only(left: 15, bottom: 11, top: 13, right: 15),
-                hintText: "Search Comics",
-                hintStyle: TextStyle(color: Colors.white)),
-            onChanged: (text) {
-              text = searchController.text;
-              searchText =
-                  searchController.text != '' ? searchController.text : '';
-              setState(() {
-                getData!.searchComics(keyWord: searchText!);
-              });
-            },
-            autofocus: true,
-          ):Text(filterValue[0] + " Comics",style: TextStyle(fontSize: 22)),
+          child: filterOn == false
+              ? TextFormField(
+                  controller: searchController,
+                  cursorColor: Colors.grey,
+                  keyboardType: TextInputType.text,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      contentPadding: EdgeInsets.only(
+                          left: 15, bottom: 11, top: 13, right: 15),
+                      hintText: "Search Comics",
+                      hintStyle: TextStyle(color: Colors.white)),
+                  onChanged: (text) {
+                    text = searchController.text;
+                    searchText = searchController.text != ''
+                        ? searchController.text
+                        : '';
+                    setState(() {
+                      getData!.searchComics(keyWord: searchText!);
+                    });
+                  },
+                  autofocus: true,
+                )
+              : Text(filterValue[0] + " Comics",
+                  style: TextStyle(fontSize: 22)),
         ),
-
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
         return SmartRefresher(
@@ -129,7 +130,6 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
           onLoading: _onLoading,
           child: ListView(
             children: [
-
               Container(
                 width: _width,
                 padding: const EdgeInsets.only(bottom: 10),
@@ -179,7 +179,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                               .toString()[0]
                                               .toUpperCase(),
                                           style: TextStyle(
-                                              color: AppColors.lightBackgroundColor,
+                                              color: AppColors
+                                                  .lightBackgroundColor,
                                               fontSize: 35,
                                               fontWeight: FontWeight.bold),
                                         ),
