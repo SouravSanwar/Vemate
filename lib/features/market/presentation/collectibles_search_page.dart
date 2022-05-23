@@ -523,7 +523,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
     } else if (secretRare == true) {
       getData!.searchCollectibles(rarity: 'secret rare', offset: offset);
     } else {
-      getData!.searchCollectibles(keyWord: searchText!, offset: offset);
+      getData!.searchCollectibles(offset: offset);
     }
 
     await Future.delayed(const Duration(seconds: 2));

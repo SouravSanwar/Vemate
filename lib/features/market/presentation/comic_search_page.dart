@@ -512,7 +512,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
     } else if (secretRare == true) {
       getData!.searchComics(rarity: 'secret rare', offset: offset);
     } else {
-      getData!.searchComics(keyWord: searchText!, offset: offset);
+      getData!.searchComics(offset: offset);
     }
 
     await Future.delayed(const Duration(seconds: 2));
