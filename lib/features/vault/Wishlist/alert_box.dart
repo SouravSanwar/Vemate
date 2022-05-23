@@ -58,9 +58,9 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                   onTap: () {
                     postData = Provider.of<PostData>(context, listen: false);
                     var body = {
-                      "product": widget.results!.id,
+                      "product": widget.results!.productDetail!.id,
                       "type": 0,
-                      "price_type":priceType,
+                      "price_type": priceType,
                       "value": double.parse(valueController.text),
                       "frequency": 5
                     };
