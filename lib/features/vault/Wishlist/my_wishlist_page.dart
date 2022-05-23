@@ -342,7 +342,7 @@ class _WishListPageState extends State<WishListPage> {
                                                       onTap: () {
                                                        showDialog(
                                                             context: context,
-                                                            builder: (ctx) =>showAlertBox());
+                                                            builder: (ctx) =>ShowAlertBox(results: data.wishListModel!.results![index],));
                                                       },
                                                       child:  Icon(
                                                         Icons.notifications_none,
