@@ -757,6 +757,7 @@ class PostData extends ChangeNotifier with BaseController{
             "Success",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
+      Navigator.pop(context);
     } else {
       Navigator.of(context).pop();
       Flushbar(
@@ -767,6 +768,7 @@ class PostData extends ChangeNotifier with BaseController{
             "Something went wrong",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
+      Navigator.pop(context);
     }
     notifyListeners();
   }
@@ -818,7 +820,7 @@ class PostData extends ChangeNotifier with BaseController{
 
     printInfo(info: body.toString());
 
-    final response = await BaseClient().post(Urls.creteAlert, body);
+    final response = await BaseClient().post(Urls.creteAlert, body).catchError(handleError);
 
     var data = json.decode(response);
 

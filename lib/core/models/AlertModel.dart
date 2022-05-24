@@ -37,7 +37,8 @@ class AlertModel {
 class Results {
   Results({
       this.id, 
-      this.type, 
+      this.name,
+      this.type,
       this.priceType, 
       this.value, 
       this.frequency, 
@@ -48,6 +49,7 @@ class Results {
 
   Results.fromJson(dynamic json) {
     id = json['id'];
+    name = json['name'];
     type = json['type'];
     priceType = json['price_type'];
     value = json['value'];
@@ -58,13 +60,14 @@ class Results {
     user = json['user'];
   }
   int? id;
+  String? name;
   int? type;
   int? priceType;
   double? value;
   int? frequency;
   String? creationTime;
   String? updateTime;
-  int? product;
+  var product;
   int? user;
 
   Map<String, dynamic> toJson() {

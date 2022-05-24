@@ -5,7 +5,7 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import 'package:provider/provider.dart';
-import '../../../core/models/WishListModel.dart';
+import '../../../../core/models/WishListModel.dart';
 
 class ShowAlertBox extends StatefulWidget {
   final Results? results;
@@ -19,17 +19,24 @@ class ShowAlertBox extends StatefulWidget {
 class _ShowAlertBoxState extends State<ShowAlertBox> {
   TextEditingController valueController = TextEditingController();
   String dropdownvalue = 'Price rises';
+  String dropdownvalue1 = 'Once only';
   bool? toggleValue = false;
   bool? hasDropDownValue = false;
 
   PostData? postData;
   int? priceType;
+  int? frequency;
 
   var items = [
     'Price rises above',
     'Price drops under',
     'Price rises',
     'Price drops',
+  ];
+  var items1 = [
+    'Once only',
+    'Once a day',
+    'Always',
   ];
 
   @override
@@ -58,11 +65,11 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                   onTap: () {
                     postData = Provider.of<PostData>(context, listen: false);
                     var body = {
-                      "product": widget.results!.id,
+                      "product": widget.results!.productDetail!.id,
                       "type": 0,
                       "price_type":priceType,
                       "value": double.parse(valueController.text),
-                      "frequency": 5
+                      "frequency": frequency
                     };
 
                     postData!.createAlert(context, body);
@@ -75,8 +82,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
               : Container(),
         ],
       ),
-      content: Container(
-          height: toggleValue == true ? 350 : 100,
+      content: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Column(
             children: [
@@ -151,12 +157,6 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                             style:
                                 TextStyle(fontSize: 20.0, color: Colors.white),
                           ),
-                          /*TextInputField(
-                      labelText: "",
-                      height: Get.height * .05,
-                      textType: TextInputType.number,
-                      controller: valueController,
-                    ),*/
                           SizedBox(
                             height: 15,
                           ),
@@ -235,10 +235,6 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                             onChanged: (String? newValue) {
                               setState(() {
                                 dropdownvalue = newValue!;
-                                /*'Price rises above',
-                                  'Price drops under',
-                                  'Price rises',
-                                  'Price drops',*/
                                 dropdownvalue == 'Price rises above'
                                     ? priceType = 0
                                     : dropdownvalue == 'Price drops under'
@@ -248,6 +244,69 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                             : priceType = 3;
                               });
                             },
+                          ),
+
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          const Text(
+                            "Frequency",
+                            style:
+                            TextStyle(fontSize: 20.0, color: Colors.white),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+
+                          DropdownButtonFormField(
+                            value: dropdownvalue1,
+                            dropdownColor: AppColors.backgroundColor,
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: Colors.grey, width: 2),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: Colors.grey, width: 2),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: Colors.grey, width: 2),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              filled: true,
+                              fillColor: AppColors.backgroundColor,
+                            ),
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            items: items1.map((String items1) {
+                              return DropdownMenuItem(
+                                value: items1,
+                                child: Text(
+                                  items1,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue1) {
+                              setState(() {
+                                dropdownvalue1 = newValue1!;
+                                dropdownvalue1 == 'Once only'
+                                    ? frequency = 0
+                                    : dropdownvalue1 == 'Once a day'
+                                    ? frequency = 1
+                                    :  frequency = 2;
+
+                                print(frequency);
+                              });
+                            },
+                          ),
+
+                          const SizedBox(
+                            height: 25,
                           ),
                         ],
                       ),
