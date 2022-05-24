@@ -517,10 +517,6 @@ class PostData extends ChangeNotifier with BaseController {
     }
     var x = json.decode(response.body);
 
-    Map<String, String> requestToken = {
-      'Authorization': 'token ${prefs!.getString('token')}',
-    };
-
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
         response.statusCode == 403 ||
@@ -595,57 +591,29 @@ class PostData extends ChangeNotifier with BaseController {
     var x = json.decode(response.body);
     printInfo(info: x.toString());
 
-    if (response.statusCode == 200 ||
-        response.statusCode == 401 ||
-        response.statusCode == 403 ||
-        response.statusCode == 500 ||
-        response.statusCode == 201) {
-      try {
-        Map<String, dynamic> js = x;
-        if (js.containsKey('status_2fa')) {
-          getData = Provider.of<GetData>(context, listen: false);
+    Map<String, dynamic> js = x;
+    if (js.containsKey('status_2fa')) {
+      getData = Provider.of<GetData>(context, listen: false);
 
-          Navigator.of(context).pop();
+      Navigator.of(context).pop();
 
-          Flushbar(
-              flushbarPosition: FlushbarPosition.BOTTOM,
-              isDismissible: false,
-              duration: const Duration(seconds: 3),
-              messageText: Text(
-                js['msg'].toString(),
-                style: const TextStyle(fontSize: 16.0, color: Colors.green),
-              )).show(context);
-        } else {
-          Navigator.of(context).pop();
-
-          Flushbar(
-              flushbarPosition: FlushbarPosition.BOTTOM,
-              isDismissible: false,
-              duration: const Duration(seconds: 3),
-              messageText: const Text(
-                "Invalid Information",
-                style: TextStyle(fontSize: 16.0, color: Colors.green),
-              )).show(context);
-        }
-      } catch (e) {
-        Navigator.of(context).pop();
-        Flushbar(
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            isDismissible: false,
-            duration: const Duration(seconds: 3),
-            messageText: const Text(
-              "Something went wrong",
-              style: TextStyle(fontSize: 16.0, color: Colors.green),
-            )).show(context);
-      }
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: Text(
+            js['msg'].toString(),
+            style: const TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
     } else {
       Navigator.of(context).pop();
+
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
           duration: const Duration(seconds: 3),
           messageText: const Text(
-            "Something went wrong",
+            "Invalid Information",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }
@@ -661,14 +629,16 @@ class PostData extends ChangeNotifier with BaseController {
 
     printInfo(info: body.toString());
 
-    final response = await http.post(Uri.parse(Urls.commonStorage),
-        body: json.encode(body), headers: requestHeadersWithToken);
-    print(response.body.toString());
-    var x = json.decode(response.body);
 
-    printInfo(info: requestHeadersWithToken.toString());
+    final response = await BaseClient().post(Urls.commonStorage, body);
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
+    print(response.toString());
+
+    var data = json.decode(response);
+
+    Map<String, dynamic> js = data;
+
+    if (js.containsKey('id')) {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.checkWishlist(id!);
       Navigator.of(context).pop();
@@ -687,7 +657,7 @@ class PostData extends ChangeNotifier with BaseController {
           isDismissible: false,
           duration: const Duration(seconds: 3),
           messageText: Text(
-            x["detail"],
+            js["detail"],
             style: const TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }
@@ -703,12 +673,18 @@ class PostData extends ChangeNotifier with BaseController {
 
     printInfo(info: body.toString());
 
-    final response = await http.post(Uri.parse(Urls.commonStorage),
-        body: json.encode(body), headers: requestHeadersWithToken);
-    print(response.body.toString());
-    var x = json.decode(response.body);
+    final response = await BaseClient().post(Urls.commonStorage, body);
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
+    /*final response = await http.post(Uri.parse(Urls.commonStorage),
+        body: json.encode(body), headers: requestHeadersWithToken);*/
+
+    print(response.toString());
+
+    var data = json.decode(response);
+
+    Map<String, dynamic> js = data;
+
+    if (js.containsKey('id')) {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.checkSetList(id!);
       Navigator.of(context).pop();

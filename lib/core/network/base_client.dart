@@ -24,7 +24,7 @@ class BaseClient {
           HttpHeaders.contentTypeHeader: 'application/json',
           HttpHeaders.acceptHeader: 'application/json',
         },
-      ) /*.timeout(const Duration(seconds: TIME_OUT_DURATION))*/;
+      ) .timeout(const Duration(seconds: TIME_OUT_DURATION));
       printInfo(info: uri.toString() + '+ token ${prefs!.getString('token')}');
 
       return _processResponse(response);
@@ -73,7 +73,7 @@ class BaseClient {
         'Authorization': 'token ${prefs!.getString('token')}',
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.acceptHeader: 'application/json',
-      }) /*.timeout(const Duration(seconds: TIME_OUT_DURATION))*/;
+      }).timeout(const Duration(seconds: TIME_OUT_DURATION));
       printInfo(info: uri.toString() + '+ token ${prefs!.getString('token')}');
 
       return _processResponse(response);
@@ -104,7 +104,7 @@ class BaseClient {
       case 401:
       case 404:
         throw FetchDataException(
-          'Opps! Page Not found',
+          'Oops! Page Not found',
           response.request!.url.toString(),
         );
       case 403:
@@ -118,7 +118,7 @@ class BaseClient {
             'Internal Server Error', response.request!.url.toString());
       default:
         throw FetchDataException(
-            'Error occured with code : ${response.statusCode}',
+            'Error occurs with code : ${response.statusCode}',
             response.request!.url.toString());
     }
   }

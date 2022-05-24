@@ -340,26 +340,6 @@ class _ProfileState extends State<Profile> {
 
                         Get.offAll(() => const AuthInitialPage());
                       }),
-
-                      InkWell(
-                        onTap: () {
-                          postData =
-                              Provider.of<PostData>(context, listen: false);
-                          var body = {
-                            "product": 1094,
-                            "type": 0,
-                            "price_type": 3,
-                            "value": 2.5,
-                            "frequency": 5
-                          };
-
-                          postData!.createAlert(context, body);
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('Check'),
-                        ),
-                      ),
                     ],
                   ),
                 ),
