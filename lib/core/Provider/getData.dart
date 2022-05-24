@@ -149,6 +149,7 @@ class GetData extends ChangeNotifier with BaseController{
         .get(Urls.singleProduct + '$id?graph_type=$graphType').catchError(handleError);
 
     printInfo(info: Urls.singleProduct + '$id?graph_type=$graphType');
+    printInfo(info: response);
 
     var data = json.decode(response.toString());
 

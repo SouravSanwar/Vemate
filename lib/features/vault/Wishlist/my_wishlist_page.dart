@@ -1,4 +1,5 @@
 import 'package:filter_list/filter_list.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
@@ -12,7 +13,8 @@ import 'package:ketemaa/features/controller_page/controller/controller_page_cont
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
-import 'package:ketemaa/features/vault/Wishlist/alert_box.dart';
+import 'package:ketemaa/features/vault/Wishlist/alert/alertItems.dart';
+import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -64,9 +66,25 @@ class _WishListPageState extends State<WishListPage> {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         elevation: 1.0,
-        title: Text(
-          'My Wishlist',
-          style: Get.textTheme.headline2!.copyWith(color: Colors.white),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'My Wishlist',
+              style: Get.textTheme.headline2!.copyWith(color: Colors.white),
+            ),
+
+            InkWell(
+              onTap: () {
+                Get.to(() => const AlertListPage());
+              },
+              child:  Icon(
+                Icons.alarm_on,
+                color: AppColors.white,
+              ),
+            )
+
+          ],
         ),
         backgroundColor: AppColors.backgroundColor,
       ),
@@ -526,12 +544,45 @@ class _WishListPageState extends State<WishListPage> {
                                 right: 10.0,
                                 child: InkWell(
                                   onTap: () {
-                                    postData!.deleteWishlist(
-                                      context,
-                                      data.wishListModel!.results![index].id,
-                                      requestHeadersWithToken,
-                                    );
-                                    printInfo(info: 'On Tapped');
+
+                                      showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                      return AlertDialog(
+                                        backgroundColor: AppColors.backgroundColor,
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                              20.0,
+                                            ),
+                                          ),
+                                        ),
+                                      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+                                      titlePadding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                                      title: Text(data.wishListModel!.results![index].productDetail!.name.toString(),style: TextStyle(color: Colors.white,fontSize: 20),),
+                                      content: Text('Do you really want to delete this item?',style: TextStyle(color: Colors.white,fontSize: 15),),
+                                      actions: <Widget>[
+                                      TextButton(
+                                      onPressed: () {
+
+                                              postData!.deleteWishlist(
+                                              context,
+                                              data.wishListModel!.results![index].id,
+                                              requestHeadersWithToken,
+                                              );
+
+                                              /*Navigator.pop(context);*/
+                                      },
+                                      child: Text('Yes',style: TextStyle(color: Colors.red),)),
+                                      TextButton(
+                                      onPressed: () {
+                                      Navigator.pop(context); //close Dialog
+                                      },
+                                      child: Text('Close',style: TextStyle(color: Colors.white),),
+                                      )
+                                      ],
+                                      );
+                                      });
                                   },
                                   child:  Icon(
                                     Icons.delete,

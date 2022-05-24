@@ -759,6 +759,7 @@ class PostData extends ChangeNotifier with BaseController {
             "Success",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
+      Navigator.pop(context);
     } else {
       Navigator.of(context).pop();
       Flushbar(
@@ -769,6 +770,7 @@ class PostData extends ChangeNotifier with BaseController {
             "Something went wrong",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
+      Navigator.pop(context);
     }
     notifyListeners();
   }
