@@ -7,7 +7,7 @@ class BackPreviousScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
               padding: EdgeInsets.symmetric(
-                  horizontal: Get.width * .03),
+                  horizontal: Get.width * .045),
               alignment: Alignment.topLeft,
               child:InkWell(
                 onTap: () {

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -10,26 +11,38 @@ class DialogHelper {
       {String title = 'Error', String? description = 'Something went wrong'}) {
     Get.dialog(
       Dialog(
-        clipBehavior: Clip.antiAlias,
+        backgroundColor: AppColors.backgroundColor,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              20.0,
+            ),
+          ),
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               decoration: BoxDecoration(
-                color: AppColors.primaryColor,
+                gradient: AppColors.graphGradient,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0,),
+                  topRight: Radius.circular(20.0,),
+                ),
               ),
+
               width: Get.width,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    FaIcon(
+                    const FaIcon(
                       FontAwesomeIcons.sadTear,
                       color: Colors.white,
-                      size: 13,
+                      size: 20,
                     ),
-                    AppSpaces.spaces_height_10,
-                    Text(title),
+                    AppSpaces.spaces_height_5,
+                    Text(title,style: TextStyle(color: Colors.white,fontSize: 20)),
                   ],
                 ),
               ),
@@ -42,20 +55,29 @@ class DialogHelper {
                   children: [
                     Text(
                       description ?? '',
-                      style: Get.textTheme.subtitle2,
+                      style: TextStyle(color: Colors.white,fontSize: 15),
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
-                        minimumSize: Size.zero,
-                        padding: EdgeInsets.only(
-                            left: 10, right: 10, top: 5, bottom: 5),
+
+                    SizedBox(
+                      height: 15,
+                    ),
+
+                    Container(
+                      height: Get.height*.05,
+                      width: Get.width*.25,
+                      decoration: BoxDecoration(
+                        gradient: AppColors.purpleGradient, // set border width
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(20.0)), // set rounded corner radius
                       ),
-                      onPressed: () {
-                        if (Get.isDialogOpen!) Get.back();
-                      },
-                      child: Text('Okay'),
-                    ),
+                      child: TextButton(
+                        onPressed: () {
+                          if (Get.isDialogOpen!) Get.back();
+                        },
+                        child:  Text('Okay',style: TextStyle(color: Colors.white,fontSize: 20),),
+                      ),
+                    )
+
                   ],
                 ),
               ),

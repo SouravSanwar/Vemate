@@ -6,8 +6,10 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
+import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_2fa.dart';
 import 'package:ketemaa/features/auth/reset_pass/forgot_pass.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
@@ -52,6 +54,7 @@ class _Verify2FAState extends State<Verify2FA> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              BackPreviousScreen(),
               SizedBox(
                 height: Get.height * .07,
               ),
@@ -87,34 +90,25 @@ class _Verify2FAState extends State<Verify2FA> {
                   const SizedBox(
                     height: 40,
                   ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    padding: const EdgeInsets.symmetric(horizontal: 7),
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.purpleGradient, // set border width
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(25.0)), // set rounded corner radius
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        var body = {
-                          "email": emailController.text,
-                          "reason": "verify",
-                        };
-                        postData!.resendCode(context, body).whenComplete(
-                              () => Get.to(
-                                () => const SignIn2FA(),
-                              ),
-                            );
-                      },
-                      child: Text(
-                        'Send Code'.toUpperCase(),
-                        style:
-                            Get.textTheme.button!.copyWith(color: Colors.white),
-                      ),
-                    ),
+
+                  CustomButtons(
+                    width: Get.width*.9,
+                    height: Get.height * .065,
+                    onTap: () {
+                      var body = {
+                        "email": emailController.text,
+                        "reason": "verify",
+                      };
+                      postData!.resendCode(context, body).whenComplete(
+                            () => Get.to(
+                              () => const SignIn2FA(),
+                        ),
+                      );
+                    },
+                    text: 'Send Code'.toUpperCase(),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white),
                   ),
+
                   const SizedBox(
                     height: 70,
                   ),

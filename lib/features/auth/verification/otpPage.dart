@@ -6,6 +6,7 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/main.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
@@ -213,52 +214,40 @@ class _OtpPageState extends State<OtpPage> {
                 ],
               ),
               const SizedBox(
-                height: 14,
+                height: 15,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  gradient: AppColors.purpleGradient, // set border width
-                  borderRadius: const BorderRadius.all(
-                      Radius.circular(25.0)), // set rounded corner radius
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomButtons(
+                  width: Get.width*.9,
+                  height: Get.height * .065,
+                  onTap: () {
+                    formKey.currentState!.validate();
+                    if (currentText.length != 6) {
+                      errorController!.add(ErrorAnimationType.shake);
+                      setState(() => hasError = true);
+                    } else {
+                      setState(
+                            () {
+                          hasError = false;
+
+                          var body = {
+                            "email": "${prefs!.getString('email')}",
+                            "code": currentText
+                          };
+
+                          printInfo(info: body.toString());
+
+                          postData!.verifyCode(context, body);
+                        },
+                      );
+                    }
+                  },
+                  text: "VERIFY".toUpperCase(),
+                  style: Get.textTheme.button!.copyWith(color: Colors.white),
                 ),
-                margin: EdgeInsets.symmetric(horizontal: 15),
-                padding: EdgeInsets.symmetric(horizontal: 7),
-                child: ButtonTheme(
-                  height: 50,
-                  child: TextButton(
-                    onPressed: () {
-                      formKey.currentState!.validate();
-                      if (currentText.length != 6) {
-                        errorController!.add(ErrorAnimationType.shake);
-                        setState(() => hasError = true);
-                      } else {
-                        setState(
-                          () {
-                            hasError = false;
-
-                            var body = {
-                              "email": "${prefs!.getString('email')}",
-                              "code": currentText
-                            };
-
-                            printInfo(info: body.toString());
-
-                            postData!.verifyCode(context, body);
-                          },
-                        );
-                      }
-                    },
-                    child: Center(
-                        child: Text(
-                      "VERIFY".toUpperCase(),
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    )),
-                  ),
-                ),
-              ),
+              )
 
               /* Row(
                 mainAxisAlignment: MainAxisAlignment.center,

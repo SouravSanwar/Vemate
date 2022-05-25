@@ -13,7 +13,9 @@ import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart'
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
+import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,6 +61,7 @@ class _SignIn2FAState extends State<SignIn2FA> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              BackPreviousScreen(),
               SizedBox(
                 height: Get.height * .07,
               ),
@@ -111,30 +114,21 @@ class _SignIn2FAState extends State<SignIn2FA> {
                   SizedBox(
                     height: Get.height * .07,
                   ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    padding: const EdgeInsets.symmetric(horizontal: 7),
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.purpleGradient, // set border width
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(25.0)), // set rounded corner radius
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        var body = {
-                          "username": emailController.text,
-                          "code": int.parse(codeController.text),
-                          "password": passController.text
-                        };
-                        logInWith2FA(context, body);
-                      },
-                      child: Text(
-                        AppLanguageString.lOG_IN.tr.toUpperCase(),
-                        style:
-                            Get.textTheme.button!.copyWith(color: Colors.white),
-                      ),
-                    ),
+
+
+                  CustomButtons(
+                    width: Get.width*.9,
+                    height: Get.height * .065,
+                    onTap: () {
+                      var body = {
+                        "username": emailController.text,
+                        "code": int.parse(codeController.text),
+                        "password": passController.text
+                      };
+                      logInWith2FA(context, body);
+                    },
+                    text: AppLanguageString.lOG_IN.tr.toUpperCase(),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white),
                   )
                 ],
               ),

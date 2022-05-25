@@ -5,12 +5,12 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/_controller/sign_up_controller.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
@@ -120,61 +120,51 @@ class _SignUpState extends State<SignUp> {
                       height: Get.height * .07,
                     ),
 
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
-                      padding: EdgeInsets.symmetric(horizontal: 7),
-                      width: Get.width,
-                      decoration: BoxDecoration(
-                        gradient: AppColors.purpleGradient, // set border width
-                        borderRadius: const BorderRadius.all(
-                            Radius.circular(25.0)), // set rounded corner radius
-                      ),
-                      child: TextButton(
 
-                        onPressed: () {
-                          var body = {
-                            "nickname": SignUpController.to.nameController.text,
-                            "email": SignUpController.to.emailController.text,
-                            "gender": "0",
-                            "birth_year": "1852",
-                            "fcm_device_id": "3",
-                            "password":
-                                SignUpController.to.passwordController.text
-                          };
+                    CustomButtons(
+                      width: Get.width*.9,
+                      height: Get.height * .065,
+                      onTap: () {
+
+                        var body = {
+                          "nickname": SignUpController.to.nameController.text,
+                          "email": SignUpController.to.emailController.text,
+                          "gender": "0",
+                          "birth_year": "1852",
+                          "fcm_device_id": "3",
+                          "password":
+                          SignUpController.to.passwordController.text
+                        };
 
 
-                          if(SignUpController.to.passwordController.text.length <6){
-                            passDigitCheck=false;
+                        if(SignUpController.to.passwordController.text.length <6){
+                          passDigitCheck=false;
 
-                          }
-                          else {
-                            printInfo(info: body.toString());
+                        }
+                        else {
+                          printInfo(info: body.toString());
 
-                            SignUpController.to.passwordController.text ==
-                                SignUpController
-                                    .to.confirmPasswordController.text
-                                ? postData!.signUp(context, body)
-                                : Flushbar(
-                              backgroundColor:
-                              AppColors.lightBackgroundColor,
-                              flushbarPosition: FlushbarPosition.BOTTOM,
-                              isDismissible: false,
-                              duration: const Duration(seconds: 3),
-                              messageText: const Text(
-                                "Password didn't match",
-                                style: TextStyle(
-                                    fontSize: 16.0, color: Colors.red),
-                              ),
-                            ).show(context);
-                          }
-                        },
-                        child: Text(
-                          AppLanguageString.SIGN_UP.tr.toUpperCase(),
-                          style: Get.textTheme.button!
-                              .copyWith(color: Colors.white),
-                        ),
-                      ),
-                    ),
+                          SignUpController.to.passwordController.text ==
+                              SignUpController
+                                  .to.confirmPasswordController.text
+                              ? postData!.signUp(context, body)
+                              : Flushbar(
+                            backgroundColor:
+                            AppColors.lightBackgroundColor,
+                            flushbarPosition: FlushbarPosition.BOTTOM,
+                            isDismissible: false,
+                            duration: const Duration(seconds: 3),
+                            messageText: const Text(
+                              "Password didn't match",
+                              style: TextStyle(
+                                  fontSize: 16.0, color: Colors.red),
+                            ),
+                          ).show(context);
+                        }
+                      },
+                      text: AppLanguageString.SIGN_UP.tr.toUpperCase(),
+                      style: Get.textTheme.button!.copyWith(color: Colors.white),
+                    )
                   ],
                 ),
               ],

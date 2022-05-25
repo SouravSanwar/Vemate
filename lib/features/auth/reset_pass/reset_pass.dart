@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/reset_pass/forgot_pass.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:provider/provider.dart';
 
 import '../../../app_routes/app_routes.dart';
@@ -81,34 +82,25 @@ class _ResetPassState extends State<ResetPass> {
                   const SizedBox(
                     height: 40,
                   ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    padding: const EdgeInsets.symmetric(horizontal: 7),
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.purpleGradient, // set border width
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(25.0)), // set rounded corner radius
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        var body = {
-                          "email": emailController.text,
-                          "reason": "forget_password",
-                        };
-                        postData!.resendCode(context, body).whenComplete(
-                              () => Get.to(
-                                () => const ForgotPassword(),
-                              ),
-                            );
-                      },
-                      child: Text(
-                        'Send Code'.toUpperCase(),
-                        style:
-                            Get.textTheme.button!.copyWith(color: Colors.white),
-                      ),
-                    ),
+
+                  CustomButtons(
+                    width: Get.width*.9,
+                    height: Get.height * .065,
+                    onTap: () {
+                      var body = {
+                        "email": emailController.text,
+                        "reason": "forget_password",
+                      };
+                      postData!.resendCode(context, body).whenComplete(
+                            () => Get.to(
+                              () => const ForgotPassword(),
+                        ),
+                      );
+                    },
+                    text: 'Send Code'.toUpperCase(),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white),
                   ),
+
                   const SizedBox(
                     height: 70,
                   ),

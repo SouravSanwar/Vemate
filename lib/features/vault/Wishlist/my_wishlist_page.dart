@@ -356,18 +356,24 @@ class _WishListPageState extends State<WishListPage> {
                                                     const SizedBox(
                                                       width: 2,
                                                     ),
-                                                   InkWell(
-                                                      onTap: () {
-                                                       showDialog(
-                                                            context: context,
-                                                            builder: (ctx) =>ShowAlertBox(results: data.wishListModel!.results![index],));
-                                                      },
-                                                      child:  Icon(
-                                                        Icons.notifications_none,
-                                                        color: AppColors.white,
+                                                   Expanded(
+                                                     flex: 2,
+                                                     child:InkWell(
 
-                                                      ),
-                                                    ),
+                                                       onTap: () {
+                                                         showDialog(
+                                                             context: context,
+                                                             builder: (ctx) =>ShowAlertBox(results: data.wishListModel!.results![index],));
+                                                       },
+                                                       child:  Container(
+                                                         child: Icon(
+                                                           Icons.notifications_none,
+                                                           color: AppColors.white,
+
+                                                         ),
+                                                       )
+                                                     ),
+                                                   )
 
                                                   ],
                                                 ),
@@ -570,8 +576,6 @@ class _WishListPageState extends State<WishListPage> {
                                               data.wishListModel!.results![index].id,
                                               requestHeadersWithToken,
                                               );
-
-                                              /*Navigator.pop(context);*/
                                       },
                                       child: Text('Yes',style: TextStyle(color: Colors.red),)),
                                       TextButton(
