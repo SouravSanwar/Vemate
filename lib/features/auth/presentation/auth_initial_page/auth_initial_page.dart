@@ -8,6 +8,7 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
@@ -108,37 +109,25 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   SizedBox(
                     height: Get.height * .022,
                   ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    padding: const EdgeInsets.symmetric(horizontal: 7),
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.purpleGradient, // set border width
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(25.0)), // set rounded corner radius
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        var body = {
-                          "username": SigninController
-                              .to.userNameTextFiledController.text,
-                          "password": SigninController
-                              .to.passwordTextFiledController.text,
-                        };
-                        //getConnection();
 
-                        setState(() {
+                  CustomButtons(
+                    width: Get.width*.9,
+                    height: Get.height * .065,
+                    onTap: () {
+                      var body = {
+                        "username": SigninController
+                            .to.userNameTextFiledController.text,
+                        "password": SigninController
+                            .to.passwordTextFiledController.text,
+                      };
+                      //getConnection();
+                      setState(() {
+                        postData!.logIn(context, body);
+                      });
 
-
-                          postData!.logIn(context, body);
-                        });
-                      },
-                      child: Text(
-                        AppLanguageString.lOG_IN.tr.toUpperCase(),
-                        style:
-                            Get.textTheme.button!.copyWith(color: Colors.white),
-                      ),
-                    ),
+                    },
+                    text: AppLanguageString.lOG_IN.tr.toUpperCase(),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white),
                   )
                 ],
               ),

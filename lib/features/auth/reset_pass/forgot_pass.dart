@@ -8,6 +8,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:provider/provider.dart';
 import '../presentation/sign_in/_controller/sign_in_controller.dart';
 
@@ -96,31 +97,20 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   SizedBox(
                     height: Get.height * .07,
                   ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    padding: const EdgeInsets.symmetric(horizontal: 7),
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.purpleGradient, // set border width
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(25.0)), // set rounded corner radius
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        var body = {
-                          "email": emailController.text,
-                          "code": codeController.text,
-                          "password": passController.text
-                        };
+                  CustomButtons(
+                    width: Get.width*.9,
+                    height: Get.height * .065,
+                    onTap: () {
+                      var body = {
+                        "email": emailController.text,
+                        "code": codeController.text,
+                        "password": passController.text
+                      };
 
-                        postData!.forgotPassword(context, body);
-                      },
-                      child: Text(
-                        AppLanguageString.UPDATE_Pass.tr.toUpperCase(),
-                        style:
-                            Get.textTheme.button!.copyWith(color: Colors.white),
-                      ),
-                    ),
+                      postData!.forgotPassword(context, body);
+                    },
+                    text: AppLanguageString.UPDATE_Pass.tr.toUpperCase(),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white),
                   )
                 ],
               ),

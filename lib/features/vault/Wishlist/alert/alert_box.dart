@@ -60,26 +60,6 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
             "Alerts",
             style: TextStyle(fontSize: 22.0, color: Colors.white),
           ),
-          toggleValue == true
-              ? InkWell(
-                  onTap: () {
-                    postData = Provider.of<PostData>(context, listen: false);
-                    var body = {
-                      "product": widget.results!.productDetail!.id,
-                      "type": 0,
-                      "price_type":priceType,
-                      "value": double.parse(valueController.text),
-                      "frequency": frequency
-                    };
-
-                    postData!.createAlert(context, body);
-                  },
-                  child: Text(
-                    "Save",
-                    style: TextStyle(fontSize: 18.0, color: Colors.purple),
-                  ),
-                )
-              : Container(),
         ],
       ),
       content: SingleChildScrollView(
@@ -119,16 +99,8 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                   toggleValue = !toggleValue!;
                                 });
                               },
-                              child: AnimatedSwitcher(
-                                duration: Duration(milliseconds: 100),
-                                transitionBuilder: (Widget child,
-                                    Animation<double> animation) {
-                                  return RotationTransition(
-                                    child: child,
-                                    turns: animation,
-                                  );
-                                },
-                                child: Container(
+                              child:  Container(
+                                alignment: toggleValue == true ?Alignment.centerLeft :Alignment.centerLeft ,
                                   height: 25,
                                   width: 30,
                                   decoration: BoxDecoration(
@@ -136,7 +108,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                     borderRadius: BorderRadius.circular(25.0),
                                   ),
                                 ),
-                              ),
+
                             ))
                       ],
                     ),
@@ -305,6 +277,31 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                             },
                           ),
 
+                          const SizedBox(
+                            height: 25,
+                          ),
+                          Container(
+                            alignment: Alignment.bottomRight,
+                            child: InkWell(
+                              onTap: () {
+                                postData = Provider.of<PostData>(context, listen: false);
+                                var body = {
+                                  "product": widget.results!.productDetail!.id,
+                                  "type": 0,
+                                  "price_type":priceType,
+                                  "value": double.parse(valueController.text),
+                                  "frequency": frequency
+                                };
+
+                                postData!.createAlert(context, body);
+                              },
+                              child: Text(
+                                "Save",
+                                style: TextStyle(fontSize: 18.0, color: Colors.purpleAccent),
+                              ),
+
+                            ),
+                          ),
                           const SizedBox(
                             height: 25,
                           ),

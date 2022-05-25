@@ -9,7 +9,9 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/Provider/postFile.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
+import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/profile/_controller/profile_controller.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/graph/designhelper.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
@@ -70,25 +72,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
           padding: EdgeInsets.zero,
           physics: const BouncingScrollPhysics(),
           children: [
-            AppSpaces.spaces_height_30,
-            Padding(
-              padding: EdgeInsets.only(
-                left: AppDimension.padding_8,
-                right: AppDimension.padding_8,
-              ),
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: Shader(
-                      icon: const Icon(Icons.arrow_back),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            AppSpaces.spaces_height_40,
+            BackPreviousScreen(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -164,39 +149,29 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   SizedBox(
                     height: Get.height * .07,
                   ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    padding: const EdgeInsets.symmetric(horizontal: 7),
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.purpleGradient, // set border width
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(25.0)), // set rounded corner radius
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        var body = {
-                          "nickname": ProfileController
-                              .to.userNameTextFiledController.text,
-                          "email":
-                              ProfileController.to.emailTextFiledController.text
-                        };
 
-                        Map<String, String> requestHeadersWithToken = {
-                          'Content-type': 'application/json',
-                          'Accept': 'application/json',
-                          'Authorization': 'token ${prefs!.getString('token')}',
-                        };
-                        postData!.updateProfile(
-                            context, body, requestHeadersWithToken);
-                      },
-                      child: Text(
-                        AppLanguageString.UPDATE_INFO.toUpperCase(),
-                        style:
-                            Get.textTheme.button!.copyWith(color: Colors.white),
-                      ),
-                    ),
-                  ),
+                  CustomButtons(
+                    width: Get.width*.8,
+                    height: Get.height * .065,
+                    onTap: ()  {
+                      var body = {
+                        "nickname": ProfileController
+                            .to.userNameTextFiledController.text,
+                        "email":
+                        ProfileController.to.emailTextFiledController.text
+                      };
+
+                      Map<String, String> requestHeadersWithToken = {
+                        'Content-type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'token ${prefs!.getString('token')}',
+                      };
+                      postData!.updateProfile(
+                          context, body, requestHeadersWithToken);
+                    },
+                    text: AppLanguageString.UPDATE_INFO.toUpperCase(),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white),
+                  )
                 ],
               ),
             )

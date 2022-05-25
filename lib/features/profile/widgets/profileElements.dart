@@ -5,60 +5,6 @@ import 'package:ketemaa/features/profile/_controller/shader.dart';
 
 import '../presentation/edit_profile_page.dart';
 
-class ProfileDetailsDivider extends StatelessWidget {
-  const ProfileDetailsDivider({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AppSpaces.spaces_height_5,
-        Divider(
-          color: AppColors.greyWhite,
-          thickness: 1.0,
-        ),
-        AppSpaces.spaces_height_5,
-      ],
-    );
-  }
-}
-
-class ProfileItem extends StatelessWidget {
-  final Icon? icon;
-  final Image? image;
-  final Text? text;
-
-  const ProfileItem({Key? key,
-    this.icon,
-    this.image,
-    this.text,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Row(
-        children: [
-          Image.asset(
-            'assets/media/image/edit.png',
-            height: 25,
-            width: 25,
-            color: Colors.white,
-          ),
-          AppSpaces.spaces_width_10,
-          const Text(
-            'Profile Edit',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
-          ),
-          const Spacer(),
-          const Icon(Icons.navigate_next)
-        ],
-      ),
-    );
-  }
-}
-
 class CustomProfileElements extends StatelessWidget {
   final IconData? icon;
   final String? text;
@@ -70,7 +16,7 @@ class CustomProfileElements extends StatelessWidget {
   Widget build(BuildContext context) {
     //ToDO
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
       child: InkWell(
           onTap: onTap,
           splashColor: Colors.orangeAccent,
