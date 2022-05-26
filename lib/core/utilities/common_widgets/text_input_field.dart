@@ -29,10 +29,10 @@ class _TextInputFieldState extends State<TextInputField> {
   Widget build(BuildContext context) {
     emailisValid = EmailValidator.validate(widget.controller.text);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
-        color: Color(0xff2F3758),
+        color: const Color(0xff2F3758),
         border: Border.all(
             color: AppColors.grey, // set border color
             width: 1.5), // set border width
@@ -41,7 +41,7 @@ class _TextInputFieldState extends State<TextInputField> {
       ),
       child: widget.controller == 'emailController'
           ? TextFormField(
-              style: TextStyle(color: Colors.white, fontSize: 18.0),
+              style: const TextStyle(color: Colors.white, fontSize: 18.0),
               key: _formKey,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -56,18 +56,18 @@ class _TextInputFieldState extends State<TextInputField> {
               },
               controller: widget.controller,
               decoration: InputDecoration(
-                errorText: emailisValid==false? 'This field is required.' : null,
+                errorText:
+                    emailisValid == false ? 'This field is required.' : null,
                 border: InputBorder.none,
               ),
               keyboardType: widget.textType,
             )
           : TextField(
-
-              style: TextStyle(color: Colors.white, fontSize: 18.0),
+              style: const TextStyle(color: Colors.white, fontSize: 18.0),
               controller: widget.controller,
               decoration: InputDecoration(
                 hintText: widget.labelText,
-                hintStyle: TextStyle( fontSize: 15),
+                hintStyle: const TextStyle(fontSize: 15),
                 border: InputBorder.none,
               ),
               keyboardType: widget.textType,
