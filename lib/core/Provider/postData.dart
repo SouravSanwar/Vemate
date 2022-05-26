@@ -13,7 +13,6 @@ import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_2fa.dart';
-import 'package:ketemaa/features/auth/presentation/sign_in/verify_2fa.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/main.dart';
@@ -24,7 +23,6 @@ class PostData extends ChangeNotifier with BaseController {
   GetData? getData;
   PostData? postData;
 
-  String? token;
   Map<String, String> requestHeaders = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
@@ -322,17 +320,12 @@ class PostData extends ChangeNotifier with BaseController {
         barrierDismissible: false,
         builder: (_) => const LoadingExample());
 
-    printInfo(info: body.toString());
-    Map<String, dynamic> js;
+    final response =
+        await BaseClient().post(Urls.logIn, body).catchError(handleError);
 
-    final response = await http
-        .post(Uri.parse(Urls.logIn),
-            body: json.encode(body), headers: requestHeaders)
-        .catchError(handleError);
-    print(response.body.toString());
-    var x = json.decode(response.body);
+    var x = json.decode(response);
 
-    js = x;
+    Map<String, dynamic> js = x;
 
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
@@ -420,57 +413,25 @@ class PostData extends ChangeNotifier with BaseController {
         barrierDismissible: false,
         builder: (_) => const LoadingExample());
 
-    printInfo(info: body.toString());
-    printInfo(info: Urls.logInWith2FA.toString());
+    final response = await BaseClient()
+        .post(Urls.logInWith2FA, body)
+        .catchError(handleError);
 
-    final response = await http.post(Uri.parse(Urls.logInWith2FA),
-        body: json.encode(body), headers: requestHeaders);
-    var x = json.decode(response.body);
+    var x = json.decode(response);
     Map<String, dynamic> js = x;
 
-    if (response.statusCode == 200 ||
-        response.statusCode == 401 ||
-        response.statusCode == 403 ||
-        response.statusCode == 500 ||
-        response.statusCode == 201) {
-      try {
-        if (js['is_email_verified'] == true) {
-          prefs = await SharedPreferences.getInstance();
-          Store(js, context);
+    if (js['is_email_verified'] == true) {
+      prefs = await SharedPreferences.getInstance();
+      Store(js, context);
 
-          //Get.to(() => ControllerPage());
-
-          Flushbar(
-              flushbarPosition: FlushbarPosition.BOTTOM,
-              isDismissible: false,
-              duration: const Duration(seconds: 3),
-              messageText: const Text(
-                "Login Successful",
-                style: TextStyle(fontSize: 16.0, color: Colors.green),
-              )).show(context);
-        } else {
-          Navigator.of(context).pop();
-
-          Flushbar(
-              flushbarPosition: FlushbarPosition.BOTTOM,
-              isDismissible: false,
-              duration: const Duration(seconds: 3),
-              messageText: const Text(
-                "Invalid Information",
-                style: TextStyle(fontSize: 16.0, color: Colors.green),
-              )).show(context);
-        }
-      } catch (e) {
-        Navigator.of(context).pop();
-        Flushbar(
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            isDismissible: false,
-            duration: const Duration(seconds: 3),
-            messageText: const Text(
-              "Something went wrong",
-              style: TextStyle(fontSize: 16.0, color: Colors.green),
-            )).show(context);
-      }
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Login Successful",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
     } else {
       Navigator.of(context).pop();
       if (js['username'] == null) {
@@ -505,74 +466,40 @@ class PostData extends ChangeNotifier with BaseController {
         barrierDismissible: false,
         builder: (_) => const LoadingExample());
 
-    printInfo(info: body.toString());
+    final response = await BaseClient().post(Urls.updateUserInfo, body);
 
-    final response = await http.patch(Uri.parse(Urls.updateUserInfo),
-        body: json.encode(body), headers: requestHeadersWithToken);
-    if (kDebugMode) {
-      print(response.body.toString());
-    }
-    if (kDebugMode) {
-      print(requestHeadersWithToken.toString());
-    }
-    var x = json.decode(response.body);
+    printInfo(info: response.toString());
 
-    if (response.statusCode == 200 ||
-        response.statusCode == 401 ||
-        response.statusCode == 403 ||
-        response.statusCode == 500 ||
-        response.statusCode == 201) {
-      try {
-        Map<String, dynamic> js = x;
-        if (js['is_email_verified'] == true) {
-          getData = Provider.of<GetData>(context, listen: false);
-          await getData!.getUserInfo();
-          prefs = await SharedPreferences.getInstance();
+    var x = json.decode(response);
 
-          prefs!.setString('name', js['name'].toString());
-          prefs!.setString('email', js['email'].toString());
+    Map<String, dynamic> js = x;
+    if (js['is_email_verified'] == true) {
+      getData = Provider.of<GetData>(context, listen: false);
+      await getData!.getUserInfo();
+      prefs = await SharedPreferences.getInstance();
 
-          Navigator.of(context).pop();
+      prefs!.setString('name', js['name'].toString());
+      prefs!.setString('email', js['email'].toString());
 
-          Flushbar(
-              flushbarPosition: FlushbarPosition.BOTTOM,
-              isDismissible: false,
-              duration: const Duration(seconds: 3),
-              messageText: const Text(
-                "Update Successful",
-                style: TextStyle(fontSize: 16.0, color: Colors.green),
-              )).show(context);
-        } else {
-          Navigator.of(context).pop();
-
-          Flushbar(
-              flushbarPosition: FlushbarPosition.BOTTOM,
-              isDismissible: false,
-              duration: const Duration(seconds: 3),
-              messageText: const Text(
-                "Invalid Information",
-                style: TextStyle(fontSize: 16.0, color: Colors.green),
-              )).show(context);
-        }
-      } catch (e) {
-        Navigator.of(context).pop();
-        Flushbar(
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            isDismissible: false,
-            duration: const Duration(seconds: 3),
-            messageText: const Text(
-              "Something went wrong",
-              style: TextStyle(fontSize: 16.0, color: Colors.green),
-            )).show(context);
-      }
-    } else {
       Navigator.of(context).pop();
+
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
           duration: const Duration(seconds: 3),
           messageText: const Text(
-            "Something went wrong",
+            "Update Successful",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    } else {
+      Navigator.of(context).pop();
+
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Invalid Information",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }
@@ -629,10 +556,9 @@ class PostData extends ChangeNotifier with BaseController {
 
     printInfo(info: body.toString());
 
-
     final response = await BaseClient().post(Urls.commonStorage, body);
 
-    print(response.toString());
+    printInfo(info: response.toString());
 
     var data = json.decode(response);
 
@@ -678,7 +604,7 @@ class PostData extends ChangeNotifier with BaseController {
     /*final response = await http.post(Uri.parse(Urls.commonStorage),
         body: json.encode(body), headers: requestHeadersWithToken);*/
 
-    print(response.toString());
+    printInfo(info: response.toString());
 
     var data = json.decode(response);
 
@@ -844,10 +770,7 @@ class PostData extends ChangeNotifier with BaseController {
     prefs!.setString('token', mat['token'].toString());
     prefs!.setBool('is_2fa', mat['is_2fa']);
     prefs!.setBool("is_login", true);
-
-    token = prefs!.setString('token', mat['token'].toString()).toString();
-
-    print(prefs!.get('token'));
+    printInfo(info: prefs!.get('token').toString());
 
     Get.offAll(() => ControllerPage());
 
