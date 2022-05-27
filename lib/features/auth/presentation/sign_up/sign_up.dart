@@ -50,7 +50,7 @@ class _SignUpState extends State<SignUp> {
                 SizedBox(
                   height: Get.height * .07,
                 ),
-                Container(
+                SizedBox(
                   height: Get.height * .18,
                   width: Get.width * .9,
                   child: Image.asset(
@@ -86,12 +86,6 @@ class _SignUpState extends State<SignUp> {
                         hint: "Username",
                         controll: 'Username',
                       ),
-                      /*TextInputField(
-                        labelText: "Username",
-                        height: Get.height * .04,
-                        textType: TextInputType.text,
-                        controller: SignUpController.to.nameController,
-                      ),*/
 
                       SizedBox(
                         height: Get.height * .022,
@@ -106,12 +100,6 @@ class _SignUpState extends State<SignUp> {
                         hint: "Email",
                         controll: 'Email',
                       ),
-                      /*TextInputField(
-                        labelText: "Email",
-                        height: Get.height * .04,
-                        textType: TextInputType.emailAddress,
-                        controller: SignUpController.to.emailController,
-                      ),*/
 
                       const SizedBox(
                         height: 15,
@@ -124,13 +112,8 @@ class _SignUpState extends State<SignUp> {
                         icon: null,
                         hint: "Password",
                         controll: 'Password',
+                        isPassword: true,
                       ),
-                      /*PasswordInputField(
-                        labelText: "Password",
-                        height: Get.height * .04,
-                        textType: TextInputType.text,
-                        controller: SignUpController.to.passwordController,
-                      ),*/
 
                       Container(
                         alignment: Alignment.topLeft,
@@ -151,20 +134,14 @@ class _SignUpState extends State<SignUp> {
 
                       NewTextField(
                         textEditingController:
-                        SignUpController.to.confirmPasswordController,
+                            SignUpController.to.confirmPasswordController,
                         keyboardType: TextInputType.text,
                         obscureText: true,
                         icon: null,
                         hint: "Confirm Password",
                         controll: 'Password',
+                        isPassword: true,
                       ),
-                      /*PasswordInputField(
-                          labelText: "Confirm password",
-                          height: Get.height * .04,
-                          textType: TextInputType.text,
-                          controller:
-                              SignUpController.to.confirmPasswordController),*/
-                      //AppSpaces.spaces_height_5,
 
                       SizedBox(
                         height: Get.height * .07,

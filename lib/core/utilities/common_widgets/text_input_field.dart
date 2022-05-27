@@ -33,15 +33,15 @@ class _TextInputFieldState extends State<TextInputField> {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         color: const Color(0xff2F3758),
-        border: Border.all(
-            color: AppColors.grey, // set border color
-            width: 1.5), // set border width
-        borderRadius: const BorderRadius.all(
-            Radius.circular(25.0)), // set rounded corner radius
+        border: Border.all(color: AppColors.grey, width: 1.5),
+        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
       ),
       child: widget.controller == 'emailController'
           ? TextFormField(
-              style: const TextStyle(color: Colors.white, fontSize: 18.0),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+              ),
               key: _formKey,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -63,7 +63,10 @@ class _TextInputFieldState extends State<TextInputField> {
               keyboardType: widget.textType,
             )
           : TextField(
-              style: const TextStyle(color: Colors.white, fontSize: 18.0),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+              ),
               controller: widget.controller,
               decoration: InputDecoration(
                 hintText: widget.labelText,
