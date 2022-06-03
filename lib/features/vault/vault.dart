@@ -51,7 +51,7 @@ class _VaultState extends State<Vault> {
     Get.put(ControllerPageController());
 
     return Scaffold(
-      backgroundColor: const Color(0xff272E49),
+      backgroundColor: AppColors.backgroundColor,
       body: /*checkInternet==false? Container(
         alignment: Alignment.center,
         child: Column(
@@ -100,7 +100,7 @@ class _VaultState extends State<Vault> {
                                 "My Vault",
                                 textAlign: TextAlign.start,
                                 style: Get.textTheme.bodyText2!.copyWith(
-                                    color: AppColors.white,
+                                    color: AppColors.textColor,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 22),
                               ),
@@ -126,7 +126,7 @@ class _VaultState extends State<Vault> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(
-                                                      color: AppColors.white,
+                                                      color: AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14),
@@ -191,7 +191,7 @@ class _VaultState extends State<Vault> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(
-                                                      color: AppColors.grey,
+                                                      color: AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14),
@@ -332,10 +332,10 @@ class _VaultState extends State<Vault> {
                             padding: EdgeInsets.only(
                                 left: Get.width *
                                     .06), //apply padding to all four sides
-                            child: const Text(
+                            child:Text(
                               "My Collectibles",
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: AppColors.textColor,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -344,16 +344,16 @@ class _VaultState extends State<Vault> {
                             data: data.vaultStatsModel!.collectible,
                           ),
                           SizedBox(
-                            height: Get.height * .02,
+                            height: Get.height * .01,
                           ),
                           Padding(
                             padding: EdgeInsets.only(
                                 left: Get.width *
                                     .06), //apply padding to all four sides
-                            child: const Text(
+                            child: Text(
                               "My Comics",
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: AppColors.textColor,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -362,16 +362,16 @@ class _VaultState extends State<Vault> {
                             data: data.vaultStatsModel!.comic,
                           ),
                           SizedBox(
-                            height: Get.height * .02,
+                            height: Get.height * .01,
                           ),
                           Padding(
                             padding: EdgeInsets.only(
                                 left: Get.width *
                                     .06), //apply padding to all four sides
-                            child: const Text(
+                            child:  Text(
                               "My Vault",
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: AppColors.textColor,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -387,7 +387,7 @@ class _VaultState extends State<Vault> {
                                     : const LoadingExample(),
                               )),
                           SizedBox(
-                            height: Get.height * .02,
+                            height: Get.height * .01,
                           ),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -396,10 +396,10 @@ class _VaultState extends State<Vault> {
                                   padding: EdgeInsets.only(
                                       left: Get.width *
                                           .06), //apply padding to all four sides
-                                  child: const Text(
+                                  child: Text(
                                     "My Wishlist",
                                     style: TextStyle(
-                                        color: Colors.white,
+                                        color: AppColors.textColor,
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -412,10 +412,10 @@ class _VaultState extends State<Vault> {
                                     padding: EdgeInsets.only(
                                         right: Get.width *
                                             .06), //apply padding to all four sides
-                                    child: const Text(
+                                    child: Text(
                                       "See All",
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: AppColors.textColor,
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -433,7 +433,7 @@ class _VaultState extends State<Vault> {
                                     : const LoadingExample(),
                               )),
                           SizedBox(
-                            height: Get.height * .02,
+                            height: Get.height * .01,
                           ),
                         ],
                       ),

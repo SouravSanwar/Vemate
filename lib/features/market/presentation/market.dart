@@ -30,6 +30,8 @@ class _MarketState extends State<Market> {
 
   @override
   void initState() {
+    print(prefs?.getInt('mode'));
+    print("/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*");
     // TODO: implement initState
     getData = Provider.of<GetData>(context, listen: false);
 
@@ -53,190 +55,216 @@ class _MarketState extends State<Market> {
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      body: Consumer<GetData>(builder: (context, data, child) {
-        return Padding(
-          padding: EdgeInsets.only(top: AppDimension.padding_8),
-          child: Stack(
-            children: [
-              AppSpaces.spaces_height_20,
-              ListView(
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  ///Search Bar
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: AppDimension.padding_8,
-                      right: AppDimension.padding_8,
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        //gradient: gradient,
-                        border: Border.all(
-                          color: AppColors.lightBackgroundColor,
-                        ),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(12),
-                        ),
+      body: SafeArea(
+        minimum: EdgeInsets.symmetric(vertical: 15),
+        child: Consumer<GetData>(builder: (context, data, child) {
+          return Padding(
+            padding: EdgeInsets.only(top: AppDimension.padding_8),
+            child: Stack(
+              children: [
+                AppSpaces.spaces_height_20,
+                ListView(
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    ///Search Bar
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: AppDimension.padding_8,
+                        right: AppDimension.padding_8,
                       ),
-                      child: Row(children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              filterOn = false;
-                            });
-                            data.searchCollectiblesModel = null;
-                            data.searchComicsModel = null;
-                            currentIndex == 1
-                                ? Get.to(() => const SearchCollectiblePage())
-                                : (currentIndex == 2
-                                    ? Get.to(() => const SearchComicsPage())
-                                    : null);
-                          },
-                          child: Container(
-                            width: Get.width * .8,
-                            child: Padding(
-                              padding: EdgeInsets.all(AppDimension.padding_8),
-                              child: Row(
-                                children: [
-                                  const Icon(
-                                    Icons.search,
-                                    color: Colors.grey,
-                                  ),
-                                  AppSpaces.spaces_width_10,
-                                  Text(
-                                    'Search',
-                                    textAlign: TextAlign.center,
-                                    style: Get.textTheme.bodyText1!
-                                        .copyWith(color: AppColors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          //gradient: gradient,
+                          border: Border.all(
+                            color: AppColors.textBoxBgColor,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(12),
                           ),
                         ),
-                        PopupMenuButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            color: AppColors.backgroundColor,
-                            icon: Icon(
-                              Icons.filter_list,
-                              color: AppColors.primaryColor,
-                              size: 30,
-                            ),
-                            onSelected: (value) {
-                              filterOn = true;
-                              if (value == 1) {
-                                passValue = 'Common';
-                              } else if (value == 2) {
-                                passValue = 'Uncommon';
-                              } else if (value == 3) {
-                                passValue = 'Rare';
-                              } else if (value == 4) {
-                                passValue = 'Ultra Rare';
-                              } else if (value == 5) {
-                                passValue = 'Secret Rare';
-                              }
+                        child: Row(children: [
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                filterOn = false;
+                              });
                               data.searchCollectiblesModel = null;
+                              data.searchComicsModel = null;
                               currentIndex == 1
-                                  ? Get.to(() => const SearchCollectiblePage(),
-                                      arguments: [passValue])
+                                  ? Get.to(() => const SearchCollectiblePage())
                                   : (currentIndex == 2
-                                      ? Get.to(() => const SearchComicsPage(),
-                                          arguments: [passValue])
+                                      ? Get.to(() => const SearchComicsPage())
                                       : null);
                             },
-                            itemBuilder: (context) => [
-                                  const PopupMenuItem(
-                                    value: 1,
-                                    child: Text(
-                                      'Common',
-                                      style: TextStyle(color: Colors.white),
+                            child: Container(
+                              width: Get.width * .8,
+                              child: Padding(
+                                padding: EdgeInsets.all(AppDimension.padding_8),
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.search,
+                                      color: Colors.grey,
                                     ),
-                                  ),
-                                  const PopupMenuItem(
-                                    value: 2,
-                                    child: Text(
-                                      'Uncommon',
-                                      style: TextStyle(color: Colors.white),
+                                    AppSpaces.spaces_width_10,
+                                    Text(
+                                      'Search',
+                                      textAlign: TextAlign.center,
+                                      style: Get.textTheme.bodyText1!
+                                          .copyWith(color: AppColors.grey),
                                     ),
-                                  ),
-                                  const PopupMenuItem(
-                                    value: 3,
-                                    child: Text(
-                                      'Rare',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                  const PopupMenuItem(
-                                    value: 4,
-                                    child: Text(
-                                      'Ultra Rare',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                  const PopupMenuItem(
-                                    value: 5,
-                                    child: Text(
-                                      'Secret Rare',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-
-                        )
-                      ]),
-                    ),
-                  ),
-
-                  ///Tab
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: AppDimension.padding_8,
-                      right: AppDimension.padding_8,
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: InkWell(
-                              onTap: () {
-                                currentIndex = 1;
-                                setState(() {
-                                  collectibleSelected = true;
-                                  comicSelected = false;
-                                  brandSelected = false;
-                                });
-                              },
-                              child: CategoryCard(
-                                name: 'Collectibles',
-                                gradient: collectibleSelected == true
-                                    ? AppColors.purpleGradient
-                                    : const LinearGradient(
-                                        colors: [
-                                          Color(0xff272E49),
-                                          Color(0xff272E49),
-                                        ],
-                                      ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          PopupMenuButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              color: AppColors.backgroundColor,
+                              icon: Icon(
+                                Icons.filter_list,
+                                color: AppColors.iconColor,
+                                size: 30,
+                              ),
+                              onSelected: (value) {
+                                filterOn = true;
+                                if (value == 1) {
+                                  passValue = 'Common';
+                                } else if (value == 2) {
+                                  passValue = 'Uncommon';
+                                } else if (value == 3) {
+                                  passValue = 'Rare';
+                                } else if (value == 4) {
+                                  passValue = 'Ultra Rare';
+                                } else if (value == 5) {
+                                  passValue = 'Secret Rare';
+                                }
+                                data.searchCollectiblesModel = null;
+                                currentIndex == 1
+                                    ? Get.to(() => const SearchCollectiblePage(),
+                                        arguments: [passValue])
+                                    : (currentIndex == 2
+                                        ? Get.to(() => const SearchComicsPage(),
+                                            arguments: [passValue])
+                                        : null);
+                              },
+                              itemBuilder: (context) => [
+                                     PopupMenuItem(
+                                      value: 1,
+                                      child: Text(
+                                        'Common',
+                                        style: TextStyle(color: AppColors.textColor),
+                                      ),
+                                    ),
+                                     PopupMenuItem(
+                                      value: 2,
+                                      child: Text(
+                                        'Uncommon',
+                                        style: TextStyle(color: AppColors.textColor),
+                                      ),
+                                    ),
+                                     PopupMenuItem(
+                                      value: 3,
+                                      child: Text(
+                                        'Rare',
+                                        style: TextStyle(color: AppColors.textColor),
+                                      ),
+                                    ),
+                                    PopupMenuItem(
+                                      value: 4,
+                                      child: Text(
+                                        'Ultra Rare',
+                                        style: TextStyle(color: AppColors.textColor),
+                                      ),
+                                    ),
+                                    PopupMenuItem(
+                                      value: 5,
+                                      child: Text(
+                                        'Secret Rare',
+                                        style: TextStyle(color: AppColors.textColor),
+                                      ),
+                                    ),
+                                  ],
+
+                          )
+                        ]),
+                      ),
+                    ),
+
+                    ///Tab
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: AppDimension.padding_8,
+                        right: AppDimension.padding_8,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: InkWell(
+                                onTap: () {
+                                  currentIndex = 1;
+                                  setState(() {
+                                    collectibleSelected = true;
+                                    comicSelected = false;
+                                    brandSelected = false;
+                                  });
+                                },
+                                child: CategoryCard(
+                                  name: 'Collectibles',
+                                  gradient: collectibleSelected == true
+                                      ? AppColors.purpleGradient
+                                      : const LinearGradient(
+                                          colors: [
+                                            Color(0xff272E49),
+                                            Color(0xff272E49),
+                                          ],
+                                        ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: InkWell(
+                                onTap: () {
+                                  currentIndex = 2;
+                                  setState(() {
+                                    comicSelected = true;
+                                    brandSelected = false;
+                                    collectibleSelected = false;
+                                  });
+                                },
+                                child: CategoryCard(
+                                  name: 'Comics',
+                                  gradient: comicSelected == true
+                                      ? AppColors.purpleGradient
+                                      : const LinearGradient(
+                                          colors: [
+                                            Color(0xff272E49),
+                                            Color(0xff272E49),
+                                          ],
+                                        ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          /*Expanded(
                             child: InkWell(
                               onTap: () {
-                                currentIndex = 2;
+                                currentIndex = 3;
                                 setState(() {
-                                  comicSelected = true;
-                                  brandSelected = false;
+                                  brandSelected = true;
                                   collectibleSelected = false;
+                                  comicSelected = false;
                                 });
                               },
                               child: CategoryCard(
-                                name: 'Comics',
-                                gradient: comicSelected == true
+                                name: 'Brand',
+                                gradient: brandSelected == true
                                     ? AppColors.purpleGradient
                                     : const LinearGradient(
                                         colors: [
@@ -246,49 +274,26 @@ class _MarketState extends State<Market> {
                                       ),
                               ),
                             ),
-                          ),
-                        ),
-                        /*Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              currentIndex = 3;
-                              setState(() {
-                                brandSelected = true;
-                                collectibleSelected = false;
-                                comicSelected = false;
-                              });
-                            },
-                            child: CategoryCard(
-                              name: 'Brand',
-                              gradient: brandSelected == true
-                                  ? AppColors.purpleGradient
-                                  : const LinearGradient(
-                                      colors: [
-                                        Color(0xff272E49),
-                                        Color(0xff272E49),
-                                      ],
-                                    ),
-                            ),
-                          ),
-                        ),*/
-                      ],
+                          ),*/
+                        ],
+                      ),
                     ),
-                  ),
 
-                  ///Body
-                  Container(
-                    child: collectibleSelected == true
-                        ? const CollectiblesItemCard()
-                        : (comicSelected == true
-                            ? const ComicsItemCard()
-                            : Container()),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      }),
+                    ///Body
+                    Container(
+                      child: collectibleSelected == true
+                          ? const CollectiblesItemCard()
+                          : (comicSelected == true
+                              ? const ComicsItemCard()
+                              : Container()),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }

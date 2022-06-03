@@ -55,14 +55,14 @@ class _ChartExampleState extends State<ChartExample> {
     return Consumer<GetData>(builder: (context, data, child) {
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color(0xff272E49),
+          backgroundColor: AppColors.backgroundColor,
           elevation: 4,
           title: Text(
             data.collectiblesModel != null
                 ? data.collectiblesModel!.results![0].name.toString()
                 : "",
             style: TextStyle(
-                color: Colors.blueGrey.shade300,
+                color: AppColors.textColor,
                 fontSize: 18,
                 fontWeight: FontWeight.bold),
           ),

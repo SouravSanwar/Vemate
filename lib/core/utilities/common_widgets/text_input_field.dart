@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 
+
+final GlobalKey<FormState> formKey= GlobalKey<FormState>();
 class TextInputField extends StatefulWidget {
   String labelText;
   num height;
@@ -22,7 +24,6 @@ class TextInputField extends StatefulWidget {
 }
 
 class _TextInputFieldState extends State<TextInputField> {
-  final _formKey = GlobalKey<FormState>();
   bool emailisValid = false;
 
   @override
@@ -32,7 +33,7 @@ class _TextInputFieldState extends State<TextInputField> {
       margin: EdgeInsets.symmetric(horizontal: 15),
       padding: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
-        color: Color(0xff2F3758),
+        color: AppColors.backgroundColor,
         border: Border.all(
             color: AppColors.grey, // set border color
             width: 1.5), // set border width
@@ -41,13 +42,14 @@ class _TextInputFieldState extends State<TextInputField> {
       ),
       child: widget.controller == 'emailController'
           ? TextFormField(
-              style: TextStyle(color: Colors.white, fontSize: 18.0),
-              key: _formKey,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your email';
+              style: TextStyle(color: AppColors.textColor, fontSize: 18.0),
+              key: formKey,
+              validator: (String? value){
+                if(value!.isEmpty){
+                  return 'Email is required';
                 }
                 return null;
+
               },
               onChanged: (value) {
                 setState(() {
@@ -61,9 +63,13 @@ class _TextInputFieldState extends State<TextInputField> {
               ),
               keyboardType: widget.textType,
             )
-          : TextField(
-
-              style: TextStyle(color: Colors.white, fontSize: 18.0),
+          : TextFormField(
+               validator: (String? value){
+                 if(value!.isEmpty){
+                   return 'This Field is required';
+                 }
+               },
+              style: TextStyle(color: AppColors.textColor, fontSize: 18.0),
               controller: widget.controller,
               decoration: InputDecoration(
                 hintText: widget.labelText,

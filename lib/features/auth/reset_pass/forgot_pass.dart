@@ -9,6 +9,7 @@ import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart'
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import '../presentation/sign_in/_controller/sign_in_controller.dart';
 
@@ -52,7 +53,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
-                  'assets/media/image/vemate.png',
+                  mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -65,10 +66,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   Container(
                       width: Get.width * .9,
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: const Text(
+                      child:  Text(
                         "Enter New Password",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.grey),
+                            fontWeight: FontWeight.bold, color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(

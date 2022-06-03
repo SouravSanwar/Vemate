@@ -78,7 +78,7 @@ class _AlertListPageState extends State<AlertListPage> {
           header: WaterDropMaterialHeader(
             color: AppColors.primaryColor,
           ),
-          footer: const ClassicFooter(
+          footer:  ClassicFooter(
             loadStyle: LoadStyle.ShowWhenLoading,
           ),
           onRefresh: _onRefresh,
@@ -91,12 +91,13 @@ class _AlertListPageState extends State<AlertListPage> {
               return Stack(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(4.0),
+                    padding: EdgeInsets.all(4.0),
                     child: Container(
                       width: Get.width,
                       decoration: BoxDecoration(
                         gradient: AppColors.cardGradient,
                         borderRadius: BorderRadius.circular(5.0),
+                        border: Border.all(color:AppColors.borderColor)
                       ),
                       child: InkWell(
                         onTap: () {
@@ -129,9 +130,7 @@ class _AlertListPageState extends State<AlertListPage> {
                                     color: const Color(0xD3C89EF3),
                                     borderRadius:
                                     BorderRadius.circular(5),
-                                    border: Border.all(
-                                        color: const Color(
-                                            0xff454F70))),
+                                    border: Border.all(color: AppColors.borderColor),),
                                 alignment: Alignment.center,
                                 child: Text(
                                   data.alertModel!

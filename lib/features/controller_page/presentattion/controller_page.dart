@@ -101,7 +101,7 @@ class _ControllerPageState extends State<ControllerPage> {
   Future<bool> _willPopCallback() async {
     Get.dialog(
       Dialog(
-        backgroundColor: const Color(0xff272E49),
+        backgroundColor: AppColors.backgroundColor,
         child: Container(
           width: Get.height * .25,
           decoration: BoxDecoration(
@@ -133,16 +133,16 @@ class _ControllerPageState extends State<ControllerPage> {
                       Text(
                         "Vemate",
                         style: Get.textTheme.headline1!.copyWith(
-                            color: AppColors.white,
+                            color: AppColors.textColor,
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
                 AppSpaces.spaces_height_10,
-                const Text(
+                Text(
                   'Are you sure to exit?',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: AppColors.textColor),
                 ),
                 AppSpaces.spaces_height_10,
                 Row(
@@ -164,11 +164,11 @@ class _ControllerPageState extends State<ControllerPage> {
                             ),
                           ],
                         ),
-                        child: const Padding(
+                        child: Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Text(
                             'No',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: AppColors.textColor),
                           ),
                         ),
                       ),
@@ -190,11 +190,11 @@ class _ControllerPageState extends State<ControllerPage> {
                             ),
                           ],
                         ),
-                        child: const Padding(
+                        child:Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Text(
                             'Yes',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: AppColors.textColor),
                           ),
                         ),
                       ),
@@ -221,7 +221,7 @@ class _ControllerPageState extends State<ControllerPage> {
         child: Stack(
           children: [
             Scaffold(
-                backgroundColor: const Color(0xff272E49),
+                backgroundColor: AppColors.backgroundColor,
                 body: BottomBarPageTransition(
                   builder: (_, index) => getBody(index),
                   currentIndex: ControllerPageController.to.currentPage.value,
@@ -272,7 +272,7 @@ class _ControllerPageState extends State<ControllerPage> {
         topRight: Radius.circular(50.0),
       ),
       child: BottomNavigationBar(
-        backgroundColor: AppColors.lightBackgroundColor,
+        backgroundColor: AppColors.backgroundColor,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         currentIndex: ControllerPageController.to.currentPage.value,
         onTap: (index) {
@@ -281,8 +281,8 @@ class _ControllerPageState extends State<ControllerPage> {
         type: BottomNavigationBarType.fixed,
         selectedFontSize: 12,
         unselectedFontSize: 12,
-        selectedItemColor: const Color(0xffB390E3),
-        unselectedItemColor: AppColors.white,
+        selectedItemColor: AppColors.iconColor,
+        unselectedItemColor: AppColors.iconColor,
         showUnselectedLabels: true,
         items: List.generate(
           ControllerPageController.to.bottomBarData!.length,

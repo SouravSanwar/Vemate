@@ -110,7 +110,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                       alignment: Alignment.bottomCenter,
                       padding: const EdgeInsets.all(3.0),
                       decoration: BoxDecoration(
-                        color: AppColors.lightBackgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(10),
                             bottomRight: Radius.circular(10)),
@@ -125,7 +125,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: Get.textTheme.bodyText2!.copyWith(
-                                color: Colors.white,
+                                color: AppColors.textColor,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 12),
                           ),

@@ -55,8 +55,8 @@ class _ProductGraphState extends State<ProductGraph> {
                 axisLine: AxisLine(width: 0),
                 labelIntersectAction: AxisLabelIntersectAction.hide,
                 labelRotation:0,
-                labelStyle: const TextStyle(
-                    color: Colors.white,
+                labelStyle:  TextStyle(
+                    color: AppColors.textColor,
                     fontFamily: 'Roboto',
                     fontSize:8,
                     fontStyle: FontStyle.italic,
@@ -74,8 +74,8 @@ class _ProductGraphState extends State<ProductGraph> {
                 majorTickLines: const MajorTickLines(width: 0),
                 labelIntersectAction: AxisLabelIntersectAction.hide,
                 labelRotation: 0,
-                labelStyle: const TextStyle(
-                    color: Colors.white,
+                labelStyle: TextStyle(
+                    color: AppColors.textColor,
                     fontFamily: 'Roboto',
                     fontSize:10,
                     fontStyle: FontStyle.italic,

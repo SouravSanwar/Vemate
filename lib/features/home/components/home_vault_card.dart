@@ -32,6 +32,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
             decoration: BoxDecoration(
               gradient: AppColors.cardGradient,
               borderRadius: BorderRadius.circular(12.0),
+              border: Border.all(color: Color(0xff454F70)),
             ),
             child: Column(
               children: [
@@ -49,7 +50,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         "Vault Value",
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText2!.copyWith(
-                            color: AppColors.white,
+                            color: AppColors.textColor,
                             fontWeight: FontWeight.w600,
                             fontSize: 14),
                       ),
@@ -89,9 +90,9 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Container(
                           alignment: Alignment.center,
-                          child: const Text("24H",style: TextStyle(
+                          child: Text("24H",style: TextStyle(
                             fontSize: 15,
-                            color: Colors.white,
+                            color: AppColors.textColor,
                           ),
                           ),
                           width: Get.width * .15,
@@ -99,6 +100,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                           decoration: BoxDecoration(
                             border: Border.all(color: AppColors.primaryColor),
                             borderRadius: BorderRadius.circular(8.0),
+
                           ),
                         ),
                       ),

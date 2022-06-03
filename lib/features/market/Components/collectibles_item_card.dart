@@ -63,6 +63,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                         decoration: BoxDecoration(
                           gradient: AppColors.cardGradient,
                           borderRadius: BorderRadius.circular(12.0),
+                          border: Border.all(color: AppColors.borderColor),
                         ),
                         child: InkWell(
                           onTap: () {
@@ -88,14 +89,14 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                           .withOpacity(.8),
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
-                                          color: const Color(0xff454F70))),
+                                          color: AppColors.borderColor)),
                                   alignment: Alignment.center,
                                   child: Text(
                                     data.collectiblesModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
                                     style:  TextStyle(
-                                        color: AppColors.lightBackgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontSize: 35,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -124,7 +125,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       .textTheme.bodyText2!
                                                       .copyWith(
                                                           color:
-                                                              AppColors.white,
+                                                              AppColors.textColor,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: 13),
@@ -140,7 +141,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.white,
+                                                      color: AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 10),
@@ -170,8 +171,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.greyWhite
-                                                          .withOpacity(0.8),
+                                                      color: AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w900,
                                                       fontSize: 10),
@@ -187,8 +187,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.greyWhite
-                                                          .withOpacity(0.8),
+                                                      color: AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 10),
@@ -211,8 +210,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.greyWhite
-                                                          .withOpacity(0.8),
+                                                      color: AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w900,
                                                       fontSize: 11),
@@ -310,8 +308,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.white
-                                                          .withOpacity(0.9),
+                                                      color: AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w400,
                                                       fontSize: 10),

@@ -80,7 +80,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                         decoration: BoxDecoration(
                             gradient: AppColors.cardGradient,
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Color(0xff454F70))),
+                            border: Border.all(color:AppColors.borderColor)),
                         alignment: Alignment.topCenter,
                         child: Column(
                           children: [
@@ -135,7 +135,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                               ),
                             ),
                             const Divider(
-                              color: Colors.white,
+                              color: Colors.grey,
                             ),
                             Text(
                               data.wishListModel!
@@ -144,7 +144,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: Get.textTheme.bodyText2!.copyWith(
-                                color: Colors.white,
+                                color: AppColors.textColor,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 12,
                               ),
@@ -169,7 +169,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                               .toString(),
                                       textAlign: TextAlign.start,
                                       style: Get.textTheme.bodyText2!.copyWith(
-                                          color: Colors.white,
+                                          color: AppColors.textColor,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 11),
                                     ),

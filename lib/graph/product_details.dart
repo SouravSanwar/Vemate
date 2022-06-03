@@ -57,6 +57,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     SizedBox(
                       height: Get.height*.01,
                     ),
+
                     ItemDetailsHelper(
                       text: "Floor Price",
                       text1: data.singleProductModel != null

@@ -77,19 +77,19 @@ class _OtpPageState extends State<OtpPage> {
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
-                  'assets/media/image/vemate.png',
+                  mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
               SizedBox(
                 height: Get.height * .02,
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
                   'Email Verification',
                   style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.textColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 22),
                   textAlign: TextAlign.center,

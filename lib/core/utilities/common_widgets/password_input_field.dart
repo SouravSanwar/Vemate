@@ -28,7 +28,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
       margin: const EdgeInsets.symmetric(horizontal: 15),
       padding: const EdgeInsets.only(left: 20,right: 5),
       decoration: BoxDecoration(
-        color: const Color(0xff2F3758),
+        color: AppColors.backgroundColor,
         border: Border.all(
             color: AppColors.grey, // set border color
             width: 1.5), // set border width
@@ -47,7 +47,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             labelStyle:const TextStyle(color: Colors.blue,),
             border: InputBorder.none,
             suffixIcon: IconButton(
-              splashColor:Color(0xff2F3758),
+              splashColor:AppColors.textColor,
               onPressed: () {
                 setState(() {
                   _toggleVisibility = !_toggleVisibility;

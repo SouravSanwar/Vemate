@@ -64,15 +64,9 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                       child: Container(
                         width: Get.width,
                         decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [
-                              Color(0xff454F70),
-                              Color(0xff3F496A),
-                              Color(0xff374162),
-                              Color(0xff303B5B),
-                            ],
-                          ),
+                          gradient: AppColors.cardGradient,
                           borderRadius: BorderRadius.circular(12.0),
+                          border: Border.all(color: AppColors.borderColor),
                         ),
                         child: InkWell(
                           onTap: () {
@@ -96,14 +90,14 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                           .withOpacity(.8),
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
-                                          color: const Color(0xff454F70))),
+                                          color: AppColors.borderColor)),
                                   alignment: Alignment.center,
                                   child: Text(
                                     data.comicsModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
                                     style: TextStyle(
-                                        color: AppColors.lightBackgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontSize: 35,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -131,7 +125,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                       .textTheme.bodyText2!
                                                       .copyWith(
                                                           color:
-                                                              AppColors.white,
+                                                              AppColors.textColor,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: 13),
@@ -147,7 +141,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.white,
+                                                      color: AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 10),
@@ -170,7 +164,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.greyWhite
+                                                      color: AppColors.textColor
                                                           .withOpacity(0.8),
                                                       fontWeight:
                                                           FontWeight.w900,
@@ -187,7 +181,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.greyWhite
+                                                      color: AppColors.textColor
                                                           .withOpacity(0.8),
                                                       fontWeight:
                                                           FontWeight.w300,
@@ -211,7 +205,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.greyWhite
+                                                      color: AppColors.textColor
                                                           .withOpacity(0.8),
                                                       fontWeight:
                                                           FontWeight.w900,
@@ -309,7 +303,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.white
+                                                      color: AppColors.textColor
                                                           .withOpacity(0.9),
                                                       fontWeight:
                                                           FontWeight.w400,

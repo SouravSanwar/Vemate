@@ -37,6 +37,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
           decoration: BoxDecoration(
             gradient: AppColors.cardGradient,
             borderRadius: BorderRadius.circular(12.0),
+            border: Border.all(color:AppColors.borderColor),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -48,24 +49,24 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "Comics Value",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.textColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       AppSpaces.spaces_height_5,
                       Text(
                         '\$' + widget.data!.totalComicValue!.toString(),
-                        style: const TextStyle(
-                            color: Colors.grey, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            color: AppColors.textColor, fontWeight: FontWeight.bold),
                       ),
                       AppSpaces.spaces_height_30,
-                      const Text(
+                      Text(
                         "",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.textColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -140,8 +141,8 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                                 ?widget.data!.changePrice.toStringAsFixed(2)
                                 :"0.0"
                             }',
-                            style: const TextStyle(
-                                color: Colors.grey,
+                            style: TextStyle(
+                                color: AppColors.textColor,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14),
                           ),
