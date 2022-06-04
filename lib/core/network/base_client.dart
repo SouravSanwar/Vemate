@@ -25,7 +25,7 @@ class BaseClient {
           HttpHeaders.acceptHeader: 'application/json',
         },
       ) .timeout(const Duration(seconds: TIME_OUT_DURATION));
-      printInfo(info: uri.toString() + '+ token ${prefs!.getString('token')}');
+      printInfo(info: uri.toString() + ' token ${prefs!.getString('token')}');
 
       return _processResponse(response);
     } on SocketException {

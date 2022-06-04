@@ -25,6 +25,9 @@ class Urls {
   static String comic =
       mainUrl + '/api/v1/veve/public/products/?type=1&limit=20&offset=';
 
+  static String brand =
+      mainUrl + '/api/v1/veve/public/brands/?limit=20&offset=';
+
   static String singleProduct = mainUrl + '/api/v1/veve/public/products/';
 
   static String commonStorage = mainUrl + '/api/v1/veve/public/common-storage/';

@@ -8,6 +8,7 @@ import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:ketemaa/features/market/presentation/brand_list.dart';
 import 'package:ketemaa/features/market/presentation/collectibles_search_page.dart';
 import 'package:ketemaa/features/market/presentation/comic_search_page.dart';
 import 'package:ketemaa/main.dart';
@@ -56,7 +57,7 @@ class _MarketState extends State<Market> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
-        minimum: EdgeInsets.symmetric(vertical: 15),
+        minimum: const EdgeInsets.symmetric(vertical: 15),
         child: Consumer<GetData>(builder: (context, data, child) {
           return Padding(
             padding: EdgeInsets.only(top: AppDimension.padding_8),
@@ -64,7 +65,7 @@ class _MarketState extends State<Market> {
               children: [
                 AppSpaces.spaces_height_20,
                 ListView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [
                     ///Search Bar
                     Padding(
@@ -252,7 +253,7 @@ class _MarketState extends State<Market> {
                               ),
                             ),
                           ),
-                          /*Expanded(
+                          Expanded(
                             child: InkWell(
                               onTap: () {
                                 currentIndex = 3;
@@ -274,7 +275,7 @@ class _MarketState extends State<Market> {
                                       ),
                               ),
                             ),
-                          ),*/
+                          ),
                         ],
                       ),
                     ),
@@ -285,7 +286,7 @@ class _MarketState extends State<Market> {
                           ? const CollectiblesItemCard()
                           : (comicSelected == true
                               ? const ComicsItemCard()
-                              : Container()),
+                              : const BrandList()),
                     ),
                   ],
                 ),
