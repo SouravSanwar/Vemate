@@ -111,7 +111,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                   cursorColor: Colors.grey,
                   keyboardType: TextInputType.text,
                   style: const TextStyle(color: Colors.white),
-                  decoration: const InputDecoration(
+                  decoration:  InputDecoration(
                       border: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,
@@ -120,7 +120,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                       contentPadding: EdgeInsets.only(
                           left: 15, bottom: 11, top: 13, right: 15),
                       hintText: "Search Comics",
-                      hintStyle: TextStyle(color: Colors.white)),
+                      hintStyle: TextStyle(color: AppColors.textColor)),
                   onChanged: (text) {
                     text = searchController.text;
                     searchText = searchController.text != ''
@@ -177,6 +177,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                 decoration: BoxDecoration(
                                   gradient: AppColors.cardGradient,
                                   borderRadius: BorderRadius.circular(12.0),
+                                  border: Border.all(color: AppColors.borderColor),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
@@ -192,8 +193,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             border: Border.all(
-                                                color:
-                                                    const Color(0xff454F70))),
+                                                color:AppColors.borderColor)),
                                         alignment: Alignment.center,
                                         child: Text(
                                           data.searchComicsModel!
@@ -202,7 +202,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                               .toUpperCase(),
                                           style: TextStyle(
                                               color: AppColors
-                                                  .lightBackgroundColor,
+                                                  .backgroundColor,
                                               fontSize: 35,
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -234,7 +234,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                             .bodyText2!
                                                             .copyWith(
                                                                 color: AppColors
-                                                                    .white,
+                                                                    .textColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -256,7 +256,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                           .textTheme.bodyText1!
                                                           .copyWith(
                                                               color: AppColors
-                                                                  .white,
+                                                                  .textColor,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -278,7 +278,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                         .textTheme.bodyText1!
                                                         .copyWith(
                                                             color: AppColors
-                                                                .greyWhite
+                                                                .textColor
                                                                 .withOpacity(
                                                                     0.8),
                                                             fontWeight:
@@ -298,7 +298,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                         .textTheme.bodyText1!
                                                         .copyWith(
                                                             color: AppColors
-                                                                .greyWhite
+                                                                .textColor
                                                                 .withOpacity(
                                                                     0.8),
                                                             fontWeight:
@@ -325,7 +325,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                         .textTheme.bodyText1!
                                                         .copyWith(
                                                             color: AppColors
-                                                                .greyWhite
+                                                                .textColor
                                                                 .withOpacity(
                                                                     0.8),
                                                             fontWeight:
@@ -422,7 +422,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                         .textTheme.bodyText1!
                                                         .copyWith(
                                                             color: AppColors
-                                                                .white
+                                                                .textColor
                                                                 .withOpacity(
                                                                     0.9),
                                                             fontWeight:

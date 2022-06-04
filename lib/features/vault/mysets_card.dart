@@ -48,14 +48,7 @@ class _MysetsCardState extends State<MysetsCard> {
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: Container(
-                  width: Get.width * .37,
-                  //height: Get.height * .22,
-                  decoration: BoxDecoration(
-                    gradient: AppColors.purpleGradient,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: InkWell(
+                child:  InkWell(
                     onTap: () {
                       /*Get.to(() => ChartExample(id: widget.list![index].id));*/
 
@@ -78,7 +71,7 @@ class _MysetsCardState extends State<MysetsCard> {
                           decoration: BoxDecoration(
                               gradient: AppColors.cardGradient,
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Color(0xff454F70))),
+                              border: Border.all(color:AppColors.borderColor)),
                           alignment: Alignment.topCenter,
                           child: Column(
                             children: [
@@ -132,8 +125,8 @@ class _MysetsCardState extends State<MysetsCard> {
                                   ],
                                 ),
                               ),
-                              const Divider(
-                                color: Colors.white,
+                              Divider(
+                                color: AppColors.grey
                               ),
                               Text(
                                 data.setListModel!.results![index].productDetail!.name
@@ -141,7 +134,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
                                 style: Get.textTheme.bodyText2!.copyWith(
-                                  color: Colors.white,
+                                  color: AppColors.textColor,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 12,
                                 ),
@@ -166,7 +159,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                         textAlign: TextAlign.start,
                                         style: Get.textTheme.bodyText2!
                                             .copyWith(
-                                                color: Colors.white,
+                                                color: AppColors.textColor,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 11),
                                       ),
@@ -223,7 +216,7 @@ class _MysetsCardState extends State<MysetsCard> {
                       ],
                     ),
                   ),
-                ),
+
               );
             },
           ),

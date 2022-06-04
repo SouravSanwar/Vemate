@@ -13,6 +13,7 @@ import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/_controller/sign_up_controller.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/graph/designhelper.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
@@ -39,29 +40,31 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff272E49),
+      backgroundColor: Color(0xff272E49),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const BackPreviousScreen(),
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const BackPreviousScreen(),
                 SizedBox(
                   height: Get.height * .07,
                 ),
                 SizedBox(
-                  height: Get.height * .18,
-                  width: Get.width * .9,
-                  child: Image.asset(
-                    'assets/media/image/vemate.png',
-                    fit: BoxFit.cover,
+                    height: Get.height * .18,
+                    width: Get.width * .9,
+                    child: Image.asset(
+                      mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: Get.height * .02,
-                ),
-                Form(
+                  SizedBox(
+                    height: Get.height * .02,
+                  ),
+                  Form(
                   key: _formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -69,10 +72,10 @@ class _SignUpState extends State<SignUp> {
                       Container(
                         width: Get.width * .9,
                         padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: const Text(
-                          "REGISTER",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey),
+                        child: Text(
+                            "REGISTER",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, color: AppColors.textColor),
                         ),
                       ),
                       AppSpaces.spaces_height_25,
@@ -91,7 +94,7 @@ class _SignUpState extends State<SignUp> {
                         height: Get.height * .022,
                       ),
 
-                      NewTextField(
+                        NewTextField(
                         textEditingController:
                             SignUpController.to.emailController,
                         keyboardType: TextInputType.text,
@@ -105,10 +108,10 @@ class _SignUpState extends State<SignUp> {
                         height: 15,
                       ),
                       NewTextField(
-                        textEditingController:
+                          textEditingController:
                             SignUpController.to.passwordController,
-                        keyboardType: TextInputType.text,
-                        obscureText: true,
+                          keyboardType: TextInputType.text,
+                          obscureText: true,
                         icon: null,
                         hint: "Password",
                         controll: 'Password',
@@ -133,10 +136,10 @@ class _SignUpState extends State<SignUp> {
                       ),
 
                       NewTextField(
-                        textEditingController:
+                          textEditingController:
                             SignUpController.to.confirmPasswordController,
-                        keyboardType: TextInputType.text,
-                        obscureText: true,
+                          keyboardType: TextInputType.text,
+                          obscureText: true,
                         icon: null,
                         hint: "Confirm Password",
                         controll: 'Password',

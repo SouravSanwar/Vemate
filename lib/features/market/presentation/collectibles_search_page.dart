@@ -177,6 +177,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                 decoration: BoxDecoration(
                                   gradient: AppColors.cardGradient,
                                   borderRadius: BorderRadius.circular(12.0),
+                                  border: Border.all(color: AppColors.borderColor),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
@@ -192,8 +193,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             border: Border.all(
-                                                color:
-                                                    const Color(0xff454F70))),
+                                                color:AppColors.borderColor)),
                                         alignment: Alignment.center,
                                         child: Text(
                                           data.searchCollectiblesModel!
@@ -233,8 +233,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                         style: Get.textTheme
                                                             .bodyText2!
                                                             .copyWith(
-                                                                color: AppColors
-                                                                    .white,
+                                                                color: AppColors.textColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -255,8 +254,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                       style: Get
                                                           .textTheme.bodyText1!
                                                           .copyWith(
-                                                              color: AppColors
-                                                                  .white,
+                                                              color: AppColors.textColor,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -286,8 +284,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors
-                                                                .greyWhite
+                                                            color: AppColors.textColor
                                                                 .withOpacity(
                                                                     0.8),
                                                             fontWeight:
@@ -307,7 +304,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                         .textTheme.bodyText1!
                                                         .copyWith(
                                                             color: AppColors
-                                                                .greyWhite
+                                                                .textColor
                                                                 .withOpacity(
                                                                     0.8),
                                                             fontWeight:
@@ -334,7 +331,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                         .textTheme.bodyText1!
                                                         .copyWith(
                                                             color: AppColors
-                                                                .greyWhite
+                                                                .textColor
                                                                 .withOpacity(
                                                                     0.8),
                                                             fontWeight:

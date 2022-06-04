@@ -37,7 +37,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
       globalHeader: Container(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
         child: FlatButton(
-            textColor: Colors.white,
+            textColor: AppColors.textColor,
             padding: const EdgeInsets.all(8.0),
             splashColor: Colors.blueAccent,
             onPressed: () {
@@ -45,11 +45,11 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
                   ? Get.to(() => ControllerPage())
                   : Get.to(() => const AuthInitialPage());
             },
-            child: const Align(
+            child:Align(
               alignment: Alignment.topRight,
               child: Text(
                 "Skip",
-                style: TextStyle(fontSize: 20.0),
+                style: TextStyle(color: AppColors.textColor,fontSize: 20.0),
               ),
             )),
       ),
@@ -106,13 +106,13 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
       //rtl: true, // Display as right-to-left
       back: Container(),
       skip: Container(),
-      next: const Icon(
+      next: Icon(
         Icons.arrow_forward,
-        color: Colors.white,
+        color: AppColors.textColor,
       ),
-      done: const Text('Done',
+      done: Text('Done',
           style: TextStyle(
-              fontWeight: FontWeight.w600, color: Colors.white, fontSize: 18)),
+              fontWeight: FontWeight.w600, color: AppColors.textColor, fontSize: 18)),
       curve: Curves.fastLinearToSlowEaseIn,
       controlsMargin: const EdgeInsets.all(16),
       controlsPadding: kIsWeb

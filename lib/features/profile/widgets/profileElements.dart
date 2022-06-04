@@ -22,15 +22,9 @@ class CustomProfileElements extends StatelessWidget {
           splashColor: Colors.orangeAccent,
           child: Container(
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [
-                    Color(0xff454F70),
-                    Color(0xff3F496A),
-                    Color(0xff374162),
-                    Color(0xff303B5B),
-                  ],
-                ),
+                gradient: AppColors.cardGradient,
                 borderRadius: BorderRadius.circular(20.0),
+                border: Border.all(color: Color(0xff454F70)),
               ),
               height: 50,
               child: Row(
@@ -49,15 +43,13 @@ class CustomProfileElements extends StatelessWidget {
                       ),
                       Text(
                         text.toString(),
-                        style:
-                            const TextStyle(fontSize: 16, color: Colors.white),
+                        style:TextStyle(fontSize: 16, color: AppColors.textColor),
                       ),
                     ],
                   ),
                   const Shader(
                     icon: Icon(
                       Icons.arrow_forward_ios,
-                      color: Colors.white,
                       size: 20,
                     ),
                   ),

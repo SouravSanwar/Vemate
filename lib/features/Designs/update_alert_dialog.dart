@@ -42,7 +42,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
     _width = MediaQuery.of(context).size.width;
     return Consumer<AppUpdate>(builder: (context, data, child) {
       return Container(
-        color: Colors.black.withOpacity(0.5),
+        color: AppColors.backgroundColor,
         height: _height,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +54,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                      gradient: AppColors.cardGradient,
+                      gradient: AppColors.graphGradient,
                       borderRadius: BorderRadius.circular(10)),
                   padding: const EdgeInsets.all(15),
                   width: _width,
@@ -73,7 +73,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                   "Vemate Update",
                                   style: Get.textTheme.bodyText1!
                                 .copyWith(
-                            color: AppColors.white,
+                            color: AppColors.textColor,
                                 fontWeight:
                                 FontWeight.w300,
                                 fontSize: 15),
@@ -82,7 +82,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                   "New Version ${data.appUpdator!.version!}",
                                     style: Get.textTheme.bodyText1!
                                         .copyWith(
-                                        color: AppColors.white,
+                                        color: AppColors.textColor,
                                         fontWeight:
                                         FontWeight.w300,
                                         fontSize: 10),
@@ -111,7 +111,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                         "What's New",
                         style: Get.textTheme.bodyText1!
                             .copyWith(
-                            color: AppColors.white,
+                            color: AppColors.textColor,
                             fontWeight:
                             FontWeight.w300,
                             fontSize: 15),
@@ -121,7 +121,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                         data.appUpdator!.description!,
                         style: Get.textTheme.bodyText1!
                             .copyWith(
-                            color: AppColors.white,
+                            color: AppColors.textColor,
                             fontWeight:
                             FontWeight.w300,
                             fontSize: 10),
@@ -140,7 +140,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                     child: Text(
                                       "May be Later",
                                       style: Get.textTheme.bodyLarge!.copyWith(
-                                          color: AppColors.white),
+                                          color: AppColors.textColor),
                                     ),
                                   ),
                                 )

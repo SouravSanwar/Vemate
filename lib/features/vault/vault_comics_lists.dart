@@ -65,11 +65,11 @@ class _VaultComicsListState extends State<VaultComicsList> {
         elevation: 1.0,
         titleSpacing: 0,
         iconTheme: const IconThemeData(color: Colors.grey),
-        backgroundColor: AppColors.lightBackgroundColor,
-        title: const Text(
+        backgroundColor: AppColors.backgroundColor,
+        title: Text(
           "My Comics",
           style: TextStyle(
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+              color: AppColors.textColor, fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
@@ -105,6 +105,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                 decoration: BoxDecoration(
                                   gradient: AppColors.cardGradient,
                                   borderRadius: BorderRadius.circular(12.0),
+                                    border: Border.all(color:AppColors.borderColor)
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
@@ -118,9 +119,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                             color: const Color(0xD3C89EF3),
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color:
-                                                    const Color(0xff454F70))),
+                                            border: Border.all(color:AppColors.borderColor)),
                                         alignment: Alignment.center,
                                         child: Text(
                                           data.setListModel!.results![index]
@@ -160,8 +159,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         style: Get.textTheme
                                                             .bodyText2!
                                                             .copyWith(
-                                                                color: AppColors
-                                                                    .white,
+                                                                color: AppColors.textColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -183,8 +181,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                       style: Get
                                                           .textTheme.bodyText1!
                                                           .copyWith(
-                                                              color: AppColors
-                                                                  .white,
+                                                              color: AppColors.textColor,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -237,10 +234,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors
-                                                                .greyWhite
-                                                                .withOpacity(
-                                                                    0.8),
+                                                            color: AppColors.textColor,
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 10),
@@ -260,10 +254,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors
-                                                                .greyWhite
-                                                                .withOpacity(
-                                                                    0.8),
+                                                            color: AppColors.textColor,
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10),
@@ -288,10 +279,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors
-                                                                .greyWhite
-                                                                .withOpacity(
-                                                                    0.8),
+                                                            color: AppColors.textColor,
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 11),
@@ -306,10 +294,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors
-                                                                .white
-                                                                .withOpacity(
-                                                                    0.9),
+                                                            color: AppColors.textColor,
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 11),
@@ -454,9 +439,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                       requestHeadersWithToken,
                                                     );
                                                   },
-                                                  child: const Icon(
+                                                  child: Icon(
                                                     Icons.delete_forever,
-                                                    color: Colors.grey,
+                                                    color: AppColors.textColor,
                                                   ),
                                                 ),
                                               ],

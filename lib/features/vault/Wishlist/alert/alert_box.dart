@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
+import 'package:ketemaa/features/vault/Wishlist/alert/alertFrequencyDropdown.dart';
+import 'package:ketemaa/features/vault/Wishlist/alert/alertTextfield.dart';
+import 'package:ketemaa/features/vault/Wishlist/alert/alertTypeDropDown.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/models/WishListModel.dart';
 
@@ -18,26 +21,14 @@ class ShowAlertBox extends StatefulWidget {
 
 class _ShowAlertBoxState extends State<ShowAlertBox> {
   TextEditingController valueController = TextEditingController();
-  String dropdownvalue = 'Price rises';
-  String dropdownvalue1 = 'Once only';
+  TextEditingController mintController1 = TextEditingController();
+  TextEditingController mintController2 = TextEditingController();
+
   bool? toggleValue = false;
   bool? hasDropDownValue = false;
 
   PostData? postData;
-  int? priceType;
-  int? frequency;
 
-  var items = [
-    'Price rises above',
-    'Price drops under',
-    'Price rises',
-    'Price drops',
-  ];
-  var items1 = [
-    'Once only',
-    'Once a day',
-    'Always',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -58,244 +49,137 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
         children: [
           Text(
             "Alerts",
-            style: TextStyle(fontSize: 22.0, color: Colors.white),
+            style: TextStyle(fontSize: 22.0, color: AppColors.textColor),
           ),
-          toggleValue == true
-              ? InkWell(
-                  onTap: () {
-                    postData = Provider.of<PostData>(context, listen: false);
-                    var body = {
-                      "product": widget.results!.productDetail!.id,
-                      "type": 0,
-                      "price_type": priceType,
-                      "value": double.parse(valueController.text),
-                      "frequency": frequency
-                    };
+          AnimatedContainer(
+            padding: EdgeInsets.only(left: 2, right: 2),
+            duration: Duration(milliseconds: 100),
+            height: 30.0,
+            width: 60.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25.0),
+              color: toggleValue == true ? Colors.purple : Colors.grey,
+            ),
+            child: Stack(
 
-                    postData!.createAlert(context, body);
-                  },
-                  child: Text(
-                    "Save",
-                    style: TextStyle(fontSize: 18.0, color: Colors.purple),
-                  ),
-                )
-              : Container(),
+              children: <Widget>[
+                AnimatedPositioned(
+                    duration: Duration(milliseconds: 100),
+                    curve: Curves.easeIn,
+                    top: 3.0,
+                    left: toggleValue == true ? 30.0 : 0.0,
+                    right: toggleValue == true ? 0.0 : 30.0,
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          toggleValue = !toggleValue!;
+                        });
+                      },
+                      child:  Container(
+                        alignment: toggleValue == true ?Alignment.centerLeft :Alignment.centerLeft ,
+                        height: 25,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+
+                      ),
+
+                    ))
+              ],
+            ),
+          )
         ],
       ),
-      content: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Price",
-                    style: TextStyle(fontSize: 20.0, color: Colors.white),
-                  ),
-                  AnimatedContainer(
-                    padding: EdgeInsets.only(left: 2, right: 2),
-                    duration: Duration(milliseconds: 100),
-                    height: 30.0,
-                    width: 60.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25.0),
-                      color: toggleValue == true ? Colors.purple : Colors.grey,
-                    ),
-                    child: Stack(
-                      children: <Widget>[
-                        AnimatedPositioned(
-                            duration: Duration(milliseconds: 100),
-                            curve: Curves.easeIn,
-                            top: 3.0,
-                            left: toggleValue == true ? 30.0 : 0.0,
-                            right: toggleValue == true ? 0.0 : 30.0,
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  toggleValue = !toggleValue!;
-                                });
-                              },
-                              child:  Container(
-                                alignment: toggleValue == true ?Alignment.centerLeft :Alignment.centerLeft ,
-                                  height: 25,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(25.0),
-                                  ),
-                                ),
-
-                            ))
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              toggleValue == true
-                  ? Container(
+      content:toggleValue == true
+          ?  SingleChildScrollView(
+          padding:  EdgeInsets.symmetric(horizontal: 25),
+          child: Container(
                       alignment: Alignment.topLeft,
                       child: Column(
+
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Text(
+                            "Mint",
+                            style: TextStyle(fontSize: 20.0, color: AppColors.textColor),
+                            textAlign: TextAlign.left,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                         Row(
+                            children: [
+                              Expanded(
+                                child: AlertTextField(
+                                  height: Get.height*.02,
+                                  controller: mintController1,
+                                ),
+                              ),
+                              SizedBox(width: 10,),
+                              Text("-",style: TextStyle(color: AppColors.textColor,fontSize: 25),),
+                              SizedBox(width: 10,),
+                              Expanded(
+                                child:AlertTextField(
+                                height: Get.height*.02,
+                                controller: mintController2,
+                              ),
+                              ),
+
+
+                            ],
+                          ),
                           SizedBox(
                             height: 15,
                           ),
-                          const Text(
+                          Text(
+                            "Price",
+                            style: TextStyle(fontSize: 20.0, color: AppColors.textColor),
+                            textAlign: TextAlign.left,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                         Text(
                             "Value",
                             style:
-                                TextStyle(fontSize: 20.0, color: Colors.white),
+                                TextStyle(fontSize: 20.0, color: AppColors.textColor),
                           ),
                           SizedBox(
-                            height: 15,
+                            height: 10,
                           ),
-                          TextFormField(
-                            textAlign: TextAlign.center,
+                          AlertTextField(
+                            height: Get.height*.03,
                             controller: valueController,
-                            keyboardType: TextInputType.number,
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 18.0),
-                            decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 1.0),
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 1.0),
-                                borderRadius: BorderRadius.circular(
-                                  15.0,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 1.0),
-                                borderRadius: BorderRadius.circular(
-                                  15.0,
-                                ),
-                              ),
-                            ),
                           ),
                           const SizedBox(
-                            height: 15,
+                            height: 10,
                           ),
-                          const Text(
+                          Text(
                             "Type",
                             style:
-                                TextStyle(fontSize: 20.0, color: Colors.white),
+                                TextStyle(fontSize: 20.0, color: AppColors.textColor),
                           ),
                           const SizedBox(
-                            height: 15,
-                          ),
-                          DropdownButtonFormField(
-                            value: dropdownvalue,
-                            dropdownColor: AppColors.backgroundColor,
-                            decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey, width: 2),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey, width: 2),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey, width: 2),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              filled: true,
-                              fillColor: AppColors.backgroundColor,
-                            ),
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items: items.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: Text(
-                                  items,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownvalue = newValue!;
-                                dropdownvalue == 'Price rises above'
-                                    ? priceType = 0
-                                    : dropdownvalue == 'Price drops under'
-                                        ? priceType = 1
-                                        : dropdownvalue == 'Price rises'
-                                            ? priceType = 2
-                                            : priceType = 3;
-                              });
-                            },
+                            height: 10,
                           ),
 
+                          AlertTypeDropDown(),
+
                           const SizedBox(
-                            height: 15,
+                            height: 10,
                           ),
-                          const Text(
+                          Text(
                             "Frequency",
                             style:
-                            TextStyle(fontSize: 20.0, color: Colors.white),
+                            TextStyle(fontSize: 20.0, color: AppColors.textColor),
                           ),
                           const SizedBox(
-                            height: 15,
+                            height: 10,
                           ),
 
-                          DropdownButtonFormField(
-                            value: dropdownvalue1,
-                            dropdownColor: AppColors.backgroundColor,
-                            decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(color: Colors.grey, width: 2),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(color: Colors.grey, width: 2),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(color: Colors.grey, width: 2),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              filled: true,
-                              fillColor: AppColors.backgroundColor,
-                            ),
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items: items1.map((String items1) {
-                              return DropdownMenuItem(
-                                value: items1,
-                                child: Text(
-                                  items1,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue1) {
-                              setState(() {
-                                dropdownvalue1 = newValue1!;
-                                dropdownvalue1 == 'Once only'
-                                    ? frequency = 0
-                                    : dropdownvalue1 == 'Once a day'
-                                    ? frequency = 1
-                                    :  frequency = 2;
-
-                                print(frequency);
-                              });
-                            },
-                          ),
+                          AlertFrequencyDropDown(),
 
                           const SizedBox(
                             height: 25,
@@ -308,9 +192,9 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                 var body = {
                                   "product": widget.results!.productDetail!.id,
                                   "type": 0,
-                                  "price_type":priceType,
+                                  "price_type":TypeIndex,
                                   "value": double.parse(valueController.text),
-                                  "frequency": frequency
+                                  "frequency": frequencyIndex,
                                 };
 
                                 postData!.createAlert(context, body);
@@ -327,10 +211,9 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                           ),
                         ],
                       ),
-                    )
-                  : Container(),
-            ],
-          )),
+                    )): Container(
+        height: Get.height * .01,
+      ),
     );
   }
 }

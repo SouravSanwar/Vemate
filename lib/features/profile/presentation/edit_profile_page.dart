@@ -85,7 +85,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       children: <Widget>[
                         CircleAvatar(
                           radius: MediaQuery.of(context).size.width * .25,
-                          backgroundColor: const Color(0xff2F3758),
+                          backgroundColor: AppColors.textColor,
                           backgroundImage: profileModel!.profileImage == null
                               ? null
                               : NetworkImage(

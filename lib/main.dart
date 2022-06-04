@@ -14,20 +14,28 @@ import 'app_routes/app_routes.dart';
 import 'core/Provider/getData.dart';
 import 'core/Provider/postFile.dart';
 import 'core/language/language.dart';
+import 'core/utilities/app_colors/app_colors.dart';
 import 'core/utilities/app_theme/app_theme.dart';
 import 'package:flutter/services.dart';
 
 SharedPreferences? prefs;
+SharedPreferences? prefs1;
 
 bool filterOn = false;
+bool? darkMode = false;
+int? mode;
 
+@override
+initState() {
+  mode=prefs?.getInt('mode');
+  print(mode.toString());
+  print("/*/*/*/*/*/*/*/*/*/xxxxxxxxxxx/*/*/*/*/*/*/*/*/*/*/*");
+
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-
-
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -40,6 +48,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => PostData()),
         ChangeNotifierProvider(create: (_) => PostFile()),
         ChangeNotifierProvider(create: (_) => AppUpdate()),
+        ChangeNotifierProvider(create: (_) => AppColors()),
       ],
       child: const MyApp(),
     ),
@@ -52,6 +61,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(SharedPreferenceController());
+
+
+    final appStyleMode = Provider.of<AppColors>(context);
+    appStyleMode.switchMode();
+
+    print(prefs?.getInt('mode'));
+    print("/*/*/*/*/*/*/*/88888888888/*/*/*/*/*/*/*/*/*/*/*/*");
+
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.themeData(),

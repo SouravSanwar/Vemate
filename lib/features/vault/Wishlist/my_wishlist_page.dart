@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
+import 'package:ketemaa/core/utilities/Dialog/delete_dialog.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
-import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertItems.dart';
@@ -66,12 +67,15 @@ class _WishListPageState extends State<WishListPage> {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         elevation: 1.0,
+        titleSpacing: 0,
+        iconTheme: const IconThemeData(color: Colors.grey),
+        backgroundColor: AppColors.backgroundColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               'My Wishlist',
-              style: Get.textTheme.headline2!.copyWith(color: Colors.white),
+              style: Get.textTheme.headline2!.copyWith(color: AppColors.textColor),
             ),
 
             InkWell(
@@ -80,13 +84,13 @@ class _WishListPageState extends State<WishListPage> {
               },
               child:  Icon(
                 Icons.alarm_on,
-                color: AppColors.white,
+                color: AppColors.textColor,
               ),
             )
 
           ],
         ),
-        backgroundColor: AppColors.backgroundColor,
+
       ),
       body: Consumer<GetData>(builder: (context, data, child) {
         return data.wishListModel != null
@@ -117,6 +121,7 @@ class _WishListPageState extends State<WishListPage> {
                                   decoration: BoxDecoration(
                                     gradient: AppColors.cardGradient,
                                     borderRadius: BorderRadius.circular(5.0),
+                                    border: Border.all(color: AppColors.borderColor)
                                   ),
                                   child: InkWell(
                                     onTap: () {
@@ -152,12 +157,11 @@ class _WishListPageState extends State<WishListPage> {
                                             height: Get.height * .078,
                                             width: Get.height * .078,
                                             decoration: BoxDecoration(
-                                                color: const Color(0xD3C89EF3),
+                                                color: Color(0xD3C89EF3),
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                                 border: Border.all(
-                                                    color: const Color(
-                                                        0xff454F70))),
+                                                    color:AppColors.borderColor)),
                                             alignment: Alignment.center,
                                             child: Text(
                                               data
@@ -204,8 +208,7 @@ class _WishListPageState extends State<WishListPage> {
                                                             style: Get.textTheme
                                                                 .bodyText2!
                                                                 .copyWith(
-                                                                    color: AppColors
-                                                                        .white,
+                                                                    color: AppColors.textColor,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -229,8 +232,7 @@ class _WishListPageState extends State<WishListPage> {
                                                               .bodyText1!
                                                               .copyWith(
                                                                   color:
-                                                                      AppColors
-                                                                          .white,
+                                                                      AppColors.textColor,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w300,
@@ -287,10 +289,7 @@ class _WishListPageState extends State<WishListPage> {
                                                         style: Get.textTheme
                                                             .bodyText1!
                                                             .copyWith(
-                                                                color: AppColors
-                                                                    .greyWhite
-                                                                    .withOpacity(
-                                                                        0.8),
+                                                                color: AppColors.textColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w900,
@@ -312,10 +311,7 @@ class _WishListPageState extends State<WishListPage> {
                                                         style: Get.textTheme
                                                             .bodyText1!
                                                             .copyWith(
-                                                                color: AppColors
-                                                                    .greyWhite
-                                                                    .withOpacity(
-                                                                        0.8),
+                                                                color: AppColors.textColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w300,
@@ -343,10 +339,7 @@ class _WishListPageState extends State<WishListPage> {
                                                         style: Get.textTheme
                                                             .bodyText1!
                                                             .copyWith(
-                                                                color: AppColors
-                                                                    .greyWhite
-                                                                    .withOpacity(
-                                                                        0.8),
+                                                                color: AppColors.textColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w900,
@@ -368,7 +361,7 @@ class _WishListPageState extends State<WishListPage> {
                                                        child:  Container(
                                                          child: Icon(
                                                            Icons.notifications_none,
-                                                           color: AppColors.white,
+                                                           color: AppColors.textColor,
 
                                                          ),
                                                        )
@@ -550,7 +543,6 @@ class _WishListPageState extends State<WishListPage> {
                                 right: 10.0,
                                 child: InkWell(
                                   onTap: () {
-
                                       showDialog(
                                       context: context,
                                       builder: (context) {
@@ -565,32 +557,41 @@ class _WishListPageState extends State<WishListPage> {
                                         ),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                                       titlePadding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                                      title: Text(data.wishListModel!.results![index].productDetail!.name.toString(),style: TextStyle(color: Colors.white,fontSize: 20),),
-                                      content: Text('Do you really want to delete this item?',style: TextStyle(color: Colors.white,fontSize: 15),),
+                                      title: Text(data.wishListModel!.results![index].productDetail!.name.toString(),style: TextStyle(color: AppColors.textColor,fontSize: 20),),
+                                      content: Text('Do you really want to delete this item?',style: TextStyle(color: AppColors.textColor,fontSize: 15),),
                                       actions: <Widget>[
-                                      TextButton(
-                                      onPressed: () {
 
-                                              postData!.deleteWishlist(
+                                      CustomButtons(
+                                          width: Get.width*.2,
+                                          height: Get.height * .05,
+                                          onTap: () {
+
+                                            postData!.deleteWishlist(
                                               context,
                                               data.wishListModel!.results![index].id,
                                               requestHeadersWithToken,
-                                              );
-                                      },
-                                      child: Text('Yes',style: TextStyle(color: Colors.red),)),
-                                      TextButton(
-                                      onPressed: () {
-                                      Navigator.pop(context); //close Dialog
-                                      },
-                                      child: Text('Close',style: TextStyle(color: Colors.white),),
-                                      )
+                                            );
+                                          },
+                                          text: 'Yes'.toUpperCase(),
+                                          style: Get.textTheme.button!.copyWith(color: AppColors.textColor),
+                                        ),
+                                        CustomButtons(
+                                          width: Get.width*.2,
+                                          height: Get.height * .05,
+                                          onTap: () {
+
+                                            Navigator.pop(context);
+                                          },
+                                          text: 'Close'.toUpperCase(),
+                                          style: Get.textTheme.button!.copyWith(color: Colors.red),
+                                        ),
                                       ],
                                       );
                                       });
                                   },
                                   child:  Icon(
                                     Icons.delete,
-                                    color: AppColors.white,
+                                    color: AppColors.textColor,
                                   ),
                                 ),
                               ),

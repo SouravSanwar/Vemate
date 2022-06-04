@@ -9,8 +9,10 @@ import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_controller.dart';
+import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/widgets/profileElements.dart';
+import 'package:ketemaa/features/profile/widgets/toggleButton.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,6 +40,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    final appStyleMode = Provider.of<AppColors>(context);
     Get.put(SigninController());
     final _dialog = RatingDialog(
       starSize: 35.0,
@@ -68,7 +71,7 @@ class _ProfileState extends State<Profile> {
     );
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.backgroundColor ,
       body: SafeArea(
         minimum: EdgeInsets.zero,
         child: Consumer<GetData>(builder: (context, data, child) {
@@ -77,7 +80,7 @@ class _ProfileState extends State<Profile> {
                   shrinkWrap: true,
                   children: [
                     // SizedBox(height: Get.height * .05),
-                    BackPreviousScreen(),
+                    ToggleButton(),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -104,7 +107,7 @@ class _ProfileState extends State<Profile> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: AppColors.greyWhite,
+                                color: AppColors.textColor.withOpacity(0.8),
                                 width: 2.0,
                               ),
                             ),
@@ -114,16 +117,16 @@ class _ProfileState extends State<Profile> {
                           ),
                           Text(
                             data.profileModel!.nickname.toString(),
-                            style: const TextStyle(
-                                color: Colors.white,
+                            style:  TextStyle(
+                                color: AppColors.textColor,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.0),
                             textAlign: TextAlign.center,
                           ),
                         ]),
                     SizedBox(
-                      height: Get.height * .07,
-                    ),
+                      height: Get.height * .07,),
+
                     CustomProfileElements(Icons.person, "Profile Edit", () {
                       Get.to(
                         () => EditProfilePage(),
@@ -168,7 +171,7 @@ class _ProfileState extends State<Profile> {
                             : 'Two FA Disabled', () {
                       Get.dialog(
                         Dialog(
-                          backgroundColor: const Color(0xff272E49),
+                          backgroundColor: AppColors.backgroundColor,
                           child: Container(
                             width: Get.height * .25,
                             decoration: BoxDecoration(
@@ -201,7 +204,7 @@ class _ProfileState extends State<Profile> {
                                         "Vemate",
                                         style: Get.textTheme.headline1!
                                             .copyWith(
-                                                color: AppColors.white,
+                                                color: AppColors.textColor,
                                                 fontWeight: FontWeight.w500),
                                       ),
                                     ],
@@ -212,13 +215,13 @@ class _ProfileState extends State<Profile> {
                                           'Two Factor Authentication is Enabled',
                                           textAlign: TextAlign.center,
                                           style: Get.textTheme.bodyLarge!
-                                              .copyWith(color: Colors.white),
+                                              .copyWith(color: AppColors.textColor),
                                         )
                                       : Text(
                                           'Two Factor Authentication is Disabled',
                                           textAlign: TextAlign.center,
                                           style: Get.textTheme.bodyLarge!
-                                              .copyWith(color: Colors.white),
+                                              .copyWith(color: AppColors.textColor),
                                         ),
                                   AppSpaces.spaces_height_25,
                                   data.profileModel!.fa == true
@@ -254,12 +257,12 @@ class _ProfileState extends State<Profile> {
                                                 ),
                                               ],
                                             ),
-                                            child: const Padding(
+                                            child: Padding(
                                               padding: EdgeInsets.all(8.0),
                                               child: Text(
                                                 'Disable',
                                                 style: TextStyle(
-                                                    color: Colors.white),
+                                                    color: AppColors.textColor),
                                               ),
                                             ),
                                           ),
@@ -296,12 +299,12 @@ class _ProfileState extends State<Profile> {
                                                 ),
                                               ],
                                             ),
-                                            child: const Padding(
+                                            child:  Padding(
                                               padding: EdgeInsets.all(8.0),
                                               child: Text(
                                                 'Enable',
                                                 style: TextStyle(
-                                                    color: Colors.white),
+                                                    color: AppColors.textColor),
                                               ),
                                             ),
                                           ),
@@ -334,7 +337,7 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   Icon(
                                     Icons.warning,
-                                    color: AppColors.white,
+                                    color: AppColors.textColor,
                                   ),
                                   SizedBox(
                                     width: 15,
@@ -342,14 +345,14 @@ class _ProfileState extends State<Profile> {
                                   Text(
                                     "Logout",
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                                        color: AppColors.textColor, fontSize: 20),
                                   ),
                                 ],
                               ),
                               content: Text(
                                 'Do you really want to exit?',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
+                                    color: AppColors.textColor, fontSize: 15),
                               ),
                               actions: <Widget>[
                                 TextButton(
@@ -375,7 +378,7 @@ class _ProfileState extends State<Profile> {
                                   },
                                   child: Text(
                                     'No',
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: AppColors.textColor),
                                   ),
                                 )
                               ],

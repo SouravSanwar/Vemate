@@ -6,6 +6,7 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/reset_pass/forgot_pass.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 import '../../../app_routes/app_routes.dart';
@@ -40,7 +41,7 @@ class _ResetPassState extends State<ResetPass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff272E49),
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -54,7 +55,7 @@ class _ResetPassState extends State<ResetPass> {
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
-                  'assets/media/image/vemate.png',
+                  mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -67,10 +68,10 @@ class _ResetPassState extends State<ResetPass> {
                   Container(
                       width: Get.width * .9,
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: const Text(
+                      child: Text(
                         "RESET PASSWORD",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.grey),
+                            fontWeight: FontWeight.bold, color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(
