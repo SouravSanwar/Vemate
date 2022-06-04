@@ -460,7 +460,7 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future updateProfile(
-      BuildContext context, var body, var requestHeadersWithToken) async {
+      BuildContext context, var body) async {
     showDialog(
         context: context,
         barrierDismissible: false,

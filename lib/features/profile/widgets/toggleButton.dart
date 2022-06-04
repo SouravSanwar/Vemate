@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
@@ -6,8 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/utilities/app_colors/app_colors.dart';
-class ToggleButton extends StatefulWidget {
 
+class ToggleButton extends StatefulWidget {
   const ToggleButton({Key? key}) : super(key: key);
 
   @override
@@ -26,11 +28,11 @@ class _ToggleButtonState extends State<ToggleButton> {
         children: [
           InkWell(
             onTap: () {
-              Get.to(
-                      () => ControllerPage());
+              Get.to(() => ControllerPage());
+              //Get.back();
             },
-            child: const Icon(
-              Icons.arrow_back_ios,
+            child: Icon(
+              Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back,
               color: Colors.grey,
             ),
           ),
@@ -46,50 +48,51 @@ class _ToggleButtonState extends State<ToggleButton> {
             child: Stack(
               children: <Widget>[
                 AnimatedPositioned(
-                    duration: Duration(milliseconds: 100),
-                    curve: Curves.easeIn,
-                    top: 3.0,
-                    left: darkMode  == true ? 30.0 : 0.0,
-                    right: darkMode  == true ? 0.0 : 30.0,
-                    child: InkWell(
-                      onTap: () async {
-                        prefs = await SharedPreferences.getInstance();
-                        if(prefs?.getInt('mode')==1){
-                          prefs!.setInt('mode', 0) ;
-                          setState(() {
-                            darkMode =true;
-                          });
-                        }
-                        else if(prefs?.getInt('mode')==0){
-                          prefs!.setInt('mode', 1) ;
-                          setState(() {
-                            darkMode =false;
-                          });
-                        }
-                        else{
-                          prefs!.setInt('mode', 0) ;
-                          setState(() {
-                            darkMode =true;
-                          });
-                        }
-                        appStyleMode.switchMode();
+                  duration: Duration(milliseconds: 100),
+                  curve: Curves.easeIn,
+                  top: 3.0,
+                  left: darkMode == true ? 30.0 : 0.0,
+                  right: darkMode == true ? 0.0 : 30.0,
+                  child: InkWell(
+                    onTap: () async {
+                      prefs = await SharedPreferences.getInstance();
+                      if (prefs?.getInt('mode') == 1) {
+                        prefs!.setInt('mode', 0);
+                        setState(() {
+                          darkMode = true;
+                        });
+                      } else if (prefs?.getInt('mode') == 0) {
+                        prefs!.setInt('mode', 1);
+                        setState(() {
+                          darkMode = false;
+                        });
+                      } else {
+                        prefs!.setInt('mode', 0);
+                        setState(() {
+                          darkMode = true;
+                        });
+                      }
+                      appStyleMode.switchMode();
 
-
-                        print(prefs?.getInt('mode'));//eta soman 1/0 check kora lagbe
-
-                      },
-                      child:  Container(
-                        alignment: darkMode  == true ?Alignment.centerLeft :Alignment.centerLeft ,
-                        height: 25,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                          child: Icon(darkMode == true ?Icons.dark_mode : Icons.light_mode )
+                      print(prefs
+                          ?.getInt('mode')); //eta soman 1/0 check kora lagbe
+                    },
+                    child: Container(
+                      alignment: darkMode == true
+                          ? Alignment.centerLeft
+                          : Alignment.centerLeft,
+                      height: 25,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25.0),
                       ),
-
-                    ))
+                      child: Icon(darkMode == true
+                          ? Icons.dark_mode
+                          : Icons.light_mode),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -98,4 +101,3 @@ class _ToggleButtonState extends State<ToggleButton> {
     );
   }
 }
-

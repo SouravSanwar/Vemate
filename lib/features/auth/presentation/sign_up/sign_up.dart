@@ -50,14 +50,16 @@ class _SignUpState extends State<SignUp> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const BackPreviousScreen(),
-                SizedBox(
-                  height: Get.height * .07,
-                ),
-                SizedBox(
+                  SizedBox(
+                    height: Get.height * .07,
+                  ),
+                  SizedBox(
                     height: Get.height * .18,
                     width: Get.width * .9,
                     child: Image.asset(
-                      mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
+                      mode == 0
+                          ? 'assets/media/image/vemate1.png'
+                          : 'assets/media/image/vemate.png',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -65,135 +67,131 @@ class _SignUpState extends State<SignUp> {
                     height: Get.height * .02,
                   ),
                   Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: Get.width * .9,
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: Get.width * .9,
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(
                             "REGISTER",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, color: AppColors.textColor),
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textColor),
+                          ),
                         ),
-                      ),
-                      AppSpaces.spaces_height_25,
-
-                      NewTextField(
-                        textEditingController:
-                            SignUpController.to.nameController,
-                        keyboardType: TextInputType.text,
-                        obscureText: true,
-                        icon: null,
-                        hint: "Username",
-                        controll: 'Username',
-                      ),
-
-                      SizedBox(
-                        height: Get.height * .022,
-                      ),
-
+                        AppSpaces.spaces_height_25,
                         NewTextField(
-                        textEditingController:
-                            SignUpController.to.emailController,
-                        keyboardType: TextInputType.text,
-                        obscureText: true,
-                        icon: null,
-                        hint: "Email",
-                        controll: 'Email',
-                      ),
-
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      NewTextField(
                           textEditingController:
-                            SignUpController.to.passwordController,
+                              SignUpController.to.nameController,
                           keyboardType: TextInputType.text,
                           obscureText: true,
-                        icon: null,
-                        hint: "Password",
-                        controll: 'Password',
-                        isPassword: true,
-                      ),
-
-                      Container(
-                        alignment: Alignment.topLeft,
-                        padding: const EdgeInsets.only(left: 35),
-                        height: Get.height * .022,
-                        child: passDigitCheck == true
-                            ? const Text(
-                                "*Min 8 characters with 1 uppercase, 1 number",
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 11),
-                              )
-                            : const Text(
-                                "Password must be atleast 8 characters",
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 11),
-                              ),
-                      ),
-
-                      NewTextField(
+                          icon: null,
+                          hint: "Username",
+                          controll: 'Username',
+                        ),
+                        SizedBox(
+                          height: Get.height * .022,
+                        ),
+                        NewTextField(
                           textEditingController:
-                            SignUpController.to.confirmPasswordController,
+                              SignUpController.to.emailController,
                           keyboardType: TextInputType.text,
                           obscureText: true,
-                        icon: null,
-                        hint: "Confirm Password",
-                        controll: 'Password',
-                        isPassword: true,
-                      ),
+                          icon: null,
+                          hint: "Email",
+                          controll: 'Email',
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        NewTextField(
+                          textEditingController:
+                              SignUpController.to.passwordController,
+                          keyboardType: TextInputType.text,
+                          obscureText: true,
+                          icon: null,
+                          hint: "Password",
+                          controll: 'Password',
+                          isPassword: true,
+                        ),
+                        Container(
+                          alignment: Alignment.topLeft,
+                          padding: const EdgeInsets.only(left: 35),
+                          height: Get.height * .022,
+                          child: passDigitCheck == true
+                              ? const Text(
+                                  "*Min 8 characters with 1 uppercase, 1 number",
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 11),
+                                )
+                              : const Text(
+                                  "Password must be atleast 8 characters",
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 11),
+                                ),
+                        ),
+                        NewTextField(
+                          textEditingController:
+                              SignUpController.to.confirmPasswordController,
+                          keyboardType: TextInputType.text,
+                          obscureText: true,
+                          icon: null,
+                          hint: "Confirm Password",
+                          controll: 'Password',
+                          isPassword: true,
+                        ),
+                        SizedBox(
+                          height: Get.height * .07,
+                        ),
+                        CustomButtons(
+                          width: Get.width * .9,
+                          height: Get.height * .065,
+                          onTap: () {
+                            var body = {
+                              "nickname":
+                                  SignUpController.to.nameController.text,
+                              "email": SignUpController.to.emailController.text,
+                              "gender": "0",
+                              "birth_year": "1852",
+                              "fcm_device_id": "3",
+                              "password":
+                                  SignUpController.to.passwordController.text
+                            };
+                            if (_formKey.currentState!.validate()) {
+                              SignUpController.to.passwordController.text ==
+                                      SignUpController
+                                          .to.confirmPasswordController.text
+                                  ? postData!.signUp(context, body)
+                                  : Flushbar(
+                                      backgroundColor:
+                                          AppColors.lightBackgroundColor,
+                                      flushbarPosition: FlushbarPosition.BOTTOM,
+                                      isDismissible: false,
+                                      duration: const Duration(seconds: 3),
+                                      messageText: const Text(
+                                        "Password didn't match",
+                                        style: TextStyle(
+                                            fontSize: 16.0, color: Colors.red),
+                                      ),
+                                    ).show(context);
 
-                      SizedBox(
-                        height: Get.height * .07,
-                      ),
-
-                      CustomButtons(
-                        width: Get.width * .9,
-                        height: Get.height * .065,
-                        onTap: () {
-                          var body = {
-                            "nickname": SignUpController.to.nameController.text,
-                            "email": SignUpController.to.emailController.text,
-                            "gender": "0",
-                            "birth_year": "1852",
-                            "fcm_device_id": "3",
-                            "password":
-                                SignUpController.to.passwordController.text
-                          };
-                          if (_formKey.currentState!.validate()) {
-                            SignUpController.to.passwordController.text ==
-                                    SignUpController
-                                        .to.confirmPasswordController.text
-                                ? postData!.signUp(context, body)
-                                : Flushbar(
-                                    backgroundColor:
-                                        AppColors.lightBackgroundColor,
-                                    flushbarPosition: FlushbarPosition.BOTTOM,
-                                    isDismissible: false,
-                                    duration: const Duration(seconds: 3),
-                                    messageText: const Text(
-                                      "Password didn't match",
-                                      style: TextStyle(
-                                          fontSize: 16.0, color: Colors.red),
-                                    ),
-                                  ).show(context);
-
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Processing Data')),
-                            );
-                          }
-                        },
-                        text: AppLanguageString.SIGN_UP.tr.toUpperCase(),
-                        style:
-                            Get.textTheme.button!.copyWith(color: Colors.white),
-                      )
-                    ],
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Processing Data')),
+                              );
+                            }
+                          },
+                          text: AppLanguageString.SIGN_UP.tr.toUpperCase(),
+                          style: Get.textTheme.button!
+                              .copyWith(color: Colors.white),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

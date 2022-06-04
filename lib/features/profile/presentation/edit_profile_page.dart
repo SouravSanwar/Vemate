@@ -149,25 +149,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   SizedBox(
                     height: Get.height * .07,
                   ),
-
                   CustomButtons(
-                    width: Get.width*.8,
+                    width: Get.width * .8,
                     height: Get.height * .065,
-                    onTap: ()  {
+                    onTap: () {
                       var body = {
                         "nickname": ProfileController
                             .to.userNameTextFiledController.text,
                         "email":
-                        ProfileController.to.emailTextFiledController.text
+                            ProfileController.to.emailTextFiledController.text
                       };
 
-                      Map<String, String> requestHeadersWithToken = {
-                        'Content-type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'token ${prefs!.getString('token')}',
-                      };
-                      postData!.updateProfile(
-                          context, body, requestHeadersWithToken);
+                      postData!.updateProfile(context, body);
                     },
                     text: AppLanguageString.UPDATE_INFO.toUpperCase(),
                     style: Get.textTheme.button!.copyWith(color: Colors.white),

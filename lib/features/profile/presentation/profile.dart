@@ -71,7 +71,12 @@ class _ProfileState extends State<Profile> {
     );
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor ,
+      backgroundColor: AppColors.backgroundColor,
+      /*appBar: AppBar(
+        actions: const [
+          ToggleButton(),
+        ],
+      ),*/
       body: SafeArea(
         minimum: EdgeInsets.zero,
         child: Consumer<GetData>(builder: (context, data, child) {
@@ -117,7 +122,7 @@ class _ProfileState extends State<Profile> {
                           ),
                           Text(
                             data.profileModel!.nickname.toString(),
-                            style:  TextStyle(
+                            style: TextStyle(
                                 color: AppColors.textColor,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.0),
@@ -125,7 +130,8 @@ class _ProfileState extends State<Profile> {
                           ),
                         ]),
                     SizedBox(
-                      height: Get.height * .07,),
+                      height: Get.height * .07,
+                    ),
 
                     CustomProfileElements(Icons.person, "Profile Edit", () {
                       Get.to(
@@ -215,13 +221,15 @@ class _ProfileState extends State<Profile> {
                                           'Two Factor Authentication is Enabled',
                                           textAlign: TextAlign.center,
                                           style: Get.textTheme.bodyLarge!
-                                              .copyWith(color: AppColors.textColor),
+                                              .copyWith(
+                                                  color: AppColors.textColor),
                                         )
                                       : Text(
                                           'Two Factor Authentication is Disabled',
                                           textAlign: TextAlign.center,
                                           style: Get.textTheme.bodyLarge!
-                                              .copyWith(color: AppColors.textColor),
+                                              .copyWith(
+                                                  color: AppColors.textColor),
                                         ),
                                   AppSpaces.spaces_height_25,
                                   data.profileModel!.fa == true
@@ -299,7 +307,7 @@ class _ProfileState extends State<Profile> {
                                                 ),
                                               ],
                                             ),
-                                            child:  Padding(
+                                            child: Padding(
                                               padding: EdgeInsets.all(8.0),
                                               child: Text(
                                                 'Enable',
@@ -345,7 +353,8 @@ class _ProfileState extends State<Profile> {
                                   Text(
                                     "Logout",
                                     style: TextStyle(
-                                        color: AppColors.textColor, fontSize: 20),
+                                        color: AppColors.textColor,
+                                        fontSize: 20),
                                   ),
                                 ],
                               ),
@@ -378,7 +387,8 @@ class _ProfileState extends State<Profile> {
                                   },
                                   child: Text(
                                     'No',
-                                    style: TextStyle(color: AppColors.textColor),
+                                    style:
+                                        TextStyle(color: AppColors.textColor),
                                   ),
                                 )
                               ],

@@ -41,6 +41,8 @@ class BaseClient {
   Future<dynamic> post(String baseUrl, dynamic body) async {
     var uri = Uri.parse(baseUrl);
     var payload = json.encode(body);
+
+    printInfo(info: 'Post Body: '+payload.toString());
     try {
       var response = await http.post(
         uri,

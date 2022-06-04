@@ -42,7 +42,7 @@ class _TextInputFieldState extends State<TextInputField> {
       ),
       child: widget.controller == 'emailController'
           ? TextFormField(
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.textColor,
                 fontSize: 18.0,
               ),
@@ -73,7 +73,7 @@ class _TextInputFieldState extends State<TextInputField> {
                    return 'This Field is required';
                  }
 },
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.textColor,
                 fontSize: 18.0,
               ),
