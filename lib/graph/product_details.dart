@@ -1,12 +1,8 @@
-import 'package:animate_do/animate_do.dart';
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/graph/designhelper.dart';
-import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 import '../core/Provider/getData.dart';
