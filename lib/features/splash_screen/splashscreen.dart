@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/main.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -28,7 +28,6 @@ class SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> navigationPage() async {
-
     VersionControl.initConfig();
     VersionControl.initPackageInfo();
     /*prefs!.getString('token') != null
@@ -42,9 +41,6 @@ class SplashScreenState extends State<SplashScreen>
 
     const simpleBehavior = false;
 
-    SharedPreferences.getInstance().then((pr) {
-      prefs = pr;
-    });
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
@@ -53,7 +49,7 @@ class SplashScreenState extends State<SplashScreen>
     animation =
         CurvedAnimation(parent: animationController, curve: Curves.easeIn);
 
-    animation.addListener(() => this.setState(() {}));
+    animation.addListener(() => setState(() {}));
     animationController.forward();
 
     setState(() {
@@ -84,6 +80,3 @@ class SplashScreenState extends State<SplashScreen>
     );
   }
 }
-
-
-

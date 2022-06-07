@@ -23,7 +23,7 @@ class CategoryCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: gradient,
         border: Border.all(
-          color: AppColors.categoryCardColor,
+          color: AppColors.categoryCardColor!,
         ),
         borderRadius: const BorderRadius.all(
           Radius.circular(12),

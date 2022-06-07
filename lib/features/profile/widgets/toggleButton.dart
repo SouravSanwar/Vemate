@@ -56,40 +56,38 @@ class _ToggleButtonState extends State<ToggleButton> {
                   child: InkWell(
                     onTap: () async {
                       prefs = await SharedPreferences.getInstance();
-                      if (prefs?.getInt('mode') == 1) {
-                        prefs!.setInt('mode', 0);
+                      if (mode == 1) {
                         setState(() {
+                          prefs!.setInt('mode', 0);
                           darkMode = true;
                         });
-                      } else if (prefs?.getInt('mode') == 0) {
-                        prefs!.setInt('mode', 1);
+                      } else if (mode == 0) {
                         setState(() {
+                          prefs!.setInt('mode', 1);
                           darkMode = false;
                         });
                       } else {
-                        prefs!.setInt('mode', 0);
                         setState(() {
+                          prefs!.setInt('mode', 0);
                           darkMode = true;
                         });
                       }
                       appStyleMode.switchMode();
 
-                      print(prefs
-                          ?.getInt('mode')); //eta soman 1/0 check kora lagbe
+                      print('Color Mode Btn: ' + mode.toString());//eta soman 1/0 check kora lagbe
                     },
                     child: Container(
-                      alignment: darkMode == true
+                      alignment: mode == 1
                           ? Alignment.centerLeft
-                          : Alignment.centerLeft,
+                          : Alignment.centerRight,
                       height: 25,
                       width: 30,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(25.0),
                       ),
-                      child: Icon(darkMode == true
-                          ? Icons.dark_mode
-                          : Icons.light_mode),
+                      child:
+                          Icon(mode == 1 ? Icons.dark_mode : Icons.light_mode),
                     ),
                   ),
                 )

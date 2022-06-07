@@ -63,6 +63,13 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
+  setTheme(int? mode){
+    prefs!.setInt('mode', mode!);
+
+    print('Color Mode Get: ' + mode.toString());
+    notifyListeners();
+  }
+
   clearData() {
     profileModel = null;
     vaultStatsModel = null;

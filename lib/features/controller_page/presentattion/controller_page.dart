@@ -75,6 +75,10 @@ class _ControllerPageState extends State<ControllerPage> {
     getToken();
     initMessaging();
     initPlatformState();
+
+    //mode = prefs!.getInt('mode');
+    print('Color Mode Cont: ' + mode.toString());
+
   }
 
   Future<void> _firebaseMsg(RemoteMessage message) async {

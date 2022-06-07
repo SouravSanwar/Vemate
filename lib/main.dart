@@ -1,13 +1,10 @@
 import 'dart:async';
-/*import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';*/
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
-import 'package:ketemaa/features/instruction/instruction_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'app_routes/app_routes.dart';
@@ -24,14 +21,6 @@ SharedPreferences? prefs1;
 bool filterOn = false;
 bool? darkMode = false;
 int? mode;
-
-@override
-initState() {
-  mode=prefs?.getInt('mode');
-  print(mode.toString());
-  print("/*/*/*/*/*/*/*/*/*/xxxxxxxxxxx/*/*/*/*/*/*/*/*/*/*/*");
-
-}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,16 +49,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(SharedPreferenceController());
-
-
     final appStyleMode = Provider.of<AppColors>(context);
-    appStyleMode.switchMode();
 
-    print(prefs?.getInt('mode'));
-    print("/*/*/*/*/*/*/*/88888888888/*/*/*/*/*/*/*/*/*/*/*/*");
+    SharedPreferences.getInstance().then((pr) {
+      prefs = pr;
 
+      print(prefs?.getInt('mode'));
+      print("/*/*/*/*/*/*/*/88888888888/*/*/*/*/*/*/*/*/*/*/*/*");
+      mode = prefs?.getInt('mode');
+      appStyleMode.switchMode();
+    });
 
+    Get.put(SharedPreferenceController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.themeData(),
