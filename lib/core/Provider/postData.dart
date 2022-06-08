@@ -320,10 +320,13 @@ class PostData extends ChangeNotifier with BaseController {
         barrierDismissible: false,
         builder: (_) => const LoadingExample());
 
-    final response =
-        await BaseClient().post(Urls.logIn, body).catchError(handleError);
+    /*final response =
+        await BaseClient().post(Urls.logIn, body).catchError(handleError);*/
 
-    var x = json.decode(response);
+    final response = await http.post(Uri.parse(Urls.logIn),
+        body: json.encode(body), headers: requestHeaders);
+
+    var x = json.decode(response.body);
 
     Map<String, dynamic> js = x;
 

@@ -55,7 +55,11 @@ class _ProfileState extends State<Profile> {
         textAlign: TextAlign.center,
         style: Get.textTheme.bodyMedium!,
       ),
-      image: Image.asset('assets/media/image/vemate.png'),
+      image: Image.asset(
+        mode == 0
+            ? 'assets/media/image/vemate1.png'
+            : 'assets/media/image/vemate.png',
+      ),
       submitButtonText: 'Submit',
       onCancelled: () => print('cancelled'),
       onSubmitted: (response) {
