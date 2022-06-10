@@ -114,8 +114,6 @@ class PostFile extends ChangeNotifier {
       return {'error': 'check_your_internet_connection'};
     }
   }
-
-  http.MultipartRequest? request;
   Future requestWithFile(BuildContext context,
 
       {@required String? url,
