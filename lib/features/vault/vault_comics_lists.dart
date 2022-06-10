@@ -311,7 +311,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
-                                            Container(
+                                            SizedBox(
                                               height: Get.height * .05,
                                               child: SfCartesianChart(
                                                 plotAreaBorderWidth: 0,

@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertFrequencyDropdown.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertTextfield.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertTypeDropDown.dart';
@@ -52,8 +50,8 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
             style: TextStyle(fontSize: 22.0, color: AppColors.textColor),
           ),
           AnimatedContainer(
-            padding: EdgeInsets.only(left: 2, right: 2),
-            duration: Duration(milliseconds: 100),
+            padding: const EdgeInsets.only(left: 2, right: 2),
+            duration: const Duration(milliseconds: 100),
             height: 30.0,
             width: 60.0,
             decoration: BoxDecoration(
@@ -64,7 +62,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
 
               children: <Widget>[
                 AnimatedPositioned(
-                    duration: Duration(milliseconds: 100),
+                    duration: const Duration(milliseconds: 100),
                     curve: Curves.easeIn,
                     top: 3.0,
                     left: toggleValue == true ? 30.0 : 0.0,
@@ -94,7 +92,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
       ),
       content:toggleValue == true
           ?  SingleChildScrollView(
-          padding:  EdgeInsets.symmetric(horizontal: 25),
+          padding:  const EdgeInsets.symmetric(horizontal: 25),
           child: Container(
                       alignment: Alignment.topLeft,
                       child: Column(
@@ -106,7 +104,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                             style: TextStyle(fontSize: 20.0, color: AppColors.textColor),
                             textAlign: TextAlign.left,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                          Row(
@@ -117,9 +115,9 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                   controller: mintController1,
                                 ),
                               ),
-                              SizedBox(width: 10,),
+                              const SizedBox(width: 10,),
                               Text("-",style: TextStyle(color: AppColors.textColor,fontSize: 25),),
-                              SizedBox(width: 10,),
+                              const SizedBox(width: 10,),
                               Expanded(
                                 child:AlertTextField(
                                 height: Get.height*.02,
@@ -130,7 +128,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
 
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Text(
@@ -138,7 +136,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                             style: TextStyle(fontSize: 20.0, color: AppColors.textColor),
                             textAlign: TextAlign.left,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                          Text(
@@ -146,7 +144,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                             style:
                                 TextStyle(fontSize: 20.0, color: AppColors.textColor),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           AlertTextField(
@@ -199,7 +197,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
 
                                 postData!.createAlert(context, body);
                               },
-                              child: Text(
+                              child: const Text(
                                 "Save",
                                 style: TextStyle(fontSize: 18.0, color: Colors.purpleAccent),
                               ),

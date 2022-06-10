@@ -1,12 +1,8 @@
-import 'package:filter_list/filter_list.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
-import 'package:ketemaa/core/utilities/Dialog/delete_dialog.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
@@ -38,8 +34,8 @@ class _WishListPageState extends State<WishListPage> {
   int offset = 0;
   RefreshController refreshController =
       RefreshController(initialRefresh: false);
-  GlobalKey _contentKey = GlobalKey();
-  GlobalKey _refreshkey = GlobalKey();
+  final GlobalKey _contentKey = GlobalKey();
+  final GlobalKey _refreshkey = GlobalKey();
 
   Map<String, String> requestHeadersWithToken = {
     'Content-type': 'application/json',
@@ -157,7 +153,7 @@ class _WishListPageState extends State<WishListPage> {
                                             height: Get.height * .078,
                                             width: Get.height * .078,
                                             decoration: BoxDecoration(
-                                                color: Color(0xD3C89EF3),
+                                                color: const Color(0xD3C89EF3),
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                                 border: Border.all(

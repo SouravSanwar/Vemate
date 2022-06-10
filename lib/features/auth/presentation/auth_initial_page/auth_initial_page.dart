@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:ketemaa/CheckInternet/check_internet.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/language/language_string.dart';

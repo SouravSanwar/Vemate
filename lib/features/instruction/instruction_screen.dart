@@ -5,7 +5,6 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
-import 'package:ketemaa/features/splash_screen/splashscreen.dart';
 import 'package:ketemaa/main.dart';
 
 class InstructionsScreen extends StatefulWidget {

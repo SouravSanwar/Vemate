@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:another_flushbar/flushbar.dart';
 import 'package:async/async.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -17,13 +16,15 @@ import 'package:provider/provider.dart';
 enum Method { POST, GET, PUT, DELETE, PATCH }
 
 class PostFile extends ChangeNotifier {
+  http.MultipartRequest? request;
+  var result;
   static Map<String, String> requestHeadersWithToken = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
     'Authorization': 'token ${prefs!.getString('token')}',
   };
 
-  static Future requestWithTwoFiles(BuildContext context,
+  Future requestWithTwoFiles(BuildContext context,
       {@required String? url,
       Map<String, String>? body,
       List<String>? fileKey,
@@ -31,9 +32,9 @@ class PostFile extends ChangeNotifier {
       List<String>? fileKey1,
       List<File>? files1,
       Method method = Method.POST}) async {
-    var result;
+
     var uri = Uri.parse(url!);
-    var request;
+
     if (method == Method.POST) {
       request = http.MultipartRequest("POST", uri)
         ..fields.addAll(body!)
@@ -59,7 +60,7 @@ class PostFile extends ChangeNotifier {
       var length = await files[i].length();
       var multipartFile = http.MultipartFile(fileKey[i], stream, length,
           filename: basename(files[i].path));
-      request.files.add(multipartFile);
+      request!.files.add(multipartFile);
     }
 
     for (int i = 0; i < fileKey1!.length; i++) {
@@ -68,15 +69,15 @@ class PostFile extends ChangeNotifier {
       var length = await files1[i].length();
       var multipartFile = http.MultipartFile(fileKey1[i], stream, length,
           filename: basename(files1[i].path));
-      request.files.add(multipartFile);
+      request!.files.add(multipartFile);
     }
     try {
-      var response = await request.send();
+      var response = await request!.send();
       if (response.statusCode == 200 ||
           response.statusCode == 401 ||
           response.statusCode == 422 ||
           response.statusCode == 500) {
-        await response.stream.transform(utf8.decoder).listen((value) {
+        response.stream.transform(utf8.decoder).listen((value) {
           result = value;
         });
         showData(
@@ -115,17 +116,17 @@ class PostFile extends ChangeNotifier {
   }
 
   Future requestWithFile(BuildContext context,
+
       {@required String? url,
       Map<String, String>? body,
       List<String>? fileKey,
       List<File>? files,
       Method method = Method.POST}) async {
-    LoadingExample();
+    const LoadingExample();
     print('New Body: $body');
-    var result;
     //bool loading = false;
     var uri = Uri.parse(url!);
-    var request;
+
     if (method == Method.POST) {
       request = http.MultipartRequest("POST", uri)
         ..fields.addAll(body!)
@@ -152,15 +153,15 @@ class PostFile extends ChangeNotifier {
       var length = await files[i].length();
       var multipartFile = http.MultipartFile(fileKey[i], stream, length,
           filename: basename(files[i].path));
-      request.files.add(multipartFile);
+      request!.files.add(multipartFile);
     }
     try {
-      var response = await request.send();
+      var response = await request!.send();
       if (response.statusCode == 200 ||
           response.statusCode == 401 ||
           response.statusCode == 422 ||
           response.statusCode == 500) {
-        await response.stream.transform(utf8.decoder).listen((value) {
+        response.stream.transform(utf8.decoder).listen((value) {
           result = value;
         });
         showData(

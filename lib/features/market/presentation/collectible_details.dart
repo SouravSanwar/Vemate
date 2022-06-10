@@ -1,7 +1,5 @@
-import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -9,7 +7,6 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
-import 'package:animate_do/animate_do.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:ketemaa/graph/product_details.dart';
 import 'package:ketemaa/graph/product_graph.dart';
@@ -96,7 +93,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 50, vertical: 20),
                                   child: Container(
-                                    padding: EdgeInsets.all(50),
+                                    padding: const EdgeInsets.all(50),
                                     decoration: BoxDecoration(
                                         gradient: AppColors.vaultCardGradient,
                                         borderRadius: BorderRadius.circular(10),
@@ -234,7 +231,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   ],
                                 ),
                                 Container(
-                                  padding: EdgeInsets.all(12),
+                                  padding: const EdgeInsets.all(12),
                                   alignment: Alignment.topLeft,
                                   child: Text(
                                     "Total Distributions",
@@ -428,7 +425,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                 ),
                                 Container(
                                   alignment: Alignment.topLeft,
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
                                   child: Text(
                                     data.singleProductModel != null
                                         ? data.singleProductModel!.name.toString() + "'s Details"

@@ -1,13 +1,9 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ketemaa/CheckInternet/check_internet.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
-import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
-import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
 import 'package:ketemaa/features/vault/vault_comics_card.dart';
 import 'package:ketemaa/features/vault/Wishlist/my_wishlist_page.dart';
@@ -275,7 +271,7 @@ class _VaultState extends State<Vault> {
                               ],
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: Get.height * .11,
                             child: SfCartesianChart(
                               margin: EdgeInsets.zero,

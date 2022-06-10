@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
@@ -22,8 +21,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
   int offset = 0;
   RefreshController refreshController =
       RefreshController(initialRefresh: false);
-  GlobalKey _contentKey = GlobalKey();
-  GlobalKey _refreshkey = GlobalKey();
+  final GlobalKey _contentKey = GlobalKey();
+  final GlobalKey _refreshkey = GlobalKey();
 
   GetData? getData;
 
@@ -382,7 +381,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                   },
                 ),
               )
-            : LoadingExample(),
+            : const LoadingExample(),
       );
     });
   }

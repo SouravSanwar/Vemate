@@ -69,7 +69,7 @@ class _OtpPageState extends State<OtpPage> {
           width: MediaQuery.of(context).size.width,
           child: ListView(
             children: <Widget>[
-              BackPreviousScreen(),
+              const BackPreviousScreen(),
               SizedBox(
                 height: Get.height * .07,
               ),
@@ -85,7 +85,7 @@ class _OtpPageState extends State<OtpPage> {
                 height: Get.height * .02,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
                   'Email Verification',
                   style: TextStyle(

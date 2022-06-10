@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/profile/_controller/shader.dart';
 
-import '../presentation/edit_profile_page.dart';
 
 class CustomProfileElements extends StatelessWidget {
   final IconData? icon;
@@ -24,7 +22,7 @@ class CustomProfileElements extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: AppColors.cardGradient,
                 borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(color: Color(0xff454F70)),
+                border: Border.all(color: const Color(0xff454F70)),
               ),
               height: 50,
               child: Row(

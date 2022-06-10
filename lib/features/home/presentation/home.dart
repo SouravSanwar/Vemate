@@ -1,8 +1,5 @@
-import 'package:filter_list/filter_list.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ketemaa/CheckInternet/check_internet.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
@@ -10,7 +7,6 @@ import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
-import 'package:ketemaa/core/models/NewsModel.dart';
 
 import 'package:ketemaa/features/home/components/home_vault_card.dart';
 
@@ -63,7 +59,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
-        minimum: EdgeInsets.symmetric(vertical: 15),
+        minimum: const EdgeInsets.symmetric(vertical: 15),
         child: Consumer<GetData>(
           builder: (context, data, child) {
             return data.profileModel != null &&

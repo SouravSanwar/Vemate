@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -32,7 +29,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
             decoration: BoxDecoration(
               gradient: AppColors.cardGradient,
               borderRadius: BorderRadius.circular(12.0),
-              border: Border.all(color: Color(0xff454F70)),
+              border: Border.all(color: const Color(0xff454F70)),
             ),
             child: Column(
               children: [
@@ -179,7 +176,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                     ),
                   ],
                 ),
-                Container(
+                SizedBox(
                   height: Get.height * .12,
                   child: SfCartesianChart(
                     plotAreaBorderWidth: 0,

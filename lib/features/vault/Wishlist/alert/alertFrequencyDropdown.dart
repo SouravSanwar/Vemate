@@ -36,7 +36,7 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
 
       width: Get.width,
 

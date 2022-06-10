@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:ketemaa/features/auth/data/models/user_login_model.dart';
 
 class SigninController extends GetxController {
   static SigninController to = Get.find();

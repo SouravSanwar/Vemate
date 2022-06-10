@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:skeleton_animation/skeleton_animation.dart';
 
 import '../app_spaces/app_spaces.dart';
 
@@ -27,7 +25,7 @@ class _MCPCardShimmerState extends State<MCPCardShimmer> {
     return ListView.builder(
         itemCount: 10,
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return SkeletonWidget();
         });

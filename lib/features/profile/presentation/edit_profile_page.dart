@@ -18,7 +18,6 @@ import 'package:provider/provider.dart';
 
 import '../../../core/language/language_string.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
-import '../../../core/utilities/app_dimension/app_dimension.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
 import '../../../core/utilities/common_widgets/text_input_field.dart';
 
@@ -73,7 +72,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           physics: const BouncingScrollPhysics(),
           children: [
             AppSpaces.spaces_height_40,
-            BackPreviousScreen(),
+            const BackPreviousScreen(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
