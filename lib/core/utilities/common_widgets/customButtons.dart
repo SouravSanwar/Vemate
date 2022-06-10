@@ -5,33 +5,35 @@ import 'package:flutter/material.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 
 class CustomButtons extends StatelessWidget {
-  double? height;
-  double? width;
-  VoidCallback? onTap;
-  String? text;
-  TextStyle? style;
+  final double? height;
+  final double? width;
+  final VoidCallback? onTap;
+  final String? text;
+  final TextStyle? style;
 
-  CustomButtons({
+  const CustomButtons({
+    Key? key,
     this.height,
     this.width,
     this.onTap,
     this.text,
     this.style,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-        gradient: AppColors.purpleGradient, // set border width
-        borderRadius: const BorderRadius.all(
-            Radius.circular(25.0)), // set rounded corner radius
-      ),
-      child: InkWell(
-        onTap: onTap,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        alignment: Alignment.center,
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          gradient: AppColors.purpleGradient,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(25.0),
+          ),
+        ),
         child: Text(
           text!,
           style: style,

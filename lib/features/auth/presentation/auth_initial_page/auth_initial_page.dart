@@ -39,7 +39,6 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
   @override
   Widget build(BuildContext context) {
     Get.put(SigninController());
-    printInfo(info: 'Auth Token: ' + prefs!.getString('token').toString());
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -55,7 +54,9 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
-                 mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
+                  mode == 0
+                      ? 'assets/media/image/vemate1.png'
+                      : 'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -68,10 +69,11 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   Container(
                       width: Get.width * .9,
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child:  Text(
+                      child: Text(
                         "LOGIN",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: AppColors.textColor),
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(
@@ -110,9 +112,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   SizedBox(
                     height: Get.height * .022,
                   ),
-
                   CustomButtons(
-                    width: Get.width*.9,
+                    width: Get.width * .9,
                     height: Get.height * .065,
                     onTap: () {
                       var body = {
@@ -125,14 +126,12 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       setState(() {
                         postData!.logIn(context, body);
                       });
-
                     },
                     text: AppLanguageString.lOG_IN.tr.toUpperCase(),
                     style: Get.textTheme.button!.copyWith(color: Colors.white),
                   )
                 ],
               ),
-
               AppSpaces.spaces_height_25,
               Container(),
               AppSpaces.spaces_height_25,
@@ -173,7 +172,6 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         signIn();
-
                       },
                       child: Image.asset('assets/media/icon/google.png'),
                       style: ElevatedButton.styleFrom(
@@ -219,7 +217,6 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   ),
                 ],
               ),
-
               SizedBox(
                 height: Get.height * .09,
               ),
@@ -255,11 +252,9 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
         ),
       ),
     );
-
-
   }
-  Future signIn() async{
-    await GoogleSignInApi.login();
 
+  Future signIn() async {
+    await GoogleSignInApi.login();
   }
 }

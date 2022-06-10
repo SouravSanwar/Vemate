@@ -114,6 +114,7 @@ class PostFile extends ChangeNotifier {
     }
   }
 
+  http.MultipartRequest? request;
   Future requestWithFile(BuildContext context,
       {@required String? url,
       Map<String, String>? body,
@@ -125,7 +126,6 @@ class PostFile extends ChangeNotifier {
     var result;
     //bool loading = false;
     var uri = Uri.parse(url!);
-    var request;
     if (method == Method.POST) {
       request = http.MultipartRequest("POST", uri)
         ..fields.addAll(body!)
@@ -152,10 +152,10 @@ class PostFile extends ChangeNotifier {
       var length = await files[i].length();
       var multipartFile = http.MultipartFile(fileKey[i], stream, length,
           filename: basename(files[i].path));
-      request.files.add(multipartFile);
+      request!.files.add(multipartFile);
     }
     try {
-      var response = await request.send();
+      var response = await request!.send();
       if (response.statusCode == 200 ||
           response.statusCode == 401 ||
           response.statusCode == 422 ||

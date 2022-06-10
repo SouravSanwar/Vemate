@@ -59,9 +59,22 @@ class _BrandListState extends State<BrandList> {
                   physics: const AlwaysScrollableScrollPhysics(),
                   itemCount: data.brandModel!.results!.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      child: Text(
-                        data.brandModel!.results![index].name.toString(),
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                          left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text(
+                            data.brandModel!.results![index].name.toString(),
+                          ),
+                        ),
                       ),
                     );
                   },

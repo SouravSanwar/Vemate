@@ -22,6 +22,9 @@ class _NewsDetailsState extends State<NewsDetails> {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         elevation: 1.0,
+        iconTheme: IconThemeData(
+          color: AppColors.iconColor
+        ),
         backgroundColor: AppColors.backgroundColor,
         title: Text(
           news!.title.toString(),

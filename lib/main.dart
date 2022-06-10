@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
@@ -54,21 +55,26 @@ class MyApp extends StatelessWidget {
     SharedPreferences.getInstance().then((pr) {
       prefs = pr;
 
-      print(prefs?.getInt('mode'));
-      print("/*/*/*/*/*/*/*/88888888888/*/*/*/*/*/*/*/*/*/*/*/*");
       mode = prefs?.getInt('mode');
       appStyleMode.switchMode();
     });
 
     Get.put(SharedPreferenceController());
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.themeData(),
-      getPages: AppRoutes.appRoutesList(),
-      //home: InstructionsScreen(),
-      initialRoute: AppRoutes.INITAL_SCREEN,
-      translations: Language(),
-      locale: const Locale('en', 'US'),
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.themeData(),
+          getPages: AppRoutes.appRoutesList(),
+          //home: InstructionsScreen(),
+          initialRoute: AppRoutes.INITAL_SCREEN,
+          translations: Language(),
+          locale: const Locale('en', 'US'),
+        );
+      },
     );
   }
 }
