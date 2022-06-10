@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 
 class CustomButtons extends StatelessWidget {
-
   double? height;
   double? width;
   VoidCallback? onTap;
@@ -20,7 +19,6 @@ class CustomButtons extends StatelessWidget {
     this.style,
   });
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,11 +32,11 @@ class CustomButtons extends StatelessWidget {
       ),
       child: InkWell(
         onTap: onTap,
-
-
-        child: Text(text!,style: style,),
+        child: Text(
+          text!,
+          style: style,
+        ),
       ),
     );
   }
 }
-

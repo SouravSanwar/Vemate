@@ -22,11 +22,12 @@ class PasswordInputField extends StatefulWidget {
 
 class _PasswordInputFieldState extends State<PasswordInputField> {
   bool _toggleVisibility = true;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15),
-      padding: const EdgeInsets.only(left: 20,right: 5),
+      padding: const EdgeInsets.only(left: 20, right: 5),
       decoration: BoxDecoration(
         color: AppColors.backgroundColor,
         border: Border.all(
@@ -36,29 +37,34 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             Radius.circular(25.0)), // set rounded corner radius
       ),
       child: TextField(
-
-        style: const TextStyle(color: Colors.white,
-                         fontSize: 18.0),
+        style: const TextStyle(color: Colors.white, fontSize: 18.0),
         controller: widget.controller,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
-            hintText: widget.labelText,
-            hintStyle: const TextStyle( fontSize: 15),
-            labelStyle:const TextStyle(color: Colors.blue,),
-            border: InputBorder.none,
-            suffixIcon: IconButton(
-              splashColor:AppColors.textColor,
-              onPressed: () {
-                setState(() {
-                  _toggleVisibility = !_toggleVisibility;
-                });
-              },
-              icon: _toggleVisibility
-                  ? const Icon(Icons.visibility,
-              color: Colors.grey,)
-                  : const Icon(Icons.visibility_off,
-              color: Colors.grey,),
-            )),
+          hintText: widget.labelText,
+          hintStyle: const TextStyle(fontSize: 15),
+          labelStyle: const TextStyle(
+            color: Colors.blue,
+          ),
+          border: InputBorder.none,
+          suffixIcon: IconButton(
+            splashColor: AppColors.textColor,
+            onPressed: () {
+              setState(() {
+                _toggleVisibility = !_toggleVisibility;
+              });
+            },
+            icon: _toggleVisibility
+                ? const Icon(
+                    Icons.visibility,
+                    color: Colors.grey,
+                  )
+                : const Icon(
+                    Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
+          ),
+        ),
         obscureText: _toggleVisibility,
       ),
     );

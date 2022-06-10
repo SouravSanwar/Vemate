@@ -30,8 +30,8 @@ class _TextInputFieldState extends State<TextInputField> {
   Widget build(BuildContext context) {
     emailisValid = EmailValidator.validate(widget.controller.text);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         color: AppColors.backgroundColor,
         border: Border.all(
@@ -42,7 +42,10 @@ class _TextInputFieldState extends State<TextInputField> {
       ),
       child: widget.controller == 'emailController'
           ? TextFormField(
-              style: TextStyle(color: AppColors.textColor, fontSize: 18.0),
+              style: TextStyle(
+                color: AppColors.textColor,
+                fontSize: 18.0,
+              ),
               key: formKey,
               validator: (String? value){
                 if(value!.isEmpty){
@@ -58,7 +61,8 @@ class _TextInputFieldState extends State<TextInputField> {
               },
               controller: widget.controller,
               decoration: InputDecoration(
-                errorText: emailisValid==false? 'This field is required.' : null,
+                errorText:
+                    emailisValid == false ? 'This field is required.' : null,
                 border: InputBorder.none,
               ),
               keyboardType: widget.textType,
@@ -68,12 +72,15 @@ class _TextInputFieldState extends State<TextInputField> {
                  if(value!.isEmpty){
                    return 'This Field is required';
                  }
-               },
-              style: TextStyle(color: AppColors.textColor, fontSize: 18.0),
+},
+              style: TextStyle(
+                color: AppColors.textColor,
+                fontSize: 18.0,
+              ),
               controller: widget.controller,
               decoration: InputDecoration(
                 hintText: widget.labelText,
-                hintStyle: TextStyle( fontSize: 15),
+                hintStyle: const TextStyle(fontSize: 15),
                 border: InputBorder.none,
               ),
               keyboardType: widget.textType,

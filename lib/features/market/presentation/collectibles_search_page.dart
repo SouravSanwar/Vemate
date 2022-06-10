@@ -43,40 +43,36 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
   bool? ultraRare = false;
   bool? secretRare = false;
 
-  var filterValue=Get.arguments;
+  var filterValue = Get.arguments;
   String? rarityValue;
 
   //bool filterOn = false;
 
   @override
-  void init(){
-    rarityValue=filterValue[0].toString().toLowerCase();
+  void init() {
+    rarityValue = filterValue[0].toString().toLowerCase();
     getData!.searchCollectibles(rarity: rarityValue!);
 
-    if(rarityValue=='common'){
-      common=true;
-    }
-    else if(rarityValue=='uncommon'){
-      uncommon=true;
-    }
-    else if(rarityValue=='rare'){
-      rare=true;
-    }
-    else if(rarityValue=='ultra rare'){
-      ultraRare=true;
-    }
-    else if(rarityValue=='secret rare'){
-      secretRare=true;
+    if (rarityValue == 'common') {
+      common = true;
+    } else if (rarityValue == 'uncommon') {
+      uncommon = true;
+    } else if (rarityValue == 'rare') {
+      rare = true;
+    } else if (rarityValue == 'ultra rare') {
+      ultraRare = true;
+    } else if (rarityValue == 'secret rare') {
+      secretRare = true;
     }
 
-    print("Filter Value" +filterValue[0]);
+    print("Filter Value" + filterValue[0]);
   }
+
   @override
   void initState() {
-
     getData = Provider.of<GetData>(context, listen: false);
     // TODO: implement initState
-    if(filterOn==true){
+    if (filterOn == true) {
       init();
     }
 
@@ -104,34 +100,39 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
         backgroundColor: AppColors.backgroundColor,
         title: SizedBox(
           width: MediaQuery.of(context).size.width,
-          child: filterOn ==false ?TextFormField(
-            controller: searchController,
-            cursorColor: Colors.grey,
-            keyboardType: TextInputType.text,
-            style: const TextStyle(color: Colors.white),
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              errorBorder: InputBorder.none,
-              disabledBorder: InputBorder.none,
-              contentPadding:
-                  EdgeInsets.only(left: 15, bottom: 11, top: 13, right: 15),
-              hintText: "Search Collectible",
-              hintStyle: TextStyle(color: Colors.white),
-            ),
-            onChanged: (text) {
-              text = searchController.text;
-              searchText =
-                  searchController.text != '' ? searchController.text : '';
-              setState(() {
-                getData!.searchCollectibles(keyWord: searchText!);
-              });
-            },
-            autofocus: true,
-          ):Text(filterValue[0]+" Collectibles",style: TextStyle(fontSize: 22),),
+          child: filterOn == false
+              ? TextFormField(
+                  controller: searchController,
+                  cursorColor: Colors.grey,
+                  keyboardType: TextInputType.text,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    contentPadding: EdgeInsets.only(
+                        left: 15, bottom: 11, top: 13, right: 15),
+                    hintText: "Search Collectible",
+                    hintStyle: TextStyle(color: Colors.white),
+                  ),
+                  onChanged: (text) {
+                    text = searchController.text;
+                    searchText = searchController.text != ''
+                        ? searchController.text
+                        : '';
+                    setState(() {
+                      getData!.searchCollectibles(keyWord: searchText!);
+                    });
+                  },
+                  autofocus: true,
+                )
+              : Text(
+                  filterValue[0] + " Collectibles",
+                  style: TextStyle(fontSize: 22),
+                ),
         ),
-
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
         return SmartRefresher(
@@ -199,8 +200,9 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                               .results![index].name
                                               .toString()[0]
                                               .toUpperCase(),
-                                          style:  TextStyle(
-                                              color: AppColors.lightBackgroundColor,
+                                          style: TextStyle(
+                                              color: AppColors
+                                                  .lightBackgroundColor,
                                               fontSize: 35,
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -539,7 +541,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
     } else if (secretRare == true) {
       getData!.searchCollectibles(rarity: 'secret rare', offset: offset);
     } else {
-      getData!.searchCollectibles( offset: offset);
+      getData!.searchCollectibles(offset: offset);
     }
 
     await Future.delayed(const Duration(seconds: 2));

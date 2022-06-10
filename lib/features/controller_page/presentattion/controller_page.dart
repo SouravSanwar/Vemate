@@ -27,7 +27,6 @@ import 'package:platform_device_id/platform_device_id.dart';
 
 String? token;
 
-
 class ControllerPage extends StatefulWidget {
   ControllerPage({Key? key}) : super(key: key);
 
@@ -76,6 +75,10 @@ class _ControllerPageState extends State<ControllerPage> {
     getToken();
     initMessaging();
     initPlatformState();
+
+    //mode = prefs!.getInt('mode');
+    print('Color Mode Cont: ' + mode.toString());
+
   }
 
   Future<void> _firebaseMsg(RemoteMessage message) async {
@@ -90,12 +93,7 @@ class _ControllerPageState extends State<ControllerPage> {
     print("Device Token:" + token!);
     var body = {"fcm_device_id": token};
 
-    Map<String, String> requestHeadersWithToken = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'token ${prefs!.getString('token')}',
-    };
-    postData!.updateProfile(context, body, requestHeadersWithToken);
+    //postData!.updateProfile(context, body);
   }
 
   Future<bool> _willPopCallback() async {
@@ -190,7 +188,7 @@ class _ControllerPageState extends State<ControllerPage> {
                             ),
                           ],
                         ),
-                        child:Padding(
+                        child: Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Text(
                             'Yes',
@@ -326,5 +324,3 @@ class _ControllerPageState extends State<ControllerPage> {
     });
   }
 }
-
-
