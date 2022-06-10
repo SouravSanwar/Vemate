@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ketemaa/app_routes/app_routes.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/language/language_string.dart';
@@ -61,7 +60,7 @@ class _SignIn2FAState extends State<SignIn2FA> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              BackPreviousScreen(),
+              const BackPreviousScreen(),
               SizedBox(
                 height: Get.height * .07,
               ),
@@ -234,6 +233,6 @@ class _SignIn2FAState extends State<SignIn2FA> {
 
     print(prefs!.get('token'));
 
-    Get.to(() => ControllerPage());
+    Get.to(() =>  ControllerPage());
   }
 }

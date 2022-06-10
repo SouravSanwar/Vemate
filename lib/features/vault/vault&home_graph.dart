@@ -17,7 +17,7 @@ class VaultHomeGraph extends StatefulWidget {
 class _VaultHomeGraphState extends State<VaultHomeGraph> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: Get.height * .12,
       child: SfCartesianChart(
         plotAreaBorderWidth: 0,

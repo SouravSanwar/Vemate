@@ -1,10 +1,7 @@
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
-import 'package:ketemaa/graph/product_details.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -16,7 +13,7 @@ import '../market/presentation/collectible_details.dart';
 class MysetsCard extends StatefulWidget {
   final List<Results>? list;
 
-  MysetsCard({
+  const MysetsCard({
     Key? key,
     this.list,
   }) : super(key: key);

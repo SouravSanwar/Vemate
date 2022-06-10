@@ -37,7 +37,7 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
 
       width: Get.width,
 

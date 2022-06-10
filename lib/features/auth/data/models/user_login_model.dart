@@ -1,3 +1,4 @@
+/*
 import 'package:ketemaa/core/error/model/error_model.dart';
 
 class UserLoginModel extends ErrorModel {
@@ -7,7 +8,7 @@ class UserLoginModel extends ErrorModel {
   UserLoginModel({this.loginUser, this.errorModel});
 
   UserLoginModel.fromJson(Map<String, dynamic> json) {
-    print("Error Model: ${json}");
+    print("Error Model: $json");
     if (json['errors'] != null) {
       errorModel = ErrorModel.fromJson(json);
       print("Error Model: ${errorModel!.errors![0].message}");
@@ -17,6 +18,7 @@ class UserLoginModel extends ErrorModel {
         : null;
   }
 
+  @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (loginUser != null) {
@@ -74,3 +76,4 @@ class User {
     return data;
   }
 }
+*/

@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/models/CollectiblesModel.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
-import 'package:ketemaa/graph/chart_example.dart';
-import 'package:ketemaa/graph/product_details.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
@@ -55,7 +52,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                 decoration: BoxDecoration(
                     gradient: AppColors.cardGradient,
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Color(0xff454F70))),
+                    border: Border.all(color: const Color(0xff454F70))),
                 alignment: Alignment.topCenter,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -111,7 +108,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                       padding: const EdgeInsets.all(3.0),
                       decoration: BoxDecoration(
                         color: AppColors.backgroundColor,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(10),
                             bottomRight: Radius.circular(10)),
                       ),

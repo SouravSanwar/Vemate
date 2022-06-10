@@ -1,14 +1,9 @@
 //For Items of graphn page
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/features/vault/vault_collectibles_lists.dart';
-import 'package:ketemaa/features/vault/vault_comics_lists.dart';
 
-import 'package:ketemaa/graph/product_details.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
@@ -29,7 +24,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
     return InkWell(
         onTap: () {
           Get.to(
-            () => VaultCollectiblesLists(),
+            () => const VaultCollectiblesLists(),
           );
           /*Get.to(
                                 () => ChartExample(id: data.collectiblesModel!.results![index].id));*/
@@ -41,7 +36,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
             decoration: BoxDecoration(
               gradient: AppColors.cardGradient,
               borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: Color(0xff454F70))
+                border: Border.all(color: const Color(0xff454F70))
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -75,7 +70,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                           ),
                         ),
                         AppSpaces.spaces_height_5,
-                        Text(""
+                        const Text(""
                         ),
                         AppSpaces.spaces_height_10,
                       ],
@@ -163,7 +158,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                     widget.data!.changePercent != null
                                         ? widget.data!.changePercent
                                             .toStringAsFixed(2)+ "%"
-                                        : "0.0" + "%",
+                                        : "0.0" "%",
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
                                       fontSize: 14,

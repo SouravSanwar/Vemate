@@ -1,8 +1,6 @@
-import 'dart:ui';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:another_flushbar/flushbar.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
@@ -11,7 +9,6 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
-import 'package:ketemaa/graph/designhelper.dart';
 import 'package:ketemaa/graph/graph_helper_comics.dart';
 import 'package:ketemaa/graph/product_graph.dart';
 import 'package:ketemaa/main.dart';
@@ -95,7 +92,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                               padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20),
                               child:Container(
 
-                                padding: EdgeInsets.all(50),
+                                padding: const EdgeInsets.all(50),
 
                                 decoration: BoxDecoration(
 
@@ -226,7 +223,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                               ],
                             ),
                             Container(
-                              padding: EdgeInsets.all(12),
+                              padding: const EdgeInsets.all(12),
                               alignment: Alignment.topLeft,
                               child: Text("Total Distributions",
                                 textAlign: TextAlign.left,
@@ -408,7 +405,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                             ),
                             Container(
                               alignment: Alignment.topLeft,
-                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                 data.singleProductModel != null
                                     ? data.singleProductModel!.name.toString() + "'s Details"

@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
@@ -40,7 +39,7 @@ class _ImageSliderState extends State<ImageSlider> {
         items: List<Widget>.generate(widget.news!.length, (int index) {
           return InkWell(
             onTap: (){
-              Get.to(()=> NewsDetails(), arguments: widget.news![index]);
+              Get.to(()=> const NewsDetails(), arguments: widget.news![index]);
             },
             child: Container(
               width: MediaQuery.of(context).size.height,

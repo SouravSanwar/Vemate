@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/reset_pass/forgot_pass.dart';
@@ -9,13 +7,9 @@ import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
-import '../../../app_routes/app_routes.dart';
-import '../../../core/language/language_string.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
-import '../../../core/utilities/common_widgets/password_input_field.dart';
 import '../../../core/utilities/common_widgets/text_input_field.dart';
-import '../presentation/sign_in/_controller/sign_in_controller.dart';
 
 class ResetPass extends StatefulWidget {
   const ResetPass({Key? key}) : super(key: key);
@@ -47,7 +41,7 @@ class _ResetPassState extends State<ResetPass> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              BackPreviousScreen(),
+              const BackPreviousScreen(),
               SizedBox(
                 height: Get.height * .07,
               ),

@@ -1,6 +1,4 @@
-import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -97,7 +95,7 @@ class _MarketState extends State<Market> {
                                       ? Get.to(() => const SearchComicsPage())
                                       : null);
                             },
-                            child: Container(
+                            child: SizedBox(
                               width: Get.width * .8,
                               child: Padding(
                                 padding: EdgeInsets.all(AppDimension.padding_8),

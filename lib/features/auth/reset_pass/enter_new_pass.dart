@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
 import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -31,11 +30,11 @@ class _EnterNewPasswordState extends State<EnterNewPassword> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              BackPreviousScreen(),
+              const BackPreviousScreen(),
               SizedBox(
                 height: Get.height * .07,
               ),
-              Container(
+              SizedBox(
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
@@ -51,7 +50,7 @@ class _EnterNewPasswordState extends State<EnterNewPassword> {
                 children: [
                   Container(
                       width: Get.width * .9,
-                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       child:  Text(
                         "Enter New Password",
                         style: TextStyle(

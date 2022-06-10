@@ -1,11 +1,8 @@
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/vault/vault_comics_lists.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
@@ -25,7 +22,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
     return InkWell(
       onTap: () {
         Get.to(
-              () => VaultComicsList(),
+              () => const VaultComicsList(),
         );
         /*Get.to(
                                 () => ChartExample(id: data.collectiblesModel!.results![index].id));*/
@@ -71,7 +68,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                         ),
                       ),
                       AppSpaces.spaces_height_5,
-                      Text(""),
+                      const Text(""),
                       AppSpaces.spaces_height_10,
                     ],
                   ),
@@ -157,7 +154,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                                   widget.data!.changePercent != null
                                       ? widget.data!.changePercent.toStringAsFixed(2)+ "%"
                                       : "0.0"
-                                      + "%",
+                                      "%",
                                   textAlign: TextAlign.end,
                                   style: TextStyle(
                                       color: widget.data!.sign == 'decrease'

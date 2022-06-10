@@ -313,7 +313,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
-                                            Container(
+                                            SizedBox(
                                               height: Get.height * .05,
                                               child: SfCartesianChart(
                                                 plotAreaBorderWidth: 0,

@@ -12,9 +12,4 @@ class SignUpController extends GetxController {
   TextEditingController confirmPasswordController = TextEditingController();
 
 
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-  }
 }
