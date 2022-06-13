@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AppColors extends ChangeNotifier {
   static Color primaryColor = const Color(0xffA984E5);
-  static Color backgroundColor = Color(0xff272E49);
+  static Color backgroundColor = Color(0xff02072D);
   static Color lightBackgroundColor = const Color(0xff384362);
   static Color textColor = Colors.white;
   static Color detailsTextColor = Color(0xffD3D3D3);
@@ -117,7 +117,7 @@ class AppColors extends ChangeNotifier {
       //Dark Mode
       categoryCardColor = Color(0xffA984E5);
       primaryColor = const Color(0xffA984E5);
-      backgroundColor = Color(0xff272E49);
+      backgroundColor = Color(0xff02072D);
       textColor = Colors.white;
       textBoxBgColor = Color(0xff2F3758);
       detailsTextColor = Color(0xffD3D3D3);

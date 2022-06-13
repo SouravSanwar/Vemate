@@ -29,8 +29,8 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: AppDimension.padding_8,
-        right: AppDimension.padding_8,
+        left: 8,
+        right: 0,
       ),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,

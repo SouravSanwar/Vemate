@@ -87,7 +87,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       controller:
                           SigninController.to.passwordTextFiledController),
                   SizedBox(
-                    height: Get.height * .0124,
+                    height: Get.height * .003,
                   ),
                   TextButton(
                     onPressed: () {
@@ -130,9 +130,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 ],
               ),
 
-              AppSpaces.spaces_height_25,
-              Container(),
-              AppSpaces.spaces_height_25,
+              AppSpaces.spaces_height_35,
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -160,7 +159,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   ),
                 ],
               ),
-              AppSpaces.spaces_height_25,
+              AppSpaces.spaces_height_35,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

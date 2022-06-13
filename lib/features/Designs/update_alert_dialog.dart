@@ -138,7 +138,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                      "May be Later",
+                                      "Maybe Later",
                                       style: Get.textTheme.bodyLarge!.copyWith(
                                           color: AppColors.textColor),
                                     ),

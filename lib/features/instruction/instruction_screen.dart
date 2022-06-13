@@ -25,7 +25,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
       bodyTextStyle: TextStyle(
           fontSize: 19.0, fontWeight: FontWeight.w500, color: Colors.white),
       bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-      pageColor: Color(0xff272E49),
+      pageColor: Color(0xff02072D),
       imagePadding: EdgeInsets.zero,
     );
 

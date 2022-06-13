@@ -54,8 +54,6 @@ class MyApp extends StatelessWidget {
     SharedPreferences.getInstance().then((pr) {
       prefs = pr;
 
-      print(prefs?.getInt('mode'));
-      print("/*/*/*/*/*/*/*/88888888888/*/*/*/*/*/*/*/*/*/*/*/*");
       mode = prefs?.getInt('mode');
       appStyleMode.switchMode();
     });
