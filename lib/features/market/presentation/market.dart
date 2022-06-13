@@ -117,76 +117,84 @@ class _MarketState extends State<Market> {
                               ),
                             ),
                           ),
-                          PopupMenuButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              color: AppColors.backgroundColor,
-                              icon: Icon(
-                                Icons.filter_list,
-                                color: AppColors.iconColor,
-                                size: 30,
-                              ),
-                              onSelected: (value) {
-                                filterOn = true;
-                                if (value == 1) {
-                                  passValue = 'Common';
-                                } else if (value == 2) {
-                                  passValue = 'Uncommon';
-                                } else if (value == 3) {
-                                  passValue = 'Rare';
-                                } else if (value == 4) {
-                                  passValue = 'Ultra Rare';
-                                } else if (value == 5) {
-                                  passValue = 'Secret Rare';
-                                }
-                                data.searchCollectiblesModel = null;
-                                currentIndex == 1
-                                    ? Get.to(() => const SearchCollectiblePage(),
-                                        arguments: [passValue])
-                                    : (currentIndex == 2
-                                        ? Get.to(() => const SearchComicsPage(),
+                          brandSelected == false
+                              ? PopupMenuButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  color: AppColors.backgroundColor,
+                                  icon: Icon(
+                                    Icons.filter_list,
+                                    color: AppColors.iconColor,
+                                    size: 30,
+                                  ),
+                                  onSelected: (value) {
+                                    filterOn = true;
+                                    if (value == 1) {
+                                      passValue = 'Common';
+                                    } else if (value == 2) {
+                                      passValue = 'Uncommon';
+                                    } else if (value == 3) {
+                                      passValue = 'Rare';
+                                    } else if (value == 4) {
+                                      passValue = 'Ultra Rare';
+                                    } else if (value == 5) {
+                                      passValue = 'Secret Rare';
+                                    }
+                                    data.searchCollectiblesModel = null;
+                                    currentIndex == 1
+                                        ? Get.to(
+                                            () => const SearchCollectiblePage(),
                                             arguments: [passValue])
-                                        : null);
-                              },
-                              itemBuilder: (context) => [
-                                     PopupMenuItem(
+                                        : (currentIndex == 2
+                                            ? Get.to(
+                                                () => const SearchComicsPage(),
+                                                arguments: [passValue])
+                                            : null);
+                                  },
+                                  itemBuilder: (context) => [
+                                    PopupMenuItem(
                                       value: 1,
                                       child: Text(
                                         'Common',
-                                        style: TextStyle(color: AppColors.textColor),
+                                        style: TextStyle(
+                                            color: AppColors.textColor),
                                       ),
                                     ),
-                                     PopupMenuItem(
+                                    PopupMenuItem(
                                       value: 2,
                                       child: Text(
                                         'Uncommon',
-                                        style: TextStyle(color: AppColors.textColor),
+                                        style: TextStyle(
+                                            color: AppColors.textColor),
                                       ),
                                     ),
-                                     PopupMenuItem(
+                                    PopupMenuItem(
                                       value: 3,
                                       child: Text(
                                         'Rare',
-                                        style: TextStyle(color: AppColors.textColor),
+                                        style: TextStyle(
+                                            color: AppColors.textColor),
                                       ),
                                     ),
                                     PopupMenuItem(
                                       value: 4,
                                       child: Text(
                                         'Ultra Rare',
-                                        style: TextStyle(color: AppColors.textColor),
+                                        style: TextStyle(
+                                            color: AppColors.textColor),
                                       ),
                                     ),
                                     PopupMenuItem(
                                       value: 5,
                                       child: Text(
                                         'Secret Rare',
-                                        style: TextStyle(color: AppColors.textColor),
+                                        style: TextStyle(
+                                            color: AppColors.textColor),
                                       ),
                                     ),
                                   ],
-
-                          )
+                                )
+                              : Container()
                         ]),
                       ),
                     ),

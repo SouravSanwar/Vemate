@@ -60,7 +60,7 @@ class _ImageSliderState extends State<ImageSlider> {
                   Container(
                     width: Get.width,
                     decoration: BoxDecoration(
-                      color: AppColors.backgroundColor.withOpacity(.5),
+                      color: AppColors.backgroundColor!.withOpacity(.5),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
