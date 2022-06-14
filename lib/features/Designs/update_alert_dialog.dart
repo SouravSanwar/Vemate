@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/functions/version_control.dart';
@@ -76,7 +77,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                             color: AppColors.textColor,
                                 fontWeight:
                                 FontWeight.w300,
-                                fontSize: 15),
+                                fontSize: 15.sp),
                                 ),
                                 Text(
                                   "New Version ${data.appUpdator!.version!}",
@@ -85,7 +86,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                         color: AppColors.textColor,
                                         fontWeight:
                                         FontWeight.w300,
-                                        fontSize: 10),
+                                        fontSize: 10.sp),
                                 ),
                                 AppSpaces.spaces_height_10,
                               ],
@@ -93,8 +94,8 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                           ),
                           Container(
                             alignment: Alignment.topCenter,
-                            height: 40,
-                            width: 40,
+                            height: 40.h,
+                            width: 40.w,
                             padding: const EdgeInsets.all(5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -114,7 +115,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                             color: AppColors.textColor,
                             fontWeight:
                             FontWeight.w300,
-                            fontSize: 15),
+                            fontSize: 15.sp),
                       ),
                       AppSpaces.spaces_height_5,
                       Text(
@@ -124,7 +125,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                             color: AppColors.textColor,
                             fontWeight:
                             FontWeight.w300,
-                            fontSize: 10),
+                            fontSize: 10.sp),
                       ),
                       AppSpaces.spaces_height_5,
                       Row(
@@ -138,7 +139,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                      "May be Later",
+                                      "Maybe Later",
                                       style: Get.textTheme.bodyLarge!.copyWith(
                                           color: AppColors.textColor),
                                     ),

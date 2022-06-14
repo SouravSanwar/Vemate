@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -32,7 +30,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
             decoration: BoxDecoration(
               gradient: AppColors.cardGradient,
               borderRadius: BorderRadius.circular(12.0),
-              border: Border.all(color: Color(0xff454F70)),
+              border: Border.all(color: const Color(0xff454F70)),
             ),
             child: Column(
               children: [
@@ -52,7 +50,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         style: Get.textTheme.bodyText2!.copyWith(
                             color: AppColors.textColor,
                             fontWeight: FontWeight.w600,
-                            fontSize: 14),
+                            fontSize: 14.sp),
                       ),
                     ),
                     const Expanded(
@@ -76,7 +74,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                           style: Get.textTheme.bodyText2!.copyWith(
                               color: AppColors.white,
                               fontWeight: FontWeight.w600,
-                              fontSize: 14),
+                              fontSize: 14.sp),
                         ),
                       ),
                     ),
@@ -91,7 +89,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         child: Container(
                           alignment: Alignment.center,
                           child: Text("24H",style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 15.sp,
                             color: AppColors.textColor,
                           ),
                           ),
@@ -120,7 +118,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         style: Get.textTheme.bodyText2!.copyWith(
                             color: AppColors.grey,
                             fontWeight: FontWeight.w600,
-                            fontSize: 14),
+                            fontSize: 14.sp),
                       ),
                     ),
                     const Expanded(
@@ -163,7 +161,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   ? Colors.red
                                   : Colors.green,
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 14.sp,
                             ),
                           ),
                         ],
@@ -179,7 +177,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                     ),
                   ],
                 ),
-                Container(
+                SizedBox(
                   height: Get.height * .12,
                   child: SfCartesianChart(
                     plotAreaBorderWidth: 0,

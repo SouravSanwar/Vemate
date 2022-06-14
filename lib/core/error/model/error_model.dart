@@ -1,3 +1,4 @@
+/*
 class ErrorModel {
   List<Errors>? errors;
   Data? data;
@@ -75,7 +76,7 @@ class Locations {
 }
 
 class Data {
-  Null loginUser;
+  void loginUser;
 
   Data({this.loginUser});
 
@@ -88,4 +89,4 @@ class Data {
     data['loginUser'] = loginUser;
     return data;
   }
-}
+}*/

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -25,7 +24,7 @@ class DialogHelper {
             Container(
               decoration: BoxDecoration(
                 gradient: AppColors.graphGradient,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20.0,),
                   topRight: Radius.circular(20.0,),
                 ),
@@ -42,12 +41,12 @@ class DialogHelper {
                       size: 20,
                     ),
                     AppSpaces.spaces_height_5,
-                    Text(title,style: TextStyle(color: Colors.white,fontSize: 20)),
+                    Text(title,style: const TextStyle(color: Colors.white,fontSize: 20)),
                   ],
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: Get.width,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -55,10 +54,10 @@ class DialogHelper {
                   children: [
                     Text(
                       description ?? '',
-                      style: TextStyle(color: Colors.white,fontSize: 15),
+                      style: const TextStyle(color: Colors.white,fontSize: 15),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
 
@@ -74,7 +73,7 @@ class DialogHelper {
                         onPressed: () {
                           if (Get.isDialogOpen!) Get.back();
                         },
-                        child:  Text('Okay',style: TextStyle(color: Colors.white,fontSize: 20),),
+                        child:  const Text('Okay',style: TextStyle(color: Colors.white,fontSize: 20),),
                       ),
                     )
 
@@ -102,8 +101,8 @@ class DialogHelper {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 8),
+              const CircularProgressIndicator(),
+              const SizedBox(height: 8),
               Text(message ?? 'Loading...'),
             ],
           ),

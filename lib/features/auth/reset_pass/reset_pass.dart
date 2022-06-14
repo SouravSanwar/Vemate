@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/reset_pass/forgot_pass.dart';
@@ -9,13 +8,9 @@ import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
-import '../../../app_routes/app_routes.dart';
-import '../../../core/language/language_string.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
-import '../../../core/utilities/common_widgets/password_input_field.dart';
 import '../../../core/utilities/common_widgets/text_input_field.dart';
-import '../presentation/sign_in/_controller/sign_in_controller.dart';
 
 class ResetPass extends StatefulWidget {
   const ResetPass({Key? key}) : super(key: key);
@@ -47,7 +42,7 @@ class _ResetPassState extends State<ResetPass> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              BackPreviousScreen(),
+              const BackPreviousScreen(),
               SizedBox(
                 height: Get.height * .07,
               ),
@@ -80,8 +75,8 @@ class _ResetPassState extends State<ResetPass> {
                     textType: TextInputType.emailAddress,
                     controller: emailController,
                   ),
-                  const SizedBox(
-                    height: 40,
+                  SizedBox(
+                    height: 40.h,
                   ),
 
                   CustomButtons(
@@ -107,13 +102,13 @@ class _ResetPassState extends State<ResetPass> {
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: const Text(
+                    child: Text(
                       "By clicking RESET, you will receive an e-mail to reset password",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                        fontSize: 15.sp,
                       ),
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -71,7 +72,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
         title: Text(
           "My Collectibles",
           style: TextStyle(
-              color: AppColors.textColor, fontSize: 20, fontWeight: FontWeight.bold),
+              color: AppColors.textColor, fontSize: 20.sp, fontWeight: FontWeight.bold),
         ),
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
@@ -128,9 +129,9 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                               .productDetail!.name
                                               .toString()[0]
                                               .toUpperCase(),
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               color: Colors.deepPurpleAccent,
-                                              fontSize: 35,
+                                              fontSize: 35.sp,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -165,7 +166,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
-                                                                fontSize: 13),
+                                                                fontSize: 13.sp),
                                                       ),
                                                     )),
                                                 AppSpaces.spaces_width_2,
@@ -187,7 +188,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
-                                                              fontSize: 10),
+                                                              fontSize: 10.sp),
                                                     )),
                                               ],
                                             ),
@@ -239,7 +240,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                             color: AppColors.textColor,
                                                             fontWeight:
                                                                 FontWeight.w900,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                   ),
                                                 ),
                                                 AppSpaces.spaces_width_2,
@@ -259,7 +260,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                             color: AppColors.textColor,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                   ),
                                                 ),
                                               ],
@@ -284,7 +285,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                             color: AppColors.textColor,
                                                             fontWeight:
                                                                 FontWeight.w900,
-                                                            fontSize: 11),
+                                                            fontSize: 11.sp),
                                                   ),
                                                 ),
                                                 AppSpaces.spaces_width_2,
@@ -299,7 +300,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                             color: AppColors.textColor,
                                                             fontWeight:
                                                                 FontWeight.w400,
-                                                            fontSize: 11),
+                                                            fontSize: 11.sp),
                                                   ),
                                                 ),
                                               ],
@@ -313,7 +314,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
-                                            Container(
+                                            SizedBox(
                                               height: Get.height * .05,
                                               child: SfCartesianChart(
                                                 plotAreaBorderWidth: 0,
@@ -409,7 +410,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                 : Colors.green,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                       ),
                                                       if (data
                                                               .setListModel!

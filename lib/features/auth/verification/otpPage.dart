@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -69,7 +70,7 @@ class _OtpPageState extends State<OtpPage> {
           width: MediaQuery.of(context).size.width,
           child: ListView(
             children: <Widget>[
-              BackPreviousScreen(),
+              const BackPreviousScreen(),
               SizedBox(
                 height: Get.height * .07,
               ),
@@ -85,13 +86,13 @@ class _OtpPageState extends State<OtpPage> {
                 height: Get.height * .02,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
                   'Email Verification',
                   style: TextStyle(
                       color: AppColors.textColor,
                       fontWeight: FontWeight.bold,
-                      fontSize: 22),
+                      fontSize: 22.sp),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -107,7 +108,7 @@ class _OtpPageState extends State<OtpPage> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.primaryColor,
-                                fontSize: 15)),
+                                fontSize: 15.sp)),
                       ],
                       style:
                           const TextStyle(color: Colors.white, fontSize: 15)),
@@ -181,19 +182,19 @@ class _OtpPageState extends State<OtpPage> {
                   hasError ? "*Please fill up all the cells properly" : "",
                   style: TextStyle(
                       color: AppColors.white,
-                      fontSize: 12,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w400),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "Didn't receive the code? ",
-                    style: TextStyle(color: Colors.white, fontSize: 15),
+                    style: TextStyle(color: Colors.white, fontSize: 15.sp),
                   ),
                   TextButton(
                       onPressed: () {
@@ -209,12 +210,12 @@ class _OtpPageState extends State<OtpPage> {
                         style: TextStyle(
                             color: AppColors.primaryColor,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16),
+                            fontSize: 16.sp),
                       ))
                 ],
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: 15.h,
               ),
 
               Padding(

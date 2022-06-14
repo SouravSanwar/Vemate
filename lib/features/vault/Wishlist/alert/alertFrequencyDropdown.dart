@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -17,7 +18,6 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
   var items = [
     'Once only',
     'Once a day',
-    'Always',
   ];
 
 
@@ -36,7 +36,7 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
 
       width: Get.width,
 
@@ -44,7 +44,7 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
         color: AppColors.textBoxBgColor,
         border: Border.all(
             color: AppColors.textColor, // set border color
-            width: 1), // set border width
+            width: 1.w), // set border width
         borderRadius: const BorderRadius.all(
             Radius.circular(15.0)), // set rounded corner radius
       ),
@@ -58,9 +58,7 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
 
             value == 'Once only'
                 ? frequencyIndex = 0
-                : value == 'Once a day'
-                ? frequencyIndex = 1
-                :frequencyIndex = 2;
+                :frequencyIndex = 1;
             print(frequencyIndex);
           }); //get value when changed
         },
@@ -74,7 +72,7 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
         style: TextStyle(
           //te
             color: AppColors.textColor, //Font color
-            fontSize: 20 //font size on dropdown button
+            fontSize: 20.sp //font size on dropdown button
         ),
         dropdownColor: AppColors.backgroundColor,
         underline: Container(),
@@ -90,6 +88,6 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
       value: item,
       child: Text(
         item,
-        style: const TextStyle(fontSize: 15),
+        style: TextStyle(fontSize: 15.sp),
       ));
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/SingleProductModel.dart';
@@ -58,7 +59,7 @@ class _ProductGraphState extends State<ProductGraph> {
                 labelStyle:  TextStyle(
                     color: AppColors.textColor,
                     fontFamily: 'Roboto',
-                    fontSize:8,
+                    fontSize:8.sp,
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w900
                 ),

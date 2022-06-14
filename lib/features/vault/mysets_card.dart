@@ -1,10 +1,8 @@
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
-import 'package:ketemaa/graph/product_details.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -16,7 +14,7 @@ import '../market/presentation/collectible_details.dart';
 class MysetsCard extends StatefulWidget {
   final List<Results>? list;
 
-  MysetsCard({
+  const MysetsCard({
     Key? key,
     this.list,
   }) : super(key: key);
@@ -136,7 +134,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                 style: Get.textTheme.bodyText2!.copyWith(
                                   color: AppColors.textColor,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 12,
+                                  fontSize: 12.sp,
                                 ),
                               ),
                               SizedBox(
@@ -161,7 +159,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                             .copyWith(
                                                 color: AppColors.textColor,
                                                 fontWeight: FontWeight.w600,
-                                                fontSize: 11),
+                                                fontSize: 11.sp),
                                       ),
                                     ),
                                     Expanded(
@@ -188,7 +186,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                                         ? Colors.red
                                                         : Colors.green,
                                                     fontWeight: FontWeight.w300,
-                                                    fontSize: 10),
+                                                    fontSize: 10.sp),
                                           ),
                                           if (data.setListModel!.results![index].productDetail!
                                                   .priceChangePercent!.sign ==

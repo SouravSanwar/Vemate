@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_keys.dart';
-import 'package:ketemaa/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 

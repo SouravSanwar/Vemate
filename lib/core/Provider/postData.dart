@@ -469,11 +469,12 @@ class PostData extends ChangeNotifier with BaseController {
         barrierDismissible: false,
         builder: (_) => const LoadingExample());
 
-    final response = await BaseClient().post(Urls.updateUserInfo, body);
 
-    printInfo(info: response.toString());
-
-    var x = json.decode(response);
+    final response = await http.patch(Uri.parse(Urls.updateUserInfo),
+        body: json.encode(body), headers: requestHeadersWithToken);
+    print(response.body.toString());
+    print(requestHeadersWithToken.toString());
+    var x = json.decode(response.body);
 
     Map<String, dynamic> js = x;
     if (js['is_email_verified'] == true) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
@@ -98,7 +99,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                         .toUpperCase(),
                                     style: TextStyle(
                                         color: AppColors.backgroundColor,
-                                        fontSize: 35,
+                                        fontSize: 35.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -128,7 +129,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                               AppColors.textColor,
                                                           fontWeight:
                                                               FontWeight.w600,
-                                                          fontSize: 13),
+                                                          fontSize: 13.sp),
                                                 ),
                                               )),
                                           AppSpaces.spaces_width_2,
@@ -144,7 +145,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                       color: AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 10),
+                                                      fontSize: 10.sp),
                                             ),
                                           ),
                                         ],
@@ -168,7 +169,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                           .withOpacity(0.8),
                                                       fontWeight:
                                                           FontWeight.w900,
-                                                      fontSize: 10),
+                                                      fontSize: 10.sp),
                                             ),
                                           ),
                                           AppSpaces.spaces_width_2,
@@ -185,7 +186,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                           .withOpacity(0.8),
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 10),
+                                                      fontSize: 10.sp),
                                             ),
                                           ),
                                         ],
@@ -209,7 +210,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                           .withOpacity(0.8),
                                                       fontWeight:
                                                           FontWeight.w900,
-                                                      fontSize: 11),
+                                                      fontSize: 11.sp),
                                             ),
                                           ),
                                           AppSpaces.spaces_width_2,

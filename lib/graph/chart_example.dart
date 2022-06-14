@@ -5,6 +5,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -63,7 +64,7 @@ class _ChartExampleState extends State<ChartExample> {
                 : "",
             style: TextStyle(
                 color: AppColors.textColor,
-                fontSize: 18,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.bold),
           ),
         ),

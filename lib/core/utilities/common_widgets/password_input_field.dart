@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
@@ -37,18 +38,18 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             Radius.circular(25.0)), // set rounded corner radius
       ),
       child: TextField(
-        style: const TextStyle(color: Colors.white, fontSize: 18.0),
+        style: TextStyle(color: Colors.white, fontSize: 18.0.sp),
         controller: widget.controller,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           hintText: widget.labelText,
-          hintStyle: const TextStyle(fontSize: 15),
+          hintStyle:  TextStyle(fontSize: 15.sp),
           labelStyle: const TextStyle(
             color: Colors.blue,
           ),
           border: InputBorder.none,
           suffixIcon: IconButton(
-            splashColor: AppColors.textColor,
+            splashColor: AppColors.backgroundColor,
             onPressed: () {
               setState(() {
                 _toggleVisibility = !_toggleVisibility;

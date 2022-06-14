@@ -4,22 +4,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AppColors extends ChangeNotifier {
   static Color primaryColor = const Color(0xffA984E5);
-  static Color? backgroundColor;
+  static Color backgroundColor = Color(0xff02072D);
   static Color lightBackgroundColor = const Color(0xff384362);
   static Color textColor = Colors.white;
-  static Color detailsTextColor = const Color(0xffD3D3D3);
-  static Color detailsTextColor1 = const Color(0xffD3D3D3);
-  static Color textBoxBgColor = const Color(0xff2F3758);
+  static Color detailsTextColor = Color(0xffD3D3D3);
+  static Color detailsTextColor1 = Color(0xffD3D3D3);
+  static Color textBoxBgColor = Color(0xff2F3758);
 
+  //static Color categoryCardColor = Color(0xffA984E5);
   static Color? categoryCardColor;
-  static Color? iconColor;
-  static Color borderColor = const Color(0xff4e4f53);
+  static Color iconColor = Color(0xff8760EE);
+  static Color borderColor = Color(0xff4e4f53);
 
   static Color textColorBold = const Color(0xff5c5c5c);
 
   /*const Color(0xff5e5e5e);*/
   static Color error_color = Colors.red;
-  static Color grey = const Color(0xff747373);
+  static Color grey = Color(0xff747373);
   static Color blueGrey = Colors.blueGrey;
   static Color hintColor = const Color(0xffA2A2A2);
   static Color white = Colors.white;
@@ -27,6 +28,9 @@ class AppColors extends ChangeNotifier {
   static Color shadowColor = const Color(0xff213109);
   static Color black = Colors.black;
   static Color displayBottomColor = const Color(0xffF3FFF6);
+  static Color quantity_card_color = const Color(0xffA1D853);
+  static Color buy_button_color = const Color(0xff578811);
+  static Color divider_color = const Color(0xff81878d);
 
   static Gradient graphGradientColors = const LinearGradient(
     colors: [
@@ -89,16 +93,19 @@ class AppColors extends ChangeNotifier {
   );
 
   switchMode() {
+    //mode = prefs!.getInt('mode');
+
+   /* print('Color Mode Color: ' + mode.toString());*/
+
     if (mode == 0) {
       //Light Mode
-      categoryCardColor = const Color(0xff232942);
+      categoryCardColor = Color(0xff232942);
       primaryColor = const Color(0xff33E4EC);
       backgroundColor = Colors.white;
-      iconColor = const Color(0xff232942);
       textColor = Colors.grey;
       textBoxBgColor = Colors.grey;
-      detailsTextColor = const Color(0xff070000);
-      detailsTextColor1 = const Color(0xff979595);
+      detailsTextColor = Color(0xff070000);
+      detailsTextColor1 = Color(0xff979595);
       borderColor = Colors.grey;
       cardGradient = const LinearGradient(
         colors: [
@@ -108,15 +115,14 @@ class AppColors extends ChangeNotifier {
       );
     } else {
       //Dark Mode
-      categoryCardColor = const Color(0xffA984E5);
+      categoryCardColor = Color(0xffA984E5);
       primaryColor = const Color(0xffA984E5);
-      backgroundColor = const Color(0xff272E49);
+      backgroundColor = Color(0xff02072D);
       textColor = Colors.white;
-      iconColor = Colors.white;
-      textBoxBgColor = const Color(0xff2F3758);
-      detailsTextColor = const Color(0xffD3D3D3);
-      detailsTextColor1 = const Color(0xffD3D3D3);
-      borderColor = const Color(0xff4e4f53);
+      textBoxBgColor = Color(0xff2F3758);
+      detailsTextColor = Color(0xffD3D3D3);
+      detailsTextColor1 = Color(0xffD3D3D3);
+      borderColor = Color(0xff4e4f53);
       cardGradient = const LinearGradient(
         colors: [
           Color(0xff454F70),

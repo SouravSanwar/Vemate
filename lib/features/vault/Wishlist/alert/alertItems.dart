@@ -1,22 +1,18 @@
-import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
-import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
-import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class AlertListPage extends StatefulWidget {
   const AlertListPage({Key? key}) : super(key: key);
@@ -33,8 +29,8 @@ class _AlertListPageState extends State<AlertListPage> {
   int offset = 0;
   RefreshController refreshController =
   RefreshController(initialRefresh: false);
-  GlobalKey _contentKey = GlobalKey();
-  GlobalKey _refreshkey = GlobalKey();
+  final GlobalKey _contentKey = GlobalKey();
+  final GlobalKey _refreshkey = GlobalKey();
 
   Map<String, String> requestHeadersWithToken = {
     'Content-type': 'application/json',
@@ -78,7 +74,7 @@ class _AlertListPageState extends State<AlertListPage> {
           header: WaterDropMaterialHeader(
             color: AppColors.primaryColor,
           ),
-          footer:  ClassicFooter(
+          footer:  const ClassicFooter(
             loadStyle: LoadStyle.ShowWhenLoading,
           ),
           onRefresh: _onRefresh,
@@ -91,7 +87,7 @@ class _AlertListPageState extends State<AlertListPage> {
               return Stack(
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(4.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Container(
                       width: Get.width,
                       decoration: BoxDecoration(
@@ -137,10 +133,10 @@ class _AlertListPageState extends State<AlertListPage> {
                                       .results![index].name
                                       .toString()[0]
                                       .toUpperCase(),
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color:
                                       Colors.deepPurpleAccent,
-                                      fontSize: 35,
+                                      fontSize: 35.sp,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -178,7 +174,7 @@ class _AlertListPageState extends State<AlertListPage> {
                                                     FontWeight
                                                         .w600,
                                                     fontSize:
-                                                    13),
+                                                    13.sp),
                                               ),
                                             )),
                                         AppSpaces.spaces_width_2,
@@ -201,7 +197,7 @@ class _AlertListPageState extends State<AlertListPage> {
                                                   fontWeight:
                                                   FontWeight
                                                       .w300,
-                                                  fontSize: 10),
+                                                  fontSize: 10.sp),
                                             )),
                                       ],
                                     ),
@@ -236,7 +232,7 @@ class _AlertListPageState extends State<AlertListPage> {
                                                 fontWeight:
                                                 FontWeight
                                                     .w900,
-                                                fontSize: 10),
+                                                fontSize: 10.sp),
                                           ),
                                         ),
                                         AppSpaces.spaces_width_2,
@@ -287,7 +283,7 @@ class _AlertListPageState extends State<AlertListPage> {
                                                 fontWeight:
                                                 FontWeight
                                                     .w900,
-                                                fontSize: 11),
+                                                fontSize: 11.sp),
                                           ),
                                         ),
                                         const SizedBox(

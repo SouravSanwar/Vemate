@@ -40,7 +40,7 @@ class _ControllerPageState extends State<ControllerPage> {
   List<String> names = [
     'Home',
     'Market',
-    'Vault',
+    'My Vault',
   ];
 
   List<IconData> icons = [
@@ -92,8 +92,7 @@ class _ControllerPageState extends State<ControllerPage> {
 
     print("Device Token:" + token!);
     var body = {"fcm_device_id": token};
-
-    //postData!.updateProfile(context, body);
+    postData!.updateProfile(context, body);
   }
 
   Future<bool> _willPopCallback() async {

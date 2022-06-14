@@ -15,7 +15,7 @@ class ControllerPageController {
     ],
     [
       Icons.card_travel,
-      'Vault',
+      'My Vault',
     ],
   ].obs;
 }

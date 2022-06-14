@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -68,8 +69,8 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
-      width: 500,
+      height: 50.h,
+      width: 500.w,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -135,7 +136,7 @@ class ItemDetails extends StatelessWidget {
                   text!,
                   style: TextStyle(
                       color: AppColors.greyWhite,
-                      fontSize: 15,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.bold),
                 ),
                 decoration: BoxDecoration(
@@ -151,7 +152,7 @@ class ItemDetails extends StatelessWidget {
                   text1!,
                   style: TextStyle(
                       color: AppColors.greyWhite,
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.bold),
                 ),
                 padding:
@@ -192,9 +193,9 @@ class divider extends StatelessWidget{
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Column(
-        children: const [
+        children: [
           Divider(
-            height: 8,
+            height: 8.h,
             color: Colors.black,
             thickness: .5,
           ),

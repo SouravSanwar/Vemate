@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
 
@@ -22,14 +22,14 @@ class AlertTextField extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(
             color: AppColors.textColor, // set border color
-            width: 1),
-        borderRadius: BorderRadius.all(Radius.circular(15)),
+            width: 1.w),
+        borderRadius: const BorderRadius.all(Radius.circular(15)),
       ),
       child: TextFormField(
 
         controller: controller,
         cursorColor: AppColors.textColor,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: InputBorder.none,
         ),
       ),
