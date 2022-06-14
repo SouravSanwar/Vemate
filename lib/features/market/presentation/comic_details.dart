@@ -2,6 +2,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -69,7 +70,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                     : "",
                 style: TextStyle(
                     color: Colors.blueGrey.shade300,
-                    fontSize: 18,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -104,9 +105,9 @@ class _ComicDetailsState extends State<ComicDetails> {
                                 child: Text(
                                   data.singleProductModel!.name.toString()[0]
                                       .toUpperCase(),
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: Colors.deepPurpleAccent,
-                                      fontSize: 65,
+                                      fontSize: 65.sp,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -141,10 +142,10 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         flushbarPosition: FlushbarPosition.BOTTOM,
                                         isDismissible: false,
                                         duration: const Duration(seconds: 3),
-                                        messageText: const Text(
+                                        messageText: Text(
                                           "Product already in your wishlist",
                                           style: TextStyle(
-                                              fontSize: 16.0, color: Colors.green),
+                                              fontSize: 16.0.sp, color: Colors.green),
                                         )).show(context);
                                   },
                                   child: Container(
@@ -229,7 +230,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     color: Colors.blueGrey.shade300,
-                                    fontSize: 15,
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.bold),),
                             ),
                             Row(
@@ -414,7 +415,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                 style: TextStyle(
                                     color: Colors.blueGrey.shade300,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15),
+                                    fontSize: 15.sp),
                               ),
                             ),
                             AppSpaces.spaces_height_15,

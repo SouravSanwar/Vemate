@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/graph/components/item_details_helper.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +18,8 @@ class ItemDetails extends StatelessWidget {
                 ? data.singleProductModel!.floorPrice.toString()
                 : "",
           ),
-          const SizedBox(
-            height: 0.5,
+          SizedBox(
+            height: 0.5.h,
           ),
           ItemDetailsHelper(
             text: "Owner",
@@ -26,8 +27,8 @@ class ItemDetails extends StatelessWidget {
                 ? data.singleProductModel!.owner.toString()
                 : "",
           ),
-          const SizedBox(
-            height: 0.5,
+          SizedBox(
+            height: 0.5.h,
           ),
           ItemDetailsHelper(
             text: "Edition",
@@ -35,8 +36,8 @@ class ItemDetails extends StatelessWidget {
                 ? data.singleProductModel!.edition.toString()
                 : "",
           ),
-          const SizedBox(
-            height: 0.5,
+          SizedBox(
+            height: 0.5.h,
           ),
           ItemDetailsHelper(
             text: "Name",
@@ -44,8 +45,8 @@ class ItemDetails extends StatelessWidget {
                 ? data.singleProductModel!.name.toString()
                 : "",
           ),
-          const SizedBox(
-            height: 0.5,
+          SizedBox(
+            height: 0.5.h,
           ),
           ItemDetailsHelper(
             text: "Drop Date",
@@ -53,8 +54,8 @@ class ItemDetails extends StatelessWidget {
                 ? data.singleProductModel!.dropDate.toString()
                 : "",
           ),
-          const SizedBox(
-            height: 0.5,
+          SizedBox(
+            height: 0.5.h,
           ),
           ItemDetailsHelper(
             text: "List Price",
@@ -62,8 +63,8 @@ class ItemDetails extends StatelessWidget {
                 ? data.singleProductModel!.listPrice.toString()
                 : "",
           ),
-          const SizedBox(
-            height: 0.5,
+          SizedBox(
+            height: 0.5.h,
           ),
           ItemDetailsHelper(
             text: "Editions",
@@ -71,8 +72,8 @@ class ItemDetails extends StatelessWidget {
                 ? data.singleProductModel!.editions.toString()
                 : "",
           ),
-          const SizedBox(
-            height: 0.5,
+          SizedBox(
+            height: 0.5.h,
           ),
           ItemDetailsHelper(
             text: "Edition Type",
@@ -80,8 +81,8 @@ class ItemDetails extends StatelessWidget {
                 ? data.singleProductModel!.editionType.toString()
                 : "",
           ),
-          const SizedBox(
-            height: 0.5,
+          SizedBox(
+            height: 0.5.h,
           ),
           ItemDetailsHelper(
             text: "Season",
@@ -89,8 +90,8 @@ class ItemDetails extends StatelessWidget {
                 ? data.singleProductModel!.season.toString()
                 : "",
           ),
-          const SizedBox(
-            height: 0.5,
+         SizedBox(
+            height: 0.5.h,
           ),
           ItemDetailsHelper(
             text: "Rarity",
@@ -98,8 +99,8 @@ class ItemDetails extends StatelessWidget {
                 ? data.singleProductModel!.rarity.toString()
                 : "",
           ),
-          const SizedBox(
-            height: 0.5,
+          SizedBox(
+            height: 0.5.h,
           ),
           ItemDetailsHelper(
             text: "Brand",
@@ -107,8 +108,8 @@ class ItemDetails extends StatelessWidget {
                 ? data.singleProductModel!.brand.toString()
                 : "",
           ),
-          const SizedBox(
-            height: 0.5,
+          SizedBox(
+            height: 0.5.h,
           ),
           ItemDetailsHelper(
             text: "Series",

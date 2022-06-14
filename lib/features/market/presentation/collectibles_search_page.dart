@@ -1,5 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -130,7 +131,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                 )
               : Text(
                   filterValue[0] + " Collectibles",
-                  style: TextStyle(fontSize: 22),
+                  style: TextStyle(fontSize: 22.sp),
                 ),
         ),
       ),
@@ -203,7 +204,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                           style: TextStyle(
                                               color: AppColors
                                                   .lightBackgroundColor,
-                                              fontSize: 35,
+                                              fontSize: 35.sp,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -237,7 +238,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
-                                                                fontSize: 13),
+                                                                fontSize: 13.sp),
                                                       ),
                                                     )),
                                                 AppSpaces.spaces_width_2,
@@ -258,7 +259,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
-                                                              fontSize: 10),
+                                                              fontSize: 10.sp),
                                                     )),
                                               ],
                                             ),
@@ -289,7 +290,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                     0.8),
                                                             fontWeight:
                                                                 FontWeight.w900,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                   ),
                                                 ),
                                                 AppSpaces.spaces_width_2,
@@ -309,7 +310,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                     0.8),
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                   ),
                                                 ),
                                               ],
@@ -336,7 +337,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                     0.8),
                                                             fontWeight:
                                                                 FontWeight.w900,
-                                                            fontSize: 11),
+                                                            fontSize: 11.sp),
                                                   ),
                                                 ),
                                                 AppSpaces.spaces_width_2,
@@ -433,7 +434,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                     0.9),
                                                             fontWeight:
                                                                 FontWeight.w400,
-                                                            fontSize: 11),
+                                                            fontSize: 11.sp),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -462,7 +463,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                 : Colors.green,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                       ),
                                                       if (data
                                                               .searchCollectiblesModel!

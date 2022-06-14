@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -132,10 +133,10 @@ class _AlertListPageState extends State<AlertListPage> {
                                       .results![index].name
                                       .toString()[0]
                                       .toUpperCase(),
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color:
                                       Colors.deepPurpleAccent,
-                                      fontSize: 35,
+                                      fontSize: 35.sp,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -173,7 +174,7 @@ class _AlertListPageState extends State<AlertListPage> {
                                                     FontWeight
                                                         .w600,
                                                     fontSize:
-                                                    13),
+                                                    13.sp),
                                               ),
                                             )),
                                         AppSpaces.spaces_width_2,
@@ -196,7 +197,7 @@ class _AlertListPageState extends State<AlertListPage> {
                                                   fontWeight:
                                                   FontWeight
                                                       .w300,
-                                                  fontSize: 10),
+                                                  fontSize: 10.sp),
                                             )),
                                       ],
                                     ),
@@ -231,7 +232,7 @@ class _AlertListPageState extends State<AlertListPage> {
                                                 fontWeight:
                                                 FontWeight
                                                     .w900,
-                                                fontSize: 10),
+                                                fontSize: 10.sp),
                                           ),
                                         ),
                                         AppSpaces.spaces_width_2,
@@ -282,7 +283,7 @@ class _AlertListPageState extends State<AlertListPage> {
                                                 fontWeight:
                                                 FontWeight
                                                     .w900,
-                                                fontSize: 11),
+                                                fontSize: 11.sp),
                                           ),
                                         ),
                                         const SizedBox(

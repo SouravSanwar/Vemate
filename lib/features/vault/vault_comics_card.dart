@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
@@ -161,7 +162,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                                           ? Colors.red
                                           : Colors.green,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 14),
+                                      fontSize: 14.sp),
                                 ),
                                 SizedBox(
                                   width: Get.width * .005,

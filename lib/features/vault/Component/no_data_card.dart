@@ -20,7 +20,7 @@ class _NoDataCardState extends State<NoDataCard> {
           Image.asset(
             'assets/media/image/empty-box.png',
             height: 75.h,
-            width: 75.h,
+            width: 75.w,
           ),
           Text(
             widget.title.toString(),

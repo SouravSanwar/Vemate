@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
 
@@ -21,7 +22,7 @@ class AlertTextField extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(
             color: AppColors.textColor, // set border color
-            width: 1),
+            width: 1.w),
         borderRadius: const BorderRadius.all(Radius.circular(15)),
       ),
       child: TextFormField(

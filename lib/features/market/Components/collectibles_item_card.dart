@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
@@ -127,7 +128,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                               AppColors.textColor,
                                                           fontWeight:
                                                               FontWeight.w600,
-                                                          fontSize: 13),
+                                                          fontSize: 13.sp),
                                                 ),
                                               )),
                                           AppSpaces.spaces_width_2,
@@ -143,7 +144,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       color: AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 10),
+                                                      fontSize: 10.sp),
                                             ),
                                           ),
                                         ],
@@ -173,7 +174,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       color: AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w900,
-                                                      fontSize: 10),
+                                                      fontSize: 10.sp),
                                             ),
                                           ),
                                           AppSpaces.spaces_width_2,
@@ -189,7 +190,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       color: AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 10),
+                                                      fontSize: 10.sp),
                                             ),
                                           ),
                                         ],
@@ -212,7 +213,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       color: AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w900,
-                                                      fontSize: 11),
+                                                      fontSize: 11.sp),
                                             ),
                                           ),
                                           const SizedBox(

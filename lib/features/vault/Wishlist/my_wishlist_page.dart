@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -167,10 +168,10 @@ class _WishListPageState extends State<WishListPage> {
                                                   .name
                                                   .toString()[0]
                                                   .toUpperCase(),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   color:
                                                       Colors.deepPurpleAccent,
-                                                  fontSize: 35,
+                                                  fontSize: 35.sp,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           ),
@@ -209,7 +210,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                         FontWeight
                                                                             .w600,
                                                                     fontSize:
-                                                                        13),
+                                                                        13.sp),
                                                           ),
                                                         )),
                                                     AppSpaces.spaces_width_2,
@@ -232,7 +233,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w300,
-                                                                  fontSize: 10),
+                                                                  fontSize: 10.sp),
                                                         )),
                                                   ],
                                                 ),
@@ -289,7 +290,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w900,
-                                                                fontSize: 10),
+                                                                fontSize: 10.sp),
                                                       ),
                                                     ),
                                                     AppSpaces.spaces_width_2,
@@ -311,7 +312,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w300,
-                                                                fontSize: 10),
+                                                                fontSize: 10.sp),
                                                       ),
                                                     ),
                                                   ],
@@ -339,7 +340,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w900,
-                                                                fontSize: 11),
+                                                                fontSize: 11.sp),
                                                       ),
                                                     ),
                                                     const SizedBox(
@@ -496,7 +497,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w300,
-                                                                fontSize: 10),
+                                                                fontSize: 10.sp),
                                                           ),
                                                           if (data
                                                                   .wishListModel!

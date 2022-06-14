@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -142,12 +143,12 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           color: Colors.grey,
                         )),
                   ),
-                  const Text(
+                  Text(
                     "Or Continue With",
                     style: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
-                        fontSize: 15),
+                        fontSize: 15.sp),
                   ),
                   Expanded(
                     child: Container(
@@ -227,12 +228,12 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           "Don't have an account?",
                           style: TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.bold,
-                              fontSize: 15),
+                              fontSize: 15.sp),
                         ),
                         AppSpaces.spaces_width_5,
                         Text(
@@ -240,7 +241,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           style: TextStyle(
                               color: AppColors.primaryColor,
                               fontWeight: FontWeight.bold,
-                              fontSize: 15),
+                              fontSize: 15.sp),
                         ),
                       ]),
                 ),

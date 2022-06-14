@@ -1,5 +1,6 @@
 //For Items of graphn page
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/features/vault/vault_collectibles_lists.dart';
@@ -142,10 +143,10 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                           children: [
                             Text(
                               '\$${widget.data!.changePrice != null ? widget.data!.changePrice.toStringAsFixed(2): "0.0"}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 14),
+                                  fontSize: 14.sp),
                             ),
                             Expanded(
                               child: Row(
@@ -161,7 +162,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                         : "0.0" "%",
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 14.sp,
                                       color: widget.data!.sign == 'decrease'
                                           ? Colors.red
                                           : Colors.green,

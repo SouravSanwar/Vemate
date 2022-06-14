@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -352,20 +353,20 @@ class _ProfileState extends State<Profile> {
                                     color: AppColors.textColor,
                                   ),
                                   SizedBox(
-                                    width: 15,
+                                    width: 15.w,
                                   ),
                                   Text(
                                     "Logout",
                                     style: TextStyle(
                                         color: AppColors.textColor,
-                                        fontSize: 20),
+                                        fontSize: 20.sp),
                                   ),
                                 ],
                               ),
                               content: Text(
                                 'Do you really want to exit?',
                                 style: TextStyle(
-                                    color: AppColors.textColor, fontSize: 15),
+                                    color: AppColors.textColor, fontSize: 15.sp),
                               ),
                               actions: <Widget>[
                                 TextButton(

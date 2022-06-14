@@ -95,7 +95,7 @@ class AppColors extends ChangeNotifier {
   switchMode() {
     //mode = prefs!.getInt('mode');
 
-    print('Color Mode Color: ' + mode.toString());
+   /* print('Color Mode Color: ' + mode.toString());*/
 
     if (mode == 0) {
       //Light Mode

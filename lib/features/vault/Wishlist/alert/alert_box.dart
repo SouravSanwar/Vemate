@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -52,8 +53,8 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
           AnimatedContainer(
             padding: const EdgeInsets.only(left: 2, right: 2),
             duration: const Duration(milliseconds: 100),
-            height: 30.0,
-            width: 60.0,
+            height: 30.0.h,
+            width: 60.0.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25.0),
               color: toggleValue == true ? Colors.purple : Colors.grey,
@@ -75,8 +76,8 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                       },
                       child:  Container(
                         alignment: toggleValue == true ?Alignment.centerLeft :Alignment.centerLeft ,
-                        height: 25,
-                        width: 30,
+                        height: 25.h,
+                        width: 30.w,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(25.0),
@@ -101,11 +102,11 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                         children: [
                           Text(
                             "Mint",
-                            style: TextStyle(fontSize: 20.0, color: AppColors.textColor),
+                            style: TextStyle(fontSize: 20.0.sp, color: AppColors.textColor),
                             textAlign: TextAlign.left,
                           ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: 10.h,
                           ),
                          Row(
                             children: [
@@ -115,8 +116,8 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                   controller: mintController1,
                                 ),
                               ),
-                              const SizedBox(width: 10,),
-                              Text("-",style: TextStyle(color: AppColors.textColor,fontSize: 25),),
+                               SizedBox(width: 10.w,),
+                              Text("-",style: TextStyle(color: AppColors.textColor,fontSize: 25.sp),),
                               const SizedBox(width: 10,),
                               Expanded(
                                 child:AlertTextField(
@@ -128,59 +129,59 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
 
                             ],
                           ),
-                          const SizedBox(
-                            height: 15,
+                          SizedBox(
+                            height: 15.h,
                           ),
                           Text(
                             "Price",
-                            style: TextStyle(fontSize: 20.0, color: AppColors.textColor),
+                            style: TextStyle(fontSize: 20.0.sp, color: AppColors.textColor),
                             textAlign: TextAlign.left,
                           ),
-                          const SizedBox(
-                            height: 15,
+                          SizedBox(
+                            height: 15.h,
                           ),
                          Text(
                             "Value",
                             style:
-                                TextStyle(fontSize: 20.0, color: AppColors.textColor),
+                                TextStyle(fontSize: 20.0.sp, color: AppColors.textColor),
                           ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: 10.h,
                           ),
                           AlertTextField(
                             height: Get.height*.03,
                             controller: valueController,
                           ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: 10.sp,
                           ),
                           Text(
                             "Type",
                             style:
-                                TextStyle(fontSize: 20.0, color: AppColors.textColor),
+                                TextStyle(fontSize: 20.0.sp, color: AppColors.textColor),
                           ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: 10.sp,
                           ),
 
                           AlertTypeDropDown(),
 
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: 10.h,
                           ),
                           Text(
                             "Frequency",
                             style:
-                            TextStyle(fontSize: 20.0, color: AppColors.textColor),
+                            TextStyle(fontSize: 20.0.sp, color: AppColors.textColor),
                           ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: 10.h,
                           ),
 
                           AlertFrequencyDropDown(),
 
-                          const SizedBox(
-                            height: 25,
+                          SizedBox(
+                            height: 25.h,
                           ),
                           Container(
                             alignment: Alignment.bottomRight,
@@ -197,15 +198,15 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
 
                                 postData!.createAlert(context, body);
                               },
-                              child: const Text(
+                              child: Text(
                                 "Save",
-                                style: TextStyle(fontSize: 18.0, color: Colors.purpleAccent),
+                                style: TextStyle(fontSize: 18.0.sp, color: Colors.purpleAccent),
                               ),
 
                             ),
                           ),
-                          const SizedBox(
-                            height: 25,
+                          SizedBox(
+                            height: 25.sp,
                           ),
                         ],
                       ),

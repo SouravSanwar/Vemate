@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -84,8 +85,8 @@ class _Verify2FAState extends State<Verify2FA> {
                     textType: TextInputType.emailAddress,
                     controller: emailController,
                   ),
-                  const SizedBox(
-                    height: 40,
+                  SizedBox(
+                    height: 40.h,
                   ),
 
                   CustomButtons(
@@ -106,18 +107,18 @@ class _Verify2FAState extends State<Verify2FA> {
                     style: Get.textTheme.button!.copyWith(color: Colors.white),
                   ),
 
-                  const SizedBox(
-                    height: 70,
+                  SizedBox(
+                    height: 70.h,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: const Text(
+                    child: Text(
                       "By clicking RESET, you will receive an e-mail to verify two factor authentication",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                        fontSize: 15.sp,
                       ),
                     ),
                   ),

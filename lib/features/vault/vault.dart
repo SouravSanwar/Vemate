@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/CheckInternet/check_internet.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
@@ -81,7 +82,7 @@ class _VaultState extends State<Vault> {
                                 style: Get.textTheme.bodyText2!.copyWith(
                                     color: AppColors.textColor,
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 22),
+                                    fontSize: 22.sp),
                               ),
                             ]),
                           ),
@@ -109,7 +110,7 @@ class _VaultState extends State<Vault> {
                                                           AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 14),
+                                                      fontSize: 14.sp),
                                             ),
                                           ),
                                           const Expanded(
@@ -147,7 +148,7 @@ class _VaultState extends State<Vault> {
                                                         color: AppColors.white,
                                                         fontWeight:
                                                             FontWeight.w600,
-                                                        fontSize: 14),
+                                                        fontSize: 14.sp),
                                               ),
                                             ),
                                           ),
@@ -169,7 +170,7 @@ class _VaultState extends State<Vault> {
                                                           AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 14),
+                                                      fontSize: 14.sp),
                                             ),
                                           ),
                                           const Expanded(
@@ -237,7 +238,7 @@ class _VaultState extends State<Vault> {
                                                               : Colors.green,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontSize: 14),
+                                                      fontSize: 14.sp),
                                                 ),
                                               ],
                                             ),
@@ -312,7 +313,7 @@ class _VaultState extends State<Vault> {
                               "My Collectibles",
                               style: TextStyle(
                                   color: AppColors.textColor,
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -352,7 +353,7 @@ class _VaultState extends State<Vault> {
                               "My Vault",
                               style: TextStyle(
                                   color: AppColors.textColor,
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -387,7 +388,7 @@ class _VaultState extends State<Vault> {
                                     "My Wishlist",
                                     style: TextStyle(
                                         color: AppColors.textColor,
-                                        fontSize: 20,
+                                        fontSize: 20.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -437,10 +438,10 @@ class _VaultState extends State<Vault> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: const Text(
+                        child:  Text(
                           '24H',
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 15.sp,
                             color: Colors.white,
                           ),
                         ),

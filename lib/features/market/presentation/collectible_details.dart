@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                         : "",
                     style: TextStyle(
                         color: Colors.blueGrey.shade300,
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -238,7 +239,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                         color: Colors.blueGrey.shade300,
-                                        fontSize: 15,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -434,7 +435,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     style: TextStyle(
                                         color: Colors.blueGrey.shade300,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 15),
+                                        fontSize: 15.sp),
                                   ),
                                 ),
                               ],

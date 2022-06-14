@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
@@ -11,6 +12,7 @@ import '../../../../core/utilities/app_colors/app_colors.dart';
 class VaultNewItemCard extends StatefulWidget {
   List<Results>? list;
 
+
   VaultNewItemCard({
     this.list,
   });
@@ -22,6 +24,7 @@ class VaultNewItemCard extends StatefulWidget {
 class _VaultNewItemCardState extends State<VaultNewItemCard> {
   @override
   void initState() {
+
     super.initState();
   }
 
@@ -29,16 +32,16 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: 8,
+        left: 0,
         right: 0,
       ),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        itemCount: 5,
+        itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.all(2.0),
+            padding:  EdgeInsets.only(left:index==0? 8 : 4.0,right:index==9? 8 : 4.0 ),
             child: InkWell(
               onTap: () {
                 Get.to(
@@ -48,6 +51,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                 );
               },
               child: Container(
+
                 width: Get.width * .37,
                 decoration: BoxDecoration(
                     gradient: AppColors.cardGradient,
@@ -59,15 +63,15 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                   children: [
                     Text(
                       widget.list![index].name.toString()[0].toUpperCase(),
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: Colors.deepPurpleAccent,
-                          fontSize: 35,
+                          fontSize: 35.sp,
                           fontWeight: FontWeight.bold),
                     ),
                     AppSpaces.spaces_height_10,
                     SizedBox(
                       width: Get.width,
-                      height: 25,
+                      height: 25.h,
                       child: SfCartesianChart(
                         plotAreaBorderWidth: 0,
                         primaryXAxis: CategoryAxis(
@@ -124,7 +128,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                             style: Get.textTheme.bodyText2!.copyWith(
                                 color: AppColors.textColor,
                                 fontWeight: FontWeight.w600,
-                                fontSize: 12),
+                                fontSize: 12.sp),
                           ),
                           SizedBox(
                             height: Get.height * .01,
@@ -152,7 +156,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                     style: Get.textTheme.bodyText2!.copyWith(
                                         color: AppColors.white,
                                         fontWeight: FontWeight.w600,
-                                        fontSize: 12),
+                                        fontSize: 12.sp),
                                   ),
                                 ),
                               ),
@@ -181,7 +185,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                               ? Colors.red
                                               : Colors.green,
                                           fontWeight: FontWeight.w300,
-                                          fontSize: 12),
+                                          fontSize: 12.sp),
                                     ),
                                     if (widget.list![index].priceChangePercent!
                                             .percent <

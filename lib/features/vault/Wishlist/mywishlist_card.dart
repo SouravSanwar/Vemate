@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
@@ -143,7 +144,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                               style: Get.textTheme.bodyText2!.copyWith(
                                 color: AppColors.textColor,
                                 fontWeight: FontWeight.w600,
-                                fontSize: 12,
+                                fontSize: 12.sp,
                               ),
                             ),
                             SizedBox(
@@ -168,7 +169,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                       style: Get.textTheme.bodyText2!.copyWith(
                                           color: AppColors.textColor,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 11),
+                                          fontSize: 11.sp),
                                     ),
                                   ),
                                   Expanded(
@@ -193,7 +194,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                                   ? Colors.red
                                                   : Colors.green,
                                               fontWeight: FontWeight.w300,
-                                              fontSize: 10),
+                                              fontSize: 10.sp),
                                         ),
                                         if (data.wishListModel!
                                             .results![index].productDetail!

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/main.dart';
@@ -39,8 +40,8 @@ class _ToggleButtonState extends State<ToggleButton> {
           AnimatedContainer(
             padding: EdgeInsets.only(left: 2, right: 2),
             duration: Duration(milliseconds: 100),
-            height: 30.0,
-            width: 60.0,
+            height: 30.0.h,
+            width: 60.0.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25.0),
               color: darkMode == true ? Colors.purple : Colors.grey,
@@ -80,8 +81,8 @@ class _ToggleButtonState extends State<ToggleButton> {
                       alignment: mode == 1
                           ? Alignment.centerLeft
                           : Alignment.centerRight,
-                      height: 25,
-                      width: 30,
+                      height: 25.h,
+                      width: 30.w,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(25.0),
