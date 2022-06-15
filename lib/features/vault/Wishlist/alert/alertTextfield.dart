@@ -27,11 +27,19 @@ class AlertTextField extends StatelessWidget {
       ),
       child: TextFormField(
 
+        style: TextStyle(
+          color: AppColors.textColor,
+          fontSize: 18.0.sp,
+
+        ),
+        textAlign: TextAlign.center,
         controller: controller,
         cursorColor: AppColors.textColor,
         decoration: const InputDecoration(
           border: InputBorder.none,
+
         ),
+        keyboardType: TextInputType.number,
       ),
     );
   }

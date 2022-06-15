@@ -76,13 +76,16 @@ class _ControllerPageState extends State<ControllerPage> {
     initMessaging();
     initPlatformState();
 
+
+
+
     //mode = prefs!.getInt('mode');
     print('Color Mode Cont: ' + mode.toString());
 
   }
 
   Future<void> _firebaseMsg(RemoteMessage message) async {
-    print("Handling a background message : ${message.messageId}");
+    print("Handling a background message : ${message}");
   }
 
   Future<void> initPlatformState() async {
@@ -90,9 +93,7 @@ class _ControllerPageState extends State<ControllerPage> {
     FirebaseMessaging.onBackgroundMessage(_firebaseMsg);
     await Firebase.initializeApp();
 
-    print("Device Token:" + token!);
-    var body = {"fcm_device_id": token};
-    postData!.updateProfile(context, body);
+
   }
 
   Future<bool> _willPopCallback() async {
@@ -278,8 +279,9 @@ class _ControllerPageState extends State<ControllerPage> {
         type: BottomNavigationBarType.fixed,
         selectedFontSize: 12,
         unselectedFontSize: 12,
+
         selectedItemColor: AppColors.iconColor,
-        unselectedItemColor: AppColors.iconColor,
+        unselectedItemColor: AppColors.textColor,
         showUnselectedLabels: true,
         items: List.generate(
           ControllerPageController.to.bottomBarData!.length,
@@ -295,6 +297,16 @@ class _ControllerPageState extends State<ControllerPage> {
   void getToken() {
     _messaging.getToken().then((value) {
       token = value;
+
+      print("Device Token:" + token!);
+      var body = {"fcm_device_id": token!};
+      Map<String, String> requestHeadersWithToken = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'token ${prefs!.getString('token')}',
+      };
+      postData!
+          .updateProfile(context, body, requestHeadersWithToken);
     });
   }
 
@@ -314,6 +326,8 @@ class _ControllerPageState extends State<ControllerPage> {
     var generalNotificationDetails =
         NotificationDetails(android: androidDetails, iOS: iosDetails);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+
+      printInfo(info: "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"+message.data.toString());
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
 

@@ -18,6 +18,7 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
   var items = [
     'Once only',
     'Once a day',
+    'Always'
   ];
 
 
@@ -58,7 +59,10 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
 
             value == 'Once only'
                 ? frequencyIndex = 0
-                :frequencyIndex = 1;
+                :value == 'Once a day'
+                ? frequencyIndex = 1
+                : frequencyIndex = 2;
+
             print(frequencyIndex);
           }); //get value when changed
         },

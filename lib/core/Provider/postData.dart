@@ -463,12 +463,13 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future updateProfile(
-      BuildContext context, var body) async {
+      BuildContext context, var body, var requestHeadersWithToken) async {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingExample());
 
+    printInfo(info: body.toString());
 
     final response = await http.patch(Uri.parse(Urls.updateUserInfo),
         body: json.encode(body), headers: requestHeadersWithToken);

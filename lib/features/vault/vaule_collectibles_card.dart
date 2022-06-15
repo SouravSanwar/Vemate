@@ -60,7 +60,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                         Text(
                           '\$' + widget.data!.totalCollectibleValue!.toString(),
                           style: TextStyle(
-                              color: AppColors.textColor, fontWeight: FontWeight.bold),
+                              color: AppColors.greyWhite, fontWeight: FontWeight.bold),
                         ),
                         AppSpaces.spaces_height_30,
                         Text(

@@ -358,18 +358,17 @@ class _VaultState extends State<Vault> {
                             ),
                           ),
                           data.setListModel != null
-                              ? SizedBox(
-                                  height: Get.height * .22,
-                                  child: SizedBox(
+                              ?  SizedBox(
                                     width: Get.width,
+                                    height: Get.height * .22,
                                     child: data.setListModel!.count! > 0
                                         ? MysetsCard(
                                             list: data.setListModel!.results,
                                           )
                                         : const NoDataCard(
-                                            title: 'No Added Vault',
+                                            title: 'Your Vault is empty!',
                                           ),
-                                  ),
+
                                 )
                               : const LoadingExample(),
                           SizedBox(
@@ -412,17 +411,16 @@ class _VaultState extends State<Vault> {
                               ]),
                           data.wishListModel != null
                               ? SizedBox(
-                                  height: Get.height * .22,
-                                  child: SizedBox(
-                                    width: Get.width,
+                                     width: Get.width,
+                                     height: Get.height * .22,
                                     child: data.wishListModel!.count! > 0
                                         ? MywishlistCard(
                                             list: data.wishListModel!.results,
                                           )
                                         : const NoDataCard(
-                                            title: 'No Added Wishlist',
+                                            title: 'Your Wishlist is empty!',
                                           ),
-                                  ),
+
                                 )
                               : const LoadingExample(),
                           SizedBox(

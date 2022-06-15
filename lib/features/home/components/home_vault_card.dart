@@ -116,7 +116,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         '\$${data.vaultStatsModel!.totalVaultValue != null ? data.vaultStatsModel!.totalVaultValue!.toStringAsFixed(2) : "0.0"}',
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText2!.copyWith(
-                            color: AppColors.grey,
+                            color: AppColors.greyWhite,
                             fontWeight: FontWeight.w600,
                             fontSize: 14.sp),
                       ),

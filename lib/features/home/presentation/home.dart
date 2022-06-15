@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
+import 'package:ketemaa/features/home/components/notification_alart.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +56,6 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,21 +88,25 @@ class _HomeState extends State<Home> {
                                               builder: (c) => const Profile()));
                                     },
                                     child: Container(
-                                      child: data.profileModel!.profileImage != null
+                                      child: data.profileModel!.profileImage !=
+                                              null
                                           ? CircleAvatar(
-                                        radius: 15,
-                                        backgroundImage: NetworkImage(
-                                          Urls.mainUrl +
-                                              data.profileModel!.profileImage!
-                                                  .mobile!.src
-                                                  .toString(),
-                                        ),
-                                      )
+                                              radius: 20,
+                                              backgroundImage: NetworkImage(
+                                                Urls.mainUrl +
+                                                    data
+                                                        .profileModel!
+                                                        .profileImage!
+                                                        .mobile!
+                                                        .src
+                                                        .toString(),
+                                              ),
+                                            )
                                           : const CircleAvatar(
-                                        radius: 15,
-                                        backgroundImage: AssetImage(
-                                            'assets/media/image/profile.png'),
-                                      ),
+                                              radius: 20,
+                                              backgroundImage: AssetImage(
+                                                  'assets/media/image/profile.png'),
+                                            ),
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         border: Border.all(
@@ -119,43 +125,55 @@ class _HomeState extends State<Home> {
                                 ),
                               ],
                             ),
-                            /*Padding(
+                            Padding(
                               padding: const EdgeInsets.all(
                                 15.0,
                               ),
                               child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (c) => const Profile()));
-                                },
-                                child: Container(
-                                  child: data.profileModel!.profileImage != null
-                                      ? CircleAvatar(
-                                          radius: 15,
-                                          backgroundImage: NetworkImage(
-                                            Urls.mainUrl +
-                                                data.profileModel!.profileImage!
-                                                    .mobile!.src
-                                                    .toString(),
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (ctx) =>NotificationAlertBox());
+                                    NotificationAlertBox();
+                                  },
+                                  child: Container(
+                                    child: Stack(children: <Widget>[
+                                      Positioned(
+                                        // draw a red marble
+                                        top: 10.0,
+                                        left: 10,
+                                        child: new Icon(Icons.notifications_none,color: AppColors.textColor,),
+                                      ),
+                                      Positioned(
+                                        // draw a red marble
+                                        top: 6.0,
+                                        left: 20,
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          height: 15.h,
+                                          width: 15.w,
+                                          decoration: const BoxDecoration(
+                                             color: Colors.red,
+                                              shape: BoxShape.circle,
                                           ),
-                                        )
-                                      : const CircleAvatar(
-                                          radius: 15,
-                                          backgroundImage: AssetImage(
-                                              'assets/media/image/profile.png'),
+                                          child: Text("2",style: TextStyle(fontSize: 10,color: AppColors.textColor),),
                                         ),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: AppColors.greyWhite,
-                                      width: 1.0,
+                                      )
+                                    ]),
+                                    height: 45.h,
+                                    width: 45.w,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.backgroundColor,
+                                      border: Border.all(
+                                          color: AppColors
+                                              .grey, // set border color
+                                          width: 1), // set border width
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(
+                                              15.0)), // set rounded corner radius
                                     ),
-                                  ),
-                                ),
-                              ),
-                            ),*/
+                                  )),
+                            ),
                           ],
                         ),
 
@@ -222,4 +240,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
