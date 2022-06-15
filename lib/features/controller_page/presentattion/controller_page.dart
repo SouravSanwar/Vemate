@@ -316,6 +316,8 @@ class _ControllerPageState extends State<ControllerPage> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
+
+      printInfo(info: message.toString());
       if (notification != null && android != null) {
         flutterLocalNotificationsPlugin.show(notification.hashCode,
             notification.title, notification.body, generalNotificationDetails);
