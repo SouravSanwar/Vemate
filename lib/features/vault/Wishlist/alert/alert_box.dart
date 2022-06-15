@@ -234,6 +234,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
 
                                 postData!
                                     .createAlert(context, body);
+                                Get.back();
                               },
                               child: Text(
                                 widget.results!.isAlert == true
