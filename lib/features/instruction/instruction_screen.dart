@@ -117,7 +117,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0),
         color: Color(0xFFBDBDBD),
-        activeColor: Colors.amber,
+        activeColor: Color(0xFF1DDFEA),
         activeSize: Size(15.0, 15.0),
         activeShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(25.0)),

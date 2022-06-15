@@ -159,7 +159,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ProfileController.to.emailTextFiledController.text
                       };
 
-                      postData!.updateProfile(context, body);
+                      Map<String, String> requestHeadersWithToken = {
+                        'Content-type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'token ${prefs!.getString('token')}',
+                      };
+                      postData!
+                          .updateProfile(context, body, requestHeadersWithToken);
                     },
                     text: AppLanguageString.UPDATE_INFO.toUpperCase(),
                     style: Get.textTheme.button!.copyWith(color: Colors.white),

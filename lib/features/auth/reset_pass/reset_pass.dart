@@ -103,7 +103,7 @@ class _ResetPassState extends State<ResetPass> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Text(
-                      "By clicking RESET, you will receive an e-mail to reset password",
+                      "By clicking SEND CODE, you will receive an e-mail to reset password",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.grey,

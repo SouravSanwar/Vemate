@@ -47,10 +47,10 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Alerts",
+            "Price Alert",
             style: TextStyle(fontSize: 22.0, color: AppColors.textColor),
           ),
-          AnimatedContainer(
+          /*AnimatedContainer(
             padding: const EdgeInsets.only(left: 2, right: 2),
             duration: const Duration(milliseconds: 100),
             height: 30.0.h,
@@ -88,11 +88,11 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                     ))
               ],
             ),
-          )
+          )*/
         ],
       ),
-      content:toggleValue == true
-          ?  SingleChildScrollView(
+      content:/*toggleValue == true
+          ?  */SingleChildScrollView(
           padding:  const EdgeInsets.symmetric(horizontal: 25),
           child: Container(
                       alignment: Alignment.topLeft,
@@ -100,7 +100,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
 
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          /*Text(
                             "Mint",
                             style: TextStyle(fontSize: 20.0.sp, color: AppColors.textColor),
                             textAlign: TextAlign.left,
@@ -128,15 +128,15 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
 
 
                             ],
-                          ),
+                          ),*/
                           SizedBox(
                             height: 15.h,
                           ),
-                          Text(
+                          /*Text(
                             "Price",
                             style: TextStyle(fontSize: 20.0.sp, color: AppColors.textColor),
                             textAlign: TextAlign.left,
-                          ),
+                          ),*/
                           SizedBox(
                             height: 15.h,
                           ),
@@ -210,9 +210,10 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                           ),
                         ],
                       ),
-                    )): Container(
+                    ))
+          /*: Container(
         height: Get.height * .01,
-      ),
+      ),*/
     );
   }
 }

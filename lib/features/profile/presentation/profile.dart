@@ -384,7 +384,7 @@ class _ProfileState extends State<Profile> {
                                     },
                                     child: Text(
                                       'Yes',
-                                      style: TextStyle(color: Colors.red),
+                                      style: TextStyle(color: AppColors.greyWhite),
                                     )),
                                 TextButton(
                                   onPressed: () {

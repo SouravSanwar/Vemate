@@ -58,7 +58,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                       Text(
                         '\$' + widget.data!.totalComicValue!.toString(),
                         style: TextStyle(
-                            color: AppColors.textColor, fontWeight: FontWeight.bold),
+                            color: AppColors.greyWhite, fontWeight: FontWeight.bold),
                       ),
                       AppSpaces.spaces_height_30,
                       Text(

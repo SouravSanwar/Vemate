@@ -18,7 +18,7 @@ class CustomProfileElements extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
       child: InkWell(
           onTap: onTap,
-          splashColor: Colors.orangeAccent,
+          splashColor: AppColors.backgroundColor,
           child: Container(
               decoration: BoxDecoration(
                 gradient: AppColors.cardGradient,

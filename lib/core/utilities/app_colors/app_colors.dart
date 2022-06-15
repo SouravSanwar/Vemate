@@ -20,7 +20,7 @@ class AppColors extends ChangeNotifier {
 
   /*const Color(0xff5e5e5e);*/
   static Color error_color = Colors.red;
-  static Color grey = Color(0xff747373);
+  static Color grey = Color(0xff959595);
   static Color blueGrey = Colors.blueGrey;
   static Color hintColor = const Color(0xffA2A2A2);
   static Color white = Colors.white;

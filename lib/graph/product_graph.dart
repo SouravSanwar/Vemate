@@ -30,6 +30,7 @@ class _ProductGraphState extends State<ProductGraph> {
       enablePinching: true,
       zoomMode: ZoomMode.x,
       enablePanning: true,
+        maximumZoomLevel: 0.3
     );
     super.initState();
   }
@@ -37,7 +38,7 @@ class _ProductGraphState extends State<ProductGraph> {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
+          padding: const EdgeInsets.symmetric(vertical: 0),
       child: Container(
       width: Get.width,
       decoration: BoxDecoration(
@@ -67,7 +68,6 @@ class _ProductGraphState extends State<ProductGraph> {
                 maximumLabels: 12,
               ),
               primaryYAxis: NumericAxis(
-
                 axisBorderType: AxisBorderType.withoutTopAndBottom,
                 borderWidth: 0,
                 axisLine: AxisLine(width: 0),
@@ -82,7 +82,7 @@ class _ProductGraphState extends State<ProductGraph> {
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w900
                 ),
-                labelAlignment: LabelAlignment.start,
+                labelAlignment: LabelAlignment.center,
                 maximumLabels: 24,
               ),
               series: <ChartSeries<Graph, String>>[
