@@ -1,28 +1,30 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:provider/provider.dart';
+import '../../../../core/models/WishListModel.dart';
 
 int? TypeIndex;
+
 class AlertTypeDropDown extends StatefulWidget {
+  final Results? results;
+
+  const AlertTypeDropDown({Key? key, this.results}) : super(key: key);
 
   @override
   State<AlertTypeDropDown> createState() => _AlertTypeDropDownState();
 }
 
 class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
-  String? value = 'Price rises above';
+  String? value;
   var items = [
     'Price rises above',
     'Price drops under',
     'Price rises',
     'Price drops',
   ];
-
-
 
   GetData? getData;
 
@@ -32,6 +34,17 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
+    widget.results!.isAlert == true
+        ? value = widget.results!.alertData!.priceValue
+        : value = 'Price rises above';
+    value == 'Price rises above'
+        ? TypeIndex = 0
+        : value == 'Price drops under'
+            ? TypeIndex = 1
+            : value == 'Price rises'
+                ? TypeIndex = 2
+                : TypeIndex = 3;
+
     super.initState();
   }
 
@@ -39,9 +52,7 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-
       width: Get.width,
-
       decoration: BoxDecoration(
         color: AppColors.textBoxBgColor,
         border: Border.all(
@@ -61,25 +72,24 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
             value == 'Price rises above'
                 ? TypeIndex = 0
                 : value == 'Price drops under'
-                ? TypeIndex = 1
-                : value == 'Price rises'
-                ? TypeIndex = 2
-                 :TypeIndex = 3;
+                    ? TypeIndex = 1
+                    : value == 'Price rises'
+                        ? TypeIndex = 2
+                        : TypeIndex = 3;
             print(TypeIndex);
           }); //get value when changed
         },
         icon: const Icon(
           Icons.keyboard_arrow_down,
-
         ),
 
         iconEnabledColor: Colors.grey,
         //Icon color
         style: TextStyle(
-          //te
+            //te
             color: AppColors.textColor, //Font color
             fontSize: 20.sp //font size on dropdown button
-        ),
+            ),
         dropdownColor: AppColors.backgroundColor,
         underline: Container(),
         //dropdown background color

@@ -72,22 +72,20 @@ class _WishListPageState extends State<WishListPage> {
           children: [
             Text(
               'My Wishlist',
-              style: Get.textTheme.headline2!.copyWith(color: AppColors.textColor),
+              style:
+                  Get.textTheme.headline2!.copyWith(color: AppColors.textColor),
             ),
-
             InkWell(
               onTap: () {
                 Get.to(() => const AlertListPage());
               },
-              child:  Icon(
+              child: Icon(
                 Icons.alarm_on,
                 color: AppColors.textColor,
               ),
             )
-
           ],
         ),
-
       ),
       body: Consumer<GetData>(builder: (context, data, child) {
         return data.wishListModel != null
@@ -116,10 +114,10 @@ class _WishListPageState extends State<WishListPage> {
                                 child: Container(
                                   width: Get.width,
                                   decoration: BoxDecoration(
-                                    gradient: AppColors.cardGradient,
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    border: Border.all(color: AppColors.borderColor)
-                                  ),
+                                      gradient: AppColors.cardGradient,
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      border: Border.all(
+                                          color: AppColors.borderColor)),
                                   child: InkWell(
                                     onTap: () {
                                       data.wishListModel!.results![index]
@@ -158,7 +156,8 @@ class _WishListPageState extends State<WishListPage> {
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                                 border: Border.all(
-                                                    color:AppColors.borderColor)),
+                                                    color:
+                                                        AppColors.borderColor)),
                                             alignment: Alignment.center,
                                             child: Text(
                                               data
@@ -205,7 +204,8 @@ class _WishListPageState extends State<WishListPage> {
                                                             style: Get.textTheme
                                                                 .bodyText2!
                                                                 .copyWith(
-                                                                    color: AppColors.textColor,
+                                                                    color: AppColors
+                                                                        .textColor,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -228,12 +228,13 @@ class _WishListPageState extends State<WishListPage> {
                                                           style: Get.textTheme
                                                               .bodyText1!
                                                               .copyWith(
-                                                                  color:
-                                                                      AppColors.textColor,
+                                                                  color: AppColors
+                                                                      .textColor,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w300,
-                                                                  fontSize: 10.sp),
+                                                                  fontSize:
+                                                                      10.sp),
                                                         )),
                                                   ],
                                                 ),
@@ -286,11 +287,13 @@ class _WishListPageState extends State<WishListPage> {
                                                         style: Get.textTheme
                                                             .bodyText1!
                                                             .copyWith(
-                                                                color: AppColors.textColor,
+                                                                color: AppColors
+                                                                    .textColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w900,
-                                                                fontSize: 10.sp),
+                                                                fontSize:
+                                                                    10.sp),
                                                       ),
                                                     ),
                                                     AppSpaces.spaces_width_2,
@@ -308,18 +311,19 @@ class _WishListPageState extends State<WishListPage> {
                                                         style: Get.textTheme
                                                             .bodyText1!
                                                             .copyWith(
-                                                                color: AppColors.textColor,
+                                                                color: AppColors
+                                                                    .textColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w300,
-                                                                fontSize: 10.sp),
+                                                                fontSize:
+                                                                    10.sp),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                                 AppSpaces.spaces_height_10,
                                                 Row(
-
                                                   children: [
                                                     Expanded(
                                                       flex: 4,
@@ -336,35 +340,47 @@ class _WishListPageState extends State<WishListPage> {
                                                         style: Get.textTheme
                                                             .bodyText1!
                                                             .copyWith(
-                                                                color: AppColors.textColor,
+                                                                color: AppColors
+                                                                    .textColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w900,
-                                                                fontSize: 11.sp),
+                                                                fontSize:
+                                                                    11.sp),
                                                       ),
                                                     ),
                                                     const SizedBox(
                                                       width: 2,
                                                     ),
-                                                   Expanded(
-                                                     flex: 2,
-                                                     child:InkWell(
-
-                                                       onTap: () {
-                                                         showDialog(
-                                                             context: context,
-                                                             builder: (ctx) =>ShowAlertBox(results: data.wishListModel!.results![index],));
-                                                       },
-                                                       child:  Container(
-                                                         child: Icon(
-                                                           Icons.notifications_none,
-                                                           color: AppColors.textColor,
-
-                                                         ),
-                                                       )
-                                                     ),
-                                                   )
-
+                                                    Expanded(
+                                                      flex: 2,
+                                                      child: InkWell(
+                                                          onTap: () {
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (ctx) =>
+                                                                  ShowAlertBox(
+                                                                results: data
+                                                                    .wishListModel!
+                                                                    .results![index],
+                                                              ),
+                                                            );
+                                                          },
+                                                          child: Icon(
+                                                            Icons
+                                                                .notifications_none,
+                                                            color: data
+                                                                        .wishListModel!
+                                                                        .results![
+                                                                            index]
+                                                                        .isAlert ==
+                                                                    true
+                                                                ? AppColors
+                                                                    .primaryColor
+                                                                : AppColors
+                                                                    .textColor,
+                                                          )),
+                                                    )
                                                   ],
                                                 ),
                                               ],
@@ -497,7 +513,8 @@ class _WishListPageState extends State<WishListPage> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w300,
-                                                                fontSize: 10.sp),
+                                                                fontSize:
+                                                                    10.sp),
                                                           ),
                                                           if (data
                                                                   .wishListModel!
@@ -540,53 +557,77 @@ class _WishListPageState extends State<WishListPage> {
                                 right: 10.0,
                                 child: InkWell(
                                   onTap: () {
-                                      showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                      return AlertDialog(
-                                        backgroundColor: AppColors.backgroundColor,
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                              20.0,
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            backgroundColor:
+                                                AppColors.backgroundColor,
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(
+                                                  20.0,
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                                      titlePadding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                                      title: Text(data.wishListModel!.results![index].productDetail!.name.toString(),style: TextStyle(color: AppColors.textColor,fontSize: 20),),
-                                      content: Text('Do you really want to delete this item?',style: TextStyle(color: AppColors.textColor,fontSize: 15),),
-                                      actions: <Widget>[
-
-                                      CustomButtons(
-                                          width: Get.width*.2,
-                                          height: Get.height * .05,
-                                          onTap: () {
-
-                                            postData!.deleteWishlist(
-                                              context,
-                                              data.wishListModel!.results![index].id,
-                                              requestHeadersWithToken,
-                                            );
-                                          },
-                                          text: 'Yes'.toUpperCase(),
-                                          style: Get.textTheme.button!.copyWith(color: AppColors.textColor),
-                                        ),
-                                        CustomButtons(
-                                          width: Get.width*.2,
-                                          height: Get.height * .05,
-                                          onTap: () {
-
-                                            Navigator.pop(context);
-                                          },
-                                          text: 'Close'.toUpperCase(),
-                                          style: Get.textTheme.button!.copyWith(color: Colors.red),
-                                        ),
-                                      ],
-                                      );
-                                      });
+                                            contentPadding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 20),
+                                            titlePadding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 20,
+                                                    vertical: 10),
+                                            title: Text(
+                                              data
+                                                  .wishListModel!
+                                                  .results![index]
+                                                  .productDetail!
+                                                  .name
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  color: AppColors.textColor,
+                                                  fontSize: 20),
+                                            ),
+                                            content: Text(
+                                              'Do you really want to delete this item?',
+                                              style: TextStyle(
+                                                  color: AppColors.textColor,
+                                                  fontSize: 15),
+                                            ),
+                                            actions: <Widget>[
+                                              CustomButtons(
+                                                width: Get.width * .2,
+                                                height: Get.height * .05,
+                                                onTap: () {
+                                                  postData!.deleteWishlist(
+                                                    context,
+                                                    data.wishListModel!
+                                                        .results![index].id,
+                                                    requestHeadersWithToken,
+                                                  );
+                                                },
+                                                text: 'Yes'.toUpperCase(),
+                                                style: Get.textTheme.button!
+                                                    .copyWith(
+                                                        color: AppColors
+                                                            .textColor),
+                                              ),
+                                              CustomButtons(
+                                                width: Get.width * .2,
+                                                height: Get.height * .05,
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                text: 'Close'.toUpperCase(),
+                                                style: Get.textTheme.button!
+                                                    .copyWith(
+                                                        color: Colors.red),
+                                              ),
+                                            ],
+                                          );
+                                        });
                                   },
-                                  child:  Icon(
+                                  child: Icon(
                                     Icons.delete,
                                     color: AppColors.textColor,
                                   ),
@@ -628,4 +669,3 @@ class _WishListPageState extends State<WishListPage> {
     }
   }
 }
-

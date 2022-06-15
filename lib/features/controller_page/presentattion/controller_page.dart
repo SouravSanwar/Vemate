@@ -330,6 +330,8 @@ class _ControllerPageState extends State<ControllerPage> {
       printInfo(info: "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"+message.data.toString());
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
+
+      printInfo(info: message.toString());
       if (notification != null && android != null) {
         flutterLocalNotificationsPlugin.show(notification.hashCode,
             notification.title, notification.body, generalNotificationDetails);
