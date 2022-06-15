@@ -132,9 +132,10 @@ class _HomeState extends State<Home> {
                               child: InkWell(
                                   onTap: () {
                                     showDialog(
+
                                         context: context,
                                         builder: (ctx) =>NotificationAlertBox());
-                                    NotificationAlertBox();
+
                                   },
                                   child: Container(
                                     child: Stack(children: <Widget>[

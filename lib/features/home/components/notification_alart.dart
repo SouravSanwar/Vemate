@@ -26,6 +26,7 @@ class _NotificationAlertBoxState extends State<NotificationAlertBox> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+        alignment: Alignment(0.0, 0.0),
         backgroundColor: AppColors.backgroundColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
@@ -48,18 +49,14 @@ class _NotificationAlertBoxState extends State<NotificationAlertBox> {
               onTap: () {
                 Get.to(() => const WishListPage());
               },
-              child: Padding(
-                padding: EdgeInsets.only(
-                    right: Get.width *
-                        .06), //apply padding to all four sides
-                child: Text(
+              child:  Text(
                   "See All",
                   style: TextStyle(
                       color: AppColors.textColor,
                       fontSize: 12,
                       fontWeight: FontWeight.bold),
                 ),
-              ),
+
             ),
           ],
         ),

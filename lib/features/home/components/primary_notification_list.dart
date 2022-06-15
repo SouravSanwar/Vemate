@@ -39,72 +39,77 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
         shrinkWrap: true,
         itemCount: 4,
         itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding:  EdgeInsets.only(left:index==0? 8 : 4.0,right:index==9? 8 : 4.0 ),
-            child: InkWell(
-              onTap: () {
-                Get.to(
-                      () => CollectibleDetails(
-                    productId: widget.list![index].id,
-                  ),
-                );
-              },
-              child: Container(
-                child: Row(
-                  children: [
-                    Container(
-                      child: Icon(Icons.brightness_1,size: 10,color: Color(0xffA473E6),),
-                    ),
-                    Container(
-                      height: Get.height * .078,
-                      width: Get.height * .078,
-                      decoration: BoxDecoration(
-                          color: AppColors.primaryColor
-                              .withOpacity(.8),
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                              color: AppColors.borderColor)),
-                      alignment: Alignment.center,
-                      child: Text(
-                        widget.list![index].name.toString()[0].toUpperCase(),
-                        style:  TextStyle(
-                            color: AppColors.backgroundColor,
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold),
+          return Column(
+            children: [
+              Padding(
+                padding:  EdgeInsets.only(left:index==0? 8 : 4.0,right:index==9? 8 : 4.0 ),
+                child: InkWell(
+                  onTap: () {
+                    Get.to(
+                          () => CollectibleDetails(
+                        productId: widget.list![index].id,
                       ),
-                    ),
-                    Column(
+                    );
+                  },
+                  child: Container(
+                    child: Row(
                       children: [
-                        Text(
-                          widget.list![index].name.toString(),
-                          textAlign: TextAlign.left,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Get.textTheme.bodyText2!.copyWith(
-                              color: AppColors.textColor,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12.sp),
+                        Container(
+                          child: Icon(Icons.brightness_1,size: 10,color: Color(0xffA473E6),),
                         ),
-                        SizedBox(
-                          height: Get.height * .01,
+                        Container(
+                          height: Get.height * .078,
+                          width: Get.height * .078,
+                          decoration: BoxDecoration(
+                              color: AppColors.primaryColor
+                                  .withOpacity(.8),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  color: AppColors.borderColor)),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "A",
+                            style:  TextStyle(
+                                color: AppColors.backgroundColor,
+                                fontSize: 35,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                        Text(
-                          "! minutes ago",
-                          textAlign: TextAlign.left,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Get.textTheme.bodyText2!.copyWith(
-                              color: AppColors.textColor,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12.sp),
-                        ),
-                      ],
-                    )
+                        Column(
+                          children: [
+                            Text(
+                              "widget.list![index].name",
+                              textAlign: TextAlign.left,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Get.textTheme.bodyText2!.copyWith(
+                                  color: AppColors.textColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12.sp),
+                            ),
+                            SizedBox(
+                              height: Get.height * .01,
+                            ),
+                            Text(
+                              "! minutes ago",
+                              textAlign: TextAlign.left,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Get.textTheme.bodyText2!.copyWith(
+                                  color: AppColors.textColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12.sp),
+                            ),
+                          ],
+                        )
 
-                  ],
+                      ],
+                    ),
+                  )
                 ),
-              )
-            ),
+              ),
+              index !=3 ?Divider(): SizedBox(height: 10.h,)
+            ],
           );
         },
       ),
