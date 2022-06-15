@@ -90,8 +90,6 @@ flutter_icons:
   image_path: "assets/media/icon/logo1024.png"
 
 flutter:
-
-
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
