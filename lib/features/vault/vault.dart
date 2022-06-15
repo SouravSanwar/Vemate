@@ -393,7 +393,7 @@ class _VaultState extends State<Vault> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    Get.to(() => const WishListPage());
+                                    Get.to(() =>  const WishListPage());
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.only(
