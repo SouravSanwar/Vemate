@@ -242,6 +242,14 @@ class GetData extends ChangeNotifier with BaseController {
 
     notifyListeners();
   }
+   removeWish(int index)  {
+     wishListModel!.results!.removeAt(index);
+
+    notifyListeners();
+  }
+
+
+
 
   Future getSetList() async {
     setListModel = null;
