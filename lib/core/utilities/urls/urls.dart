@@ -49,4 +49,5 @@ class Urls {
 
   //static String alertList = mainUrl + '/api/v1/veve/public/alerts?&limit=20&offset=';
   static String alertList = mainUrl + '/api/v1/veve/public/alerts/';
+  static String notificationList = mainUrl + '/api/v1/veve/public/notifications/';
 }

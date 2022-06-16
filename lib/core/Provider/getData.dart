@@ -9,6 +9,8 @@ import 'package:ketemaa/core/models/CheckSetCheck.dart';
 import 'package:ketemaa/core/models/CheckWishlistModel.dart';
 import 'package:ketemaa/core/models/ComicsModel.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
+import 'package:ketemaa/core/models/NotificationListModel.dart';
+import 'package:ketemaa/core/models/NotificationReadModel.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
 import 'package:ketemaa/core/models/SearchCollectiblesModel.dart';
 import 'package:ketemaa/core/models/SearchComicsModel.dart';
@@ -46,6 +48,8 @@ class GetData extends ChangeNotifier with BaseController {
   NewsModel? newsModel;
 
   AlertModel? alertModel;
+  NotificationListModel? notificationListModel;
+  NotificationReadModel? notificationReadModel;
 
   Future getUserInfo() async {
     profileModel = null;
@@ -304,6 +308,19 @@ class GetData extends ChangeNotifier with BaseController {
     printInfo(info: data.toString());
 
     alertModel = AlertModel.fromJson(data);
+
+    notifyListeners();
+  }
+  Future getNotification() async {
+    notificationListModel = null;
+    final response =
+        await BaseClient().get(Urls.notificationList).catchError(handleError);
+
+    var data = json.decode(response.toString());
+
+    printInfo(info: data.toString());
+
+    notificationListModel = NotificationListModel.fromJson(data);
 
     notifyListeners();
   }

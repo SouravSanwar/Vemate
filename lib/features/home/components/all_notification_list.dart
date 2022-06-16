@@ -19,10 +19,11 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../../core/models/WishListModel.dart';
+import 'package:ketemaa/core/models/NotificationListModel.dart';
 
 class AllNotificationList extends StatefulWidget {
-  const AllNotificationList({Key? key}) : super(key: key);
+  final List<Results>? list;
+  const AllNotificationList({Key? key,this.list}) : super(key: key);
 
   @override
   State<AllNotificationList> createState() => _AllNotificationListState();
@@ -31,27 +32,17 @@ class AllNotificationList extends StatefulWidget {
 class _AllNotificationListState extends State<AllNotificationList> {
   GetData? getData;
 
-  PostData? postData;
 
   int offset = 0;
   RefreshController refreshController =
   RefreshController(initialRefresh: false);
-  final GlobalKey _contentKey = GlobalKey();
   final GlobalKey _refreshkey = GlobalKey();
 
-  Map<String, String> requestHeadersWithToken = {
-    'Content-type': 'application/json',
-    'Accept': 'application/json',
-    'Authorization': 'token ${prefs!.getString('token')}',
-  };
+
 
   @override
   void initState() {
     // TODO: implement initState
-    getData = Provider.of<GetData>(context, listen: false);
-    postData = Provider.of<PostData>(context, listen: false);
-
-    getData!.getWishList();
     super.initState();
   }
 
@@ -74,8 +65,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
             ),
       ),
       body: Consumer<GetData>(builder: (context, data, child) {
-        return data.wishListModel != null
-            ? SmartRefresher(
+        return SmartRefresher(
           key: _refreshkey,
           controller: refreshController,
           enablePullDown: true,
@@ -88,10 +78,9 @@ class _AllNotificationListState extends State<AllNotificationList> {
           ),
           onRefresh: _onRefresh,
           onLoading: _onLoading,
-          child: data.wishListModel!.results != null
-              ? ListView.builder(
+          child: ListView.builder(
             shrinkWrap: true,
-            itemCount: data.wishListModel!.results!.length,
+            itemCount: widget.list!.length,
             itemBuilder: (BuildContext context, int index) {
               return Stack(
 
@@ -102,116 +91,89 @@ class _AllNotificationListState extends State<AllNotificationList> {
                       width: Get.width,
 
                       child: InkWell(
-                        onTap: () {
-                          data.wishListModel!.results![index]
-                              .productDetail!.type ==
-                              0
-                              ? Get.to(
-                                () => CollectibleDetails(
-                              productId: data
-                                  .wishListModel!
-                                  .results![index]
-                                  .productDetail!
-                                  .id!,
-                            ),
-                          )
-                              : Get.to(
-                                () => ComicDetails(
-                              productId: data
-                                  .wishListModel!
-                                  .results![index]
-                                  .productDetail!
-                                  .id!,
-                            ),
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            Container(
-                              child: Row(
-
-                                children: [
-                                  Container(
-                                    child: Icon(Icons.brightness_1,size: 10,color: Color(0xffA473E6),),
-                                  ),
-                                  SizedBox(width: Get.width*.02,),
-                                  Container(
-                                    height: Get.height * .07,
-                                    width: Get.height * .07,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.primaryColor
-                                            .withOpacity(.8),
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            color: AppColors.borderColor)),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      data
-                                          .wishListModel!
-                                          .results![index]
-                                          .productDetail!
-                                          .name
-                                          .toString()[0]
-                                          .toUpperCase(),
-                                      style: TextStyle(
-                                          color:AppColors.backgroundColor,
-                                          fontSize: 35.sp,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  SizedBox(width: Get.width*.02,),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          data
-                                              .wishListModel!
-                                              .results![index]
-                                              .productDetail!
-                                              .name
-                                              .toString(),
-                                          textAlign:
-                                          TextAlign.start,
-                                          style: Get.textTheme
-                                              .bodyText2!
-                                              .copyWith(
-                                              color: AppColors
-                                                  .textColor,
-                                              fontWeight:
-                                              FontWeight
-                                                  .w600,
-                                              fontSize:
-                                              13.sp),
-                                        ),
-                                      SizedBox(
-                                        height: Get.height * .01,
-                                      ),
-                                      Text(
-                                              "52 minutes ago",
-                                              overflow:
-                                              TextOverflow
-                                                  .ellipsis,
-                                              textAlign:
-                                              TextAlign.start,
-                                              style: Get.textTheme
-                                                  .bodyText2!
-                                                  .copyWith(
-                                                  color: AppColors
-                                                      .grey,
-                                                  fontWeight:
-                                                  FontWeight
-                                                      .w600,
-                                                  fontSize:
-                                                  10.sp),
-                                            ),
-                                    ],
-                                  ),
-
-                                ],
+                          onTap: () {
+                            widget.list![index].target!.type ==
+                                0
+                                ? Get.to(
+                                    () => CollectibleDetails(
+                                  productId: widget.list![index].target!.id,
+                                ))
+                                : Get.to(
+                                  () => ComicDetails(
+                                productId: widget.list![index].target!.id,
                               ),
-                            ),
-                            index !=data.wishListModel!.results!.length-1 ?Divider(): SizedBox(height: 10.h,),
-                          ],
+                            );
+
+                          },
+                        child: Container(
+                          child: Row(
+                            children: [
+                              ///dot icon
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  child: Icon(Icons.brightness_1,size: 10,
+                                    color: widget.list![index].unread == true
+                                        ?Color(0xffA473E6)
+                                        :AppColors.backgroundColor,),
+                                ),
+                              ),
+
+                              ///Image
+                              Container(
+                                height: 50.h,
+                                width: 50.h,
+                                decoration: BoxDecoration(
+                                    color: AppColors.primaryColor
+                                        .withOpacity(.8),
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColors.borderColor)),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  widget.list![index].target!.name.toString()[0].toUpperCase(),
+                                  style:  TextStyle(
+                                      color: AppColors.backgroundColor,
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              SizedBox(width: Get.width*.02,),
+                              ///details
+                              Expanded(
+                                flex: 10,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      widget.list![index].description.toString(),
+                                      textAlign: TextAlign.left,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Get.textTheme.bodyText2!.copyWith(
+                                          color: AppColors.textColor,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12.sp),
+                                    ),
+                                    SizedBox(
+                                      height: Get.height * .01,
+                                    ),
+                                    Text(
+                                      widget.list![index].timesince.toString(),
+                                      textAlign: TextAlign.left,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Get.textTheme.bodyText2!.copyWith(
+                                          color: AppColors.textColor.withOpacity(.7),
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 10.sp),
+                                    ),
+                                  ],
+                                ),
+                              )
+
+                            ],
+                          ),
                         )
                       ),
                     ),
@@ -222,9 +184,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
               );
             },
           )
-              : const LoadingExample(),
-        )
-            : const LoadingExample();
+        );
       }),
     );
   }
@@ -232,7 +192,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    getData!.getWishList();
+  //  getData!.getWishList();
 
     setState(() {
       refreshController.refreshCompleted();
@@ -243,7 +203,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
   Future<void> _onLoading() async {
     offset = offset + 20;
 
-    getData!.getWishList(offset: offset);
+    //getData!.getWishList(offset: offset);
 
     await Future.delayed(const Duration(seconds: 2));
 

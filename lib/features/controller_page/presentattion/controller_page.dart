@@ -296,7 +296,7 @@ class _ControllerPageState extends State<ControllerPage> {
         'Accept': 'application/json',
         'Authorization': 'token ${prefs!.getString('token')}',
       };
-      postData!.updateProfile(context, body, requestHeadersWithToken);
+      //postData!.updateProfile(context, body, requestHeadersWithToken);
     });
   }
 
@@ -325,17 +325,20 @@ class _ControllerPageState extends State<ControllerPage> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       print("onMessageOpenedApp: $message");
       int productId = int.tryParse(message.data["id"]) ?? 0;
+      print("mnmnmnmnmnmnmnm"+productId.toString());
 
       message.data["type"] == 0
           ? Navigator.push(
               navigatorKey.currentState!.context,
               MaterialPageRoute(
+
                 builder: (context) => CollectibleDetails(
                   productId: productId,
                 ),
               ),
             )
           : Navigator.push(
+
               navigatorKey.currentState!.context,
               MaterialPageRoute(
                 builder: (context) => ComicDetails(

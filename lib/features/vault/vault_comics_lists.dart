@@ -7,6 +7,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -456,7 +457,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
                               ),
                             ),
                           )
-                        : Container();
+                        : const NoDataCard(
+                      title: 'Your Wishlist is empty!',
+                    );
                   })
               : const LoadingExample(),
         );
