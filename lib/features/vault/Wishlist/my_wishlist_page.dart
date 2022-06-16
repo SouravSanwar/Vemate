@@ -603,7 +603,7 @@ class _WishListPageState extends State<WishListPage> {
                                                     context,
                                                     data.wishListModel!
                                                         .results![index].id,
-                                                    requestHeadersWithToken,
+                                                    requestHeadersWithToken,index
                                                   );
                                                 },
                                                 text: 'Yes'.toUpperCase(),
