@@ -18,6 +18,7 @@ import 'package:ketemaa/features/Designs/update_alert_dialog.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/home/presentation/home.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/vault/vault.dart';
 
 import 'package:ketemaa/main.dart';
@@ -323,16 +324,25 @@ class _ControllerPageState extends State<ControllerPage> {
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       print("onMessageOpenedApp: $message");
+      int productId = int.tryParse(message.data["id"]) ?? 0;
 
-      int _yourId = int.tryParse(message.data["id"]) ?? 0;
-      Navigator.push(
-        navigatorKey.currentState!.context,
-        MaterialPageRoute(
-          builder: (context) => CollectibleDetails(
-            productId: _yourId,
-          ),
-        ),
-      );
+      message.data["type"] == 0
+          ? Navigator.push(
+              navigatorKey.currentState!.context,
+              MaterialPageRoute(
+                builder: (context) => CollectibleDetails(
+                  productId: productId,
+                ),
+              ),
+            )
+          : Navigator.push(
+              navigatorKey.currentState!.context,
+              MaterialPageRoute(
+                builder: (context) => ComicDetails(
+                  productId: productId,
+                ),
+              ),
+            );
 
       /*if (message.data["navigation"] == "/your_route") {
         int _yourId = int.tryParse(message.data["id"]) ?? 0;
