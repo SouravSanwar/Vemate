@@ -57,6 +57,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                         Container(
                           child: Icon(Icons.brightness_1,size: 10,color: Color(0xffA473E6),),
                         ),
+                        SizedBox(width: Get.width*.02,),
                         Container(
                           height: Get.height * .078,
                           width: Get.height * .078,
@@ -75,6 +76,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
+                        SizedBox(width: Get.width*.02,),
                         Column(
                           children: [
                             Text(

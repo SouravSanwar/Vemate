@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/features/home/components/all_notification_list.dart';
 import 'package:ketemaa/features/home/components/primary_notification_list.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertFrequencyDropdown.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertTextfield.dart';
@@ -42,12 +43,12 @@ class _NotificationAlertBoxState extends State<NotificationAlertBox> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Price Alert",
+              "Notifications",
               style: TextStyle(fontSize: 22.0, color: AppColors.textColor),
             ),
             InkWell(
               onTap: () {
-                Get.to(() => const WishListPage());
+                Get.to(() => const AllNotificationList());
               },
               child:  Text(
                   "See All",

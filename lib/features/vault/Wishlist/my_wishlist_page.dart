@@ -168,8 +168,7 @@ class _WishListPageState extends State<WishListPage> {
                                                   .toString()[0]
                                                   .toUpperCase(),
                                               style: TextStyle(
-                                                  color:
-                                                      Colors.deepPurpleAccent,
+                                                  color:AppColors.backgroundColor,
                                                   fontSize: 35.sp,
                                                   fontWeight: FontWeight.bold),
                                             ),

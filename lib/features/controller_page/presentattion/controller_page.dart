@@ -327,7 +327,7 @@ class _ControllerPageState extends State<ControllerPage> {
         NotificationDetails(android: androidDetails, iOS: iosDetails);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
 
-      printInfo(info: "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"+message.data.toString());
+      printInfo(info: "mmmmmmmmmm"+message.data.toString());
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
 
