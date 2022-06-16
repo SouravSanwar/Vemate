@@ -642,7 +642,7 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future deleteWishlist(BuildContext context, int? id, var requestToken) async {
+  Future deleteWishlist(BuildContext context, int? id, var requestToken,int index) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -654,10 +654,19 @@ class PostData extends ChangeNotifier with BaseController {
     printInfo(info: response.statusCode.toString());
     printInfo(info: Urls.commonStorage + '$id/');
 
-    if (response.statusCode == 204) {
-      Navigator.of(context).pop();
-      getData = Provider.of<GetData>(context, listen: false);
-      await getData!.getWishList();
+    getData = Provider.of<GetData>(context, listen: false);
+    if(response.statusCode == 204){
+
+      getData!.removeWish(index);
+
+    }
+
+
+    //var x = json.decode(response.body);
+
+    /*if (x.statusCode == 204) {
+     *//* getData = Provider.of<GetData>(context, listen: false);
+      await getData!.getWishList();*//*
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
@@ -678,8 +687,7 @@ class PostData extends ChangeNotifier with BaseController {
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
       Navigator.pop(context);
-    }
-    notifyListeners();
+    }*/
   }
 
   Future deleteSetList(BuildContext context, int? id, var requestToken) async {

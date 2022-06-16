@@ -310,7 +310,7 @@ class _AlertListPageState extends State<AlertListPage> {
                         postData!.deleteWishlist(
                           context,
                           data.wishListModel!.results![index].id,
-                          requestHeadersWithToken,
+                          requestHeadersWithToken,index
                         );
                         printInfo(info: 'On Tapped');
                       },
