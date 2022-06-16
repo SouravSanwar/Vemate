@@ -27,7 +27,6 @@ class _NotificationAlertBoxState extends State<NotificationAlertBox> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        alignment: Alignment(0.0, 0.0),
         backgroundColor: AppColors.backgroundColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
