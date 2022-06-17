@@ -85,6 +85,15 @@ class _ControllerPageState extends State<ControllerPage> {
   Future<void> _firebaseMsg(RemoteMessage message) async {
     print("Handling a background message : ${message.data}");
 
+    productId = int.tryParse(message.data["id"]) ?? 0;
+
+    message.data["type"] == 0
+        ? Get.to(() => CollectibleDetails(
+              productId: productId,
+            ))
+        : Get.to(() => ComicDetails(
+              productId: productId,
+            ));
   }
 
   Future<void> initPlatformState() async {
@@ -316,7 +325,9 @@ class _ControllerPageState extends State<ControllerPage> {
     var androidDetails = const AndroidNotificationDetails('1', 'Default',
         channelDescription: "Channel Description",
         importance: Importance.high,
-        priority: Priority.high);
+        priority: Priority.high,
+      playSound: true,
+    );
     var iosDetails = const IOSNotificationDetails();
 
     var generalNotificationDetails =
@@ -327,8 +338,6 @@ class _ControllerPageState extends State<ControllerPage> {
       printInfo(info: "On Message: " + message.data.toString());
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
-
-      //productId = int.tryParse(message.data["id"]) ?? 0;
 
       if (notification != null && android != null) {
         flutterLocalNotificationsPlugin.show(notification.hashCode,
@@ -349,7 +358,6 @@ class _ControllerPageState extends State<ControllerPage> {
           : Get.to(() => ComicDetails(
                 productId: productId,
               ));
-
     });
   }
 }
