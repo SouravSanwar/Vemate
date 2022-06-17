@@ -72,7 +72,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
         title: Text(
           "My Comics",
           style: TextStyle(
-              color: AppColors.textColor, fontSize: 20.sp, fontWeight: FontWeight.bold),
+              color: AppColors.textColor,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold),
         ),
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
@@ -80,13 +82,14 @@ class _VaultComicsListState extends State<VaultComicsList> {
           height: _height! * .9,
           width: _width,
           padding: const EdgeInsets.only(bottom: 10),
-          child: data.setListModel!.results!.length != null
+          child: data.setListModel != null
               ? ListView.builder(
                   itemCount: data.setListModel!.results!.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return data.setListModel!.results![index].productDetail!
-                                .type ==1
+                                .type ==
+                            1
                         ? InkWell(
                             onTap: () {
                               /*Get.to(() => ChartExample(id: widget.list![index].id));*/
@@ -105,10 +108,10 @@ class _VaultComicsListState extends State<VaultComicsList> {
                               child: Container(
                                 width: Get.width,
                                 decoration: BoxDecoration(
-                                  gradient: AppColors.cardGradient,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                    border: Border.all(color:AppColors.borderColor)
-                                ),
+                                    gradient: AppColors.cardGradient,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    border: Border.all(
+                                        color: AppColors.borderColor)),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: Row(
@@ -121,7 +124,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                             color: const Color(0xD3C89EF3),
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            border: Border.all(color:AppColors.borderColor)),
+                                            border: Border.all(
+                                                color: AppColors.borderColor)),
                                         alignment: Alignment.center,
                                         child: Text(
                                           data.setListModel!.results![index]
@@ -161,11 +165,13 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         style: Get.textTheme
                                                             .bodyText2!
                                                             .copyWith(
-                                                                color: AppColors.textColor,
+                                                                color: AppColors
+                                                                    .textColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
-                                                                fontSize: 13.sp),
+                                                                fontSize:
+                                                                    13.sp),
                                                       ),
                                                     )),
                                                 AppSpaces.spaces_width_2,
@@ -183,7 +189,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                       style: Get
                                                           .textTheme.bodyText1!
                                                           .copyWith(
-                                                              color: AppColors.textColor,
+                                                              color: AppColors
+                                                                  .textColor,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -236,7 +243,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.textColor,
+                                                            color: AppColors
+                                                                .textColor,
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 10.sp),
@@ -256,7 +264,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.textColor,
+                                                            color: AppColors
+                                                                .textColor,
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10.sp),
@@ -281,7 +290,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.textColor,
+                                                            color: AppColors
+                                                                .textColor,
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 11.sp),
@@ -296,7 +306,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.textColor,
+                                                            color: AppColors
+                                                                .textColor,
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 11.sp),
@@ -434,64 +445,91 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                 ),
                                                 InkWell(
                                                   onTap: () {
-
                                                     showDialog(
                                                         context: context,
                                                         builder: (context) {
                                                           return AlertDialog(
                                                             backgroundColor:
-                                                            AppColors.backgroundColor,
-                                                            shape: const RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius.all(
+                                                                AppColors
+                                                                    .backgroundColor,
+                                                            shape:
+                                                                const RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .all(
                                                                 Radius.circular(
                                                                   20.0,
                                                                 ),
                                                               ),
                                                             ),
                                                             contentPadding:
-                                                            const EdgeInsets.symmetric(
-                                                                horizontal: 20),
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20),
                                                             titlePadding:
-                                                            const EdgeInsets.symmetric(
-                                                                horizontal: 20,
-                                                                vertical: 10),
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20,
+                                                                    vertical:
+                                                                        10),
                                                             title: Text(""),
                                                             content: Text(
                                                               'Do you really want to delete this item?',
                                                               style: TextStyle(
-                                                                  color: AppColors.textColor,
+                                                                  color: AppColors
+                                                                      .textColor,
                                                                   fontSize: 15),
                                                             ),
                                                             actions: <Widget>[
                                                               CustomButtons(
-                                                                width: Get.width * .2,
-                                                                height: Get.height * .05,
+                                                                width:
+                                                                    Get.width *
+                                                                        .2,
+                                                                height:
+                                                                    Get.height *
+                                                                        .05,
                                                                 onTap: () {
-                                                                  postData!.deleteSetList(
+                                                                  postData!
+                                                                      .deleteSetList(
                                                                     context,
-                                                                    data.setListModel!
-                                                                        .results![index].id,
+                                                                    data
+                                                                        .setListModel!
+                                                                        .results![
+                                                                            index]
+                                                                        .id,
                                                                     requestHeadersWithToken,
                                                                   );
-
                                                                 },
-                                                                text: 'Yes'.toUpperCase(),
-                                                                style: Get.textTheme.button!
+                                                                text: 'Yes'
+                                                                    .toUpperCase(),
+                                                                style: Get
+                                                                    .textTheme
+                                                                    .button!
                                                                     .copyWith(
-                                                                    color: AppColors
-                                                                        .textColor),
-
+                                                                        color: AppColors
+                                                                            .textColor),
                                                               ),
                                                               CustomButtons(
-                                                                width: Get.width * .2,
-                                                                height: Get.height * .05,
+                                                                width:
+                                                                    Get.width *
+                                                                        .2,
+                                                                height:
+                                                                    Get.height *
+                                                                        .05,
                                                                 onTap: () {
-                                                                  Navigator.pop(context);
+                                                                  Navigator.pop(
+                                                                      context);
                                                                 },
-                                                                text: 'Close'.toUpperCase(),
-                                                                style: Get.textTheme.button!
+                                                                text: 'Close'
+                                                                    .toUpperCase(),
+                                                                style: Get
+                                                                    .textTheme
+                                                                    .button!
                                                                     .copyWith(
-                                                                    color: AppColors.textColor),
+                                                                        color: AppColors
+                                                                            .textColor),
                                                               ),
                                                             ],
                                                           );
@@ -513,11 +551,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
                               ),
                             ),
                           )
-                        : Container(
-                          child: const NoDataCard(
-                      title: 'Your Wishlist is empty!',
-                    ),
-                        );
+                        : const NoDataCard(
+                            title: 'Your Comics are empty!',
+                          );
                   })
               : const LoadingExample(),
         );
