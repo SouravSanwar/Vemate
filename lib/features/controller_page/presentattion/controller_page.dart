@@ -1,12 +1,10 @@
 import 'dart:io';
 
 import 'package:bottom_bar_page_transition/bottom_bar_page_transition.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
@@ -25,12 +23,13 @@ import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 import '../../market/presentation/market.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 
 String? token;
 
+late String routeToGo = '/';
+
 class ControllerPage extends StatefulWidget {
-  ControllerPage({Key? key}) : super(key: key);
+  const ControllerPage({Key? key}) : super(key: key);
 
   @override
   State<ControllerPage> createState() => _ControllerPageState();
@@ -61,8 +60,9 @@ class _ControllerPageState extends State<ControllerPage> {
   AppUpdate? appUpdate;
   GetData? getData;
 
-  FirebaseMessaging _messaging = FirebaseMessaging.instance;
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final FirebaseMessaging _messaging = FirebaseMessaging.instance;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   @override
   void initState() {
@@ -84,6 +84,25 @@ class _ControllerPageState extends State<ControllerPage> {
 
   Future<void> _firebaseMsg(RemoteMessage message) async {
     print("Handling a background message : ${message}");
+
+    int productId = int.tryParse(message.data["id"]) ?? 0;
+    message.data["type"] == 0
+        ? Navigator.push(
+            navigatorKey.currentState!.context,
+            MaterialPageRoute(
+              builder: (context) => CollectibleDetails(
+                productId: productId,
+              ),
+            ),
+          )
+        : Navigator.push(
+            navigatorKey.currentState!.context,
+            MaterialPageRoute(
+              builder: (context) => ComicDetails(
+                productId: productId,
+              ),
+            ),
+          );
   }
 
   Future<void> initPlatformState() async {
@@ -103,7 +122,8 @@ class _ControllerPageState extends State<ControllerPage> {
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,8 +145,9 @@ class _ControllerPageState extends State<ControllerPage> {
                       ),
                       Text(
                         "Vemate",
-                        style:
-                            Get.textTheme.headline1!.copyWith(color: AppColors.textColor, fontWeight: FontWeight.w500),
+                        style: Get.textTheme.headline1!.copyWith(
+                            color: AppColors.textColor,
+                            fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
@@ -157,7 +178,7 @@ class _ControllerPageState extends State<ControllerPage> {
                           ],
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'No',
                             style: TextStyle(color: AppColors.textColor),
@@ -183,7 +204,7 @@ class _ControllerPageState extends State<ControllerPage> {
                           ],
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'Yes',
                             style: TextStyle(color: AppColors.textColor),
@@ -217,7 +238,8 @@ class _ControllerPageState extends State<ControllerPage> {
                 body: BottomBarPageTransition(
                   builder: (_, index) => getBody(index),
                   currentIndex: ControllerPageController.to.currentPage.value,
-                  totalLength: ControllerPageController.to.bottomBarData!.length,
+                  totalLength:
+                      ControllerPageController.to.bottomBarData!.length,
                   transitionType: transitionType,
                   transitionDuration: duration,
                   transitionCurve: curve,
@@ -232,7 +254,8 @@ class _ControllerPageState extends State<ControllerPage> {
               child: Consumer<AppUpdate>(builder: (context, data, child) {
                 return data.appUpdator != null
                     ? (int.parse(data.appUpdator!.name!.toString()) >
-                                int.parse(VersionControl.packageInfo.buildNumber) &&
+                                int.parse(
+                                    VersionControl.packageInfo.buildNumber) &&
                             data.isUpdate == true
                         ? const AppUpdateAlert()
                         : Container())
@@ -251,7 +274,7 @@ class _ControllerPageState extends State<ControllerPage> {
     } else if (index == 1) {
       return const Market();
     } else {
-      return Vault();
+      return const Vault();
     }
   }
 
@@ -301,29 +324,58 @@ class _ControllerPageState extends State<ControllerPage> {
   }
 
   void initMessaging() {
-    var androidInit = const AndroidInitializationSettings('assets/media/icon/logo v.png');
-    var iosInit = IOSInitializationSettings();
-    var initSetting = InitializationSettings(android: androidInit, iOS: iosInit);
+    var androidInit =
+        const AndroidInitializationSettings('assets/media/icon/logo v.png');
+    var iosInit = const IOSInitializationSettings();
+    var initSetting =
+        InitializationSettings(android: androidInit, iOS: iosInit);
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.initialize(initSetting);
     var androidDetails = const AndroidNotificationDetails('1', 'Default',
-        channelDescription: "Channel Description", importance: Importance.high, priority: Priority.high);
-    var iosDetails = IOSNotificationDetails();
-    var generalNotificationDetails = NotificationDetails(android: androidDetails, iOS: iosDetails);
+        channelDescription: "Channel Description",
+        importance: Importance.high,
+        priority: Priority.high);
+    var iosDetails = const IOSNotificationDetails();
+
+    var generalNotificationDetails =
+        NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+    ///On Message
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      printInfo(info: "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm" + message.data.toString());
+      printInfo(
+          info:
+              "On Message" + message.data.toString());
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
 
-      printInfo(info: message.toString());
+      int productId = int.tryParse(message.data["id"]) ?? 0;
+
+      message.data["type"] == 0
+          ? Navigator.push(
+              navigatorKey.currentState!.context,
+              MaterialPageRoute(
+                builder: (context) => CollectibleDetails(
+                  productId: productId,
+                ),
+              ),
+            )
+          : Navigator.push(
+              navigatorKey.currentState!.context,
+              MaterialPageRoute(
+                builder: (context) => ComicDetails(
+                  productId: productId,
+                ),
+              ),
+            );
       if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode, notification.title, notification.body, generalNotificationDetails);
+        flutterLocalNotificationsPlugin.show(notification.hashCode,
+            notification.title, notification.body, generalNotificationDetails);
       }
     });
 
+    ///On Message Open
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      print("onMessageOpenedApp: $message");
+      print("onMessageOpenedApp: ${message.data}");
       int productId = int.tryParse(message.data["id"]) ?? 0;
 
       message.data["type"] == 0

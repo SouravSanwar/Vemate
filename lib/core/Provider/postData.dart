@@ -642,11 +642,12 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future deleteWishlist(BuildContext context, int? id, var requestToken,int index) async {
-    showDialog(
+  Future deleteWishlist(
+      BuildContext context, int? id, var requestToken, int index) async {
+    /*showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const LoadingExample());
+        builder: (_) => const LoadingExample());*/
 
     final response = await http.delete(Uri.parse(Urls.commonStorage + '$id/'),
         headers: requestToken);
@@ -655,18 +656,23 @@ class PostData extends ChangeNotifier with BaseController {
     printInfo(info: Urls.commonStorage + '$id/');
 
     getData = Provider.of<GetData>(context, listen: false);
-    if(response.statusCode == 204){
-
-      getData!.removeWish(index);
-
+    if (response.statusCode == 204) {
+      getData!.getWishList();
+      /*Flushbar(
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              isDismissible: false,
+              duration: const Duration(seconds: 3),
+              messageText: const Text(
+                "Success",
+                style: TextStyle(fontSize: 16.0, color: Colors.green),
+              )).show(context);*/
     }
-
 
     //var x = json.decode(response.body);
 
     /*if (x.statusCode == 204) {
-     *//* getData = Provider.of<GetData>(context, listen: false);
-      await getData!.getWishList();*//*
+     */ /* getData = Provider.of<GetData>(context, listen: false);
+      await getData!.getWishList();*/ /*
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
@@ -737,8 +743,10 @@ class PostData extends ChangeNotifier with BaseController {
 
     printInfo(info: body.toString());
 
+    getData = Provider.of<GetData>(context, listen: false);
+
     final response =
-        await BaseClient().post(Urls.creteAlert, body).catchError(handleError);
+        await BaseClient().post(Urls.alert, body).catchError(handleError);
 
     var data = json.decode(response);
 
@@ -747,14 +755,54 @@ class PostData extends ChangeNotifier with BaseController {
     Map<String, dynamic> js = data;
     if (js.containsKey('id')) {
       Navigator.of(context).pop();
-      getData = Provider.of<GetData>(context, listen: false);
-      await getData!.getWishList();
+      Flushbar(
+        flushbarPosition: FlushbarPosition.BOTTOM,
+        isDismissible: false,
+        duration: const Duration(seconds: 3),
+        messageText: const Text(
+          "Created Successfully",
+          style: TextStyle(fontSize: 16.0, color: Colors.green),
+        ),
+      ).show(context).whenComplete(
+            () => getData!.getWishList(),
+          );
+    } else {
+      Navigator.of(context).pop();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
           duration: const Duration(seconds: 3),
           messageText: const Text(
-            "Created Successfully",
+            "Invalid Information",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    }
+    notifyListeners();
+  }
+
+  Future deleteAlert(BuildContext context, int? id, var requestToken) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingExample());
+
+    getData = Provider.of<GetData>(context, listen: false);
+
+    final response = await http.delete(Uri.parse(Urls.alert + '$id/'),
+        headers: requestToken);
+
+    printInfo(info: response.statusCode.toString());
+    printInfo(info: Urls.alert + '$id/');
+
+    if (response.statusCode == 204) {
+      Navigator.of(context).pop();
+      getData!.getAlert();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Success",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     } else {
@@ -764,7 +812,7 @@ class PostData extends ChangeNotifier with BaseController {
           isDismissible: false,
           duration: const Duration(seconds: 3),
           messageText: const Text(
-            "Invalid Information",
+            "Something went wrong",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }

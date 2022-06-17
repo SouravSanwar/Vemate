@@ -17,6 +17,7 @@ class AppRoutes {
   static String MARKET = "/market";
   static String CONTROLLER_PAGE = "/controller_page";
   static String EDIT_PROFILE = "/edit_profile";
+  static String PODUCT_DETAILS = "/product_details";
 
   static List<GetPage> appRoutesList() {
     return [
@@ -46,6 +47,10 @@ class AppRoutes {
       ),
       GetPage(
         name: EDIT_PROFILE,
+        page: () => EditProfilePage(),
+      ),
+      GetPage(
+        name: PODUCT_DETAILS,
         page: () => EditProfilePage(),
       ),
     ];

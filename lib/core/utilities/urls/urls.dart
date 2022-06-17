@@ -45,7 +45,7 @@ class Urls {
 
   static String appUpdate = mainUrl + '/api/v1/veve/public/app-updater/';
 
-  static String creteAlert = mainUrl + '/api/v1/veve/public/alerts/';
+  static String alert = mainUrl + '/api/v1/veve/public/alerts/';
 
   //static String alertList = mainUrl + '/api/v1/veve/public/alerts?&limit=20&offset=';
   static String alertList = mainUrl + '/api/v1/veve/public/alerts/';

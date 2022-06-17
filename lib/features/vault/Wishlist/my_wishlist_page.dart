@@ -599,12 +599,13 @@ class _WishListPageState extends State<WishListPage> {
                                                 width: Get.width * .2,
                                                 height: Get.height * .05,
                                                 onTap: () {
+                                                  Get.back();
                                                   postData!.deleteWishlist(
-                                                    context,
-                                                    data.wishListModel!
-                                                        .results![index].id,
-                                                    requestHeadersWithToken,index
-                                                  );
+                                                      context,
+                                                      data.wishListModel!
+                                                          .results![index].id,
+                                                      requestHeadersWithToken,
+                                                      index).whenComplete(() => getData!.getWishList());
                                                 },
                                                 text: 'Yes'.toUpperCase(),
                                                 style: Get.textTheme.button!

@@ -8,6 +8,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertFrequencyDropdown.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertTextfield.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertTypeDropDown.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/models/WishListModel.dart';
 
@@ -29,6 +30,12 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
   bool? hasDropDownValue = false;
 
   PostData? postData;
+
+  Map<String, String> requestHeadersWithToken = {
+    'Content-type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'token ${prefs!.getString('token')}',
+  };
 
   @override
   void initState() {
@@ -203,15 +210,18 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                               onTap: () {
                                 postData = Provider.of<PostData>(context,
                                     listen: false);
-                                var body = {
+                                /*var body = {
                                   "product": widget.results!.productDetail!.id,
                                   "type": 0,
                                   "price_type": TypeIndex,
                                   "value": double.parse(valueController.text),
                                   "frequency": frequencyIndex,
-                                };
+                                };*/
 
-                                //postData!.createAlert(context, body);
+                                postData!.deleteAlert(
+                                    context,
+                                    widget.results!.id,
+                                    requestHeadersWithToken);
                               },
                               child: Text(
                                 widget.results!.isAlert == true ? 'Delete' : "",
@@ -232,8 +242,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                   "frequency": frequencyIndex,
                                 };
 
-                                postData!
-                                    .createAlert(context, body);
+                                postData!.createAlert(context, body);
                                 Get.back();
                               },
                               child: Text(
