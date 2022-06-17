@@ -42,7 +42,6 @@ class _WishListPageState extends State<WishListPage> {
     'Content-type': 'application/json',
     'Accept': 'application/json',
     'Authorization': 'token ${prefs!.getString('token')}',
-
   };
 
   @override
@@ -169,7 +168,8 @@ class _WishListPageState extends State<WishListPage> {
                                                   .toString()[0]
                                                   .toUpperCase(),
                                               style: TextStyle(
-                                                  color:AppColors.backgroundColor,
+                                                  color:
+                                                      AppColors.backgroundColor,
                                                   fontSize: 35.sp,
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -453,9 +453,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                 plot.total,
                                                         xAxisName: 'Duration',
                                                         yAxisName: 'Total',
-
                                                       )
-
                                                     ],
                                                   ),
                                                 ),
@@ -592,19 +590,38 @@ class _WishListPageState extends State<WishListPage> {
                                                 height: Get.height * .05,
                                                 onTap: () {
                                                   Get.back();
-                                                  postData!.deleteWishlist(
-                                                      context,
-                                                      data.wishListModel!
-                                                          .results![index].id,
-                                                      requestHeadersWithToken,
-                                                      index).whenComplete(() => getData!.getWishList());
+                                                  if (data
+                                                          .wishListModel!
+                                                          .results![index]
+                                                          .alertData !=
+                                                      null) {
+                                                    postData!.deleteAlert(
+                                                        context,
+                                                        data
+                                                            .wishListModel!
+                                                            .results![index]
+                                                            .alertData!
+                                                            .id,
+                                                        requestHeadersWithToken);
+                                                  }
+                                                  postData!
+                                                      .deleteWishlist(
+                                                          context,
+                                                          data
+                                                              .wishListModel!
+                                                              .results![index]
+                                                              .id,
+                                                          requestHeadersWithToken,
+                                                          index)
+                                                      .whenComplete(() =>
+                                                          getData!
+                                                              .getWishList());
                                                 },
                                                 text: 'Yes'.toUpperCase(),
                                                 style: Get.textTheme.button!
                                                     .copyWith(
                                                         color: AppColors
                                                             .textColor),
-
                                               ),
                                               CustomButtons(
                                                 width: Get.width * .2,
@@ -615,7 +632,8 @@ class _WishListPageState extends State<WishListPage> {
                                                 text: 'Close'.toUpperCase(),
                                                 style: Get.textTheme.button!
                                                     .copyWith(
-                                                        color: AppColors.textColor),
+                                                        color: AppColors
+                                                            .textColor),
                                               ),
                                             ],
                                           );

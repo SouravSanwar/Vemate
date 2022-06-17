@@ -320,7 +320,7 @@ class _ControllerPageState extends State<ControllerPage> {
         'Accept': 'application/json',
         'Authorization': 'token ${prefs!.getString('token')}',
       };
-      //postData!.updateProfile(context, body, requestHeadersWithToken);
+      postData!.updateFCMToken(context, body, requestHeadersWithToken);
     });
   }
 
@@ -343,7 +343,7 @@ class _ControllerPageState extends State<ControllerPage> {
 
     ///On Message
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      printInfo(info: "On Message" + message.data.toString());
+      printInfo(info: "On Message: " + message.data.toString());
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
 

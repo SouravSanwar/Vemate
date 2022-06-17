@@ -220,8 +220,9 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
 
                                 postData!.deleteAlert(
                                     context,
-                                    widget.results!.id,
+                                    widget.results!.alertData!.id,
                                     requestHeadersWithToken);
+                                Get.back();
                               },
                               child: Text(
                                 widget.results!.isAlert == true ? 'Delete' : "",

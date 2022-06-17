@@ -511,6 +511,19 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
+  Future updateFCMToken(
+      BuildContext context, var body, var requestHeadersWithToken) async {
+    printInfo(info: body.toString());
+
+    final response = await http.patch(Uri.parse(Urls.updateUserInfo),
+        body: json.encode(body), headers: requestHeadersWithToken);
+    var x = json.decode(response.body);
+
+    Map<String, dynamic> js = x;
+    if (js['is_email_verified'] == true) {}
+    notifyListeners();
+  }
+
   Future enDe2FA(BuildContext context, var requestHeadersWithToken) async {
     showDialog(
         context: context,
@@ -781,10 +794,6 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future deleteAlert(BuildContext context, int? id, var requestToken) async {
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (_) => const LoadingExample());
 
     getData = Provider.of<GetData>(context, listen: false);
 
@@ -796,7 +805,7 @@ class PostData extends ChangeNotifier with BaseController {
 
     if (response.statusCode == 204) {
       Navigator.of(context).pop();
-      getData!.getAlert();
+      getData!.getWishList();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
