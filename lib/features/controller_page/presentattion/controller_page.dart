@@ -87,7 +87,12 @@ class _ControllerPageState extends State<ControllerPage> {
     print("Handling a background message : ${message}");
 
     productId = int.tryParse(message.data["id"]) ?? 0;
-    message.data["type"] == 0
+    if (message.notification!.body != null) {
+      message.data["type"] == 0
+          ? navigatorKey.currentState?.pushNamed('/collectibles_details')
+          : navigatorKey.currentState?.pushNamed('/comic_details');
+    }
+    /*message.data["type"] == 0
         ? Navigator.push(
             navigatorKey.currentState!.context,
             MaterialPageRoute(
@@ -103,7 +108,7 @@ class _ControllerPageState extends State<ControllerPage> {
                 productId: productId,
               ),
             ),
-          );
+          );*/
   }
 
   Future<void> initPlatformState() async {
@@ -349,23 +354,12 @@ class _ControllerPageState extends State<ControllerPage> {
 
       productId = int.tryParse(message.data["id"]) ?? 0;
 
-      message.data["type"] == 0
-          ? Navigator.push(
-              navigatorKey.currentState!.context,
-              MaterialPageRoute(
-                builder: (context) => CollectibleDetails(
-                  productId: productId,
-                ),
-              ),
-            )
-          : Navigator.push(
-              navigatorKey.currentState!.context,
-              MaterialPageRoute(
-                builder: (context) => ComicDetails(
-                  productId: productId,
-                ),
-              ),
-            );
+      if (message.notification!.body != null) {
+        message.data["type"] == 0
+            ? navigatorKey.currentState?.pushNamed('/collectibles_details')
+            : navigatorKey.currentState?.pushNamed('/comic_details');
+      }
+
       if (notification != null && android != null) {
         flutterLocalNotificationsPlugin.show(notification.hashCode,
             notification.title, notification.body, generalNotificationDetails);
@@ -379,22 +373,15 @@ class _ControllerPageState extends State<ControllerPage> {
       print("onMessageOpenedApp Product Id: " + productId.toString());
 
       message.data["type"] == 0
-          ? Navigator.push(
-              navigatorKey.currentState!.context,
-              MaterialPageRoute(
-                builder: (context) => CollectibleDetails(
-                  productId: productId,
-                ),
-              ),
-            )
-          : Navigator.push(
-              navigatorKey.currentState!.context,
-              MaterialPageRoute(
-                builder: (context) => ComicDetails(
-                  productId: productId,
-                ),
-              ),
-            );
+          ? navigatorKey.currentState?.pushNamed('/collectibles_details')
+          : navigatorKey.currentState?.pushNamed('/comic_details');
+
+      /*if (message.notification!.body != null) {
+        print("onMessageOpenedApp Product Id: " + productId.toString());
+        message.data["type"] == 0
+            ? navigatorKey.currentState?.pushNamed('/collectibles_details')
+            : navigatorKey.currentState?.pushNamed('/comic_details');
+      }*/
 
       /*if (message.data["navigation"] == "/your_route") {
         int _yourId = int.tryParse(message.data["id"]) ?? 0;
