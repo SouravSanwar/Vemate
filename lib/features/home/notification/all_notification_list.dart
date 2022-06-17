@@ -22,8 +22,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:ketemaa/core/models/NotificationListModel.dart';
 
 class AllNotificationList extends StatefulWidget {
-  final List<Results>? list;
-  const AllNotificationList({Key? key,this.list}) : super(key: key);
+  const AllNotificationList({Key? key}) : super(key: key);
 
   @override
   State<AllNotificationList> createState() => _AllNotificationListState();
@@ -33,18 +32,20 @@ class _AllNotificationListState extends State<AllNotificationList> {
   GetData? getData;
   PostData? postData;
 
-
   int offset = 0;
   RefreshController refreshController =
-  RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: false);
   final GlobalKey _refreshkey = GlobalKey();
-
-
 
   @override
   void initState() {
     // TODO: implement initState
     postData = Provider.of<PostData>(context, listen: false);
+
+    getData = Provider.of<GetData>(context, listen: false);
+
+    getData!.getNotification();
+
     super.initState();
   }
 
@@ -61,164 +62,185 @@ class _AllNotificationListState extends State<AllNotificationList> {
         titleSpacing: 0,
         iconTheme: const IconThemeData(color: Colors.grey),
         backgroundColor: AppColors.backgroundColor,
-        title:Text(
-              'Notifications',
-              style: Get.textTheme.headline2!.copyWith(color: AppColors.textColor),
-            ),
+        title: Text(
+          'Notifications',
+          style: Get.textTheme.headline2!.copyWith(color: AppColors.textColor),
+        ),
       ),
       body: Consumer<GetData>(builder: (context, data, child) {
         return SmartRefresher(
-          key: _refreshkey,
-          controller: refreshController,
-          enablePullDown: true,
-          enablePullUp: true,
-          header: WaterDropMaterialHeader(
-            color: AppColors.primaryColor,
-          ),
-          footer: const ClassicFooter(
-            loadStyle: LoadStyle.ShowWhenLoading,
-          ),
-          onRefresh: _onRefresh,
-          onLoading: _onLoading,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.list!.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Stack(
+            key: _refreshkey,
+            controller: refreshController,
+            enablePullDown: true,
+            enablePullUp: true,
+            header: WaterDropMaterialHeader(
+              color: AppColors.primaryColor,
+            ),
+            footer: const ClassicFooter(
+              loadStyle: LoadStyle.ShowWhenLoading,
+            ),
+            onRefresh: _onRefresh,
+            onLoading: _onLoading,
+            child: data.notificationListModel != null
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: data.notificationListModel!.results!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0, vertical: 4.0),
+                            child: Container(
+                              width: Get.width,
+                              child: InkWell(
+                                  onTap: () async {
+                                    var body = {};
 
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 4.0),
-                    child: Container(
-                      width: Get.width,
+                                    Map<String, String>
+                                        requestHeadersWithToken = {
+                                      'Content-type': 'application/json',
+                                      'Accept': 'application/json',
+                                      'Authorization':
+                                          'token ${prefs!.getString('token')}',
+                                    };
 
-                      child: InkWell(
-                          onTap: () async {
-                            var body = {};
-
-                            Map<String, String> requestHeadersWithToken = {
-                              'Content-type': 'application/json',
-                              'Accept': 'application/json',
-                              'Authorization':
-                              'token ${prefs!.getString('token')}',
-                            };
-
-                            if (widget.list![index].target!.type == 0) {
-                              postData!.notificationRead(
-                                  context,
-                                  widget.list![index].id,
-                                  requestHeadersWithToken);
-                              Get.to(() => CollectibleDetails(
-                                productId: widget.list![index].target!.id,
-                              ));
-                            } else {
-                              postData!.notificationRead(
-                                  context,
-                                  widget.list![index].id,
-                                  requestHeadersWithToken);
-                              Get.to(
-                                    () => ComicDetails(
-                                  productId: widget.list![index].target!.id,
-                                ),
-                              );
-                            }
-                          },
-                          child: Container(
-                            child: Row(
-                              children: [
-                                ///dot icon
-                                Expanded(
-                                  flex: 1,
+                                    if (data.notificationListModel!
+                                            .results![index].target!.type ==
+                                        0) {
+                                      postData!.notificationRead(
+                                          context,
+                                          data.notificationListModel!
+                                              .results![index].id,
+                                          requestHeadersWithToken);
+                                      Get.to(() => CollectibleDetails(
+                                            productId: data
+                                                .notificationListModel!
+                                                .results![index]
+                                                .target!
+                                                .id,
+                                          ));
+                                    } else {
+                                      postData!.notificationRead(
+                                          context,
+                                          data.notificationListModel!
+                                              .results![index].id,
+                                          requestHeadersWithToken);
+                                      Get.to(
+                                        () => ComicDetails(
+                                          productId: data.notificationListModel!
+                                              .results![index].target!.id,
+                                        ),
+                                      );
+                                    }
+                                  },
                                   child: Container(
-                                    child: Icon(
-                                      Icons.brightness_1,
-                                      size: 10,
-                                      color:
-                                      widget.list![index].unread == true
-                                          ? Color(0xffA473E6)
-                                          : AppColors.backgroundColor,
+                                    child: Row(
+                                      children: [
+                                        ///dot icon
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                            child: Icon(
+                                              Icons.brightness_1,
+                                              size: 10,
+                                              color: data
+                                                          .notificationListModel!
+                                                          .results![index]
+                                                          .unread ==
+                                                      true
+                                                  ? Color(0xffA473E6)
+                                                  : AppColors.backgroundColor,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: Get.width * .02,
+                                        ),
+
+                                        ///Image
+                                        Container(
+                                          height: 50.h,
+                                          width: 50.h,
+                                          decoration: BoxDecoration(
+                                              color: AppColors.primaryColor
+                                                  .withOpacity(.8),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                  color:
+                                                      AppColors.borderColor)),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            data.notificationListModel!
+                                                .results![index].target!.name
+                                                .toString()[0]
+                                                .toUpperCase(),
+                                            style: TextStyle(
+                                                color:
+                                                    AppColors.backgroundColor,
+                                                fontSize: 35,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: Get.width * .02,
+                                        ),
+
+                                        ///details
+                                        Expanded(
+                                          flex: 7,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                data.notificationListModel!
+                                                    .results![index].description
+                                                    .toString(),
+                                                textAlign: TextAlign.left,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: Get.textTheme.bodyText2!
+                                                    .copyWith(
+                                                        color:
+                                                            AppColors.textColor,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 12.sp),
+                                              ),
+                                              SizedBox(
+                                                height: Get.height * .01,
+                                              ),
+                                              Text(
+                                                data.notificationListModel!
+                                                    .results![index].timesince
+                                                    .toString(),
+                                                textAlign: TextAlign.left,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: Get.textTheme.bodyText2!
+                                                    .copyWith(
+                                                        color: AppColors
+                                                            .textColor
+                                                            .withOpacity(.7),
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 10.sp),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: Get.width * .02,
-                                ),
-
-                                ///Image
-                                Container(
-                                  height: 50.h,
-                                  width: 50.h,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.primaryColor
-                                          .withOpacity(.8),
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          color: AppColors.borderColor)),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    widget.list![index].target!.name
-                                        .toString()[0]
-                                        .toUpperCase(),
-                                    style: TextStyle(
-                                        color: AppColors.backgroundColor,
-                                        fontSize: 35,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: Get.width * .02,
-                                ),
-
-                                ///details
-                                Expanded(
-                                  flex: 7,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        widget.list![index].description
-                                            .toString(),
-                                        textAlign: TextAlign.left,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Get.textTheme.bodyText2!
-                                            .copyWith(
-                                            color: AppColors.textColor,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 12.sp),
-                                      ),
-                                      SizedBox(
-                                        height: Get.height * .01,
-                                      ),
-                                      Text(
-                                        widget.list![index].timesince
-                                            .toString(),
-                                        textAlign: TextAlign.left,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Get.textTheme.bodyText2!
-                                            .copyWith(
-                                            color: AppColors.textColor
-                                                .withOpacity(.7),
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 10.sp),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
+                                  )),
                             ),
-                          )),
-                    ),
-                  ),
-
-
-                ],
-              );
-            },
-          )
-        );
+                          ),
+                        ],
+                      );
+                    },
+                  )
+                : const LoadingExample());
       }),
     );
   }
@@ -226,7 +248,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
 
-  //  getData!.getWishList();
+    getData!.getNotification();
 
     setState(() {
       refreshController.refreshCompleted();
@@ -237,7 +259,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
   Future<void> _onLoading() async {
     offset = offset + 20;
 
-    //getData!.getWishList(offset: offset);
+    getData!.getNotification(offset: offset);
 
     await Future.delayed(const Duration(seconds: 2));
 
@@ -248,7 +270,3 @@ class _AllNotificationListState extends State<AllNotificationList> {
     }
   }
 }
-
-
-
-

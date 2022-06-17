@@ -66,7 +66,7 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  setTheme(int? mode){
+  setTheme(int? mode) {
     prefs!.setInt('mode', mode!);
 
     print('Color Mode Get: ' + mode.toString());
@@ -243,14 +243,12 @@ class GetData extends ChangeNotifier with BaseController {
 
     notifyListeners();
   }
-   removeWish(int index)  {
-     wishListModel!.results!.removeAt(index);
+
+  removeWish(int index) {
+    wishListModel!.results!.removeAt(index);
 
     notifyListeners();
   }
-
-
-
 
   Future getSetList() async {
     setListModel = null;
@@ -308,16 +306,24 @@ class GetData extends ChangeNotifier with BaseController {
 
     notifyListeners();
   }
-  Future getNotification() async {
-    notificationListModel = null;
-    final response =
-        await BaseClient().get(Urls.notification).catchError(handleError);
+
+  Future getNotification({int offset = 0}) async {
+    final response = await BaseClient()
+        .get(Urls.notification + '?limit=20&offset=$offset')
+        .catchError(handleError);
 
     var data = json.decode(response.toString());
 
     printInfo(info: data.toString());
 
-    notificationListModel = NotificationListModel.fromJson(data);
+    if (notificationListModel != null) {
+      if (offset == 0) notificationListModel!.results!.clear();
+
+      notificationListModel!.results!
+          .addAll(NotificationListModel.fromJson(data).results!);
+    } else {
+      notificationListModel = NotificationListModel.fromJson(data);
+    }
 
     notifyListeners();
   }
