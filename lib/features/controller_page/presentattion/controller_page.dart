@@ -50,7 +50,6 @@ class _ControllerPageState extends State<ControllerPage> {
     Icons.shop,
     Icons.card_travel,
   ];
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   Duration duration = const Duration(milliseconds: 300);
 
@@ -75,40 +74,17 @@ class _ControllerPageState extends State<ControllerPage> {
     getData!.getUserInfo();*/
     appUpdate!.getUpdateInfo();
     super.initState();
+    initPlatformState();
     getToken();
     initMessaging();
-    initPlatformState();
 
     //mode = prefs!.getInt('mode');
     print('Color Mode Cont: ' + mode.toString());
   }
 
   Future<void> _firebaseMsg(RemoteMessage message) async {
-    print("Handling a background message : ${message}");
+    print("Handling a background message : ${message.data}");
 
-    productId = int.tryParse(message.data["id"]) ?? 0;
-    if (message.notification!.body != null) {
-      message.data["type"] == 0
-          ? navigatorKey.currentState?.pushNamed('/collectibles_details')
-          : navigatorKey.currentState?.pushNamed('/comic_details');
-    }
-    /*message.data["type"] == 0
-        ? Navigator.push(
-            navigatorKey.currentState!.context,
-            MaterialPageRoute(
-              builder: (context) => CollectibleDetails(
-                productId: productId,
-              ),
-            ),
-          )
-        : Navigator.push(
-            navigatorKey.currentState!.context,
-            MaterialPageRoute(
-              builder: (context) => ComicDetails(
-                productId: productId,
-              ),
-            ),
-          );*/
   }
 
   Future<void> initPlatformState() async {
@@ -352,13 +328,7 @@ class _ControllerPageState extends State<ControllerPage> {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
 
-      productId = int.tryParse(message.data["id"]) ?? 0;
-
-      if (message.notification!.body != null) {
-        message.data["type"] == 0
-            ? navigatorKey.currentState?.pushNamed('/collectibles_details')
-            : navigatorKey.currentState?.pushNamed('/comic_details');
-      }
+      //productId = int.tryParse(message.data["id"]) ?? 0;
 
       if (notification != null && android != null) {
         flutterLocalNotificationsPlugin.show(notification.hashCode,
@@ -373,27 +343,13 @@ class _ControllerPageState extends State<ControllerPage> {
       print("onMessageOpenedApp Product Id: " + productId.toString());
 
       message.data["type"] == 0
-          ? navigatorKey.currentState?.pushNamed('/collectibles_details')
-          : navigatorKey.currentState?.pushNamed('/comic_details');
+          ? Get.to(() => CollectibleDetails(
+                productId: productId,
+              ))
+          : Get.to(() => ComicDetails(
+                productId: productId,
+              ));
 
-      /*if (message.notification!.body != null) {
-        print("onMessageOpenedApp Product Id: " + productId.toString());
-        message.data["type"] == 0
-            ? navigatorKey.currentState?.pushNamed('/collectibles_details')
-            : navigatorKey.currentState?.pushNamed('/comic_details');
-      }*/
-
-      /*if (message.data["navigation"] == "/your_route") {
-        int _yourId = int.tryParse(message.data["id"]) ?? 0;
-        Navigator.push(
-          navigatorKey.currentState!.context,
-          MaterialPageRoute(
-            builder: (context) => CollectibleDetails(
-              productId: _yourId,
-            ),
-          ),
-        );
-      }*/
     });
   }
 }
