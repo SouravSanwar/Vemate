@@ -11,7 +11,6 @@ import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
-import 'package:ketemaa/features/vault/Wishlist/alert/alertItems.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
@@ -75,15 +74,7 @@ class _WishListPageState extends State<WishListPage> {
               style:
                   Get.textTheme.headline2!.copyWith(color: AppColors.textColor),
             ),
-            InkWell(
-              onTap: () {
-                Get.to(() => const AlertListPage());
-              },
-              child: Icon(
-                Icons.alarm_on,
-                color: AppColors.textColor,
-              ),
-            )
+
           ],
         ),
       ),

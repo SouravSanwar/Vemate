@@ -90,7 +90,7 @@ class _ProfileState extends State<Profile> {
                   shrinkWrap: true,
                   children: [
                     // SizedBox(height: Get.height * .05),
-                    ToggleButton(),
+                   // ToggleButton(),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -175,7 +175,7 @@ class _ProfileState extends State<Profile> {
                         throw 'Could not launch $url';
                       }
                     }),
-                    CustomProfileElements(
+                    /*CustomProfileElements(
                         Icons.toggle_off_outlined,
                         data.profileModel!.fa == true
                             ? "Two FA Enabled"
@@ -328,7 +328,7 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                       );
-                    }),
+                    }),*/
                     CustomProfileElements(Icons.logout, "Log Out", () {
                       showDialog(
                           context: context,

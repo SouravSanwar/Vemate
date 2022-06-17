@@ -161,7 +161,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 ],
               ),
               AppSpaces.spaces_height_35,
-              Row(
+             /* Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
@@ -215,7 +215,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     ),
                   ),
                 ],
-              ),
+              ),*/
 
               SizedBox(
                 height: Get.height * .09,

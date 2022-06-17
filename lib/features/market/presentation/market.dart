@@ -259,7 +259,7 @@ class _MarketState extends State<Market> {
                               ),
                             ),
                           ),
-                          Expanded(
+                          /*Expanded(
                             child: InkWell(
                               onTap: () {
                                 currentIndex = 3;
@@ -281,7 +281,7 @@ class _MarketState extends State<Market> {
                                       ),
                               ),
                             ),
-                          ),
+                          ),*/
                         ],
                       ),
                     ),
@@ -290,10 +290,12 @@ class _MarketState extends State<Market> {
                     Container(
                       child: collectibleSelected == true
                           ? const CollectiblesItemCard()
-                          : (comicSelected == true
+                          : const ComicsItemCard()),
+
+                       /* (comicSelected == true
                               ? const ComicsItemCard()
-                              : const BrandList()),
-                    ),
+                              : const BrandList()*/
+
                   ],
                 ),
               ],

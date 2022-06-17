@@ -239,7 +239,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                   "product": widget.results!.productDetail!.id,
                                   "type": 0,
                                   "price_type": TypeIndex,
-                                  "value": double.parse(valueController.text),
+                                  "value": valueController.text != "" ?double.parse(valueController.text):0.0,
                                   "frequency": frequencyIndex,
                                 };
 

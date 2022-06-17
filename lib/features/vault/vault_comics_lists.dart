@@ -551,11 +551,11 @@ class _VaultComicsListState extends State<VaultComicsList> {
                               ),
                             ),
                           )
-                        : const NoDataCard(
-                            title: 'Your Comics are empty!',
-                          );
+                        : Container();
                   })
-              : const LoadingExample(),
+              : const NoDataCard(
+            title: 'Your Comics are empty!',
+          ),
         );
       }),
     );
