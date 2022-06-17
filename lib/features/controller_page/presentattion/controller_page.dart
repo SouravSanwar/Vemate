@@ -36,6 +36,7 @@ class ControllerPage extends StatefulWidget {
 }
 
 class _ControllerPageState extends State<ControllerPage> {
+  late int productId;
   PostData? postData;
 
   List<String> names = [
@@ -85,7 +86,7 @@ class _ControllerPageState extends State<ControllerPage> {
   Future<void> _firebaseMsg(RemoteMessage message) async {
     print("Handling a background message : ${message}");
 
-    int productId = int.tryParse(message.data["id"]) ?? 0;
+    productId = int.tryParse(message.data["id"]) ?? 0;
     message.data["type"] == 0
         ? Navigator.push(
             navigatorKey.currentState!.context,
@@ -342,13 +343,11 @@ class _ControllerPageState extends State<ControllerPage> {
 
     ///On Message
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      printInfo(
-          info:
-              "On Message" + message.data.toString());
+      printInfo(info: "On Message" + message.data.toString());
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
 
-      int productId = int.tryParse(message.data["id"]) ?? 0;
+      productId = int.tryParse(message.data["id"]) ?? 0;
 
       message.data["type"] == 0
           ? Navigator.push(
@@ -376,21 +375,19 @@ class _ControllerPageState extends State<ControllerPage> {
     ///On Message Open
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       print("onMessageOpenedApp: ${message.data}");
-      int productId = int.tryParse(message.data["id"]) ?? 0;
-      print("mnmnmnmnmnmnmnm"+productId.toString());
+      productId = int.tryParse(message.data["id"]) ?? 0;
+      print("onMessageOpenedApp Product Id: " + productId.toString());
 
       message.data["type"] == 0
           ? Navigator.push(
               navigatorKey.currentState!.context,
               MaterialPageRoute(
-
                 builder: (context) => CollectibleDetails(
                   productId: productId,
                 ),
               ),
             )
           : Navigator.push(
-
               navigatorKey.currentState!.context,
               MaterialPageRoute(
                 builder: (context) => ComicDetails(

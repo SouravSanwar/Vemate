@@ -45,6 +45,7 @@ class _HomeState extends State<Home> {
     //getConnection();
 
     getData = Provider.of<GetData>(context, listen: false);
+
     getData!.getNotification();
 
     getData!.getUserInfo();
