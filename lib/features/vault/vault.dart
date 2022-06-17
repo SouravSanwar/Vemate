@@ -293,6 +293,12 @@ class _VaultState extends State<Vault> {
                                           plot.total,
                                   xAxisName: 'Duration',
                                   yAxisName: 'Total',
+                                  dataLabelSettings: const DataLabelSettings(
+                                    isVisible: false,
+                                    angle: 270,
+                                  ),
+                                  splineType: SplineType.monotonic,
+                                  cardinalSplineTension: 0.3,
                                 )
                               ],
                             ),
@@ -301,7 +307,7 @@ class _VaultState extends State<Vault> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: Get.height * .28),
+                      padding: EdgeInsets.only(top: Get.height * .27),
                       child: ListView(
                         children: [
                           ///My Collectibles

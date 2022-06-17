@@ -5,6 +5,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/main.dart';
@@ -435,12 +436,69 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                 ),
                                                 InkWell(
                                                   onTap: () {
-                                                    postData!.deleteSetList(
-                                                      context,
-                                                      data.setListModel!
-                                                          .results![index].id,
-                                                      requestHeadersWithToken,
-                                                    );
+
+
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return AlertDialog(
+                                                            backgroundColor:
+                                                            AppColors.backgroundColor,
+                                                            shape: const RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius.all(
+                                                                Radius.circular(
+                                                                  20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            contentPadding:
+                                                            const EdgeInsets.symmetric(
+                                                                horizontal: 20),
+                                                            titlePadding:
+                                                            const EdgeInsets.symmetric(
+                                                                horizontal: 20,
+                                                                vertical: 10),
+                                                            title: Text(""),
+                                                            content: Text(
+                                                              'Do you really want to delete this item?',
+                                                              style: TextStyle(
+                                                                  color: AppColors.textColor,
+                                                                  fontSize: 15),
+                                                            ),
+                                                            actions: <Widget>[
+                                                              CustomButtons(
+                                                                width: Get.width * .2,
+                                                                height: Get.height * .05,
+                                                                onTap: () {
+                                                                  postData!.deleteSetList(
+                                                                    context,
+                                                                    data.setListModel!
+                                                                        .results![index].id,
+                                                                    requestHeadersWithToken,
+                                                                  );
+
+                                                                },
+                                                                text: 'Yes'.toUpperCase(),
+                                                                style: Get.textTheme.button!
+                                                                    .copyWith(
+                                                                    color: AppColors
+                                                                        .textColor),
+
+                                                              ),
+                                                              CustomButtons(
+                                                                width: Get.width * .2,
+                                                                height: Get.height * .05,
+                                                                onTap: () {
+                                                                  Navigator.pop(context);
+                                                                },
+                                                                text: 'Close'.toUpperCase(),
+                                                                style: Get.textTheme.button!
+                                                                    .copyWith(
+                                                                    color: AppColors.textColor),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        });
                                                   },
                                                   child: Icon(
                                                     Icons.delete_forever,

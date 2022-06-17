@@ -6,7 +6,7 @@ import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
-import 'package:ketemaa/features/home/components/notification_alart.dart';
+import 'package:ketemaa/features/home/notification/notification_alart.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +18,7 @@ import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/shimmer/loading.dart';
 import '../components/image_slider.dart';
 import '../components/vault_new_item_card.dart';
+import 'package:badges/badges.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -44,6 +45,7 @@ class _HomeState extends State<Home> {
     //getConnection();
 
     getData = Provider.of<GetData>(context, listen: false);
+    getData!.getNotification();
 
     getData!.getUserInfo();
 
@@ -66,7 +68,8 @@ class _HomeState extends State<Home> {
           builder: (context, data, child) {
             return data.profileModel != null &&
                     data.vaultStatsModel != null &&
-                    data.newsModel != null
+                    data.newsModel != null &&
+                    data.notificationListModel != null
                 ? SafeArea(
                     child: ListView(
                       shrinkWrap: true,
@@ -127,41 +130,41 @@ class _HomeState extends State<Home> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(
-                                15.0,
+                                14.0,
                               ),
                               child: InkWell(
                                   onTap: () {
                                     showDialog(
                                         context: context,
-                                        builder: (ctx) =>NotificationAlertBox());
-                                    NotificationAlertBox();
+                                        builder: (ctx) => NotificationAlertBox(
+                                              list: data.notificationListModel!
+                                                  .results!,
+                                            ));
                                   },
                                   child: Container(
-                                    child: Stack(children: <Widget>[
-                                      Positioned(
-                                        // draw a red marble
-                                        top: 10.0,
-                                        left: 10,
-                                        child: new Icon(Icons.notifications_none,color: AppColors.textColor,),
-                                      ),
-                                      Positioned(
-                                        // draw a red marble
-                                        top: 6.0,
-                                        left: 20,
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          height: 15.h,
-                                          width: 15.w,
-                                          decoration: const BoxDecoration(
-                                             color: Colors.red,
-                                              shape: BoxShape.circle,
-                                          ),
-                                          child: Text("2",style: TextStyle(fontSize: 10,color: AppColors.textColor),),
-                                        ),
-                                      )
-                                    ]),
-                                    height: 45.h,
-                                    width: 45.w,
+                                    child: data.notificationListModel!
+                                                .totalUnread ==
+                                            0
+                                        ? Icon(
+                                            Icons.notifications_none,
+                                            color: AppColors.textColor,
+                                          )
+                                        : Badge(
+                                            position: BadgePosition.topEnd(
+                                                top: 3, end: 6),
+                                            badgeContent: Text(
+                                              data.notificationListModel!
+                                                  .totalUnread
+                                                  .toString(),
+                                              style: TextStyle(fontSize: 10),
+                                            ),
+                                            badgeColor: Colors.redAccent,
+                                            child: Icon(
+                                              Icons.notifications_none,
+                                              color: AppColors.textColor,
+                                            )),
+                                    height: 40.h,
+                                    width: 40.h,
                                     decoration: BoxDecoration(
                                       color: AppColors.backgroundColor,
                                       border: Border.all(
