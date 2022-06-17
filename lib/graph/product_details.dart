@@ -41,97 +41,95 @@ class _ProductDetailsState extends State<ProductDetails> {
         return Container(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child:
-              Expanded(
-                child: Container(
-                  clipBehavior: Clip.antiAlias,
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    gradient: AppColors.cardGradient,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: ListView(children: <Widget>[
-                    SizedBox(
-                      height: Get.height*.01,
-                    ),
-
-                    ItemDetailsHelper(
-                      text: "Floor Price",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.floorPrice.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Edition",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.edition.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Name",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.name.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Drop Date",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.dropDate.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "List Price",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.listPrice.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Editions",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.editions.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Edition Type",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.editionType.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Season",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.season.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Rarity",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.rarity.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Brand",
-                      text1: data.singleProductModel!.brand != null
-                          ? data.singleProductModel!.brand!.name.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Series",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.series.toString()
-                          : "",
-                    ),
-                  ]),
+              Container(
+                clipBehavior: Clip.antiAlias,
+                width: Get.width,
+                decoration: BoxDecoration(
+                  gradient: AppColors.cardGradient,
+                  borderRadius: BorderRadius.circular(12.0),
                 ),
+                child: ListView(children: <Widget>[
+                  SizedBox(
+                    height: Get.height*.01,
+                  ),
+
+                  ItemDetailsHelper(
+                    text: "Floor Price",
+                    text1: data.singleProductModel != null
+                        ? data.singleProductModel!.floorPrice.toString()
+                        : "",
+                  ),
+                  divider(),
+                  ItemDetailsHelper(
+                    text: "Edition",
+                    text1: data.singleProductModel != null
+                        ? data.singleProductModel!.edition.toString()
+                        : "",
+                  ),
+                  divider(),
+                  ItemDetailsHelper(
+                    text: "Name",
+                    text1: data.singleProductModel != null
+                        ? data.singleProductModel!.name.toString()
+                        : "",
+                  ),
+                  divider(),
+                  ItemDetailsHelper(
+                    text: "Drop Date",
+                    text1: data.singleProductModel != null
+                        ? data.singleProductModel!.dropDate.toString()
+                        : "",
+                  ),
+                  divider(),
+                  ItemDetailsHelper(
+                    text: "List Price",
+                    text1: data.singleProductModel != null
+                        ? data.singleProductModel!.listPrice.toString()
+                        : "",
+                  ),
+                  divider(),
+                  ItemDetailsHelper(
+                    text: "Editions",
+                    text1: data.singleProductModel != null
+                        ? data.singleProductModel!.editions.toString()
+                        : "",
+                  ),
+                  divider(),
+                  ItemDetailsHelper(
+                    text: "Edition Type",
+                    text1: data.singleProductModel != null
+                        ? data.singleProductModel!.editionType.toString()
+                        : "",
+                  ),
+                  divider(),
+                  ItemDetailsHelper(
+                    text: "Season",
+                    text1: data.singleProductModel != null
+                        ? data.singleProductModel!.season.toString()
+                        : "",
+                  ),
+                  divider(),
+                  ItemDetailsHelper(
+                    text: "Rarity",
+                    text1: data.singleProductModel != null
+                        ? data.singleProductModel!.rarity.toString()
+                        : "",
+                  ),
+                  divider(),
+                  ItemDetailsHelper(
+                    text: "Brand",
+                    text1: data.singleProductModel!.brand != null
+                        ? data.singleProductModel!.brand!.name.toString()
+                        : "",
+                  ),
+                  divider(),
+                  ItemDetailsHelper(
+                    text: "Series",
+                    text1: data.singleProductModel != null
+                        ? data.singleProductModel!.series.toString()
+                        : "",
+                  ),
+                ]),
               ),
 
         );

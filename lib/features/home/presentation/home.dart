@@ -6,7 +6,7 @@ import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
-import 'package:ketemaa/features/home/components/notification_alart.dart';
+import 'package:ketemaa/features/home/notification/notification_alart.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
@@ -130,7 +130,7 @@ class _HomeState extends State<Home> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(
-                                15.0,
+                                14.0,
                               ),
                               child: InkWell(
                                   onTap: () {
@@ -151,7 +151,7 @@ class _HomeState extends State<Home> {
                                           )
                                         : Badge(
                                             position: BadgePosition.topEnd(
-                                                top: 0, end: 2),
+                                                top: 3, end: 6),
                                             badgeContent: Text(
                                               data.notificationListModel!
                                                   .totalUnread
@@ -163,8 +163,8 @@ class _HomeState extends State<Home> {
                                               Icons.notifications_none,
                                               color: AppColors.textColor,
                                             )),
-                                    height: 45.h,
-                                    width: 45.w,
+                                    height: 40.h,
+                                    width: 40.h,
                                     decoration: BoxDecoration(
                                       color: AppColors.backgroundColor,
                                       border: Border.all(

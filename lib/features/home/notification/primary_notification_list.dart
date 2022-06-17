@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
+import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/models/NotificationListModel.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -27,10 +29,11 @@ class PrimaryNotificationList extends StatefulWidget {
 }
 
 class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
+  PostData? postData;
 
   @override
   void initState() {
-    
+    postData = Provider.of<PostData>(context, listen: false);
     super.initState();
   }
 
@@ -51,7 +54,18 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                 Padding(
                   padding:  EdgeInsets.only(left:index==0? 8 : 4.0,right:index==9? 8 : 4.0 ),
                   child: InkWell(
-                      onTap: () {
+                      onTap: () async {
+                        var body = {};
+
+                        Map<String, String> requestHeadersWithToken = {
+                          'Content-type': 'application/json',
+                          'Accept': 'application/json',
+                          'Authorization': 'token ${prefs!.getString('token')}',
+                        };
+                        await postData!
+                            .notificationRead(context, widget.list![index].target!.id,body, requestHeadersWithToken);
+
+
                         widget.list![index].target!.type ==
                                 0
                                 ? Get.to(

@@ -314,7 +314,7 @@ class GetData extends ChangeNotifier with BaseController {
   Future getNotification() async {
     notificationListModel = null;
     final response =
-        await BaseClient().get(Urls.notificationList).catchError(handleError);
+        await BaseClient().get(Urls.notification).catchError(handleError);
 
     var data = json.decode(response.toString());
 

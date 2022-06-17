@@ -212,6 +212,12 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                             plot.total,
                         xAxisName: 'Duration',
                         yAxisName: 'Total',
+                        dataLabelSettings: const DataLabelSettings(
+                          isVisible: false,
+                          angle: 270,
+                        ),
+                        splineType: SplineType.monotonic,
+                        cardinalSplineTension: 0.3,
                       )
                     ],
                   ),

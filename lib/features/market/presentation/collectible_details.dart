@@ -61,19 +61,16 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
           title: Container(
             padding: EdgeInsets.symmetric(
                 horizontal: Get.width * .03),
-            child: Expanded(
-                  flex: 10,
-                  child: Text(
-                    data.singleProductModel != null
-                        ? data.singleProductModel!.name
-                        .toString()
-                        : "",
-                    style: TextStyle(
-                        color: Colors.blueGrey.shade300,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
+            child: Text(
+              data.singleProductModel != null
+                  ? data.singleProductModel!.name
+                  .toString()
+                  : "",
+              style: TextStyle(
+                  color: Colors.blueGrey.shade300,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold),
+            ),
 
           ),
         ),

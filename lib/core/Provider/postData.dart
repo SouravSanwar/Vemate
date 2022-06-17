@@ -766,6 +766,19 @@ class PostData extends ChangeNotifier with BaseController {
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }
+
+
+    notifyListeners();
+  }
+
+  Future notificationRead (BuildContext context, int? id, var body, var requestToken) async {
+
+    final response = await http.post(Uri.parse(Urls.notification + '$id/make_read_with_id/'),body: body,
+        headers: requestToken);
+    print("RESPONSE"+ response.statusCode.toString());
+      if(response.statusCode==200){
+        print("RESPONSE"+ response.statusCode.toString());
+      }
     notifyListeners();
   }
 

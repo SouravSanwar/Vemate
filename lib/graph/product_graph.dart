@@ -103,6 +103,8 @@ class _ProductGraphState extends State<ProductGraph> {
                     isVisible: false,
                     angle: 270,
                   ),
+                  splineType: SplineType.monotonic,
+                  cardinalSplineTension: 0.3,
                 ),
               ],
             )

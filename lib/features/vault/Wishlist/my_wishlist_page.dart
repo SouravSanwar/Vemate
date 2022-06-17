@@ -42,6 +42,7 @@ class _WishListPageState extends State<WishListPage> {
     'Content-type': 'application/json',
     'Accept': 'application/json',
     'Authorization': 'token ${prefs!.getString('token')}',
+
   };
 
   @override
@@ -452,7 +453,9 @@ class _WishListPageState extends State<WishListPage> {
                                                                 plot.total,
                                                         xAxisName: 'Duration',
                                                         yAxisName: 'Total',
+
                                                       )
+
                                                     ],
                                                   ),
                                                 ),
@@ -576,17 +579,7 @@ class _WishListPageState extends State<WishListPage> {
                                                 const EdgeInsets.symmetric(
                                                     horizontal: 20,
                                                     vertical: 10),
-                                            title: Text(
-                                              data
-                                                  .wishListModel!
-                                                  .results![index]
-                                                  .productDetail!
-                                                  .name
-                                                  .toString(),
-                                              style: TextStyle(
-                                                  color: AppColors.textColor,
-                                                  fontSize: 20),
-                                            ),
+                                            title: Text(""),
                                             content: Text(
                                               'Do you really want to delete this item?',
                                               style: TextStyle(
@@ -604,12 +597,14 @@ class _WishListPageState extends State<WishListPage> {
                                                         .results![index].id,
                                                     requestHeadersWithToken,index
                                                   );
+
                                                 },
                                                 text: 'Yes'.toUpperCase(),
                                                 style: Get.textTheme.button!
                                                     .copyWith(
                                                         color: AppColors
                                                             .textColor),
+
                                               ),
                                               CustomButtons(
                                                 width: Get.width * .2,
@@ -620,7 +615,7 @@ class _WishListPageState extends State<WishListPage> {
                                                 text: 'Close'.toUpperCase(),
                                                 style: Get.textTheme.button!
                                                     .copyWith(
-                                                        color: Colors.red),
+                                                        color: AppColors.textColor),
                                               ),
                                             ],
                                           );

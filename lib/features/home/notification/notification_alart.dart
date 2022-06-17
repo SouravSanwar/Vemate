@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/features/home/components/all_notification_list.dart';
-import 'package:ketemaa/features/home/components/primary_notification_list.dart';
+import 'package:ketemaa/features/home/notification/all_notification_list.dart';
+import 'package:ketemaa/features/home/notification/primary_notification_list.dart';
 
 import 'package:ketemaa/core/models/NotificationListModel.dart';
 
@@ -22,6 +22,7 @@ class _NotificationAlertBoxState extends State<NotificationAlertBox> {
   Widget build(BuildContext context) {
     return AlertDialog(
 
+        alignment: Alignment(0,-0.75),
         backgroundColor: AppColors.backgroundColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
