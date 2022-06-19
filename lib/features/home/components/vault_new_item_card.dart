@@ -12,7 +12,6 @@ import '../../../../core/utilities/app_colors/app_colors.dart';
 class VaultNewItemCard extends StatefulWidget {
   List<Results>? list;
 
-
   VaultNewItemCard({
     this.list,
   });
@@ -24,7 +23,6 @@ class VaultNewItemCard extends StatefulWidget {
 class _VaultNewItemCardState extends State<VaultNewItemCard> {
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -41,7 +39,8 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
         itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding:  EdgeInsets.only(left:index==0? 8 : 4.0,right:index==9? 8 : 4.0 ),
+            padding: EdgeInsets.only(
+                left: index == 0 ? 8 : 4.0, right: index == 9 ? 8 : 4.0),
             child: InkWell(
               onTap: () {
                 Get.to(
@@ -51,7 +50,6 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                 );
               },
               child: Container(
-
                 width: Get.width * .37,
                 decoration: BoxDecoration(
                     gradient: AppColors.cardGradient,
@@ -99,8 +97,8 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                     ? Colors.red
                                     : Colors.green,
                             dataSource: widget.list![index].graph!,
-                            xValueMapper: (Graph plot, _) => plot.hour,
-                            yValueMapper: (Graph plot, _) => plot.total,
+                            xValueMapper: (Graph plot, _) => plot.date,
+                            yValueMapper: (Graph plot, _) => plot.floorPrice,
                             xAxisName: 'Duration',
                             yAxisName: 'Total',
                           )

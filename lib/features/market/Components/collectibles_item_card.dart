@@ -95,7 +95,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                     data.collectiblesModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
-                                    style:  TextStyle(
+                                    style: TextStyle(
                                         color: AppColors.backgroundColor,
                                         fontSize: 35,
                                         fontWeight: FontWeight.bold),
@@ -124,8 +124,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   style: Get
                                                       .textTheme.bodyText2!
                                                       .copyWith(
-                                                          color:
-                                                              AppColors.textColor,
+                                                          color: AppColors
+                                                              .textColor,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: 13.sp),
@@ -141,7 +141,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.textColor,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 10.sp),
@@ -171,7 +172,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.textColor,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w900,
                                                       fontSize: 10.sp),
@@ -187,7 +189,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.textColor,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 10.sp),
@@ -210,7 +213,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.textColor,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w900,
                                                       fontSize: 11.sp),
@@ -277,9 +281,9 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   .results![index]
                                                   .graph!,
                                               xValueMapper: (Graph plot, _) =>
-                                                  plot.hour,
+                                                  plot.date,
                                               yValueMapper: (Graph plot, _) =>
-                                                  plot.total,
+                                                  plot.floorPrice,
                                               xAxisName: 'Duration',
                                               yAxisName: 'Total',
                                             )
@@ -293,22 +297,12 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              '\$${data.collectiblesModel!
-                                                  .results![index]
-                                                  .priceChangePercent!
-                                                  .changePrice !=null
-                                              ?data.collectiblesModel!
-                                                  .results![index]
-                                                  .priceChangePercent!
-                                                  .changePrice!
-                                                  .toStringAsFixed(2)
-                                              :""
-
-                                              }',
+                                              '\$${data.collectiblesModel!.results![index].priceChangePercent!.changePrice != null ? data.collectiblesModel!.results![index].priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.textColor,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w400,
                                                       fontSize: 10),
@@ -321,7 +315,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   MainAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                  data.collectiblesModel!
+                                                  data
+                                                          .collectiblesModel!
                                                           .results![index]
                                                           .priceChangePercent!
                                                           .percent!

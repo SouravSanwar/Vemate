@@ -65,9 +65,9 @@ class Results {
     priceChangePercent = json['price_change_percent'] != null
         ? PriceChangePercent.fromJson(json['price_change_percent'])
         : null;
-    if (json['graph'] != null) {
+    if (json['new_graph'] != null) {
       graph = [];
-      json['graph'].forEach((v) {
+      json['new_graph'].forEach((v) {
         graph?.add(Graph.fromJson(v));
       });
     }
@@ -100,7 +100,7 @@ class Results {
       map['price_change_percent'] = priceChangePercent?.toJson();
     }
     if (graph != null) {
-      map['graph'] = graph?.map((v) => v.toJson()).toList();
+      map['new_graph'] = graph?.map((v) => v.toJson()).toList();
     }
     return map;
   }
@@ -108,27 +108,27 @@ class Results {
 
 class Graph {
   Graph({
-    this.hour,
-    this.inHour,
-    this.total,
-  });
+    this.floorPrice,
+    this.creationTime,
+    this.date,});
 
   Graph.fromJson(dynamic json) {
-    hour = json['hour'];
-    total = json['total'];
-    inHour = DateFormat('hh a').format(DateTime.parse(hour!));
+    floorPrice = json['floor_price'];
+    creationTime = json['creation_time'];
+    date = json['date'];
   }
-
-  String? hour;
-  var inHour;
-  double? total;
+  double? floorPrice;
+  String? creationTime;
+  String? date;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['hour'] = hour;
-    map['total'] = total;
+    map['floor_price'] = floorPrice;
+    map['creation_time'] = creationTime;
+    map['date'] = date;
     return map;
   }
+
 }
 
 class PriceChangePercent {
