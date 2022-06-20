@@ -76,7 +76,6 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                 productId: data.comicsModel!.results![index].id,
                               ),
                             );
-
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
@@ -125,8 +124,8 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                   style: Get
                                                       .textTheme.bodyText2!
                                                       .copyWith(
-                                                          color:
-                                                              AppColors.textColor,
+                                                          color: AppColors
+                                                              .textColor,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: 13.sp),
@@ -142,7 +141,8 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.textColor,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 10.sp),
@@ -155,22 +155,30 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                         children: [
                                           Expanded(
                                             flex: 4,
-                                            child:data.comicsModel!.results![index]
-                                                .series==null? const Text("") : Text(
-                                              data.comicsModel!.results![index]
-                                                  .series
-                                                  .toString(),
-                                              overflow:
-                                              TextOverflow.ellipsis,
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText1!
-                                                  .copyWith(
-                                                      color: AppColors.textColor
-                                                          .withOpacity(0.8),
-                                                      fontWeight:
-                                                          FontWeight.w900,
-                                                      fontSize: 10.sp),
-                                            ),
+                                            child: data
+                                                        .comicsModel!
+                                                        .results![index]
+                                                        .series ==
+                                                    null
+                                                ? const Text("")
+                                                : Text(
+                                                    data.comicsModel!
+                                                        .results![index].series
+                                                        .toString(),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.start,
+                                                    style: Get
+                                                        .textTheme.bodyText1!
+                                                        .copyWith(
+                                                            color: AppColors
+                                                                .textColor
+                                                                .withOpacity(
+                                                                    0.8),
+                                                            fontWeight:
+                                                                FontWeight.w900,
+                                                            fontSize: 10.sp),
+                                                  ),
                                           ),
                                           AppSpaces.spaces_width_2,
                                           Expanded(
@@ -216,7 +224,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                           AppSpaces.spaces_width_2,
                                           const Expanded(
                                             flex: 2,
-                                            child: Text("" ),
+                                            child: Text(""),
                                           ),
                                         ],
                                       ),
@@ -227,60 +235,71 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                 Expanded(
                                   flex: 4,
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       SizedBox(
                                         height: Get.height * .05,
-                                        child: data.comicsModel!
-                                            .results![index].new_graph == null? const Text("") : SfCartesianChart(
-                                          plotAreaBorderWidth: 0,
-                                          primaryXAxis: CategoryAxis(
-                                            isVisible: false,
-                                            majorGridLines:
-                                                const MajorGridLines(width: 0),
-                                            labelIntersectAction:
-                                                AxisLabelIntersectAction.hide,
-                                            labelRotation: 270,
-                                            labelAlignment:
-                                                LabelAlignment.start,
-                                            maximumLabels: 7,
-                                          ),
-                                          primaryYAxis: CategoryAxis(
-                                            isVisible: false,
-                                            majorGridLines:
-                                                const MajorGridLines(width: 0),
-                                            labelIntersectAction:
-                                                AxisLabelIntersectAction.hide,
-                                            labelRotation: 0,
-                                            labelAlignment:
-                                                LabelAlignment.start,
-                                            maximumLabels: 10,
-                                          ),
-                                          tooltipBehavior:
-                                              TooltipBehavior(enable: true),
-                                          series: <ChartSeries<Graph, String>>[
-                                            LineSeries<Graph, String>(
-                                              color: data
-                                                          .comicsModel!
-                                                          .results![index]
-                                                          .priceChangePercent!
-                                                          .sign ==
-                                                      'decrease'
-                                                  ? Colors.red
-                                                  : Colors.green,
-                                              dataSource: data.comicsModel!
-                                                  .results![index].new_graph!,
-                                              xValueMapper: (Graph plot, _) =>
-                                                  plot.inHour,
-                                              yValueMapper: (Graph plot, _) =>
-                                                  plot.floor_price,
-                                              xAxisName: 'Duration',
-                                              yAxisName: 'Total',
-                                            )
-                                          ],
-                                        ),
-
+                                        child: data.comicsModel!.results![index]
+                                                    .graph ==
+                                                null
+                                            ? const Text("")
+                                            : SfCartesianChart(
+                                                plotAreaBorderWidth: 0,
+                                                primaryXAxis: CategoryAxis(
+                                                  isVisible: false,
+                                                  majorGridLines:
+                                                      const MajorGridLines(
+                                                          width: 0),
+                                                  labelIntersectAction:
+                                                      AxisLabelIntersectAction
+                                                          .hide,
+                                                  labelRotation: 270,
+                                                  labelAlignment:
+                                                      LabelAlignment.start,
+                                                  maximumLabels: 7,
+                                                ),
+                                                primaryYAxis: CategoryAxis(
+                                                  isVisible: false,
+                                                  majorGridLines:
+                                                      const MajorGridLines(
+                                                          width: 0),
+                                                  labelIntersectAction:
+                                                      AxisLabelIntersectAction
+                                                          .hide,
+                                                  labelRotation: 0,
+                                                  labelAlignment:
+                                                      LabelAlignment.start,
+                                                  maximumLabels: 10,
+                                                ),
+                                                tooltipBehavior:
+                                                    TooltipBehavior(
+                                                        enable: true),
+                                                series: <
+                                                    ChartSeries<Graph, String>>[
+                                                  LineSeries<Graph, String>(
+                                                    color: data
+                                                                .comicsModel!
+                                                                .results![index]
+                                                                .priceChangePercent!
+                                                                .sign ==
+                                                            'decrease'
+                                                        ? Colors.red
+                                                        : Colors.green,
+                                                    dataSource: data
+                                                        .comicsModel!
+                                                        .results![index]
+                                                        .graph!,
+                                                    xValueMapper:
+                                                        (Graph plot, _) =>
+                                                            plot.date,
+                                                    yValueMapper:
+                                                        (Graph plot, _) =>
+                                                            plot.floorPrice,
+                                                    xAxisName: 'Duration',
+                                                    yAxisName: 'Total',
+                                                  )
+                                                ],
+                                              ),
                                       ),
                                       AppSpaces.spaces_height_10,
                                       Row(
@@ -289,18 +308,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              '\$${data.comicsModel!
-                                                  .results![index]
-                                                  .priceChangePercent!
-                                                  .changePrice !=null
-                                                  ?data.comicsModel!
-                                                  .results![index]
-                                                  .priceChangePercent!
-                                                  .changePrice!
-                                                  .toStringAsFixed(2)
-                                                  :""
-
-                                              }',
+                                              '\$${data.comicsModel!.results![index].priceChangePercent!.changePrice != null ? data.comicsModel!.results![index].priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
@@ -319,11 +327,12 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                               children: [
                                                 Text(
                                                   data
-                                                      .comicsModel!
-                                                      .results![index]
-                                                      .priceChangePercent!
-                                                      .percent!
-                                                      .toStringAsFixed(2)+"%",
+                                                          .comicsModel!
+                                                          .results![index]
+                                                          .priceChangePercent!
+                                                          .percent!
+                                                          .toStringAsFixed(2) +
+                                                      "%",
                                                   textAlign: TextAlign.end,
                                                   style: Get
                                                       .textTheme.bodyText1!
