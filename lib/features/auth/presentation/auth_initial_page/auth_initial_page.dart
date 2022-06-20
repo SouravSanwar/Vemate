@@ -133,7 +133,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
 
               AppSpaces.spaces_height_35,
 
-              Row(
+              /* Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
@@ -161,7 +161,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 ],
               ),
               AppSpaces.spaces_height_35,
-             /* Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(

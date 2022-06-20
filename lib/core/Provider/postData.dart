@@ -138,29 +138,30 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future verifyCode(BuildContext context, var body) async {
-    showDialog(
+    /*showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const LoadingExample());
+        builder: (_) => const LoadingExample());*/
 
     printInfo(info: body.toString());
 
-    final response = await http.post(Uri.parse(Urls.verifyCode),
-        body: json.encode(body), headers: requestHeaders);
+   /* final response = await http.post(Uri.parse(Urls.verifyCode),
+        body: json.encode(body), headers: requestHeaders);*/
 
-    //var x = json.decode(response.body);
+   // var x = json.decode(response.body);
+    Get.to(() => const AuthInitialPage());
 
     //printInfo(info: response.body.toString());
 
 
-    if (response.statusCode == 200 ||
+/*    if (response.statusCode == 200 ||
         response.statusCode == 401 ||
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
-      Get.to(() => const AuthInitialPage());
+
       try {
-        /*if (x['code'] == 'True') {
+        if (x['code'] == 'True') {
 
           Flushbar(
               flushbarPosition: FlushbarPosition.BOTTOM,
@@ -182,8 +183,9 @@ class PostData extends ChangeNotifier with BaseController {
                 "Invalid Information",
                 style: TextStyle(fontSize: 16.0, color: Colors.green),
               ))
-            .show(context);
-        }*/
+              .show(context);
+        }
+
       } catch (e) {
         Navigator.of(context).pop();
         Flushbar(
@@ -196,7 +198,8 @@ class PostData extends ChangeNotifier with BaseController {
             )).show(context);
         return response.body;
       }
-    } else {
+    }
+    else {
       var x = json.decode(response.body);
       Map<String, dynamic> js = x;
       Navigator.of(context).pop();
@@ -208,7 +211,7 @@ class PostData extends ChangeNotifier with BaseController {
             js['code'][0].toString(),
             style: const TextStyle(fontSize: 16.0, color: Colors.red),
           )).show(context);
-    }
+    }*/
   }
 
   Future forgotPassword(BuildContext context, var body) async {

@@ -132,6 +132,8 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
+    print("Comics data"+data["results"][0]["new_graph"].toString());
+
     if (comicsModel != null) {
       if (offset == 0) comicsModel!.results!.clear();
 

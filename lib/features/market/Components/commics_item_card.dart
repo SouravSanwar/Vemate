@@ -233,7 +233,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       SizedBox(
                                         height: Get.height * .05,
                                         child: data.comicsModel!
-                                            .results![index].graph == null? const Text("") : SfCartesianChart(
+                                            .results![index].new_graph == null? const Text("") : SfCartesianChart(
                                           plotAreaBorderWidth: 0,
                                           primaryXAxis: CategoryAxis(
                                             isVisible: false,
@@ -270,11 +270,11 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                   ? Colors.red
                                                   : Colors.green,
                                               dataSource: data.comicsModel!
-                                                  .results![index].graph!,
+                                                  .results![index].new_graph!,
                                               xValueMapper: (Graph plot, _) =>
                                                   plot.inHour,
                                               yValueMapper: (Graph plot, _) =>
-                                                  plot.total,
+                                                  plot.floor_price,
                                               xAxisName: 'Duration',
                                               yAxisName: 'Total',
                                             )
