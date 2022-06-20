@@ -151,7 +151,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                             decoration: BoxDecoration(
                               gradient: AppColors.purpleGradient, // set border width
                               borderRadius: const BorderRadius.all(
-                                  Radius.circular(10.0)), // set rounded corner radius
+                                  Radius.circular(10.0)),
                             ),
 
                             child: TextButton(

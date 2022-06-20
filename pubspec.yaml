@@ -76,6 +76,7 @@ dependencies:
   sign_in_with_apple: ^4.0.0
   flutter_screenutil: ^5.5.3+2
   badges: ^2.0.3
+  upgrader: ^4.2.1
 
 
 dev_dependencies:
