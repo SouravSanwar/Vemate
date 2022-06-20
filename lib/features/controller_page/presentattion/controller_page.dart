@@ -21,6 +21,7 @@ import 'package:ketemaa/features/vault/vault.dart';
 
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
+import 'package:upgrader/upgrader.dart';
 
 import '../../market/presentation/market.dart';
 
@@ -226,20 +227,27 @@ class _ControllerPageState extends State<ControllerPage> {
           children: [
             Scaffold(
                 backgroundColor: AppColors.backgroundColor,
-                body: BottomBarPageTransition(
-                  builder: (_, index) => getBody(index),
-                  currentIndex: ControllerPageController.to.currentPage.value,
-                  totalLength:
-                      ControllerPageController.to.bottomBarData!.length,
-                  transitionType: transitionType,
-                  transitionDuration: duration,
-                  transitionCurve: curve,
+                body: UpgradeAlert(
+                  upgrader: Upgrader(
+                    debugDisplayAlways: true,
+                    showIgnore: false,
+
+                  ),
+                  child: BottomBarPageTransition(
+                    builder: (_, index) => getBody(index),
+                    currentIndex: ControllerPageController.to.currentPage.value,
+                    totalLength:
+                        ControllerPageController.to.bottomBarData!.length,
+                    transitionType: transitionType,
+                    transitionDuration: duration,
+                    transitionCurve: curve,
+                  ),
                 ),
                 bottomNavigationBar: SizedBox(
                   //height: 65,
                   child: getBottomBar(),
                 )),
-            Positioned(
+            /*Positioned(
               left: 0,
               right: 0,
               child: Consumer<AppUpdate>(builder: (context, data, child) {
@@ -252,7 +260,7 @@ class _ControllerPageState extends State<ControllerPage> {
                         : Container())
                     : Container();
               }),
-            ),
+            ),*/
           ],
         ),
       );
@@ -322,10 +330,12 @@ class _ControllerPageState extends State<ControllerPage> {
         InitializationSettings(android: androidInit, iOS: iosInit);
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.initialize(initSetting);
-    var androidDetails = const AndroidNotificationDetails('1', 'Default',
-        channelDescription: "Channel Description",
-        importance: Importance.high,
-        priority: Priority.high,
+    var androidDetails = const AndroidNotificationDetails(
+      '1',
+      'Default',
+      channelDescription: "Channel Description",
+      importance: Importance.high,
+      priority: Priority.high,
       playSound: true,
     );
     var iosDetails = const IOSNotificationDetails();
