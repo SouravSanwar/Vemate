@@ -229,7 +229,7 @@ class _ControllerPageState extends State<ControllerPage> {
                 backgroundColor: AppColors.backgroundColor,
                 body: UpgradeAlert(
                   upgrader: Upgrader(
-                    debugDisplayAlways: true,
+                    debugDisplayAlways: false,
                     showIgnore: false,
 
                   ),

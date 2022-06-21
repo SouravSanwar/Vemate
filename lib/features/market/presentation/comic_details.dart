@@ -89,7 +89,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 50, vertical: 20),
                               child: Container(
-                                height: Get.height*.5,
+                                height: Get.height * .5,
                                 padding: const EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                     gradient: AppColors.vaultCardGradient,
@@ -97,26 +97,36 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     border: Border.all(
                                         color: AppColors.primaryColor)),
                                 alignment: Alignment.center,
-                                child: data.singleProductModel!.image!.original ==null ? Text(
-                                  data.singleProductModel!.image!.original!.src.toString()[0]
-                                      .toUpperCase(),
-                                  style: const TextStyle(
-                                      color: Colors.deepPurpleAccent,
-                                      fontSize: 65,
-                                      fontWeight: FontWeight.bold),
-                                )
-                                    :CachedNetworkImage(
-                                  imageUrl: data.singleProductModel!.image!.original!.src.toString(),
-                                  imageBuilder: (context, imageProvider) => Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                child:
+                                    data.singleProductModel!.image!.original ==
+                                            null
+                                        ? Text(
+                                            data.singleProductModel!.image!
+                                                .original!.src
+                                                .toString()[0]
+                                                .toUpperCase(),
+                                            style: const TextStyle(
+                                                color: Colors.deepPurpleAccent,
+                                                fontSize: 65,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        : CachedNetworkImage(
+                                            imageUrl: data.singleProductModel!
+                                                .image!.original!.src
+                                                .toString(),
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                               ),
                             ),
                             Row(
@@ -434,8 +444,6 @@ class _ComicDetailsState extends State<ComicDetails> {
                                       ? ProductGraph(
                                           graphList:
                                               data.singleProductModel!.graph,
-                                          graphType: data
-                                              .singleProductModel!.graphType,
                                         )
                                       : Container(),
                                 ),
