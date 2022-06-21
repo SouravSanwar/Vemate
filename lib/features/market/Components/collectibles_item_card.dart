@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -85,13 +86,12 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                   height: Get.height * .078,
                                   width: Get.height * .078,
                                   decoration: BoxDecoration(
-                                      color: AppColors.primaryColor
-                                          .withOpacity(.8),
+                                      color: AppColors.backgroundColor,
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
                                           color: AppColors.borderColor)),
                                   alignment: Alignment.center,
-                                  child: Text(
+                                  child: data.collectiblesModel!.results![index].image==null ?Text(
                                     data.collectiblesModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
@@ -99,7 +99,19 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                         color: AppColors.backgroundColor,
                                         fontSize: 35,
                                         fontWeight: FontWeight.bold),
-                                  ),
+                                  )
+                                    :CachedNetworkImage(
+                                     imageUrl: data.collectiblesModel!.results![index].image!.original!.src.toString(),
+                                    imageBuilder: (context, imageProvider) => Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                     ),
                                 ),
                                 AppSpaces.spaces_width_2,
                                 Expanded(

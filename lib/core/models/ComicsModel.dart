@@ -43,6 +43,7 @@ class Results {
     this.id,
     this.type,
     this.name,
+    this.image,
     this.edition,
     this.series,
     this.rarity,
@@ -57,6 +58,7 @@ class Results {
     id = json['id'];
     type = json['type'];
     name = json['name'];
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
     cpp = json['changed_price'];
     edition = json['edition'];
     series = json['series'];
@@ -77,6 +79,7 @@ class Results {
   int? id;
   int? type;
   String? name;
+  Image? image;
   String? edition;
   String? series;
   String? rarity;
@@ -92,6 +95,9 @@ class Results {
     map['type'] = type;
     map['changed_price'] = cpp;
     map['name'] = name;
+    if (image != null) {
+      map['image'] = image?.toJson();
+    }
     map['edition'] = edition;
     map['series'] = series;
     map['rarity'] = rarity;
@@ -106,6 +112,89 @@ class Results {
   }
 }
 
+
+class Image {
+  Image({
+    this.original,
+    this.detail,});
+
+  Image.fromJson(dynamic json) {
+    original = json['original'] != null ? Original.fromJson(json['original']) : null;
+    detail = json['detail'] != null ? Detail.fromJson(json['detail']) : null;
+  }
+  Original? original;
+  Detail? detail;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (original != null) {
+      map['original'] = original?.toJson();
+    }
+    if (detail != null) {
+      map['detail'] = detail?.toJson();
+    }
+    return map;
+  }
+
+}
+
+class Detail {
+  Detail({
+    this.src,
+    this.width,
+    this.height,
+    this.alt,});
+
+  Detail.fromJson(dynamic json) {
+    src = 'https://market.vemate.com'+json['src'];
+    width = json['width'];
+    height = json['height'];
+    alt = json['alt'];
+  }
+  String? src;
+  int? width;
+  int? height;
+  String? alt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['src'] = src;
+    map['width'] = width;
+    map['height'] = height;
+    map['alt'] = alt;
+    return map;
+  }
+
+}
+
+class Original {
+  Original({
+    this.src,
+    this.width,
+    this.height,
+    this.alt,});
+
+  Original.fromJson(dynamic json) {
+    src = 'https://market.vemate.com'+json['src'];
+    width = json['width'];
+    height = json['height'];
+    alt = json['alt'];
+  }
+  String? src;
+  int? width;
+  int? height;
+  String? alt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['src'] = src;
+    map['width'] = width;
+    map['height'] = height;
+    map['alt'] = alt;
+    return map;
+  }
+
+}
 class Graph {
   Graph({
     this.floorPrice,

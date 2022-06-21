@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -83,7 +84,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Container(
-                                  height: Get.height * .078,
+                                  height: Get.height * .09,
                                   width: Get.height * .078,
                                   decoration: BoxDecoration(
                                       color: AppColors.primaryColor
@@ -92,17 +93,29 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       border: Border.all(
                                           color: AppColors.borderColor)),
                                   alignment: Alignment.center,
-                                  child: Text(
+                                  child: data.comicsModel!.results![index].image==null ?Text(
                                     data.comicsModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
                                     style: TextStyle(
                                         color: AppColors.backgroundColor,
-                                        fontSize: 35.sp,
+                                        fontSize: 35,
                                         fontWeight: FontWeight.bold),
+                                  )
+                                      :CachedNetworkImage(
+                                    imageUrl: data.comicsModel!.results![index].image!.original!.src.toString(),
+                                    imageBuilder: (context, imageProvider) => Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                AppSpaces.spaces_width_2,
+                                AppSpaces.spaces_width_5,
                                 Expanded(
                                   flex: 6,
                                   child: Column(

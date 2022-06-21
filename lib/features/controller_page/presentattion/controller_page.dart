@@ -323,9 +323,16 @@ class _ControllerPageState extends State<ControllerPage> {
   }
 
   void initMessaging() {
+    DidReceiveLocalNotificationCallback? onDidReceiveLocalNotification;
     var androidInit =
         const AndroidInitializationSettings('assets/media/icon/logo v.png');
-    var iosInit = const IOSInitializationSettings();
+    final IOSInitializationSettings iosInit =
+    IOSInitializationSettings(
+      requestSoundPermission: true,
+      requestBadgePermission: true,
+      requestAlertPermission: true,
+      onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+    );
     var initSetting =
         InitializationSettings(android: androidInit, iOS: iosInit);
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
