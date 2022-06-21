@@ -87,13 +87,12 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                   height: Get.height * .09,
                                   width: Get.height * .078,
                                   decoration: BoxDecoration(
-                                      color: AppColors.primaryColor
-                                          .withOpacity(.8),
+                                      color: AppColors.backgroundColor,
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
                                           color: AppColors.borderColor)),
                                   alignment: Alignment.center,
-                                  child: data.comicsModel!.results![index].image==null ?Text(
+                                  child: data.comicsModel!.results![index].image!.image_on_list==null ?Text(
                                     data.comicsModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
@@ -103,7 +102,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                         fontWeight: FontWeight.bold),
                                   )
                                       :CachedNetworkImage(
-                                    imageUrl: data.comicsModel!.results![index].image!.original!.src.toString(),
+                                    imageUrl: data.comicsModel!.results![index].image!.image_on_list!.src.toString(),
                                     imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
@@ -126,7 +125,6 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                           Expanded(
                                               flex: 4,
                                               child: SizedBox(
-                                                height: Get.height * .02,
                                                 child: Text(
                                                   data.comicsModel!
                                                       .results![index].name

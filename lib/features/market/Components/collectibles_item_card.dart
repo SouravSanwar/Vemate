@@ -83,7 +83,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Container(
-                                  height: Get.height * .078,
+                                  height: Get.height * .09,
                                   width: Get.height * .078,
                                   decoration: BoxDecoration(
                                       color: AppColors.backgroundColor,
@@ -91,7 +91,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       border: Border.all(
                                           color: AppColors.borderColor)),
                                   alignment: Alignment.center,
-                                  child: data.collectiblesModel!.results![index].image==null ?Text(
+                                  child: data.collectiblesModel!.results![index].image!.image_on_list==null ?Text(
                                     data.collectiblesModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
@@ -101,7 +101,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                         fontWeight: FontWeight.bold),
                                   )
                                     :CachedNetworkImage(
-                                     imageUrl: data.collectiblesModel!.results![index].image!.original!.src.toString(),
+                                     imageUrl: data.collectiblesModel!.results![index].image!.image_on_list!.src.toString(),
                                     imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
@@ -113,7 +113,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                     ),
                                      ),
                                 ),
-                                AppSpaces.spaces_width_2,
+                                AppSpaces.spaces_width_5,
                                 Expanded(
                                   flex: 7,
                                   child: Column(
@@ -125,7 +125,6 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                           Expanded(
                                               flex: 4,
                                               child: SizedBox(
-                                                height: Get.height * .02,
                                                 child: Text(
                                                   data.collectiblesModel!
                                                       .results![index].name

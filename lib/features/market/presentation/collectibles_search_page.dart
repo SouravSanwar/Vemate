@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -186,29 +187,37 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Container(
-                                        height: Get.height * .078,
+                                        height: Get.height * .09,
                                         width: Get.height * .078,
                                         decoration: BoxDecoration(
-                                            color: AppColors.primaryColor
-                                                .withOpacity(.8),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                                            color: AppColors.backgroundColor,
+                                            borderRadius: BorderRadius.circular(10),
                                             border: Border.all(
-                                                color:AppColors.borderColor)),
+                                                color: AppColors.borderColor)),
                                         alignment: Alignment.center,
-                                        child: Text(
-                                          data.searchCollectiblesModel!
-                                              .results![index].name
+                                        child: data.searchCollectiblesModel!.results![index].image!.image_on_list==null ?Text(
+                                          data.searchCollectiblesModel!.results![index].name
                                               .toString()[0]
                                               .toUpperCase(),
                                           style: TextStyle(
-                                              color: AppColors
-                                                  .lightBackgroundColor,
-                                              fontSize: 35.sp,
+                                              color: AppColors.backgroundColor,
+                                              fontSize: 35,
                                               fontWeight: FontWeight.bold),
+                                        )
+                                            :CachedNetworkImage(
+                                          imageUrl: data.searchCollectiblesModel!.results![index].image!.image_on_list!.src.toString(),
+                                          imageBuilder: (context, imageProvider) => Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10),
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                      AppSpaces.spaces_width_2,
+                                      AppSpaces.spaces_width_5,
                                       Expanded(
                                         flex: 7,
                                         child: Column(
