@@ -115,7 +115,6 @@ class PostFile extends ChangeNotifier {
     }
   }
 
-  http.MultipartRequest? request;
   Future requestWithFile(BuildContext context,
 
       {@required String? url,
@@ -127,10 +126,6 @@ class PostFile extends ChangeNotifier {
     print('New Body: $body');
     //bool loading = false;
     var uri = Uri.parse(url!);
-<<<<<<<<< Temporary merge branch 1
-
-=========
->>>>>>>>> Temporary merge branch 2
     if (method == Method.POST) {
       request = http.MultipartRequest("POST", uri)
         ..fields.addAll(body!)
