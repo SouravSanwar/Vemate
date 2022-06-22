@@ -27,8 +27,6 @@ import '../../market/presentation/market.dart';
 
 String? token;
 
-late String routeToGo = '/';
-
 class ControllerPage extends StatefulWidget {
   const ControllerPage({Key? key}) : super(key: key);
 
@@ -71,8 +69,8 @@ class _ControllerPageState extends State<ControllerPage> {
     postData = Provider.of<PostData>(context, listen: false);
 
     appUpdate = Provider.of<AppUpdate>(context, listen: false);
-    /*getData = Provider.of<GetData>(context, listen: false);
-    getData!.getUserInfo();*/
+    getData = Provider.of<GetData>(context, listen: false);
+    //getData!.getUserInfo();
     appUpdate!.getUpdateInfo();
     super.initState();
     initPlatformState();
@@ -212,7 +210,7 @@ class _ControllerPageState extends State<ControllerPage> {
         ),
       ),
     );
-    return true; // return true if the route to be popped
+    return true;
   }
 
   @override
@@ -226,28 +224,21 @@ class _ControllerPageState extends State<ControllerPage> {
         child: Stack(
           children: [
             Scaffold(
-                backgroundColor: AppColors.backgroundColor,
-                body: UpgradeAlert(
-                  upgrader: Upgrader(
-                    debugDisplayAlways: false,
-                    showIgnore: false,
-
-                  ),
-                  child: BottomBarPageTransition(
-                    builder: (_, index) => getBody(index),
-                    currentIndex: ControllerPageController.to.currentPage.value,
-                    totalLength:
-                        ControllerPageController.to.bottomBarData!.length,
-                    transitionType: transitionType,
-                    transitionDuration: duration,
-                    transitionCurve: curve,
-                  ),
-                ),
-                bottomNavigationBar: SizedBox(
-                  //height: 65,
-                  child: getBottomBar(),
-                )),
-            /*Positioned(
+              backgroundColor: AppColors.backgroundColor,
+              body: BottomBarPageTransition(
+                builder: (_, index) => getBody(index),
+                currentIndex: ControllerPageController.to.currentPage.value,
+                totalLength: ControllerPageController.to.bottomBarData!.length,
+                transitionType: transitionType,
+                transitionDuration: duration,
+                transitionCurve: curve,
+              ),
+              bottomNavigationBar: SizedBox(
+                //height: 65,
+                child: getBottomBar(),
+              ),
+             ),
+            Positioned(
               left: 0,
               right: 0,
               child: Consumer<AppUpdate>(builder: (context, data, child) {
@@ -260,7 +251,7 @@ class _ControllerPageState extends State<ControllerPage> {
                         : Container())
                     : Container();
               }),
-            ),*/
+            ),
           ],
         ),
       );
@@ -326,8 +317,7 @@ class _ControllerPageState extends State<ControllerPage> {
     DidReceiveLocalNotificationCallback? onDidReceiveLocalNotification;
     var androidInit =
         const AndroidInitializationSettings('assets/media/icon/logo v.png');
-    final IOSInitializationSettings iosInit =
-    IOSInitializationSettings(
+    final IOSInitializationSettings iosInit = IOSInitializationSettings(
       requestSoundPermission: true,
       requestBadgePermission: true,
       requestAlertPermission: true,

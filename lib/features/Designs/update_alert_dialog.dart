@@ -25,7 +25,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
   bool medium = false;
 
   _launchURL(String url) async {
-    if (!await launch(url)) throw 'Could not launch $url';
+    if (!await launchUrl(Uri.parse(url))) throw 'Could not launch $url';
   }
 
   AppUpdate? fetchData;
@@ -55,8 +55,9 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                      gradient: AppColors.graphGradient,
-                      borderRadius: BorderRadius.circular(10)),
+                    gradient: AppColors.graphGradient,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   padding: const EdgeInsets.all(15),
                   width: _width,
                   child: Column(
@@ -72,21 +73,17 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                               children: [
                                 Text(
                                   "Vemate Update",
-                                  style: Get.textTheme.bodyText1!
-                                .copyWith(
-                            color: AppColors.textColor,
-                                fontWeight:
-                                FontWeight.w300,
-                                fontSize: 15.sp),
+                                  style: Get.textTheme.bodyText1!.copyWith(
+                                      color: AppColors.textColor,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 15.sp),
                                 ),
                                 Text(
                                   "New Version ${data.appUpdator!.version!}",
-                                    style: Get.textTheme.bodyText1!
-                                        .copyWith(
-                                        color: AppColors.textColor,
-                                        fontWeight:
-                                        FontWeight.w300,
-                                        fontSize: 10.sp),
+                                  style: Get.textTheme.bodyText1!.copyWith(
+                                      color: AppColors.textColor,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 10.sp),
                                 ),
                                 AppSpaces.spaces_height_10,
                               ],
@@ -110,21 +107,17 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                       AppSpaces.spaces_height_10,
                       Text(
                         "What's New",
-                        style: Get.textTheme.bodyText1!
-                            .copyWith(
+                        style: Get.textTheme.bodyText1!.copyWith(
                             color: AppColors.textColor,
-                            fontWeight:
-                            FontWeight.w300,
+                            fontWeight: FontWeight.w300,
                             fontSize: 15.sp),
                       ),
                       AppSpaces.spaces_height_5,
                       Text(
                         data.appUpdator!.description!,
-                        style: Get.textTheme.bodyText1!
-                            .copyWith(
+                        style: Get.textTheme.bodyText1!.copyWith(
                             color: AppColors.textColor,
-                            fontWeight:
-                            FontWeight.w300,
+                            fontWeight: FontWeight.w300,
                             fontSize: 10.sp),
                       ),
                       AppSpaces.spaces_height_5,
@@ -140,8 +133,8 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       "Maybe Later",
-                                      style: Get.textTheme.bodyLarge!.copyWith(
-                                          color: AppColors.textColor),
+                                      style: Get.textTheme.bodyLarge!
+                                          .copyWith(color: AppColors.textColor),
                                     ),
                                   ),
                                 )
@@ -149,26 +142,25 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                           Container(
                             height: 35,
                             decoration: BoxDecoration(
-                              gradient: AppColors.purpleGradient, // set border width
-                              borderRadius: const BorderRadius.all(
-                                  Radius.circular(10.0)),
+                              gradient: AppColors.purpleGradient,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10.0)),
                             ),
-
                             child: TextButton(
-                                onPressed: () {
-                                  if (Platform.isAndroid) {
-                                    _launchURL(
-                                        "market://details?id=${VersionControl.packageInfo.packageName}");
-                                  } else if (Platform.isIOS) {
-                                    /*_launchURL(
+                              onPressed: () {
+                                if (Platform.isAndroid) {
+                                  _launchURL(
+                                      "https://play.google.com/store/apps/details?id=${VersionControl.packageInfo.packageName}");
+                                } else if (Platform.isIOS) {
+                                  /*_launchURL(
                                       "https://apps.apple.com/gt/app/merchant-bay/id1590720968");*/
-                                  }
-                                },
-
-                                child: Text("Update",
-                                    style: TextStyle(
-                                        color: AppColors.white)),
-                          )
+                                }
+                              },
+                              child: Text(
+                                "Update",
+                                style: TextStyle(color: AppColors.white),
+                              ),
+                            ),
                           )
                         ],
                       )

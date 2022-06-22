@@ -78,6 +78,7 @@ dependencies:
   badges: ^2.0.3
   upgrader: ^4.2.1
   cached_network_image: ^3.0.0
+  app_upgrade_flutter_sdk: ^1.0.2
 
 
 dev_dependencies:
