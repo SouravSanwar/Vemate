@@ -215,6 +215,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                               ),
                                             ),
                                           ),
+                                          placeholder: _loader,
                                         ),
                                       ),
                                       AppSpaces.spaces_width_5,
@@ -505,6 +506,13 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
           ),
         );
       }),
+    );
+  }
+
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
     );
   }
 

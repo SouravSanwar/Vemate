@@ -56,7 +56,7 @@ class _VaultState extends State<Vault> {
       body: Consumer<GetData>(builder: (context, data, child) {
         return data.vaultStatsModel != null
             ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Stack(
                   children: [
                     Container(

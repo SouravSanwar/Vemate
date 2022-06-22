@@ -12,6 +12,7 @@ import '../../../core/models/CollectiblesModel.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
 
+
 class CollectiblesItemCard extends StatefulWidget {
   const CollectiblesItemCard({Key? key}) : super(key: key);
 
@@ -68,6 +69,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                         ),
                         child: InkWell(
                           onTap: () {
+                            print("/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*"+Get.width.toString());
                             Get.to(
                               () => CollectibleDetails(
                                 productId:
@@ -111,6 +113,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                         ),
                                       ),
                                     ),
+                                    placeholder: _loader,
                                      ),
                                 ),
                                 AppSpaces.spaces_width_5,
@@ -391,6 +394,14 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
             : const LoadingExample(),
       );
     });
+
+
+  }
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
+    );
   }
 
   Future<void> _onRefresh() async {

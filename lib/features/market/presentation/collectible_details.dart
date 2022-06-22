@@ -89,8 +89,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   height: Get.height * .005,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 50, vertical: 20),
+                                  padding:  EdgeInsets.symmetric(
+                                      horizontal: Get.width*0.139, vertical: Get.height*0.02778),
                                   child: Container(
                                     height: Get.height*.5,
                                     padding: const EdgeInsets.all(5),

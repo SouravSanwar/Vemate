@@ -247,20 +247,7 @@ class _ControllerPageState extends State<ControllerPage> {
                   //height: 65,
                   child: getBottomBar(),
                 )),
-            /*Positioned(
-              left: 0,
-              right: 0,
-              child: Consumer<AppUpdate>(builder: (context, data, child) {
-                return data.appUpdator != null
-                    ? (int.parse(data.appUpdator!.name!.toString()) >
-                                int.parse(
-                                    VersionControl.packageInfo.buildNumber) &&
-                            data.isUpdate == true
-                        ? const AppUpdateAlert()
-                        : Container())
-                    : Container();
-              }),
-            ),*/
+
           ],
         ),
       );

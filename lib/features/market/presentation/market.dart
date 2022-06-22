@@ -55,7 +55,7 @@ class _MarketState extends State<Market> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
-        minimum: const EdgeInsets.symmetric(vertical: 15),
+        minimum: EdgeInsets.symmetric(vertical: Get.height*0.0209),
         child: Consumer<GetData>(builder: (context, data, child) {
           return Padding(
             padding: EdgeInsets.only(top: AppDimension.padding_8),
@@ -68,8 +68,8 @@ class _MarketState extends State<Market> {
                     ///Search Bar
                     Padding(
                       padding: EdgeInsets.only(
-                        left: AppDimension.padding_8,
-                        right: AppDimension.padding_8,
+                        left: Get.width*.025,
+                        right: Get.width*.025,
                       ),
                       child: Container(
                         decoration: BoxDecoration(
@@ -84,6 +84,7 @@ class _MarketState extends State<Market> {
                         child: Row(children: [
                           InkWell(
                             onTap: () {
+
                               setState(() {
                                 filterOn = false;
                               });
@@ -94,7 +95,9 @@ class _MarketState extends State<Market> {
                                   : (currentIndex == 2
                                       ? Get.to(() => const SearchComicsPage())
                                       : null);
+
                             },
+                            focusColor: AppColors.backgroundColor,
                             child: SizedBox(
                               width: Get.width * .8,
                               child: Padding(

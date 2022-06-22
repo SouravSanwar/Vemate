@@ -215,6 +215,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                               ),
                                             ),
                                           ),
+                                          placeholder: _loader,
                                         ),
                                       ),
                                       AppSpaces.spaces_width_5,
@@ -512,6 +513,12 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
           ),
         );
       }),
+    );
+  }
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
     );
   }
 

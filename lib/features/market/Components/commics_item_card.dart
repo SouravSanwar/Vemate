@@ -112,11 +112,12 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                         ),
                                       ),
                                     ),
+                                    placeholder: _loader,
                                   ),
                                 ),
                                 AppSpaces.spaces_width_5,
                                 Expanded(
-                                  flex: 6,
+                                  flex: 7,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -398,6 +399,13 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
             : const LoadingExample(),
       );
     });
+  }
+
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
+    );
   }
 
   Future<void> _onRefresh() async {
