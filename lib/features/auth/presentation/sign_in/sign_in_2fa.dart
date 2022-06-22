@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -176,9 +177,9 @@ class _SignIn2FAState extends State<SignIn2FA> {
               flushbarPosition: FlushbarPosition.BOTTOM,
               isDismissible: false,
               duration: const Duration(seconds: 3),
-              messageText: const Text(
+              messageText:  Text(
                 "Login Successful",
-                style: TextStyle(fontSize: 16.0, color: Colors.green),
+                style: TextStyle(fontSize: 16.0.sp, color: Colors.green),
               )).show(context);
         } else {
           Navigator.of(context).pop();
@@ -187,9 +188,9 @@ class _SignIn2FAState extends State<SignIn2FA> {
               flushbarPosition: FlushbarPosition.BOTTOM,
               isDismissible: false,
               duration: const Duration(seconds: 3),
-              messageText: const Text(
+              messageText:  Text(
                 "Invalid Information",
-                style: TextStyle(fontSize: 16.0, color: Colors.green),
+                style: TextStyle(fontSize: 16.0.sp, color: Colors.green),
               )).show(context);
         }
       } catch (e) {
@@ -198,9 +199,9 @@ class _SignIn2FAState extends State<SignIn2FA> {
             flushbarPosition: FlushbarPosition.BOTTOM,
             isDismissible: false,
             duration: const Duration(seconds: 3),
-            messageText: const Text(
+            messageText: Text(
               "Something went wrong",
-              style: TextStyle(fontSize: 16.0, color: Colors.green),
+              style: TextStyle(fontSize: 16.0.sp, color: Colors.green),
             )).show(context);
       }
     } else {
@@ -209,9 +210,9 @@ class _SignIn2FAState extends State<SignIn2FA> {
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
           duration: const Duration(seconds: 3),
-          messageText: const Text(
+          messageText: Text(
             "Something went wrong",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
+            style: TextStyle(fontSize: 16.0.sp, color: Colors.green),
           )).show(context);
     }
   }

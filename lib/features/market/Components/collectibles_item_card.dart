@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
@@ -84,21 +86,32 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                   height: Get.height * .078,
                                   width: Get.height * .078,
                                   decoration: BoxDecoration(
-                                      color: AppColors.primaryColor
-                                          .withOpacity(.8),
+                                      color: AppColors.backgroundColor,
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
                                           color: AppColors.borderColor)),
                                   alignment: Alignment.center,
-                                  child: Text(
+                                  child: data.collectiblesModel!.results![index].image==null ?Text(
                                     data.collectiblesModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
-                                    style:  TextStyle(
+                                    style: TextStyle(
                                         color: AppColors.backgroundColor,
                                         fontSize: 35,
                                         fontWeight: FontWeight.bold),
-                                  ),
+                                  )
+                                    :CachedNetworkImage(
+                                     imageUrl: data.collectiblesModel!.results![index].image!.original!.src.toString(),
+                                    imageBuilder: (context, imageProvider) => Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                     ),
                                 ),
                                 AppSpaces.spaces_width_2,
                                 Expanded(
@@ -123,11 +136,11 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   style: Get
                                                       .textTheme.bodyText2!
                                                       .copyWith(
-                                                          color:
-                                                              AppColors.textColor,
+                                                          color: AppColors
+                                                              .textColor,
                                                           fontWeight:
                                                               FontWeight.w600,
-                                                          fontSize: 13),
+                                                          fontSize: 13.sp),
                                                 ),
                                               )),
                                           AppSpaces.spaces_width_2,
@@ -140,10 +153,11 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.textColor,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 10),
+                                                      fontSize: 10.sp),
                                             ),
                                           ),
                                         ],
@@ -170,10 +184,11 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.textColor,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w900,
-                                                      fontSize: 10),
+                                                      fontSize: 10.sp),
                                             ),
                                           ),
                                           AppSpaces.spaces_width_2,
@@ -186,10 +201,11 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.textColor,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 10),
+                                                      fontSize: 10.sp),
                                             ),
                                           ),
                                         ],
@@ -209,10 +225,11 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.textColor,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w900,
-                                                      fontSize: 11),
+                                                      fontSize: 11.sp),
                                             ),
                                           ),
                                           const SizedBox(
@@ -276,9 +293,9 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   .results![index]
                                                   .graph!,
                                               xValueMapper: (Graph plot, _) =>
-                                                  plot.hour,
+                                                  plot.date,
                                               yValueMapper: (Graph plot, _) =>
-                                                  plot.total,
+                                                  plot.floorPrice,
                                               xAxisName: 'Duration',
                                               yAxisName: 'Total',
                                             )
@@ -292,22 +309,12 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              '\$${data.collectiblesModel!
-                                                  .results![index]
-                                                  .priceChangePercent!
-                                                  .changePrice !=null
-                                              ?data.collectiblesModel!
-                                                  .results![index]
-                                                  .priceChangePercent!
-                                                  .changePrice!
-                                                  .toStringAsFixed(2)
-                                              :""
-
-                                              }',
+                                              '\$${data.collectiblesModel!.results![index].priceChangePercent!.changePrice != null ? data.collectiblesModel!.results![index].priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.textColor,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w400,
                                                       fontSize: 10),
@@ -320,7 +327,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   MainAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                  data.collectiblesModel!
+                                                  data
+                                                          .collectiblesModel!
                                                           .results![index]
                                                           .priceChangePercent!
                                                           .percent!

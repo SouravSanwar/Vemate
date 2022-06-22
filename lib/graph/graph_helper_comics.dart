@@ -39,111 +39,109 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
       builder: (context, data, child) {
         return Container(
           padding: const EdgeInsets.only(left: 8, right: 8),
-          child: Expanded(
-                child: Container(
-                  clipBehavior: Clip.antiAlias,
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    gradient: AppColors.cardGradient,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: ListView(children: <Widget>[
-                    SizedBox(
-                      height: Get.height*.01,
-                    ),
-                    ItemDetailsHelper(
-                      text: "Floor Price",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.floorPrice.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Edition",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.edition.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Cover Variant",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.coverVariant.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Cover Artitst",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.coverArtist.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Publisher",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.publisher.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Series",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.series.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Issue",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.issue.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Pages",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.pages.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Start Year",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.startYear.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Writers",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.writers.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Artists",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.artists.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Characters",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.characters.toString()
-                          : "",
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Editions",
-                      text1: data.singleProductModel != null
-                          ? data.singleProductModel!.editions.toString()
-                          : "",
-                    ),
-                  ]),
-                ),
+          child: Container(
+            clipBehavior: Clip.antiAlias,
+            width: Get.width,
+            decoration: BoxDecoration(
+              gradient: AppColors.cardGradient,
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: ListView(children: <Widget>[
+              SizedBox(
+                height: Get.height*.01,
               ),
+              ItemDetailsHelper(
+                text: "Floor Price",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.floorPrice.toString()
+                    : "",
+              ),
+              divider(),
+              ItemDetailsHelper(
+                text: "Edition",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.edition.toString()
+                    : "",
+              ),
+              divider(),
+              ItemDetailsHelper(
+                text: "Cover Variant",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.coverVariant.toString()
+                    : "",
+              ),
+              divider(),
+              ItemDetailsHelper(
+                text: "Cover Artitst",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.coverArtist.toString()
+                    : "",
+              ),
+              divider(),
+              ItemDetailsHelper(
+                text: "Publisher",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.publisher.toString()
+                    : "",
+              ),
+              divider(),
+              ItemDetailsHelper(
+                text: "Series",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.series.toString()
+                    : "",
+              ),
+              divider(),
+              ItemDetailsHelper(
+                text: "Issue",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.issue.toString()
+                    : "",
+              ),
+              divider(),
+              ItemDetailsHelper(
+                text: "Pages",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.pages.toString()
+                    : "",
+              ),
+              divider(),
+              ItemDetailsHelper(
+                text: "Start Year",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.startYear.toString()
+                    : "",
+              ),
+              divider(),
+              ItemDetailsHelper(
+                text: "Writers",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.writers.toString()
+                    : "",
+              ),
+              divider(),
+              ItemDetailsHelper(
+                text: "Artists",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.artists.toString()
+                    : "",
+              ),
+              divider(),
+              ItemDetailsHelper(
+                text: "Characters",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.characters.toString()
+                    : "",
+              ),
+              divider(),
+              ItemDetailsHelper(
+                text: "Editions",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.editions.toString()
+                    : "",
+              ),
+            ]),
+          ),
 
 
 

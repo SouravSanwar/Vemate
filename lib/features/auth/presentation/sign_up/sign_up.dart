@@ -1,5 +1,6 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -40,7 +41,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff272E49),
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
@@ -82,40 +83,31 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                         AppSpaces.spaces_height_25,
-                        NewTextField(
-                          textEditingController:
-                              SignUpController.to.nameController,
-                          keyboardType: TextInputType.text,
-                          obscureText: true,
-                          icon: null,
-                          hint: "Username",
-                          controll: 'Username',
+                        TextInputField(
+                          labelText: "Username",
+                          height: Get.height * .04,
+                          textType: TextInputType.text,
+                          controller: SignUpController.to.nameController,
                         ),
                         SizedBox(
                           height: Get.height * .022,
                         ),
-                        NewTextField(
-                          textEditingController:
-                              SignUpController.to.emailController,
-                          keyboardType: TextInputType.text,
-                          obscureText: true,
-                          icon: null,
-                          hint: "Email",
-                          controll: 'Email',
+
+                        TextInputField(
+                          labelText: "Email",
+                          height: Get.height * .04,
+                          textType: TextInputType.emailAddress,
+                          controller: SignUpController.to.emailController,
                         ),
                         const SizedBox(
                           height: 15,
                         ),
-                        NewTextField(
-                          textEditingController:
-                              SignUpController.to.passwordController,
-                          keyboardType: TextInputType.text,
-                          obscureText: true,
-                          icon: null,
-                          hint: "Password",
-                          controll: 'Password',
-                          isPassword: true,
-                        ),
+                        PasswordInputField(
+                            labelText: "Password",
+                            height: Get.height * .04,
+                            textType: TextInputType.text,
+                            controller:
+                            SignUpController.to.passwordController,),
                         Container(
                           alignment: Alignment.topLeft,
                           padding: const EdgeInsets.only(left: 35),
@@ -132,16 +124,12 @@ class _SignUpState extends State<SignUp> {
                                       color: Colors.red, fontSize: 11),
                                 ),
                         ),
-                        NewTextField(
-                          textEditingController:
-                              SignUpController.to.confirmPasswordController,
-                          keyboardType: TextInputType.text,
-                          obscureText: true,
-                          icon: null,
-                          hint: "Confirm Password",
-                          controll: 'Password',
-                          isPassword: true,
-                        ),
+
+                        PasswordInputField(
+                          labelText: "Confirm Password",
+                          height: Get.height * .04,
+                          textType: TextInputType.text,
+                          controller:SignUpController.to.confirmPasswordController,),
                         SizedBox(
                           height: Get.height * .07,
                         ),
@@ -170,10 +158,10 @@ class _SignUpState extends State<SignUp> {
                                       flushbarPosition: FlushbarPosition.BOTTOM,
                                       isDismissible: false,
                                       duration: const Duration(seconds: 3),
-                                      messageText: const Text(
+                                      messageText:  Text(
                                         "Password didn't match",
                                         style: TextStyle(
-                                            fontSize: 16.0, color: Colors.red),
+                                            fontSize: 16.0.sp, color: Colors.red),
                                       ),
                                     ).show(context);
 

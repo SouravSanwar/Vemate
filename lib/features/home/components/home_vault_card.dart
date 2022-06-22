@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
@@ -49,7 +50,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         style: Get.textTheme.bodyText2!.copyWith(
                             color: AppColors.textColor,
                             fontWeight: FontWeight.w600,
-                            fontSize: 14),
+                            fontSize: 14.sp),
                       ),
                     ),
                     const Expanded(
@@ -73,7 +74,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                           style: Get.textTheme.bodyText2!.copyWith(
                               color: AppColors.white,
                               fontWeight: FontWeight.w600,
-                              fontSize: 14),
+                              fontSize: 14.sp),
                         ),
                       ),
                     ),
@@ -88,7 +89,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         child: Container(
                           alignment: Alignment.center,
                           child: Text("24H",style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 15.sp,
                             color: AppColors.textColor,
                           ),
                           ),
@@ -115,9 +116,9 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         '\$${data.vaultStatsModel!.totalVaultValue != null ? data.vaultStatsModel!.totalVaultValue!.toStringAsFixed(2) : "0.0"}',
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText2!.copyWith(
-                            color: AppColors.grey,
+                            color: AppColors.greyWhite,
                             fontWeight: FontWeight.w600,
-                            fontSize: 14),
+                            fontSize: 14.sp),
                       ),
                     ),
                     const Expanded(
@@ -160,7 +161,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   ? Colors.red
                                   : Colors.green,
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 14.sp,
                             ),
                           ),
                         ],
@@ -211,6 +212,12 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                             plot.total,
                         xAxisName: 'Duration',
                         yAxisName: 'Total',
+                        dataLabelSettings: const DataLabelSettings(
+                          isVisible: false,
+                          angle: 270,
+                        ),
+                        splineType: SplineType.monotonic,
+                        cardinalSplineTension: 0.3,
                       )
                     ],
                   ),

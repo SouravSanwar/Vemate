@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/main.dart';
@@ -71,7 +73,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
         title: Text(
           "My Collectibles",
           style: TextStyle(
-              color: AppColors.textColor, fontSize: 20, fontWeight: FontWeight.bold),
+              color: AppColors.textColor, fontSize: 20.sp, fontWeight: FontWeight.bold),
         ),
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
@@ -128,9 +130,9 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                               .productDetail!.name
                                               .toString()[0]
                                               .toUpperCase(),
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               color: Colors.deepPurpleAccent,
-                                              fontSize: 35,
+                                              fontSize: 35.sp,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -165,7 +167,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
-                                                                fontSize: 13),
+                                                                fontSize: 13.sp),
                                                       ),
                                                     )),
                                                 AppSpaces.spaces_width_2,
@@ -187,7 +189,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
-                                                              fontSize: 10),
+                                                              fontSize: 10.sp),
                                                     )),
                                               ],
                                             ),
@@ -239,7 +241,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                             color: AppColors.textColor,
                                                             fontWeight:
                                                                 FontWeight.w900,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                   ),
                                                 ),
                                                 AppSpaces.spaces_width_2,
@@ -259,7 +261,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                             color: AppColors.textColor,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                   ),
                                                 ),
                                               ],
@@ -284,7 +286,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                             color: AppColors.textColor,
                                                             fontWeight:
                                                                 FontWeight.w900,
-                                                            fontSize: 11),
+                                                            fontSize: 11.sp),
                                                   ),
                                                 ),
                                                 AppSpaces.spaces_width_2,
@@ -299,7 +301,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                             color: AppColors.textColor,
                                                             fontWeight:
                                                                 FontWeight.w400,
-                                                            fontSize: 11),
+                                                            fontSize: 11.sp),
                                                   ),
                                                 ),
                                               ],
@@ -409,7 +411,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                 : Colors.green,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                       ),
                                                       if (data
                                                               .setListModel!
@@ -434,12 +436,69 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                 ),
                                                 InkWell(
                                                   onTap: () {
-                                                    postData!.deleteSetList(
-                                                      context,
-                                                      data.setListModel!
-                                                          .results![index].id,
-                                                      requestHeadersWithToken,
-                                                    );
+
+
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return AlertDialog(
+                                                            backgroundColor:
+                                                            AppColors.backgroundColor,
+                                                            shape: const RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius.all(
+                                                                Radius.circular(
+                                                                  20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            contentPadding:
+                                                            const EdgeInsets.symmetric(
+                                                                horizontal: 20),
+                                                            titlePadding:
+                                                            const EdgeInsets.symmetric(
+                                                                horizontal: 20,
+                                                                vertical: 10),
+                                                            title: Text(""),
+                                                            content: Text(
+                                                              'Do you really want to delete this item?',
+                                                              style: TextStyle(
+                                                                  color: AppColors.textColor,
+                                                                  fontSize: 15),
+                                                            ),
+                                                            actions: <Widget>[
+                                                              CustomButtons(
+                                                                width: Get.width * .2,
+                                                                height: Get.height * .05,
+                                                                onTap: () {
+                                                                  postData!.deleteSetList(
+                                                                    context,
+                                                                    data.setListModel!
+                                                                        .results![index].id,
+                                                                    requestHeadersWithToken,
+                                                                  );
+
+                                                                },
+                                                                text: 'Yes'.toUpperCase(),
+                                                                style: Get.textTheme.button!
+                                                                    .copyWith(
+                                                                    color: AppColors
+                                                                        .textColor),
+
+                                                              ),
+                                                              CustomButtons(
+                                                                width: Get.width * .2,
+                                                                height: Get.height * .05,
+                                                                onTap: () {
+                                                                  Navigator.pop(context);
+                                                                },
+                                                                text: 'Close'.toUpperCase(),
+                                                                style: Get.textTheme.button!
+                                                                    .copyWith(
+                                                                    color: AppColors.textColor),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        });
                                                   },
                                                   child: Icon(
                                                     Icons.delete_forever,

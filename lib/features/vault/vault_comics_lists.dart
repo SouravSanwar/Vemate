@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -69,7 +72,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
         title: Text(
           "My Comics",
           style: TextStyle(
-              color: AppColors.textColor, fontSize: 20, fontWeight: FontWeight.bold),
+              color: AppColors.textColor,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold),
         ),
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
@@ -77,7 +82,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
           height: _height! * .9,
           width: _width,
           padding: const EdgeInsets.only(bottom: 10),
-          child: data.setListModel!.results!.length != null
+          child: data.setListModel != null
               ? ListView.builder(
                   itemCount: data.setListModel!.results!.length,
                   shrinkWrap: true,
@@ -103,10 +108,10 @@ class _VaultComicsListState extends State<VaultComicsList> {
                               child: Container(
                                 width: Get.width,
                                 decoration: BoxDecoration(
-                                  gradient: AppColors.cardGradient,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                    border: Border.all(color:AppColors.borderColor)
-                                ),
+                                    gradient: AppColors.cardGradient,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    border: Border.all(
+                                        color: AppColors.borderColor)),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: Row(
@@ -119,16 +124,17 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                             color: const Color(0xD3C89EF3),
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            border: Border.all(color:AppColors.borderColor)),
+                                            border: Border.all(
+                                                color: AppColors.borderColor)),
                                         alignment: Alignment.center,
                                         child: Text(
                                           data.setListModel!.results![index]
                                               .productDetail!.name
                                               .toString()[0]
                                               .toUpperCase(),
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               color: Colors.deepPurpleAccent,
-                                              fontSize: 35,
+                                              fontSize: 35.sp,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -159,11 +165,13 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         style: Get.textTheme
                                                             .bodyText2!
                                                             .copyWith(
-                                                                color: AppColors.textColor,
+                                                                color: AppColors
+                                                                    .textColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
-                                                                fontSize: 13),
+                                                                fontSize:
+                                                                    13.sp),
                                                       ),
                                                     )),
                                                 AppSpaces.spaces_width_2,
@@ -181,11 +189,12 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                       style: Get
                                                           .textTheme.bodyText1!
                                                           .copyWith(
-                                                              color: AppColors.textColor,
+                                                              color: AppColors
+                                                                  .textColor,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
-                                                              fontSize: 10),
+                                                              fontSize: 10.sp),
                                                     )),
                                               ],
                                             ),
@@ -234,10 +243,11 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.textColor,
+                                                            color: AppColors
+                                                                .textColor,
                                                             fontWeight:
                                                                 FontWeight.w900,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                   ),
                                                 ),
                                                 AppSpaces.spaces_width_2,
@@ -254,10 +264,11 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.textColor,
+                                                            color: AppColors
+                                                                .textColor,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                   ),
                                                 ),
                                               ],
@@ -279,10 +290,11 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.textColor,
+                                                            color: AppColors
+                                                                .textColor,
                                                             fontWeight:
                                                                 FontWeight.w900,
-                                                            fontSize: 11),
+                                                            fontSize: 11.sp),
                                                   ),
                                                 ),
                                                 AppSpaces.spaces_width_2,
@@ -294,10 +306,11 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.textColor,
+                                                            color: AppColors
+                                                                .textColor,
                                                             fontWeight:
                                                                 FontWeight.w400,
-                                                            fontSize: 11),
+                                                            fontSize: 11.sp),
                                                   ),
                                                 ),
                                               ],
@@ -407,7 +420,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                 : Colors.green,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                       ),
                                                       if (data
                                                               .setListModel!
@@ -432,12 +445,95 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                 ),
                                                 InkWell(
                                                   onTap: () {
-                                                    postData!.deleteSetList(
-                                                      context,
-                                                      data.setListModel!
-                                                          .results![index].id,
-                                                      requestHeadersWithToken,
-                                                    );
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return AlertDialog(
+                                                            backgroundColor:
+                                                                AppColors
+                                                                    .backgroundColor,
+                                                            shape:
+                                                                const RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .all(
+                                                                Radius.circular(
+                                                                  20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            contentPadding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20),
+                                                            titlePadding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20,
+                                                                    vertical:
+                                                                        10),
+                                                            title: Text(""),
+                                                            content: Text(
+                                                              'Do you really want to delete this item?',
+                                                              style: TextStyle(
+                                                                  color: AppColors
+                                                                      .textColor,
+                                                                  fontSize: 15),
+                                                            ),
+                                                            actions: <Widget>[
+                                                              CustomButtons(
+                                                                width:
+                                                                    Get.width *
+                                                                        .2,
+                                                                height:
+                                                                    Get.height *
+                                                                        .05,
+                                                                onTap: () {
+                                                                  postData!
+                                                                      .deleteSetList(
+                                                                    context,
+                                                                    data
+                                                                        .setListModel!
+                                                                        .results![
+                                                                            index]
+                                                                        .id,
+                                                                    requestHeadersWithToken,
+                                                                  );
+                                                                },
+                                                                text: 'Yes'
+                                                                    .toUpperCase(),
+                                                                style: Get
+                                                                    .textTheme
+                                                                    .button!
+                                                                    .copyWith(
+                                                                        color: AppColors
+                                                                            .textColor),
+                                                              ),
+                                                              CustomButtons(
+                                                                width:
+                                                                    Get.width *
+                                                                        .2,
+                                                                height:
+                                                                    Get.height *
+                                                                        .05,
+                                                                onTap: () {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                text: 'Close'
+                                                                    .toUpperCase(),
+                                                                style: Get
+                                                                    .textTheme
+                                                                    .button!
+                                                                    .copyWith(
+                                                                        color: AppColors
+                                                                            .textColor),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        });
                                                   },
                                                   child: Icon(
                                                     Icons.delete_forever,
@@ -457,7 +553,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
                           )
                         : Container();
                   })
-              : const LoadingExample(),
+              : const NoDataCard(
+            title: 'Your Comics are empty!',
+          ),
         );
       }),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
@@ -74,8 +75,8 @@ class _ResetPassState extends State<ResetPass> {
                     textType: TextInputType.emailAddress,
                     controller: emailController,
                   ),
-                  const SizedBox(
-                    height: 40,
+                  SizedBox(
+                    height: 40.h,
                   ),
 
                   CustomButtons(
@@ -101,13 +102,13 @@ class _ResetPassState extends State<ResetPass> {
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: const Text(
-                      "By clicking RESET, you will receive an e-mail to reset password",
+                    child: Text(
+                      "By clicking SEND CODE, you will receive an e-mail to reset password",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                        fontSize: 15.sp,
                       ),
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -89,7 +90,7 @@ class _ProfileState extends State<Profile> {
                   shrinkWrap: true,
                   children: [
                     // SizedBox(height: Get.height * .05),
-                    ToggleButton(),
+                   // ToggleButton(),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -174,7 +175,7 @@ class _ProfileState extends State<Profile> {
                         throw 'Could not launch $url';
                       }
                     }),
-                    CustomProfileElements(
+                    /*CustomProfileElements(
                         Icons.toggle_off_outlined,
                         data.profileModel!.fa == true
                             ? "Two FA Enabled"
@@ -327,7 +328,7 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                       );
-                    }),
+                    }),*/
                     CustomProfileElements(Icons.logout, "Log Out", () {
                       showDialog(
                           context: context,
@@ -352,20 +353,20 @@ class _ProfileState extends State<Profile> {
                                     color: AppColors.textColor,
                                   ),
                                   SizedBox(
-                                    width: 15,
+                                    width: 15.w,
                                   ),
                                   Text(
                                     "Logout",
                                     style: TextStyle(
                                         color: AppColors.textColor,
-                                        fontSize: 20),
+                                        fontSize: 20.sp),
                                   ),
                                 ],
                               ),
                               content: Text(
                                 'Do you really want to exit?',
                                 style: TextStyle(
-                                    color: AppColors.textColor, fontSize: 15),
+                                    color: AppColors.textColor, fontSize: 15.sp),
                               ),
                               actions: <Widget>[
                                 TextButton(
@@ -383,7 +384,7 @@ class _ProfileState extends State<Profile> {
                                     },
                                     child: Text(
                                       'Yes',
-                                      style: TextStyle(color: Colors.red),
+                                      style: TextStyle(color: AppColors.greyWhite),
                                     )),
                                 TextButton(
                                   onPressed: () {

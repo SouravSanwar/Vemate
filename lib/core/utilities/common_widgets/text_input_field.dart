@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
@@ -44,7 +45,7 @@ class _TextInputFieldState extends State<TextInputField> {
           ? TextFormField(
               style: TextStyle(
                 color: AppColors.textColor,
-                fontSize: 18.0,
+                fontSize: 18.0.sp,
               ),
               key: formKey,
               validator: (String? value){
@@ -75,12 +76,12 @@ class _TextInputFieldState extends State<TextInputField> {
 },
               style: TextStyle(
                 color: AppColors.textColor,
-                fontSize: 18.0,
+                fontSize: 18.0.sp,
               ),
               controller: widget.controller,
               decoration: InputDecoration(
                 hintText: widget.labelText,
-                hintStyle: const TextStyle(fontSize: 15),
+                hintStyle:  TextStyle(fontSize: 15.sp),
                 border: InputBorder.none,
               ),
               keyboardType: widget.textType,

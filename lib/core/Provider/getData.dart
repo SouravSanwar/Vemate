@@ -9,6 +9,8 @@ import 'package:ketemaa/core/models/CheckSetCheck.dart';
 import 'package:ketemaa/core/models/CheckWishlistModel.dart';
 import 'package:ketemaa/core/models/ComicsModel.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
+import 'package:ketemaa/core/models/NotificationListModel.dart';
+import 'package:ketemaa/core/models/NotificationReadModel.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
 import 'package:ketemaa/core/models/SearchCollectiblesModel.dart';
 import 'package:ketemaa/core/models/SearchComicsModel.dart';
@@ -46,6 +48,8 @@ class GetData extends ChangeNotifier with BaseController {
   NewsModel? newsModel;
 
   AlertModel? alertModel;
+  NotificationListModel? notificationListModel;
+  NotificationReadModel? notificationReadModel;
 
   Future getUserInfo() async {
     profileModel = null;
@@ -62,7 +66,7 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  setTheme(int? mode){
+  setTheme(int? mode) {
     prefs!.setInt('mode', mode!);
 
     print('Color Mode Get: ' + mode.toString());
@@ -128,6 +132,8 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
+    print("Comics data"+data["results"][0]["new_graph"].toString());
+
     if (comicsModel != null) {
       if (offset == 0) comicsModel!.results!.clear();
 
@@ -183,15 +189,13 @@ class GetData extends ChangeNotifier with BaseController {
         .get(Urls.singleProduct + '$id?graph_type=$graphType')
         .catchError(handleError);
 
-    printInfo(info: Urls.singleProduct + '$id?graph_type=$graphType');
-    printInfo(info: response);
-
     var data = json.decode(response.toString());
 
     printInfo(info: data.toString());
 
     singleProductModel = SingleProductModel.fromJson(data);
 
+    singleProductModel!.graph!.removeAt(0);
     notifyListeners();
   }
 
@@ -239,6 +243,12 @@ class GetData extends ChangeNotifier with BaseController {
     } else {
       wishListModel = WishListModel.fromJson(data);
     }
+
+    notifyListeners();
+  }
+
+  removeWish(int index) {
+    wishListModel!.results!.removeAt(index);
 
     notifyListeners();
   }
@@ -296,6 +306,27 @@ class GetData extends ChangeNotifier with BaseController {
     printInfo(info: data.toString());
 
     alertModel = AlertModel.fromJson(data);
+
+    notifyListeners();
+  }
+
+  Future getNotification({int offset = 0}) async {
+    final response = await BaseClient()
+        .get(Urls.notification + '?limit=20&offset=$offset')
+        .catchError(handleError);
+
+    var data = json.decode(response.toString());
+
+    printInfo(info: data.toString());
+
+    if (notificationListModel != null) {
+      if (offset == 0) notificationListModel!.results!.clear();
+
+      notificationListModel!.results!
+          .addAll(NotificationListModel.fromJson(data).results!);
+    } else {
+      notificationListModel = NotificationListModel.fromJson(data);
+    }
 
     notifyListeners();
   }

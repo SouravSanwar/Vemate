@@ -23,6 +23,9 @@ bool filterOn = false;
 bool? darkMode = false;
 int? mode;
 
+final GlobalKey<NavigatorState> navigatorKey =
+    GlobalKey(debugLabel: "Main Navigator");
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -66,6 +69,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
+          navigatorKey: navigatorKey,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.themeData(),
           getPages: AppRoutes.appRoutesList(),

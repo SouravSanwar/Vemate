@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -58,22 +60,16 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
           iconTheme: const IconThemeData(color: Colors.grey),
           backgroundColor: AppColors.backgroundColor,
           title: Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: Get.width * .03),
-            child: Expanded(
-                  flex: 10,
-                  child: Text(
-                    data.singleProductModel != null
-                        ? data.singleProductModel!.name
-                        .toString()
-                        : "",
-                    style: TextStyle(
-                        color: Colors.blueGrey.shade300,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-
+            padding: EdgeInsets.symmetric(horizontal: Get.width * .03),
+            child: Text(
+              data.singleProductModel != null
+                  ? data.singleProductModel!.name.toString()
+                  : "",
+              style: TextStyle(
+                  color: Colors.blueGrey.shade300,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold),
+            ),
           ),
         ),
         backgroundColor: AppColors.backgroundColor,
@@ -84,363 +80,367 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                       (BuildContext context, bool innerBoxIsScrolled) {
                     return <Widget>[
                       SliverToBoxAdapter(
-                        child: Column(
-                              children: [
-                                SizedBox(
-                                  height: Get.height * .01,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 50, vertical: 20),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(50),
-                                    decoration: BoxDecoration(
-                                        gradient: AppColors.vaultCardGradient,
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            color: AppColors.primaryColor)),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      data.singleProductModel!.name
+                          child: Column(
+                        children: [
+                          SizedBox(
+                            height: Get.height * .005,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 20),
+                            child: Container(
+                              height: Get.height * .5,
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  gradient: AppColors.vaultCardGradient,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      color: AppColors.primaryColor)),
+                              alignment: Alignment.center,
+                              child: data.singleProductModel!.image!.original ==
+                                      null
+                                  ? Text(
+                                      data.singleProductModel!.image!.original!
+                                          .src
                                           .toString()[0]
                                           .toUpperCase(),
                                       style: const TextStyle(
                                           color: Colors.deepPurpleAccent,
                                           fontSize: 65,
                                           fontWeight: FontWeight.bold),
+                                    )
+                                  : CachedNetworkImage(
+                                      imageUrl: data.singleProductModel!.image!
+                                          .original!.src
+                                          .toString(),
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        var body = {
-                                          "product": data.singleProductModel!.id,
-                                          "type": 1
-                                        };
-                                        Map<String, String>
-                                        requestHeadersWithToken = {
-                                          'Content-type': 'application/json',
-                                          'Accept': 'application/json',
-                                          'Authorization':
-                                          'token ${prefs!.getString('token')}',
-                                        };
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  var body = {
+                                    "product": data.singleProductModel!.id,
+                                    "type": 1
+                                  };
+                                  Map<String, String> requestHeadersWithToken =
+                                      {
+                                    'Content-type': 'application/json',
+                                    'Accept': 'application/json',
+                                    'Authorization':
+                                        'token ${prefs!.getString('token')}',
+                                  };
 
-                                        data.checkWishlistModel!.isFound == false
-                                            ? postData!.addToWishlist(
+                                  data.checkWishlistModel!.isFound == false
+                                      ? postData!.addToWishlist(
                                           context,
                                           body,
                                           data.singleProductModel!.id,
                                           requestHeadersWithToken,
                                         )
-                                            : Flushbar(
-                                            flushbarPosition:
-                                            FlushbarPosition.BOTTOM,
-                                            isDismissible: false,
-                                            duration:
-                                            const Duration(seconds: 3),
-                                            messageText: const Text(
-                                              "Product already in your wishlist",
-                                              style: TextStyle(
-                                                  fontSize: 16.0,
-                                                  color: Colors.green),
-                                            )).show(context);
-                                      },
-                                      child: Container(
-                                        width: Get.width * .42,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          gradient: AppColors.purpleGradient,
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(12),
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(12),
-                                          child: data.checkWishlistModel!.isFound ==
-                                              false
-                                              ? Text(
+                                      : Flushbar(
+                                          flushbarPosition:
+                                              FlushbarPosition.BOTTOM,
+                                          isDismissible: false,
+                                          duration: const Duration(seconds: 3),
+                                          messageText: const Text(
+                                            "Product already in your wishlist",
+                                            style: TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.green),
+                                          )).show(context);
+                                },
+                                child: Container(
+                                  width: Get.width * .42,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    gradient: AppColors.purpleGradient,
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(12),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: data.checkWishlistModel!.isFound ==
+                                            false
+                                        ? Text(
                                             'Add to Wishlist',
                                             style: Get.textTheme.bodyMedium,
                                           )
-                                              : Text(
+                                        : Text(
                                             'Already in Wishlist',
                                             style: Get.textTheme.bodyMedium,
                                           ),
-                                        ),
-                                      ),
-                                    ),
-                                    AppSpaces.spaces_width_20,
-                                    InkWell(
-                                      onTap: () {
-                                        var body = {
-                                          "product": data.singleProductModel!.id,
-                                          "type": 0
-                                        };
-                                        Map<String, String>
-                                        requestHeadersWithToken = {
-                                          'Content-type': 'application/json',
-                                          'Accept': 'application/json',
-                                          'Authorization':
-                                          'token ${prefs!.getString('token')}',
-                                        };
+                                  ),
+                                ),
+                              ),
+                              AppSpaces.spaces_width_20,
+                              InkWell(
+                                onTap: () {
+                                  var body = {
+                                    "product": data.singleProductModel!.id,
+                                    "type": 0
+                                  };
+                                  Map<String, String> requestHeadersWithToken =
+                                      {
+                                    'Content-type': 'application/json',
+                                    'Accept': 'application/json',
+                                    'Authorization':
+                                        'token ${prefs!.getString('token')}',
+                                  };
 
-                                        data.checkSetCheck!.isFound == false
-                                            ? postData!.addToSet(
+                                  data.checkSetCheck!.isFound == false
+                                      ? postData!.addToSet(
                                           context,
                                           body,
                                           data.singleProductModel!.id,
                                           requestHeadersWithToken,
                                         )
-                                            : Flushbar(
-                                            flushbarPosition:
-                                            FlushbarPosition.BOTTOM,
-                                            isDismissible: false,
-                                            duration:
-                                            const Duration(seconds: 3),
-                                            messageText: const Text(
-                                              "Product already in your Vault",
-                                              style: TextStyle(
-                                                  fontSize: 16.0,
-                                                  color: Colors.green),
-                                            )).show(context);
-                                      },
-                                      child: Container(
-                                        width: Get.width * .42,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          gradient: AppColors.purpleGradient,
-                                          //color: AppColors.primaryColor,
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(12),
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(12),
-                                          child: data.checkSetCheck!.isFound ==
-                                              false
-                                              ? Text('Add to Vault',
-                                              style: Get.textTheme.bodyMedium)
-                                              : Text('Already in Vault',
-                                              style: Get.textTheme.bodyMedium),
-                                        ),
-                                      ),
+                                      : Flushbar(
+                                          flushbarPosition:
+                                              FlushbarPosition.BOTTOM,
+                                          isDismissible: false,
+                                          duration: const Duration(seconds: 3),
+                                          messageText: const Text(
+                                            "Product already in your Vault",
+                                            style: TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.green),
+                                          )).show(context);
+                                },
+                                child: Container(
+                                  width: Get.width * .42,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    gradient: AppColors.purpleGradient,
+                                    //color: AppColors.primaryColor,
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(12),
                                     ),
-                                  ],
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(12),
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    "Total Distributions",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        color: Colors.blueGrey.shade300,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: data.checkSetCheck!.isFound == false
+                                        ? Text('Add to Vault',
+                                            style: Get.textTheme.bodyMedium)
+                                        : Text('Already in Vault',
+                                            style: Get.textTheme.bodyMedium),
                                   ),
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Container(
-                                      width:
-                                      MediaQuery.of(context).size.width * .18,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 6, vertical: 8),
-                                      child: InkWell(
-                                        onTap: () {
-                                          currentIndex = 1;
-                                          hour = true;
-                                          week = false;
-                                          month = false;
-                                          two_month = false;
-                                          year = false;
-                                          getData!.getSingleProduct(
-                                              widget.productId,
-                                              graphType: 0);
-                                        },
-                                        child: CategoryCard(
-                                          name: '24H',
-                                          gradient: hour == true
-                                              ? AppColors.purpleGradient
-                                              : const LinearGradient(
+                              ),
+                            ],
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              "Total Distributions",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: Colors.blueGrey.shade300,
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                width: MediaQuery.of(context).size.width * .18,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6, vertical: 8),
+                                child: InkWell(
+                                  onTap: () {
+                                    currentIndex = 1;
+                                    hour = true;
+                                    week = false;
+                                    month = false;
+                                    two_month = false;
+                                    year = false;
+                                    getData!.getSingleProduct(widget.productId,
+                                        graphType: 0);
+                                  },
+                                  child: CategoryCard(
+                                    name: '24H',
+                                    gradient: hour == true
+                                        ? AppColors.purpleGradient
+                                        : const LinearGradient(
                                             colors: [
                                               Color(0xff272E49),
                                               Color(0xff272E49),
                                             ],
                                           ),
-                                        ),
-                                      ),
-                                    ),
-
-                                    ///7 Days
-                                    Container(
-                                      width:
-                                      MediaQuery.of(context).size.width * .18,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 6, vertical: 8),
-                                      child: InkWell(
-                                        onTap: () {
-                                          currentIndex = 2;
-                                          hour = false;
-                                          week = true;
-                                          month = false;
-                                          two_month = false;
-                                          year = false;
-                                          getData!.getSingleProduct(
-                                              widget.productId,
-                                              graphType: 1);
-                                        },
-                                        child: CategoryCard(
-                                          name: '7D',
-                                          gradient: week == true
-                                              ? AppColors.purpleGradient
-                                              : const LinearGradient(
-                                            colors: [
-                                              Color(0xff272E49),
-                                              Color(0xff272E49),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-
-                                    ///30 Days
-                                    Container(
-                                      width:
-                                      MediaQuery.of(context).size.width * .18,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 6, vertical: 8),
-                                      child: InkWell(
-                                        onTap: () {
-                                          currentIndex = 1;
-                                          hour = false;
-                                          week = false;
-                                          month = true;
-                                          two_month = false;
-                                          year = false;
-                                          getData!.getSingleProduct(
-                                              widget.productId,
-                                              graphType: 2);
-                                        },
-                                        child: CategoryCard(
-                                          name: '30D',
-                                          gradient: month == true
-                                              ? AppColors.purpleGradient
-                                              : const LinearGradient(
-                                            colors: [
-                                              Color(0xff272E49),
-                                              Color(0xff272E49),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-
-                                    ///60 Days
-                                    Container(
-                                      width:
-                                      MediaQuery.of(context).size.width * .18,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 6, vertical: 8),
-                                      child: InkWell(
-                                        onTap: () {
-                                          currentIndex = 1;
-                                          hour = false;
-                                          week = false;
-                                          month = false;
-                                          two_month = true;
-                                          year = false;
-                                          getData!.getSingleProduct(
-                                              widget.productId,
-                                              graphType: 3);
-                                        },
-                                        child: CategoryCard(
-                                          name: '60D',
-                                          gradient: two_month == true
-                                              ? AppColors.purpleGradient
-                                              : const LinearGradient(
-                                            colors: [
-                                              Color(0xff272E49),
-                                              Color(0xff272E49),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-
-                                    Container(
-                                      width:
-                                      MediaQuery.of(context).size.width * .18,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 6, vertical: 8),
-                                      child: InkWell(
-                                        onTap: () {
-                                          currentIndex = 1;
-                                          hour = false;
-                                          week = false;
-                                          month = false;
-                                          two_month = false;
-                                          year = true;
-                                          getData!.getSingleProduct(
-                                              widget.productId,
-                                              graphType: 4);
-                                        },
-                                        child: CategoryCard(
-                                          name: '1Y',
-                                          gradient: year == true
-                                              ? AppColors.purpleGradient
-                                              : const LinearGradient(
-                                            colors: [
-                                              Color(0xff272E49),
-                                              Color(0xff272E49),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  width: double.infinity,
-                                  child: FadeInUp(
-                                    duration: const Duration(milliseconds: 100),
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      height: 250,
-                                      child: data.singleProductModel!.graph != null
-                                          ? ProductGraph(
+                              ),
+
+                              ///7 Days
+                              Container(
+                                width: MediaQuery.of(context).size.width * .18,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6, vertical: 8),
+                                child: InkWell(
+                                  onTap: () {
+                                    currentIndex = 2;
+                                    hour = false;
+                                    week = true;
+                                    month = false;
+                                    two_month = false;
+                                    year = false;
+                                    getData!.getSingleProduct(widget.productId,
+                                        graphType: 1);
+                                  },
+                                  child: CategoryCard(
+                                    name: '7D',
+                                    gradient: week == true
+                                        ? AppColors.purpleGradient
+                                        : const LinearGradient(
+                                            colors: [
+                                              Color(0xff272E49),
+                                              Color(0xff272E49),
+                                            ],
+                                          ),
+                                  ),
+                                ),
+                              ),
+
+                              ///30 Days
+                              Container(
+                                width: MediaQuery.of(context).size.width * .18,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6, vertical: 8),
+                                child: InkWell(
+                                  onTap: () {
+                                    currentIndex = 1;
+                                    hour = false;
+                                    week = false;
+                                    month = true;
+                                    two_month = false;
+                                    year = false;
+                                    getData!.getSingleProduct(widget.productId,
+                                        graphType: 2);
+                                  },
+                                  child: CategoryCard(
+                                    name: '30D',
+                                    gradient: month == true
+                                        ? AppColors.purpleGradient
+                                        : const LinearGradient(
+                                            colors: [
+                                              Color(0xff272E49),
+                                              Color(0xff272E49),
+                                            ],
+                                          ),
+                                  ),
+                                ),
+                              ),
+
+                              ///60 Days
+                              Container(
+                                width: MediaQuery.of(context).size.width * .18,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6, vertical: 8),
+                                child: InkWell(
+                                  onTap: () {
+                                    currentIndex = 1;
+                                    hour = false;
+                                    week = false;
+                                    month = false;
+                                    two_month = true;
+                                    year = false;
+                                    getData!.getSingleProduct(widget.productId,
+                                        graphType: 3);
+                                  },
+                                  child: CategoryCard(
+                                    name: '60D',
+                                    gradient: two_month == true
+                                        ? AppColors.purpleGradient
+                                        : const LinearGradient(
+                                            colors: [
+                                              Color(0xff272E49),
+                                              Color(0xff272E49),
+                                            ],
+                                          ),
+                                  ),
+                                ),
+                              ),
+
+                              Container(
+                                width: MediaQuery.of(context).size.width * .18,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6, vertical: 8),
+                                child: InkWell(
+                                  onTap: () {
+                                    currentIndex = 1;
+                                    hour = false;
+                                    week = false;
+                                    month = false;
+                                    two_month = false;
+                                    year = true;
+                                    getData!.getSingleProduct(widget.productId,
+                                        graphType: 4);
+                                  },
+                                  child: CategoryCard(
+                                    name: '1Y',
+                                    gradient: year == true
+                                        ? AppColors.purpleGradient
+                                        : const LinearGradient(
+                                            colors: [
+                                              Color(0xff272E49),
+                                              Color(0xff272E49),
+                                            ],
+                                          ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            width: double.infinity,
+                            child: FadeInUp(
+                              duration: const Duration(milliseconds: 100),
+                              child: SizedBox(
+                                width: double.infinity,
+                                height: 250,
+                                child: data.singleProductModel!.graph != null
+                                    ? ProductGraph(
                                         graphList:
-                                        data.singleProductModel!.graph,
-                                        graphType: data
-                                            .singleProductModel!.graphType,
+                                            data.singleProductModel!.graph,
                                       )
-                                          : Container(),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                                  child: Text(
-                                    data.singleProductModel != null
-                                        ? data.singleProductModel!.name.toString() + "'s Details"
-                                        : "",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        color: Colors.blueGrey.shade300,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
-                                  ),
-                                ),
-                              ],
-                            )
-
-                      )
+                                    : Container(),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.topLeft,
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              data.singleProductModel != null
+                                  ? data.singleProductModel!.name.toString() +
+                                      "'s Details"
+                                  : "",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: Colors.blueGrey.shade300,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15.sp),
+                            ),
+                          ),
+                        ],
+                      ))
                     ];
                   },
                   body: const ProductDetails(),

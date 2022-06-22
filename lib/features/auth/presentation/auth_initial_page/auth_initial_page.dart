@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -36,6 +37,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
   @override
   Widget build(BuildContext context) {
     Get.put(SigninController());
+    printInfo(info: 'Auth Token: ' + prefs!.getString('token').toString());
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -51,9 +53,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
-                  mode == 0
-                      ? 'assets/media/image/vemate1.png'
-                      : 'assets/media/image/vemate.png',
+                 mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -66,11 +66,10 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   Container(
                       width: Get.width * .9,
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
+                      child:  Text(
                         "LOGIN",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.textColor),
+                            fontWeight: FontWeight.bold, color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(
@@ -89,7 +88,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       controller:
                           SigninController.to.passwordTextFiledController),
                   SizedBox(
-                    height: Get.height * .0124,
+                    height: Get.height * .003,
                   ),
                   TextButton(
                     onPressed: () {
@@ -109,8 +108,9 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   SizedBox(
                     height: Get.height * .022,
                   ),
+
                   CustomButtons(
-                    width: Get.width * .9,
+                    width: Get.width*.9,
                     height: Get.height * .065,
                     onTap: () {
                       var body = {
@@ -123,16 +123,17 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       setState(() {
                         postData!.logIn(context, body);
                       });
+
                     },
                     text: AppLanguageString.lOG_IN.tr.toUpperCase(),
                     style: Get.textTheme.button!.copyWith(color: Colors.white),
                   )
                 ],
               ),
-              AppSpaces.spaces_height_25,
-              Container(),
-              AppSpaces.spaces_height_25,
-              Row(
+
+              AppSpaces.spaces_height_35,
+
+              /* Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
@@ -142,12 +143,12 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           color: Colors.grey,
                         )),
                   ),
-                  const Text(
+                  Text(
                     "Or Continue With",
                     style: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
-                        fontSize: 15),
+                        fontSize: 15.sp),
                   ),
                   Expanded(
                     child: Container(
@@ -159,7 +160,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   ),
                 ],
               ),
-              AppSpaces.spaces_height_25,
+              AppSpaces.spaces_height_35,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -169,6 +170,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         signIn();
+
                       },
                       child: Image.asset('assets/media/icon/google.png'),
                       style: ElevatedButton.styleFrom(
@@ -213,7 +215,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     ),
                   ),
                 ],
-              ),
+              ),*/
+
               SizedBox(
                 height: Get.height * .09,
               ),
@@ -225,12 +228,12 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           "Don't have an account?",
                           style: TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.bold,
-                              fontSize: 15),
+                              fontSize: 15.sp),
                         ),
                         AppSpaces.spaces_width_5,
                         Text(
@@ -238,7 +241,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           style: TextStyle(
                               color: AppColors.primaryColor,
                               fontWeight: FontWeight.bold,
-                              fontSize: 15),
+                              fontSize: 15.sp),
                         ),
                       ]),
                 ),
@@ -249,9 +252,11 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
         ),
       ),
     );
-  }
 
-  Future signIn() async {
+
+  }
+  Future signIn() async{
     await GoogleSignInApi.login();
+
   }
 }

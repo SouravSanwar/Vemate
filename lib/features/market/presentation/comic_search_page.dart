@@ -1,5 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -133,7 +134,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                   autofocus: true,
                 )
               : Text(filterValue[0] + " Comics",
-                  style: TextStyle(fontSize: 22)),
+                  style: TextStyle(fontSize: 22.sp)),
         ),
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
@@ -203,7 +204,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                           style: TextStyle(
                                               color: AppColors
                                                   .backgroundColor,
-                                              fontSize: 35,
+                                              fontSize: 35.sp,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -238,7 +239,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
-                                                                fontSize: 13),
+                                                                fontSize: 13.sp),
                                                       ),
                                                     )),
                                                 AppSpaces.spaces_width_2,
@@ -260,7 +261,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
-                                                              fontSize: 10),
+                                                              fontSize: 10.sp),
                                                     )),
                                               ],
                                             ),
@@ -283,7 +284,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                     0.8),
                                                             fontWeight:
                                                                 FontWeight.w900,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                   ),
                                                 ),
                                                 AppSpaces.spaces_width_2,
@@ -303,7 +304,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                     0.8),
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                   ),
                                                 ),
                                               ],
@@ -330,7 +331,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                     0.8),
                                                             fontWeight:
                                                                 FontWeight.w900,
-                                                            fontSize: 11),
+                                                            fontSize: 11.sp),
                                                   ),
                                                 ),
                                                 AppSpaces.spaces_width_2,
@@ -399,10 +400,10 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                         .graph!,
                                                     xValueMapper:
                                                         (Graph plot, _) =>
-                                                            plot.hour,
+                                                            plot.date,
                                                     yValueMapper:
                                                         (Graph plot, _) =>
-                                                            plot.total,
+                                                            plot.floorPrice,
                                                     xAxisName: 'Duration',
                                                     yAxisName: 'Total',
                                                   )
@@ -427,7 +428,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                     0.9),
                                                             fontWeight:
                                                                 FontWeight.w400,
-                                                            fontSize: 11),
+                                                            fontSize: 11.sp),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -456,7 +457,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                 : Colors.green,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            fontSize: 10),
+                                                            fontSize: 10.sp),
                                                       ),
                                                       if (data
                                                               .searchComicsModel!

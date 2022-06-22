@@ -1,12 +1,10 @@
 import 'dart:io';
 
 import 'package:bottom_bar_page_transition/bottom_bar_page_transition.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
@@ -17,30 +15,35 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/Designs/update_alert_dialog.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/home/presentation/home.dart';
+import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/vault/vault.dart';
 
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
+import 'package:upgrader/upgrader.dart';
 
 import '../../market/presentation/market.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 
 String? token;
 
+late String routeToGo = '/';
+
 class ControllerPage extends StatefulWidget {
-  ControllerPage({Key? key}) : super(key: key);
+  const ControllerPage({Key? key}) : super(key: key);
 
   @override
   State<ControllerPage> createState() => _ControllerPageState();
 }
 
 class _ControllerPageState extends State<ControllerPage> {
+  late int productId;
   PostData? postData;
 
   List<String> names = [
     'Home',
     'Market',
-    'Vault',
+    'My Vault',
   ];
 
   List<IconData> icons = [
@@ -58,7 +61,7 @@ class _ControllerPageState extends State<ControllerPage> {
   AppUpdate? appUpdate;
   GetData? getData;
 
-  FirebaseMessaging _messaging = FirebaseMessaging.instance;
+  final FirebaseMessaging _messaging = FirebaseMessaging.instance;
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
@@ -72,28 +75,32 @@ class _ControllerPageState extends State<ControllerPage> {
     getData!.getUserInfo();*/
     appUpdate!.getUpdateInfo();
     super.initState();
+    initPlatformState();
     getToken();
     initMessaging();
-    initPlatformState();
 
     //mode = prefs!.getInt('mode');
     print('Color Mode Cont: ' + mode.toString());
-
   }
 
   Future<void> _firebaseMsg(RemoteMessage message) async {
-    print("Handling a background message : ${message.messageId}");
+    print("Handling a background message : ${message.data}");
+
+    productId = int.tryParse(message.data["id"]) ?? 0;
+
+    message.data["type"] == 0
+        ? Get.to(() => CollectibleDetails(
+              productId: productId,
+            ))
+        : Get.to(() => ComicDetails(
+              productId: productId,
+            ));
   }
 
   Future<void> initPlatformState() async {
     WidgetsFlutterBinding.ensureInitialized();
     FirebaseMessaging.onBackgroundMessage(_firebaseMsg);
     await Firebase.initializeApp();
-
-    print("Device Token:" + token!);
-    var body = {"fcm_device_id": token};
-
-    //postData!.updateProfile(context, body);
   }
 
   Future<bool> _willPopCallback() async {
@@ -163,7 +170,7 @@ class _ControllerPageState extends State<ControllerPage> {
                           ],
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'No',
                             style: TextStyle(color: AppColors.textColor),
@@ -189,7 +196,7 @@ class _ControllerPageState extends State<ControllerPage> {
                           ],
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'Yes',
                             style: TextStyle(color: AppColors.textColor),
@@ -220,20 +227,27 @@ class _ControllerPageState extends State<ControllerPage> {
           children: [
             Scaffold(
                 backgroundColor: AppColors.backgroundColor,
-                body: BottomBarPageTransition(
-                  builder: (_, index) => getBody(index),
-                  currentIndex: ControllerPageController.to.currentPage.value,
-                  totalLength:
-                      ControllerPageController.to.bottomBarData!.length,
-                  transitionType: transitionType,
-                  transitionDuration: duration,
-                  transitionCurve: curve,
+                body: UpgradeAlert(
+                  upgrader: Upgrader(
+                    debugDisplayAlways: false,
+                    showIgnore: false,
+
+                  ),
+                  child: BottomBarPageTransition(
+                    builder: (_, index) => getBody(index),
+                    currentIndex: ControllerPageController.to.currentPage.value,
+                    totalLength:
+                        ControllerPageController.to.bottomBarData!.length,
+                    transitionType: transitionType,
+                    transitionDuration: duration,
+                    transitionCurve: curve,
+                  ),
                 ),
                 bottomNavigationBar: SizedBox(
                   //height: 65,
                   child: getBottomBar(),
                 )),
-            Positioned(
+            /*Positioned(
               left: 0,
               right: 0,
               child: Consumer<AppUpdate>(builder: (context, data, child) {
@@ -246,7 +260,7 @@ class _ControllerPageState extends State<ControllerPage> {
                         : Container())
                     : Container();
               }),
-            ),
+            ),*/
           ],
         ),
       );
@@ -259,7 +273,7 @@ class _ControllerPageState extends State<ControllerPage> {
     } else if (index == 1) {
       return const Market();
     } else {
-      return Vault();
+      return const Vault();
     }
   }
 
@@ -280,7 +294,7 @@ class _ControllerPageState extends State<ControllerPage> {
         selectedFontSize: 12,
         unselectedFontSize: 12,
         selectedItemColor: AppColors.iconColor,
-        unselectedItemColor: AppColors.iconColor,
+        unselectedItemColor: AppColors.textColor,
         showUnselectedLabels: true,
         items: List.generate(
           ControllerPageController.to.bottomBarData!.length,
@@ -296,31 +310,71 @@ class _ControllerPageState extends State<ControllerPage> {
   void getToken() {
     _messaging.getToken().then((value) {
       token = value;
+
+      print("Device Token:" + token!);
+      var body = {"fcm_device_id": token!};
+      Map<String, String> requestHeadersWithToken = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'token ${prefs!.getString('token')}',
+      };
+      postData!.updateFCMToken(context, body, requestHeadersWithToken);
     });
   }
 
   void initMessaging() {
+    DidReceiveLocalNotificationCallback? onDidReceiveLocalNotification;
     var androidInit =
         const AndroidInitializationSettings('assets/media/icon/logo v.png');
-    var iosInit = IOSInitializationSettings();
+    final IOSInitializationSettings iosInit =
+    IOSInitializationSettings(
+      requestSoundPermission: true,
+      requestBadgePermission: true,
+      requestAlertPermission: true,
+      onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+    );
     var initSetting =
         InitializationSettings(android: androidInit, iOS: iosInit);
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.initialize(initSetting);
-    var androidDetails = const AndroidNotificationDetails('1', 'Default',
-        channelDescription: "Channel Description",
-        importance: Importance.high,
-        priority: Priority.high);
-    var iosDetails = IOSNotificationDetails();
+    var androidDetails = const AndroidNotificationDetails(
+      '1',
+      'Default',
+      channelDescription: "Channel Description",
+      importance: Importance.high,
+      priority: Priority.high,
+      playSound: true,
+    );
+    var iosDetails = const IOSNotificationDetails();
+
     var generalNotificationDetails =
         NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+    ///On Message
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      printInfo(info: "On Message: " + message.data.toString());
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
+
       if (notification != null && android != null) {
         flutterLocalNotificationsPlugin.show(notification.hashCode,
             notification.title, notification.body, generalNotificationDetails);
       }
+    });
+
+    ///On Message Open
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      print("onMessageOpenedApp: ${message.data}");
+      productId = int.tryParse(message.data["id"]) ?? 0;
+      print("onMessageOpenedApp Product Id: " + productId.toString());
+
+      message.data["type"] == 0
+          ? Get.to(() => CollectibleDetails(
+                productId: productId,
+              ))
+          : Get.to(() => ComicDetails(
+                productId: productId,
+              ));
     });
   }
 }

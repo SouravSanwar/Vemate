@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
@@ -28,7 +29,7 @@ class _NewsDetailsState extends State<NewsDetails> {
         backgroundColor: AppColors.backgroundColor,
         title: Text(
           news!.title.toString(),
-          style: Get.textTheme.bodyLarge!.copyWith(color: AppColors.textColor,fontSize: 20),
+          style: Get.textTheme.bodyLarge!.copyWith(color: AppColors.textColor,fontSize: 20.sp),
         ),
       ),
       body: Padding(

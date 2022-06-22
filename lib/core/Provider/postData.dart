@@ -138,30 +138,30 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future verifyCode(BuildContext context, var body) async {
-    showDialog(
+    /*showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const LoadingExample());
+        builder: (_) => const LoadingExample());*/
 
     printInfo(info: body.toString());
 
-    final response = await http.post(Uri.parse(Urls.verifyCode),
-        body: json.encode(body), headers: requestHeaders);
+   /* final response = await http.post(Uri.parse(Urls.verifyCode),
+        body: json.encode(body), headers: requestHeaders);*/
 
-    var x = json.decode(response.body);
+   // var x = json.decode(response.body);
+    Get.to(() => const AuthInitialPage());
 
     //printInfo(info: response.body.toString());
 
-    Map<String, dynamic> js = x;
 
-    if (response.statusCode == 200 ||
+/*    if (response.statusCode == 200 ||
         response.statusCode == 401 ||
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
-      Get.to(() => const AuthInitialPage());
+
       try {
-        /*if (x['code'] == 'True') {
+        if (x['code'] == 'True') {
 
           Flushbar(
               flushbarPosition: FlushbarPosition.BOTTOM,
@@ -183,8 +183,9 @@ class PostData extends ChangeNotifier with BaseController {
                 "Invalid Information",
                 style: TextStyle(fontSize: 16.0, color: Colors.green),
               ))
-            .show(context);
-        }*/
+              .show(context);
+        }
+
       } catch (e) {
         Navigator.of(context).pop();
         Flushbar(
@@ -197,7 +198,10 @@ class PostData extends ChangeNotifier with BaseController {
             )).show(context);
         return response.body;
       }
-    } else {
+    }
+    else {
+      var x = json.decode(response.body);
+      Map<String, dynamic> js = x;
       Navigator.of(context).pop();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
@@ -207,7 +211,7 @@ class PostData extends ChangeNotifier with BaseController {
             js['code'][0].toString(),
             style: const TextStyle(fontSize: 16.0, color: Colors.red),
           )).show(context);
-    }
+    }*/
   }
 
   Future forgotPassword(BuildContext context, var body) async {
@@ -463,17 +467,19 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future updateProfile(
-      BuildContext context, var body) async {
+      BuildContext context, var body, var requestHeadersWithToken) async {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingExample());
 
-    final response = await BaseClient().post(Urls.updateUserInfo, body);
+    printInfo(info: body.toString());
 
-    printInfo(info: response.toString());
-
-    var x = json.decode(response);
+    final response = await http.patch(Uri.parse(Urls.updateUserInfo),
+        body: json.encode(body), headers: requestHeadersWithToken);
+    print(response.body.toString());
+    print(requestHeadersWithToken.toString());
+    var x = json.decode(response.body);
 
     Map<String, dynamic> js = x;
     if (js['is_email_verified'] == true) {
@@ -506,6 +512,19 @@ class PostData extends ChangeNotifier with BaseController {
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }
+    notifyListeners();
+  }
+
+  Future updateFCMToken(
+      BuildContext context, var body, var requestHeadersWithToken) async {
+    printInfo(info: body.toString());
+
+    final response = await http.patch(Uri.parse(Urls.updateUserInfo),
+        body: json.encode(body), headers: requestHeadersWithToken);
+    var x = json.decode(response.body);
+
+    Map<String, dynamic> js = x;
+    if (js['is_email_verified'] == true) {}
     notifyListeners();
   }
 
@@ -640,11 +659,12 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future deleteWishlist(BuildContext context, int? id, var requestToken) async {
-    showDialog(
+  Future deleteWishlist(
+      BuildContext context, int? id, var requestToken, int index) async {
+    /*showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const LoadingExample());
+        builder: (_) => const LoadingExample());*/
 
     final response = await http.delete(Uri.parse(Urls.commonStorage + '$id/'),
         headers: requestToken);
@@ -652,10 +672,24 @@ class PostData extends ChangeNotifier with BaseController {
     printInfo(info: response.statusCode.toString());
     printInfo(info: Urls.commonStorage + '$id/');
 
+    getData = Provider.of<GetData>(context, listen: false);
     if (response.statusCode == 204) {
-      Navigator.of(context).pop();
-      getData = Provider.of<GetData>(context, listen: false);
-      await getData!.getWishList();
+      getData!.getWishList();
+      /*Flushbar(
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              isDismissible: false,
+              duration: const Duration(seconds: 3),
+              messageText: const Text(
+                "Success",
+                style: TextStyle(fontSize: 16.0, color: Colors.green),
+              )).show(context);*/
+    }
+
+    //var x = json.decode(response.body);
+
+    /*if (x.statusCode == 204) {
+     */ /* getData = Provider.of<GetData>(context, listen: false);
+      await getData!.getWishList();*/ /*
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
@@ -676,8 +710,7 @@ class PostData extends ChangeNotifier with BaseController {
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
       Navigator.pop(context);
-    }
-    notifyListeners();
+    }*/
   }
 
   Future deleteSetList(BuildContext context, int? id, var requestToken) async {
@@ -727,8 +760,10 @@ class PostData extends ChangeNotifier with BaseController {
 
     printInfo(info: body.toString());
 
+    getData = Provider.of<GetData>(context, listen: false);
+
     final response =
-        await BaseClient().post(Urls.creteAlert, body).catchError(handleError);
+        await BaseClient().post(Urls.alert, body).catchError(handleError);
 
     var data = json.decode(response);
 
@@ -738,13 +773,16 @@ class PostData extends ChangeNotifier with BaseController {
     if (js.containsKey('id')) {
       Navigator.of(context).pop();
       Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Created Successfully",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+        flushbarPosition: FlushbarPosition.BOTTOM,
+        isDismissible: false,
+        duration: const Duration(seconds: 3),
+        messageText: const Text(
+          "Created Successfully",
+          style: TextStyle(fontSize: 16.0, color: Colors.green),
+        ),
+      ).show(context).whenComplete(
+            () => getData!.getWishList(),
+          );
     } else {
       Navigator.of(context).pop();
       Flushbar(
@@ -755,6 +793,57 @@ class PostData extends ChangeNotifier with BaseController {
             "Invalid Information",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
+    }
+    notifyListeners();
+  }
+
+  Future deleteAlert(BuildContext context, int? id, var requestToken) async {
+
+    getData = Provider.of<GetData>(context, listen: false);
+
+    final response = await http.delete(Uri.parse(Urls.alert + '$id/'),
+        headers: requestToken);
+
+    printInfo(info: response.statusCode.toString());
+    printInfo(info: Urls.alert + '$id/');
+
+    if (response.statusCode == 204) {
+      Navigator.of(context).pop();
+      getData!.getWishList();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Success",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    } else {
+      Navigator.of(context).pop();
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 3),
+          messageText: const Text(
+            "Something went wrong",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
+    }
+
+    notifyListeners();
+  }
+
+  Future notificationRead(
+      BuildContext context, int? id, var requestToken) async {
+    printInfo(info: 'URL: ' + Urls.notification + '$id/make_read_with_id/');
+    final response = await http.post(
+        Uri.parse(Urls.notification + '$id/make_read_with_id/'),
+        headers: requestToken);
+    print("RESPONSE" + response.statusCode.toString());
+    if (response.statusCode == 200) {
+      getData = Provider.of<GetData>(context, listen: false);
+
+      getData!.getNotification();
     }
     notifyListeners();
   }

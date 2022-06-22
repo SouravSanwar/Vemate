@@ -1,45 +1,45 @@
-import 'package:intl/intl.dart';
-import 'package:ketemaa/core/utilities/urls/urls.dart';
+class New {
+  New({
+      this.id, 
+      this.brand, 
+      this.graph, 
+      this.graphType, 
+      this.priceChangePercent, 
+      this.image, 
+      this.type, 
+      this.name, 
+      this.description, 
+      this.listing, 
+      this.floorPrice, 
+      this.owner, 
+      this.edition, 
+      this.dropDate, 
+      this.listPrice, 
+      this.editions, 
+      this.editionType, 
+      this.season, 
+      this.rarity, 
+      this.license, 
+      this.series, 
+      this.coverVariant, 
+      this.coverArtist, 
+      this.publisher, 
+      this.issue, 
+      this.pages, 
+      this.startYear, 
+      this.writers, 
+      this.artists, 
+      this.characters, 
+      this.creationTime, 
+      this.updateTime, 
+      this.parent,});
 
-class SingleProductModel {
-  SingleProductModel({
-    this.id,
-    this.brand,
-    this.graph,
-    this.image,
-    this.type,
-    this.name,
-    this.description,
-    this.listing,
-    this.floorPrice,
-    this.owner,
-    this.edition,
-    this.dropDate,
-    this.listPrice,
-    this.editions,
-    this.editionType,
-    this.season,
-    this.rarity,
-    this.license,
-    this.series,
-    this.coverVariant,
-    this.coverArtist,
-    this.publisher,
-    this.issue,
-    this.pages,
-    this.startYear,
-    this.writers,
-    this.artists,
-    this.characters,
-    this.creationTime,
-    this.updateTime,
-    this.parent,
-    this.graphType,
-  });
-
-  SingleProductModel.fromJson(dynamic json) {
+  New.fromJson(dynamic json) {
     id = json['id'];
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
+    graph = json['graph'];
+    graphType = json['graph_type'];
+    priceChangePercent = json['price_change_percent'] != null ? PriceChangePercent.fromJson(json['price_change_percent']) : null;
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
     type = json['type'];
     name = json['name'];
@@ -51,7 +51,7 @@ class SingleProductModel {
     dropDate = json['drop_date'];
     listPrice = json['list_price'];
     editions = json['editions'];
-    editionType = json['edition_type'] ?? '';
+    editionType = json['edition_type'];
     season = json['season'];
     rarity = json['rarity'];
     license = json['license'];
@@ -68,25 +68,12 @@ class SingleProductModel {
     creationTime = json['creation_time'];
     updateTime = json['update_time'];
     parent = json['parent'];
-    graphType = json['graph_type'];
-
-    if (json['graph'] != null) {
-      graph = [];
-      json['graph'].forEach((v) {
-        graph?.add(Graph.fromJson(v));
-      });
-    }
-
-    final Map<String, Graph> graphMap = {};
-    for (var item in graph!) {
-      graphMap[item.date!] = item;
-    }
-    graph = graphMap.values.toList();
   }
-
   int? id;
   Brand? brand;
-  List<Graph>? graph;
+  dynamic graph;
+  dynamic graphType;
+  PriceChangePercent? priceChangePercent;
   Image? image;
   int? type;
   String? name;
@@ -95,34 +82,37 @@ class SingleProductModel {
   String? floorPrice;
   String? owner;
   String? edition;
-  dynamic dropDate;
-  dynamic listPrice;
-  dynamic editions;
-  dynamic editionType;
-  dynamic season;
+  String? dropDate;
+  String? listPrice;
+  String? editions;
+  String? editionType;
+  String? season;
   String? rarity;
-  dynamic license;
-  dynamic series;
-  String? coverVariant;
-  String? coverArtist;
-  String? publisher;
-  String? issue;
-  String? pages;
-  String? startYear;
-  String? writers;
-  String? artists;
-  String? characters;
+  String? license;
+  String? series;
+  dynamic coverVariant;
+  dynamic coverArtist;
+  dynamic publisher;
+  dynamic issue;
+  dynamic pages;
+  dynamic startYear;
+  dynamic writers;
+  dynamic artists;
+  dynamic characters;
   String? creationTime;
   String? updateTime;
-  String? graphType;
   dynamic parent;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
-    map['brand'] = brand;
-    if (graph != null) {
-      map['graph'] = graph?.map((v) => v.toJson()).toList();
+    if (brand != null) {
+      map['brand'] = brand?.toJson();
+    }
+    map['graph'] = graph;
+    map['graph_type'] = graphType;
+    if (priceChangePercent != null) {
+      map['price_change_percent'] = priceChangePercent?.toJson();
     }
     if (image != null) {
       map['image'] = image?.toJson();
@@ -153,24 +143,21 @@ class SingleProductModel {
     map['characters'] = characters;
     map['creation_time'] = creationTime;
     map['update_time'] = updateTime;
-    map['graph_type'] = graphType;
     map['parent'] = parent;
     return map;
   }
+
 }
 
 class Image {
   Image({
-    this.original,
-    this.detail,
-  });
+      this.original, 
+      this.detail,});
 
   Image.fromJson(dynamic json) {
-    original =
-        json['original'] != null ? Original.fromJson(json['original']) : null;
+    original = json['original'] != null ? Original.fromJson(json['original']) : null;
     detail = json['detail'] != null ? Detail.fromJson(json['detail']) : null;
   }
-
   Original? original;
   Detail? detail;
 
@@ -184,23 +171,22 @@ class Image {
     }
     return map;
   }
+
 }
 
 class Detail {
   Detail({
-    this.src,
-    this.width,
-    this.height,
-    this.alt,
-  });
+      this.src, 
+      this.width, 
+      this.height, 
+      this.alt,});
 
   Detail.fromJson(dynamic json) {
-    src = Urls.mainUrl + json['src'];
+    src = json['src'];
     width = json['width'];
     height = json['height'];
     alt = json['alt'];
   }
-
   String? src;
   int? width;
   int? height;
@@ -214,23 +200,22 @@ class Detail {
     map['alt'] = alt;
     return map;
   }
+
 }
 
 class Original {
   Original({
-    this.src,
-    this.width,
-    this.height,
-    this.alt,
-  });
+      this.src, 
+      this.width, 
+      this.height, 
+      this.alt,});
 
   Original.fromJson(dynamic json) {
-    src = Urls.mainUrl + json['src'];
+    src = json['src'];
     width = json['width'];
     height = json['height'];
     alt = json['alt'];
   }
-
   String? src;
   int? width;
   int? height;
@@ -244,53 +229,39 @@ class Original {
     map['alt'] = alt;
     return map;
   }
+
 }
 
-class Graph {
-  Graph({
-    this.floorPrice,
-    this.creationTime,
-    this.date,
-    this.hourWiseTime,
-    this.dayWiseTime,
-  });
+class PriceChangePercent {
+  PriceChangePercent({
+      this.changePercent, 
+      this.sign,});
 
-  Graph.fromJson(dynamic json) {
-    floorPrice = json['floor_price'];
-    creationTime = json['creation_time'];
-    date = json['date'];
-    if (date != null) {
-      hourWiseTime = DateFormat('hh a').format(DateTime.parse(date!));
-      dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
-    }
+  PriceChangePercent.fromJson(dynamic json) {
+    changePercent = json['change_percent'];
+    sign = json['sign'];
   }
-
-  double? floorPrice;
-  String? creationTime;
-  String? date;
-  String? hourWiseTime;
-  String? dayWiseTime;
+  double? changePercent;
+  String? sign;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['floor_price'] = floorPrice;
-    map['creation_time'] = creationTime;
-    map['date'] = date;
+    map['change_percent'] = changePercent;
+    map['sign'] = sign;
     return map;
   }
+
 }
 
 class Brand {
   Brand({
-    this.id,
-    this.name,
-  });
+      this.id, 
+      this.name,});
 
   Brand.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
   }
-
   int? id;
   String? name;
 
@@ -300,4 +271,5 @@ class Brand {
     map['name'] = name;
     return map;
   }
+
 }
