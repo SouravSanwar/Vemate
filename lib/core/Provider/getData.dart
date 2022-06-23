@@ -195,6 +195,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     singleProductModel = SingleProductModel.fromJson(data);
 
+    //singleProductModel!.graph!.removeAt(0);
     notifyListeners();
   }
 

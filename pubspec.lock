@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.29"
+  app_upgrade_flutter_sdk:
+    dependency: "direct main"
+    description:
+      name: app_upgrade_flutter_sdk
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   archive:
     dependency: transitive
     description:

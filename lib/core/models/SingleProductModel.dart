@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:ketemaa/core/utilities/urls/urls.dart';
 
 class SingleProductModel {
   SingleProductModel({
@@ -75,6 +76,12 @@ class SingleProductModel {
         graph?.add(Graph.fromJson(v));
       });
     }
+
+    final Map<String, Graph> graphMap = {};
+    for (var item in graph!) {
+      graphMap[item.date!] = item;
+    }
+    graph = graphMap.values.toList();
   }
 
   int? id;
@@ -155,12 +162,15 @@ class SingleProductModel {
 class Image {
   Image({
     this.original,
-    this.detail,});
+    this.detail,
+  });
 
   Image.fromJson(dynamic json) {
-    original = json['original'] != null ? Original.fromJson(json['original']) : null;
+    original =
+        json['original'] != null ? Original.fromJson(json['original']) : null;
     detail = json['detail'] != null ? Detail.fromJson(json['detail']) : null;
   }
+
   Original? original;
   Detail? detail;
 
@@ -174,7 +184,6 @@ class Image {
     }
     return map;
   }
-
 }
 
 class Detail {
@@ -182,14 +191,16 @@ class Detail {
     this.src,
     this.width,
     this.height,
-    this.alt,});
+    this.alt,
+  });
 
   Detail.fromJson(dynamic json) {
-    src = 'https://market.vemate.com'+json['src'];
+    src = Urls.mainUrl + json['src'];
     width = json['width'];
     height = json['height'];
     alt = json['alt'];
   }
+
   String? src;
   int? width;
   int? height;
@@ -203,7 +214,6 @@ class Detail {
     map['alt'] = alt;
     return map;
   }
-
 }
 
 class Original {
@@ -211,14 +221,16 @@ class Original {
     this.src,
     this.width,
     this.height,
-    this.alt,});
+    this.alt,
+  });
 
   Original.fromJson(dynamic json) {
-    src = 'https://market.vemate.com'+json['src'];
+    src = Urls.mainUrl + json['src'];
     width = json['width'];
     height = json['height'];
     alt = json['alt'];
   }
+
   String? src;
   int? width;
   int? height;
@@ -232,7 +244,6 @@ class Original {
     map['alt'] = alt;
     return map;
   }
-
 }
 
 class Graph {
@@ -241,7 +252,8 @@ class Graph {
     this.creationTime,
     this.date,
     this.hourWiseTime,
-    this.dayWiseTime,});
+    this.dayWiseTime,
+  });
 
   Graph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
@@ -252,6 +264,7 @@ class Graph {
       dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
     }
   }
+
   double? floorPrice;
   String? creationTime;
   String? date;
@@ -265,9 +278,7 @@ class Graph {
     map['date'] = date;
     return map;
   }
-
 }
-
 
 class Brand {
   Brand({

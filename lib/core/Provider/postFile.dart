@@ -126,7 +126,6 @@ class PostFile extends ChangeNotifier {
     print('New Body: $body');
     //bool loading = false;
     var uri = Uri.parse(url!);
-
     if (method == Method.POST) {
       request = http.MultipartRequest("POST", uri)
         ..fields.addAll(body!)
