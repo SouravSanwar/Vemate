@@ -145,8 +145,8 @@ class PostData extends ChangeNotifier with BaseController {
 
     printInfo(info: body.toString());
 
-   /* final response = await http.post(Uri.parse(Urls.verifyCode),
-        body: json.encode(body), headers: requestHeaders);*/
+    final response = await http.post(Uri.parse(Urls.verifyCode),
+        body: json.encode(body), headers: requestHeaders);
 
    // var x = json.decode(response.body);
     Get.to(() => const AuthInitialPage());
