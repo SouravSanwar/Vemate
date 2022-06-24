@@ -63,7 +63,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                     color: const Color(0xff454F70),
                   ),
                 ),
-                child: widget.list![index].image!.image_on_list == null
+                child: widget.list![index].image == null
                     ? Text(
                         widget.list![index].name.toString()[0].toUpperCase(),
                         style: TextStyle(

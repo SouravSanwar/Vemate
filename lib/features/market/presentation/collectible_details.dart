@@ -98,8 +98,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                         border: Border.all(
                                             color: AppColors.primaryColor)),
                                     alignment: Alignment.center,
-                                    child: data.singleProductModel!.image!.original ==null ? Text(
-                                      data.singleProductModel!.image!.original!.src.toString()[0]
+                                    child: data.singleProductModel!.image ==null ? Text(
+                                      data.singleProductModel!.name
+                                          .toString()[0]
                                           .toUpperCase(),
                                       style: const TextStyle(
                                           color: Colors.deepPurpleAccent,

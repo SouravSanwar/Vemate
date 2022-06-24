@@ -95,12 +95,10 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         color: AppColors.primaryColor)),
                                 alignment: Alignment.center,
                                 child:
-                                    data.singleProductModel!.image!.original ==
+                                    data.singleProductModel!.image ==
                                             null
                                         ? Text(
-                                            data.singleProductModel!.image!
-                                                .original!.src
-                                                .toString()[0]
+                                      data.singleProductModel!.name.toString()[0]
                                                 .toUpperCase(),
                                             style: const TextStyle(
                                                 color: Colors.deepPurpleAccent,

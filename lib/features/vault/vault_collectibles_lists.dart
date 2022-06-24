@@ -132,9 +132,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                     .setListModel!
                                                     .results![index]
                                                     .setProductDetail!
-                                                    .image!
-                                                    .image_on_list ==
-                                                null
+                                                    .image == null
                                             ? Text(
                                                 data
                                                     .setListModel!
