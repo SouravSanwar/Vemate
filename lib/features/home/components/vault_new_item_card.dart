@@ -14,11 +14,12 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../core/utilities/app_colors/app_colors.dart';
 
 class VaultNewItemCard extends StatefulWidget {
-  List<Results>? list;
+  final List<Results>? list;
 
-  VaultNewItemCard({
+  const VaultNewItemCard({
+    Key? key,
     this.list,
-  });
+  }) : super(key: key);
 
   @override
   State<VaultNewItemCard> createState() => _VaultNewItemCardState();
@@ -33,14 +34,14 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 0,
         right: 0,
       ),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        itemCount: 10,
+        itemCount: widget.list!.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: EdgeInsets.only(
@@ -56,182 +57,200 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
               child: Container(
                 width: Get.width * .37,
                 decoration: BoxDecoration(
-                    gradient: AppColors.cardGradient,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: const Color(0xff454F70))),
-                child: widget.list![index].image!.image_on_list==null ?Text(
-                  widget.list![index].name
-                      .toString()[0]
-                      .toUpperCase(),
-                  style: TextStyle(
-                      color: AppColors.backgroundColor,
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold),
-                )
-                    :CachedNetworkImage(
-                  placeholder: _loader,
-                  imageUrl: widget.list![index].image!.image_on_list!.src.toString(),
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Container(
-                      alignment: Alignment.bottomCenter,
-                      child: GlassContainer(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      alignment: Alignment.bottomCenter,
-                      height: Get.height*.095,
-                      width: Get.width * .37,
-
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.white.withOpacity(0.40),
-                          Colors.white.withOpacity(0.10),
-                        ],
-                      ),
-                      borderGradient: AppColors.cardGradient,
-                      blur: 0,
-                      isFrostedGlass: true,
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          AppSpaces.spaces_height_2,
-                          Text(
-                            widget.list![index].name.toString(),
-                            textAlign: TextAlign.center,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Get.textTheme.bodyText2!.copyWith(
-                                color: AppColors.textColor,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12.sp),
-                          ),
-                          Divider(
-                            color: AppColors.white,
-                          ),
-                          SizedBox(
-                            width: Get.width,
-                            height: Get.height*.035,
-                            child: SfCartesianChart(
-                              plotAreaBorderWidth: 0,
-                              primaryXAxis: CategoryAxis(
-                                isVisible: false,
-                                majorGridLines: const MajorGridLines(width: 0),
-                                labelIntersectAction: AxisLabelIntersectAction.hide,
-                                labelRotation: 270,
-                                labelAlignment: LabelAlignment.start,
-                                maximumLabels: 7,
-                              ),
-                              primaryYAxis: CategoryAxis(
-                                isVisible: false,
-                                majorGridLines: const MajorGridLines(width: 0),
-                                labelIntersectAction: AxisLabelIntersectAction.hide,
-                                labelRotation: 0,
-                                labelAlignment: LabelAlignment.start,
-                                maximumLabels: 10,
-                              ),
-                              tooltipBehavior: TooltipBehavior(enable: true),
-                              series: <ChartSeries<Graph, String>>[
-                                LineSeries<Graph, String>(
-                                  color:
-                                  widget.list![index].priceChangePercent!.sign ==
-                                      'decrease'
-                                      ? Colors.red
-                                      : Colors.green,
-                                  dataSource: widget.list![index].graph!,
-                                  xValueMapper: (Graph plot, _) => plot.date,
-                                  yValueMapper: (Graph plot, _) => plot.floorPrice,
-                                  xAxisName: 'Duration',
-                                  yAxisName: 'Total',
-                                )
-                              ],
-                            ),
-                          ),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  r"$" +
-                                      widget.list![index].priceChangePercent!
-                                          .percent
-                                          .toString(),
-                                  textAlign: TextAlign.start,
-                                  style: Get.textTheme.bodyText2!.copyWith(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12.sp),
-                                ),
-                              ),
-                              Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      widget.list![index].priceChangePercent!
-                                          .percent <
-                                          0.0
-                                          ? widget.list![index]
-                                          .priceChangePercent!.percent
-                                          .toString()
-                                          : "+" +
-                                          widget.list![index]
-                                              .priceChangePercent!.percent
-                                              .toString(),
-                                      textAlign: TextAlign.end,
-                                      style: Get.textTheme.bodyText1!.copyWith(
-                                          color: widget
-                                              .list![index]
-                                              .priceChangePercent!
-                                              .percent <
-                                              0.0
-                                              ? Colors.red
-                                              : Colors.green,
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 12.sp),
-                                    ),
-                                    if (widget.list![index].priceChangePercent!
-                                        .percent <
-                                        0.0)
-                                      const Icon(
-                                        Icons.arrow_downward,
-                                        color: Colors.red,
-                                        size: 14,
-                                      )
-                                    else
-                                      const Icon(
-                                        Icons.arrow_upward,
-                                        color: Colors.green,
-                                        size: 14,
-                                      )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      ),
-                    )
+                  gradient: AppColors.cardGradient,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: const Color(0xff454F70),
                   ),
                 ),
+                child: widget.list![index].image!.image_on_list == null
+                    ? Text(
+                        widget.list![index].name.toString()[0].toUpperCase(),
+                        style: TextStyle(
+                            color: AppColors.backgroundColor,
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold),
+                      )
+                    : CachedNetworkImage(
+                        imageUrl: widget.list![index].image!.image_on_list!.src
+                            .toString(),
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          child: Container(
+                            alignment: Alignment.bottomCenter,
+                            child: GlassContainer(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              alignment: Alignment.bottomCenter,
+                              height: Get.height * .11.h,
+                              width: Get.width * .37,
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.white.withOpacity(0.40),
+                                  Colors.white.withOpacity(0.10),
+                                ],
+                              ),
+                              borderGradient: AppColors.cardGradient,
+                              blur: 0,
+                              isFrostedGlass: true,
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    widget.list![index].name.toString(),
+                                    textAlign: TextAlign.center,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Get.textTheme.bodyText2!.copyWith(
+                                        color: AppColors.textColor,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12.sp),
+                                  ),
+                                  Divider(
+                                    color: AppColors.white,
+                                  ),
+                                  SizedBox(
+                                    width: Get.width,
+                                    height: Get.height * .035,
+                                    child: SfCartesianChart(
+                                      plotAreaBorderWidth: 0,
+                                      primaryXAxis: CategoryAxis(
+                                        isVisible: false,
+                                        majorGridLines:
+                                            const MajorGridLines(width: 0),
+                                        labelIntersectAction:
+                                            AxisLabelIntersectAction.hide,
+                                        labelRotation: 270,
+                                        labelAlignment: LabelAlignment.start,
+                                        maximumLabels: 7,
+                                      ),
+                                      primaryYAxis: CategoryAxis(
+                                        isVisible: false,
+                                        majorGridLines:
+                                            const MajorGridLines(width: 0),
+                                        labelIntersectAction:
+                                            AxisLabelIntersectAction.hide,
+                                        labelRotation: 0,
+                                        labelAlignment: LabelAlignment.start,
+                                        maximumLabels: 10,
+                                      ),
+                                      tooltipBehavior:
+                                          TooltipBehavior(enable: true),
+                                      series: <ChartSeries<Graph, String>>[
+                                        LineSeries<Graph, String>(
+                                          color: widget
+                                                      .list![index]
+                                                      .priceChangePercent!
+                                                      .sign ==
+                                                  'decrease'
+                                              ? Colors.red
+                                              : Colors.green,
+                                          dataSource:
+                                              widget.list![index].graph!,
+                                          xValueMapper: (Graph plot, _) =>
+                                              plot.date,
+                                          yValueMapper: (Graph plot, _) =>
+                                              plot.floorPrice,
+                                          xAxisName: 'Duration',
+                                          yAxisName: 'Total',
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          r"$" +
+                                              widget.list![index]
+                                                  .priceChangePercent!.percent
+                                                  .toString(),
+                                          textAlign: TextAlign.start,
+                                          style: Get.textTheme.bodyText2!
+                                              .copyWith(
+                                                  color: AppColors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12.sp),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              widget
+                                                          .list![index]
+                                                          .priceChangePercent!
+                                                          .percent <
+                                                      0.0
+                                                  ? widget
+                                                      .list![index]
+                                                      .priceChangePercent!
+                                                      .percent
+                                                      .toString()
+                                                  : "+" +
+                                                      widget
+                                                          .list![index]
+                                                          .priceChangePercent!
+                                                          .percent
+                                                          .toString(),
+                                              textAlign: TextAlign.end,
+                                              style: Get.textTheme.bodyText1!
+                                                  .copyWith(
+                                                      color: widget
+                                                                  .list![index]
+                                                                  .priceChangePercent!
+                                                                  .percent <
+                                                              0.0
+                                                          ? Colors.red
+                                                          : Colors.green,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      fontSize: 12.sp),
+                                            ),
+                                            if (widget
+                                                    .list![index]
+                                                    .priceChangePercent!
+                                                    .percent <
+                                                0.0)
+                                              const Icon(
+                                                Icons.arrow_downward,
+                                                color: Colors.red,
+                                                size: 14,
+                                              )
+                                            else
+                                              const Icon(
+                                                Icons.arrow_upward,
+                                                color: Colors.green,
+                                                size: 14,
+                                              )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
               ),
             ),
           );
         },
       ),
-    );
-  }
-  Widget _loader(BuildContext context, String url) {
-    return  ImageIcon(
-      AssetImage( 'assets/media/icon/logo v.png'),
-      color: Color(0xFF3A5A98),
     );
   }
 }

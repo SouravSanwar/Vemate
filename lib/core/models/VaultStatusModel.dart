@@ -19,8 +19,6 @@ class VaultStatsModel {
     sign = json['sign'] ?? '';
     totalPriceChange = json['total_price_change'] ?? '';
     totalPercentChange = json['total_percent_change'] ?? 0.0;
-    /*totalPercentChange =
-        double.parse(json['total_percent_change'].toString()).toPrecision(2);*/
     collectible = json['collectible'] != null
         ? Collectible.fromJson(json['collectible'])
         : null;

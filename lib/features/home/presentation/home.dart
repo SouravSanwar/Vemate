@@ -157,7 +157,7 @@ class _HomeState extends State<Home> {
                                               data.notificationListModel!
                                                   .totalUnread
                                                   .toString(),
-                                              style: TextStyle(fontSize: 8),
+                                              style: const TextStyle(fontSize: 10),
                                             ),
                                             badgeColor: Colors.redAccent,
                                             child: Icon(
@@ -199,6 +199,8 @@ class _HomeState extends State<Home> {
                                 ? data.newsModel!.results
                                 : null),
                         AppSpaces.spaces_height_10,
+
+                        ///My Vault
                         Padding(
                           padding: const EdgeInsets.only(
                               top: 10, bottom: 0, left: 15, right: 15),
@@ -212,6 +214,8 @@ class _HomeState extends State<Home> {
                         HomeVaultCard(
                           vaultStatsModel: data.vaultStatsModel,
                         ),
+
+                        ///Newest
                         Padding(
                           padding: const EdgeInsets.only(
                               top: 10, bottom: 10, left: 15, right: 15),

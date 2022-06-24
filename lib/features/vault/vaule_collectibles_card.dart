@@ -27,18 +27,15 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
           Get.to(
             () => const VaultCollectiblesLists(),
           );
-          /*Get.to(
-                                () => ChartExample(id: data.collectiblesModel!.results![index].id));*/
         },
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Container(
             width: Get.width,
             decoration: BoxDecoration(
-              gradient: AppColors.cardGradient,
-              borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: const Color(0xff454F70))
-            ),
+                gradient: AppColors.cardGradient,
+                borderRadius: BorderRadius.circular(12.0),
+                border: Border.all(color: const Color(0xff454F70))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -60,7 +57,8 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                         Text(
                           '\$' + widget.data!.totalCollectibleValue!.toString(),
                           style: TextStyle(
-                              color: AppColors.greyWhite, fontWeight: FontWeight.bold),
+                              color: AppColors.greyWhite,
+                              fontWeight: FontWeight.bold),
                         ),
                         AppSpaces.spaces_height_30,
                         Text(
@@ -71,8 +69,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                           ),
                         ),
                         AppSpaces.spaces_height_5,
-                        const Text(""
-                        ),
+                        const Text(""),
                         AppSpaces.spaces_height_10,
                       ],
                     ),
@@ -142,7 +139,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                         Row(
                           children: [
                             Text(
-                              '\$${widget.data!.changePrice != null ? widget.data!.changePrice.toStringAsFixed(2): "0.0"}',
+                              '\$${widget.data!.changePrice != null ? widget.data!.changePrice.toStringAsFixed(2) : "0.0"}',
                               style: TextStyle(
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold,
@@ -158,7 +155,8 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                   Text(
                                     widget.data!.changePercent != null
                                         ? widget.data!.changePercent
-                                            .toStringAsFixed(2)+ "%"
+                                                .toStringAsFixed(2) +
+                                            "%"
                                         : "0.0" "%",
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
