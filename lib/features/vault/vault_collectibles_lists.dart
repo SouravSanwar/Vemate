@@ -74,7 +74,9 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
         title: Text(
           "My Collectibles",
           style: TextStyle(
-              color: AppColors.textColor, fontSize: 20.sp, fontWeight: FontWeight.bold),
+              color: AppColors.textColor,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold),
         ),
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
@@ -87,20 +89,18 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                   itemCount: data.setListModel!.results!.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return data.setListModel!.results![index].productDetail!
+                    return data.setListModel!.results![index].setProductDetail!
                                 .type ==
                             0
                         ? InkWell(
                             onTap: () {
-                              /*Get.to(() => ChartExample(id: widget.list![index].id));*/
-
-                              data.setListModel!.results![index].productDetail!
+                              data.setListModel!.results![index].setProductDetail!
                                           .type ==
                                       1
                                   ? Get.to(() => () {})
                                   : Get.to(() => CollectibleDetails(
                                         productId: data.setListModel!
-                                            .results![index].productDetail!.id!,
+                                            .results![index].setProductDetail!.id!,
                                       ));
                             },
                             child: Padding(
@@ -110,7 +110,8 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                 decoration: BoxDecoration(
                                   gradient: AppColors.cardGradient,
                                   borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(color:AppColors.borderColor),
+                                  border:
+                                      Border.all(color: AppColors.borderColor),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
@@ -122,32 +123,57 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                         width: Get.height * .078,
                                         decoration: BoxDecoration(
                                             color: AppColors.backgroundColor,
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             border: Border.all(
                                                 color: AppColors.borderColor)),
                                         alignment: Alignment.center,
-                                        child: data.setListModel!.results![index].productDetail!.image!.image_on_list==null ?Text(
-                                          data.setListModel!.results![index].productDetail!.name
-                                              .toString()[0]
-                                              .toUpperCase(),
-                                          style: TextStyle(
-                                              color: AppColors.backgroundColor,
-                                              fontSize: 35,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                            :CachedNetworkImage(
-                                          imageUrl: data.setListModel!.results![index].productDetail!.image!.image_on_list!.src.toString(),
-                                          imageBuilder: (context, imageProvider) => Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover,
+                                        child: data
+                                                    .setListModel!
+                                                    .results![index]
+                                                    .setProductDetail!
+                                                    .image!
+                                                    .image_on_list ==
+                                                null
+                                            ? Text(
+                                                data
+                                                    .setListModel!
+                                                    .results![index]
+                                                    .setProductDetail!
+                                                    .name
+                                                    .toString()[0]
+                                                    .toUpperCase(),
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .backgroundColor,
+                                                    fontSize: 35,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            : CachedNetworkImage(
+                                                imageUrl: data
+                                                    .setListModel!
+                                                    .results![index]
+                                                    .setProductDetail!
+                                                    .image!
+                                                    .image_on_list!
+                                                    .src
+                                                    .toString(),
+                                                imageBuilder:
+                                                    (context, imageProvider) =>
+                                                        Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                placeholder: _loader,
                                               ),
-                                            ),
-                                          ),
-                                          placeholder: _loader,
-                                        ),
                                       ),
                                       AppSpaces.spaces_width_5,
                                       Expanded(
@@ -163,7 +189,10 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                     child: SizedBox(
                                                       height: Get.height * .02,
                                                       child: Text(
-                                                        data.setListModel!.results![index].productDetail!
+                                                        data
+                                                            .setListModel!
+                                                            .results![index]
+                                                            .setProductDetail!
                                                             .name
                                                             .toString(),
                                                         overflow: TextOverflow
@@ -173,11 +202,13 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                         style: Get.textTheme
                                                             .bodyText2!
                                                             .copyWith(
-                                                                color: AppColors.textColor,
+                                                                color: AppColors
+                                                                    .textColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
-                                                                fontSize: 13.sp),
+                                                                fontSize:
+                                                                    13.sp),
                                                       ),
                                                     )),
                                                 AppSpaces.spaces_width_2,
@@ -187,7 +218,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                       data
                                                           .setListModel!
                                                           .results![index]
-                                                          .productDetail!
+                                                          .setProductDetail!
                                                           .edition
                                                           .toString(),
                                                       textAlign:
@@ -195,7 +226,8 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                       style: Get
                                                           .textTheme.bodyText1!
                                                           .copyWith(
-                                                              color: AppColors.textColor,
+                                                              color: AppColors
+                                                                  .textColor,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -212,20 +244,20 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                     data
                                                                 .setListModel!
                                                                 .results![index]
-                                                                .productDetail!
+                                                                .setProductDetail!
                                                                 .type ==
                                                             1
                                                         ? data
                                                                     .setListModel!
                                                                     .results![
                                                                         index]
-                                                                    .productDetail!
+                                                                    .setProductDetail!
                                                                     .series !=
                                                                 null
                                                             ? data
                                                                 .setListModel!
                                                                 .results![index]
-                                                                .productDetail!
+                                                                .setProductDetail!
                                                                 .series
                                                                 .toString()
                                                             : ""
@@ -233,13 +265,13 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                     .setListModel!
                                                                     .results![
                                                                         index]
-                                                                    .productDetail!
+                                                                    .setProductDetail!
                                                                     .brand !=
                                                                 null
                                                             ? data
                                                                 .setListModel!
                                                                 .results![index]
-                                                                .productDetail!
+                                                                .setProductDetail!
                                                                 .brand!
                                                                 .name
                                                                 .toString()
@@ -248,7 +280,8 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.textColor,
+                                                            color: AppColors
+                                                                .textColor,
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 10.sp),
@@ -261,14 +294,15 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                     data
                                                         .setListModel!
                                                         .results![index]
-                                                        .productDetail!
+                                                        .setProductDetail!
                                                         .rarity
                                                         .toString(),
                                                     textAlign: TextAlign.start,
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.textColor,
+                                                            color: AppColors
+                                                                .textColor,
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10.sp),
@@ -286,14 +320,15 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                         data
                                                             .setListModel!
                                                             .results![index]
-                                                            .productDetail!
+                                                            .setProductDetail!
                                                             .floorPrice
                                                             .toString(),
                                                     textAlign: TextAlign.start,
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.textColor,
+                                                            color: AppColors
+                                                                .textColor,
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 11.sp),
@@ -303,12 +338,13 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                 Expanded(
                                                   flex: 2,
                                                   child: Text(
-                                                    '\$${data.setListModel!.results![index].productDetail!.priceChangePercent!.changePrice != null ? data.setListModel!.results![index].productDetail!.priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
+                                                    '\$${data.setListModel!.results![index].setProductDetail!.priceChangePercent!.changePrice != null ? data.setListModel!.results![index].setProductDetail!.priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
                                                     textAlign: TextAlign.start,
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.textColor,
+                                                            color: AppColors
+                                                                .textColor,
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 11.sp),
@@ -364,7 +400,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                     color: data
                                                                 .setListModel!
                                                                 .results![index]
-                                                                .productDetail!
+                                                                .setProductDetail!
                                                                 .priceChangePercent!
                                                                 .sign ==
                                                             'decrease'
@@ -373,14 +409,14 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                     dataSource: data
                                                         .setListModel!
                                                         .results![index]
-                                                        .productDetail!
+                                                        .setProductDetail!
                                                         .graph!,
                                                     xValueMapper:
                                                         (Graph plot, _) =>
-                                                            plot.hour,
+                                                            plot.date,
                                                     yValueMapper:
                                                         (Graph plot, _) =>
-                                                            plot.total,
+                                                            plot.floorPrice,
                                                     xAxisName: 'Duration',
                                                     yAxisName: 'Total',
                                                   )
@@ -401,7 +437,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                         data
                                                                 .setListModel!
                                                                 .results![index]
-                                                                .productDetail!
+                                                                .setProductDetail!
                                                                 .priceChangePercent!
                                                                 .percent!
                                                                 .toString() +
@@ -413,7 +449,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                         .setListModel!
                                                                         .results![
                                                                             index]
-                                                                        .productDetail!
+                                                                        .setProductDetail!
                                                                         .priceChangePercent!
                                                                         .sign ==
                                                                     'decrease'
@@ -426,7 +462,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                       if (data
                                                               .setListModel!
                                                               .results![index]
-                                                              .productDetail!
+                                                              .setProductDetail!
                                                               .priceChangePercent!
                                                               .sign ==
                                                           'decrease')
@@ -446,65 +482,91 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                 ),
                                                 InkWell(
                                                   onTap: () {
-
-
                                                     showDialog(
                                                         context: context,
                                                         builder: (context) {
                                                           return AlertDialog(
                                                             backgroundColor:
-                                                            AppColors.backgroundColor,
-                                                            shape: const RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius.all(
+                                                                AppColors
+                                                                    .backgroundColor,
+                                                            shape:
+                                                                const RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .all(
                                                                 Radius.circular(
                                                                   20.0,
                                                                 ),
                                                               ),
                                                             ),
                                                             contentPadding:
-                                                            const EdgeInsets.symmetric(
-                                                                horizontal: 20),
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20),
                                                             titlePadding:
-                                                            const EdgeInsets.symmetric(
-                                                                horizontal: 20,
-                                                                vertical: 10),
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        20,
+                                                                    vertical:
+                                                                        10),
                                                             title: Text(""),
                                                             content: Text(
                                                               'Do you really want to delete this item?',
                                                               style: TextStyle(
-                                                                  color: AppColors.textColor,
+                                                                  color: AppColors
+                                                                      .textColor,
                                                                   fontSize: 15),
                                                             ),
                                                             actions: <Widget>[
                                                               CustomButtons(
-                                                                width: Get.width * .2,
-                                                                height: Get.height * .05,
+                                                                width:
+                                                                    Get.width *
+                                                                        .2,
+                                                                height:
+                                                                    Get.height *
+                                                                        .05,
                                                                 onTap: () {
-                                                                  postData!.deleteSetList(
+                                                                  postData!
+                                                                      .deleteSetList(
                                                                     context,
-                                                                    data.setListModel!
-                                                                        .results![index].id,
+                                                                    data
+                                                                        .setListModel!
+                                                                        .results![
+                                                                            index]
+                                                                        .id,
                                                                     requestHeadersWithToken,
                                                                   );
-
                                                                 },
-                                                                text: 'Yes'.toUpperCase(),
-                                                                style: Get.textTheme.button!
+                                                                text: 'Yes'
+                                                                    .toUpperCase(),
+                                                                style: Get
+                                                                    .textTheme
+                                                                    .button!
                                                                     .copyWith(
-                                                                    color: AppColors
-                                                                        .textColor),
-
+                                                                        color: AppColors
+                                                                            .textColor),
                                                               ),
                                                               CustomButtons(
-                                                                width: Get.width * .2,
-                                                                height: Get.height * .05,
+                                                                width:
+                                                                    Get.width *
+                                                                        .2,
+                                                                height:
+                                                                    Get.height *
+                                                                        .05,
                                                                 onTap: () {
-                                                                  Navigator.pop(context);
+                                                                  Navigator.pop(
+                                                                      context);
                                                                 },
-                                                                text: 'Close'.toUpperCase(),
-                                                                style: Get.textTheme.button!
+                                                                text: 'Close'
+                                                                    .toUpperCase(),
+                                                                style: Get
+                                                                    .textTheme
+                                                                    .button!
                                                                     .copyWith(
-                                                                    color: AppColors.textColor),
+                                                                        color: AppColors
+                                                                            .textColor),
                                                               ),
                                                             ],
                                                           );
@@ -535,8 +597,8 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
   }
 
   Widget _loader(BuildContext context, String url) {
-    return  ImageIcon(
-      AssetImage( 'assets/media/icon/logo v.png'),
+    return ImageIcon(
+      AssetImage('assets/media/icon/logo v.png'),
       color: Color(0xFF3A5A98),
     );
   }

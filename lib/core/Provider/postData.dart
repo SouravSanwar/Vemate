@@ -145,14 +145,13 @@ class PostData extends ChangeNotifier with BaseController {
 
     printInfo(info: body.toString());
 
-   /* final response = await http.post(Uri.parse(Urls.verifyCode),
+    /* final response = await http.post(Uri.parse(Urls.verifyCode),
         body: json.encode(body), headers: requestHeaders);*/
 
-   // var x = json.decode(response.body);
+    // var x = json.decode(response.body);
     Get.to(() => const AuthInitialPage());
 
     //printInfo(info: response.body.toString());
-
 
 /*    if (response.statusCode == 200 ||
         response.statusCode == 401 ||
@@ -660,12 +659,11 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future deleteWishlist(
-      BuildContext context, int? id, var requestToken, int index) async {
-    /*showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (_) => const LoadingExample());*/
-
+    BuildContext context,
+    int? id,
+    var requestToken,
+    int index,
+  ) async {
     final response = await http.delete(Uri.parse(Urls.commonStorage + '$id/'),
         headers: requestToken);
 
@@ -733,11 +731,11 @@ class PostData extends ChangeNotifier with BaseController {
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
-          duration: const Duration(seconds: 3),
+          duration: const Duration(seconds: 1),
           messageText: const Text(
             "Success",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+          )).show(context).whenComplete(() => Get.back());
     } else {
       Navigator.of(context).pop();
       Flushbar(
@@ -798,7 +796,6 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future deleteAlert(BuildContext context, int? id, var requestToken) async {
-
     getData = Provider.of<GetData>(context, listen: false);
 
     final response = await http.delete(Uri.parse(Urls.alert + '$id/'),
