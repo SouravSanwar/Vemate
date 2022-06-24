@@ -150,7 +150,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                               onPressed: () {
                                 if (Platform.isAndroid) {
                                   _launchURL(
-                                      "https://play.google.com/store/apps/details?id=${VersionControl.packageInfo.packageName}");
+                                      "market://details?id=${VersionControl.packageInfo.packageName}");
                                 } else if (Platform.isIOS) {
                                   /*_launchURL(
                                       "https://apps.apple.com/gt/app/merchant-bay/id1590720968");*/
