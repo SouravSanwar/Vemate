@@ -53,6 +53,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
                   ? Get.to(() => const ControllerPage())
                   : Get.to(() => const AuthInitialPage());
             },
+            focusColor: AppColors.backgroundColor,
             child: Align(
               alignment: Alignment.topRight,
               child: Text(
