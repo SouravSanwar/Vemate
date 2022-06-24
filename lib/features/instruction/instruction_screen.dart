@@ -49,7 +49,9 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
               alignment: Alignment.topRight,
               child: Text(
                 "Skip",
-                style: TextStyle(color: AppColors.textColor,fontSize: 20.0.sp),
+                style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: AppColors.textColor,fontSize: 12.0.sp),
               ),
             )),
       ),

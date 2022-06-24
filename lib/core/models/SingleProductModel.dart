@@ -260,8 +260,12 @@ class Graph {
     creationTime = json['creation_time'];
     date = json['date'];
     if (date != null) {
-      hourWiseTime = DateFormat('hh a').format(DateTime.parse(date!));
-      dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
+      hourWiseTime = DateFormat('EE').format(DateTime.parse(date!))+":"+DateFormat('hh a').format(DateTime.parse(date!));
+      //hourWiseTime = DateFormat('jm').format(DateTime.parse(creationTime!));
+     // hourWiseTime = hourWiseTime.substring(5,hourWiseTime!.length);
+      dayWiseTime = DateFormat('dMMM').format(DateTime.parse(date!));
+      print("/*/*/*/*/*/*/*/hourwise*/*/*/*/*/*/*/*/*/*/*/*"+date.toString());
+      print("/*/*/*/*/*/*/*/daywise*/*/*/*/*/*/*/*/*/*/*/*"+hourWiseTime.toString());
     }
   }
 

@@ -82,9 +82,9 @@ class _ComicDetailsState extends State<ComicDetails> {
                       SliverToBoxAdapter(
                         child: Column(
                           children: [
-                            SizedBox(
+                            /*SizedBox(
                               height: Get.height * .005,
-                            ),
+                            ),*/
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 50, vertical: 20),

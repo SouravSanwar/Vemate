@@ -85,9 +85,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                       SliverToBoxAdapter(
                         child: Column(
                               children: [
-                                SizedBox(
+                                /*SizedBox(
                                   height: Get.height * .005,
-                                ),
+                                ),*/
                                 Padding(
                                   padding:  EdgeInsets.symmetric(
                                       horizontal: Get.width*0.139, vertical: Get.height*0.02778),
@@ -427,8 +427,6 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           ? ProductGraph(
                                         graphList:
                                         data.singleProductModel!.graph,
-                                        graphType: data
-                                            .singleProductModel!.graphType,
                                       )
                                           : Container(),
                                     ),

@@ -104,7 +104,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                         Positioned(
                           bottom: Get.height * .01,
-                          right: Get.height * .055,
+                          right: Get.height * .0001,
                           child: RawMaterialButton(
                             onPressed: () {
                               setState(() {
@@ -116,10 +116,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             child: Shader(
                               icon: const Icon(
                                 Icons.camera_alt,
-                                size: 20,
+                                size: 30,
                               ),
                             ),
-                            padding: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(10.0),
                             shape: const CircleBorder(),
                           ),
                         ),

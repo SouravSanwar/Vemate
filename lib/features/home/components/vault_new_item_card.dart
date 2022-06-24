@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -59,12 +60,49 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      widget.list![index].name.toString()[0].toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.deepPurpleAccent,
-                          fontSize: 35.sp,
-                          fontWeight: FontWeight.bold),
+                    Container(
+                      height: Get.height * .1,
+                      width: Get.height * .1,
+                      decoration: BoxDecoration(
+                          color: AppColors.backgroundColor,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: AppColors.borderColor)),
+                      alignment: Alignment.center,
+                      child: widget.list![index].image!.image_on_list==null ?Text(
+                        widget.list![index].name
+                            .toString()[0]
+                            .toUpperCase(),
+                        style: TextStyle(
+                            color: AppColors.backgroundColor,
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold),
+                      )
+                          :CachedNetworkImage(
+                        imageUrl: widget.list![index].image!.image_on_list!.src.toString(),
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    CachedNetworkImage(
+                      imageUrl: widget.list![index].image!.image_on_list!.src.toString(),
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      /*placeholder: _loader,*/
                     ),
                     AppSpaces.spaces_height_10,
                     SizedBox(

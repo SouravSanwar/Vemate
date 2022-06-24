@@ -44,6 +44,7 @@ class _ProductGraphState extends State<ProductGraph> {
               ),
               child: data.singleProductModel != null
                   ? SfCartesianChart(
+
                       plotAreaBorderWidth: 0,
                       zoomPanBehavior: _zoomPanBehavior,
                       primaryXAxis: CategoryAxis(
@@ -58,11 +59,14 @@ class _ProductGraphState extends State<ProductGraph> {
                         labelStyle: TextStyle(
                             color: AppColors.textColor,
                             fontFamily: 'Roboto',
-                            fontSize: 8.sp,
+                            fontSize: data.singleProductModel!.graphType == '0'
+                                ?10.sp :10.sp,
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w900),
-                        labelAlignment: LabelAlignment.start,
-                        maximumLabels: 12,
+
+                        labelAlignment: LabelAlignment.end,
+
+                        maximumLabels: 6,
                       ),
                       primaryYAxis: NumericAxis(
                         axisBorderType: AxisBorderType.withoutTopAndBottom,
@@ -77,11 +81,12 @@ class _ProductGraphState extends State<ProductGraph> {
                         labelStyle: TextStyle(
                             color: AppColors.textColor,
                             fontFamily: 'Roboto',
-                            fontSize: 10,
+                            fontSize: 8.sp,
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w900),
                         labelAlignment: LabelAlignment.center,
-                        maximumLabels: 24,
+                        maximumLabels: 4,
+
                       ),
                       series: <ChartSeries<Graph, String>>[
                         SplineAreaSeries<Graph, String>(

@@ -32,7 +32,7 @@ class AlertTextField extends StatelessWidget {
           fontSize: 18.0.sp,
 
         ),
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.left,
         controller: controller,
         cursorColor: AppColors.textColor,
         decoration: const InputDecoration(
