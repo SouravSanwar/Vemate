@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -117,28 +118,39 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
-                                      Container(
-                                        height: Get.height * .078,
-                                        width: Get.height * .078,
+                                  Container(
+                                  height: Get.height * .09,
+                                    width: Get.height * .078,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.backgroundColor,
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            color: AppColors.borderColor)),
+                                    alignment: Alignment.center,
+                                    child: data.setListModel!.results![index].productDetail!.image!.image_on_list==null ?Text(
+                                      data.setListModel!.results![index].productDetail!.name
+                                          .toString()[0]
+                                          .toUpperCase(),
+                                      style: TextStyle(
+                                          color: AppColors.backgroundColor,
+                                          fontSize: 35,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                        :CachedNetworkImage(
+                                      imageUrl: data.setListModel!.results![index].productDetail!.image!.image_on_list!.src.toString(),
+                                      imageBuilder: (context, imageProvider) => Container(
                                         decoration: BoxDecoration(
-                                            color: const Color(0xD3C89EF3),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: AppColors.borderColor)),
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          data.setListModel!.results![index]
-                                              .productDetail!.name
-                                              .toString()[0]
-                                              .toUpperCase(),
-                                          style: TextStyle(
-                                              color: Colors.deepPurpleAccent,
-                                              fontSize: 35.sp,
-                                              fontWeight: FontWeight.bold),
+                                          borderRadius: BorderRadius.circular(10),
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
-                                      AppSpaces.spaces_width_2,
+                                      placeholder: _loader,
+                                    ),
+                                  ),
+                                    AppSpaces.spaces_width_5,
                                       Expanded(
                                         flex: 7,
                                         child: Column(
@@ -152,10 +164,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     child: SizedBox(
                                                       height: Get.height * .02,
                                                       child: Text(
-                                                        data
-                                                            .setListModel!
-                                                            .results![index]
-                                                            .productDetail!
+                                                        data.setListModel!.results![index].productDetail!
                                                             .name
                                                             .toString(),
                                                         overflow: TextOverflow
@@ -558,6 +567,12 @@ class _VaultComicsListState extends State<VaultComicsList> {
           ),
         );
       }),
+    );
+  }
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
     );
   }
 

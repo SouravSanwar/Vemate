@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -186,26 +187,35 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Container(
-                                        height: Get.height * .078,
+                                        height: Get.height * .09,
                                         width: Get.height * .078,
                                         decoration: BoxDecoration(
-                                            color: AppColors.primaryColor
-                                                .withOpacity(.8),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                                            color: AppColors.backgroundColor,
+                                            borderRadius: BorderRadius.circular(10),
                                             border: Border.all(
-                                                color:AppColors.borderColor)),
+                                                color: AppColors.borderColor)),
                                         alignment: Alignment.center,
-                                        child: Text(
-                                          data.searchComicsModel!
-                                              .results![index].name
+                                        child: data.searchComicsModel!.results![index].image!.image_on_list==null ?Text(
+                                          data.searchComicsModel!.results![index].name
                                               .toString()[0]
                                               .toUpperCase(),
                                           style: TextStyle(
-                                              color: AppColors
-                                                  .backgroundColor,
-                                              fontSize: 35.sp,
+                                              color: AppColors.backgroundColor,
+                                              fontSize: 35,
                                               fontWeight: FontWeight.bold),
+                                        )
+                                            :CachedNetworkImage(
+                                          imageUrl: data.searchComicsModel!.results![index].image!.image_on_list!.src.toString(),
+                                          imageBuilder: (context, imageProvider) => Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10),
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          placeholder: _loader,
                                         ),
                                       ),
                                       AppSpaces.spaces_width_5,
@@ -218,12 +228,11 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                             Row(
                                               children: <Widget>[
                                                 Expanded(
-                                                    flex: 2,
+                                                    flex: 4,
                                                     child: SizedBox(
                                                       height: Get.height * .02,
                                                       child: Text(
-                                                        data
-                                                            .searchComicsModel!
+                                                        data.searchComicsModel!
                                                             .results![index]
                                                             .name
                                                             .toString(),
@@ -497,6 +506,13 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
           ),
         );
       }),
+    );
+  }
+
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
     );
   }
 

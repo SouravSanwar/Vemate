@@ -52,7 +52,7 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       width: Get.width,
       decoration: BoxDecoration(
-        color: AppColors.textBoxBgColor,
+        color: AppColors.backgroundColor,
         border: Border.all(
             color: AppColors.textColor, // set border color
             width: 1.w), // set border width

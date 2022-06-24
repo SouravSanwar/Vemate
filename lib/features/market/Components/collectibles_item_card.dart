@@ -12,6 +12,7 @@ import '../../../core/models/CollectiblesModel.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
 
+
 class CollectiblesItemCard extends StatefulWidget {
   const CollectiblesItemCard({Key? key}) : super(key: key);
 
@@ -68,6 +69,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                         ),
                         child: InkWell(
                           onTap: () {
+                            print("/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*"+Get.width.toString());
                             Get.to(
                               () => CollectibleDetails(
                                 productId:
@@ -83,7 +85,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Container(
-                                  height: Get.height * .078,
+                                  height: Get.height * .09,
                                   width: Get.height * .078,
                                   decoration: BoxDecoration(
                                       color: AppColors.backgroundColor,
@@ -91,7 +93,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       border: Border.all(
                                           color: AppColors.borderColor)),
                                   alignment: Alignment.center,
-                                  child: data.collectiblesModel!.results![index].image==null ?Text(
+                                  child: data.collectiblesModel!.results![index].image!.image_on_list==null ?Text(
                                     data.collectiblesModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
@@ -101,7 +103,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                         fontWeight: FontWeight.bold),
                                   )
                                     :CachedNetworkImage(
-                                     imageUrl: data.collectiblesModel!.results![index].image!.original!.src.toString(),
+                                     imageUrl: data.collectiblesModel!.results![index].image!.image_on_list!.src.toString(),
                                     imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
@@ -111,9 +113,10 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                         ),
                                       ),
                                     ),
+                                    placeholder: _loader,
                                      ),
                                 ),
-                                AppSpaces.spaces_width_2,
+                                AppSpaces.spaces_width_5,
                                 Expanded(
                                   flex: 7,
                                   child: Column(
@@ -125,7 +128,6 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                           Expanded(
                                               flex: 4,
                                               child: SizedBox(
-                                                height: Get.height * .02,
                                                 child: Text(
                                                   data.collectiblesModel!
                                                       .results![index].name
@@ -392,6 +394,14 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
             : const LoadingExample(),
       );
     });
+
+
+  }
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
+    );
   }
 
   Future<void> _onRefresh() async {

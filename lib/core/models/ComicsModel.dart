@@ -116,36 +116,37 @@ class Results {
 class Image {
   Image({
     this.original,
-    this.detail,});
+    this.image_on_list,});
 
   Image.fromJson(dynamic json) {
     original = json['original'] != null ? Original.fromJson(json['original']) : null;
-    detail = json['detail'] != null ? Detail.fromJson(json['detail']) : null;
+    image_on_list = json['list'] != null ? ImageOnList.fromJson(json['list']) : null;
   }
   Original? original;
-  Detail? detail;
+  ImageOnList? image_on_list;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (original != null) {
       map['original'] = original?.toJson();
     }
-    if (detail != null) {
-      map['detail'] = detail?.toJson();
+    if (image_on_list != null) {
+      map['list'] = image_on_list?.toJson();
     }
     return map;
   }
 
 }
 
-class Detail {
-  Detail({
+
+class ImageOnList {
+  ImageOnList({
     this.src,
     this.width,
     this.height,
     this.alt,});
 
-  Detail.fromJson(dynamic json) {
+  ImageOnList.fromJson(dynamic json) {
     src = 'https://market.vemate.com'+json['src'];
     width = json['width'];
     height = json['height'];
