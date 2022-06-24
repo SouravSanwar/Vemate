@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
+import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -43,7 +44,7 @@ class _MysetsCardState extends State<MysetsCard> {
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: EdgeInsets.only(
-                  left: index == 0 ? 8 : 4.0, right: index == data.wishListModel!.results!.length-1 ? 8 : 4.0,top:4),
+                  left: index == 0 ? 8 : 4.0, right: index == data.setListModel!.results!.length-1 ? 8 : 4.0,top:4),
               child:  InkWell(
                   onTap: () {
                     /*Get.to(() => ChartExample(id: widget.list![index].id));data.setListModel!.results![index].productDetail!*/
@@ -74,6 +75,7 @@ class _MysetsCardState extends State<MysetsCard> {
                           fontWeight: FontWeight.bold),
                     )
                         :CachedNetworkImage(
+                      placeholder: _loader,
                       imageUrl: data.setListModel!.results![index].productDetail!.image!.image_on_list!.src.toString(),
                       imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
@@ -88,7 +90,7 @@ class _MysetsCardState extends State<MysetsCard> {
                             child: GlassContainer(
                               padding: EdgeInsets.symmetric(horizontal: 5),
                               alignment: Alignment.bottomCenter,
-                              height: Get.height*.093,
+                              height: Get.height*.095,
                               width: Get.width * .37,
 
                               gradient: LinearGradient(
@@ -104,7 +106,7 @@ class _MysetsCardState extends State<MysetsCard> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-
+                                  AppSpaces.spaces_height_2,
                                   Text(
                                     data.setListModel!.results![index].productDetail!.name.toString(),
                                     textAlign: TextAlign.center,
@@ -231,6 +233,13 @@ class _MysetsCardState extends State<MysetsCard> {
           },
         );
       },
+    );
+  }
+
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
     );
   }
 }

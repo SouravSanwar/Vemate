@@ -157,7 +157,7 @@ class _HomeState extends State<Home> {
                                               data.notificationListModel!
                                                   .totalUnread
                                                   .toString(),
-                                              style: TextStyle(fontSize: 10),
+                                              style: TextStyle(fontSize: 8),
                                             ),
                                             badgeColor: Colors.redAccent,
                                             child: Icon(

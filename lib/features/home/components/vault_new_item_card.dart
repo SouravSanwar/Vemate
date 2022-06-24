@@ -69,6 +69,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                       fontWeight: FontWeight.bold),
                 )
                     :CachedNetworkImage(
+                  placeholder: _loader,
                   imageUrl: widget.list![index].image!.image_on_list!.src.toString(),
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
@@ -83,7 +84,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                       child: GlassContainer(
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       alignment: Alignment.bottomCenter,
-                      height: Get.height*.093,
+                      height: Get.height*.095,
                       width: Get.width * .37,
 
                       gradient: LinearGradient(
@@ -99,7 +100,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-
+                          AppSpaces.spaces_height_2,
                           Text(
                             widget.list![index].name.toString(),
                             textAlign: TextAlign.center,
@@ -225,6 +226,12 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
           );
         },
       ),
+    );
+  }
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
     );
   }
 }

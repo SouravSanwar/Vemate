@@ -11,6 +11,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/Provider/getData.dart';
+import '../../../core/utilities/app_spaces/app_spaces.dart';
 import '../../market/presentation/collectible_details.dart';
 
 class MywishlistCard extends StatefulWidget {
@@ -83,6 +84,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                         fontWeight: FontWeight.bold),
                   )
                       :CachedNetworkImage(
+                    placeholder: _loader,
                     imageUrl: data.wishListModel!.results![index].productDetail!.image!.image_on_list!.src.toString(),
                     imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
@@ -97,7 +99,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                           child: GlassContainer(
                             padding: EdgeInsets.symmetric(horizontal: 5),
                             alignment: Alignment.bottomCenter,
-                            height: Get.height*.093,
+                            height: Get.height*.095,
                             width: Get.width * .37,
 
                             gradient: LinearGradient(
@@ -113,7 +115,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-
+                                AppSpaces.spaces_height_2,
                                 Text(
                                   data.wishListModel!.results![index].productDetail!.name.toString(),
                                   textAlign: TextAlign.center,
@@ -240,6 +242,13 @@ class _MywishlistCardState extends State<MywishlistCard> {
         },
       );
     }
+    );
+  }
+
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
     );
   }
 
