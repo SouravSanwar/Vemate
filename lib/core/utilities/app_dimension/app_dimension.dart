@@ -22,7 +22,7 @@ class AppDimension {
 
   static double padding_4 = 4.0;
 
-  static double padding_8 = 8.0;
+  static double padding_8 = Get.height*0.01111;
 
   static double radius = 16;
   static double primary_radius = 10;

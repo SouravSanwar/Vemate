@@ -1,28 +1,47 @@
 import 'dart:io';
 
 import 'package:bottom_bar_page_transition/bottom_bar_page_transition.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
+import 'package:ketemaa/core/Provider/getData.dart';
+import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/Designs/update_alert_dialog.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/home/presentation/home.dart';
+import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/vault/vault.dart';
 
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
+import 'package:upgrader/upgrader.dart';
 
 import '../../market/presentation/market.dart';
 
-class ControllerPage extends StatelessWidget {
-  ControllerPage({Key? key}) : super(key: key);
+String? token;
+
+class ControllerPage extends StatefulWidget {
+  const ControllerPage({Key? key}) : super(key: key);
+
+  @override
+  State<ControllerPage> createState() => _ControllerPageState();
+}
+
+class _ControllerPageState extends State<ControllerPage> {
+  late int productId;
+  PostData? postData;
+
   List<String> names = [
     'Home',
     'Market',
-    'Vault',
+    'My Vault',
   ];
 
   List<IconData> icons = [
@@ -32,13 +51,60 @@ class ControllerPage extends StatelessWidget {
   ];
 
   Duration duration = const Duration(milliseconds: 300);
+
   Curve curve = Curves.ease;
+
   TransitionType transitionType = TransitionType.fade;
+
+  AppUpdate? appUpdate;
+  GetData? getData;
+
+  final FirebaseMessaging _messaging = FirebaseMessaging.instance;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    postData = Provider.of<PostData>(context, listen: false);
+
+    appUpdate = Provider.of<AppUpdate>(context, listen: false);
+    getData = Provider.of<GetData>(context, listen: false);
+    //getData!.getUserInfo();
+    appUpdate!.getUpdateInfo();
+    super.initState();
+    initPlatformState();
+    getToken();
+    initMessaging();
+
+    //mode = prefs!.getInt('mode');
+    print('Color Mode Cont: ' + mode.toString());
+  }
+
+  Future<void> _firebaseMsg(RemoteMessage message) async {
+    print("Handling a background message : ${message.data}");
+
+    productId = int.tryParse(message.data["id"]) ?? 0;
+
+    message.data["type"] == 0
+        ? Get.to(() => CollectibleDetails(
+              productId: productId,
+            ))
+        : Get.to(() => ComicDetails(
+              productId: productId,
+            ));
+  }
+
+  Future<void> initPlatformState() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    FirebaseMessaging.onBackgroundMessage(_firebaseMsg);
+    await Firebase.initializeApp();
+  }
 
   Future<bool> _willPopCallback() async {
     Get.dialog(
       Dialog(
-        backgroundColor: const Color(0xff272E49),
+        backgroundColor: AppColors.backgroundColor,
         child: Container(
           width: Get.height * .25,
           decoration: BoxDecoration(
@@ -70,16 +136,16 @@ class ControllerPage extends StatelessWidget {
                       Text(
                         "Vemate",
                         style: Get.textTheme.headline1!.copyWith(
-                            color: AppColors.white,
+                            color: AppColors.textColor,
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
                 AppSpaces.spaces_height_10,
-                const Text(
+                Text(
                   'Are you sure to exit?',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: AppColors.textColor),
                 ),
                 AppSpaces.spaces_height_10,
                 Row(
@@ -101,11 +167,11 @@ class ControllerPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'No',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: AppColors.textColor),
                           ),
                         ),
                       ),
@@ -127,11 +193,11 @@ class ControllerPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'Yes',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: AppColors.textColor),
                           ),
                         ),
                       ),
@@ -144,7 +210,7 @@ class ControllerPage extends StatelessWidget {
         ),
       ),
     );
-    return true; // return true if the route to be popped
+    return true;
   }
 
   @override
@@ -158,42 +224,33 @@ class ControllerPage extends StatelessWidget {
         child: Stack(
           children: [
             Scaffold(
-                backgroundColor: const Color(0xff272E49),
-                body: BottomBarPageTransition(
-                  builder: (_, index) => getBody(index),
-                  currentIndex: ControllerPageController.to.currentPage.value,
-                  totalLength:
-                      ControllerPageController.to.bottomBarData!.length,
-                  transitionType: transitionType,
-                  transitionDuration: duration,
-                  transitionCurve: curve,
-                ),
-                bottomNavigationBar: SizedBox(
-                  //height: 65,
-                  child: getBottomBar(),
-                )),
+              backgroundColor: AppColors.backgroundColor,
+              body: BottomBarPageTransition(
+                builder: (_, index) => getBody(index),
+                currentIndex: ControllerPageController.to.currentPage.value,
+                totalLength: ControllerPageController.to.bottomBarData!.length,
+                transitionType: transitionType,
+                transitionDuration: duration,
+                transitionCurve: curve,
+              ),
+              bottomNavigationBar: SizedBox(
+                //height: 65,
+                child: getBottomBar(),
+              ),
+             ),
             Positioned(
               left: 0,
               right: 0,
-              child: Platform.isIOS
-                  ? Consumer<AppUpdate>(builder: (context, data, child) {
-                      return VersionControl.remoteConfig
-                                      .getInt("ios_version_code") >
-                                  int.parse(
-                                      VersionControl.packageInfo.buildNumber) &&
-                              data.isUpdate == true
-                          ? const AppUpdateAlert()
-                          : Container();
-                    })
-                  : Consumer<AppUpdate>(builder: (context, data, child) {
-                      return VersionControl.remoteConfig
-                                      .getInt("android_version_code") >
-                                  int.parse(
-                                      VersionControl.packageInfo.buildNumber) &&
-                              data.isUpdate == true
-                          ? const AppUpdateAlert()
-                          : Container();
-                    }),
+              child: Consumer<AppUpdate>(builder: (context, data, child) {
+                return data.appUpdator != null
+                    ? (int.parse(data.appUpdator!.name!.toString()) >
+                                int.parse(
+                                    VersionControl.packageInfo.buildNumber) &&
+                            data.isUpdate == true
+                        ? const AppUpdateAlert()
+                        : Container())
+                    : Container();
+              }),
             ),
           ],
         ),
@@ -207,7 +264,7 @@ class ControllerPage extends StatelessWidget {
     } else if (index == 1) {
       return const Market();
     } else {
-      return Vault();
+      return const Vault();
     }
   }
 
@@ -218,7 +275,7 @@ class ControllerPage extends StatelessWidget {
         topRight: Radius.circular(50.0),
       ),
       child: BottomNavigationBar(
-        backgroundColor: AppColors.lightBackgroundColor,
+        backgroundColor: AppColors.backgroundColor,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         currentIndex: ControllerPageController.to.currentPage.value,
         onTap: (index) {
@@ -227,8 +284,8 @@ class ControllerPage extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         selectedFontSize: 12,
         unselectedFontSize: 12,
-        selectedItemColor: const Color(0xffB390E3),
-        unselectedItemColor: AppColors.white,
+        selectedItemColor: AppColors.iconColor,
+        unselectedItemColor: AppColors.textColor,
         showUnselectedLabels: true,
         items: List.generate(
           ControllerPageController.to.bottomBarData!.length,
@@ -239,5 +296,75 @@ class ControllerPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void getToken() {
+    _messaging.getToken().then((value) {
+      token = value;
+
+      print("Device Token:" + token!);
+      var body = {"fcm_device_id": token!};
+      Map<String, String> requestHeadersWithToken = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'token ${prefs!.getString('token')}',
+      };
+      postData!.updateFCMToken(context, body, requestHeadersWithToken);
+    });
+  }
+
+  void initMessaging() {
+    DidReceiveLocalNotificationCallback? onDidReceiveLocalNotification;
+    var androidInit =
+        const AndroidInitializationSettings('assets/media/icon/logo v.png');
+    final IOSInitializationSettings iosInit = IOSInitializationSettings(
+      requestSoundPermission: true,
+      requestBadgePermission: true,
+      requestAlertPermission: true,
+      onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+    );
+    var initSetting =
+        InitializationSettings(android: androidInit, iOS: iosInit);
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.initialize(initSetting);
+    var androidDetails = const AndroidNotificationDetails(
+      '1',
+      'Default',
+      channelDescription: "Channel Description",
+      importance: Importance.high,
+      priority: Priority.high,
+      playSound: true,
+    );
+    var iosDetails = const IOSNotificationDetails();
+
+    var generalNotificationDetails =
+        NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+    ///On Message
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      printInfo(info: "On Message: " + message.data.toString());
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification!.android;
+
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(notification.hashCode,
+            notification.title, notification.body, generalNotificationDetails);
+      }
+    });
+
+    ///On Message Open
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      print("onMessageOpenedApp: ${message.data}");
+      productId = int.tryParse(message.data["id"]) ?? 0;
+      print("onMessageOpenedApp Product Id: " + productId.toString());
+
+      message.data["type"] == 0
+          ? Get.to(() => CollectibleDetails(
+                productId: productId,
+              ))
+          : Get.to(() => ComicDetails(
+                productId: productId,
+              ));
+    });
   }
 }

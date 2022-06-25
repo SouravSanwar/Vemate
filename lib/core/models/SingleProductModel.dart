@@ -1,10 +1,12 @@
 import 'package:intl/intl.dart';
+import 'package:ketemaa/core/utilities/urls/urls.dart';
 
 class SingleProductModel {
   SingleProductModel({
     this.id,
     this.brand,
     this.graph,
+    this.image,
     this.type,
     this.name,
     this.description,
@@ -38,6 +40,7 @@ class SingleProductModel {
   SingleProductModel.fromJson(dynamic json) {
     id = json['id'];
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
     type = json['type'];
     name = json['name'];
     description = json['description'];
@@ -73,11 +76,18 @@ class SingleProductModel {
         graph?.add(Graph.fromJson(v));
       });
     }
+
+    final Map<String, Graph> graphMap = {};
+    for (var item in graph!) {
+      graphMap[item.date!] = item;
+    }
+    graph = graphMap.values.toList();
   }
 
   int? id;
   Brand? brand;
   List<Graph>? graph;
+  Image? image;
   int? type;
   String? name;
   String? description;
@@ -114,6 +124,9 @@ class SingleProductModel {
     if (graph != null) {
       map['graph'] = graph?.map((v) => v.toJson()).toList();
     }
+    if (image != null) {
+      map['image'] = image?.toJson();
+    }
     map['type'] = type;
     map['name'] = name;
     map['description'] = description;
@@ -146,13 +159,101 @@ class SingleProductModel {
   }
 }
 
+class Image {
+  Image({
+    this.original,
+    this.detail,
+  });
+
+  Image.fromJson(dynamic json) {
+    original =
+        json['original'] != null ? Original.fromJson(json['original']) : null;
+    detail = json['detail'] != null ? Detail.fromJson(json['detail']) : null;
+  }
+
+  Original? original;
+  Detail? detail;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (original != null) {
+      map['original'] = original?.toJson();
+    }
+    if (detail != null) {
+      map['detail'] = detail?.toJson();
+    }
+    return map;
+  }
+}
+
+class Detail {
+  Detail({
+    this.src,
+    this.width,
+    this.height,
+    this.alt,
+  });
+
+  Detail.fromJson(dynamic json) {
+    src = Urls.mainUrl + json['src'];
+    width = json['width'];
+    height = json['height'];
+    alt = json['alt'];
+  }
+
+  String? src;
+  int? width;
+  int? height;
+  String? alt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['src'] = src;
+    map['width'] = width;
+    map['height'] = height;
+    map['alt'] = alt;
+    return map;
+  }
+}
+
+class Original {
+  Original({
+    this.src,
+    this.width,
+    this.height,
+    this.alt,
+  });
+
+  Original.fromJson(dynamic json) {
+    src = Urls.mainUrl + json['src'];
+    width = json['width'];
+    height = json['height'];
+    alt = json['alt'];
+  }
+
+  String? src;
+  int? width;
+  int? height;
+  String? alt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['src'] = src;
+    map['width'] = width;
+    map['height'] = height;
+    map['alt'] = alt;
+    return map;
+  }
+}
+
 class Graph {
   Graph({
     this.floorPrice,
     this.creationTime,
     this.date,
     this.hourWiseTime,
-    this.dayWiseTime,});
+    this.dayWiseTime,
+  });
 
   Graph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
@@ -160,9 +261,15 @@ class Graph {
     date = json['date'];
     if (date != null) {
       hourWiseTime = DateFormat('hh a').format(DateTime.parse(date!));
-      dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
+     // hourWiseTime = DateFormat('EE').format(DateTime.parse(date!))+":"+DateFormat('hh a').format(DateTime.parse(date!));
+      //hourWiseTime = DateFormat('jm').format(DateTime.parse(creationTime!));
+     // hourWiseTime = hourWiseTime.substring(5,hourWiseTime!.length);
+      dayWiseTime = DateFormat('dMMM').format(DateTime.parse(date!));
+      print("/*/*/*/*/*/*/*/hourwise*/*/*/*/*/*/*/*/*/*/*/*"+date.toString());
+      print("/*/*/*/*/*/*/*/daywise*/*/*/*/*/*/*/*/*/*/*/*"+hourWiseTime.toString());
     }
   }
+
   double? floorPrice;
   String? creationTime;
   String? date;
@@ -176,9 +283,7 @@ class Graph {
     map['date'] = date;
     return map;
   }
-
 }
-
 
 class Brand {
   Brand({

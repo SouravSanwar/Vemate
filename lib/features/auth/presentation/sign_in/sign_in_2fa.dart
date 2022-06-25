@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:ketemaa/app_routes/app_routes.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/language/language_string.dart';
@@ -13,7 +13,9 @@ import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart'
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
+import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,16 +61,21 @@ class _SignIn2FAState extends State<SignIn2FA> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppSpaces.spaces_height_15,
+              const BackPreviousScreen(),
+              SizedBox(
+                height: Get.height * .07,
+              ),
               SizedBox(
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
-                  'assets/media/image/vemate.png',
+                  mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
-              //AppSpaces.spaces_height_15,
+              SizedBox(
+                height: Get.height * .02,
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -107,30 +114,21 @@ class _SignIn2FAState extends State<SignIn2FA> {
                   SizedBox(
                     height: Get.height * .07,
                   ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    padding: const EdgeInsets.symmetric(horizontal: 7),
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.purpleGradient, // set border width
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(20.0)), // set rounded corner radius
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        var body = {
-                          "username": emailController.text,
-                          "code": int.parse(codeController.text),
-                          "password": passController.text
-                        };
-                        logInWith2FA(context, body);
-                      },
-                      child: Text(
-                        AppLanguageString.lOG_IN.tr.toUpperCase(),
-                        style:
-                            Get.textTheme.button!.copyWith(color: Colors.white),
-                      ),
-                    ),
+
+
+                  CustomButtons(
+                    width: Get.width*.9,
+                    height: Get.height * .065,
+                    onTap: () {
+                      var body = {
+                        "username": emailController.text,
+                        "code": int.parse(codeController.text),
+                        "password": passController.text
+                      };
+                      logInWith2FA(context, body);
+                    },
+                    text: AppLanguageString.lOG_IN.tr.toUpperCase(),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white),
                   )
                 ],
               ),
@@ -179,9 +177,9 @@ class _SignIn2FAState extends State<SignIn2FA> {
               flushbarPosition: FlushbarPosition.BOTTOM,
               isDismissible: false,
               duration: const Duration(seconds: 3),
-              messageText: const Text(
+              messageText:  Text(
                 "Login Successful",
-                style: TextStyle(fontSize: 16.0, color: Colors.green),
+                style: TextStyle(fontSize: 16.0.sp, color: Colors.green),
               )).show(context);
         } else {
           Navigator.of(context).pop();
@@ -190,9 +188,9 @@ class _SignIn2FAState extends State<SignIn2FA> {
               flushbarPosition: FlushbarPosition.BOTTOM,
               isDismissible: false,
               duration: const Duration(seconds: 3),
-              messageText: const Text(
+              messageText:  Text(
                 "Invalid Information",
-                style: TextStyle(fontSize: 16.0, color: Colors.green),
+                style: TextStyle(fontSize: 16.0.sp, color: Colors.green),
               )).show(context);
         }
       } catch (e) {
@@ -201,9 +199,9 @@ class _SignIn2FAState extends State<SignIn2FA> {
             flushbarPosition: FlushbarPosition.BOTTOM,
             isDismissible: false,
             duration: const Duration(seconds: 3),
-            messageText: const Text(
+            messageText: Text(
               "Something went wrong",
-              style: TextStyle(fontSize: 16.0, color: Colors.green),
+              style: TextStyle(fontSize: 16.0.sp, color: Colors.green),
             )).show(context);
       }
     } else {
@@ -212,9 +210,9 @@ class _SignIn2FAState extends State<SignIn2FA> {
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
           duration: const Duration(seconds: 3),
-          messageText: const Text(
+          messageText: Text(
             "Something went wrong",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
+            style: TextStyle(fontSize: 16.0.sp, color: Colors.green),
           )).show(context);
     }
   }
@@ -236,9 +234,6 @@ class _SignIn2FAState extends State<SignIn2FA> {
 
     print(prefs!.get('token'));
 
-    getData = Provider.of<GetData>(context, listen: false);
-    await getData!.getUserInfo();
-
-    Get.to(() => ControllerPage());
+    Get.to(() =>  ControllerPage());
   }
 }

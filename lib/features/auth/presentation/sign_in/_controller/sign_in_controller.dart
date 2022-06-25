@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:ketemaa/features/auth/data/models/user_login_model.dart';
 
 class SigninController extends GetxController {
   static SigninController to = Get.find();
@@ -11,18 +9,4 @@ class SigninController extends GetxController {
   TextEditingController userNameTextFiledController = TextEditingController();
   TextEditingController emailTextFiledController = TextEditingController();
   TextEditingController passwordTextFiledController = TextEditingController();
-
-  RxString responseValue = "".obs;
-  RxBool loading = false.obs;
-
-  Rx<UserLoginModel> userLogin = UserLoginModel().obs;
-
-  @override
-  void onInit() {
-    if (kDebugMode) {
-      userNameTextFiledController.text = "sanwarulhaque1165@gmail.com";
-      passwordTextFiledController.text = "vem@te123";
-    }
-    super.onInit();
-  }
 }

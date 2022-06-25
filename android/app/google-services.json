@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "889011737153",
+    "firebase_url": "https://vemate-12b10-default-rtdb.firebaseio.com",
     "project_id": "vemate-12b10",
     "storage_bucket": "vemate-12b10.appspot.com"
   },
@@ -29,6 +30,13 @@
             {
               "client_id": "889011737153-chpjoafnnjcfcsfggd7pt5vlmbeuhmqk.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "889011737153-le8h0kkg8l9q6bsmutgmorepdjb43e9e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vemateltd.vemate"
+              }
             }
           ]
         }

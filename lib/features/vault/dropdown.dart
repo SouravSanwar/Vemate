@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
-import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:provider/provider.dart';
 
 class DropDown extends StatefulWidget {
   final Color color;
 
-  DropDown(this.color);
+  const DropDown(this.color);
 
   @override
   State<DropDown> createState() => _DropDownState();
@@ -66,10 +66,10 @@ class _DropDownState extends State<DropDown> {
 
         iconEnabledColor: Colors.white,
         //Icon color
-        style: const TextStyle(
+        style: TextStyle(
             //te
             color: Colors.white, //Font color
-            fontSize: 20 //font size on dropdown button
+            fontSize: 20.sp //font size on dropdown button
             ),
         dropdownColor: widget.color,
         underline: Container(),
@@ -85,6 +85,6 @@ class _DropDownState extends State<DropDown> {
       value: item,
       child: Text(
         item,
-        style: const TextStyle(fontSize: 15),
+        style: TextStyle(fontSize: 15.sp),
       ));
 }

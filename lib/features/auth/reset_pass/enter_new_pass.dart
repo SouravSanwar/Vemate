@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
 import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
+import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
+import 'package:ketemaa/main.dart';
 import '../presentation/sign_in/_controller/sign_in_controller.dart';
 
 class EnterNewPassword extends StatefulWidget {
@@ -22,32 +24,37 @@ class _EnterNewPasswordState extends State<EnterNewPassword> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Color(0xff272E49),
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppSpaces.spaces_height_15,
-              Container(
+              const BackPreviousScreen(),
+              SizedBox(
+                height: Get.height * .07,
+              ),
+              SizedBox(
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
-                  'assets/media/image/vemate.png',
+                  mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
-              //AppSpaces.spaces_height_15,
+              SizedBox(
+                height: Get.height * .02,
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
                       width: Get.width * .9,
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: const Text(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child:  Text(
                         "Enter New Password",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.grey),
+                            fontWeight: FontWeight.bold, color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
 
@@ -70,26 +77,15 @@ class _EnterNewPasswordState extends State<EnterNewPassword> {
                     height: Get.height*.07,
                   ),
 
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 15),
-                    padding: EdgeInsets.symmetric(horizontal: 7),
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.purpleGradient, // set border width
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(20.0)), // set rounded corner radius
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        Get.toNamed(AppRoutes.CONTROLLER_PAGE);
+                  CustomButtons(
+                    width: Get.width*.9,
+                    height: Get.height * .065,
+                    onTap: () {
+                      Get.toNamed(AppRoutes.CONTROLLER_PAGE);
 
-                      },
-                      child: Text(
-                        AppLanguageString.UPDATE_Pass.tr.toUpperCase(),
-                        style:
-                        Get.textTheme.button!.copyWith(color: Colors.white),
-                      ),
-                    ),
+                    },
+                    text: AppLanguageString.UPDATE_Pass.tr.toUpperCase(),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white),
                   )
                 ],
               ),

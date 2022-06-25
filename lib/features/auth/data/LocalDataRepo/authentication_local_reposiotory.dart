@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:http/src/response.dart';
 import 'package:ketemaa/core/error/failures.dart';
 import 'package:ketemaa/features/auth/data/Repository/authentication_repository.dart';
 

@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
@@ -10,6 +11,7 @@ import '../../../core/Provider/getData.dart';
 import '../../../core/models/CollectiblesModel.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
+
 
 class CollectiblesItemCard extends StatefulWidget {
   const CollectiblesItemCard({Key? key}) : super(key: key);
@@ -22,8 +24,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
   int offset = 0;
   RefreshController refreshController =
       RefreshController(initialRefresh: false);
-  GlobalKey _contentKey = GlobalKey();
-  GlobalKey _refreshkey = GlobalKey();
+  final GlobalKey _contentKey = GlobalKey();
+  final GlobalKey _refreshkey = GlobalKey();
 
   GetData? getData;
 
@@ -63,9 +65,11 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                         decoration: BoxDecoration(
                           gradient: AppColors.cardGradient,
                           borderRadius: BorderRadius.circular(12.0),
+                          border: Border.all(color: AppColors.borderColor),
                         ),
                         child: InkWell(
                           onTap: () {
+                            print("/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*"+Get.width.toString());
                             Get.to(
                               () => CollectibleDetails(
                                 productId:
@@ -81,25 +85,38 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Container(
-                                  height: Get.height * .078,
+                                  height: Get.height * .09,
                                   width: Get.height * .078,
                                   decoration: BoxDecoration(
-                                      color: const Color(0xD3C89EF3),
+                                      color: AppColors.backgroundColor,
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
-                                          color: const Color(0xff454F70))),
+                                          color: AppColors.borderColor)),
                                   alignment: Alignment.center,
-                                  child: Text(
+                                  child: data.collectiblesModel!.results![index].image==null ?Text(
                                     data.collectiblesModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
-                                    style: const TextStyle(
-                                        color: Colors.deepPurpleAccent,
+                                    style: TextStyle(
+                                        color: AppColors.backgroundColor,
                                         fontSize: 35,
                                         fontWeight: FontWeight.bold),
-                                  ),
+                                  )
+                                    :CachedNetworkImage(
+                                     imageUrl: data.collectiblesModel!.results![index].image!.image_on_list!.src.toString(),
+                                    imageBuilder: (context, imageProvider) => Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    placeholder: _loader,
+                                     ),
                                 ),
-                                AppSpaces.spaces_width_2,
+                                AppSpaces.spaces_width_5,
                                 Expanded(
                                   flex: 7,
                                   child: Column(
@@ -111,7 +128,6 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                           Expanded(
                                               flex: 4,
                                               child: SizedBox(
-                                                height: Get.height * .02,
                                                 child: Text(
                                                   data.collectiblesModel!
                                                       .results![index].name
@@ -122,11 +138,11 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   style: Get
                                                       .textTheme.bodyText2!
                                                       .copyWith(
-                                                          color:
-                                                              AppColors.white,
+                                                          color: AppColors
+                                                              .textColor,
                                                           fontWeight:
                                                               FontWeight.w600,
-                                                          fontSize: 13),
+                                                          fontSize: 13.sp),
                                                 ),
                                               )),
                                           AppSpaces.spaces_width_2,
@@ -139,10 +155,11 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.white,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 10),
+                                                      fontSize: 10.sp),
                                             ),
                                           ),
                                         ],
@@ -169,11 +186,11 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.greyWhite
-                                                          .withOpacity(0.8),
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w900,
-                                                      fontSize: 10),
+                                                      fontSize: 10.sp),
                                             ),
                                           ),
                                           AppSpaces.spaces_width_2,
@@ -186,11 +203,11 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.greyWhite
-                                                          .withOpacity(0.8),
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 10),
+                                                      fontSize: 10.sp),
                                             ),
                                           ),
                                         ],
@@ -210,11 +227,11 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.greyWhite
-                                                          .withOpacity(0.8),
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w900,
-                                                      fontSize: 11),
+                                                      fontSize: 11.sp),
                                             ),
                                           ),
                                           const SizedBox(
@@ -278,9 +295,9 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   .results![index]
                                                   .graph!,
                                               xValueMapper: (Graph plot, _) =>
-                                                  plot.hour,
+                                                  plot.date,
                                               yValueMapper: (Graph plot, _) =>
-                                                  plot.total,
+                                                  plot.floorPrice,
                                               xAxisName: 'Duration',
                                               yAxisName: 'Total',
                                             )
@@ -294,23 +311,12 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              '\$${data.collectiblesModel!
-                                                  .results![index]
-                                                  .priceChangePercent!
-                                                  .changePrice !=null
-                                              ?data.collectiblesModel!
-                                                  .results![index]
-                                                  .priceChangePercent!
-                                                  .changePrice!
-                                                  .toStringAsFixed(2)
-                                              :""
-
-                                              }',
+                                              '\$${data.collectiblesModel!.results![index].priceChangePercent!.changePrice != null ? data.collectiblesModel!.results![index].priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
-                                                      color: AppColors.white
-                                                          .withOpacity(0.9),
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w400,
                                                       fontSize: 10),
@@ -323,7 +329,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   MainAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                  data.collectiblesModel!
+                                                  data
+                                                          .collectiblesModel!
                                                           .results![index]
                                                           .priceChangePercent!
                                                           .percent!
@@ -384,9 +391,17 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                   },
                 ),
               )
-            : LoadingExample(),
+            : const LoadingExample(),
       );
     });
+
+
+  }
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
+    );
   }
 
   Future<void> _onRefresh() async {

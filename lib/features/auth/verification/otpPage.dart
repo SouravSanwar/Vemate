@@ -1,18 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:another_flushbar/flushbar.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/main.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OtpPage extends StatefulWidget {
   @override
@@ -23,11 +21,6 @@ class _OtpPageState extends State<OtpPage> {
   TextEditingController textEditingController = TextEditingController();
   StreamController<ErrorAnimationType>? errorController;
 
-  double _height = 0;
-  double _width = 0;
-  double _pixelRatio = 0;
-  bool _large = false;
-  bool _medium = false;
 
   bool hasError = false;
   String currentText = "";
@@ -63,9 +56,6 @@ class _OtpPageState extends State<OtpPage> {
 
   @override
   Widget build(BuildContext context) {
-    _height = MediaQuery.of(context).size.height;
-    _width = MediaQuery.of(context).size.width;
-    _pixelRatio = MediaQuery.of(context).devicePixelRatio;
 
     return WillPopScope(
       onWillPop: () async {
@@ -80,25 +70,29 @@ class _OtpPageState extends State<OtpPage> {
           width: MediaQuery.of(context).size.width,
           child: ListView(
             children: <Widget>[
+              const BackPreviousScreen(),
               SizedBox(
-                height: Get.height * .05,
+                height: Get.height * .07,
               ),
               SizedBox(
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
-                  'assets/media/image/vemate.png',
+                  mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
+              SizedBox(
+                height: Get.height * .02,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
                   'Email Verification',
                   style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.textColor,
                       fontWeight: FontWeight.bold,
-                      fontSize: 22),
+                      fontSize: 22.sp),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -114,7 +108,7 @@ class _OtpPageState extends State<OtpPage> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.primaryColor,
-                                fontSize: 15)),
+                                fontSize: 15.sp)),
                       ],
                       style:
                           const TextStyle(color: Colors.white, fontSize: 15)),
@@ -134,32 +128,22 @@ class _OtpPageState extends State<OtpPage> {
                         fontWeight: FontWeight.bold,
                       ),
                       length: 6,
-                      obscureText: true,
-                      obscuringCharacter: '*',
-                      obscuringWidget: Image.asset(
-                        "assets/media/icon/logo v.png",
-                      ),
                       blinkWhenObscuring: true,
                       animationType: AnimationType.fade,
-                      validator: (v) {
-                        if (v!.length < 6) {
-                          return "I'm from validator";
-                        } else {
-                          return null;
-                        }
-                      },
+
                       pinTheme: PinTheme(
                         selectedFillColor: AppColors.primaryColor,
                         selectedColor: AppColors.lightBackgroundColor,
                         inactiveFillColor: AppColors.lightBackgroundColor,
                         inactiveColor: AppColors.primaryColor,
+                        activeColor: AppColors.borderColor,
                         shape: PinCodeFieldShape.box,
                         borderRadius: BorderRadius.circular(5),
                         fieldHeight: 50,
                         fieldWidth: 40,
-                        activeFillColor: Colors.white,
+                        activeFillColor: AppColors.primaryColor,
                       ),
-                      cursorColor: Colors.black,
+                      cursorColor: Colors.white,
                       animationDuration: const Duration(milliseconds: 300),
                       enableActiveFill: true,
                       errorAnimationController: errorController,
@@ -198,19 +182,19 @@ class _OtpPageState extends State<OtpPage> {
                   hasError ? "*Please fill up all the cells properly" : "",
                   style: TextStyle(
                       color: AppColors.white,
-                      fontSize: 12,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w400),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "Didn't receive the code? ",
-                    style: TextStyle(color: Colors.white, fontSize: 15),
+                    style: TextStyle(color: Colors.white, fontSize: 15.sp),
                   ),
                   TextButton(
                       onPressed: () {
@@ -226,57 +210,45 @@ class _OtpPageState extends State<OtpPage> {
                         style: TextStyle(
                             color: AppColors.primaryColor,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16),
+                            fontSize: 16.sp),
                       ))
                 ],
               ),
-              const SizedBox(
-                height: 14,
+              SizedBox(
+                height: 15.h,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  gradient: AppColors.purpleGradient, // set border width
-                  borderRadius: const BorderRadius.all(
-                      Radius.circular(20.0)), // set rounded corner radius
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomButtons(
+                  width: Get.width*.9,
+                  height: Get.height * .065,
+                  onTap: () {
+                    formKey.currentState!.validate();
+                    if (currentText.length != 6) {
+                      errorController!.add(ErrorAnimationType.shake);
+                      setState(() => hasError = true);
+                    } else {
+                      setState(
+                            () {
+                          hasError = false;
+
+                          var body = {
+                            "email": "${prefs!.getString('email')}",
+                            "code": currentText
+                          };
+
+                          printInfo(info: body.toString());
+
+                          postData!.verifyCode(context, body);
+                        },
+                      );
+                    }
+                  },
+                  text: "VERIFY".toUpperCase(),
+                  style: Get.textTheme.button!.copyWith(color: Colors.white),
                 ),
-                margin:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-                child: ButtonTheme(
-                  height: 50,
-                  child: TextButton(
-                    onPressed: () {
-                      formKey.currentState!.validate();
-                      if (currentText.length != 6) {
-                        errorController!.add(ErrorAnimationType.shake);
-                        setState(() => hasError = true);
-                      } else {
-                        setState(
-                          () {
-                            hasError = false;
-
-                            var body = {
-                              "email": "${prefs!.getString('email')}",
-                              "code": currentText
-                            };
-
-                            printInfo(info: body.toString());
-
-                            postData!.verifyCode(context, body);
-                          },
-                        );
-                      }
-                    },
-                    child: Center(
-                        child: Text(
-                      "VERIFY".toUpperCase(),
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    )),
-                  ),
-                ),
-              ),
+              )
 
               /* Row(
                 mainAxisAlignment: MainAxisAlignment.center,

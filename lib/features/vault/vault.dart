@@ -1,29 +1,33 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/CheckInternet/check_internet.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
+import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
 import 'package:ketemaa/features/vault/vault_comics_card.dart';
-import 'package:ketemaa/features/vault/my_wishlist_page.dart';
+import 'package:ketemaa/features/vault/Wishlist/my_wishlist_page.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../core/utilities/shimmer/loading.dart';
+import 'Component/no_data_card.dart';
 import 'mysets_card.dart';
-import 'mywishlist_card.dart';
+import 'Wishlist/mywishlist_card.dart';
 
 class Vault extends StatefulWidget {
+  const Vault({Key? key}) : super(key: key);
+
   @override
   State<Vault> createState() => _VaultState();
 }
 
 class _VaultState extends State<Vault> {
-
-
-
   double scrnHeight = Get.height;
   double scrnWidth = Get.width;
 
@@ -33,6 +37,7 @@ class _VaultState extends State<Vault> {
 
   @override
   void initState() {
+    //getConnection();
     super.initState();
 
     getData = Provider.of<GetData>(context, listen: false);
@@ -48,11 +53,11 @@ class _VaultState extends State<Vault> {
     Get.put(ControllerPageController());
 
     return Scaffold(
-      backgroundColor: const Color(0xff272E49),
+      backgroundColor: AppColors.backgroundColor,
       body: Consumer<GetData>(builder: (context, data, child) {
         return data.vaultStatsModel != null
             ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Stack(
                   children: [
                     Container(
@@ -76,9 +81,9 @@ class _VaultState extends State<Vault> {
                                 "My Vault",
                                 textAlign: TextAlign.start,
                                 style: Get.textTheme.bodyText2!.copyWith(
-                                    color: AppColors.white,
+                                    color: AppColors.textColor,
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 22),
+                                    fontSize: 22.sp),
                               ),
                             ]),
                           ),
@@ -102,16 +107,17 @@ class _VaultState extends State<Vault> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(
-                                                      color: AppColors.white,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 14),
+                                                      fontSize: 14.sp),
                                             ),
                                           ),
                                           const Expanded(
                                             flex: 2,
                                             child: Text(""
-                                              /*"MCP",
+                                                /*"MCP",
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(
@@ -119,7 +125,7 @@ class _VaultState extends State<Vault> {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14),*/
-                                            ),
+                                                ),
                                           ),
                                           Expanded(
                                             flex: 5,
@@ -136,20 +142,14 @@ class _VaultState extends State<Vault> {
                                                 ), // set rounded corner radius
                                               ),
                                               child: Text(
-                                                '\$${data.vaultStatsModel!
-                                                    .totalPriceChange !=null
-                                                    ?data.vaultStatsModel!
-                                                    .totalPriceChange!.toStringAsFixed(2)
-                                                    :""
-                                                }',
-
+                                                '\$${data.vaultStatsModel!.totalPriceChange != null ? data.vaultStatsModel!.totalPriceChange!.toStringAsFixed(2) : ""}',
                                                 textAlign: TextAlign.start,
                                                 style: Get.textTheme.bodyText2!
                                                     .copyWith(
                                                         color: AppColors.white,
                                                         fontWeight:
                                                             FontWeight.w600,
-                                                        fontSize: 14),
+                                                        fontSize: 14.sp),
                                               ),
                                             ),
                                           ),
@@ -167,16 +167,17 @@ class _VaultState extends State<Vault> {
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(
-                                                      color: AppColors.grey,
+                                                      color:
+                                                          AppColors.textColor,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 14),
+                                                      fontSize: 14.sp),
                                             ),
                                           ),
                                           const Expanded(
                                             flex: 2,
                                             child: Text(""
-                                             /* '\$' +
+                                                /* '\$' +
                                                   data.vaultStatsModel!.mcp!
                                                       .toString(),
                                               textAlign: TextAlign.start,
@@ -186,7 +187,7 @@ class _VaultState extends State<Vault> {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14),*/
-                                            ),
+                                                ),
                                           ),
                                           Expanded(
                                             flex: 5,
@@ -238,7 +239,7 @@ class _VaultState extends State<Vault> {
                                                               : Colors.green,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontSize: 14),
+                                                      fontSize: 14.sp),
                                                 ),
                                               ],
                                             ),
@@ -251,7 +252,7 @@ class _VaultState extends State<Vault> {
                               ],
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: Get.height * .11,
                             child: SfCartesianChart(
                               margin: EdgeInsets.zero,
@@ -293,6 +294,12 @@ class _VaultState extends State<Vault> {
                                           plot.total,
                                   xAxisName: 'Duration',
                                   yAxisName: 'Total',
+                                  dataLabelSettings: const DataLabelSettings(
+                                    isVisible: false,
+                                    angle: 270,
+                                  ),
+                                  splineType: SplineType.monotonic,
+                                  cardinalSplineTension: 0.3,
                                 )
                               ],
                             ),
@@ -301,18 +308,19 @@ class _VaultState extends State<Vault> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: Get.height * .28),
+                      padding: EdgeInsets.only(top: Get.height * .27),
                       child: ListView(
                         children: [
+                          ///My Collectibles
                           Padding(
                             padding: EdgeInsets.only(
                                 left: Get.width *
                                     .06), //apply padding to all four sides
-                            child: const Text(
+                            child: Text(
                               "My Collectibles",
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
+                                  color: AppColors.textColor,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -320,16 +328,18 @@ class _VaultState extends State<Vault> {
                             data: data.vaultStatsModel!.collectible,
                           ),
                           SizedBox(
-                            height: Get.height * .02,
+                            height: Get.height * .01,
                           ),
+
+                          ///My Comics
                           Padding(
                             padding: EdgeInsets.only(
                                 left: Get.width *
                                     .06), //apply padding to all four sides
-                            child: const Text(
+                            child: Text(
                               "My Comics",
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: AppColors.textColor,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -338,33 +348,41 @@ class _VaultState extends State<Vault> {
                             data: data.vaultStatsModel!.comic,
                           ),
                           SizedBox(
-                            height: Get.height * .02,
+                            height: Get.height * .01,
                           ),
+
+                          ///My Vault
                           Padding(
                             padding: EdgeInsets.only(
                                 left: Get.width *
                                     .06), //apply padding to all four sides
-                            child: const Text(
+                            child: Text(
                               "My Vault",
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
+                                  color: AppColors.textColor,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
+                          data.setListModel != null
+                              ?  SizedBox(
+                                    width: Get.width,
+                                    height: Get.height * .22,
+                                    child: data.setListModel!.count! > 0
+                                        ? MysetsCard(
+                                            list: data.setListModel!.results,
+                                          )
+                                        : const NoDataCard(
+                                            title: 'Your Vault is empty!',
+                                          ),
+
+                                )
+                              : const LoadingExample(),
                           SizedBox(
-                              height: Get.height * .22,
-                              child: SizedBox(
-                                width: Get.width,
-                                child: data.setListModel != null
-                                    ? MysetsCard(
-                                        list: data.setListModel!.results,
-                                      )
-                                    : const LoadingExample(),
-                              )),
-                          SizedBox(
-                            height: Get.height * .02,
+                            height: Get.height * .01,
                           ),
+
+                          ///My Wishlist
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -372,70 +390,74 @@ class _VaultState extends State<Vault> {
                                   padding: EdgeInsets.only(
                                       left: Get.width *
                                           .06), //apply padding to all four sides
-                                  child: const Text(
+                                  child: Text(
                                     "My Wishlist",
                                     style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
+                                        color: AppColors.textColor,
+                                        fontSize: 20.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    Get.to(() => const WishListPage());
+                                    Get.to(() =>  const WishListPage());
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.only(
                                         right: Get.width *
                                             .06), //apply padding to all four sides
-                                    child: const Text(
+                                    child: Text(
                                       "See All",
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: AppColors.textColor,
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 ),
                               ]),
+                          data.wishListModel != null
+                              ? SizedBox(
+                                     width: Get.width,
+                                     height: Get.height * .22,
+                                    child: data.wishListModel!.count! > 0
+                                        ? MywishlistCard(
+                                            list: data.wishListModel!.results,
+                                          )
+                                        : const NoDataCard(
+                                            title: 'Your Wishlist is empty!',
+                                          ),
+
+                                )
+                              : const LoadingExample(),
                           SizedBox(
-                              height: Get.height * .22,
-                              child: SizedBox(
-                                width: Get.width,
-                                child: data.wishListModel != null
-                                    ? MywishlistCard(
-                                        list: data.wishListModel!.results,
-                                      )
-                                    : const LoadingExample(),
-                              )),
-                          SizedBox(
-                            height: Get.height * .02,
+                            height: Get.height * .01,
                           ),
                         ],
                       ),
                     ),
-          Positioned(
-            top: Get.height * .235,
-            left: Get.width * .62,
-            right: 0.0,
-            child: Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: const Text(
-                '24H',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                ),
-              ),
-              width: Get.width * .125,
-              height: Get.width * .125,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: AppColors.purpleGradient,
-              ),
-            ),
-          ),
+                    Positioned(
+                      top: Get.height * .235,
+                      left: Get.width * .62,
+                      right: 0.0,
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child:  Text(
+                          '24H',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                        width: Get.width * .125,
+                        height: Get.width * .125,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: AppColors.purpleGradient,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               )
@@ -443,5 +465,4 @@ class _VaultState extends State<Vault> {
       }),
     );
   }
-
 }

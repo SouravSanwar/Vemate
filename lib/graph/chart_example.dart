@@ -5,6 +5,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -55,15 +56,15 @@ class _ChartExampleState extends State<ChartExample> {
     return Consumer<GetData>(builder: (context, data, child) {
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color(0xff272E49),
+          backgroundColor: AppColors.backgroundColor,
           elevation: 4,
           title: Text(
             data.collectiblesModel != null
                 ? data.collectiblesModel!.results![0].name.toString()
                 : "",
             style: TextStyle(
-                color: Colors.blueGrey.shade300,
-                fontSize: 18,
+                color: AppColors.textColor,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.bold),
           ),
         ),

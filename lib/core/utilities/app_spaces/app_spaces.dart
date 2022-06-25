@@ -1,47 +1,49 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class AppSpaces {
   static Padding spaces_bottom_5 =
-      const Padding(padding: EdgeInsets.only(bottom: 5));
+       Padding(padding: EdgeInsets.only(bottom: 5.h));
   static Padding spaces_height_1 =
-      const Padding(padding: EdgeInsets.only(top: 1));
+      Padding(padding: EdgeInsets.only(top: 1.h));
   static Padding spaces_height_2 =
-      const Padding(padding: EdgeInsets.only(top: 2));
+      Padding(padding: EdgeInsets.only(top: 2.h));
   static Padding spaces_height_5 =
-      const Padding(padding: EdgeInsets.only(top: 5));
+       Padding(padding: EdgeInsets.only(top: Get.height*0.007));
   static Padding spaces_height_10 =
-      const Padding(padding: EdgeInsets.only(top: 10));
+      Padding(padding: EdgeInsets.only(top:  Get.height*0.013,));
   static Padding spaces_height_15 =
-      const Padding(padding: EdgeInsets.only(top: 15));
+       Padding(padding: EdgeInsets.only(top: Get.height*0.0209));
   static Padding spaces_height_20 =
-      const Padding(padding: EdgeInsets.only(top: 20));
+       Padding(padding: EdgeInsets.only(top: Get.height*0.02778));
   static Padding spaces_height_25 =
-      const Padding(padding: EdgeInsets.only(top: 25));
+      Padding(padding: EdgeInsets.only(top: Get.height*0.03473));
   static Padding spaces_height_30 =
-      const Padding(padding: EdgeInsets.only(top: 30));
+       Padding(padding: EdgeInsets.only(top: Get.height*0.04167));
   static Padding spaces_height_35 =
-      const Padding(padding: EdgeInsets.only(top: 35));
+      Padding(padding: EdgeInsets.only(top: Get.height*0.048615));
   static Padding spaces_height_40 =
-      const Padding(padding: EdgeInsets.only(top: 40));
+       Padding(padding: EdgeInsets.only(top: Get.height*0.05556));
   static Padding spaces_height_50 =
-      const Padding(padding: EdgeInsets.only(top: 50));
+      Padding(padding: EdgeInsets.only(top: Get.height*0.06945));
   static Padding spaces_height_100 =
-      const Padding(padding: EdgeInsets.only(top: 100));
+       Padding(padding: EdgeInsets.only(top: Get.height*0.13889));
   static Padding spaces_height_160 =
-      const Padding(padding: EdgeInsets.only(top: 160));
+      Padding(padding: EdgeInsets.only(top: 160.h));
 
   static Padding spaces_width_2 =
-      const Padding(padding: EdgeInsets.only(left: 2));
+      Padding(padding: EdgeInsets.only(left: Get.width *0.00556));
   static Padding spaces_width_5 =
-      const Padding(padding: EdgeInsets.only(left: 5));
+      Padding(padding: EdgeInsets.only(left: Get.width *0.013889));
   static Padding spaces_width_10 =
-      const Padding(padding: EdgeInsets.only(left: 10));
+       Padding(padding: EdgeInsets.only(left: Get.width *0.02778));
   static Padding spaces_width_15 =
-      const Padding(padding: EdgeInsets.only(left: 15));
+      Padding(padding: EdgeInsets.only(left: Get.width *0.04167));
   static Padding spaces_width_20 =
-      const Padding(padding: EdgeInsets.only(left: 20));
+      Padding(padding: EdgeInsets.only(left: Get.width *0.05556));
   static Padding spaces_width_25 =
-      const Padding(padding: EdgeInsets.only(left: 25));
+      Padding(padding: EdgeInsets.only(left: Get.width *0.069449));
 
   static EdgeInsets spaces_all_5 = const EdgeInsets.all(5);
   static EdgeInsets spaces_all_10 = const EdgeInsets.all(10);

@@ -1,14 +1,10 @@
-
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
-import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/main.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -31,7 +27,6 @@ class SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> navigationPage() async {
-
     VersionControl.initConfig();
     VersionControl.initPackageInfo();
     /*prefs!.getString('token') != null
@@ -45,9 +40,6 @@ class SplashScreenState extends State<SplashScreen>
 
     const simpleBehavior = false;
 
-    SharedPreferences.getInstance().then((pr) {
-      prefs = pr;
-    });
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
@@ -56,7 +48,7 @@ class SplashScreenState extends State<SplashScreen>
     animation =
         CurvedAnimation(parent: animationController, curve: Curves.easeIn);
 
-    animation.addListener(() => this.setState(() {}));
+    animation.addListener(() => setState(() {}));
     animationController.forward();
 
     setState(() {
@@ -76,7 +68,9 @@ class SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(
-                'assets/media/image/vemate.png',
+                mode == 0
+                    ? 'assets/media/image/vemate1.png'
+                    : 'assets/media/image/vemate.png',
                 width: animation.value * 400,
                 height: animation.value * 400,
               ),
@@ -87,6 +81,3 @@ class SplashScreenState extends State<SplashScreen>
     );
   }
 }
-
-
-

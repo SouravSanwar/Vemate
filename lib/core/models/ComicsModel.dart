@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -44,6 +43,7 @@ class Results {
     this.id,
     this.type,
     this.name,
+    this.image,
     this.edition,
     this.series,
     this.rarity,
@@ -58,6 +58,7 @@ class Results {
     id = json['id'];
     type = json['type'];
     name = json['name'];
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
     cpp = json['changed_price'];
     edition = json['edition'];
     series = json['series'];
@@ -66,9 +67,9 @@ class Results {
     priceChangePercent = json['price_change_percent'] != null
         ? PriceChangePercent.fromJson(json['price_change_percent'])
         : null;
-    if (json['graph'] != null) {
+    if (json['new_graph'] != null) {
       graph = [];
-      json['graph'].forEach((v) {
+      json['new_graph'].forEach((v) {
         graph?.add(Graph.fromJson(v));
       });
     }
@@ -78,6 +79,7 @@ class Results {
   int? id;
   int? type;
   String? name;
+  Image? image;
   String? edition;
   String? series;
   String? rarity;
@@ -93,6 +95,9 @@ class Results {
     map['type'] = type;
     map['changed_price'] = cpp;
     map['name'] = name;
+    if (image != null) {
+      map['image'] = image?.toJson();
+    }
     map['edition'] = edition;
     map['series'] = series;
     map['rarity'] = rarity;
@@ -101,35 +106,119 @@ class Results {
       map['price_change_percent'] = priceChangePercent?.toJson();
     }
     if (graph != null) {
-      map['graph'] = graph?.map((v) => v.toJson()).toList();
+      map['new_graph'] = graph?.map((v) => v.toJson()).toList();
     }
     return map;
   }
 }
 
-class Graph {
-  Graph({
-    this.hour,
-    this.inHour,
-    this.total,
-  });
 
-  Graph.fromJson(dynamic json) {
-    hour = json['hour'];
-    total = json['total'];
-    inHour = DateFormat('hh a').format(DateTime.parse(hour!));
+class Image {
+  Image({
+    this.original,
+    this.image_on_list,});
+
+  Image.fromJson(dynamic json) {
+    original = json['original'] != null ? Original.fromJson(json['original']) : null;
+    image_on_list = json['list'] != null ? ImageOnList.fromJson(json['list']) : null;
   }
-
-  String? hour;
-  var inHour;
-  double? total;
+  Original? original;
+  ImageOnList? image_on_list;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['hour'] = hour;
-    map['total'] = total;
+    if (original != null) {
+      map['original'] = original?.toJson();
+    }
+    if (image_on_list != null) {
+      map['list'] = image_on_list?.toJson();
+    }
     return map;
   }
+
+}
+
+
+class ImageOnList {
+  ImageOnList({
+    this.src,
+    this.width,
+    this.height,
+    this.alt,});
+
+  ImageOnList.fromJson(dynamic json) {
+    src = 'https://market.vemate.com'+json['src'];
+    width = json['width'];
+    height = json['height'];
+    alt = json['alt'];
+  }
+  String? src;
+  int? width;
+  int? height;
+  String? alt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['src'] = src;
+    map['width'] = width;
+    map['height'] = height;
+    map['alt'] = alt;
+    return map;
+  }
+
+}
+
+class Original {
+  Original({
+    this.src,
+    this.width,
+    this.height,
+    this.alt,});
+
+  Original.fromJson(dynamic json) {
+    src = 'https://market.vemate.com'+json['src'];
+    width = json['width'];
+    height = json['height'];
+    alt = json['alt'];
+  }
+  String? src;
+  int? width;
+  int? height;
+  String? alt;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['src'] = src;
+    map['width'] = width;
+    map['height'] = height;
+    map['alt'] = alt;
+    return map;
+  }
+
+}
+class Graph {
+  Graph({
+    this.floorPrice,
+    this.creationTime,
+    this.date,});
+
+  Graph.fromJson(dynamic json) {
+    floorPrice = json['floor_price'];
+    creationTime = json['creation_time'];
+    date = json['date'];
+  }
+  double? floorPrice;
+  String? creationTime;
+  String? date;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['floor_price'] = floorPrice;
+    map['creation_time'] = creationTime;
+    map['date'] = date;
+    return map;
+  }
+
 }
 
 class PriceChangePercent {

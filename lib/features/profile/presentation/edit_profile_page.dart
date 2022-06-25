@@ -9,14 +9,15 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/Provider/postFile.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
+import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/profile/_controller/profile_controller.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/graph/designhelper.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/language/language_string.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
-import '../../../core/utilities/app_dimension/app_dimension.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
 import '../../../core/utilities/common_widgets/text_input_field.dart';
 
@@ -70,25 +71,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
           padding: EdgeInsets.zero,
           physics: const BouncingScrollPhysics(),
           children: [
-            AppSpaces.spaces_height_30,
-            Padding(
-              padding: EdgeInsets.only(
-                left: AppDimension.padding_8,
-                right: AppDimension.padding_8,
-              ),
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: Shader(
-                      icon: const Icon(Icons.arrow_back),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            AppSpaces.spaces_height_40,
+            const BackPreviousScreen(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -100,7 +84,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       children: <Widget>[
                         CircleAvatar(
                           radius: MediaQuery.of(context).size.width * .25,
-                          backgroundColor: const Color(0xff2F3758),
+                          backgroundColor: AppColors.textColor,
                           backgroundImage: profileModel!.profileImage == null
                               ? null
                               : NetworkImage(
@@ -120,7 +104,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                         Positioned(
                           bottom: Get.height * .01,
-                          right: Get.height * .055,
+                          right: Get.height * .0001,
                           child: RawMaterialButton(
                             onPressed: () {
                               setState(() {
@@ -132,10 +116,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             child: Shader(
                               icon: const Icon(
                                 Icons.camera_alt,
-                                size: 20,
+                                size: 30,
                               ),
                             ),
-                            padding: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(10.0),
                             shape: const CircleBorder(),
                           ),
                         ),
@@ -164,39 +148,28 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   SizedBox(
                     height: Get.height * .07,
                   ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    padding: const EdgeInsets.symmetric(horizontal: 7),
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.purpleGradient, // set border width
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(20.0)), // set rounded corner radius
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        var body = {
-                          "nickname": ProfileController
-                              .to.userNameTextFiledController.text,
-                          "email":
-                              ProfileController.to.emailTextFiledController.text
-                        };
+                  CustomButtons(
+                    width: Get.width * .8,
+                    height: Get.height * .065,
+                    onTap: () {
+                      var body = {
+                        "nickname": ProfileController
+                            .to.userNameTextFiledController.text,
+                        "email":
+                            ProfileController.to.emailTextFiledController.text
+                      };
 
-                        Map<String, String> requestHeadersWithToken = {
-                          'Content-type': 'application/json',
-                          'Accept': 'application/json',
-                          'Authorization': 'token ${prefs!.getString('token')}',
-                        };
-                        postData!.updateProfile(
-                            context, body, requestHeadersWithToken);
-                      },
-                      child: Text(
-                        AppLanguageString.UPDATE_INFO.toUpperCase(),
-                        style:
-                            Get.textTheme.button!.copyWith(color: Colors.white),
-                      ),
-                    ),
-                  ),
+                      Map<String, String> requestHeadersWithToken = {
+                        'Content-type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'token ${prefs!.getString('token')}',
+                      };
+                      postData!
+                          .updateProfile(context, body, requestHeadersWithToken);
+                    },
+                    text: AppLanguageString.UPDATE_INFO.toUpperCase(),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white),
+                  )
                 ],
               ),
             )

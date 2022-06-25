@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -32,6 +30,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
             decoration: BoxDecoration(
               gradient: AppColors.cardGradient,
               borderRadius: BorderRadius.circular(12.0),
+              border: Border.all(color: const Color(0xff454F70)),
             ),
             child: Column(
               children: [
@@ -49,9 +48,9 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         "Vault Value",
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText2!.copyWith(
-                            color: AppColors.white,
+                            color: AppColors.textColor,
                             fontWeight: FontWeight.w600,
-                            fontSize: 14),
+                            fontSize: 14.sp),
                       ),
                     ),
                     const Expanded(
@@ -75,7 +74,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                           style: Get.textTheme.bodyText2!.copyWith(
                               color: AppColors.white,
                               fontWeight: FontWeight.w600,
-                              fontSize: 14),
+                              fontSize: 14.sp),
                         ),
                       ),
                     ),
@@ -89,9 +88,9 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Container(
                           alignment: Alignment.center,
-                          child: const Text("24H",style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
+                          child: Text("24H",style: TextStyle(
+                            fontSize: 15.sp,
+                            color: AppColors.textColor,
                           ),
                           ),
                           width: Get.width * .15,
@@ -99,6 +98,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                           decoration: BoxDecoration(
                             border: Border.all(color: AppColors.primaryColor),
                             borderRadius: BorderRadius.circular(8.0),
+
                           ),
                         ),
                       ),
@@ -116,9 +116,9 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         '\$${data.vaultStatsModel!.totalVaultValue != null ? data.vaultStatsModel!.totalVaultValue!.toStringAsFixed(2) : "0.0"}',
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText2!.copyWith(
-                            color: AppColors.grey,
+                            color: AppColors.greyWhite,
                             fontWeight: FontWeight.w600,
-                            fontSize: 14),
+                            fontSize: 14.sp),
                       ),
                     ),
                     const Expanded(
@@ -161,7 +161,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   ? Colors.red
                                   : Colors.green,
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 14.sp,
                             ),
                           ),
                         ],
@@ -177,7 +177,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                     ),
                   ],
                 ),
-                Container(
+                SizedBox(
                   height: Get.height * .12,
                   child: SfCartesianChart(
                     plotAreaBorderWidth: 0,
@@ -212,6 +212,12 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                             plot.total,
                         xAxisName: 'Duration',
                         yAxisName: 'Total',
+                        dataLabelSettings: const DataLabelSettings(
+                          isVisible: false,
+                          angle: 270,
+                        ),
+                        splineType: SplineType.monotonic,
+                        cardinalSplineTension: 0.3,
                       )
                     ],
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/utilities/app_colors/app_colors.dart';
 
@@ -13,7 +14,6 @@ class ItemDetailsHelper extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 42,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         gradient: AppColors.cardGradient,
@@ -25,8 +25,8 @@ class ItemDetailsHelper extends StatelessWidget{
             child: Container(
                 child: Text(
                   text!,style: TextStyle(
-                    color: AppColors.greyWhite,
-                    fontSize: 15,
+                    color: AppColors.detailsTextColor,
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.bold
                 ),
                 ),
@@ -40,8 +40,8 @@ class ItemDetailsHelper extends StatelessWidget{
             child: Container(
                 child: Text(
                   text1!,style: TextStyle(
-                    color: AppColors.greyWhite,
-                    fontSize: 14,
+                    color: AppColors.detailsTextColor1,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.bold
                 ),
                 ),
