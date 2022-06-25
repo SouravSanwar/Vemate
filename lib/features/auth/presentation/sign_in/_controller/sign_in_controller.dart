@@ -12,11 +12,17 @@ class SigninController extends GetxController {
   TextEditingController emailTextFiledController = TextEditingController();
   TextEditingController passwordTextFiledController = TextEditingController();
 
-
   RxString responseValue = "".obs;
   RxBool loading = false.obs;
 
   Rx<UserLoginModel> userLogin = UserLoginModel().obs;
 
-
+  @override
+  void onInit() {
+    if (kDebugMode) {
+      userNameTextFiledController.text = "sanwarulhaque1165@gmail.com";
+      passwordTextFiledController.text = "vem@te123";
+    }
+    super.onInit();
+  }
 }
