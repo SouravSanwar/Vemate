@@ -52,8 +52,11 @@ class _NotificationAlertBoxState extends State<NotificationAlertBox> {
             ),
           ],
         ),
-        content: PrimaryNotificationList(
-          list: widget.list,
+        content: Container(
+             width: double.maxFinite, 
+          child: PrimaryNotificationList(
+            list: widget.list,
+          ),
         ));
   }
 }
