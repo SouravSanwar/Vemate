@@ -45,7 +45,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: EdgeInsets.only(
-                left: index == 0 ? 8 : 4.0, right: index == 9 ? 8 : 4.0),
+                left: index == 0 ? 8 : 6.0, right: index == 9 ? 8 : 6.0),
             child: InkWell(
               onTap: () {
                 Get.to(
@@ -64,13 +64,182 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                   ),
                 ),
                 child: widget.list![index].image == null
-                    ? Text(
-                        widget.list![index].name.toString()[0].toUpperCase(),
-                        style: TextStyle(
-                            color: AppColors.backgroundColor,
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold),
-                      )
+                    ? Container(
+                      child: Column(
+                        children: [
+                          Text(
+                              widget.list![index].name.toString()[0].toUpperCase(),
+                              style: TextStyle(
+                                  color: AppColors.backgroundColor,
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.bold),
+
+                            ),
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            child: GlassContainer(
+                              padding:
+                              const EdgeInsets.symmetric(horizontal: 5),
+                              alignment: Alignment.bottomCenter,
+                              height: Get.height * .11.h,
+                              width: Get.width * .37,
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.white.withOpacity(0.40),
+                                  Colors.white.withOpacity(0.10),
+                                ],
+                              ),
+                              borderGradient: AppColors.cardGradient,
+                              blur: 0,
+                              isFrostedGlass: true,
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    widget.list![index].name.toString(),
+                                    textAlign: TextAlign.center,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Get.textTheme.bodyText2!.copyWith(
+                                        color: AppColors.textColor,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12.sp),
+                                  ),
+                                  Divider(
+                                    color: AppColors.white,
+                                  ),
+                                  SizedBox(
+                                    width: Get.width,
+                                    height: Get.height * .035,
+                                    child: SfCartesianChart(
+                                      plotAreaBorderWidth: 0,
+                                      primaryXAxis: CategoryAxis(
+                                        isVisible: false,
+                                        majorGridLines:
+                                        const MajorGridLines(width: 0),
+                                        labelIntersectAction:
+                                        AxisLabelIntersectAction.hide,
+                                        labelRotation: 270,
+                                        labelAlignment: LabelAlignment.start,
+                                        maximumLabels: 7,
+                                      ),
+                                      primaryYAxis: CategoryAxis(
+                                        isVisible: false,
+                                        majorGridLines:
+                                        const MajorGridLines(width: 0),
+                                        labelIntersectAction:
+                                        AxisLabelIntersectAction.hide,
+                                        labelRotation: 0,
+                                        labelAlignment: LabelAlignment.start,
+                                        maximumLabels: 10,
+                                      ),
+                                      tooltipBehavior:
+                                      TooltipBehavior(enable: true),
+                                      series: <ChartSeries<Graph, String>>[
+                                        LineSeries<Graph, String>(
+                                          color: widget
+                                              .list![index]
+                                              .priceChangePercent!
+                                              .sign ==
+                                              'decrease'
+                                              ? Colors.red
+                                              : Colors.green,
+                                          dataSource:
+                                          widget.list![index].graph!,
+                                          xValueMapper: (Graph plot, _) =>
+                                          plot.date,
+                                          yValueMapper: (Graph plot, _) =>
+                                          plot.floorPrice,
+                                          xAxisName: 'Duration',
+                                          yAxisName: 'Total',
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          r"$" +
+                                              widget.list![index]
+                                                  .priceChangePercent!.percent
+                                                  .toString(),
+                                          textAlign: TextAlign.start,
+                                          style: Get.textTheme.bodyText2!
+                                              .copyWith(
+                                              color: AppColors.white,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12.sp),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              widget
+                                                  .list![index]
+                                                  .priceChangePercent!
+                                                  .percent <
+                                                  0.0
+                                                  ? widget
+                                                  .list![index]
+                                                  .priceChangePercent!
+                                                  .percent
+                                                  .toString()
+                                                  : "+" +
+                                                  widget
+                                                      .list![index]
+                                                      .priceChangePercent!
+                                                      .percent
+                                                      .toString(),
+                                              textAlign: TextAlign.end,
+                                              style: Get.textTheme.bodyText1!
+                                                  .copyWith(
+                                                  color: widget
+                                                      .list![index]
+                                                      .priceChangePercent!
+                                                      .percent <
+                                                      0.0
+                                                      ? Colors.red
+                                                      : Colors.green,
+                                                  fontWeight:
+                                                  FontWeight.w300,
+                                                  fontSize: 12.sp),
+                                            ),
+                                            if (widget
+                                                .list![index]
+                                                .priceChangePercent!
+                                                .percent <
+                                                0.0)
+                                              const Icon(
+                                                Icons.arrow_downward,
+                                                color: Colors.red,
+                                                size: 14,
+                                              )
+                                            else
+                                              const Icon(
+                                                Icons.arrow_upward,
+                                                color: Colors.green,
+                                                size: 14,
+                                              )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
                     : CachedNetworkImage(
                         imageUrl: widget.list![index].image!.image_on_list!.src
                             .toString(),

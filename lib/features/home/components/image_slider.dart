@@ -25,6 +25,7 @@ class _ImageSliderState extends State<ImageSlider> {
         options: CarouselOptions(
           height: MediaQuery.of(context).size.height * .17,
           viewportFraction: 0.8,
+
           initialPage: 0,
           //again starts from first image
           enableInfiniteScroll: true,

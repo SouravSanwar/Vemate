@@ -1,4 +1,5 @@
 import 'package:another_flushbar/flushbar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -167,16 +168,28 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                   color:
                                                       AppColors.borderColor)),
                                           alignment: Alignment.center,
-                                          child: Text(
-                                            data.notificationListModel!
-                                                .results![index].target!.name
+                                          child:
+                                          data.notificationListModel!.results![index].image==null ?Text(
+                                            data.notificationListModel!.results![index].name
                                                 .toString()[0]
                                                 .toUpperCase(),
                                             style: TextStyle(
-                                                color:
-                                                    AppColors.backgroundColor,
+                                                color: AppColors.backgroundColor,
                                                 fontSize: 35,
                                                 fontWeight: FontWeight.bold),
+                                          )
+                                              :CachedNetworkImage(
+                                            imageUrl: data.notificationListModel!.results![index].image!.image_on_list!.src.toString(),
+                                            imageBuilder: (context, imageProvider) => Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(10),
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            placeholder: _loader,
                                           ),
                                         ),
                                         SizedBox(
@@ -238,6 +251,13 @@ class _AllNotificationListState extends State<AllNotificationList> {
                   )
                 : const LoadingExample());
       }),
+    );
+  }
+
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
     );
   }
 

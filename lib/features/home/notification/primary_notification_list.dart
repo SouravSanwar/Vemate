@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -118,14 +119,28 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                         border: Border.all(
                                             color: AppColors.borderColor)),
                                     alignment: Alignment.center,
-                                    child: Text(
-                                      widget.list![index].target!.name
+                                    child:
+                                    widget.list![index].image==null ?Text(
+                                      widget.list![index].name
                                           .toString()[0]
                                           .toUpperCase(),
                                       style: TextStyle(
                                           color: AppColors.backgroundColor,
                                           fontSize: 35,
                                           fontWeight: FontWeight.bold),
+                                    )
+                                        :CachedNetworkImage(
+                                      imageUrl: widget.list![index].image!.image_on_list!.src.toString(),
+                                      imageBuilder: (context, imageProvider) => Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      placeholder: _loader,
                                     ),
                                   ),
                                   SizedBox(
@@ -187,4 +202,10 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
       );
     });
   }
+}
+Widget _loader(BuildContext context, String url) {
+  return  ImageIcon(
+    AssetImage( 'assets/media/icon/logo v.png'),
+    color: Color(0xFF3A5A98),
+  );
 }
