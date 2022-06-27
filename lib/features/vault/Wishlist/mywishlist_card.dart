@@ -73,8 +73,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: const Color(0xff454F70))),
                   child: data.wishListModel!.results![index].productDetail!
-                              .image!.image_on_list ==
-                          null
+                              .image! == null
                       ? Text(
                           data.wishListModel!.results![index].productDetail!
                               .name
@@ -200,10 +199,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                                   data
                                                       .wishListModel!
                                                       .results![index]
-                                                      .productDetail!
-                                                      .priceChangePercent!
-                                                      .percent
-                                                      .toString(),
+                                                      .productDetail!.floorPrice.toString(),
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(

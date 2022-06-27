@@ -92,7 +92,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       border: Border.all(
                                           color: AppColors.borderColor)),
                                   alignment: Alignment.center,
-                                  child: data.comicsModel!.results![index].image!.image_on_list==null ?Text(
+                                  child: data.comicsModel!.results![index].image==null ?Text(
                                     data.comicsModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),

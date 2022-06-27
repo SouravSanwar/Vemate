@@ -85,12 +85,10 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                       SliverToBoxAdapter(
                         child: Column(
                               children: [
-                                /*SizedBox(
-                                  height: Get.height * .005,
-                                ),*/
                                 Padding(
                                   padding:  EdgeInsets.symmetric(
-                                      horizontal: Get.width*0.139, vertical: Get.height*0.02778),
+                                      horizontal:Get.width*0.1389, vertical: Get.height*0.02778
+                                  ),
                                   child: Container(
                                     height: Get.height*.5,
                                     padding: const EdgeInsets.all(5),
@@ -100,8 +98,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                         border: Border.all(
                                             color: AppColors.primaryColor)),
                                     alignment: Alignment.center,
-                                    child: data.singleProductModel!.image!.original ==null ? Text(
-                                      data.singleProductModel!.image!.original!.src.toString()[0]
+                                    child: data.singleProductModel!.image ==null ? Text(
+                                      data.singleProductModel!.name
+                                          .toString()[0]
                                           .toUpperCase(),
                                       style: const TextStyle(
                                           color: Colors.deepPurpleAccent,
@@ -434,7 +433,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                 ),
                                 Container(
                                   alignment: Alignment.topLeft,
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  padding: const EdgeInsets.all(12),
                                   child: Text(
                                     data.singleProductModel != null
                                         ? data.singleProductModel!.name.toString() + "'s Details"

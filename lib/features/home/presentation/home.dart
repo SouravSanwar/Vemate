@@ -154,10 +154,11 @@ class _HomeState extends State<Home> {
                                             position: BadgePosition.topEnd(
                                                 top: 3, end: 6),
                                             badgeContent: Text(
+                                              int.parse(data.notificationListModel!.totalUnread.toString(),)< 100?
                                               data.notificationListModel!
                                                   .totalUnread
-                                                  .toString(),
-                                              style: const TextStyle(fontSize: 10),
+                                                  .toString():"99+",
+                                              style: const TextStyle(fontSize: 8),
                                             ),
                                             badgeColor: Colors.redAccent,
                                             child: Icon(
@@ -183,8 +184,8 @@ class _HomeState extends State<Home> {
 
                         ///News
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0, vertical: 5.0),
+                          padding:  EdgeInsets.only(
+                              top:11,bottom: 5, left: 15, right: 15),
                           child: Text(
                             'News',
                             textAlign: TextAlign.left,
@@ -198,7 +199,9 @@ class _HomeState extends State<Home> {
                             news: data.newsModel != null
                                 ? data.newsModel!.results
                                 : null),
-                        AppSpaces.spaces_height_10,
+                        SizedBox(
+                          height: 9.h,
+                        ),
 
                         ///My Vault
                         Padding(
@@ -218,7 +221,7 @@ class _HomeState extends State<Home> {
                         ///Newest
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 10, bottom: 10, left: 15, right: 15),
+                               bottom: 10, left: 15, right: 15),
                           child: Text(
                             'Newest',
                             style: Get.textTheme.headline2!.copyWith(

@@ -149,7 +149,7 @@ class _WishListPageState extends State<WishListPage> {
                                                 border: Border.all(
                                                     color: AppColors.borderColor)),
                                             alignment: Alignment.center,
-                                            child: data.wishListModel!.results![index].productDetail!.image!.image_on_list==null ?Text(
+                                            child: data.wishListModel!.results![index].productDetail!.image==null ?Text(
                                               data.wishListModel!.results![index].productDetail!.name
                                                   .toString()[0]
                                                   .toUpperCase(),

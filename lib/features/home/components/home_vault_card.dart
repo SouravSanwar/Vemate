@@ -22,7 +22,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.only(top:10,left: 10,bottom: 24,right: 10),
       child: Consumer<GetData>(builder: (context, data, child) {
         return Container(
             clipBehavior: Clip.antiAlias,

@@ -63,6 +63,13 @@ class _ControllerPageState extends State<ControllerPage> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
+  Future<void> _firebaseMessagingBackgroundHandler(
+      RemoteMessage message) async {
+    await Firebase.initializeApp();
+
+    print("Handling a background message: ${message.messageId}");
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -97,6 +104,7 @@ class _ControllerPageState extends State<ControllerPage> {
 
   Future<void> initPlatformState() async {
     WidgetsFlutterBinding.ensureInitialized();
+    
     FirebaseMessaging.onBackgroundMessage(_firebaseMsg);
     await Firebase.initializeApp();
   }
@@ -237,7 +245,7 @@ class _ControllerPageState extends State<ControllerPage> {
                 //height: 65,
                 child: getBottomBar(),
               ),
-             ),
+            ),
             Positioned(
               left: 0,
               right: 0,

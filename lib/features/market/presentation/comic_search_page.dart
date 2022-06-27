@@ -195,7 +195,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                             border: Border.all(
                                                 color: AppColors.borderColor)),
                                         alignment: Alignment.center,
-                                        child: data.searchComicsModel!.results![index].image!.image_on_list==null ?Text(
+                                        child: data.searchComicsModel!.results![index].image==null ?Text(
                                           data.searchComicsModel!.results![index].name
                                               .toString()[0]
                                               .toUpperCase(),

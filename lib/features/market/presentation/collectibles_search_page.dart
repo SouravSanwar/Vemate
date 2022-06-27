@@ -195,7 +195,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                             border: Border.all(
                                                 color: AppColors.borderColor)),
                                         alignment: Alignment.center,
-                                        child: data.searchCollectiblesModel!.results![index].image!.image_on_list==null ?Text(
+                                        child: data.searchCollectiblesModel!.results![index].image==null ?Text(
                                           data.searchCollectiblesModel!.results![index].name
                                               .toString()[0]
                                               .toUpperCase(),
