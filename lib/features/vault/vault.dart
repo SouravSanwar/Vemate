@@ -368,7 +368,7 @@ class _VaultState extends State<Vault> {
                               ?  SizedBox(
                                     width: Get.width,
                                     height: Get.height * .22,
-                                    child: data.setListModel!.count! > 0
+                                    child: data.setListModel!.setResults!.isNotEmpty
                                         ? MysetsCard(
                                             list: data.setListModel!.setResults,
                                           )
@@ -420,7 +420,7 @@ class _VaultState extends State<Vault> {
                               ? SizedBox(
                                      width: Get.width,
                                      height: Get.height * .22,
-                                    child: data.wishListModel!.count! > 0
+                                    child: data.wishListModel!.results!.isNotEmpty
                                         ? MywishlistCard(
                                             list: data.wishListModel!.results,
                                           )
