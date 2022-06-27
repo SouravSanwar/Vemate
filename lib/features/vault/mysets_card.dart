@@ -66,7 +66,8 @@ class _MysetsCardState extends State<MysetsCard> {
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: const Color(0xff454F70))),
                   child: data.setListModel!.results![index].setProductDetail!
-                              .image ==null
+                              .image!.image_on_list ==
+                          null
                       ? Text(
                           data.setListModel!.results![index].setProductDetail!.name
                               .toString()[0]
@@ -187,8 +188,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                           Expanded(
                                             child: Text(
                                               r"$" +
-                                                  data
-                                                      .setListModel!
+                                                  data.setListModel!
                                                       .results![index]
                                                       .setProductDetail!
                                                       .priceChangePercent!
