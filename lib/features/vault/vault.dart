@@ -31,13 +31,10 @@ class _VaultState extends State<Vault> {
   double scrnHeight = Get.height;
   double scrnWidth = Get.width;
 
-  String? selectedValue;
-
   GetData? getData;
 
   @override
   void initState() {
-    //getConnection();
     super.initState();
 
     getData = Provider.of<GetData>(context, listen: false);
@@ -50,8 +47,6 @@ class _VaultState extends State<Vault> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ControllerPageController());
-
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: Consumer<GetData>(builder: (context, data, child) {
@@ -365,17 +360,16 @@ class _VaultState extends State<Vault> {
                             ),
                           ),
                           data.setListModel != null
-                              ?  SizedBox(
-                                    width: Get.width,
-                                    height: Get.height * .22,
-                                    child: data.setListModel!.count! > 0
-                                        ? MysetsCard(
-                                            list: data.setListModel!.setResults,
-                                          )
-                                        : const NoDataCard(
-                                            title: 'Your Vault is empty!',
-                                          ),
-
+                              ? SizedBox(
+                                  width: Get.width,
+                                  height: Get.height * .22,
+                                  child: data.setListModel!.count! > 0
+                                      ? MysetsCard(
+                                          list: data.setListModel!.setResults,
+                                        )
+                                      : const NoDataCard(
+                                          title: 'Your Vault is empty!',
+                                        ),
                                 )
                               : const LoadingExample(),
                           SizedBox(
@@ -400,7 +394,7 @@ class _VaultState extends State<Vault> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    Get.to(() =>  const WishListPage());
+                                    Get.to(() => const WishListPage());
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.only(
@@ -416,20 +410,11 @@ class _VaultState extends State<Vault> {
                                   ),
                                 ),
                               ]),
-                          data.wishListModel != null
-                              ? SizedBox(
-                                     width: Get.width,
-                                     height: Get.height * .22,
-                                    child: data.wishListModel!.count! > 0
-                                        ? MywishlistCard(
-                                            list: data.wishListModel!.results,
-                                          )
-                                        : const NoDataCard(
-                                            title: 'Your Wishlist is empty!',
-                                          ),
-
-                                )
-                              : const LoadingExample(),
+                          SizedBox(
+                            width: Get.width,
+                            height: Get.height * .22,
+                            child: const MywishlistCard(),
+                          ),
                           SizedBox(
                             height: Get.height * .01,
                           ),
@@ -443,7 +428,7 @@ class _VaultState extends State<Vault> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child:  Text(
+                        child: Text(
                           '24H',
                           style: TextStyle(
                             fontSize: 15.sp,
