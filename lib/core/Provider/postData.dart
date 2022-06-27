@@ -145,7 +145,7 @@ class PostData extends ChangeNotifier with BaseController {
 
     printInfo(info: body.toString());
 
-     final response = await http.post(Uri.parse(Urls.verifyCode),
+    final response = await http.post(Uri.parse(Urls.verifyCode),
         body: json.encode(body), headers: requestHeaders);
 
     // var x = json.decode(response.body);
@@ -596,7 +596,7 @@ class PostData extends ChangeNotifier with BaseController {
           messageText: const Text(
             "Success",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+          )).show(context).whenComplete(() => getData!.getWishList());
     } else {
       Navigator.of(context).pop();
       Flushbar(
