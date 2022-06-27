@@ -51,9 +51,6 @@ class GetData extends ChangeNotifier with BaseController {
   NotificationListModel? notificationListModel;
   NotificationReadModel? notificationReadModel;
 
-  List<SetProductDetail> listofCollectibles = [];
-  List<SetProductDetail> listofComics = [];
-
   Future getUserInfo() async {
     profileModel = null;
 
@@ -258,26 +255,15 @@ class GetData extends ChangeNotifier with BaseController {
 
   Future getSetList() async {
     setListModel = null;
-    listofComics.clear();
     final response = await BaseClient()
         .get(Urls.commonStorage + '?type=0')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
 
-    printInfo(info:'Set Info: '  +data.toString());
-
     setListModel = SetListModel.fromJson(data);
 
-    for (int i = 0; i < setListModel!.results!.length; i++) {
-      setListModel!.results![i].setProductDetail!.type == 0
-          ? listofCollectibles.add(setListModel!.results![i].setProductDetail!)
-          : listofComics.add(setListModel!.results![i].setProductDetail!);
-
-      printInfo(
-          info: 'Set Info: ' +
-              setListModel!.results![i].setProductDetail!.type.toString());
-    }
+    printInfo(info: 'Set Info: ' + setListModel!.setResults!.length.toString());
 
     notifyListeners();
   }

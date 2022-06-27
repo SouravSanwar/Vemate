@@ -7,7 +7,7 @@ class SetListModel {
     this.count,
     this.next,
     this.previous,
-    this.results,
+    this.setResults,
   });
 
   SetListModel.fromJson(dynamic json) {
@@ -15,9 +15,9 @@ class SetListModel {
     next = json['next'];
     previous = json['previous'];
     if (json['results'] != null) {
-      results = [];
+      setResults = [];
       json['results'].forEach((v) {
-        results?.add(Results.fromJson(v));
+        setResults?.add(SetResults.fromJson(v));
       });
     }
   }
@@ -25,22 +25,22 @@ class SetListModel {
   int? count;
   dynamic next;
   dynamic previous;
-  List<Results>? results;
+  List<SetResults>? setResults;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['count'] = count;
     map['next'] = next;
     map['previous'] = previous;
-    if (results != null) {
-      map['results'] = results?.map((v) => v.toJson()).toList();
+    if (setResults != null) {
+      map['results'] = setResults?.map((v) => v.toJson()).toList();
     }
     return map;
   }
 }
 
-class Results {
-  Results({
+class SetResults {
+  SetResults({
     this.id,
     this.setProductDetail,
     this.type,
@@ -49,7 +49,7 @@ class Results {
     this.product,
   });
 
-  Results.fromJson(dynamic json) {
+  SetResults.fromJson(dynamic json) {
     id = json['id'];
     setProductDetail = json['product_detail'] != null
         ? SetProductDetail.fromJson(json['product_detail'])
@@ -58,7 +58,6 @@ class Results {
     creationTime = json['creation_time'];
     user = json['user'];
     product = json['product'];
-
   }
 
   int? id;
@@ -171,6 +170,8 @@ class SetProductDetail {
     this.floorPrice,
     this.priceChangePercent,
     this.graph,
+    this.setCollectibleCount,
+    this.setComicCount,
   });
 
   SetProductDetail.fromJson(dynamic json) {
@@ -193,6 +194,11 @@ class SetProductDetail {
         graph?.add(Graph.fromJson(v));
       });
     }
+    /*if (type == 0) {
+      setCollectibleCount = setCollectibleCount! + 1;
+    } else {
+      setComicCount = setComicCount! + 1;
+    }*/
   }
 
   int? id;
@@ -207,6 +213,8 @@ class SetProductDetail {
   String? floorPrice;
   PriceChangePercent? priceChangePercent;
   List<Graph>? graph;
+  int? setComicCount;
+  int? setCollectibleCount;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

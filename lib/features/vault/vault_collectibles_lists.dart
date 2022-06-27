@@ -84,23 +84,23 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
           height: _height! * .9,
           width: _width,
           padding: const EdgeInsets.only(bottom: 10),
-          child: data.setListModel!.results!.length != null
+          child: data.setListModel!.setResults!.length != null
               ? ListView.builder(
-                  itemCount: data.setListModel!.results!.length,
+                  itemCount: data.setListModel!.setResults!.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return data.setListModel!.results![index].setProductDetail!
+                    return data.setListModel!.setResults![index].setProductDetail!
                                 .type ==
                             0
                         ? InkWell(
                             onTap: () {
-                              data.setListModel!.results![index].setProductDetail!
+                              data.setListModel!.setResults![index].setProductDetail!
                                           .type ==
                                       1
                                   ? Get.to(() => () {})
                                   : Get.to(() => CollectibleDetails(
                                         productId: data.setListModel!
-                                            .results![index].setProductDetail!.id!,
+                                            .setResults![index].setProductDetail!.id!,
                                       ));
                             },
                             child: Padding(
@@ -130,13 +130,13 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                         alignment: Alignment.center,
                                         child: data
                                                     .setListModel!
-                                                    .results![index]
+                                                    .setResults![index]
                                                     .setProductDetail!
                                                     .image == null
                                             ? Text(
                                                 data
                                                     .setListModel!
-                                                    .results![index]
+                                                    .setResults![index]
                                                     .setProductDetail!
                                                     .name
                                                     .toString()[0]
@@ -151,7 +151,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                             : CachedNetworkImage(
                                                 imageUrl: data
                                                     .setListModel!
-                                                    .results![index]
+                                                    .setResults![index]
                                                     .setProductDetail!
                                                     .image!
                                                     .image_on_list!
@@ -189,7 +189,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                       child: Text(
                                                         data
                                                             .setListModel!
-                                                            .results![index]
+                                                            .setResults![index]
                                                             .setProductDetail!
                                                             .name
                                                             .toString(),
@@ -215,7 +215,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                     child: Text(
                                                       data
                                                           .setListModel!
-                                                          .results![index]
+                                                          .setResults![index]
                                                           .setProductDetail!
                                                           .edition
                                                           .toString(),
@@ -241,34 +241,34 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                   child: Text(
                                                     data
                                                                 .setListModel!
-                                                                .results![index]
+                                                                .setResults![index]
                                                                 .setProductDetail!
                                                                 .type ==
                                                             1
                                                         ? data
                                                                     .setListModel!
-                                                                    .results![
+                                                                    .setResults![
                                                                         index]
                                                                     .setProductDetail!
                                                                     .series !=
                                                                 null
                                                             ? data
                                                                 .setListModel!
-                                                                .results![index]
+                                                                .setResults![index]
                                                                 .setProductDetail!
                                                                 .series
                                                                 .toString()
                                                             : ""
                                                         : data
                                                                     .setListModel!
-                                                                    .results![
+                                                                    .setResults![
                                                                         index]
                                                                     .setProductDetail!
                                                                     .brand !=
                                                                 null
                                                             ? data
                                                                 .setListModel!
-                                                                .results![index]
+                                                                .setResults![index]
                                                                 .setProductDetail!
                                                                 .brand!
                                                                 .name
@@ -291,7 +291,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                   child: Text(
                                                     data
                                                         .setListModel!
-                                                        .results![index]
+                                                        .setResults![index]
                                                         .setProductDetail!
                                                         .rarity
                                                         .toString(),
@@ -317,7 +317,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                     r"$" +
                                                         data
                                                             .setListModel!
-                                                            .results![index]
+                                                            .setResults![index]
                                                             .setProductDetail!
                                                             .floorPrice
                                                             .toString(),
@@ -336,7 +336,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                 Expanded(
                                                   flex: 2,
                                                   child: Text(
-                                                    '\$${data.setListModel!.results![index].setProductDetail!.priceChangePercent!.changePrice != null ? data.setListModel!.results![index].setProductDetail!.priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
+                                                    '\$${data.setListModel!.setResults![index].setProductDetail!.priceChangePercent!.changePrice != null ? data.setListModel!.setResults![index].setProductDetail!.priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
                                                     textAlign: TextAlign.start,
                                                     style: Get
                                                         .textTheme.bodyText1!
@@ -397,7 +397,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                   LineSeries<Graph, String>(
                                                     color: data
                                                                 .setListModel!
-                                                                .results![index]
+                                                                .setResults![index]
                                                                 .setProductDetail!
                                                                 .priceChangePercent!
                                                                 .sign ==
@@ -406,7 +406,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                         : Colors.green,
                                                     dataSource: data
                                                         .setListModel!
-                                                        .results![index]
+                                                        .setResults![index]
                                                         .setProductDetail!
                                                         .graph!,
                                                     xValueMapper:
@@ -434,7 +434,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                       Text(
                                                         data
                                                                 .setListModel!
-                                                                .results![index]
+                                                                .setResults![index]
                                                                 .setProductDetail!
                                                                 .priceChangePercent!
                                                                 .percent!
@@ -445,7 +445,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                         style: Get.textTheme.bodyText1!.copyWith(
                                                             color: data
                                                                         .setListModel!
-                                                                        .results![
+                                                                        .setResults![
                                                                             index]
                                                                         .setProductDetail!
                                                                         .priceChangePercent!
@@ -459,7 +459,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                       ),
                                                       if (data
                                                               .setListModel!
-                                                              .results![index]
+                                                              .setResults![index]
                                                               .setProductDetail!
                                                               .priceChangePercent!
                                                               .sign ==
@@ -531,7 +531,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                     context,
                                                                     data
                                                                         .setListModel!
-                                                                        .results![
+                                                                        .setResults![
                                                                             index]
                                                                         .id,
                                                                     requestHeadersWithToken,

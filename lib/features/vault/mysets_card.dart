@@ -14,7 +14,7 @@ import '../../core/models/SetListModel.dart';
 import '../market/presentation/collectible_details.dart';
 
 class MysetsCard extends StatefulWidget {
-  final List<Results>? list;
+  final List<SetResults>? list;
 
   const MysetsCard({
     Key? key,
@@ -38,7 +38,7 @@ class _MysetsCardState extends State<MysetsCard> {
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: data.setListModel!.results!.length,
+          itemCount: data.setListModel!.setResults!.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: EdgeInsets.only(
@@ -49,13 +49,13 @@ class _MysetsCardState extends State<MysetsCard> {
                   top: 4),
               child: InkWell(
                 onTap: () {
-                  data.setListModel!.results![index].setProductDetail!.type == 1
+                  data.setListModel!.setResults![index].setProductDetail!.type == 1
                       ? Get.to(() => ComicDetails(
-                            productId: data.setListModel!.results![index]
+                            productId: data.setListModel!.setResults![index]
                                 .setProductDetail!.id!,
                           ))
                       : Get.to(() => CollectibleDetails(
-                            productId: data.setListModel!.results![index]
+                            productId: data.setListModel!.setResults![index]
                                 .setProductDetail!.id!,
                           ));
                 },
@@ -65,11 +65,11 @@ class _MysetsCardState extends State<MysetsCard> {
                       gradient: AppColors.cardGradient,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: const Color(0xff454F70))),
-                  child: data.setListModel!.results![index].setProductDetail!
+                  child: data.setListModel!.setResults![index].setProductDetail!
                               .image!.image_on_list ==
                           null
                       ? Text(
-                          data.setListModel!.results![index].setProductDetail!.name
+                          data.setListModel!.setResults![index].setProductDetail!.name
                               .toString()[0]
                               .toUpperCase(),
                           style: TextStyle(
@@ -78,7 +78,7 @@ class _MysetsCardState extends State<MysetsCard> {
                               fontWeight: FontWeight.bold),
                         )
                       : CachedNetworkImage(
-                          imageUrl: data.setListModel!.results![index]
+                          imageUrl: data.setListModel!.setResults![index]
                               .setProductDetail!.image!.image_on_list!.src
                               .toString(),
                           imageBuilder: (context, imageProvider) => Container(
@@ -111,7 +111,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Text(
-                                        data.setListModel!.results![index]
+                                        data.setListModel!.setResults![index]
                                             .setProductDetail!.name
                                             .toString(),
                                         textAlign: TextAlign.center,
@@ -159,7 +159,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                             LineSeries<Graph, String>(
                                               color: data
                                                           .setListModel!
-                                                          .results![index]
+                                                          .setResults![index]
                                                           .setProductDetail!
                                                           .priceChangePercent!
                                                           .sign ==
@@ -168,7 +168,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                                   : Colors.green,
                                               dataSource: data
                                                   .setListModel!
-                                                  .results![index]
+                                                  .setResults![index]
                                                   .setProductDetail!
                                                   .graph!,
                                               xValueMapper: (Graph plot, _) =>
@@ -188,8 +188,9 @@ class _MysetsCardState extends State<MysetsCard> {
                                           Expanded(
                                             child: Text(
                                               r"$" +
-                                                  data.setListModel!
-                                                      .results![index]
+                                                  data
+                                                      .setListModel!
+                                                      .setResults![index]
                                                       .setProductDetail!
                                                       .priceChangePercent!
                                                       .percent
@@ -211,14 +212,14 @@ class _MysetsCardState extends State<MysetsCard> {
                                                 Text(
                                                   data
                                                               .setListModel!
-                                                              .results![index]
+                                                              .setResults![index]
                                                               .setProductDetail!
                                                               .priceChangePercent!
                                                               .percent <
                                                           0.0
                                                       ? data
                                                           .setListModel!
-                                                          .results![index]
+                                                          .setResults![index]
                                                           .setProductDetail!
                                                           .priceChangePercent!
                                                           .percent
@@ -226,7 +227,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                                       : "+" +
                                                           data
                                                               .setListModel!
-                                                              .results![index]
+                                                              .setResults![index]
                                                               .setProductDetail!
                                                               .priceChangePercent!
                                                               .percent
@@ -235,7 +236,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                                   style: Get.textTheme.bodyText1!.copyWith(
                                                       color: data
                                                                   .setListModel!
-                                                                  .results![
+                                                                  .setResults![
                                                                       index]
                                                                   .setProductDetail!
                                                                   .priceChangePercent!
@@ -249,7 +250,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                                 ),
                                                 if (data
                                                         .setListModel!
-                                                        .results![index]
+                                                        .setResults![index]
                                                         .setProductDetail!
                                                         .priceChangePercent!
                                                         .percent <

@@ -93,7 +93,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       border: Border.all(
                                           color: AppColors.borderColor)),
                                   alignment: Alignment.center,
-                                  child: data.collectiblesModel!.results![index].image!.image_on_list==null ?Text(
+                                  child: data.collectiblesModel!.results![index].image == null ?Text(
                                     data.collectiblesModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
