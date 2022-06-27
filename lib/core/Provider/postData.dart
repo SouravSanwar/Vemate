@@ -588,15 +588,17 @@ class PostData extends ChangeNotifier with BaseController {
     if (js.containsKey('id')) {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.checkWishlist(id!);
+      
       Navigator.of(context).pop();
       Flushbar(
+
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
           duration: const Duration(seconds: 3),
           messageText: const Text(
             "Success",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+          )).show(context).whenComplete(() => getData!.getWishList());
     } else {
       Navigator.of(context).pop();
       Flushbar(

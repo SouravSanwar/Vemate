@@ -43,7 +43,7 @@ class _MysetsCardState extends State<MysetsCard> {
             return Padding(
               padding: EdgeInsets.only(
                   left: index == 0 ? 8 : 4.0,
-                  right: index == data.wishListModel!.results!.length - 1
+                  right: index == data.setListModel!.setResults!.length - 1
                       ? 8
                       : 4.0,
                   top: 4),
@@ -188,13 +188,9 @@ class _MysetsCardState extends State<MysetsCard> {
                                           Expanded(
                                             child: Text(
                                               r"$" +
-                                                  data
-                                                      .setListModel!
+                                                  data.setListModel!
                                                       .setResults![index]
-                                                      .setProductDetail!
-                                                      .priceChangePercent!
-                                                      .percent
-                                                      .toString(),
+                                                      .setProductDetail!.floorPrice.toString(),
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(

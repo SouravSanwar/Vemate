@@ -199,10 +199,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                                   data
                                                       .wishListModel!
                                                       .results![index]
-                                                      .productDetail!
-                                                      .priceChangePercent!
-                                                      .percent
-                                                      .toString(),
+                                                      .productDetail!.floorPrice.toString(),
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(

@@ -165,9 +165,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                       Expanded(
                                         child: Text(
                                           r"$" +
-                                              widget.list![index]
-                                                  .priceChangePercent!.percent
-                                                  .toString(),
+                                              widget.list![index].floorPrice.toString(),
                                           textAlign: TextAlign.start,
                                           style: Get.textTheme.bodyText2!
                                               .copyWith(
