@@ -14,11 +14,9 @@ import '../../../core/Provider/getData.dart';
 import '../../market/presentation/collectible_details.dart';
 
 class MywishlistCard extends StatefulWidget {
-  final List<Results>? list;
 
   const MywishlistCard({
-    Key? key,
-    this.list,
+    Key? key
   }) : super(key: key);
 
   @override
