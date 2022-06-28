@@ -154,7 +154,7 @@ class _HomeState extends State<Home> {
                                             position: BadgePosition.topEnd(
                                                 top: 3, end: 6),
                                             badgeContent: Text(
-                                              int.parse(data.notificationListModel!.totalUnread.toString(),)< 100?
+                                              data.notificationListModel!.totalUnread! < 100?
                                               data.notificationListModel!
                                                   .totalUnread
                                                   .toString():"99+",
