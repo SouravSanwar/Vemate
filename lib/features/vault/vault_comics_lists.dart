@@ -619,7 +619,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    getData!.getWishList();
+    //getData!.getWishList();
 
     setState(() {
       refreshController.refreshCompleted();
@@ -630,7 +630,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
   Future<void> _onLoading() async {
     offset = offset + 20;
 
-    getData!.getWishList(offset: offset);
+    //getData!.getWishList(offset: offset);
 
     await Future.delayed(const Duration(seconds: 2));
 

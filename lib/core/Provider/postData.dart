@@ -589,22 +589,23 @@ class PostData extends ChangeNotifier with BaseController {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.checkWishlist(id!);
       Navigator.of(context).pop();
+
       getData!.getWishList().whenComplete(
             () => Flushbar(
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            isDismissible: false,
-            duration: const Duration(seconds: 1),
-            messageText: const Text(
-              "Success",
-              style: TextStyle(fontSize: 16.0, color: Colors.green),
-            )).show(context),
-      );
+                flushbarPosition: FlushbarPosition.BOTTOM,
+                isDismissible: false,
+                duration: const Duration(seconds: 3),
+                messageText: const Text(
+                  "Success",
+                  style: TextStyle(fontSize: 16.0, color: Colors.green),
+                )).show(context),
+          );
     } else {
       Navigator.of(context).pop();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
-          duration: const Duration(seconds: 1),
+          duration: const Duration(seconds: 3),
           messageText: Text(
             js["detail"],
             style: const TextStyle(fontSize: 16.0, color: Colors.green),
@@ -834,7 +835,6 @@ class PostData extends ChangeNotifier with BaseController {
 
   Future notificationRead(
       BuildContext context, int? id, var requestToken) async {
-    printInfo(info: 'URL: ' + Urls.notification + '$id/make_read_with_id/');
     final response = await http.post(
         Uri.parse(Urls.notification + '$id/make_read_with_id/'),
         headers: requestToken);
@@ -842,7 +842,7 @@ class PostData extends ChangeNotifier with BaseController {
     if (response.statusCode == 200) {
       getData = Provider.of<GetData>(context, listen: false);
 
-      getData!.getNotification();
+      getData!.notificationListModel = null;
     }
     notifyListeners();
   }
