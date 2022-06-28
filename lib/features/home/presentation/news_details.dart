@@ -37,9 +37,9 @@ class _NewsDetailsState extends State<NewsDetails> {
         child: ListView(
           children: [
             Image.network(Urls.mainUrl + news!.backgroundImage!.original!.src!),
-            AppSpaces.spaces_height_10,
+            AppSpaces.spaces_height_20,
             Text(
-              news!.text.toString(),
+              news!.text.toString().replaceAll(r'\n', '\n'),
               textAlign: TextAlign.justify,
               style: Get.textTheme.bodyMedium!.copyWith(
                 fontFamily: 'Inter',
