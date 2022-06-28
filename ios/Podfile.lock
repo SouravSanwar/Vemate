@@ -156,9 +156,9 @@ PODS:
     - Flutter
   - PromisesObjC (2.1.1)
   - ReachabilitySwift (5.0.0)
-  - SDWebImage (5.12.6):
-    - SDWebImage/Core (= 5.12.6)
-  - SDWebImage/Core (5.12.6)
+  - SDWebImage (5.13.0):
+    - SDWebImage/Core (= 5.13.0)
+  - SDWebImage/Core (5.13.0)
   - share_plus (0.0.1):
     - Flutter
   - shared_preferences_ios (0.0.1):
@@ -315,7 +315,7 @@ SPEC CHECKSUMS:
   platform_device_id: 81b3e2993881f87d0c82ef151dc274df4869aef5
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  SDWebImage: a47aea9e3d8816015db4e523daff50cfd294499d
+  SDWebImage: 0327043dbb9533e75f2eff8445b3df0f2ceca6ac
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
@@ -326,6 +326,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: 3dffd8c48b531d21ec0ec153c22dc8e3a6223bc9
 
 COCOAPODS: 1.11.3
