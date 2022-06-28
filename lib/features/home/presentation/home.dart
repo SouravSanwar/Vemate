@@ -137,17 +137,20 @@ class _HomeState extends State<Home> {
                               ),
                               child: InkWell(
                                 onTap: () {
-                                  data.notificationListModel!.results!.isEmpty
+                                  data.notificationListModel!.results!
+                                          .isNotEmpty
                                       ? Flushbar(
                                           flushbarPosition:
                                               FlushbarPosition.BOTTOM,
                                           isDismissible: false,
+                                          backgroundColor:
+                                              AppColors.backgroundColor,
                                           duration: const Duration(seconds: 1),
                                           messageText: const Text(
                                             "No Notification to show",
                                             style: TextStyle(
                                                 fontSize: 16.0,
-                                                color: Colors.green),
+                                                color: Colors.grey),
                                           )).show(context)
                                       : showDialog(
                                           context: context,
