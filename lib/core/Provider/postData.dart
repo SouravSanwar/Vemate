@@ -835,7 +835,6 @@ class PostData extends ChangeNotifier with BaseController {
 
   Future notificationRead(
       BuildContext context, int? id, var requestToken) async {
-    printInfo(info: 'URL: ' + Urls.notification + '$id/make_read_with_id/');
     final response = await http.post(
         Uri.parse(Urls.notification + '$id/make_read_with_id/'),
         headers: requestToken);
@@ -843,7 +842,7 @@ class PostData extends ChangeNotifier with BaseController {
     if (response.statusCode == 200) {
       getData = Provider.of<GetData>(context, listen: false);
 
-      getData!.getNotification();
+      getData!.notificationListModel = null;
     }
     notifyListeners();
   }

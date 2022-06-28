@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
+import 'package:ketemaa/features/home/components/notification_badge.dart';
 import 'package:ketemaa/features/home/notification/notification_alart.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
 import 'package:ketemaa/main.dart';
@@ -134,58 +136,41 @@ class _HomeState extends State<Home> {
                                 14.0,
                               ),
                               child: InkWell(
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (ctx) => NotificationAlertBox(
-                                              list: data.notificationListModel!
-                                                  .results!,
-                                            ));
-                                  },
-                                  child: Container(
-                                    child: data.notificationListModel!
-                                                .totalUnread ==
-                                            0
-                                        ? Icon(
-                                            Icons.notifications_none,
-                                            color: AppColors.textColor,
-                                          )
-                                        : Badge(
-                                            position: BadgePosition.topEnd(
-                                                top: 3, end: 6),
-                                            badgeContent: Text(
-                                              int.parse(data.notificationListModel!.totalUnread.toString(),)< 100?
-                                              data.notificationListModel!
-                                                  .totalUnread
-                                                  .toString():"99+",
-                                              style: const TextStyle(fontSize: 8),
-                                            ),
-                                            badgeColor: Colors.redAccent,
-                                            child: Icon(
-                                              Icons.notifications_none,
-                                              color: AppColors.textColor,
-                                            )),
-                                    height: 40.h,
-                                    width: 40.h,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.backgroundColor,
-                                      border: Border.all(
-                                          color: AppColors
-                                              .grey, // set border color
-                                          width: 1), // set border width
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(
-                                              15.0)), // set rounded corner radius
-                                    ),
-                                  )),
+                                onTap: () {
+                                  data.notificationListModel!.results!.isEmpty
+                                      ? Flushbar(
+                                          flushbarPosition:
+                                              FlushbarPosition.BOTTOM,
+                                          isDismissible: false,
+                                          duration: const Duration(seconds: 1),
+                                          messageText: const Text(
+                                            "No Notification to show",
+                                            style: TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.green),
+                                          )).show(context)
+                                      : showDialog(
+                                          context: context,
+                                          builder: (ctx) =>
+                                              NotificationAlertBox(
+                                                list: data
+                                                    .notificationListModel!
+                                                    .results!,
+                                              ));
+                                },
+                                child: NotificationBadge(
+                                  notificationListModel:
+                                      data.notificationListModel,
+                                ),
+                              ),
                             ),
                           ],
                         ),
 
                         ///News
                         Padding(
-                          padding:  EdgeInsets.only(
-                              top:11,bottom: 5, left: 15, right: 15),
+                          padding: const EdgeInsets.only(
+                              top: 11, bottom: 5, left: 15, right: 15),
                           child: Text(
                             'News',
                             textAlign: TextAlign.left,
@@ -221,7 +206,7 @@ class _HomeState extends State<Home> {
                         ///Newest
                         Padding(
                           padding: const EdgeInsets.only(
-                               bottom: 10, left: 15, right: 15),
+                              bottom: 10, left: 15, right: 15),
                           child: Text(
                             'Newest',
                             style: Get.textTheme.headline2!.copyWith(
