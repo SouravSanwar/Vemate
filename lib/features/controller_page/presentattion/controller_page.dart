@@ -72,7 +72,6 @@ class _ControllerPageState extends State<ControllerPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     postData = Provider.of<PostData>(context, listen: false);
 
     appUpdate = Provider.of<AppUpdate>(context, listen: false);
