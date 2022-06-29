@@ -76,6 +76,7 @@ class _Verify2FAState extends State<Verify2FA> {
                       child: const Text(
                         "Verify Two Factor Authentication",
                         style: TextStyle(
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold, color: Colors.grey),
                       )),
                   AppSpaces.spaces_height_25,
@@ -116,6 +117,7 @@ class _Verify2FAState extends State<Verify2FA> {
                       "By clicking RESET, you will receive an e-mail to verify two factor authentication",
                       textAlign: TextAlign.center,
                       style: TextStyle(
+                        fontFamily: 'Inter',
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
                         fontSize: 15.sp,

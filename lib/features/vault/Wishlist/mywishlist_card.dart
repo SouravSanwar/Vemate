@@ -79,6 +79,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                               .toUpperCase(),
                           style: TextStyle(
                               color: AppColors.backgroundColor,
+                              fontFamily: 'Inter',
                               fontSize: 35,
                               fontWeight: FontWeight.bold),
                         )
@@ -126,6 +127,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                         style: Get.textTheme.bodyText2!
                                             .copyWith(
                                                 color: AppColors.textColor,
+                                                fontFamily: 'Inter',
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 12.sp),
                                       ),
@@ -202,6 +204,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(
                                                       color: AppColors.white,
+                                                  fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 12.sp),
@@ -247,6 +250,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                                               0.0
                                                           ? Colors.red
                                                           : Colors.green,
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 12.sp),

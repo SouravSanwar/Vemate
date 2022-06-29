@@ -102,5 +102,11 @@ flutter:
     - assets/media/icon/
     - assets/media/logo/
 
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/media/font/Inter.ttf
+
+
 
 

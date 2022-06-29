@@ -77,6 +77,7 @@ class _VaultState extends State<Vault> {
                                 textAlign: TextAlign.start,
                                 style: Get.textTheme.bodyText2!.copyWith(
                                     color: AppColors.textColor,
+                                    fontFamily: 'Inter',
                                     fontWeight: FontWeight.w600,
                                     fontSize: 22.sp),
                               ),
@@ -104,6 +105,7 @@ class _VaultState extends State<Vault> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
+                                                  fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14.sp),
@@ -142,6 +144,7 @@ class _VaultState extends State<Vault> {
                                                 style: Get.textTheme.bodyText2!
                                                     .copyWith(
                                                         color: AppColors.white,
+                                                    fontFamily: 'Inter',
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         fontSize: 14.sp),
@@ -164,6 +167,7 @@ class _VaultState extends State<Vault> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
+                                                  fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14.sp),
@@ -232,6 +236,7 @@ class _VaultState extends State<Vault> {
                                                                   'decrease'
                                                               ? Colors.red
                                                               : Colors.green,
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 14.sp),
@@ -253,6 +258,7 @@ class _VaultState extends State<Vault> {
                               margin: EdgeInsets.zero,
                               plotAreaBorderWidth: 0,
                               primaryXAxis: CategoryAxis(
+                                plotOffset: -8,
                                 isVisible: false,
                                 majorGridLines: const MajorGridLines(width: 0),
                                 labelIntersectAction:
@@ -262,6 +268,7 @@ class _VaultState extends State<Vault> {
                                 maximumLabels: 7,
                               ),
                               primaryYAxis: CategoryAxis(
+
                                 isVisible: false,
                                 majorGridLines: const MajorGridLines(width: 0),
                                 labelIntersectAction:
@@ -315,6 +322,7 @@ class _VaultState extends State<Vault> {
                               "My Collectibles",
                               style: TextStyle(
                                   color: AppColors.textColor,
+                                  fontFamily: 'Inter',
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -335,6 +343,7 @@ class _VaultState extends State<Vault> {
                               "My Comics",
                               style: TextStyle(
                                   color: AppColors.textColor,
+                                  fontFamily: 'Inter',
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -355,6 +364,7 @@ class _VaultState extends State<Vault> {
                               "My Vault",
                               style: TextStyle(
                                   color: AppColors.textColor,
+                                  fontFamily: 'Inter',
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -388,6 +398,7 @@ class _VaultState extends State<Vault> {
                                     "My Wishlist",
                                     style: TextStyle(
                                         color: AppColors.textColor,
+                                        fontFamily: 'Inter',
                                         fontSize: 20.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -404,6 +415,7 @@ class _VaultState extends State<Vault> {
                                       "See All",
                                       style: TextStyle(
                                           color: AppColors.textColor,
+                                          fontFamily: 'Inter',
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -431,6 +443,7 @@ class _VaultState extends State<Vault> {
                         child: Text(
                           '24H',
                           style: TextStyle(
+                            fontFamily: 'Inter',
                             fontSize: 15.sp,
                             color: Colors.white,
                           ),

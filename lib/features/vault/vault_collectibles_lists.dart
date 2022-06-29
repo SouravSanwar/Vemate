@@ -75,6 +75,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
           "My Collectibles",
           style: TextStyle(
               color: AppColors.textColor,
+              fontFamily: 'Inter',
               fontSize: 20.sp,
               fontWeight: FontWeight.bold),
         ),
@@ -144,6 +145,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                 style: TextStyle(
                                                     color: AppColors
                                                         .backgroundColor,
+                                                    fontFamily: 'Inter',
                                                     fontSize: 35,
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -202,6 +204,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .textColor,
+                                                            fontFamily: 'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -226,6 +229,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                           .copyWith(
                                                               color: AppColors
                                                                   .textColor,
+                                                          fontFamily: 'Inter',
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -280,6 +284,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .textColor,
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 10.sp),
@@ -301,6 +306,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .textColor,
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10.sp),
@@ -327,6 +333,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .textColor,
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 11.sp),
@@ -343,6 +350,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .textColor,
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 11.sp),
@@ -453,6 +461,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                     'decrease'
                                                                 ? Colors.red
                                                                 : Colors.green,
+                                                            fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10.sp),
@@ -515,6 +524,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                               style: TextStyle(
                                                                   color: AppColors
                                                                       .textColor,
+                                                                  fontFamily: 'Inter',
                                                                   fontSize: 15),
                                                             ),
                                                             actions: <Widget>[
@@ -543,6 +553,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                     .textTheme
                                                                     .button!
                                                                     .copyWith(
+                                                                    fontFamily: 'Inter',
                                                                         color: AppColors
                                                                             .textColor),
                                                               ),
@@ -564,7 +575,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                     .button!
                                                                     .copyWith(
                                                                         color: AppColors
-                                                                            .textColor),
+                                                                            .textColor,fontFamily: 'Inter',),
                                                               ),
                                                             ],
                                                           );

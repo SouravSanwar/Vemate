@@ -84,7 +84,8 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
         //Icon color
         style: TextStyle(
             //te
-            color: AppColors.textColor, //Font color
+            color: AppColors.textColor,
+            fontFamily: 'Inter',//Font color
             fontSize: 20.sp //font size on dropdown button
             ),
         dropdownColor: AppColors.backgroundColor,
@@ -101,6 +102,6 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
       value: item,
       child: Text(
         item,
-        style: TextStyle(fontSize: 15.sp),
+        style: TextStyle(fontFamily: 'Inter',fontSize: 15.sp),
       ));
 }

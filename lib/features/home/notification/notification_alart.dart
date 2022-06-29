@@ -36,7 +36,7 @@ class _NotificationAlertBoxState extends State<NotificationAlertBox> {
           children: [
             Text(
               "Notifications",
-              style: TextStyle(fontSize: 22.0, color: AppColors.textColor),
+              style: TextStyle(fontFamily: 'Inter',fontSize: 22.0, color: AppColors.textColor),
             ),
             InkWell(
               onTap: () {
@@ -45,6 +45,7 @@ class _NotificationAlertBoxState extends State<NotificationAlertBox> {
               child: Text(
                 "See All",
                 style: TextStyle(
+                    fontFamily: 'Inter',
                     color: AppColors.textColor,
                     fontSize: 12,
                     fontWeight: FontWeight.bold),

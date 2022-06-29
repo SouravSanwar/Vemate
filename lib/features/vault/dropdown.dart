@@ -68,7 +68,8 @@ class _DropDownState extends State<DropDown> {
         //Icon color
         style: TextStyle(
             //te
-            color: Colors.white, //Font color
+            color: Colors.white,
+            fontFamily: 'Inter',//Font color
             fontSize: 20.sp //font size on dropdown button
             ),
         dropdownColor: widget.color,
@@ -85,6 +86,6 @@ class _DropDownState extends State<DropDown> {
       value: item,
       child: Text(
         item,
-        style: TextStyle(fontSize: 15.sp),
+        style: TextStyle(fontFamily: 'Inter',fontSize: 15.sp),
       ));
 }

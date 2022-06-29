@@ -66,7 +66,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
           children: [
             Text(
               "Price Alert",
-              style: TextStyle(fontSize: 22.0, color: AppColors.textColor),
+              style: TextStyle(fontFamily: 'Inter',fontSize: 22.0, color: AppColors.textColor),
             ),
             /*AnimatedContainer(
             padding: const EdgeInsets.only(left: 2, right: 2),

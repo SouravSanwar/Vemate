@@ -126,6 +126,7 @@ class _HomeState extends State<Home> {
                               "Hi, ${data.profileModel!.nickname.toString()}",
                               style: Get.textTheme.headline1!.copyWith(
                                   color: AppColors.textColor,
+                                  fontFamily: 'Inter',
                                   fontWeight: FontWeight.w500),
                             ),
                           ],
@@ -148,6 +149,7 @@ class _HomeState extends State<Home> {
                                       messageText: const Text(
                                         "No Notification to show",
                                         style: TextStyle(
+                                            fontFamily: 'Inter',
                                             fontSize: 16.0,
                                             color: Colors.grey),
                                       )).show(context)
@@ -178,6 +180,7 @@ class _HomeState extends State<Home> {
                         textAlign: TextAlign.left,
                         style: Get.textTheme.headline2!.copyWith(
                             color: AppColors.textColor,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w500),
                       ),
                     ),
@@ -198,6 +201,7 @@ class _HomeState extends State<Home> {
                         'My Vault',
                         style: Get.textTheme.headline2!.copyWith(
                             color: AppColors.textColor,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w500),
                       ),
                     ),
@@ -213,6 +217,7 @@ class _HomeState extends State<Home> {
                         'Newest',
                         style: Get.textTheme.headline2!.copyWith(
                             color: AppColors.textColor,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w500),
                       ),
                     ),

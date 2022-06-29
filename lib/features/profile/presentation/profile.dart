@@ -130,6 +130,7 @@ class _ProfileState extends State<Profile> {
                             data.profileModel!.nickname.toString(),
                             style: TextStyle(
                                 color: AppColors.textColor,
+                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.0),
                             textAlign: TextAlign.center,

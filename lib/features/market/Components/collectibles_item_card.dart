@@ -69,15 +69,13 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                         ),
                         child: InkWell(
                           onTap: () {
-                            print("/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*"+Get.width.toString());
                             Get.to(
                               () => CollectibleDetails(
                                 productId:
                                     data.collectiblesModel!.results![index].id,
                               ),
                             );
-                            /*Get.to(
-                                () => ChartExample(id: data.collectiblesModel!.results![index].id));*/
+
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
@@ -99,6 +97,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                         .toUpperCase(),
                                     style: TextStyle(
                                         color: AppColors.backgroundColor,
+                                        fontFamily: 'Inter',
                                         fontSize: 35,
                                         fontWeight: FontWeight.bold),
                                   )
@@ -157,6 +156,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 10.sp),

@@ -168,7 +168,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           .updateProfile(context, body, requestHeadersWithToken);
                     },
                     text: AppLanguageString.UPDATE_INFO.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(color: Colors.white),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white,fontFamily: 'Inter',),
                   )
                 ],
               ),

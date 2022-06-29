@@ -102,6 +102,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                 .toUpperCase(),
                                             style: const TextStyle(
                                                 color: Colors.deepPurpleAccent,
+                                                fontFamily: 'Inter',
                                                 fontSize: 65,
                                                 fontWeight: FontWeight.bold),
                                           )
@@ -157,6 +158,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                             messageText: Text(
                                               "Product already in your wishlist",
                                               style: TextStyle(
+                                                  fontFamily: 'Inter',
                                                   fontSize: 16.0.sp,
                                                   color: Colors.green),
                                             )).show(context);
@@ -179,12 +181,12 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                 ? Text(
                                                     'Add to Wishlist',
                                                     style: Get
-                                                        .textTheme.bodyMedium,
+                                                        .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
                                                   )
                                                 : Text(
                                                     'Already in Wishlist',
                                                     style: Get
-                                                        .textTheme.bodyMedium,
+                                                        .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
                                                   ),
                                           )
                                         : Container(),
@@ -221,6 +223,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                             messageText: const Text(
                                               "Product already in your Vault",
                                               style: TextStyle(
+                                                  fontFamily: 'Inter',
                                                   fontSize: 16.0,
                                                   color: Colors.green),
                                             )).show(context);
@@ -243,10 +246,10 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                         false
                                                     ? Text('Add to Vault',
                                                         style: Get.textTheme
-                                                            .bodyMedium)
+                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',))
                                                     : Text('Already in Vault',
                                                         style: Get.textTheme
-                                                            .bodyMedium),
+                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',)),
                                           )
                                         : Container(),
                                   ),
@@ -261,6 +264,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     color: Colors.blueGrey.shade300,
+                                    fontFamily: 'Inter',
                                     fontSize: 15.sp,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -455,6 +459,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     color: Colors.blueGrey.shade300,
+                                    fontFamily: 'Inter',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15.sp),
                               ),

@@ -66,9 +66,10 @@ class _ImageSliderState extends State<ImageSlider> {
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: Text(
+
                         widget.news![index].title.toString(),
                         style: Get.textTheme.labelMedium!
-                            .copyWith(color: Colors.white),
+                            .copyWith(color: Colors.white,fontFamily: 'Inter',),
                       ),
                     ),
                   ),

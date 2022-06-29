@@ -113,7 +113,7 @@ class _MarketState extends State<Market> {
                                       'Search',
                                       textAlign: TextAlign.center,
                                       style: Get.textTheme.bodyText1!
-                                          .copyWith(color: AppColors.grey),
+                                          .copyWith(color: AppColors.grey,fontFamily: 'Inter',),
                                     ),
                                   ],
                                 ),
@@ -160,7 +160,8 @@ class _MarketState extends State<Market> {
                                       child: Text(
                                         'Common',
                                         style: TextStyle(
-                                            color: AppColors.textColor),
+                                            color: AppColors.textColor,
+                                          fontFamily: 'Inter', ),
                                       ),
                                     ),
                                     PopupMenuItem(
@@ -168,7 +169,8 @@ class _MarketState extends State<Market> {
                                       child: Text(
                                         'Uncommon',
                                         style: TextStyle(
-                                            color: AppColors.textColor),
+                                            color: AppColors.textColor,
+                                          fontFamily: 'Inter',),
                                       ),
                                     ),
                                     PopupMenuItem(
@@ -176,7 +178,9 @@ class _MarketState extends State<Market> {
                                       child: Text(
                                         'Rare',
                                         style: TextStyle(
-                                            color: AppColors.textColor),
+                                            color: AppColors.textColor,
+                                          fontFamily: 'Inter',
+                                        ),
                                       ),
                                     ),
                                     PopupMenuItem(
@@ -184,7 +188,8 @@ class _MarketState extends State<Market> {
                                       child: Text(
                                         'Ultra Rare',
                                         style: TextStyle(
-                                            color: AppColors.textColor),
+                                            color: AppColors.textColor,
+                                          fontFamily: 'Inter',),
                                       ),
                                     ),
                                     PopupMenuItem(
@@ -192,7 +197,8 @@ class _MarketState extends State<Market> {
                                       child: Text(
                                         'Secret Rare',
                                         style: TextStyle(
-                                            color: AppColors.textColor),
+                                            color: AppColors.textColor,
+                                          fontFamily: 'Inter',),
                                       ),
                                     ),
                                   ],

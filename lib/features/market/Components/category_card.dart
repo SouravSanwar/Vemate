@@ -34,7 +34,7 @@ class CategoryCard extends StatelessWidget {
         child: Text(
           name.toString(),
           textAlign: TextAlign.center,
-          style: Get.textTheme.bodyText1!.copyWith(color: AppColors.white),
+          style: Get.textTheme.bodyText1!.copyWith(color: AppColors.white,fontFamily: 'Inter',),
         ),
       ),
     );

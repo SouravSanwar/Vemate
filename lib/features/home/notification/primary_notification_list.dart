@@ -126,6 +126,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                           .toUpperCase(),
                                       style: TextStyle(
                                           color: AppColors.backgroundColor,
+                                          fontFamily: 'Inter',
                                           fontSize: 35,
                                           fontWeight: FontWeight.bold),
                                     )
@@ -163,6 +164,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                           style: Get.textTheme.bodyText2!
                                               .copyWith(
                                                   color: AppColors.textColor,
+                                                  fontFamily: 'Inter',
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 12.sp),
                                         ),
@@ -179,6 +181,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                               .copyWith(
                                                   color: AppColors.textColor
                                                       .withOpacity(.7),
+                                                   fontFamily: 'Inter',
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 10.sp),
                                         ),

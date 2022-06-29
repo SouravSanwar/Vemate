@@ -43,8 +43,9 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           hintText: widget.labelText,
-          hintStyle:  TextStyle(fontSize: 15.sp),
+          hintStyle:  TextStyle(fontFamily: 'Inter',fontSize: 15.sp),
           labelStyle: const TextStyle(
+            fontFamily: 'Inter',
             color: Colors.blue,
           ),
           border: InputBorder.none,

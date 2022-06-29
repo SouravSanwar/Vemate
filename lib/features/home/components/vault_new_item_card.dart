@@ -277,6 +277,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: Get.textTheme.bodyText2!.copyWith(
+                                        fontFamily: 'Inter',
                                         color: AppColors.textColor,
                                         fontWeight: FontWeight.w600,
                                         fontSize: 12.sp),
@@ -343,6 +344,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                           textAlign: TextAlign.start,
                                           style: Get.textTheme.bodyText2!
                                               .copyWith(
+                                                  fontFamily: 'Inter',
                                                   color: AppColors.white,
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 12.sp),
@@ -380,6 +382,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                                               0.0
                                                           ? Colors.red
                                                           : Colors.green,
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 12.sp),

@@ -73,6 +73,7 @@ class _BrandListState extends State<BrandList> {
                           padding: const EdgeInsets.all(5.0),
                           child: Text(
                             data.brandModel!.results![index].name.toString(),
+                            style: TextStyle(fontFamily: 'Inter',),
                           ),
                         ),
                       ),

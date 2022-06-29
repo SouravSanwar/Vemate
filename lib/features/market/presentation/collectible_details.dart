@@ -69,6 +69,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                   : "",
               style: TextStyle(
                   color: Colors.blueGrey.shade300,
+                  fontFamily: 'Inter',
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold),
             ),
@@ -104,6 +105,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           .toUpperCase(),
                                       style: const TextStyle(
                                           color: Colors.deepPurpleAccent,
+                                          fontFamily: 'Inter',
                                           fontSize: 65,
                                           fontWeight: FontWeight.bold),
                                     )
@@ -154,6 +156,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                             messageText: const Text(
                                               "Product already in your wishlist",
                                               style: TextStyle(
+                                                  fontFamily: 'Inter',
                                                   fontSize: 16.0,
                                                   color: Colors.green),
                                             )).show(context);
@@ -173,11 +176,11 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                               false
                                               ? Text(
                                             'Add to Wishlist',
-                                            style: Get.textTheme.bodyMedium,
+                                            style: Get.textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
                                           )
                                               : Text(
                                             'Already in Wishlist',
-                                            style: Get.textTheme.bodyMedium,
+                                            style: Get.textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
                                           ),
                                         ),
                                       ),
@@ -214,6 +217,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                               "Product already in your Vault",
                                               style: TextStyle(
                                                   fontSize: 16.0,
+                                                  fontFamily: 'Inter',
                                                   color: Colors.green),
                                             )).show(context);
                                       },
@@ -232,9 +236,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           child: data.checkSetCheck!.isFound ==
                                               false
                                               ? Text('Add to Vault',
-                                              style: Get.textTheme.bodyMedium)
+                                              style: Get.textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',))
                                               : Text('Already in Vault',
-                                              style: Get.textTheme.bodyMedium),
+                                              style: Get.textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',)),
                                         ),
                                       ),
                                     ),
@@ -248,6 +252,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                         color: Colors.blueGrey.shade300,
+                                        fontFamily: 'Inter',
                                         fontSize: 15.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -441,6 +446,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                         color: Colors.blueGrey.shade300,
+                                        fontFamily: 'Inter',
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15.sp),
                                   ),

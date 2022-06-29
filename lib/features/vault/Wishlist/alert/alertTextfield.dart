@@ -29,6 +29,7 @@ class AlertTextField extends StatelessWidget {
 
         style: TextStyle(
           color: AppColors.textColor,
+          fontFamily: 'Inter',
           fontSize: 18.0.sp,
 
         ),

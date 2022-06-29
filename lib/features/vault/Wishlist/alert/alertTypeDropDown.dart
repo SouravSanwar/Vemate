@@ -104,6 +104,6 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
       value: item,
       child: Text(
         item,
-        style: TextStyle(fontSize: 15.sp),
+        style: TextStyle(fontFamily: 'Inter',fontSize: 15.sp),
       ));
 }

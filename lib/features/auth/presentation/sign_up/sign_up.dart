@@ -78,6 +78,7 @@ class _SignUpState extends State<SignUp> {
                           child: Text(
                             "REGISTER",
                             style: TextStyle(
+                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.textColor),
                           ),
@@ -115,11 +116,13 @@ class _SignUpState extends State<SignUp> {
                               ? const Text(
                                   "*Min 8 characters with 1 uppercase, 1 number",
                                   style: TextStyle(
+                                      fontFamily: 'Inter',
                                       color: Colors.grey, fontSize: 11),
                                 )
                               : const Text(
                                   "Password must be atleast 8 characters",
                                   style: TextStyle(
+                                      fontFamily: 'Inter',
                                       color: Colors.red, fontSize: 11),
                                 ),
                         ),
@@ -161,6 +164,7 @@ class _SignUpState extends State<SignUp> {
                                       messageText: Text(
                                         "Password didn't match",
                                         style: TextStyle(
+                                            fontFamily: 'Inter',
                                             fontSize: 16.0.sp,
                                             color: Colors.red),
                                       ),
@@ -169,7 +173,7 @@ class _SignUpState extends State<SignUp> {
                           },
                           text: AppLanguageString.SIGN_UP.tr.toUpperCase(),
                           style: Get.textTheme.button!
-                              .copyWith(color: Colors.white),
+                              .copyWith(color: Colors.white,fontFamily: 'Inter',),
                         )
                       ],
                     ),

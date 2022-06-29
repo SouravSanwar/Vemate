@@ -26,6 +26,7 @@ class ItemDetailsHelper extends StatelessWidget{
                 child: Text(
                   text!,style: TextStyle(
                     color: AppColors.detailsTextColor,
+                    fontFamily: 'Inter',
                     fontSize: 15.sp,
                     fontWeight: FontWeight.bold
                 ),
@@ -41,6 +42,7 @@ class ItemDetailsHelper extends StatelessWidget{
                 child: Text(
                   text1!,style: TextStyle(
                     color: AppColors.detailsTextColor1,
+                    fontFamily: 'Inter',
                     fontSize: 14.sp,
                     fontWeight: FontWeight.bold
                 ),

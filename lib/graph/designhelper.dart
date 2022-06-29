@@ -136,6 +136,7 @@ class ItemDetails extends StatelessWidget {
                   text!,
                   style: TextStyle(
                       color: AppColors.greyWhite,
+                      fontFamily: 'Inter',
                       fontSize: 15.sp,
                       fontWeight: FontWeight.bold),
                 ),
@@ -152,6 +153,7 @@ class ItemDetails extends StatelessWidget {
                   text1!,
                   style: TextStyle(
                       color: AppColors.greyWhite,
+                      fontFamily: 'Inter',
                       fontSize: 14.sp,
                       fontWeight: FontWeight.bold),
                 ),

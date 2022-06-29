@@ -30,7 +30,7 @@ class _NotificationBadgeState extends State<NotificationBadge> {
                 widget.notificationListModel!.totalUnread! < 100
                     ? widget.notificationListModel!.totalUnread.toString()
                     : "99+",
-                style: TextStyle(fontSize: 8.sp),
+                style: TextStyle(fontFamily: 'Inter',fontSize: 8.sp),
               ),
               badgeColor: Colors.redAccent,
               child: Icon(

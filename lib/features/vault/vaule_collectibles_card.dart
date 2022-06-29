@@ -50,6 +50,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                           "Collectibles Value",
                           style: TextStyle(
                             color: AppColors.textColor,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -58,6 +59,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                           '\$' + widget.data!.totalCollectibleValue!.toString(),
                           style: TextStyle(
                               color: AppColors.greyWhite,
+                              fontFamily: 'Inter',
                               fontWeight: FontWeight.bold),
                         ),
                         AppSpaces.spaces_height_30,
@@ -65,6 +67,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                           "",
                           style: TextStyle(
                             color: AppColors.textColor,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -142,6 +145,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                               '\$${widget.data!.changePrice != null ? widget.data!.changePrice.toStringAsFixed(2) : "0.0"}',
                               style: TextStyle(
                                   color: Colors.grey,
+                                  fontFamily: 'Inter',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14.sp),
                             ),
@@ -164,6 +168,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                       color: widget.data!.sign == 'decrease'
                                           ? Colors.red
                                           : Colors.green,
+                                      fontFamily: 'Inter',
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),

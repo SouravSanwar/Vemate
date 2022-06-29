@@ -201,6 +201,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                               .toUpperCase(),
                                           style: TextStyle(
                                               color: AppColors.backgroundColor,
+                                              fontFamily: 'Inter',
                                               fontSize: 35,
                                               fontWeight: FontWeight.bold),
                                         )
@@ -245,6 +246,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .textColor,
+                                                            fontFamily: 'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -267,6 +269,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                           .copyWith(
                                                               color: AppColors
                                                                   .textColor,
+                                                          fontFamily: 'Inter',
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -291,6 +294,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.8),
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 10.sp),
@@ -311,6 +315,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.8),
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10.sp),
@@ -338,6 +343,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.8),
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 11.sp),
@@ -435,6 +441,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.9),
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 11.sp),
@@ -464,6 +471,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                     'decrease'
                                                                 ? Colors.red
                                                                 : Colors.green,
+                                                            fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10.sp),

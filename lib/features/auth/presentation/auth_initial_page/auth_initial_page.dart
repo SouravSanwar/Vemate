@@ -69,6 +69,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       child:  Text(
                         "LOGIN",
                         style: TextStyle(
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold, color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
@@ -100,6 +101,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                         child: const Text(
                           "Forgot password?",
                           style: TextStyle(
+                              fontFamily: 'Inter',
                               fontWeight: FontWeight.bold,
                               color: Colors.grey,
                               fontSize: 12),
@@ -126,7 +128,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
 
                     },
                     text: AppLanguageString.lOG_IN.tr.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(color: Colors.white),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white,fontFamily: 'Inter',),
                   )
                 ],
               ),
@@ -231,6 +233,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                         Text(
                           "Don't have an account?",
                           style: TextStyle(
+                              fontFamily: 'Inter',
                               color: Colors.grey,
                               fontWeight: FontWeight.bold,
                               fontSize: 15.sp),
@@ -239,6 +242,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                         Text(
                           "Register For Free",
                           style: TextStyle(
+                              fontFamily: 'Inter',
                               color: AppColors.primaryColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 15.sp),

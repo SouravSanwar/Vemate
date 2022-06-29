@@ -58,7 +58,7 @@ class _ProductGraphState extends State<ProductGraph> {
                         labelRotation: 0,
                         labelStyle: TextStyle(
                             color: AppColors.textColor,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Inter',
                             fontSize: data.singleProductModel!.graphType == '0'
                                 ?10.sp :10.sp,
                             fontStyle: FontStyle.italic,
@@ -80,7 +80,7 @@ class _ProductGraphState extends State<ProductGraph> {
                         labelRotation: 0,
                         labelStyle: TextStyle(
                             color: AppColors.textColor,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Inter',
                             fontSize: 8.sp,
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w900),
