@@ -413,7 +413,11 @@ class _VaultState extends State<Vault> {
                           SizedBox(
                             width: Get.width,
                             height: Get.height * .22,
-                            child: const MywishlistCard(),
+                            child: data.wishListModel!.results!.isNotEmpty
+                                ? const MywishlistCard()
+                                : const NoDataCard(
+                                    title: 'Your Wishlist is empty!',
+                                  ),
                           ),
                           SizedBox(
                             height: Get.height * .01,
