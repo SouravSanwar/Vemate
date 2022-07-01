@@ -114,10 +114,10 @@ class _VaultComicsListState extends State<VaultComicsList> {
                               child: Container(
                                 width: Get.width,
                                 decoration: BoxDecoration(
-                                    gradient: AppColors.cardGradient,
+                                    color: AppColors.backgroundColor,
                                     borderRadius: BorderRadius.circular(12.0),
                                     border: Border.all(
-                                        color: AppColors.borderColor)),
+                                        color: AppColors.textBoxBgColor)),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: Row(
@@ -127,7 +127,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                         height: Get.height * .09,
                                         width: Get.height * .078,
                                         decoration: BoxDecoration(
-                                            color: AppColors.backgroundColor,
+                                            color: AppColors.textBoxBgColor,
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             border: Border.all(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../core/utilities/app_colors/app_colors.dart';
 
@@ -16,7 +17,7 @@ class ItemDetailsHelper extends StatelessWidget{
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        gradient: AppColors.cardGradient,
+        color: AppColors.graphCard
       ),
       child: Row(
         children: [
@@ -27,12 +28,12 @@ class ItemDetailsHelper extends StatelessWidget{
                   text!,style: TextStyle(
                     color: AppColors.detailsTextColor,
                     fontFamily: 'Inter',
-                    fontSize: 15.sp,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.bold
                 ),
                 ),
 
-                padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 12)
+                padding: EdgeInsets.symmetric(horizontal: Get.width*0.04,vertical: 12)
 
             ),
           ),

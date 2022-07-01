@@ -14,7 +14,7 @@ class AppColors extends ChangeNotifier {
   //static Color categoryCardColor = Color(0xffA984E5);
   static Color? categoryCardColor;
   static Color iconColor = Color(0xff8760EE);
-  static Color borderColor = Color(0xff4e4f53);
+  static Color borderColor = Color(0xff4e4f53).withOpacity(0.2);
 
   static Color textColorBold = const Color(0xff5c5c5c);
 
@@ -31,6 +31,13 @@ class AppColors extends ChangeNotifier {
   static Color quantity_card_color = const Color(0xffA1D853);
   static Color buy_button_color = const Color(0xff578811);
   static Color divider_color = const Color(0xff81878d);
+  static Color graphCard= const Color(0xff15193C);
+  static Gradient buttonTrue= LinearGradient(
+    colors: [
+      Color(0xff00A7FF),
+      Color(0xff00A7FF),
+    ],
+  );
 
   static Gradient graphGradientColors = const LinearGradient(
     colors: [

@@ -39,13 +39,14 @@ class _ProductDetailsState extends State<ProductDetails> {
     return Consumer<GetData>(
       builder: (context, data, child) {
         return Container(
-          padding: const EdgeInsets.only(left: 8, right: 8),
+          padding: const EdgeInsets.only(left: 5, right: 8),
           child:
               Container(
+                alignment: Alignment.center,
                 clipBehavior: Clip.antiAlias,
                 width: Get.width,
                 decoration: BoxDecoration(
-                  gradient: AppColors.cardGradient,
+                  color: AppColors.backgroundColor,
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 child: ListView(children: <Widget>[

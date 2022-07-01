@@ -106,6 +106,7 @@ class _MarketState extends State<Market> {
                                   children: [
                                     const Icon(
                                       Icons.search,
+                                      size: 30,
                                       color: Colors.grey,
                                     ),
                                     AppSpaces.spaces_width_10,
@@ -125,9 +126,10 @@ class _MarketState extends State<Market> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
                                   color: AppColors.backgroundColor,
+
                                   icon: Icon(
                                     Icons.filter_list,
-                                    color: AppColors.iconColor,
+                                    color: AppColors.grey,
                                     size: 30,
                                   ),
                                   onSelected: (value) {
@@ -213,6 +215,7 @@ class _MarketState extends State<Market> {
                       padding: EdgeInsets.only(
                         left: AppDimension.padding_8,
                         right: AppDimension.padding_8,
+                        top: 4
                       ),
                       child: Row(
                         children: [

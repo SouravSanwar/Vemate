@@ -39,7 +39,7 @@ class _ProductGraphState extends State<ProductGraph> {
           child: Container(
               width: Get.width,
               decoration: BoxDecoration(
-                gradient: AppColors.cardGradient,
+                color: AppColors.graphCard,
                 borderRadius: BorderRadius.circular(12.0),
               ),
               child: data.singleProductModel != null

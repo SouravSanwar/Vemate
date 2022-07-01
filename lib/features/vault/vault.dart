@@ -60,7 +60,8 @@ class _VaultState extends State<Vault> {
                       width: Get.width,
                       height: Get.height * .268,
                       decoration: BoxDecoration(
-                        gradient: AppColors.cardGradient,
+                        color: AppColors.graphCard,
+
                         borderRadius: const BorderRadius.vertical(
                             bottom: Radius.circular(40.0)),
                       ),
@@ -316,57 +317,47 @@ class _VaultState extends State<Vault> {
                           ///My Collectibles
                           Padding(
                             padding: EdgeInsets.only(
-                                left: Get.width *
-                                    .06), //apply padding to all four sides
+                                left: 15), //apply padding to all four sides
                             child: Text(
                               "My Collectibles",
-                              style: TextStyle(
+                              style: Get.textTheme.headline2!.copyWith(
                                   color: AppColors.textColor,
                                   fontFamily: 'Inter',
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                           VaultCollectiblesCard(
                             data: data.vaultStatsModel!.collectible,
                           ),
-                          SizedBox(
-                            height: Get.height * .01,
-                          ),
+
 
                           ///My Comics
                           Padding(
                             padding: EdgeInsets.only(
-                                left: Get.width *
-                                    .06), //apply padding to all four sides
+                                left: 15), //apply padding to all four sides
                             child: Text(
                               "My Comics",
-                              style: TextStyle(
+                              style: Get.textTheme.headline2!.copyWith(
                                   color: AppColors.textColor,
                                   fontFamily: 'Inter',
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                           VaultComicsCard(
                             data: data.vaultStatsModel!.comic,
                           ),
-                          SizedBox(
-                            height: Get.height * .01,
-                          ),
+
 
                           ///My Vault
                           Padding(
                             padding: EdgeInsets.only(
-                                left: Get.width *
-                                    .06), //apply padding to all four sides
+                                left: 15), //apply padding to all four sides
                             child: Text(
                               "My Vault",
-                              style: TextStyle(
+                              style: Get.textTheme.headline2!.copyWith(
                                   color: AppColors.textColor,
                                   fontFamily: 'Inter',
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                           data.setListModel != null
@@ -382,9 +373,6 @@ class _VaultState extends State<Vault> {
                                         ),
                                 )
                               : const LoadingExample(),
-                          SizedBox(
-                            height: Get.height * .01,
-                          ),
 
                           ///My Wishlist
                           Row(
@@ -392,15 +380,13 @@ class _VaultState extends State<Vault> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left: Get.width *
-                                          .06), //apply padding to all four sides
+                                      left: 15), //apply padding to all four sides
                                   child: Text(
                                     "My Wishlist",
-                                    style: TextStyle(
+                                    style: Get.textTheme.headline2!.copyWith(
                                         color: AppColors.textColor,
                                         fontFamily: 'Inter',
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.w500),
                                   ),
                                 ),
                                 InkWell(

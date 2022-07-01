@@ -22,9 +22,7 @@ class CategoryCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         gradient: gradient,
-        border: Border.all(
-          color: AppColors.categoryCardColor!,
-        ),
+
         borderRadius: const BorderRadius.all(
           Radius.circular(12),
         ),

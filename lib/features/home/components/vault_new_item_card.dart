@@ -45,7 +45,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: EdgeInsets.only(
-                left: index == 0 ? 8 : 6.0, right: index == 9 ? 8 : 6.0),
+                left: index == 0 ? 6 : 6.0, right: index == 9 ? 8 : 6.0),
             child: InkWell(
               onTap: () {
                 Get.to(

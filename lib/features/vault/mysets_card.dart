@@ -42,11 +42,12 @@ class _MysetsCardState extends State<MysetsCard> {
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: EdgeInsets.only(
-                  left: index == 0 ? 8 : 4.0,
+                  left: index == 0 ? 6 : 6.0,
                   right: index == data.setListModel!.setResults!.length - 1
-                      ? 8
-                      : 4.0,
-                  top: 4),
+                      ? 6
+                      : 6.0,
+                  top: Get.height*.0167,
+              bottom: Get.height*.0334),
               child: InkWell(
                 onTap: () {
                   data.setListModel!.setResults![index].setProductDetail!.type == 1

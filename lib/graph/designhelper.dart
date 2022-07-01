@@ -198,7 +198,7 @@ class divider extends StatelessWidget{
         children: [
           Divider(
             height: 8.h,
-            color: Colors.black,
+            color: AppColors.white.withOpacity(.25),
             thickness: .5,
           ),
         ],

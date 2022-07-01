@@ -106,10 +106,10 @@ class _WishListPageState extends State<WishListPage> {
                                 child: Container(
                                   width: Get.width,
                                   decoration: BoxDecoration(
-                                      gradient: AppColors.cardGradient,
+                                      color: AppColors.graphCard,
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(
-                                          color: AppColors.borderColor)),
+                                          color: AppColors.textBoxBgColor)),
                                   child: InkWell(
                                     onTap: () {
                                       data.wishListModel!.results![index]
@@ -147,7 +147,7 @@ class _WishListPageState extends State<WishListPage> {
                                                 color: AppColors.backgroundColor,
                                                 borderRadius: BorderRadius.circular(10),
                                                 border: Border.all(
-                                                    color: AppColors.borderColor)),
+                                                    color: AppColors.textBoxBgColor)),
                                             alignment: Alignment.center,
                                             child: data.wishListModel!.results![index].productDetail!.image==null ?Text(
                                               data.wishListModel!.results![index].productDetail!.name

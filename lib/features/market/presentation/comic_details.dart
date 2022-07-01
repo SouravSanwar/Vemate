@@ -66,7 +66,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                   ? data.singleProductModel!.name.toString()
                   : "",
               style: TextStyle(
-                  color: Colors.blueGrey.shade300,
+                  color: AppColors.textColor,
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold),
             ),
@@ -83,11 +83,10 @@ class _ComicDetailsState extends State<ComicDetails> {
                         child: Column(
                           children: [
                             Padding(
-                              padding:  EdgeInsets.symmetric(
-                                  horizontal:Get.width*0.1389, vertical: Get.height*0.02778),
+                            padding:  EdgeInsets.only(top: 0,right:Get.width*0.05336,left:Get.width*0.05336,bottom: Get.height*0.01667 ),
                               child: Container(
                                 height: Get.height * .5,
-                                padding: const EdgeInsets.all(5),
+                                padding: const EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                     gradient: AppColors.vaultCardGradient,
                                     borderRadius: BorderRadius.circular(10),
@@ -184,7 +183,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                         .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
                                                   )
                                                 : Text(
-                                                    'Already in Wishlist',
+                                                    'Remove from Wishlist',
                                                     style: Get
                                                         .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
                                                   ),
@@ -247,7 +246,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                     ? Text('Add to Vault',
                                                         style: Get.textTheme
                                                             .bodyMedium!.copyWith(fontFamily: 'Inter',))
-                                                    : Text('Already in Vault',
+                                                    : Text('Remove from Vault',
                                                         style: Get.textTheme
                                                             .bodyMedium!.copyWith(fontFamily: 'Inter',)),
                                           )
@@ -257,13 +256,13 @@ class _ComicDetailsState extends State<ComicDetails> {
                               ],
                             ),
                             Container(
-                              padding: const EdgeInsets.all(12),
+                              padding: EdgeInsets.only(top: Get.height*0.05,right:Get.width*0.05336,left:Get.width*0.05336,bottom: Get.height*0.0334 ),
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Total Distributions",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
-                                    color: Colors.blueGrey.shade300,
+                                    color: AppColors.textColor,
                                     fontFamily: 'Inter',
                                     fontSize: 15.sp,
                                     fontWeight: FontWeight.bold),
@@ -292,7 +291,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     child: CategoryCard(
                                       name: '24H',
                                       gradient: hour == true
-                                          ? AppColors.purpleGradient
+                                          ? AppColors.buttonTrue
                                           : const LinearGradient(
                                               colors: [
                                                 Color(0xff272E49),
@@ -324,7 +323,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     child: CategoryCard(
                                       name: '7D',
                                       gradient: week == true
-                                          ? AppColors.purpleGradient
+                                          ? AppColors.buttonTrue
                                           : const LinearGradient(
                                               colors: [
                                                 Color(0xff272E49),
@@ -356,7 +355,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     child: CategoryCard(
                                       name: '30D',
                                       gradient: month == true
-                                          ? AppColors.purpleGradient
+                                          ? AppColors.buttonTrue
                                           : const LinearGradient(
                                               colors: [
                                                 Color(0xff272E49),
@@ -388,7 +387,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     child: CategoryCard(
                                       name: '60D',
                                       gradient: two_month == true
-                                          ? AppColors.purpleGradient
+                                          ? AppColors.buttonTrue
                                           : const LinearGradient(
                                               colors: [
                                                 Color(0xff272E49),
@@ -419,7 +418,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     child: CategoryCard(
                                       name: '1Y',
                                       gradient: year == true
-                                          ? AppColors.purpleGradient
+                                          ? AppColors.buttonTrue
                                           : const LinearGradient(
                                               colors: [
                                                 Color(0xff272E49),
@@ -432,7 +431,8 @@ class _ComicDetailsState extends State<ComicDetails> {
                               ],
                             ),
                             Container(
-                              padding: const EdgeInsets.all(10),
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.only(top: Get.height*0.0223,right:10,left:7,bottom: 0 ),
                               width: double.infinity,
                               child: FadeInUp(
                                 duration: const Duration(milliseconds: 100),
@@ -450,7 +450,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                             ),
                             Container(
                               alignment: Alignment.topLeft,
-                            padding: const EdgeInsets.all(12),
+                              padding: EdgeInsets.only(top: Get.height*0.05,right:Get.width*0.05336,left:Get.width*0.05336,bottom: Get.height*0.0334 ),
                               child: Text(
                                 data.singleProductModel != null
                                     ? data.singleProductModel!.name.toString() +
@@ -458,7 +458,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     : "",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
-                                    color: Colors.blueGrey.shade300,
+                                    color: AppColors.textColor,
                                     fontFamily: 'Inter',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15.sp),

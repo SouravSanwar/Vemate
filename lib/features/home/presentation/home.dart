@@ -82,9 +82,7 @@ class _HomeState extends State<Home> {
                         Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(
-                                15.0,
-                              ),
+                              padding: const EdgeInsets.only(top: 15,right: 12,bottom: 15,left: 12),
                               child: InkWell(
                                 onTap: () {
                                   Navigator.push(
@@ -174,7 +172,7 @@ class _HomeState extends State<Home> {
                     ///News
                     Padding(
                       padding: const EdgeInsets.only(
-                          top: 11, bottom: 5, left: 15, right: 15),
+                          top: 11, bottom: 12, left: 15, right: 15),
                       child: Text(
                         'News',
                         textAlign: TextAlign.left,
@@ -184,19 +182,16 @@ class _HomeState extends State<Home> {
                             fontWeight: FontWeight.w500),
                       ),
                     ),
-                    AppSpaces.spaces_height_10,
+
                     ImageSlider(
                         news: data.newsModel != null
                             ? data.newsModel!.results
                             : null),
-                    SizedBox(
-                      height: 9.h,
-                    ),
 
                     ///My Vault
                     Padding(
                       padding: const EdgeInsets.only(
-                          top: 10, bottom: 0, left: 15, right: 15),
+                          top: 24, bottom: 0, left: 15, right: 15),
                       child: Text(
                         'My Vault',
                         style: Get.textTheme.headline2!.copyWith(
@@ -212,7 +207,7 @@ class _HomeState extends State<Home> {
                     ///Newest
                     Padding(
                       padding: const EdgeInsets.only(
-                          bottom: 10, left: 15, right: 15),
+                          bottom: 12, left: 15, right: 15),
                       child: Text(
                         'Newest',
                         style: Get.textTheme.headline2!.copyWith(

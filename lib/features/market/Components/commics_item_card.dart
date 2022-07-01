@@ -49,7 +49,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                 enablePullDown: true,
                 enablePullUp: true,
                 header: WaterDropMaterialHeader(
-                  color: AppColors.primaryColor,
+                  color: AppColors.graphCard,
                 ),
                 footer: const ClassicFooter(
                   loadStyle: LoadStyle.ShowWhenLoading,
@@ -62,13 +62,13 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                   itemCount: data.comicsModel!.results!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: const EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.only(top: 4,bottom: 4,left: 4,right: 8),
                       child: Container(
                         width: Get.width,
                         decoration: BoxDecoration(
-                          gradient: AppColors.cardGradient,
+                          color: AppColors.graphCard,
                           borderRadius: BorderRadius.circular(12.0),
-                          border: Border.all(color: AppColors.borderColor),
+                          border: Border.all(color: AppColors.textBoxBgColor),
                         ),
                         child: InkWell(
                           onTap: () {
@@ -90,7 +90,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       color: AppColors.backgroundColor,
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
-                                          color: AppColors.borderColor)),
+                                          color: AppColors.textBoxBgColor)),
                                   alignment: Alignment.center,
                                   child: data.comicsModel!.results![index].image==null ?Text(
                                     data.comicsModel!.results![index].name

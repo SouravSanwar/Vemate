@@ -22,13 +22,13 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top:10,left: 10,bottom: 24,right: 10),
+      padding: const EdgeInsets.only(top:12,left: 6,bottom: 24,right: 10),
       child: Consumer<GetData>(builder: (context, data, child) {
         return Container(
             clipBehavior: Clip.antiAlias,
             width: Get.width,
             decoration: BoxDecoration(
-              gradient: AppColors.cardGradient,
+              color: AppColors.graphCard,
               borderRadius: BorderRadius.circular(12.0),
               border: Border.all(color: const Color(0xff454F70)),
             ),
