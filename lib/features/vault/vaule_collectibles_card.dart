@@ -29,13 +29,19 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
           );
         },
         child: Padding(
-          padding: EdgeInsets.only(left: 6,right: 10,top: Get.height*.0167,bottom:Get.height*.0334),
+          padding: EdgeInsets.only(
+              left: 6,
+              right: 10,
+              top: Get.height * .0167,
+              bottom: Get.height * .0334),
           child: Container(
             width: Get.width,
             decoration: BoxDecoration(
                 color: AppColors.graphCard,
                 borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: AppColors.backgroundColor,)),
+                border: Border.all(
+                  color: AppColors.backgroundColor,
+                )),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

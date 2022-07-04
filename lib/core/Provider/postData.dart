@@ -511,15 +511,10 @@ class PostData extends ChangeNotifier with BaseController {
       Navigator.of(context).pop();
       prefs!.clear();
 
-      SigninController
-          .to.userNameTextFiledController
-          .clear();
-      SigninController
-          .to.passwordTextFiledController
-          .clear();
+      SigninController.to.userNameTextFiledController.clear();
+      SigninController.to.passwordTextFiledController.clear();
 
       Get.offAll(() => const AuthInitialPage());
-
     } else {
       Navigator.of(context).pop();
 
@@ -686,53 +681,41 @@ class PostData extends ChangeNotifier with BaseController {
     BuildContext context,
     int? id,
     var requestToken,
-    int index,
   ) async {
     final response = await http.delete(Uri.parse(Urls.commonStorage + '$id/'),
         headers: requestToken);
 
     printInfo(info: response.statusCode.toString());
-    printInfo(info: Urls.commonStorage + '$id/');
 
     getData = Provider.of<GetData>(context, listen: false);
-    if (response.statusCode == 204) {
-      getData!.getWishList();
-      /*Flushbar(
-              flushbarPosition: FlushbarPosition.BOTTOM,
-              isDismissible: false,
-              duration: const Duration(seconds: 3),
-              messageText: const Text(
-                "Success",
-                style: TextStyle(fontSize: 16.0, color: Colors.green),
-              )).show(context);*/
-    }
 
-    //var x = json.decode(response.body);
+    var x = json.decode(response.body);
+    printInfo(info: 'Body: ' + x.toString());
 
-    /*if (x.statusCode == 204) {
-     */ /* getData = Provider.of<GetData>(context, listen: false);
-      await getData!.getWishList();*/ /*
+    Map<String, dynamic> js = x;
+    if (js.containsKey('msg')) {
+      Provider.of<GetData>(context, listen: false).checkWishlist(id!);
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
           duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Success",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          messageText: Text(
+            js["msg"],
+            style: const TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
-      Navigator.pop(context);
     } else {
       Navigator.of(context).pop();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
           duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Something went wrong",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          messageText: Text(
+            js["detail"],
+            style: const TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
-      Navigator.pop(context);
-    }*/
+    }
+
+    notifyListeners();
   }
 
   Future deleteSetList(BuildContext context, int? id, var requestToken) async {
@@ -747,11 +730,12 @@ class PostData extends ChangeNotifier with BaseController {
     printInfo(info: response.statusCode.toString());
     printInfo(info: Urls.commonStorage + '$id/');
 
-    if (response.statusCode == 204) {
+    if (response.statusCode == 200) {
       Navigator.of(context).pop();
       getData = Provider.of<GetData>(context, listen: false);
-      await getData!.getSetList();
-      await getData!.getVaultStats(0);
+      getData!.getSetList('');
+      getData!.getVaultStats(0);
+      //await getData!.checkSetList(id!);
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,

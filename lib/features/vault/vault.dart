@@ -39,7 +39,6 @@ class _VaultState extends State<Vault> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-    getData!.getSetList();
     getData!.getWishList();
 
     getData!.getVaultStats(0);
@@ -316,7 +315,7 @@ class _VaultState extends State<Vault> {
                         children: [
                           ///My Collectibles
                           Padding(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 left: 15), //apply padding to all four sides
                             child: Text(
                               "My Collectibles",
@@ -333,7 +332,7 @@ class _VaultState extends State<Vault> {
 
                           ///My Comics
                           Padding(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 left: 15), //apply padding to all four sides
                             child: Text(
                               "My Comics",
@@ -350,7 +349,7 @@ class _VaultState extends State<Vault> {
 
                           ///My Vault
                           Padding(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 left: 15), //apply padding to all four sides
                             child: Text(
                               "My Vault",
@@ -379,7 +378,7 @@ class _VaultState extends State<Vault> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       left: 15), //apply padding to all four sides
                                   child: Text(
                                     "My Wishlist",
