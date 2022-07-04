@@ -103,7 +103,7 @@ class _ColorLoaderState extends State<ColorLoader>
                             width: radius,
                             height: radius,
                            child: Image.asset(
-                             'assets/media/icon/vemate_loader.png',
+                             'assets/media/icon/logo v.png',
                              fit: BoxFit.fill,
                            ),
 
