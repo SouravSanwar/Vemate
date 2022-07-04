@@ -42,11 +42,12 @@ class _MysetsCardState extends State<MysetsCard> {
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: EdgeInsets.only(
-                  left: index == 0 ? 8 : 4.0,
+                  left: index == 0 ? 6 : 6.0,
                   right: index == data.setListModel!.setResults!.length - 1
-                      ? 8
-                      : 4.0,
-                  top: 4),
+                      ? 6
+                      : 6.0,
+                  top: Get.height*.0167,
+              bottom: Get.height*.0334),
               child: InkWell(
                 onTap: () {
                   data.setListModel!.setResults![index].setProductDetail!.type == 1
@@ -74,6 +75,7 @@ class _MysetsCardState extends State<MysetsCard> {
                               .toUpperCase(),
                           style: TextStyle(
                               color: AppColors.backgroundColor,
+                              fontFamily: 'Inter',
                               fontSize: 35,
                               fontWeight: FontWeight.bold),
                         )
@@ -120,6 +122,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                         style: Get.textTheme.bodyText2!
                                             .copyWith(
                                                 color: AppColors.textColor,
+                                                fontFamily: 'Inter',
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 12.sp),
                                       ),
@@ -195,6 +198,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(
                                                       color: AppColors.white,
+                                                  fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 12.sp),
@@ -240,6 +244,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                                               0.0
                                                           ? Colors.red
                                                           : Colors.green,
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 12.sp),

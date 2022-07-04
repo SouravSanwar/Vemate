@@ -43,7 +43,7 @@ class _GraphHelperComicsState extends State<GraphHelperComics> {
             clipBehavior: Clip.antiAlias,
             width: Get.width,
             decoration: BoxDecoration(
-              gradient: AppColors.cardGradient,
+              color: AppColors.backgroundColor,
               borderRadius: BorderRadius.circular(12.0),
             ),
             child: ListView(children: <Widget>[

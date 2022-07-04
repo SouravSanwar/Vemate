@@ -114,10 +114,10 @@ class _VaultComicsListState extends State<VaultComicsList> {
                               child: Container(
                                 width: Get.width,
                                 decoration: BoxDecoration(
-                                    gradient: AppColors.cardGradient,
+                                    color: AppColors.backgroundColor,
                                     borderRadius: BorderRadius.circular(12.0),
                                     border: Border.all(
-                                        color: AppColors.borderColor)),
+                                        color: AppColors.textBoxBgColor)),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: Row(
@@ -127,7 +127,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                         height: Get.height * .09,
                                         width: Get.height * .078,
                                         decoration: BoxDecoration(
-                                            color: AppColors.backgroundColor,
+                                            color: AppColors.textBoxBgColor,
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             border: Border.all(
@@ -151,6 +151,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                 style: TextStyle(
                                                     color: AppColors
                                                         .backgroundColor,
+                                                    fontFamily: 'Inter',
                                                     fontSize: 35,
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -209,6 +210,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .textColor,
+                                                            fontFamily: 'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -233,6 +235,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                           .copyWith(
                                                               color: AppColors
                                                                   .textColor,
+                                                          fontFamily: 'Inter',
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -290,6 +293,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .textColor,
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 10.sp),
@@ -311,6 +315,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .textColor,
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10.sp),
@@ -337,6 +342,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .textColor,
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 11.sp),
@@ -353,6 +359,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .textColor,
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 11.sp),
@@ -528,6 +535,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                               style: TextStyle(
                                                                   color: AppColors
                                                                       .textColor,
+                                                                  fontFamily: 'Inter',
                                                                   fontSize: 15),
                                                             ),
                                                             actions: <Widget>[
@@ -557,7 +565,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                     .button!
                                                                     .copyWith(
                                                                         color: AppColors
-                                                                            .textColor),
+                                                                            .textColor,
+                                                                  fontFamily: 'Inter',),
                                                               ),
                                                               CustomButtons(
                                                                 width:
@@ -577,7 +586,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                     .button!
                                                                     .copyWith(
                                                                         color: AppColors
-                                                                            .textColor),
+                                                                            .textColor,
+                                                                  fontFamily: 'Inter',),
                                                               ),
                                                             ],
                                                           );

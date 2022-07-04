@@ -106,6 +106,7 @@ class _MarketState extends State<Market> {
                                   children: [
                                     const Icon(
                                       Icons.search,
+                                      size: 30,
                                       color: Colors.grey,
                                     ),
                                     AppSpaces.spaces_width_10,
@@ -113,7 +114,7 @@ class _MarketState extends State<Market> {
                                       'Search',
                                       textAlign: TextAlign.center,
                                       style: Get.textTheme.bodyText1!
-                                          .copyWith(color: AppColors.grey),
+                                          .copyWith(color: AppColors.grey,fontFamily: 'Inter',),
                                     ),
                                   ],
                                 ),
@@ -125,9 +126,10 @@ class _MarketState extends State<Market> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
                                   color: AppColors.backgroundColor,
+
                                   icon: Icon(
                                     Icons.filter_list,
-                                    color: AppColors.iconColor,
+                                    color: AppColors.grey,
                                     size: 30,
                                   ),
                                   onSelected: (value) {
@@ -160,7 +162,8 @@ class _MarketState extends State<Market> {
                                       child: Text(
                                         'Common',
                                         style: TextStyle(
-                                            color: AppColors.textColor),
+                                            color: AppColors.textColor,
+                                          fontFamily: 'Inter', ),
                                       ),
                                     ),
                                     PopupMenuItem(
@@ -168,7 +171,8 @@ class _MarketState extends State<Market> {
                                       child: Text(
                                         'Uncommon',
                                         style: TextStyle(
-                                            color: AppColors.textColor),
+                                            color: AppColors.textColor,
+                                          fontFamily: 'Inter',),
                                       ),
                                     ),
                                     PopupMenuItem(
@@ -176,7 +180,9 @@ class _MarketState extends State<Market> {
                                       child: Text(
                                         'Rare',
                                         style: TextStyle(
-                                            color: AppColors.textColor),
+                                            color: AppColors.textColor,
+                                          fontFamily: 'Inter',
+                                        ),
                                       ),
                                     ),
                                     PopupMenuItem(
@@ -184,7 +190,8 @@ class _MarketState extends State<Market> {
                                       child: Text(
                                         'Ultra Rare',
                                         style: TextStyle(
-                                            color: AppColors.textColor),
+                                            color: AppColors.textColor,
+                                          fontFamily: 'Inter',),
                                       ),
                                     ),
                                     PopupMenuItem(
@@ -192,7 +199,8 @@ class _MarketState extends State<Market> {
                                       child: Text(
                                         'Secret Rare',
                                         style: TextStyle(
-                                            color: AppColors.textColor),
+                                            color: AppColors.textColor,
+                                          fontFamily: 'Inter',),
                                       ),
                                     ),
                                   ],
@@ -207,6 +215,7 @@ class _MarketState extends State<Market> {
                       padding: EdgeInsets.only(
                         left: AppDimension.padding_8,
                         right: AppDimension.padding_8,
+                        top: 4
                       ),
                       child: Row(
                         children: [

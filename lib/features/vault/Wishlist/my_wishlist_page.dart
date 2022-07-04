@@ -73,7 +73,7 @@ class _WishListPageState extends State<WishListPage> {
             Text(
               'My Wishlist',
               style:
-                  Get.textTheme.headline2!.copyWith(color: AppColors.textColor),
+                  Get.textTheme.headline2!.copyWith(fontFamily: 'Inter',color: AppColors.textColor),
             ),
 
           ],
@@ -106,10 +106,10 @@ class _WishListPageState extends State<WishListPage> {
                                 child: Container(
                                   width: Get.width,
                                   decoration: BoxDecoration(
-                                      gradient: AppColors.cardGradient,
+                                      color: AppColors.graphCard,
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(
-                                          color: AppColors.borderColor)),
+                                          color: AppColors.textBoxBgColor)),
                                   child: InkWell(
                                     onTap: () {
                                       data.wishListModel!.results![index]
@@ -147,7 +147,7 @@ class _WishListPageState extends State<WishListPage> {
                                                 color: AppColors.backgroundColor,
                                                 borderRadius: BorderRadius.circular(10),
                                                 border: Border.all(
-                                                    color: AppColors.borderColor)),
+                                                    color: AppColors.textBoxBgColor)),
                                             alignment: Alignment.center,
                                             child: data.wishListModel!.results![index].productDetail!.image==null ?Text(
                                               data.wishListModel!.results![index].productDetail!.name
@@ -155,6 +155,7 @@ class _WishListPageState extends State<WishListPage> {
                                                   .toUpperCase(),
                                               style: TextStyle(
                                                   color: AppColors.backgroundColor,
+                                                  fontFamily: 'Inter',
                                                   fontSize: 35,
                                                   fontWeight: FontWeight.bold),
                                             )
@@ -201,6 +202,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                 .copyWith(
                                                                     color: AppColors
                                                                         .textColor,
+                                                                fontFamily: 'Inter',
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -225,6 +227,7 @@ class _WishListPageState extends State<WishListPage> {
                                                               .copyWith(
                                                                   color: AppColors
                                                                       .textColor,
+                                                              fontFamily: 'Inter',
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w300,
@@ -285,6 +288,7 @@ class _WishListPageState extends State<WishListPage> {
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .textColor,
+                                                            fontFamily: 'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w900,
@@ -309,6 +313,7 @@ class _WishListPageState extends State<WishListPage> {
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .textColor,
+                                                            fontFamily: 'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w300,
@@ -338,6 +343,7 @@ class _WishListPageState extends State<WishListPage> {
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .textColor,
+                                                            fontFamily: 'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w900,
@@ -506,6 +512,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                     ? Colors.red
                                                                     : Colors
                                                                         .green,
+                                                                fontFamily: 'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w300,
@@ -578,6 +585,7 @@ class _WishListPageState extends State<WishListPage> {
                                               'Do you really want to delete this item?',
                                               style: TextStyle(
                                                   color: AppColors.textColor,
+                                                  fontFamily: 'Inter',
                                                   fontSize: 15),
                                             ),
                                             actions: <Widget>[
@@ -617,7 +625,9 @@ class _WishListPageState extends State<WishListPage> {
                                                 style: Get.textTheme.button!
                                                     .copyWith(
                                                         color: AppColors
-                                                            .textColor),
+                                                            .textColor,
+                                                  fontFamily: 'Inter',
+                                                ),
                                               ),
                                               CustomButtons(
                                                 width: Get.width * .2,
@@ -629,7 +639,9 @@ class _WishListPageState extends State<WishListPage> {
                                                 style: Get.textTheme.button!
                                                     .copyWith(
                                                         color: AppColors
-                                                            .textColor),
+                                                            .textColor,
+                                                  fontFamily: 'Inter',
+                                                ),
                                               ),
                                             ],
                                           );

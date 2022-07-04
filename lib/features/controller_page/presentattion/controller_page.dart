@@ -72,7 +72,6 @@ class _ControllerPageState extends State<ControllerPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     postData = Provider.of<PostData>(context, listen: false);
 
     appUpdate = Provider.of<AppUpdate>(context, listen: false);
@@ -145,6 +144,7 @@ class _ControllerPageState extends State<ControllerPage> {
                         "Vemate",
                         style: Get.textTheme.headline1!.copyWith(
                             color: AppColors.textColor,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w500),
                       ),
                     ],
@@ -153,7 +153,7 @@ class _ControllerPageState extends State<ControllerPage> {
                 AppSpaces.spaces_height_10,
                 Text(
                   'Are you sure to exit?',
-                  style: TextStyle(color: AppColors.textColor),
+                  style: TextStyle(fontFamily: 'Inter',color: AppColors.textColor),
                 ),
                 AppSpaces.spaces_height_10,
                 Row(
@@ -179,7 +179,7 @@ class _ControllerPageState extends State<ControllerPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'No',
-                            style: TextStyle(color: AppColors.textColor),
+                            style: TextStyle(fontFamily: 'Inter',color: AppColors.textColor),
                           ),
                         ),
                       ),
@@ -205,7 +205,7 @@ class _ControllerPageState extends State<ControllerPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'Yes',
-                            style: TextStyle(color: AppColors.textColor),
+                            style: TextStyle(fontFamily: 'Inter',color: AppColors.textColor),
                           ),
                         ),
                       ),

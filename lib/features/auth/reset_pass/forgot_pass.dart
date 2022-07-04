@@ -67,6 +67,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       child:  Text(
                         "Enter New Password",
                         style: TextStyle(
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold, color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
@@ -109,7 +110,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       postData!.forgotPassword(context, body);
                     },
                     text: AppLanguageString.UPDATE_Pass.tr.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(color: Colors.white),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white,fontFamily: 'Inter',),
                   )
                 ],
               ),

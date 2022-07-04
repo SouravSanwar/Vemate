@@ -35,6 +35,7 @@ class _NoDataCardState extends State<NoDataCard> {
             widget.title.toString(),
             style: Get.textTheme.bodyMedium!.copyWith(
               fontSize: 14.0.sp,
+              fontFamily: 'Inter',
             ),
           ),
         ],

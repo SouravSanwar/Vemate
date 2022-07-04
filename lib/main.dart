@@ -21,6 +21,7 @@ SharedPreferences? prefs1;
 
 bool filterOn = false;
 bool? darkMode = false;
+
 int? mode;
 
 final GlobalKey<NavigatorState> navigatorKey =

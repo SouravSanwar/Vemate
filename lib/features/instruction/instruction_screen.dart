@@ -30,9 +30,9 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
   Widget build(BuildContext context) {
     const pageDecoration = PageDecoration(
       titleTextStyle: TextStyle(
-          fontSize: 28.0, fontWeight: FontWeight.w700, color: Colors.white),
+          fontFamily: 'Inter',fontSize: 28.0, fontWeight: FontWeight.w700, color: Colors.white),
       bodyTextStyle: TextStyle(
-          fontSize: 19.0, fontWeight: FontWeight.w500, color: Colors.white),
+          fontFamily: 'Inter',fontSize: 19.0, fontWeight: FontWeight.w500, color: Colors.white),
       bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       pageColor: Color(0xff02072D),
       imagePadding: EdgeInsets.zero,
@@ -58,6 +58,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
               child: Text(
                 "Skip",
                 style: TextStyle(
+
                     fontFamily: 'Inter',
                     color: AppColors.textColor, fontSize: 12.0.sp),
               ),

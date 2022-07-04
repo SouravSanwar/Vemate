@@ -73,165 +73,163 @@ class _HomeState extends State<Home> {
                     data.vaultStatsModel != null &&
                     data.newsModel != null &&
                     data.notificationListModel != null
-                ? SafeArea(
-                    child: ListView(
-                      shrinkWrap: true,
+                ? ListView(
+                  shrinkWrap: true,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(
-                                    15.0,
-                                  ),
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (c) => const Profile()));
-                                    },
-                                    child: Container(
-                                      child: data.profileModel!.profileImage !=
-                                              null
-                                          ? CircleAvatar(
-                                              radius: 20,
-                                              backgroundImage: NetworkImage(
-                                                Urls.mainUrl +
-                                                    data
-                                                        .profileModel!
-                                                        .profileImage!
-                                                        .mobile!
-                                                        .src
-                                                        .toString(),
-                                              ),
-                                            )
-                                          : const CircleAvatar(
-                                              radius: 20,
-                                              backgroundImage: AssetImage(
-                                                  'assets/media/image/profile.png'),
-                                            ),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                          color: AppColors.greyWhite,
-                                          width: 1.0,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 15,right: 12,bottom: 15,left: 12),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (c) => const Profile()));
+                                },
+                                child: Container(
+                                  child: data.profileModel!.profileImage !=
+                                          null
+                                      ? CircleAvatar(
+                                          radius: 20,
+                                          backgroundImage: NetworkImage(
+                                            Urls.mainUrl +
+                                                data
+                                                    .profileModel!
+                                                    .profileImage!
+                                                    .mobile!
+                                                    .src
+                                                    .toString(),
+                                          ),
+                                        )
+                                      : const CircleAvatar(
+                                          radius: 20,
+                                          backgroundImage: AssetImage(
+                                              'assets/media/image/profile.png'),
                                         ),
-                                      ),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: AppColors.greyWhite,
+                                      width: 1.0,
                                     ),
                                   ),
                                 ),
-                                Text(
-                                  "Hi, ${data.profileModel!.nickname.toString()}",
-                                  style: Get.textTheme.headline1!.copyWith(
-                                      color: AppColors.textColor,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
+                              ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(
-                                14.0,
-                              ),
-                              child: InkWell(
-                                onTap: () {
-                                  data.notificationListModel!.results!
-                                          .isNotEmpty
-                                      ? Flushbar(
-                                          flushbarPosition:
-                                              FlushbarPosition.BOTTOM,
-                                          isDismissible: false,
-                                          backgroundColor:
-                                              AppColors.backgroundColor,
-                                          duration: const Duration(seconds: 1),
-                                          messageText: const Text(
-                                            "No Notification to show",
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                color: Colors.grey),
-                                          )).show(context)
-                                      : showDialog(
-                                          context: context,
-                                          builder: (ctx) =>
-                                              NotificationAlertBox(
-                                                list: data
-                                                    .notificationListModel!
-                                                    .results!,
-                                              ));
-                                },
-                                child: NotificationBadge(
-                                  notificationListModel:
-                                      data.notificationListModel,
-                                ),
-                              ),
+                            Text(
+                              "Hi, ${data.profileModel!.nickname.toString()}",
+                              style: Get.textTheme.headline1!.copyWith(
+                                  color: AppColors.textColor,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500),
                             ),
                           ],
                         ),
-
-                        ///News
                         Padding(
-                          padding: const EdgeInsets.only(
-                              top: 11, bottom: 5, left: 15, right: 15),
-                          child: Text(
-                            'News',
-                            textAlign: TextAlign.left,
-                            style: Get.textTheme.headline2!.copyWith(
-                                color: AppColors.textColor,
-                                fontWeight: FontWeight.w500),
+                          padding: const EdgeInsets.all(
+                            14.0,
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              data.notificationListModel!.results!
+                                      .isEmpty
+                                  ? Flushbar(
+                                      flushbarPosition:
+                                          FlushbarPosition.BOTTOM,
+                                      isDismissible: false,
+                                      backgroundColor:
+                                          AppColors.backgroundColor,
+                                      duration: const Duration(seconds: 1),
+                                      messageText: const Text(
+                                        "No Notification to show",
+                                        style: TextStyle(
+                                            fontFamily: 'Inter',
+                                            fontSize: 16.0,
+                                            color: Colors.grey),
+                                      )).show(context)
+                                  : showDialog(
+                                      context: context,
+                                      builder: (ctx) =>
+                                          NotificationAlertBox(
+                                            list: data
+                                                .notificationListModel!
+                                                .results!,
+                                          ));
+                            },
+                            child: NotificationBadge(
+                              notificationListModel:
+                                  data.notificationListModel,
+                            ),
                           ),
                         ),
-                        AppSpaces.spaces_height_10,
-                        ImageSlider(
-                            news: data.newsModel != null
-                                ? data.newsModel!.results
-                                : null),
-                        SizedBox(
-                          height: 9.h,
-                        ),
-
-                        ///My Vault
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10, bottom: 0, left: 15, right: 15),
-                          child: Text(
-                            'My Vault',
-                            style: Get.textTheme.headline2!.copyWith(
-                                color: AppColors.textColor,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                        HomeVaultCard(
-                          vaultStatsModel: data.vaultStatsModel,
-                        ),
-
-                        ///Newest
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 10, left: 15, right: 15),
-                          child: Text(
-                            'Newest',
-                            style: Get.textTheme.headline2!.copyWith(
-                                color: AppColors.textColor,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                        SizedBox(
-                          height: Get.height * .22,
-                          child: SizedBox(
-                            width: Get.width,
-                            child: data.collectiblesModel != null
-                                ? VaultNewItemCard(
-                                    list: data.collectiblesModel!.results,
-                                  )
-                                : const LoadingExample(),
-                          ),
-                        ),
-                        AppSpaces.spaces_height_10,
                       ],
                     ),
-                  )
+
+                    ///News
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 11, bottom: 12, left: 15, right: 15),
+                      child: Text(
+                        'News',
+                        textAlign: TextAlign.left,
+                        style: Get.textTheme.headline2!.copyWith(
+                            color: AppColors.textColor,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+
+                    ImageSlider(
+                        news: data.newsModel != null
+                            ? data.newsModel!.results
+                            : null),
+
+                    ///My Vault
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 24, bottom: 0, left: 15, right: 15),
+                      child: Text(
+                        'My Vault',
+                        style: Get.textTheme.headline2!.copyWith(
+                            color: AppColors.textColor,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    HomeVaultCard(
+                      vaultStatsModel: data.vaultStatsModel,
+                    ),
+
+                    ///Newest
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 12, left: 15, right: 15),
+                      child: Text(
+                        'Newest',
+                        style: Get.textTheme.headline2!.copyWith(
+                            color: AppColors.textColor,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    SizedBox(
+                      height: Get.height * .22,
+                      child: SizedBox(
+                        width: Get.width,
+                        child: data.collectiblesModel != null
+                            ? VaultNewItemCard(
+                                list: data.collectiblesModel!.results,
+                              )
+                            : const LoadingExample(),
+                      ),
+                    ),
+                    AppSpaces.spaces_height_10,
+                  ],
+                )
                 : const LoadingExample();
           },
         ),

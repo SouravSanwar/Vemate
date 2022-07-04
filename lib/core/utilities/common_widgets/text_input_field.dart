@@ -45,6 +45,7 @@ class _TextInputFieldState extends State<TextInputField> {
           ? TextFormField(
               style: TextStyle(
                 color: AppColors.textColor,
+                fontFamily: 'Inter',
                 fontSize: 18.0.sp,
               ),
               key: formKey,
@@ -75,13 +76,14 @@ class _TextInputFieldState extends State<TextInputField> {
                  }
 },
               style: TextStyle(
+                fontFamily: 'Inter',
                 color: AppColors.textColor,
                 fontSize: 18.0.sp,
               ),
               controller: widget.controller,
               decoration: InputDecoration(
                 hintText: widget.labelText,
-                hintStyle:  TextStyle(fontSize: 15.sp),
+                hintStyle:  TextStyle(fontSize: 15.sp,fontFamily: 'Inter',),
                 border: InputBorder.none,
               ),
               keyboardType: widget.textType,

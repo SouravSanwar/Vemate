@@ -39,7 +39,7 @@ class _ProductGraphState extends State<ProductGraph> {
           child: Container(
               width: Get.width,
               decoration: BoxDecoration(
-                gradient: AppColors.cardGradient,
+                color: AppColors.graphCard,
                 borderRadius: BorderRadius.circular(12.0),
               ),
               child: data.singleProductModel != null
@@ -58,7 +58,7 @@ class _ProductGraphState extends State<ProductGraph> {
                         labelRotation: 0,
                         labelStyle: TextStyle(
                             color: AppColors.textColor,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Inter',
                             fontSize: data.singleProductModel!.graphType == '0'
                                 ?10.sp :10.sp,
                             fontStyle: FontStyle.italic,
@@ -80,7 +80,7 @@ class _ProductGraphState extends State<ProductGraph> {
                         labelRotation: 0,
                         labelStyle: TextStyle(
                             color: AppColors.textColor,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Inter',
                             fontSize: 8.sp,
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w900),

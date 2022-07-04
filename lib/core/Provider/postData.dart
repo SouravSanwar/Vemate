@@ -12,6 +12,7 @@ import 'package:ketemaa/core/network/base_controller.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
+import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_controller.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_2fa.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
@@ -499,6 +500,26 @@ class PostData extends ChangeNotifier with BaseController {
             "Update Successful",
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
+    } else if (js['is_email_verified'] == false) {
+      getData = Provider.of<GetData>(context, listen: false);
+      await getData!.getUserInfo();
+      prefs = await SharedPreferences.getInstance();
+
+      prefs!.setString('name', js['name'].toString());
+      prefs!.setString('email', js['email'].toString());
+
+      Navigator.of(context).pop();
+      prefs!.clear();
+
+      SigninController
+          .to.userNameTextFiledController
+          .clear();
+      SigninController
+          .to.passwordTextFiledController
+          .clear();
+
+      Get.offAll(() => const AuthInitialPage());
+
     } else {
       Navigator.of(context).pop();
 

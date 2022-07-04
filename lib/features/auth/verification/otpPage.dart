@@ -178,6 +178,7 @@ class _OtpPageState extends State<OtpPage> {
                 child: Text(
                   hasError ? "*Please fill up all the cells properly" : "",
                   style: TextStyle(
+                      fontFamily: 'Inter',
                       color: AppColors.white,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400),
@@ -191,7 +192,7 @@ class _OtpPageState extends State<OtpPage> {
                 children: [
                   Text(
                     "Didn't receive the code? ",
-                    style: TextStyle(color: Colors.white, fontSize: 15.sp),
+                    style: TextStyle(color: Colors.white, fontFamily: 'Inter',fontSize: 15.sp),
                   ),
                   TextButton(
                       onPressed: () {
@@ -205,6 +206,7 @@ class _OtpPageState extends State<OtpPage> {
                       child: Text(
                         "RESEND",
                         style: TextStyle(
+                            fontFamily: 'Inter',
                             color: AppColors.primaryColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 16.sp),
@@ -243,7 +245,7 @@ class _OtpPageState extends State<OtpPage> {
                     }
                   },
                   text: "VERIFY".toUpperCase(),
-                  style: Get.textTheme.button!.copyWith(color: Colors.white),
+                  style: Get.textTheme.button!.copyWith(color: Colors.white,fontFamily: 'Inter',),
                 ),
               )
 

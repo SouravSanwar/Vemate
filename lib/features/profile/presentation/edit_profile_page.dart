@@ -4,6 +4,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/Provider/postFile.dart';
@@ -27,9 +29,11 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  File? imageFile;
   String? _fileName;
   String? _saveAsFileName;
-  List<PlatformFile>? _paths;
+  List<PlatformFile>?
+  _paths;
   String? _directoryPath;
   String? _extension;
   bool _isLoading = false;
@@ -62,6 +66,78 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.initState();
   }
 
+
+  takeImage() {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            title: const Text(
+              "Item Image",
+              style: TextStyle(
+                color: Colors.lightGreen,
+              ),
+            ),
+            children: [
+              SimpleDialogOption(
+                child: const Text(
+                  "Capture with Camera",
+                  style: TextStyle(color: Colors.black),
+                ),
+                onPressed: captureImageWithCamera,
+              ),
+              SimpleDialogOption(
+                child: const Text(
+                  "Select From Gallery",
+                  style: TextStyle(color: Colors.black),
+                ),
+                onPressed: pickImageFromGallery,
+              ),
+              SimpleDialogOption(
+                child: const Text(
+                  "Cancel",
+                  style: TextStyle(color: Colors.red),
+                ),
+                onPressed: () => Navigator.pop(context),
+              )
+            ],
+          );
+        });
+  }
+
+  captureImageWithCamera() async {
+
+    XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+    );
+
+    _cropImage(pickedFile!.path);
+    Navigator.pop(context);
+  }
+
+  pickImageFromGallery() async {
+
+    XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    _cropImage(pickedFile!.path);
+    Navigator.pop(context);
+  }
+
+  void _cropImage(filePath) async{
+    CroppedFile? croppedImage =await ImageCropper().cropImage(
+      sourcePath: filePath,
+    maxWidth: 1080,
+    maxHeight: 1080);
+    if(croppedImage != null){
+      setState(() {
+        imageFile = File(croppedImage.path);
+      });
+    }
+    print("&&&&&&&*******&&&&&"+imageFile.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
@@ -86,7 +162,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           radius: MediaQuery.of(context).size.width * .25,
                           backgroundColor: AppColors.textColor,
                           backgroundImage: profileModel!.profileImage == null
-                              ? null
+                              ? imageFile == null ? null
+                                      :Image.file(imageFile!).image
                               : NetworkImage(
                                   Urls.mainUrl +
                                       data.profileModel!.profileImage!.mobile!
@@ -94,7 +171,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           .toString(),
                                 ),
                           child: profileModel!.profileImage == null
-                              ? Shader(
+                              ? imageFile != null ? Container() :Shader(
                                   icon: const Icon(
                                     Icons.person_add_alt_1_rounded,
                                     size: 100,
@@ -108,7 +185,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           child: RawMaterialButton(
                             onPressed: () {
                               setState(() {
-                                _pickFiles();
+                                imageFile == null;
+                                takeImage();
                               });
                             },
                             elevation: 2.0,
@@ -152,6 +230,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     width: Get.width * .8,
                     height: Get.height * .065,
                     onTap: () {
+
+                      _pickFiles();
                       var body = {
                         "nickname": ProfileController
                             .to.userNameTextFiledController.text,
@@ -168,7 +248,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           .updateProfile(context, body, requestHeadersWithToken);
                     },
                     text: AppLanguageString.UPDATE_INFO.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(color: Colors.white),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white,fontFamily: 'Inter',),
                   )
                 ],
               ),
@@ -182,18 +262,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Future _pickFiles() async {
     _resetState();
     try {
-      _directoryPath = null;
-      _paths = (await FilePicker.platform.pickFiles(
-        type: _pickingType,
-        allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) => print(status),
-        allowedExtensions: (_extension?.isNotEmpty ?? false)
-            ? _extension?.replaceAll(' ', '').split(',')
-            : null,
-      ))
-          ?.files;
 
-      files!.add(File(_paths![0].path!));
+
+      files!.add(imageFile!);
       fileList!.addAll(files!);
 
       List<String> fileKey = [];

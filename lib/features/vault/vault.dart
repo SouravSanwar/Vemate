@@ -60,7 +60,8 @@ class _VaultState extends State<Vault> {
                       width: Get.width,
                       height: Get.height * .268,
                       decoration: BoxDecoration(
-                        gradient: AppColors.cardGradient,
+                        color: AppColors.graphCard,
+
                         borderRadius: const BorderRadius.vertical(
                             bottom: Radius.circular(40.0)),
                       ),
@@ -77,6 +78,7 @@ class _VaultState extends State<Vault> {
                                 textAlign: TextAlign.start,
                                 style: Get.textTheme.bodyText2!.copyWith(
                                     color: AppColors.textColor,
+                                    fontFamily: 'Inter',
                                     fontWeight: FontWeight.w600,
                                     fontSize: 22.sp),
                               ),
@@ -104,6 +106,7 @@ class _VaultState extends State<Vault> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
+                                                  fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14.sp),
@@ -142,6 +145,7 @@ class _VaultState extends State<Vault> {
                                                 style: Get.textTheme.bodyText2!
                                                     .copyWith(
                                                         color: AppColors.white,
+                                                    fontFamily: 'Inter',
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         fontSize: 14.sp),
@@ -164,6 +168,7 @@ class _VaultState extends State<Vault> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
+                                                  fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14.sp),
@@ -232,6 +237,7 @@ class _VaultState extends State<Vault> {
                                                                   'decrease'
                                                               ? Colors.red
                                                               : Colors.green,
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 14.sp),
@@ -253,6 +259,7 @@ class _VaultState extends State<Vault> {
                               margin: EdgeInsets.zero,
                               plotAreaBorderWidth: 0,
                               primaryXAxis: CategoryAxis(
+                                plotOffset: -8,
                                 isVisible: false,
                                 majorGridLines: const MajorGridLines(width: 0),
                                 labelIntersectAction:
@@ -262,6 +269,7 @@ class _VaultState extends State<Vault> {
                                 maximumLabels: 7,
                               ),
                               primaryYAxis: CategoryAxis(
+
                                 isVisible: false,
                                 majorGridLines: const MajorGridLines(width: 0),
                                 labelIntersectAction:
@@ -309,54 +317,47 @@ class _VaultState extends State<Vault> {
                           ///My Collectibles
                           Padding(
                             padding: EdgeInsets.only(
-                                left: Get.width *
-                                    .06), //apply padding to all four sides
+                                left: 15), //apply padding to all four sides
                             child: Text(
                               "My Collectibles",
-                              style: TextStyle(
+                              style: Get.textTheme.headline2!.copyWith(
                                   color: AppColors.textColor,
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold),
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                           VaultCollectiblesCard(
                             data: data.vaultStatsModel!.collectible,
                           ),
-                          SizedBox(
-                            height: Get.height * .01,
-                          ),
+
 
                           ///My Comics
                           Padding(
                             padding: EdgeInsets.only(
-                                left: Get.width *
-                                    .06), //apply padding to all four sides
+                                left: 15), //apply padding to all four sides
                             child: Text(
                               "My Comics",
-                              style: TextStyle(
+                              style: Get.textTheme.headline2!.copyWith(
                                   color: AppColors.textColor,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                           VaultComicsCard(
                             data: data.vaultStatsModel!.comic,
                           ),
-                          SizedBox(
-                            height: Get.height * .01,
-                          ),
+
 
                           ///My Vault
                           Padding(
                             padding: EdgeInsets.only(
-                                left: Get.width *
-                                    .06), //apply padding to all four sides
+                                left: 15), //apply padding to all four sides
                             child: Text(
                               "My Vault",
-                              style: TextStyle(
+                              style: Get.textTheme.headline2!.copyWith(
                                   color: AppColors.textColor,
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold),
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                           data.setListModel != null
@@ -372,9 +373,6 @@ class _VaultState extends State<Vault> {
                                         ),
                                 )
                               : const LoadingExample(),
-                          SizedBox(
-                            height: Get.height * .01,
-                          ),
 
                           ///My Wishlist
                           Row(
@@ -382,14 +380,13 @@ class _VaultState extends State<Vault> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left: Get.width *
-                                          .06), //apply padding to all four sides
+                                      left: 15), //apply padding to all four sides
                                   child: Text(
                                     "My Wishlist",
-                                    style: TextStyle(
+                                    style: Get.textTheme.headline2!.copyWith(
                                         color: AppColors.textColor,
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold),
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w500),
                                   ),
                                 ),
                                 InkWell(
@@ -404,6 +401,7 @@ class _VaultState extends State<Vault> {
                                       "See All",
                                       style: TextStyle(
                                           color: AppColors.textColor,
+                                          fontFamily: 'Inter',
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -435,6 +433,7 @@ class _VaultState extends State<Vault> {
                         child: Text(
                           '24H',
                           style: TextStyle(
+                            fontFamily: 'Inter',
                             fontSize: 15.sp,
                             color: Colors.white,
                           ),

@@ -181,6 +181,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                 style: TextStyle(
                                                     color: AppColors
                                                         .backgroundColor,
+                                                    fontFamily: 'Inter',
                                                     fontSize: 35,
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -231,6 +232,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
+                                                  fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 12.sp),
@@ -249,6 +251,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                   .copyWith(
                                                       color: AppColors.textColor
                                                           .withOpacity(.7),
+                                                  fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 10.sp),

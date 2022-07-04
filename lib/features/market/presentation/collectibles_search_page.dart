@@ -117,7 +117,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                     contentPadding: EdgeInsets.only(
                         left: 15, bottom: 11, top: 13, right: 15),
                     hintText: "Search Collectible",
-                    hintStyle: TextStyle(color: Colors.white),
+                    hintStyle: TextStyle(color: Colors.white,fontFamily: 'Inter',),
                   ),
                   onChanged: (text) {
                     text = searchController.text;
@@ -132,7 +132,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                 )
               : Text(
                   filterValue[0] + " Collectibles",
-                  style: TextStyle(fontSize: 22.sp),
+                  style: TextStyle(fontSize: 22.sp,fontFamily: 'Inter',),
                 ),
         ),
       ),
@@ -177,9 +177,9 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                               child: Container(
                                 width: Get.width,
                                 decoration: BoxDecoration(
-                                  gradient: AppColors.cardGradient,
+                                  color: AppColors.graphCard,
                                   borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(color: AppColors.borderColor),
+                                  border: Border.all(color: AppColors.textBoxBgColor),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
@@ -190,10 +190,10 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                         height: Get.height * .09,
                                         width: Get.height * .078,
                                         decoration: BoxDecoration(
-                                            color: AppColors.backgroundColor,
+                                            color: AppColors.graphCard,
                                             borderRadius: BorderRadius.circular(10),
                                             border: Border.all(
-                                                color: AppColors.borderColor)),
+                                                color: AppColors.textBoxBgColor)),
                                         alignment: Alignment.center,
                                         child: data.searchCollectiblesModel!.results![index].image==null ?Text(
                                           data.searchCollectiblesModel!.results![index].name
@@ -201,6 +201,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                               .toUpperCase(),
                                           style: TextStyle(
                                               color: AppColors.backgroundColor,
+                                              fontFamily: 'Inter',
                                               fontSize: 35,
                                               fontWeight: FontWeight.bold),
                                         )
@@ -245,6 +246,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                             .bodyText2!
                                                             .copyWith(
                                                                 color: AppColors.textColor,
+                                                            fontFamily: 'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -266,6 +268,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                           .textTheme.bodyText1!
                                                           .copyWith(
                                                               color: AppColors.textColor,
+                                                          fontFamily: 'Inter',
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -298,6 +301,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                             color: AppColors.textColor
                                                                 .withOpacity(
                                                                     0.8),
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 10.sp),
@@ -318,6 +322,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.8),
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10.sp),
@@ -345,6 +350,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.8),
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 11.sp),
@@ -442,6 +448,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                 .white
                                                                 .withOpacity(
                                                                     0.9),
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 11.sp),
@@ -471,6 +478,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                     'decrease'
                                                                 ? Colors.red
                                                                 : Colors.green,
+                                                            fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10.sp),

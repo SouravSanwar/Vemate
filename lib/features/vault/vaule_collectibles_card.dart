@@ -29,13 +29,13 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
           );
         },
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.only(left: 6,right: 10,top: Get.height*.0167,bottom:Get.height*.0334),
           child: Container(
             width: Get.width,
             decoration: BoxDecoration(
-                gradient: AppColors.cardGradient,
+                color: AppColors.graphCard,
                 borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: const Color(0xff454F70))),
+                border: Border.all(color: AppColors.backgroundColor,)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -50,6 +50,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                           "Collectibles Value",
                           style: TextStyle(
                             color: AppColors.textColor,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -58,6 +59,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                           '\$' + widget.data!.totalCollectibleValue!.toString(),
                           style: TextStyle(
                               color: AppColors.greyWhite,
+                              fontFamily: 'Inter',
                               fontWeight: FontWeight.bold),
                         ),
                         AppSpaces.spaces_height_30,
@@ -65,6 +67,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                           "",
                           style: TextStyle(
                             color: AppColors.textColor,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -142,6 +145,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                               '\$${widget.data!.changePrice != null ? widget.data!.changePrice.toStringAsFixed(2) : "0.0"}',
                               style: TextStyle(
                                   color: Colors.grey,
+                                  fontFamily: 'Inter',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14.sp),
                             ),
@@ -164,6 +168,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                       color: widget.data!.sign == 'decrease'
                                           ? Colors.red
                                           : Colors.green,
+                                      fontFamily: 'Inter',
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),

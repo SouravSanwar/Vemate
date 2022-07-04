@@ -66,6 +66,7 @@ class _ResetPassState extends State<ResetPass> {
                       child: Text(
                         "RESET PASSWORD",
                         style: TextStyle(
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold, color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
@@ -94,7 +95,7 @@ class _ResetPassState extends State<ResetPass> {
                       );
                     },
                     text: 'Send Code'.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(color: Colors.white),
+                    style: Get.textTheme.button!.copyWith(color: Colors.white,fontFamily: 'Inter',),
                   ),
 
                   const SizedBox(
@@ -106,6 +107,7 @@ class _ResetPassState extends State<ResetPass> {
                       "By clicking SEND CODE, you will receive an e-mail to reset password",
                       textAlign: TextAlign.center,
                       style: TextStyle(
+                        fontFamily: 'Inter',
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
                         fontSize: 15.sp,

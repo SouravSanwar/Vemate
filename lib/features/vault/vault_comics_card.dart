@@ -25,13 +25,15 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
         Get.to(() => const VaultComicsList());
       },
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding:  EdgeInsets.only(left: 6,right: 10,top: Get.height*.0167 ,bottom: Get.height*.0334),
         child: Container(
+
             width: Get.width,
             decoration: BoxDecoration(
-              gradient: AppColors.cardGradient,
+              color: AppColors.graphCard,
               borderRadius: BorderRadius.circular(12.0),
-              border: Border.all(color: AppColors.borderColor),
+              border: Border.all(color: AppColors.backgroundColor,),
+
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -135,6 +137,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                               '\$${widget.data!.changePrice != null ? widget.data!.changePrice.toStringAsFixed(2) : "0.0"}',
                               style: TextStyle(
                                   color: AppColors.textColor,
+                                  fontFamily: 'Inter',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14),
                             ),
@@ -157,6 +160,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                                         color: widget.data!.sign == 'decrease'
                                             ? Colors.red
                                             : Colors.green,
+                                        fontFamily: 'Inter',
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14.sp),
                                   ),

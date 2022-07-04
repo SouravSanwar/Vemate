@@ -42,7 +42,7 @@ class CustomProfileElements extends StatelessWidget {
                       ),
                       Text(
                         text.toString(),
-                        style:TextStyle(fontSize: 16.sp, color: AppColors.textColor),
+                        style:TextStyle(fontFamily: 'Inter',fontSize: 16.sp, color: AppColors.textColor),
                       ),
                     ],
                   ),

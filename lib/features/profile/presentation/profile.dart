@@ -58,8 +58,8 @@ class _ProfileState extends State<Profile> {
       ),
       image: Image.asset(
         mode == 0
-            ? 'assets/media/image/vemate1.png'
-            : 'assets/media/image/vemate.png',
+            ? 'assets/media/image/vemate.png'
+            : 'assets/media/image/vemate1.png',
       ),
       submitButtonText: 'Submit',
       onCancelled: () => print('cancelled'),
@@ -79,7 +79,7 @@ class _ProfileState extends State<Profile> {
       backgroundColor: AppColors.backgroundColor,
       /*appBar: AppBar(
         actions: const [
-          ToggleButton(),
+          const BackPreviousScreen(),
         ],
       ),*/
       body: SafeArea(
@@ -91,6 +91,7 @@ class _ProfileState extends State<Profile> {
                   children: [
                     // SizedBox(height: Get.height * .05),
                    // ToggleButton(),
+                    const BackPreviousScreen(),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -129,6 +130,7 @@ class _ProfileState extends State<Profile> {
                             data.profileModel!.nickname.toString(),
                             style: TextStyle(
                                 color: AppColors.textColor,
+                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.0),
                             textAlign: TextAlign.center,
