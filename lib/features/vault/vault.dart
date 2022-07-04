@@ -351,7 +351,7 @@ class _VaultState extends State<Vault> {
                           ///My Vault
                           Padding(
                             padding: EdgeInsets.only(
-                                left: 15), //apply padding to all four sides
+                                left: 15,bottom:Get.height*.0167,), //apply padding to all four sides
                             child: Text(
                               "My Vault",
                               style: Get.textTheme.headline2!.copyWith(
@@ -380,7 +380,7 @@ class _VaultState extends State<Vault> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left: 15), //apply padding to all four sides
+                                      left: 15,top: Get.height*.0334,bottom: Get.height*.0167), //apply padding to all four sides
                                   child: Text(
                                     "My Wishlist",
                                     style: Get.textTheme.headline2!.copyWith(
@@ -396,7 +396,7 @@ class _VaultState extends State<Vault> {
                                   child: Padding(
                                     padding: EdgeInsets.only(
                                         right: Get.width *
-                                            .06), //apply padding to all four sides
+                                            .06,top: Get.height*.0334,bottom: Get.height*.0167), //apply padding to all four sides
                                     child: Text(
                                       "See All",
                                       style: TextStyle(

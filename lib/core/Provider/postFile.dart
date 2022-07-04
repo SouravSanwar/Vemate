@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/main.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
@@ -122,7 +123,7 @@ class PostFile extends ChangeNotifier {
       List<String>? fileKey,
       List<File>? files,
       Method method = Method.POST}) async {
-    const LoadingExample();
+    LoadingDialogue(message: "Image Uploading",);
     print('New Body: $body');
     //bool loading = false;
     var uri = Uri.parse(url!);

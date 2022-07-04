@@ -49,6 +49,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                           "Comics Value",
                           style: TextStyle(
                             color: AppColors.textColor,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                           ),
                         ),
