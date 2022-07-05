@@ -28,8 +28,6 @@ class Vault extends StatefulWidget {
 }
 
 class _VaultState extends State<Vault> {
-  double scrnHeight = Get.height;
-  double scrnWidth = Get.width;
 
   GetData? getData;
 
@@ -39,8 +37,9 @@ class _VaultState extends State<Vault> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-    getData!.getSetList();
     getData!.getWishList();
+
+    getData!.getSetList('');
 
     getData!.getVaultStats(0);
   }
@@ -61,7 +60,6 @@ class _VaultState extends State<Vault> {
                       height: Get.height * .268,
                       decoration: BoxDecoration(
                         color: AppColors.graphCard,
-
                         borderRadius: const BorderRadius.vertical(
                             bottom: Radius.circular(40.0)),
                       ),
@@ -106,7 +104,7 @@ class _VaultState extends State<Vault> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
-                                                  fontFamily: 'Inter',
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14.sp),
@@ -145,7 +143,7 @@ class _VaultState extends State<Vault> {
                                                 style: Get.textTheme.bodyText2!
                                                     .copyWith(
                                                         color: AppColors.white,
-                                                    fontFamily: 'Inter',
+                                                        fontFamily: 'Inter',
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         fontSize: 14.sp),
@@ -168,7 +166,7 @@ class _VaultState extends State<Vault> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
-                                                  fontFamily: 'Inter',
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14.sp),
@@ -269,7 +267,6 @@ class _VaultState extends State<Vault> {
                                 maximumLabels: 7,
                               ),
                               primaryYAxis: CategoryAxis(
-
                                 isVisible: false,
                                 majorGridLines: const MajorGridLines(width: 0),
                                 labelIntersectAction:
@@ -316,8 +313,8 @@ class _VaultState extends State<Vault> {
                         children: [
                           ///My Collectibles
                           Padding(
-                            padding: EdgeInsets.only(
-                                left: 15), //apply padding to all four sides
+                            padding: const EdgeInsets.only(
+                                left: 15),
                             child: Text(
                               "My Collectibles",
                               style: Get.textTheme.headline2!.copyWith(
@@ -330,11 +327,10 @@ class _VaultState extends State<Vault> {
                             data: data.vaultStatsModel!.collectible,
                           ),
 
-
                           ///My Comics
                           Padding(
-                            padding: EdgeInsets.only(
-                                left: 15), //apply padding to all four sides
+                            padding: const EdgeInsets.only(
+                                left: 15),
                             child: Text(
                               "My Comics",
                               style: Get.textTheme.headline2!.copyWith(
@@ -347,11 +343,13 @@ class _VaultState extends State<Vault> {
                             data: data.vaultStatsModel!.comic,
                           ),
 
-
                           ///My Vault
                           Padding(
                             padding: EdgeInsets.only(
-                                left: 15,bottom:Get.height*.0167,), //apply padding to all four sides
+                              left: 15,
+                              bottom: Get.height * .0167,
+                            ),
+                            //apply padding to all four sides
                             child: Text(
                               "My Vault",
                               style: Get.textTheme.headline2!.copyWith(
@@ -380,7 +378,9 @@ class _VaultState extends State<Vault> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left: 15,top: Get.height*.0334,bottom: Get.height*.0167), //apply padding to all four sides
+                                      left: 15,
+                                      top: Get.height * .0334,
+                                      bottom: Get.height * .0167),
                                   child: Text(
                                     "My Wishlist",
                                     style: Get.textTheme.headline2!.copyWith(
@@ -393,25 +393,32 @@ class _VaultState extends State<Vault> {
                                   onTap: () {
                                     Get.to(() => const WishListPage());
                                   },
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        right: Get.width *
-                                            .06,top: Get.height*.0334,bottom: Get.height*.0167), //apply padding to all four sides
-                                    child: Text(
-                                      "See All",
-                                      style: TextStyle(
-                                          color: AppColors.textColor,
-                                          fontFamily: 'Inter',
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
+                                  child: data.wishListModel!.results!.isNotEmpty
+                                      ? Padding(
+                                          padding: EdgeInsets.only(
+                                              right: Get.width * .06,
+                                              top: Get.height * .0334,
+                                              bottom: Get.height * .0167),
+                                          child: Text(
+                                            "See All",
+                                            style: TextStyle(
+                                                color: AppColors.textColor,
+                                                fontFamily: 'Inter',
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        )
+                                      : Container(),
                                 ),
                               ]),
                           SizedBox(
                             width: Get.width,
                             height: Get.height * .22,
-                            child: const MywishlistCard(),
+                            child: data.wishListModel!.results!.isNotEmpty
+                                ? const MywishlistCard()
+                                : const NoDataCard(
+                                    title: 'Your Wishlist is empty!',
+                                  ),
                           ),
                           SizedBox(
                             height: Get.height * .01,

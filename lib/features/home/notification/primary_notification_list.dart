@@ -17,11 +17,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../core/utilities/app_colors/app_colors.dart';
 
 class PrimaryNotificationList extends StatefulWidget {
-  List<Results>? list;
-
-  PrimaryNotificationList({
-    this.list,
-  });
+  const PrimaryNotificationList({Key? key}) : super(key: key);
 
   @override
   State<PrimaryNotificationList> createState() =>
@@ -41,14 +37,16 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return Padding(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           left: 0,
           right: 0,
         ),
-        child: widget.list != null
+        child: data.notificationListModel != null
             ? ListView.builder(
                 shrinkWrap: true,
-                itemCount: widget.list!.length > 4 ? 4 : widget.list!.length,
+                itemCount: data.notificationListModel!.results!.length > 4
+                    ? 4
+                    : data.notificationListModel!.results!.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
                     children: [
@@ -67,24 +65,34 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                     'token ${prefs!.getString('token')}',
                               };
 
-                              if (widget.list![index].target!.type == 0) {
+                              if (data.notificationListModel!.results![index]
+                                      .target!.type ==
+                                  0) {
                                 postData!.notificationRead(
                                     context,
-                                    widget.list![index].id,
+                                    data.notificationListModel!.results![index]
+                                        .target!.id,
                                     requestHeadersWithToken);
-                                Get.to(() => CollectibleDetails(
-                                      productId: widget.list![index].target!.id,
-                                    ));
+                                Get.to(
+                                  () => CollectibleDetails(
+                                    productId: data.notificationListModel!
+                                        .results![index].target!.id,
+                                  ),
+                                );
+                                //Get.back();
                               } else {
                                 postData!.notificationRead(
                                     context,
-                                    widget.list![index].id,
+                                    data.notificationListModel!.results![index]
+                                        .target!.id,
                                     requestHeadersWithToken);
                                 Get.to(
                                   () => ComicDetails(
-                                    productId: widget.list![index].target!.id,
+                                    productId: data.notificationListModel!
+                                        .results![index].target!.id,
                                   ),
                                 );
+                                //Get.back();
                               }
                             },
                             child: Container(
@@ -97,10 +105,11 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                       child: Icon(
                                         Icons.brightness_1,
                                         size: 10,
-                                        color:
-                                            widget.list![index].unread == true
-                                                ? Color(0xffA473E6)
-                                                : AppColors.backgroundColor,
+                                        color: data.notificationListModel!
+                                                    .results![index].unread ==
+                                                true
+                                            ? const Color(0xffA473E6)
+                                            : AppColors.backgroundColor,
                                       ),
                                     ),
                                   ),
@@ -117,30 +126,42 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                         border: Border.all(
                                             color: AppColors.borderColor)),
                                     alignment: Alignment.center,
-                                    child:
-                                    widget.list![index].image==null ?Text(
-                                      widget.list![index].description
-                                          .toString()[0]
-                                          .toUpperCase(),
-                                      style: TextStyle(
-                                          color: AppColors.textColor,
-                                          fontFamily: 'Inter',
-                                          fontSize: 35,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                        :CachedNetworkImage(
-                                      imageUrl: widget.list![index].image!.image_on_list!.src.toString(),
-                                      imageBuilder: (context, imageProvider) => Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover,
+                                    child: data.notificationListModel!
+                                                .results![index].image ==
+                                            null
+                                        ? Text(
+                                            data.notificationListModel!
+                                                .results![index].description
+                                                .toString()[0]
+                                                .toUpperCase(),
+                                            style: TextStyle(
+                                                color: AppColors.textColor,
+                                                fontFamily: 'Inter',
+                                                fontSize: 35,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        : CachedNetworkImage(
+                                            imageUrl: data
+                                                .notificationListModel!
+                                                .results![index]
+                                                .image!
+                                                .image_on_list!
+                                                .src
+                                                .toString(),
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            placeholder: _loader,
                                           ),
-                                        ),
-                                      ),
-                                      placeholder: _loader,
-                                    ),
                                   ),
                                   SizedBox(
                                     width: Get.width * .02,
@@ -154,7 +175,8 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          widget.list![index].description
+                                          data.notificationListModel!
+                                              .results![index].description
                                               .toString(),
                                           textAlign: TextAlign.left,
                                           maxLines: 1,
@@ -170,7 +192,8 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                           height: Get.height * .01,
                                         ),
                                         Text(
-                                          widget.list![index].timesince
+                                          data.notificationListModel!
+                                              .results![index].timesince
                                               .toString(),
                                           textAlign: TextAlign.left,
                                           maxLines: 1,
@@ -179,7 +202,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                               .copyWith(
                                                   color: AppColors.textColor
                                                       .withOpacity(.7),
-                                                   fontFamily: 'Inter',
+                                                  fontFamily: 'Inter',
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 10.sp),
                                         ),
@@ -191,7 +214,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                             )),
                       ),
                       index != 3
-                          ? Divider()
+                          ? const Divider()
                           : SizedBox(
                               height: 10.h,
                             )
@@ -204,9 +227,10 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
     });
   }
 }
+
 Widget _loader(BuildContext context, String url) {
-  return  ImageIcon(
-    AssetImage( 'assets/media/icon/logo v.png'),
+  return const ImageIcon(
+    AssetImage('assets/media/icon/logo v.png'),
     color: Color(0xFF3A5A98),
   );
 }

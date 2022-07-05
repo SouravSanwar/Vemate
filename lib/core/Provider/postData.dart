@@ -139,28 +139,37 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future verifyCode(BuildContext context, var body) async {
-    /*showDialog(
+    showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const LoadingExample());*/
+        builder: (_) => const LoadingExample());
 
     printInfo(info: body.toString());
 
     final response = await http.post(Uri.parse(Urls.verifyCode),
         body: json.encode(body), headers: requestHeaders);
 
-    // var x = json.decode(response.body);
-    Get.to(() => const AuthInitialPage());
+    //var x = json.decode(response.body);
 
-    //printInfo(info: response.body.toString());
+    printInfo(info: response.body.toString());
 
-/*    if (response.statusCode == 200 ||
+    if (response.statusCode == 200 ||
         response.statusCode == 401 ||
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
+      Navigator.of(context).pop();
+      Get.to(() => const AuthInitialPage());
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 1),
+          messageText: const Text(
+            'Verified Successfully',
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
 
-      try {
+      /*try {
         if (x['code'] == 'True') {
 
           Flushbar(
@@ -197,21 +206,21 @@ class PostData extends ChangeNotifier with BaseController {
               style: TextStyle(fontSize: 16.0, color: Colors.green),
             )).show(context);
         return response.body;
-      }
-    }
-    else {
+      }*/
+    } else {
       var x = json.decode(response.body);
       Map<String, dynamic> js = x;
       Navigator.of(context).pop();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
-          duration: const Duration(seconds: 3),
+          duration: const Duration(seconds: 1),
           messageText: Text(
             js['code'][0].toString(),
+            //'Can\'t process right now',
             style: const TextStyle(fontSize: 16.0, color: Colors.red),
           )).show(context);
-    }*/
+    }
   }
 
   Future forgotPassword(BuildContext context, var body) async {
@@ -511,15 +520,10 @@ class PostData extends ChangeNotifier with BaseController {
       Navigator.of(context).pop();
       prefs!.clear();
 
-      SigninController
-          .to.userNameTextFiledController
-          .clear();
-      SigninController
-          .to.passwordTextFiledController
-          .clear();
+      SigninController.to.userNameTextFiledController.clear();
+      SigninController.to.passwordTextFiledController.clear();
 
       Get.offAll(() => const AuthInitialPage());
-
     } else {
       Navigator.of(context).pop();
 
@@ -686,53 +690,41 @@ class PostData extends ChangeNotifier with BaseController {
     BuildContext context,
     int? id,
     var requestToken,
-    int index,
   ) async {
     final response = await http.delete(Uri.parse(Urls.commonStorage + '$id/'),
         headers: requestToken);
 
     printInfo(info: response.statusCode.toString());
-    printInfo(info: Urls.commonStorage + '$id/');
 
     getData = Provider.of<GetData>(context, listen: false);
-    if (response.statusCode == 204) {
-      getData!.getWishList();
-      /*Flushbar(
-              flushbarPosition: FlushbarPosition.BOTTOM,
-              isDismissible: false,
-              duration: const Duration(seconds: 3),
-              messageText: const Text(
-                "Success",
-                style: TextStyle(fontSize: 16.0, color: Colors.green),
-              )).show(context);*/
-    }
 
-    //var x = json.decode(response.body);
+    var x = json.decode(response.body);
+    printInfo(info: 'Body: ' + x.toString());
 
-    /*if (x.statusCode == 204) {
-     */ /* getData = Provider.of<GetData>(context, listen: false);
-      await getData!.getWishList();*/ /*
+    Map<String, dynamic> js = x;
+    if (js.containsKey('msg')) {
+      await Provider.of<GetData>(context, listen: false).checkWishlist(id!);
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
           duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Success",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          messageText: Text(
+            js["msg"],
+            style: const TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
-      Navigator.pop(context);
     } else {
       Navigator.of(context).pop();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
           duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Something went wrong",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          messageText: Text(
+            js["detail"],
+            style: const TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
-      Navigator.pop(context);
-    }*/
+    }
+
+    notifyListeners();
   }
 
   Future deleteSetList(BuildContext context, int? id, var requestToken) async {
@@ -747,11 +739,12 @@ class PostData extends ChangeNotifier with BaseController {
     printInfo(info: response.statusCode.toString());
     printInfo(info: Urls.commonStorage + '$id/');
 
-    if (response.statusCode == 204) {
+    if (response.statusCode == 200) {
       Navigator.of(context).pop();
       getData = Provider.of<GetData>(context, listen: false);
-      await getData!.getSetList();
-      await getData!.getVaultStats(0);
+      getData!.getSetList('');
+      getData!.getVaultStats(0);
+      //await getData!.checkSetList(id!);
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
@@ -884,7 +877,7 @@ class PostData extends ChangeNotifier with BaseController {
     prefs!.setBool("is_login", true);
     printInfo(info: prefs!.get('token').toString());
 
-    Get.offAll(() => ControllerPage());
+    Get.offAll(() => const ControllerPage());
 
     notifyListeners();
   }
