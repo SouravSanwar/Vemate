@@ -21,9 +21,8 @@ class CustomProfileElements extends StatelessWidget {
           splashColor: AppColors.backgroundColor,
           child: Container(
               decoration: BoxDecoration(
-                gradient: AppColors.cardGradient,
+                color: AppColors.graphCard,
                 borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(color: const Color(0xff454F70)),
               ),
               height: 50.h,
               child: Row(
@@ -46,9 +45,11 @@ class CustomProfileElements extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Shader(
-                    icon: Icon(
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: Icon(
                       Icons.arrow_forward_ios,
+                      color: AppColors.textColor.withOpacity(.5),
                       size: 20,
                     ),
                   ),

@@ -111,8 +111,6 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                 decoration: BoxDecoration(
                                   color: AppColors.backgroundColor,
                                   borderRadius: BorderRadius.circular(12.0),
-                                  border:
-                                      Border.all(color: AppColors.textBoxBgColor),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),

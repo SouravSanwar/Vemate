@@ -107,9 +107,7 @@ class _WishListPageState extends State<WishListPage> {
                                   width: Get.width,
                                   decoration: BoxDecoration(
                                       color: AppColors.graphCard,
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      border: Border.all(
-                                          color: AppColors.textBoxBgColor)),
+                                      borderRadius: BorderRadius.circular(5.0),),
                                   child: InkWell(
                                     onTap: () {
                                       data.wishListModel!.results![index]

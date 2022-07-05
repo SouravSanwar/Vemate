@@ -67,8 +67,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                   width: Get.width * .37,
                   decoration: BoxDecoration(
                       gradient: AppColors.cardGradient,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: AppColors.backgroundColor)),
+                      borderRadius: BorderRadius.circular(10),),
                   child: data.wishListModel!.results![index].productDetail!
                               .image! == null
                       ? Text(

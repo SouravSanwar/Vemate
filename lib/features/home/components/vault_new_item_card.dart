@@ -59,9 +59,6 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                 decoration: BoxDecoration(
                   gradient: AppColors.cardGradient,
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: const Color(0xff454F70),
-                  ),
                 ),
                 child: widget.list![index].image == null
                     ? Container(

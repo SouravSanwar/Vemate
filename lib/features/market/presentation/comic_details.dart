@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -69,6 +70,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                   color: AppColors.textColor,
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ),
@@ -173,19 +175,23 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     ),
                                     child: data.checkWishlistModel != null
                                         ? Padding(
-                                            padding: const EdgeInsets.all(12),
+                                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 12),
                                             child: data.checkWishlistModel!
                                                         .isFound ==
                                                     false
-                                                ? Text(
+                                                ? AutoSizeText(
                                                     'Add to Wishlist',
                                                     style: Get
                                                         .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                                   )
-                                                : Text(
+                                                : AutoSizeText(
                                                     'Remove from Wishlist',
                                                     style: Get
                                                         .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                                   ),
                                           )
                                         : Container(),
@@ -239,16 +245,20 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     ),
                                     child: data.checkSetCheck != null
                                         ? Padding(
-                                            padding: const EdgeInsets.all(12),
+                                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 12),
                                             child:
                                                 data.checkSetCheck!.isFound ==
                                                         false
-                                                    ? Text('Add to Vault',
+                                                    ? AutoSizeText('Add to Vault',
                                                         style: Get.textTheme
-                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',))
-                                                    : Text('Remove from Vault',
+                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,)
+                                                    : AutoSizeText('Remove from Vault',
                                                         style: Get.textTheme
-                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',)),
+                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,),
                                           )
                                         : Container(),
                                   ),

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -72,6 +73,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                   fontFamily: 'Inter',
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
             ),
 
           ),
@@ -161,7 +163,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                             )).show(context);
                                       },
                                       child: Container(
-                                        width: Get.width * .42,
+                                        width: Get.width * .45,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
                                           gradient: AppColors.purpleGradient,
@@ -170,16 +172,21 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           ),
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.all(12),
+                                          padding: const EdgeInsets.symmetric(horizontal: 0,vertical: 12),
                                           child: data.checkWishlistModel!.isFound ==
                                               false
-                                              ? Text(
+                                              ? AutoSizeText(
                                             'Add to Wishlist',
                                             style: Get.textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
-                                          )
-                                              : Text(
+                                              maxLines: 1,
+                                            textAlign: TextAlign.center,
+                                              )
+                                              : AutoSizeText(
                                             'Remove from Wishlist',
                                             style: Get.textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                              maxLines: 1,
+                                            textAlign: TextAlign.center,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
                                       ),
@@ -221,7 +228,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                             )).show(context);
                                       },
                                       child: Container(
-                                        width: Get.width * .42,
+                                        width: Get.width * .45,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
                                           gradient: AppColors.purpleGradient,
@@ -231,13 +238,17 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           ),
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.all(12),
+                                          padding: const EdgeInsets.symmetric(horizontal: 0,vertical: 12),
                                           child: data.checkSetCheck!.isFound ==
                                               false
-                                              ? Text('Add to Vault',
-                                              style: Get.textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',))
-                                              : Text('Remove from Vault',
-                                              style: Get.textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',)),
+                                              ? AutoSizeText('Add to Vault',
+                                              style: Get.textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                              maxLines: 1,
+                                              )
+                                              : AutoSizeText('Remove from Vault',
+                                              style: Get.textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                            maxLines: 1,
+                                              ),
                                         ),
                                       ),
                                     ),

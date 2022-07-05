@@ -115,9 +115,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                 width: Get.width,
                                 decoration: BoxDecoration(
                                     color: AppColors.backgroundColor,
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    border: Border.all(
-                                        color: AppColors.textBoxBgColor)),
+                                    borderRadius: BorderRadius.circular(12.0),),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: Row(

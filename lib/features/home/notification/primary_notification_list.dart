@@ -104,9 +104,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: Get.width * .02,
-                                  ),
+
 
                                   ///Image
                                   Container(
@@ -121,7 +119,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                     alignment: Alignment.center,
                                     child:
                                     widget.list![index].image==null ?Text(
-                                      widget.list![index].name
+                                      widget.list![index].description
                                           .toString()[0]
                                           .toUpperCase(),
                                       style: TextStyle(

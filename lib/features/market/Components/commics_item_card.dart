@@ -62,13 +62,12 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                   itemCount: data.comicsModel!.results!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: const EdgeInsets.only(top: 4,bottom: 4,left: 4,right: 8),
+                      padding: const EdgeInsets.only(top: 4,bottom: 4,left: 4,right: 4),
                       child: Container(
                         width: Get.width,
                         decoration: BoxDecoration(
                           color: AppColors.graphCard,
                           borderRadius: BorderRadius.circular(12.0),
-                          border: Border.all(color: AppColors.textBoxBgColor),
                         ),
                         child: InkWell(
                           onTap: () {
@@ -125,7 +124,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       Row(
                                         children: <Widget>[
                                           Expanded(
-                                              flex: 4,
+                                              flex: 5,
                                               child: SizedBox(
                                                 child: Text(
                                                   data.comicsModel!
@@ -147,7 +146,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                               )),
                                           AppSpaces.spaces_width_2,
                                           Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(
                                               data.comicsModel!.results![index]
                                                   .edition
@@ -169,7 +168,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 4,
+                                            flex: 5,
                                             child: data
                                                         .comicsModel!
                                                         .results![index]
@@ -198,7 +197,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                           ),
                                           AppSpaces.spaces_width_2,
                                           Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(
                                               data.comicsModel!.results![index]
                                                   .rarity
@@ -220,7 +219,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 4,
+                                            flex: 5,
                                             child: Text(
                                               '\$' +
                                                   data
@@ -241,7 +240,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                           ),
                                           AppSpaces.spaces_width_2,
                                           const Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(""),
                                           ),
                                         ],
@@ -335,7 +334,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                   fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w400,
-                                                      fontSize: 11),
+                                                      fontSize: 11.sp),
                                             ),
                                           ),
                                           AppSpaces.spaces_width_2,
@@ -368,7 +367,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                       fontFamily: 'Inter',
                                                           fontWeight:
                                                               FontWeight.w300,
-                                                          fontSize: 10),
+                                                          fontSize: 10.sp),
                                                 ),
                                                 if (data
                                                         .comicsModel!

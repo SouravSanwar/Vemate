@@ -175,7 +175,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                 null
                                             ? Text(
                                                 data.notificationListModel!
-                                                    .results![index].name
+                                                    .results![index].description
                                                     .toString()[0]
                                                     .toUpperCase(),
                                                 style: TextStyle(

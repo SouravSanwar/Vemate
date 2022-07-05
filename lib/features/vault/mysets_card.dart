@@ -64,8 +64,7 @@ class _MysetsCardState extends State<MysetsCard> {
                   width: Get.width * .37,
                   decoration: BoxDecoration(
                       gradient: AppColors.cardGradient,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: const Color(0xff454F70))),
+                      borderRadius: BorderRadius.circular(10),),
                   child: data.setListModel!.setResults![index].setProductDetail!
                               .image!.image_on_list ==
                           null

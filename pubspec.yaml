@@ -80,6 +80,7 @@ dependencies:
   cached_network_image: ^3.0.0
   app_upgrade_flutter_sdk: ^1.0.2
   image_cropper: ^2.0.3
+  auto_size_text: ^3.0.0
 
 
 dev_dependencies:

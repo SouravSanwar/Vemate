@@ -32,7 +32,6 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
             decoration: BoxDecoration(
               color: AppColors.graphCard,
               borderRadius: BorderRadius.circular(12.0),
-              border: Border.all(color: AppColors.backgroundColor,),
 
             ),
             child: Row(

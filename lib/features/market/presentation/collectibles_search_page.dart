@@ -179,7 +179,6 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                 decoration: BoxDecoration(
                                   color: AppColors.graphCard,
                                   borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(color: AppColors.textBoxBgColor),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
@@ -229,7 +228,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                             Row(
                                               children: <Widget>[
                                                 Expanded(
-                                                    flex: 4,
+                                                    flex: 5,
                                                     child: SizedBox(
                                                       height: Get.height * .02,
                                                       child: Text(
@@ -255,7 +254,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                     )),
                                                 AppSpaces.spaces_width_2,
                                                 Expanded(
-                                                    flex: 2,
+                                                    flex: 3,
                                                     child: Text(
                                                       data
                                                           .searchCollectiblesModel!
@@ -280,7 +279,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                             Row(
                                               children: [
                                                 Expanded(
-                                                  flex: 4,
+                                                  flex: 5,
                                                   child: Text(
                                                     data
                                                                 .searchCollectiblesModel!
@@ -309,7 +308,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                 ),
                                                 AppSpaces.spaces_width_2,
                                                 Expanded(
-                                                  flex: 2,
+                                                  flex: 3,
                                                   child: Text(
                                                     data.searchCollectiblesModel!
                                                         .results![index].rarity
@@ -334,7 +333,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                             Row(
                                               children: [
                                                 Expanded(
-                                                  flex: 4,
+                                                  flex: 5,
                                                   child: Text(
                                                     r"$" +
                                                         data
@@ -358,7 +357,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                 ),
                                                 AppSpaces.spaces_width_2,
                                                 const Expanded(
-                                                  flex: 2,
+                                                  flex: 3,
                                                   child: Text(""),
                                                 ),
                                               ],
