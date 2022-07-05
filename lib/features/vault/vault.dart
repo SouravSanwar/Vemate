@@ -28,8 +28,6 @@ class Vault extends StatefulWidget {
 }
 
 class _VaultState extends State<Vault> {
-  double scrnHeight = Get.height;
-  double scrnWidth = Get.width;
 
   GetData? getData;
 
@@ -316,7 +314,7 @@ class _VaultState extends State<Vault> {
                           ///My Collectibles
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 15), //apply padding to all four sides
+                                left: 15),
                             child: Text(
                               "My Collectibles",
                               style: Get.textTheme.headline2!.copyWith(
@@ -332,7 +330,7 @@ class _VaultState extends State<Vault> {
                           ///My Comics
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 15), //apply padding to all four sides
+                                left: 15),
                             child: Text(
                               "My Comics",
                               style: Get.textTheme.headline2!.copyWith(
@@ -347,8 +345,11 @@ class _VaultState extends State<Vault> {
 
                           ///My Vault
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15,bottom:Get.height*.0167,), //apply padding to all four sides
+                            padding: EdgeInsets.only(
+                              left: 15,
+                              bottom: Get.height * .0167,
+                            ),
+                            //apply padding to all four sides
                             child: Text(
                               "My Vault",
                               style: Get.textTheme.headline2!.copyWith(
@@ -376,9 +377,10 @@ class _VaultState extends State<Vault> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left:
-                                          15,top: Get.height*.0334,bottom: Get.height*.0167), //apply padding to all four sides
+                                  padding: EdgeInsets.only(
+                                      left: 15,
+                                      top: Get.height * .0334,
+                                      bottom: Get.height * .0167),
                                   child: Text(
                                     "My Wishlist",
                                     style: Get.textTheme.headline2!.copyWith(
@@ -394,8 +396,9 @@ class _VaultState extends State<Vault> {
                                   child: data.wishListModel!.results!.isNotEmpty
                                       ? Padding(
                                           padding: EdgeInsets.only(
-                                              right: Get.width *
-                                                  .06,top: Get.height*.0334,bottom: Get.height*.0167), //apply padding to all four sides
+                                              right: Get.width * .06,
+                                              top: Get.height * .0334,
+                                              bottom: Get.height * .0167),
                                           child: Text(
                                             "See All",
                                             style: TextStyle(

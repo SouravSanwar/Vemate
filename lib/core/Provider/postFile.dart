@@ -33,7 +33,6 @@ class PostFile extends ChangeNotifier {
       List<String>? fileKey1,
       List<File>? files1,
       Method method = Method.POST}) async {
-
     var uri = Uri.parse(url!);
 
     if (method == Method.POST) {
@@ -117,13 +116,17 @@ class PostFile extends ChangeNotifier {
   }
 
   Future requestWithFile(BuildContext context,
-
       {@required String? url,
       Map<String, String>? body,
       List<String>? fileKey,
       List<File>? files,
       Method method = Method.POST}) async {
-    LoadingDialogue(message: "Image Uploading",);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => LoadingDialogue(
+              message: "Image Uploading",
+            ));
     print('New Body: $body');
     //bool loading = false;
     var uri = Uri.parse(url!);
@@ -166,14 +169,14 @@ class PostFile extends ChangeNotifier {
         });
         showData(
             url: url, body: body, method: method, response: result.toString());
-        //return json.decode(result);
+
+        Navigator.of(context).pop();
         Map<String, String> requestToken = {
           'Authorization': 'token ${prefs!.getString('token')}',
         };
 
         var getData = Provider.of<GetData>(context, listen: false);
         await getData.getUserInfo();
-
 
         Flushbar(
             flushbarPosition: FlushbarPosition.BOTTOM,

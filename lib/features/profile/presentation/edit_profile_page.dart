@@ -34,8 +34,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   File? imageFile;
   String? _fileName;
   String? _saveAsFileName;
-  List<PlatformFile>?
-  _paths;
+  List<PlatformFile>? _paths;
   String? _directoryPath;
   String? _extension;
   bool _isLoading = false;
@@ -68,7 +67,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.initState();
   }
 
-
   takeImage() {
     return showDialog(
         context: context,
@@ -79,16 +77,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
               SimpleDialogOption(
                 child: Text(
                   "Capture with Camera",
-                  style: TextStyle(color: AppColors.textColor,
-                    fontFamily: 'Inter',),
+                  style: TextStyle(
+                    color: AppColors.textColor,
+                    fontFamily: 'Inter',
+                  ),
                 ),
                 onPressed: captureImageWithCamera,
               ),
               SimpleDialogOption(
-                child:  Text(
+                child: Text(
                   "Select From Gallery",
-                  style: TextStyle(color: AppColors.textColor,
-                    fontFamily: 'Inter',),
+                  style: TextStyle(
+                    color: AppColors.textColor,
+                    fontFamily: 'Inter',
+                  ),
                 ),
                 onPressed: pickImageFromGallery,
               ),
@@ -111,7 +113,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
 
     _cropImage(pickedFile!.path);
-
   }
 
   pickImageFromGallery() async {
@@ -123,17 +124,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _cropImage(pickedFile!.path);
   }
 
-  void _cropImage(filePath) async{
-    CroppedFile? croppedImage =await ImageCropper().cropImage(
-      sourcePath: filePath,
-    maxWidth: 1080,
-    maxHeight: 1080);
-    if(croppedImage != null){
+  void _cropImage(filePath) async {
+    CroppedFile? croppedImage = await ImageCropper()
+        .cropImage(sourcePath: filePath, maxWidth: 1080, maxHeight: 1080);
+    if (croppedImage != null) {
       setState(() {
         imageFile = File(croppedImage.path);
       });
     }
-    print("&&&&&&&*******&&&&&"+imageFile.toString());
+    print("&&&&&&&*******&&&&&" + imageFile.toString());
 
     _pickFiles();
   }
@@ -159,27 +158,29 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       alignment: Alignment.center,
                       children: <Widget>[
                         CircleAvatar(
-
                           radius: MediaQuery.of(context).size.width * .25,
                           backgroundColor: AppColors.textColor,
                           backgroundImage: profileModel!.profileImage == null
-                              ? imageFile == null ? null
-                                      :Image.file(imageFile!).image
-                              : imageFile != null ? Image.file(imageFile!).image
-                              :NetworkImage(
-                               Urls.mainUrl +
-                                      data.profileModel!.profileImage!.mobile!
-                                          .src
-                                          .toString(),
-
-                                ),
+                              ? imageFile == null
+                                  ? null
+                                  : Image.file(imageFile!).image
+                              : imageFile != null
+                                  ? Image.file(imageFile!).image
+                                  : NetworkImage(
+                                      Urls.mainUrl +
+                                          data.profileModel!.profileImage!
+                                              .mobile!.src
+                                              .toString(),
+                                    ),
                           child: profileModel!.profileImage == null
-                              ? imageFile != null ? Container() :Shader(
-                                  icon: const Icon(
-                                    Icons.person_add_alt_1_rounded,
-                                    size: 100,
-                                  ),
-                                )
+                              ? imageFile != null
+                                  ? Container()
+                                  : Shader(
+                                      icon: const Icon(
+                                        Icons.person_add_alt_1_rounded,
+                                        size: 100,
+                                      ),
+                                    )
                               : null,
                         ),
                         Positioned(
@@ -233,8 +234,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     width: Get.width * .8,
                     height: Get.height * .065,
                     onTap: () {
-
-
                       var body = {
                         "nickname": ProfileController
                             .to.userNameTextFiledController.text,
@@ -247,11 +246,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         'Accept': 'application/json',
                         'Authorization': 'token ${prefs!.getString('token')}',
                       };
-                      postData!
-                          .updateProfile(context, body, requestHeadersWithToken);
+                      postData!.updateProfile(
+                          context, body, requestHeadersWithToken);
                     },
                     text: AppLanguageString.UPDATE_INFO.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(color: Colors.white,fontFamily: 'Inter',),
+                    style: Get.textTheme.button!.copyWith(
+                      color: Colors.white,
+                      fontFamily: 'Inter',
+                    ),
                   )
                 ],
               ),
@@ -265,8 +267,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Future _pickFiles() async {
     _resetState();
     try {
-
-
       files!.add(imageFile!);
       fileList!.addAll(files!);
 
@@ -277,12 +277,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
       }
       Map<String, String>? body = {};
 
-      postFile!.requestWithFile(context,
-          url: Urls.updateProfilePic,
-          method: Method.POST,
-          body: body,
-          fileKey: fileKey,
-          files: fileList);
+      postFile!.requestWithFile(
+        context,
+        url: Urls.updateProfilePic,
+        method: Method.POST,
+        body: body,
+        fileKey: fileKey,
+        files: fileList,
+      );
 
       printInfo(info: 'Files' + fileList.toString());
       printInfo(info: 'Files' + _paths.toString());

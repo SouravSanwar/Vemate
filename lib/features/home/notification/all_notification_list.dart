@@ -9,6 +9,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/main.dart';
@@ -44,10 +45,13 @@ class _AllNotificationListState extends State<AllNotificationList> {
     super.initState();
   }
 
+  Future<bool> _willPopCallback() async {
+    Get.offAll(() => const ControllerPage());
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
-    Get.put(ControllerPageController());
-
     SharedPreferenceController.to.getToken();
 
     return Scaffold(
@@ -59,7 +63,8 @@ class _AllNotificationListState extends State<AllNotificationList> {
         backgroundColor: AppColors.backgroundColor,
         title: Text(
           'Notifications',
-          style: Get.textTheme.headline2!.copyWith(color: AppColors.textColor),
+          style:
+              Get.textTheme.headline2!.copyWith(color: AppColors.textColor),
         ),
       ),
       body: Consumer<GetData>(builder: (context, data, child) {
@@ -124,17 +129,20 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                       setState(() {
                                         postData!
                                             .notificationRead(
-                                            context,
-                                            data.notificationListModel!
-                                                .results![index].id,
-                                            requestHeadersWithToken)
-                                            .whenComplete(
-                                                () => getData!.getNotification());
+                                                context,
+                                                data.notificationListModel!
+                                                    .results![index].id,
+                                                requestHeadersWithToken)
+                                            .whenComplete(() =>
+                                                getData!.getNotification());
                                       });
                                       Get.to(
                                         () => ComicDetails(
-                                          productId: data.notificationListModel!
-                                              .results![index].target!.id,
+                                          productId: data
+                                              .notificationListModel!
+                                              .results![index]
+                                              .target!
+                                              .id,
                                         ),
                                       );
                                     }
@@ -147,8 +155,10 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                         child: Icon(
                                           Icons.brightness_1,
                                           size: 10,
-                                          color: data.notificationListModel!
-                                                      .results![index].unread ==
+                                          color: data
+                                                      .notificationListModel!
+                                                      .results![index]
+                                                      .unread ==
                                                   true
                                               ? const Color(0xffA473E6)
                                               : AppColors.backgroundColor,
@@ -168,7 +178,8 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             border: Border.all(
-                                                color: AppColors.borderColor)),
+                                                color:
+                                                    AppColors.borderColor)),
                                         alignment: Alignment.center,
                                         child: data.notificationListModel!
                                                     .results![index].image ==
@@ -194,9 +205,9 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                     .image_on_list!
                                                     .src
                                                     .toString(),
-                                                imageBuilder:
-                                                    (context, imageProvider) =>
-                                                        Container(
+                                                imageBuilder: (context,
+                                                        imageProvider) =>
+                                                    Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -232,7 +243,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
-                                                  fontFamily: 'Inter',
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 12.sp),
@@ -249,9 +260,10 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                               overflow: TextOverflow.ellipsis,
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(
-                                                      color: AppColors.textColor
+                                                      color: AppColors
+                                                          .textColor
                                                           .withOpacity(.7),
-                                                  fontFamily: 'Inter',
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 10.sp),
