@@ -694,7 +694,7 @@ class PostData extends ChangeNotifier with BaseController {
 
     Map<String, dynamic> js = x;
     if (js.containsKey('msg')) {
-      Provider.of<GetData>(context, listen: false).checkWishlist(id!);
+      await Provider.of<GetData>(context, listen: false).checkWishlist(id!);
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,

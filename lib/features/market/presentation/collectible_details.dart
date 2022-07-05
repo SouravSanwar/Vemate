@@ -35,8 +35,6 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
   bool? month = false;
   bool? two_month = false;
   bool? year = false;
-  bool isAddedVault = false;
-  bool isAddedWishlist = false;
 
   @override
   void initState() {
@@ -151,11 +149,17 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           data.singleProductModel!.id,
                                           requestHeadersWithToken,
                                         )
-                                      : postData!.deleteWishlist(
-                                          context,
-                                          data.singleProductModel!.id,
-                                          requestHeadersWithToken,
-                                        );
+                                      : Flushbar(
+                                          flushbarPosition:
+                                              FlushbarPosition.BOTTOM,
+                                          isDismissible: false,
+                                          duration: const Duration(seconds: 1),
+                                          messageText: const Text(
+                                            'Already in Wishlist',
+                                            style: TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.green),
+                                          )).show(context);
                                 },
                                 child: Container(
                                   width: Get.width * .42,
@@ -172,16 +176,18 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                             false
                                         ? Text(
                                             'Add to Wishlist',
-                                            style: Get.textTheme.bodyMedium!
+                                            style: Get.textTheme.bodySmall!
                                                 .copyWith(
                                               fontFamily: 'Inter',
+                                              color: Colors.white,
                                             ),
                                           )
                                         : Text(
-                                            'Remove from Wishlist',
-                                            style: Get.textTheme.bodyMedium!
+                                            'Added Wishlist',
+                                            style: Get.textTheme.bodySmall!
                                                 .copyWith(
                                               fontFamily: 'Inter',
+                                              color: Colors.white,
                                             ),
                                           ),
                                   ),
@@ -209,11 +215,17 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           data.singleProductModel!.id,
                                           requestHeadersWithToken,
                                         )
-                                      : postData!.deleteSetList(
-                                          context,
-                                          data.singleProductModel!.id,
-                                          requestHeadersWithToken,
-                                        );
+                                      : Flushbar(
+                                          flushbarPosition:
+                                              FlushbarPosition.BOTTOM,
+                                          isDismissible: false,
+                                          duration: const Duration(seconds: 1),
+                                          messageText: const Text(
+                                            'Already in Vault',
+                                            style: TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.green),
+                                          )).show(context);
                                 },
                                 child: Container(
                                   width: Get.width * .42,
@@ -229,14 +241,16 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     padding: const EdgeInsets.all(10),
                                     child: data.checkSetCheck!.isFound == false
                                         ? Text('Add to Vault',
-                                            style: Get.textTheme.bodyMedium!
+                                            style: Get.textTheme.bodySmall!
                                                 .copyWith(
                                               fontFamily: 'Inter',
+                                              color: Colors.white,
                                             ))
-                                        : Text('Remove from Vault',
-                                            style: Get.textTheme.bodyMedium!
+                                        : Text('Added to Vault',
+                                            style: Get.textTheme.bodySmall!
                                                 .copyWith(
                                               fontFamily: 'Inter',
+                                              color: Colors.white,
                                             )),
                                   ),
                                 ),

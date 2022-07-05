@@ -40,6 +40,8 @@ class _VaultState extends State<Vault> {
     getData = Provider.of<GetData>(context, listen: false);
 
     getData!.getWishList();
+    
+    getData!.getSetList('');
 
     getData!.getVaultStats(0);
   }
@@ -60,7 +62,6 @@ class _VaultState extends State<Vault> {
                       height: Get.height * .268,
                       decoration: BoxDecoration(
                         color: AppColors.graphCard,
-
                         borderRadius: const BorderRadius.vertical(
                             bottom: Radius.circular(40.0)),
                       ),
@@ -105,7 +106,7 @@ class _VaultState extends State<Vault> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
-                                                  fontFamily: 'Inter',
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14.sp),
@@ -144,7 +145,7 @@ class _VaultState extends State<Vault> {
                                                 style: Get.textTheme.bodyText2!
                                                     .copyWith(
                                                         color: AppColors.white,
-                                                    fontFamily: 'Inter',
+                                                        fontFamily: 'Inter',
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         fontSize: 14.sp),
@@ -167,7 +168,7 @@ class _VaultState extends State<Vault> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
-                                                  fontFamily: 'Inter',
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14.sp),
@@ -268,7 +269,6 @@ class _VaultState extends State<Vault> {
                                 maximumLabels: 7,
                               ),
                               primaryYAxis: CategoryAxis(
-
                                 isVisible: false,
                                 majorGridLines: const MajorGridLines(width: 0),
                                 labelIntersectAction:
@@ -329,7 +329,6 @@ class _VaultState extends State<Vault> {
                             data: data.vaultStatsModel!.collectible,
                           ),
 
-
                           ///My Comics
                           Padding(
                             padding: const EdgeInsets.only(
@@ -345,7 +344,6 @@ class _VaultState extends State<Vault> {
                           VaultComicsCard(
                             data: data.vaultStatsModel!.comic,
                           ),
-
 
                           ///My Vault
                           Padding(
@@ -379,7 +377,8 @@ class _VaultState extends State<Vault> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 15), //apply padding to all four sides
+                                      left:
+                                          15), //apply padding to all four sides
                                   child: Text(
                                     "My Wishlist",
                                     style: Get.textTheme.headline2!.copyWith(
@@ -392,19 +391,21 @@ class _VaultState extends State<Vault> {
                                   onTap: () {
                                     Get.to(() => const WishListPage());
                                   },
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        right: Get.width *
-                                            .06), //apply padding to all four sides
-                                    child: Text(
-                                      "See All",
-                                      style: TextStyle(
-                                          color: AppColors.textColor,
-                                          fontFamily: 'Inter',
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
+                                  child: data.wishListModel!.results!.isNotEmpty
+                                      ? Padding(
+                                          padding: EdgeInsets.only(
+                                              right: Get.width *
+                                                  .06), //apply padding to all four sides
+                                          child: Text(
+                                            "See All",
+                                            style: TextStyle(
+                                                color: AppColors.textColor,
+                                                fontFamily: 'Inter',
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        )
+                                      : Container(),
                                 ),
                               ]),
                           SizedBox(

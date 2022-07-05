@@ -605,8 +605,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
 
   Widget _loader(BuildContext context, String url) {
     return const ImageIcon(
-      const AssetImage('assets/media/icon/logo v.png'),
-      color: const Color(0xFF3A5A98),
+      AssetImage('assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
     );
   }
 
