@@ -46,8 +46,8 @@ class _MysetsCardState extends State<MysetsCard> {
                   right: index == data.setListModel!.setResults!.length - 1
                       ? 6
                       : 6.0,
-                  top: Get.height*.0167,
-              bottom: Get.height*.0334),
+
+              ),
               child: InkWell(
                 onTap: () {
                   data.setListModel!.setResults![index].setProductDetail!.type == 1

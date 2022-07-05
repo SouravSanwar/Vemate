@@ -69,7 +69,8 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                         Text(
                             widget.list![index].name.toString()[0].toUpperCase(),
                             style: TextStyle(
-                                color: AppColors.backgroundColor,
+                                color: AppColors.textColor,
+                                  fontFamily: 'Inter',
                                 fontSize: 35,
                                 fontWeight: FontWeight.bold),
 
@@ -103,7 +104,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                   overflow: TextOverflow.ellipsis,
                                   style: Get.textTheme.bodyText2!.copyWith(
                                       color: AppColors.textColor,
-                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Inter',fontWeight: FontWeight.w600,
                                       fontSize: 12.sp),
                                 ),
                                 Divider(
@@ -168,7 +169,8 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                         textAlign: TextAlign.start,
                                         style: Get.textTheme.bodyText2!
                                             .copyWith(
-                                            color: AppColors.white,
+                                            color: AppColors.textColor,
+                                              fontFamily: 'Inter',
                                             fontWeight: FontWeight.w600,
                                             fontSize: 12.sp),
                                       ),
@@ -342,8 +344,8 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                           textAlign: TextAlign.start,
                                           style: Get.textTheme.bodyText2!
                                               .copyWith(
+                                                  color: AppColors.textColor,
                                                   fontFamily: 'Inter',
-                                                  color: AppColors.white,
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 12.sp),
                                         ),

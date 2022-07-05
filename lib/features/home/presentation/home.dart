@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/home/components/notification_badge.dart';
 import 'package:ketemaa/features/home/notification/notification_alart.dart';
@@ -230,7 +231,7 @@ class _HomeState extends State<Home> {
                     AppSpaces.spaces_height_10,
                   ],
                 )
-                : const LoadingExample();
+                :  ColorLoader();
           },
         ),
       ),

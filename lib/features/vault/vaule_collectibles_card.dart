@@ -64,7 +64,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                         Text(
                           '\$' + widget.data!.totalCollectibleValue!.toString(),
                           style: TextStyle(
-                              color: AppColors.greyWhite,
+                              color: AppColors.textColor,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.bold),
                         ),

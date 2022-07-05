@@ -10,6 +10,8 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/Provider/postFile.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
+import 'package:ketemaa/core/utilities/shimmer/progress_bar.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/profile/_controller/profile_controller.dart';
@@ -72,24 +74,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
         context: context,
         builder: (context) {
           return SimpleDialog(
-            title: const Text(
-              "Item Image",
-              style: TextStyle(
-                color: Colors.lightGreen,
-              ),
-            ),
+            backgroundColor: AppColors.graphCard,
             children: [
               SimpleDialogOption(
-                child: const Text(
+                child: Text(
                   "Capture with Camera",
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: AppColors.textColor,
+                    fontFamily: 'Inter',),
                 ),
                 onPressed: captureImageWithCamera,
               ),
               SimpleDialogOption(
-                child: const Text(
+                child:  Text(
                   "Select From Gallery",
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: AppColors.textColor,
+                    fontFamily: 'Inter',),
                 ),
                 onPressed: pickImageFromGallery,
               ),
@@ -106,23 +105,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   captureImageWithCamera() async {
-
+    Navigator.pop(context);
     XFile? pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
     );
 
     _cropImage(pickedFile!.path);
-    Navigator.pop(context);
+
   }
 
   pickImageFromGallery() async {
-
+    Navigator.pop(context);
     XFile? pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
 
     _cropImage(pickedFile!.path);
-    Navigator.pop(context);
   }
 
   void _cropImage(filePath) async{
@@ -136,6 +134,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
       });
     }
     print("&&&&&&&*******&&&&&"+imageFile.toString());
+
+    _pickFiles();
   }
 
   @override
@@ -159,16 +159,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       alignment: Alignment.center,
                       children: <Widget>[
                         CircleAvatar(
+
                           radius: MediaQuery.of(context).size.width * .25,
                           backgroundColor: AppColors.textColor,
                           backgroundImage: profileModel!.profileImage == null
                               ? imageFile == null ? null
                                       :Image.file(imageFile!).image
-                              : NetworkImage(
-                                  Urls.mainUrl +
+                              : imageFile != null ? Image.file(imageFile!).image
+                              :NetworkImage(
+                               Urls.mainUrl +
                                       data.profileModel!.profileImage!.mobile!
                                           .src
                                           .toString(),
+
                                 ),
                           child: profileModel!.profileImage == null
                               ? imageFile != null ? Container() :Shader(
@@ -231,7 +234,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     height: Get.height * .065,
                     onTap: () {
 
-                      _pickFiles();
+
                       var body = {
                         "nickname": ProfileController
                             .to.userNameTextFiledController.text,

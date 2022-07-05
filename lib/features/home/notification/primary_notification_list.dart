@@ -125,7 +125,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                           .toString()[0]
                                           .toUpperCase(),
                                       style: TextStyle(
-                                          color: AppColors.backgroundColor,
+                                          color: AppColors.textColor,
                                           fontFamily: 'Inter',
                                           fontSize: 35,
                                           fontWeight: FontWeight.bold),
