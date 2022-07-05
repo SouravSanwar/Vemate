@@ -139,28 +139,37 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future verifyCode(BuildContext context, var body) async {
-    /*showDialog(
+    showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const LoadingExample());*/
+        builder: (_) => const LoadingExample());
 
     printInfo(info: body.toString());
 
     final response = await http.post(Uri.parse(Urls.verifyCode),
         body: json.encode(body), headers: requestHeaders);
 
-    // var x = json.decode(response.body);
-    Get.to(() => const AuthInitialPage());
+    //var x = json.decode(response.body);
 
-    //printInfo(info: response.body.toString());
+    printInfo(info: response.body.toString());
 
-/*    if (response.statusCode == 200 ||
+    if (response.statusCode == 200 ||
         response.statusCode == 401 ||
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
+      Navigator.of(context).pop();
+      Get.to(() => const AuthInitialPage());
+      Flushbar(
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          isDismissible: false,
+          duration: const Duration(seconds: 1),
+          messageText: const Text(
+            'Verified Successfully',
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          )).show(context);
 
-      try {
+      /*try {
         if (x['code'] == 'True') {
 
           Flushbar(
@@ -197,21 +206,21 @@ class PostData extends ChangeNotifier with BaseController {
               style: TextStyle(fontSize: 16.0, color: Colors.green),
             )).show(context);
         return response.body;
-      }
-    }
-    else {
+      }*/
+    } else {
       var x = json.decode(response.body);
       Map<String, dynamic> js = x;
       Navigator.of(context).pop();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
-          duration: const Duration(seconds: 3),
+          duration: const Duration(seconds: 1),
           messageText: Text(
             js['code'][0].toString(),
+            //'Can\'t process right now',
             style: const TextStyle(fontSize: 16.0, color: Colors.red),
           )).show(context);
-    }*/
+    }
   }
 
   Future forgotPassword(BuildContext context, var body) async {
@@ -868,7 +877,7 @@ class PostData extends ChangeNotifier with BaseController {
     prefs!.setBool("is_login", true);
     printInfo(info: prefs!.get('token').toString());
 
-    Get.offAll(() => ControllerPage());
+    Get.offAll(() => const ControllerPage());
 
     notifyListeners();
   }

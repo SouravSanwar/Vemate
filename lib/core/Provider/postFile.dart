@@ -124,7 +124,7 @@ class PostFile extends ChangeNotifier {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => LoadingDialogue(
+        builder: (_) => const LoadingDialogue(
               message: "Image Uploading",
             ));
     print('New Body: $body');
@@ -181,7 +181,7 @@ class PostFile extends ChangeNotifier {
         Flushbar(
             flushbarPosition: FlushbarPosition.BOTTOM,
             isDismissible: false,
-            duration: const Duration(seconds: 3),
+            duration: const Duration(seconds: 1),
             messageText: const Text(
               'Updated Successfully',
               style: TextStyle(fontSize: 16.0, color: Colors.green),
