@@ -5,7 +5,6 @@ import 'package:ketemaa/core/utilities/shimmer/progress_bar.dart';
 class LoadingDialogue extends StatelessWidget {
   final String? message;
 
-
   const LoadingDialogue({Key? key, this.message}) : super(key: key);
 
   @override
