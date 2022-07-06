@@ -187,7 +187,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                               overflow: TextOverflow.ellipsis,
                                                   )
                                                 : AutoSizeText(
-                                                    'Remove from Wishlist',
+                                                    'Added to Wishlist',
                                                     style: Get
                                                         .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
                                               maxLines: 1,
@@ -254,7 +254,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                             .bodyMedium!.copyWith(fontFamily: 'Inter',),
                                                   maxLines: 1,
                                                   overflow: TextOverflow.ellipsis,)
-                                                    : AutoSizeText('Remove from Vault',
+                                                    : AutoSizeText('Added to Vault',
                                                         style: Get.textTheme
                                                             .bodyMedium!.copyWith(fontFamily: 'Inter',),
                                                   maxLines: 1,

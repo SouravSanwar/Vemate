@@ -72,7 +72,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
         context: context,
         builder: (context) {
           return SimpleDialog(
+            elevation: 5,
             backgroundColor: AppColors.graphCard,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10)),
             children: [
               SimpleDialogOption(
                 child: Text(
@@ -191,7 +194,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               setState(() {
                                 imageFile == null;
                                 takeImage();
+
                               });
+
                             },
                             elevation: 2.0,
                             fillColor: const Color(0xFFF5F6F9),

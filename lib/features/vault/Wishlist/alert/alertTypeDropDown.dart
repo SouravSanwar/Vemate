@@ -87,7 +87,7 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
         //Icon color
         style: TextStyle(
             //te
-            color: AppColors.textColor, //Font color
+            color: AppColors.grey, //Font color
             fontSize: 20.sp //font size on dropdown button
             ),
         dropdownColor: AppColors.backgroundColor,

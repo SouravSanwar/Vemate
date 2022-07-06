@@ -6,6 +6,7 @@ import 'package:ketemaa/CheckInternet/check_internet.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
@@ -61,7 +62,7 @@ class _VaultState extends State<Vault> {
                       decoration: BoxDecoration(
                         color: AppColors.graphCard,
                         borderRadius: const BorderRadius.vertical(
-                            bottom: Radius.circular(40.0)),
+                            bottom: Radius.circular(25.0)),
                       ),
                       child: ListView(
                         children: [
@@ -151,6 +152,9 @@ class _VaultState extends State<Vault> {
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      SizedBox(
+                                        height: Get.height*.005,
                                       ),
                                       Row(
                                         children: [
@@ -452,7 +456,7 @@ class _VaultState extends State<Vault> {
                   ],
                 ),
               )
-            : const LoadingExample();
+            : ColorLoader();
       }),
     );
   }

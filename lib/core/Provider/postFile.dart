@@ -10,9 +10,12 @@ import 'package:http/http.dart' as http;
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
+import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/main.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+
+import '../utilities/app_colors/app_colors.dart';
 
 enum Method { POST, GET, PUT, DELETE, PATCH }
 
@@ -125,7 +128,7 @@ class PostFile extends ChangeNotifier {
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-              message: "Image Uploading",
+              message: "Uploading Profile Picture",
             ));
     print('New Body: $body');
     //bool loading = false;
@@ -178,14 +181,17 @@ class PostFile extends ChangeNotifier {
         var getData = Provider.of<GetData>(context, listen: false);
         await getData.getUserInfo();
 
-        Flushbar(
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            isDismissible: false,
-            duration: const Duration(seconds: 1),
-            messageText: const Text(
-              'Updated Successfully',
-              style: TextStyle(fontSize: 16.0, color: Colors.green),
-            )).show(context);
+
+
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) =>  ResponseMessage(
+              icon: Icons.check_circle,
+              color: AppColors.primaryColor,
+              message: "Updated Successfully",
+            ));
+
       } else if (response.statusCode == 413) {
         print('Big File');
 
@@ -214,6 +220,8 @@ class PostFile extends ChangeNotifier {
 
       return {'error': 'check_your_internet_connection'};
     }
+    await Future.delayed(Duration(seconds: 1));
+    Navigator.of(context).pop();
 
     notifyListeners();
   }

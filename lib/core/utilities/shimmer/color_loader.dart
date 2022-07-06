@@ -7,7 +7,7 @@ class ColorLoader extends StatefulWidget {
   final double radius;
   final double dotRadius;
 
-  ColorLoader({this.radius = 30.0, this.dotRadius = 3.0});
+  ColorLoader({this.radius = 30.0, this.dotRadius = 4.0});
 
   @override
   _ColorLoaderState createState() => _ColorLoaderState();
@@ -77,127 +77,118 @@ class _ColorLoaderState extends State<ColorLoader>
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          alignment: Alignment.center,
-          width: Get.width ,
-          height: Get.height,
-          //color: Colors.white,
-          child:  Center(
-            child:RotationTransition(
-              alignment: Alignment.center,
+    return Center(
+      child:RotationTransition(
+        alignment: Alignment.center,
 
-              turns: animation_rotation,
-              child: Container(
-                //color: Colors.limeAccent,
-                child: Center(
+        turns: animation_rotation,
+        child: Container(
+          height: Get.height*.1,
+          width: Get.height*.1,
+          //color: Colors.limeAccent,
+          child: Center(
 
-                  child: Stack(
-                    children: <Widget>[
-                      Transform.translate(
-                        offset: Offset(0.0, 0.0),
-                        child: Center(
-                          child: Container(
-                            width: radius,
-                            height: radius,
-                           child: Image.asset(
-                             'assets/media/icon/logo v.png',
-                             fit: BoxFit.fill,
-                           ),
+            child: Stack(
+              children: <Widget>[
+                Transform.translate(
+                  offset: Offset(0.0, 0.0),
+                  child: Center(
+                    child: Container(
+                      width: radius,
+                      height: radius,
+                     child: Image.asset(
+                       'assets/media/icon/logo v.png',
+                       fit: BoxFit.fill,
+                     ),
 
-                          ),
-                        )
-                      ),
-                      Transform.translate(
-                        child: Dot(
-                          radius: dotRadius,
-                          color: Colors.amber,
-                        ),
-                        offset: Offset(
-                          radius * cos(0.0),
-                          radius * sin(0.0),
-                        ),
-                      ),
-                      Transform.translate(
-                        child: Dot(
-                          radius: dotRadius,
-                          color: Colors.deepOrangeAccent,
-                        ),
-                        offset: Offset(
-                          radius * cos(0.0 + 1 * pi / 4),
-                          radius * sin(0.0 + 1 * pi / 4),
-                        ),
-                      ),
-                      Transform.translate(
-                        child: Dot(
-                          radius: dotRadius,
-                          color: Colors.pinkAccent,
-                        ),
-                        offset: Offset(
-                          radius * cos(0.0 + 2 * pi / 4),
-                          radius * sin(0.0 + 2 * pi / 4),
-                        ),
-                      ),
-                      Transform.translate(
-                        child: Dot(
-                          radius: dotRadius,
-                          color: Colors.purple,
-                        ),
-                        offset: Offset(
-                          radius * cos(0.0 + 3 * pi / 4),
-                          radius * sin(0.0 + 3 * pi / 4),
-                        ),
-                      ),
-                      Transform.translate(
-                        child: Dot(
-                          radius: dotRadius,
-                          color: Colors.yellow,
-                        ),
-                        offset: Offset(
-                          radius * cos(0.0 + 4 * pi / 4),
-                          radius * sin(0.0 + 4 * pi / 4),
-                        ),
-                      ),
-                     Transform.translate(
-                        child: Dot(
-                          radius: dotRadius,
-                          color: Colors.lightGreen,
-                        ),
-                        offset: Offset(
-                          radius * cos(0.0 + 5 * pi / 4),
-                          radius * sin(0.0 + 5 * pi / 4),
-                        ),
-                      ),
-                      Transform.translate(
-                        child: Dot(
-                          radius: dotRadius,
-                          color: Colors.orangeAccent,
-                        ),
-                        offset: Offset(
-                          radius * cos(0.0 + 6 * pi / 4),
-                          radius * sin(0.0 + 6 * pi / 4),
-                        ),
-                      ),
-                      Transform.translate(
-                        child: Dot(
-                          radius: dotRadius,
-                          color: Colors.blueAccent,
-                        ),
-                        offset: Offset(
-                          radius * cos(0.0 + 7 * pi / 4),
-                          radius * sin(0.0 + 7 * pi / 4),
-                        ),
-                      ),
-                    ],
+                    ),
+                  )
+                ),
+                Transform.translate(
+                  child: Dot(
+                    radius: dotRadius,
+                    color: Colors.amber,
+                  ),
+                  offset: Offset(
+                    radius * cos(0.0),
+                    radius * sin(0.0),
                   ),
                 ),
-              ),
+                Transform.translate(
+                  child: Dot(
+                    radius: dotRadius,
+                    color: Colors.deepOrangeAccent,
+                  ),
+                  offset: Offset(
+                    radius * cos(0.0 + 1 * pi / 4),
+                    radius * sin(0.0 + 1 * pi / 4),
+                  ),
+                ),
+                Transform.translate(
+                  child: Dot(
+                    radius: dotRadius,
+                    color: Colors.pinkAccent,
+                  ),
+                  offset: Offset(
+                    radius * cos(0.0 + 2 * pi / 4),
+                    radius * sin(0.0 + 2 * pi / 4),
+                  ),
+                ),
+                Transform.translate(
+                  child: Dot(
+                    radius: dotRadius,
+                    color: Colors.purple,
+                  ),
+                  offset: Offset(
+                    radius * cos(0.0 + 3 * pi / 4),
+                    radius * sin(0.0 + 3 * pi / 4),
+                  ),
+                ),
+                Transform.translate(
+                  child: Dot(
+                    radius: dotRadius,
+                    color: Colors.yellow,
+                  ),
+                  offset: Offset(
+                    radius * cos(0.0 + 4 * pi / 4),
+                    radius * sin(0.0 + 4 * pi / 4),
+                  ),
+                ),
+               Transform.translate(
+                  child: Dot(
+                    radius: dotRadius,
+                    color: Colors.lightGreen,
+                  ),
+                  offset: Offset(
+                    radius * cos(0.0 + 5 * pi / 4),
+                    radius * sin(0.0 + 5 * pi / 4),
+                  ),
+                ),
+                Transform.translate(
+                  child: Dot(
+                    radius: dotRadius,
+                    color: Colors.orangeAccent,
+                  ),
+                  offset: Offset(
+                    radius * cos(0.0 + 6 * pi / 4),
+                    radius * sin(0.0 + 6 * pi / 4),
+                  ),
+                ),
+                Transform.translate(
+                  child: Dot(
+                    radius: dotRadius,
+                    color: Colors.blueAccent,
+                  ),
+                  offset: Offset(
+                    radius * cos(0.0 + 7 * pi / 4),
+                    radius * sin(0.0 + 7 * pi / 4),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 
@@ -219,6 +210,7 @@ class Dot extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Center(
       child: Container(
+
         width: radius,
         height: radius,
         decoration: BoxDecoration(color: color, shape: BoxShape.circle),

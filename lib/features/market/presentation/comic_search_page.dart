@@ -7,6 +7,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
@@ -506,7 +507,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                             ),
                           );
                         })
-                    : const LoadingExample(),
+                    : ColorLoader(),
               ),
             ],
           ),

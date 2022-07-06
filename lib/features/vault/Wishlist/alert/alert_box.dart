@@ -41,6 +41,9 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
   void initState() {
     if (widget.results!.isAlert == true) {
       valueController.text = widget.results!.alertData!.value.toString();
+     /* if(valueController.text=="0.0"){
+        valueController.text=int.parse("0");
+      }*/
     }
 
     // TODO: implement initState
@@ -68,45 +71,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
               "Price Alert",
               style: TextStyle(fontFamily: 'Inter',fontSize: 22.0, color: AppColors.textColor),
             ),
-            /*AnimatedContainer(
-            padding: const EdgeInsets.only(left: 2, right: 2),
-            duration: const Duration(milliseconds: 100),
-            height: 30.0.h,
-            width: 60.0.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25.0),
-              color: toggleValue == true ? Colors.purple : Colors.grey,
-            ),
-            child: Stack(
 
-              children: <Widget>[
-                AnimatedPositioned(
-                    duration: const Duration(milliseconds: 100),
-                    curve: Curves.easeIn,
-                    top: 3.0,
-                    left: toggleValue == true ? 30.0 : 0.0,
-                    right: toggleValue == true ? 0.0 : 30.0,
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          toggleValue = !toggleValue!;
-                        });
-                      },
-                      child:  Container(
-                        alignment: toggleValue == true ?Alignment.centerLeft :Alignment.centerLeft ,
-                        height: 25.h,
-                        width: 30.w,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-
-                      ),
-
-                    ))
-              ],
-            ),
-          )*/
           ],
         ),
         content: /*toggleValue == true
@@ -118,82 +83,46 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      /*Text(
-                            "Mint",
-                            style: TextStyle(fontSize: 20.0.sp, color: AppColors.textColor),
-                            textAlign: TextAlign.left,
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                         Row(
-                            children: [
-                              Expanded(
-                                child: AlertTextField(
-                                  height: Get.height*.02,
-                                  controller: mintController1,
-                                ),
-                              ),
-                               SizedBox(width: 10.w,),
-                              Text("-",style: TextStyle(color: AppColors.textColor,fontSize: 25.sp),),
-                              const SizedBox(width: 10,),
-                              Expanded(
-                                child:AlertTextField(
-                                height: Get.height*.02,
-                                controller: mintController2,
-                              ),
-                              ),
-
-
-                            ],
-                          ),*/
                       SizedBox(
                         height: 15.h,
                       ),
-                      /*Text(
-                            "Price",
-                            style: TextStyle(fontSize: 20.0.sp, color: AppColors.textColor),
-                            textAlign: TextAlign.left,
-                          ),*/
-                      SizedBox(
-                        height: 15.h,
-                      ),
+
                       Text(
                         "Value",
                         style: TextStyle(
-                            fontSize: 20.0.sp, color: AppColors.textColor),
+                            fontSize: 18.0.sp, color: AppColors.textColor),
                       ),
                       SizedBox(
-                        height: 10.h,
+                        height: 8.h,
                       ),
                       AlertTextField(
                         height: Get.height * .03,
                         controller: valueController,
                       ),
                       SizedBox(
-                        height: 10.sp,
+                        height: 14.sp,
                       ),
                       Text(
                         "Type",
                         style: TextStyle(
-                            fontSize: 20.0.sp, color: AppColors.textColor),
+                            fontSize: 18.0.sp, color: AppColors.textColor),
                       ),
                       SizedBox(
-                        height: 10.sp,
+                        height: 8.sp,
                       ),
                       AlertTypeDropDown(
                         results: widget.results,
                       ),
                       SizedBox(
-                        height: 10.h,
+                        height: 14.h,
                       ),
                       Text(
                         "Frequency",
                         style: TextStyle(
-                            fontSize: 20.0.sp, color: AppColors.textColor),
+                            fontSize: 18.0.sp, color: AppColors.textColor),
                       ),
                       SizedBox(
-                        height: 10.h,
+                        height: 8.h,
                       ),
                       AlertFrequencyDropDown(
                         results: widget.results,
@@ -227,7 +156,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                               child: Text(
                                 widget.results!.isAlert == true ? 'Delete' : "",
                                 style: TextStyle(
-                                    fontSize: 16.0.sp, color: Colors.red),
+                                    fontSize: 16.0.sp, color: AppColors.grey),
                               ),
                             ),
                             AppSpaces.spaces_width_10,

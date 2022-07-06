@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:provider/provider.dart';
@@ -403,7 +404,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                   },
                 ),
               )
-            : const LoadingExample(),
+            : ColorLoader()
       );
     });
   }

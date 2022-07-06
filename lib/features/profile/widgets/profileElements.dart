@@ -15,14 +15,14 @@ class CustomProfileElements extends StatelessWidget {
   Widget build(BuildContext context) {
     //ToDO
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 6),
       child: InkWell(
           onTap: onTap,
           splashColor: AppColors.backgroundColor,
           child: Container(
               decoration: BoxDecoration(
                 color: AppColors.graphCard,
-                borderRadius: BorderRadius.circular(20.0),
+                borderRadius: BorderRadius.circular(15.0),
               ),
               height: 50.h,
               child: Row(

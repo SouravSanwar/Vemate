@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:provider/provider.dart';
@@ -388,7 +389,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                   },
                 ),
               )
-            : const LoadingExample(),
+            :  ColorLoader(),
       );
     });
 

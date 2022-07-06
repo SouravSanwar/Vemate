@@ -176,25 +176,20 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     padding: const EdgeInsets.all(10),
                                     child: data.checkWishlistModel!.isFound ==
                                             false
-                                        ? Text(
-                                            'Add to Wishlist',
-                                            style: Get.textTheme.bodySmall!
-                                                .copyWith(
-                                              fontFamily: 'Inter',
-                                              color: Colors.white,),
-                                              maxLines: 1,
-                                            textAlign: TextAlign.center,
-                                        )
-                                              : AutoSizeText(
-                                            'Added Wishlist',
-                                            style: Get.textTheme.bodySmall!
-                                                .copyWith(
-                                              fontFamily: 'Inter',
-                                              color: Colors.white,),
-                                              maxLines: 1,
-                                            textAlign: TextAlign.center,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
+                                        ? AutoSizeText(
+                                      'Add to Wishlist',
+                                      style: Get
+                                          .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    )
+                                        : AutoSizeText(
+                                      'Added to Wishlist',
+                                      style: Get
+                                          .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -248,10 +243,16 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           padding: const EdgeInsets.all(12),
                                           child: data.checkSetCheck!.isFound ==
                                               false
-                                              ? Text('Add to Vault',
-                                              style: Get.textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',))
-                                              : Text('Remove from Vault',
-                                              style: Get.textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',)),
+                                              ?  AutoSizeText('Add to Vault',
+                                            style: Get.textTheme
+                                                .bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,)
+                                              : AutoSizeText('Added to Vault',
+                                            style: Get.textTheme
+                                                .bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,),
                                         ),
                                       ),
                                     ),
