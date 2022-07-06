@@ -25,22 +25,25 @@ class AlertTextField extends StatelessWidget {
             width: 1.w),
         borderRadius: const BorderRadius.all(Radius.circular(15)),
       ),
-      child: TextFormField(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10),
+        child: TextFormField(
 
-        style: TextStyle(
-          color: AppColors.textColor,
-          fontFamily: 'Inter',
-          fontSize: 18.0.sp,
+          style: TextStyle(
+            color: AppColors.textColor,
+            fontFamily: 'Inter',
+            fontSize: 16.0.sp,
 
+          ),
+          textAlign: TextAlign.left,
+          controller: controller,
+          cursorColor: AppColors.grey,
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+
+          ),
+          keyboardType: TextInputType.number,
         ),
-        textAlign: TextAlign.left,
-        controller: controller,
-        cursorColor: AppColors.textColor,
-        decoration: const InputDecoration(
-          border: InputBorder.none,
-
-        ),
-        keyboardType: TextInputType.number,
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:ketemaa/CheckInternet/check_internet.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
@@ -28,9 +29,6 @@ class Vault extends StatefulWidget {
 }
 
 class _VaultState extends State<Vault> {
-  double scrnHeight = Get.height;
-  double scrnWidth = Get.width;
-
   GetData? getData;
 
   @override
@@ -40,7 +38,7 @@ class _VaultState extends State<Vault> {
     getData = Provider.of<GetData>(context, listen: false);
 
     getData!.getWishList();
-    
+
     getData!.getSetList('');
 
     getData!.getVaultStats(0);
@@ -51,7 +49,7 @@ class _VaultState extends State<Vault> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: Consumer<GetData>(builder: (context, data, child) {
-        return data.vaultStatsModel != null
+        return data.vaultStatsModel != null && data.wishListModel != null
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Stack(
@@ -63,7 +61,7 @@ class _VaultState extends State<Vault> {
                       decoration: BoxDecoration(
                         color: AppColors.graphCard,
                         borderRadius: const BorderRadius.vertical(
-                            bottom: Radius.circular(40.0)),
+                            bottom: Radius.circular(25.0)),
                       ),
                       child: ListView(
                         children: [
@@ -153,6 +151,9 @@ class _VaultState extends State<Vault> {
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      SizedBox(
+                                        height: Get.height * .005,
                                       ),
                                       Row(
                                         children: [
@@ -315,8 +316,7 @@ class _VaultState extends State<Vault> {
                         children: [
                           ///My Collectibles
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15), //apply padding to all four sides
+                            padding: const EdgeInsets.only(left: 15),
                             child: Text(
                               "My Collectibles",
                               style: Get.textTheme.headline2!.copyWith(
@@ -331,8 +331,7 @@ class _VaultState extends State<Vault> {
 
                           ///My Comics
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15), //apply padding to all four sides
+                            padding: const EdgeInsets.only(left: 15),
                             child: Text(
                               "My Comics",
                               style: Get.textTheme.headline2!.copyWith(
@@ -347,8 +346,11 @@ class _VaultState extends State<Vault> {
 
                           ///My Vault
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15), //apply padding to all four sides
+                            padding: EdgeInsets.only(
+                              left: 15,
+                              bottom: Get.height * .0167,
+                            ),
+                            //apply padding to all four sides
                             child: Text(
                               "My Vault",
                               style: Get.textTheme.headline2!.copyWith(
@@ -362,9 +364,7 @@ class _VaultState extends State<Vault> {
                                   width: Get.width,
                                   height: Get.height * .22,
                                   child: data.setListModel!.count! > 0
-                                      ? MysetsCard(
-                                          list: data.setListModel!.setResults,
-                                        )
+                                      ? const MysetsCard()
                                       : const NoDataCard(
                                           title: 'Your Vault is empty!',
                                         ),
@@ -376,9 +376,10 @@ class _VaultState extends State<Vault> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left:
-                                          15), //apply padding to all four sides
+                                  padding: EdgeInsets.only(
+                                      left: 15,
+                                      top: Get.height * .0334,
+                                      bottom: Get.height * .0167),
                                   child: Text(
                                     "My Wishlist",
                                     style: Get.textTheme.headline2!.copyWith(
@@ -394,8 +395,9 @@ class _VaultState extends State<Vault> {
                                   child: data.wishListModel!.results!.isNotEmpty
                                       ? Padding(
                                           padding: EdgeInsets.only(
-                                              right: Get.width *
-                                                  .06), //apply padding to all four sides
+                                              right: Get.width * .06,
+                                              top: Get.height * .0334,
+                                              bottom: Get.height * .0167),
                                           child: Text(
                                             "See All",
                                             style: TextStyle(
@@ -449,7 +451,7 @@ class _VaultState extends State<Vault> {
                   ],
                 ),
               )
-            : const LoadingExample();
+            : ColorLoader();
       }),
     );
   }

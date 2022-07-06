@@ -41,7 +41,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
             padding: EdgeInsets.only(
                 left: index == 0 ? 6: 6.0,
                 right: index == data.wishListModel!.results!.length - 1 ? 6 : 6.0,
-                top: Get.height*.0167),
+                ),
             child: Container(
               width: Get.width * .37,
               //height: Get.height * .22,
@@ -67,8 +67,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                   width: Get.width * .37,
                   decoration: BoxDecoration(
                       gradient: AppColors.cardGradient,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: AppColors.backgroundColor)),
+                      borderRadius: BorderRadius.circular(10),),
                   child: data.wishListModel!.results![index].productDetail!
                               .image! == null
                       ? Text(

@@ -7,6 +7,7 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
@@ -106,9 +107,7 @@ class _WishListPageState extends State<WishListPage> {
                                   width: Get.width,
                                   decoration: BoxDecoration(
                                       color: AppColors.graphCard,
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      border: Border.all(
-                                          color: AppColors.textBoxBgColor)),
+                                      borderRadius: BorderRadius.circular(5.0),),
                                   child: InkWell(
                                     onTap: () {
                                       data.wishListModel!.results![index]
@@ -690,7 +689,7 @@ class _WishListPageState extends State<WishListPage> {
                       )
                     : const LoadingExample(),
               )
-            : const LoadingExample();
+            :  ColorLoader();
       }),
     );
   }

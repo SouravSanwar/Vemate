@@ -35,9 +35,6 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
             decoration: BoxDecoration(
               color: AppColors.graphCard,
               borderRadius: BorderRadius.circular(12.0),
-              border: Border.all(
-                color: AppColors.backgroundColor,
-              ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -53,6 +50,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                           "Comics Value",
                           style: TextStyle(
                             color: AppColors.textColor,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                           ),
                         ),

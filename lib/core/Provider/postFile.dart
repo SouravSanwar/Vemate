@@ -9,9 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
+import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/main.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+
+import '../utilities/app_colors/app_colors.dart';
 
 enum Method { POST, GET, PUT, DELETE, PATCH }
 
@@ -32,7 +36,6 @@ class PostFile extends ChangeNotifier {
       List<String>? fileKey1,
       List<File>? files1,
       Method method = Method.POST}) async {
-
     var uri = Uri.parse(url!);
 
     if (method == Method.POST) {
@@ -116,13 +119,17 @@ class PostFile extends ChangeNotifier {
   }
 
   Future requestWithFile(BuildContext context,
-
       {@required String? url,
       Map<String, String>? body,
       List<String>? fileKey,
       List<File>? files,
       Method method = Method.POST}) async {
-    const LoadingExample();
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingDialogue(
+              message: "Uploading Profile Picture",
+            ));
     print('New Body: $body');
     //bool loading = false;
     var uri = Uri.parse(url!);
@@ -165,7 +172,8 @@ class PostFile extends ChangeNotifier {
         });
         showData(
             url: url, body: body, method: method, response: result.toString());
-        //return json.decode(result);
+
+        Navigator.of(context).pop();
         Map<String, String> requestToken = {
           'Authorization': 'token ${prefs!.getString('token')}',
         };
@@ -174,42 +182,46 @@ class PostFile extends ChangeNotifier {
         await getData.getUserInfo();
 
 
-        Flushbar(
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            isDismissible: false,
-            duration: const Duration(seconds: 3),
-            messageText: const Text(
-              'Updated Successfully',
-              style: TextStyle(fontSize: 16.0, color: Colors.green),
-            )).show(context);
+
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) =>  ResponseMessage(
+              icon: Icons.check_circle,
+              color: AppColors.primaryColor,
+              message: "Image Updated Successfully",
+            ));
+
       } else if (response.statusCode == 413) {
         print('Big File');
 
-        Flushbar(
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            isDismissible: false,
-            duration: const Duration(seconds: 3),
-            messageText: const Text(
-              'File too large',
-              style: TextStyle(fontSize: 16.0, color: Colors.green),
-            )).show(context);
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) =>  const ResponseMessage(
+              icon: Icons.file_copy_outlined,
+              color: Colors.purpleAccent,
+              message: "File is too Large",
+            ));
 
         return {'error': 'file_too_large'};
       } else {
         return {'error': 'something_went_wrong'};
       }
     } catch (e) {
-      Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 3),
-          messageText: const Text(
-            'check your internet connection',
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) =>  const ResponseMessage(
+            icon: Icons.wifi,
+            color: Colors.purpleAccent,
+            message: "Please Check Your Internet",
+          ));
 
       return {'error': 'check_your_internet_connection'};
     }
+    await Future.delayed(Duration(seconds: 1));
+    Navigator.of(context).pop();
 
     notifyListeners();
   }

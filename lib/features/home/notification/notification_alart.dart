@@ -7,9 +7,8 @@ import 'package:ketemaa/features/home/notification/primary_notification_list.dar
 import 'package:ketemaa/core/models/NotificationListModel.dart';
 
 class NotificationAlertBox extends StatefulWidget {
-  final List<Results>? list;
 
-  const NotificationAlertBox({Key? key, this.list}) : super(key: key);
+  const NotificationAlertBox({Key? key}) : super(key: key);
 
   @override
   _NotificationAlertBoxState createState() => _NotificationAlertBoxState();
@@ -19,7 +18,7 @@ class _NotificationAlertBoxState extends State<NotificationAlertBox> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        alignment: Alignment(0, -0.75),
+        alignment: const Alignment(0, -0.75),
         backgroundColor: AppColors.backgroundColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
@@ -36,11 +35,14 @@ class _NotificationAlertBoxState extends State<NotificationAlertBox> {
           children: [
             Text(
               "Notifications",
-              style: TextStyle(fontFamily: 'Inter',fontSize: 22.0, color: AppColors.textColor),
+              style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 20.0,
+                  color: AppColors.textColor),
             ),
             InkWell(
               onTap: () {
-                Get.to(() => AllNotificationList());
+                Get.to(() => const AllNotificationList());
               },
               child: Text(
                 "See All",
@@ -53,11 +55,9 @@ class _NotificationAlertBoxState extends State<NotificationAlertBox> {
             ),
           ],
         ),
-        content: Container(
-             width: double.maxFinite, 
-          child: PrimaryNotificationList(
-            list: widget.list,
-          ),
+        content: const SizedBox(
+          width: double.maxFinite,
+          child: PrimaryNotificationList(),
         ));
   }
 }

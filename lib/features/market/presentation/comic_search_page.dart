@@ -7,6 +7,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
@@ -191,9 +192,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                         width: Get.height * .078,
                                         decoration: BoxDecoration(
                                             color: AppColors.graphCard,
-                                            borderRadius: BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: AppColors.textBoxBgColor)),
+                                            borderRadius: BorderRadius.circular(10),),
                                         alignment: Alignment.center,
                                         child: data.searchComicsModel!.results![index].image==null ?Text(
                                           data.searchComicsModel!.results![index].name
@@ -229,7 +228,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                             Row(
                                               children: <Widget>[
                                                 Expanded(
-                                                    flex: 4,
+                                                    flex: 5,
                                                     child: SizedBox(
                                                       height: Get.height * .02,
                                                       child: Text(
@@ -255,7 +254,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                     )),
                                                 AppSpaces.spaces_width_2,
                                                 Expanded(
-                                                    flex: 2,
+                                                    flex: 3,
                                                     child: Text(
                                                       data
                                                           .searchComicsModel!
@@ -281,7 +280,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                             Row(
                                               children: [
                                                 Expanded(
-                                                  flex: 4,
+                                                  flex: 5,
                                                   child: Text(
                                                     data.searchComicsModel!
                                                         .results![index].series
@@ -302,7 +301,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                 ),
                                                 AppSpaces.spaces_width_2,
                                                 Expanded(
-                                                  flex: 2,
+                                                  flex: 3,
                                                   child: Text(
                                                     data.searchComicsModel!
                                                         .results![index].rarity
@@ -327,7 +326,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                             Row(
                                               children: [
                                                 Expanded(
-                                                  flex: 4,
+                                                  flex: 5,
                                                   child: Text(
                                                     r"$" +
                                                         data
@@ -351,7 +350,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                 ),
                                                 AppSpaces.spaces_width_2,
                                                 const Expanded(
-                                                  flex: 2,
+                                                  flex: 3,
                                                   child: Text(""),
                                                 ),
                                               ],
@@ -508,7 +507,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                             ),
                           );
                         })
-                    : const LoadingExample(),
+                    : ColorLoader(),
               ),
             ],
           ),

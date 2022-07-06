@@ -6,9 +6,11 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/main.dart';
@@ -44,10 +46,13 @@ class _AllNotificationListState extends State<AllNotificationList> {
     super.initState();
   }
 
+  Future<bool> _willPopCallback() async {
+    Get.offAll(() => const ControllerPage());
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
-    Get.put(ControllerPageController());
-
     SharedPreferenceController.to.getToken();
 
     return Scaffold(
@@ -110,8 +115,10 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                 data.notificationListModel!
                                                     .results![index].id,
                                                 requestHeadersWithToken)
-                                            .whenComplete(() =>
-                                                getData!.getNotification());
+                                            .whenComplete(() => data
+                                                .notificationListModel!
+                                                .results![index]
+                                                .unread = false);
                                       });
                                       Get.to(() => CollectibleDetails(
                                             productId: data
@@ -124,12 +131,14 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                       setState(() {
                                         postData!
                                             .notificationRead(
-                                            context,
-                                            data.notificationListModel!
-                                                .results![index].id,
-                                            requestHeadersWithToken)
-                                            .whenComplete(
-                                                () => getData!.getNotification());
+                                                context,
+                                                data.notificationListModel!
+                                                    .results![index].id,
+                                                requestHeadersWithToken)
+                                            .whenComplete(() => data
+                                                .notificationListModel!
+                                                .results![index]
+                                                .unread = false);
                                       });
                                       Get.to(
                                         () => ComicDetails(
@@ -175,7 +184,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                 null
                                             ? Text(
                                                 data.notificationListModel!
-                                                    .results![index].name
+                                                    .results![index].description
                                                     .toString()[0]
                                                     .toUpperCase(),
                                                 style: TextStyle(
@@ -232,7 +241,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
-                                                  fontFamily: 'Inter',
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 12.sp),
@@ -251,7 +260,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                   .copyWith(
                                                       color: AppColors.textColor
                                                           .withOpacity(.7),
-                                                  fontFamily: 'Inter',
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 10.sp),
@@ -267,7 +276,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                       );
                     },
                   )
-                : const LoadingExample());
+                : ColorLoader());
       }),
     );
   }

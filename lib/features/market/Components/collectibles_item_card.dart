@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:provider/provider.dart';
@@ -59,13 +60,12 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                   itemCount: data.collectiblesModel!.results!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: const EdgeInsets.only(top: 4,bottom: 4,left: 4,right: 8),
+                      padding: const EdgeInsets.only(top: 4,bottom: 4,left: 4,right: 4),
                       child: Container(
                         width: Get.width,
                         decoration: BoxDecoration(
                           color: AppColors.graphCard,
                           borderRadius: BorderRadius.circular(12.0),
-                          border: Border.all(color: AppColors.textBoxBgColor),
                         ),
                         child: InkWell(
                           onTap: () {
@@ -125,7 +125,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       Row(
                                         children: <Widget>[
                                           Expanded(
-                                              flex: 4,
+                                              flex: 5,
                                               child: SizedBox(
                                                 child: Text(
                                                   data.collectiblesModel!
@@ -146,7 +146,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               )),
                                           AppSpaces.spaces_width_2,
                                           Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(
                                               data.collectiblesModel!
                                                   .results![index].edition
@@ -168,7 +168,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 4,
+                                            flex: 5,
                                             child: Text(
                                               data
                                                           .collectiblesModel!
@@ -195,7 +195,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                           ),
                                           AppSpaces.spaces_width_2,
                                           Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(
                                               data.collectiblesModel!
                                                   .results![index].rarity
@@ -216,7 +216,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 4,
+                                            flex: 5,
                                             child: Text(
                                               r"$" +
                                                   data
@@ -234,11 +234,9 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       fontSize: 11.sp),
                                             ),
                                           ),
-                                          const SizedBox(
-                                            width: 2,
-                                          ),
+                                          AppSpaces.spaces_width_2,
                                           const Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(""),
                                           ),
                                         ],
@@ -391,7 +389,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                   },
                 ),
               )
-            : const LoadingExample(),
+            :  ColorLoader(),
       );
     });
 

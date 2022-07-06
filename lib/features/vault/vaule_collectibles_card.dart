@@ -38,10 +38,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
             width: Get.width,
             decoration: BoxDecoration(
                 color: AppColors.graphCard,
-                borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(
-                  color: AppColors.backgroundColor,
-                )),
+                borderRadius: BorderRadius.circular(12.0),),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -64,7 +61,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                         Text(
                           '\$' + widget.data!.totalCollectibleValue!.toString(),
                           style: TextStyle(
-                              color: AppColors.greyWhite,
+                              color: AppColors.textColor,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.bold),
                         ),

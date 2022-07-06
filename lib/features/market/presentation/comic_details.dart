@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/graph/graph_helper_comics.dart';
@@ -69,6 +71,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                   color: AppColors.textColor,
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ),
@@ -173,19 +176,23 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     ),
                                     child: data.checkWishlistModel != null
                                         ? Padding(
-                                            padding: const EdgeInsets.all(12),
+                                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 12),
                                             child: data.checkWishlistModel!
                                                         .isFound ==
                                                     false
-                                                ? Text(
+                                                ? AutoSizeText(
                                                     'Add to Wishlist',
                                                     style: Get
                                                         .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                                   )
-                                                : Text(
-                                                    'Remove from Wishlist',
+                                                : AutoSizeText(
+                                                    'Added to Wishlist',
                                                     style: Get
                                                         .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                                   ),
                                           )
                                         : Container(),
@@ -239,16 +246,20 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     ),
                                     child: data.checkSetCheck != null
                                         ? Padding(
-                                            padding: const EdgeInsets.all(12),
+                                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 12),
                                             child:
                                                 data.checkSetCheck!.isFound ==
                                                         false
-                                                    ? Text('Add to Vault',
+                                                    ? AutoSizeText('Add to Vault',
                                                         style: Get.textTheme
-                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',))
-                                                    : Text('Remove from Vault',
+                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,)
+                                                    : AutoSizeText('Added to Vault',
                                                         style: Get.textTheme
-                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',)),
+                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,),
                                           )
                                         : Container(),
                                   ),
@@ -472,7 +483,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                   body: const GraphHelperComics(),
                 ),
               )
-            : const LoadingExample(),
+            : ColorLoader(),
       );
     });
   }

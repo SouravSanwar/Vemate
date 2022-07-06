@@ -30,7 +30,6 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
             decoration: BoxDecoration(
               color: AppColors.graphCard,
               borderRadius: BorderRadius.circular(12.0),
-              border: Border.all(color: const Color(0xff454F70)),
             ),
             child: Column(
               children: [

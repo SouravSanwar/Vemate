@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:another_flushbar/flushbar.dart';
@@ -68,6 +70,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                   fontFamily: 'Inter',
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ),
@@ -174,22 +177,20 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     padding: const EdgeInsets.all(10),
                                     child: data.checkWishlistModel!.isFound ==
                                             false
-                                        ? Text(
-                                            'Add to Wishlist',
-                                            style: Get.textTheme.bodySmall!
-                                                .copyWith(
-                                              fontFamily: 'Inter',
-                                              color: Colors.white,
-                                            ),
-                                          )
-                                        : Text(
-                                            'Added Wishlist',
-                                            style: Get.textTheme.bodySmall!
-                                                .copyWith(
-                                              fontFamily: 'Inter',
-                                              color: Colors.white,
-                                            ),
-                                          ),
+                                        ? AutoSizeText(
+                                      'Add to Wishlist',
+                                      style: Get
+                                          .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    )
+                                        : AutoSizeText(
+                                      'Added to Wishlist',
+                                      style: Get
+                                          .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -215,88 +216,86 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           data.singleProductModel!.id,
                                           requestHeadersWithToken,
                                         )
-                                      : Flushbar(
-                                          flushbarPosition:
-                                              FlushbarPosition.BOTTOM,
-                                          isDismissible: false,
-                                          duration: const Duration(seconds: 1),
-                                          messageText: const Text(
-                                            'Already in Vault',
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                color: Colors.green),
-                                          )).show(context);
-                                },
-                                child: Container(
-                                  width: Get.width * .42,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    gradient: AppColors.purpleGradient,
-                                    //color: AppColors.primaryColor,
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(12),
+                                            : Flushbar(
+                                            flushbarPosition:
+                                            FlushbarPosition.BOTTOM,
+                                            isDismissible: false,
+                                            duration:
+                                            const Duration(seconds: 3),
+                                            messageText: const Text(
+                                              "Product already in your Vault",
+                                              style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontFamily: 'Inter',
+                                                  color: Colors.green),
+                                            )).show(context);
+                                      },
+                                      child: Container(
+                                        width: Get.width * .42,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          gradient: AppColors.purpleGradient,
+                                          //color: AppColors.primaryColor,
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(12),
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12),
+                                          child: data.checkSetCheck!.isFound ==
+                                              false
+                                              ?  AutoSizeText('Add to Vault',
+                                            style: Get.textTheme
+                                                .bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,)
+                                              : AutoSizeText('Added to Vault',
+                                            style: Get.textTheme
+                                                .bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: data.checkSetCheck!.isFound == false
-                                        ? Text('Add to Vault',
-                                            style: Get.textTheme.bodySmall!
-                                                .copyWith(
-                                              fontFamily: 'Inter',
-                                              color: Colors.white,
-                                            ))
-                                        : Text('Added to Vault',
-                                            style: Get.textTheme.bodySmall!
-                                                .copyWith(
-                                              fontFamily: 'Inter',
-                                              color: Colors.white,
-                                            )),
+                                  ],
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(top: Get.height*0.05,right:Get.width*0.05336,left:Get.width*0.05336,bottom: Get.height*0.0334 ),
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    "Total Distributions",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        color: AppColors.textColor,
+                                        fontFamily: 'Inter',
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(
-                                top: Get.height * 0.05,
-                                right: Get.width * 0.05336,
-                                left: Get.width * 0.05336,
-                                bottom: Get.height * 0.0334),
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              "Total Distributions",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  color: AppColors.textColor,
-                                  fontFamily: 'Inter',
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                width: MediaQuery.of(context).size.width * .18,
-                                padding: const EdgeInsets.only(
-                                    top: 0, bottom: 8, left: 6, right: 6),
-                                child: InkWell(
-                                  onTap: () {
-                                    currentIndex = 1;
-                                    hour = true;
-                                    week = false;
-                                    month = false;
-                                    two_month = false;
-                                    year = false;
-                                    getData!.getSingleProduct(widget.productId,
-                                        graphType: 0);
-                                  },
-                                  child: CategoryCard(
-                                    name: '24H',
-                                    gradient: hour == true
-                                        ? AppColors.buttonTrue
-                                        : const LinearGradient(
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                      width:
+                                      MediaQuery.of(context).size.width * .18,
+                                      padding: const EdgeInsets.only(top: 0,bottom: 8,left: 6,right: 6),
+                                      child: InkWell(
+                                        onTap: () {
+                                          currentIndex = 1;
+                                          hour = true;
+                                          week = false;
+                                          month = false;
+                                          two_month = false;
+                                          year = false;
+                                          getData!.getSingleProduct(
+                                              widget.productId,
+                                              graphType: 0);
+                                        },
+                                        child: CategoryCard(
+                                          name: '24H',
+                                          gradient: hour == true
+                                              ? AppColors.buttonTrue
+                                              : const LinearGradient(
                                             colors: [
                                               Color(0xff272E49),
                                               Color(0xff272E49),
@@ -475,7 +474,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                   body: const ProductDetails(),
                 ),
               )
-            : const LoadingExample(),
+            : ColorLoader(),
       );
     });
   }

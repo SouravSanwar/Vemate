@@ -38,6 +38,10 @@ class _ControllerPageState extends State<ControllerPage> {
   late int productId;
   PostData? postData;
 
+  int _seletedItem = 0;
+  var _pages = [Home(), Market(), Vault()];
+  var _pageController = PageController();
+
   List<String> names = [
     'Home',
     'Market',
@@ -54,7 +58,7 @@ class _ControllerPageState extends State<ControllerPage> {
 
   Curve curve = Curves.ease;
 
-  TransitionType transitionType = TransitionType.fade;
+  TransitionType transitionType = TransitionType.slide;
 
   AppUpdate? appUpdate;
   GetData? getData;
@@ -83,8 +87,6 @@ class _ControllerPageState extends State<ControllerPage> {
     getToken();
     initMessaging();
 
-    //mode = prefs!.getInt('mode');
-    print('Color Mode Cont: ' + mode.toString());
   }
 
   Future<void> _firebaseMsg(RemoteMessage message) async {
@@ -224,22 +226,20 @@ class _ControllerPageState extends State<ControllerPage> {
   @override
   Widget build(BuildContext context) {
     Get.put(ControllerPageController());
-    return Obx(() {
-      printInfo(info: prefs!.getString('token').toString());
-
-      return WillPopScope(
+    return WillPopScope(
         onWillPop: _willPopCallback,
         child: Stack(
           children: [
             Scaffold(
               backgroundColor: AppColors.backgroundColor,
-              body: BottomBarPageTransition(
-                builder: (_, index) => getBody(index),
-                currentIndex: ControllerPageController.to.currentPage.value,
-                totalLength: ControllerPageController.to.bottomBarData!.length,
-                transitionType: transitionType,
-                transitionDuration: duration,
-                transitionCurve: curve,
+              body: PageView(
+                children: _pages,
+                onPageChanged: (index) {
+                  setState(() {
+                    _seletedItem = index;
+                  });
+                },
+                controller: _pageController,
               ),
               bottomNavigationBar: SizedBox(
                 //height: 65,
@@ -263,7 +263,7 @@ class _ControllerPageState extends State<ControllerPage> {
           ],
         ),
       );
-    });
+
   }
 
   getBody(int index) {
@@ -285,14 +285,11 @@ class _ControllerPageState extends State<ControllerPage> {
       child: BottomNavigationBar(
         backgroundColor: AppColors.backgroundColor,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-        currentIndex: ControllerPageController.to.currentPage.value,
-        onTap: (index) {
-          ControllerPageController.to.currentPage.value = index;
-        },
         type: BottomNavigationBarType.fixed,
         selectedFontSize: 12,
         unselectedFontSize: 12,
         selectedItemColor: AppColors.iconColor,
+        selectedIconTheme: IconThemeData(),
         unselectedItemColor: AppColors.textColor,
         showUnselectedLabels: true,
         items: List.generate(
@@ -302,6 +299,14 @@ class _ControllerPageState extends State<ControllerPage> {
             label: names[index],
           ),
         ),
+        currentIndex: _seletedItem,
+        onTap: (index) {
+          setState(() {
+            _seletedItem = index;
+            _pageController.animateToPage(_seletedItem,
+                duration: Duration(milliseconds: 200), curve: Curves.linear);
+          });
+        },
       ),
     );
   }
@@ -366,13 +371,36 @@ class _ControllerPageState extends State<ControllerPage> {
       productId = int.tryParse(message.data["id"]) ?? 0;
       print("onMessageOpenedApp Product Id: " + productId.toString());
 
-      message.data["type"] == 0
-          ? Get.to(() => CollectibleDetails(
+      Map<String, String> requestHeadersWithToken = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization':
+        'token ${prefs!.getString('token')}',
+      };
+
+      if(message.data["type"] == 0){
+        setState(() {
+          postData!.notificationRead(
+              context,
+              productId,
+              requestHeadersWithToken);
+        });
+        Get.to(() => CollectibleDetails(
+          productId: productId,
+        ));
+      } else {
+        setState(() {
+          postData!.notificationRead(
+              context,
+              productId,
+              requestHeadersWithToken);
+        });
+        Get.to(
+              () => ComicDetails(
                 productId: productId,
-              ))
-          : Get.to(() => ComicDetails(
-                productId: productId,
-              ));
+          ),
+        );
+      }
     });
   }
 }
