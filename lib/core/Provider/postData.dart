@@ -730,7 +730,7 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future deleteSetList(BuildContext context, int? id, var requestToken) async {
+  Future deleteSetList(BuildContext context, int? id, var requestToken, var type) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -745,7 +745,7 @@ class PostData extends ChangeNotifier with BaseController {
     if (response.statusCode == 200) {
       Navigator.of(context).pop();
       getData = Provider.of<GetData>(context, listen: false);
-      getData!.getSetList('');
+      getData!.getSetList(type);
       getData!.getVaultStats(0);
       //await getData!.checkSetList(id!);
       Flushbar(

@@ -548,16 +548,15 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                     Get.height *
                                                                         .05,
                                                                 onTap: () {
-                                                                  postData!
-                                                                      .deleteSetList(
-                                                                    context,
-                                                                    data
-                                                                        .setListModel!
-                                                                        .setResults![
-                                                                            index]
-                                                                        .id,
-                                                                    requestHeadersWithToken,
-                                                                  );
+                                                                  postData!.deleteSetList(
+                                                                      context,
+                                                                      data
+                                                                          .setListModel!
+                                                                          .setResults![
+                                                                              index]
+                                                                          .id,
+                                                                      requestHeadersWithToken,
+                                                                      '?type=1');
                                                                 },
                                                                 text: 'Yes'
                                                                     .toUpperCase(),

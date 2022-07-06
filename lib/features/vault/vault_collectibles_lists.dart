@@ -560,6 +560,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                             index]
                                                                         .id,
                                                                     requestHeadersWithToken,
+                                                                    '?type=0',
                                                                   );
                                                                 },
                                                                 text: 'Yes'
