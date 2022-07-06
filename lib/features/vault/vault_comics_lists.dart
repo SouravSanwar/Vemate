@@ -68,7 +68,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
 
     return WillPopScope(
       onWillPop: () async {
-        Provider.of<GetData>(context, listen: false).getSetList('');
+        await Provider.of<GetData>(context, listen: false).getSetList('');
         return true;
       },
       child: Scaffold(
@@ -100,8 +100,11 @@ class _VaultComicsListState extends State<VaultComicsList> {
                           return InkWell(
                             onTap: () {
                               Get.to(() => ComicDetails(
-                                    productId: data.setListModel!
-                                        .setResults![index].setProductDetail!.id!,
+                                    productId: data
+                                        .setListModel!
+                                        .setResults![index]
+                                        .setProductDetail!
+                                        .id!,
                                   ));
                             },
                             child: Padding(
@@ -109,44 +112,46 @@ class _VaultComicsListState extends State<VaultComicsList> {
                               child: Container(
                                 width: Get.width,
                                 decoration: BoxDecoration(
-                                    color: AppColors.backgroundColor,
-                                    borderRadius: BorderRadius.circular(12.0),),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Container(
-                                          height: Get.height * .09,
-                                          width: Get.height * .078,
-                                          decoration: BoxDecoration(
-                                              color: AppColors.textBoxBgColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: AppColors.borderColor)),
-                                          alignment: Alignment.center,
-                                          child: data
-                                                      .setListModel!
-                                                      .setResults![index]
-                                                      .setProductDetail!
-                                                      .image!
-                                                      .image_on_list ==
-                                                  null
-                                              ? Text(
-                                                  data
-                                                      .setListModel!
-                                                      .setResults![index]
-                                                      .setProductDetail!
-                                                      .name
-                                                      .toString()[0]
-                                                      .toUpperCase(),
-                                                  style: TextStyle(
-                                                      color:
-                                                        AppColors.backgroundColor,
+                                  color: AppColors.backgroundColor,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        height: Get.height * .09,
+                                        width: Get.height * .078,
+                                        decoration: BoxDecoration(
+                                            color: AppColors.textBoxBgColor,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: AppColors.borderColor)),
+                                        alignment: Alignment.center,
+                                        child: data
+                                                    .setListModel!
+                                                    .setResults![index]
+                                                    .setProductDetail!
+                                                    .image!
+                                                    .image_on_list ==
+                                                null
+                                            ? Text(
+                                                data
+                                                    .setListModel!
+                                                    .setResults![index]
+                                                    .setProductDetail!
+                                                    .name
+                                                    .toString()[0]
+                                                    .toUpperCase(),
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .backgroundColor,
                                                     fontFamily: 'Inter',
                                                     fontSize: 35,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               )
                                             : CachedNetworkImage(
                                                 imageUrl: data
@@ -162,7 +167,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                        BorderRadius.circular(10),
+                                                        BorderRadius.circular(
+                                                            10),
                                                     image: DecorationImage(
                                                       image: imageProvider,
                                                       fit: BoxFit.cover,
@@ -192,12 +198,12 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                             .setProductDetail!
                                                             .name
                                                             .toString(),
-                                                        overflow:
-                                                            TextOverflow.ellipsis,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         textAlign:
                                                             TextAlign.start,
-                                                        style: Get
-                                                            .textTheme.bodyText2!
+                                                        style: Get.textTheme
+                                                            .bodyText2!
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .textColor,
@@ -206,7 +212,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
-                                                                fontSize: 13.sp),
+                                                                fontSize:
+                                                                    13.sp),
                                                       ),
                                                     )),
                                                 AppSpaces.spaces_width_2,
@@ -219,15 +226,18 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                           .setProductDetail!
                                                           .edition
                                                           .toString(),
-                                                      textAlign: TextAlign.start,
+                                                      textAlign:
+                                                          TextAlign.start,
                                                       style: Get
                                                           .textTheme.bodyText1!
                                                           .copyWith(
                                                               color: AppColors
                                                                   .textColor,
-                                                              fontFamily: 'Inter',
+                                                              fontFamily:
+                                                                  'Inter',
                                                               fontWeight:
-                                                                  FontWeight.w300,
+                                                                  FontWeight
+                                                                      .w300,
                                                               fontSize: 10.sp),
                                                     )),
                                               ],
@@ -396,7 +406,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                   maximumLabels: 10,
                                                 ),
                                                 tooltipBehavior:
-                                                    TooltipBehavior(enable: true),
+                                                    TooltipBehavior(
+                                                        enable: true),
                                                 series: <
                                                     ChartSeries<Graph, String>>[
                                                   LineSeries<Graph, String>(
@@ -447,7 +458,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                 .percent!
                                                                 .toString() +
                                                             "%",
-                                                        textAlign: TextAlign.end,
+                                                        textAlign:
+                                                            TextAlign.end,
                                                         style: Get.textTheme.bodyText1!.copyWith(
                                                             color: data
                                                                         .setListModel!
@@ -465,7 +477,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                       ),
                                                       if (data
                                                               .setListModel!
-                                                              .setResults![index]
+                                                              .setResults![
+                                                                  index]
                                                               .setProductDetail!
                                                               .priceChangePercent!
                                                               .sign ==
@@ -513,8 +526,10 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                         .symmetric(
                                                                     horizontal:
                                                                         20,
-                                                                    vertical: 10),
-                                                            title: const Text(""),
+                                                                    vertical:
+                                                                        10),
+                                                            title:
+                                                                const Text(""),
                                                             content: Text(
                                                               'Do you really want to delete this item?',
                                                               style: TextStyle(
@@ -526,8 +541,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                             ),
                                                             actions: <Widget>[
                                                               CustomButtons(
-                                                                width: Get.width *
-                                                                    .2,
+                                                                width:
+                                                                    Get.width *
+                                                                        .2,
                                                                 height:
                                                                     Get.height *
                                                                         .05,
@@ -556,8 +572,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                 ),
                                                               ),
                                                               CustomButtons(
-                                                                width: Get.width *
-                                                                    .2,
+                                                                width:
+                                                                    Get.width *
+                                                                        .2,
                                                                 height:
                                                                     Get.height *
                                                                         .05,
