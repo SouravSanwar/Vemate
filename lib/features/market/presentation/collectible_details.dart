@@ -8,6 +8,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:another_flushbar/flushbar.dart';
@@ -473,7 +474,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                   body: const ProductDetails(),
                 ),
               )
-            : const LoadingExample(),
+            : ColorLoader(),
       );
     });
   }
