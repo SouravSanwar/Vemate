@@ -10,6 +10,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/network/base_client.dart';
 import 'package:ketemaa/core/network/base_controller.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
+import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_controller.dart';
@@ -19,6 +20,8 @@ import 'package:ketemaa/features/controller_page/presentattion/controller_page.d
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../utilities/app_colors/app_colors.dart';
 
 class PostData extends ChangeNotifier with BaseController {
   GetData? getData;
@@ -501,14 +504,14 @@ class PostData extends ChangeNotifier with BaseController {
 
       Navigator.of(context).pop();
 
-      Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Update Successful",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) =>  ResponseMessage(
+            icon: Icons.check_circle,
+            color: AppColors.primaryColor,
+            message: "Info Updated Successfully",
+          ));
     } else if (js['is_email_verified'] == false) {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.getUserInfo();
@@ -527,14 +530,14 @@ class PostData extends ChangeNotifier with BaseController {
     } else {
       Navigator.of(context).pop();
 
-      Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Invalid Information",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) =>  ResponseMessage(
+            icon: Icons.check_circle,
+            color: AppColors.primaryColor,
+            message: "Invalid Information",
+          ));
     }
     notifyListeners();
   }

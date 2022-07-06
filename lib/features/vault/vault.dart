@@ -50,7 +50,7 @@ class _VaultState extends State<Vault> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: Consumer<GetData>(builder: (context, data, child) {
-        return data.vaultStatsModel != null
+        return data.vaultStatsModel != null && data.wishListModel !=null
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Stack(

@@ -189,34 +189,34 @@ class PostFile extends ChangeNotifier {
             builder: (_) =>  ResponseMessage(
               icon: Icons.check_circle,
               color: AppColors.primaryColor,
-              message: "Updated Successfully",
+              message: "Image Updated Successfully",
             ));
 
       } else if (response.statusCode == 413) {
         print('Big File');
 
-        Flushbar(
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            isDismissible: false,
-            duration: const Duration(seconds: 3),
-            messageText: const Text(
-              'File too large',
-              style: TextStyle(fontSize: 16.0, color: Colors.green),
-            )).show(context);
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) =>  const ResponseMessage(
+              icon: Icons.file_copy_outlined,
+              color: Colors.purpleAccent,
+              message: "File is too Large",
+            ));
 
         return {'error': 'file_too_large'};
       } else {
         return {'error': 'something_went_wrong'};
       }
     } catch (e) {
-      Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 3),
-          messageText: const Text(
-            'check your internet connection',
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) =>  const ResponseMessage(
+            icon: Icons.wifi,
+            color: Colors.purpleAccent,
+            message: "Updated Successfully",
+          ));
 
       return {'error': 'check_your_internet_connection'};
     }
