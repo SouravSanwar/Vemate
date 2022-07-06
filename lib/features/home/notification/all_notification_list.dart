@@ -64,8 +64,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
         backgroundColor: AppColors.backgroundColor,
         title: Text(
           'Notifications',
-          style:
-              Get.textTheme.headline2!.copyWith(color: AppColors.textColor),
+          style: Get.textTheme.headline2!.copyWith(color: AppColors.textColor),
         ),
       ),
       body: Consumer<GetData>(builder: (context, data, child) {
@@ -116,8 +115,10 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                 data.notificationListModel!
                                                     .results![index].id,
                                                 requestHeadersWithToken)
-                                            .whenComplete(() =>
-                                                getData!.getNotification());
+                                            .whenComplete(() => data
+                                                .notificationListModel!
+                                                .results![index]
+                                                .unread = false);
                                       });
                                       Get.to(() => CollectibleDetails(
                                             productId: data
@@ -134,16 +135,15 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                 data.notificationListModel!
                                                     .results![index].id,
                                                 requestHeadersWithToken)
-                                            .whenComplete(() =>
-                                                getData!.getNotification());
+                                            .whenComplete(() => data
+                                                .notificationListModel!
+                                                .results![index]
+                                                .unread = false);
                                       });
                                       Get.to(
                                         () => ComicDetails(
-                                          productId: data
-                                              .notificationListModel!
-                                              .results![index]
-                                              .target!
-                                              .id,
+                                          productId: data.notificationListModel!
+                                              .results![index].target!.id,
                                         ),
                                       );
                                     }
@@ -156,10 +156,8 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                         child: Icon(
                                           Icons.brightness_1,
                                           size: 10,
-                                          color: data
-                                                      .notificationListModel!
-                                                      .results![index]
-                                                      .unread ==
+                                          color: data.notificationListModel!
+                                                      .results![index].unread ==
                                                   true
                                               ? const Color(0xffA473E6)
                                               : AppColors.backgroundColor,
@@ -179,8 +177,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             border: Border.all(
-                                                color:
-                                                    AppColors.borderColor)),
+                                                color: AppColors.borderColor)),
                                         alignment: Alignment.center,
                                         child: data.notificationListModel!
                                                     .results![index].image ==
@@ -206,9 +203,9 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                     .image_on_list!
                                                     .src
                                                     .toString(),
-                                                imageBuilder: (context,
-                                                        imageProvider) =>
-                                                    Container(
+                                                imageBuilder:
+                                                    (context, imageProvider) =>
+                                                        Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -261,8 +258,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                               overflow: TextOverflow.ellipsis,
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(
-                                                      color: AppColors
-                                                          .textColor
+                                                      color: AppColors.textColor
                                                           .withOpacity(.7),
                                                       fontFamily: 'Inter',
                                                       fontWeight:

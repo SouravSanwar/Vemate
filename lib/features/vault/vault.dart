@@ -29,7 +29,6 @@ class Vault extends StatefulWidget {
 }
 
 class _VaultState extends State<Vault> {
-
   GetData? getData;
 
   @override
@@ -50,7 +49,7 @@ class _VaultState extends State<Vault> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: Consumer<GetData>(builder: (context, data, child) {
-        return data.vaultStatsModel != null && data.wishListModel !=null
+        return data.vaultStatsModel != null && data.wishListModel != null
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Stack(
@@ -154,7 +153,7 @@ class _VaultState extends State<Vault> {
                                         ],
                                       ),
                                       SizedBox(
-                                        height: Get.height*.005,
+                                        height: Get.height * .005,
                                       ),
                                       Row(
                                         children: [
@@ -317,8 +316,7 @@ class _VaultState extends State<Vault> {
                         children: [
                           ///My Collectibles
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15),
+                            padding: const EdgeInsets.only(left: 15),
                             child: Text(
                               "My Collectibles",
                               style: Get.textTheme.headline2!.copyWith(
@@ -333,8 +331,7 @@ class _VaultState extends State<Vault> {
 
                           ///My Comics
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15),
+                            padding: const EdgeInsets.only(left: 15),
                             child: Text(
                               "My Comics",
                               style: Get.textTheme.headline2!.copyWith(
@@ -367,9 +364,7 @@ class _VaultState extends State<Vault> {
                                   width: Get.width,
                                   height: Get.height * .22,
                                   child: data.setListModel!.count! > 0
-                                      ? MysetsCard(
-                                          list: data.setListModel!.setResults,
-                                        )
+                                      ? const MysetsCard()
                                       : const NoDataCard(
                                           title: 'Your Vault is empty!',
                                         ),
