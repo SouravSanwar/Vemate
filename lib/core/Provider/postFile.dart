@@ -215,7 +215,7 @@ class PostFile extends ChangeNotifier {
           builder: (_) =>  const ResponseMessage(
             icon: Icons.wifi,
             color: Colors.purpleAccent,
-            message: "Updated Successfully",
+            message: "Please Check Your Internet",
           ));
 
       return {'error': 'check_your_internet_connection'};

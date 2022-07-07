@@ -9,6 +9,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/graph/graph_helper_comics.dart';
@@ -482,7 +483,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                   body: const GraphHelperComics(),
                 ),
               )
-            : const LoadingExample(),
+            : ColorLoader(),
       );
     });
   }
