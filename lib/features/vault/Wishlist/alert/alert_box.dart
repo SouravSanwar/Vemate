@@ -41,12 +41,10 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
   void initState() {
     if (widget.results!.isAlert == true) {
       valueController.text = widget.results!.alertData!.value.toString();
-     /* if(valueController.text=="0.0"){
+      /* if(valueController.text=="0.0"){
         valueController.text=int.parse("0");
       }*/
     }
-
-    // TODO: implement initState
     super.initState();
   }
 
@@ -69,9 +67,11 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
           children: [
             Text(
               "Price Alert",
-              style: TextStyle(fontFamily: 'Inter',fontSize: 22.0, color: AppColors.textColor),
+              style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 22.0,
+                  color: AppColors.textColor),
             ),
-
           ],
         ),
         content: /*toggleValue == true
@@ -86,7 +86,6 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                       SizedBox(
                         height: 15.h,
                       ),
-
                       Text(
                         "Value",
                         style: TextStyle(
@@ -146,12 +145,11 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                   "value": double.parse(valueController.text),
                                   "frequency": frequencyIndex,
                                 };*/
-
+                                Get.back();
                                 postData!.deleteAlert(
                                     context,
                                     widget.results!.alertData!.id,
                                     requestHeadersWithToken);
-                                Get.back();
                               },
                               child: Text(
                                 widget.results!.isAlert == true ? 'Delete' : "",
@@ -162,18 +160,21 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                             AppSpaces.spaces_width_10,
                             InkWell(
                               onTap: () {
+                                Get.back();
+
                                 postData = Provider.of<PostData>(context,
                                     listen: false);
                                 var body = {
                                   "product": widget.results!.productDetail!.id,
                                   "type": 0,
                                   "price_type": TypeIndex,
-                                  "value": valueController.text != "" ?double.parse(valueController.text):0.0,
+                                  "value": valueController.text != ""
+                                      ? double.parse(valueController.text)
+                                      : 0.0,
                                   "frequency": frequencyIndex,
                                 };
 
                                 postData!.createAlert(context, body);
-                                Get.back();
                               },
                               child: Text(
                                 widget.results!.isAlert == true
