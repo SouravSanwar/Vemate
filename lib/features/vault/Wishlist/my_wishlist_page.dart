@@ -627,7 +627,7 @@ class _WishListPageState extends State<WishListPage> {
                                                 width: Get.width * .2,
                                                 height: Get.height * .05,
                                                 onTap: () {
-                                                  Get.back();
+
                                                   if (data
                                                           .wishListModel!
                                                           .results![index]

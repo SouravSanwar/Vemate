@@ -551,7 +551,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                     Get.height *
                                                                         .05,
                                                                 onTap: () {
-                                                                  Get.back();
+
                                                                   postData!
                                                                       .deleteSetList(
                                                                     context,

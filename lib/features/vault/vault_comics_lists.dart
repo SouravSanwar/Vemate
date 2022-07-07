@@ -548,7 +548,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                     Get.height *
                                                                         .05,
                                                                 onTap: () {
-                                                                  Get.back();
+
                                                                   postData!
                                                                       .deleteSetList(
                                                                     context,
