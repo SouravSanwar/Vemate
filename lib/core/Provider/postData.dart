@@ -142,7 +142,7 @@ class PostData extends ChangeNotifier with BaseController {
             )).show(context);
       }
     }
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
     notifyListeners();
   }
@@ -232,7 +232,7 @@ class PostData extends ChangeNotifier with BaseController {
             message: "Invalid Information",
           ));
     }
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
     notifyListeners();
   }
@@ -300,7 +300,7 @@ class PostData extends ChangeNotifier with BaseController {
                     style: const TextStyle(fontSize: 16.0, color: Colors.green),
                   )).show(context));
     }
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
     notifyListeners();
   }
@@ -349,7 +349,7 @@ class PostData extends ChangeNotifier with BaseController {
             message: "Something Went Wrong",
           ));
     }
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
     notifyListeners();
   }
@@ -452,7 +452,7 @@ class PostData extends ChangeNotifier with BaseController {
             )).show(context);
       }
     }
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
     notifyListeners();
   }
@@ -510,7 +510,7 @@ class PostData extends ChangeNotifier with BaseController {
             )).show(context);
       }
     }
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
     notifyListeners();
   }
@@ -576,7 +576,7 @@ class PostData extends ChangeNotifier with BaseController {
             message: "Invalid Information",
           ));
     }
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
     notifyListeners();
   }
@@ -678,7 +678,7 @@ class PostData extends ChangeNotifier with BaseController {
             style: const TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
     notifyListeners();
   }
@@ -729,7 +729,7 @@ class PostData extends ChangeNotifier with BaseController {
             style: TextStyle(fontSize: 16.0, color: Colors.green),
           )).show(context);
     }
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
     notifyListeners();
   }
@@ -785,7 +785,7 @@ class PostData extends ChangeNotifier with BaseController {
 
     }
 
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
 
     notifyListeners();
@@ -801,36 +801,38 @@ class PostData extends ChangeNotifier with BaseController {
 
     final response = await http.delete(Uri.parse(Urls.commonStorage + '$id/'),
         headers: requestToken);
+    var data = json.decode(response.body);
 
-    printInfo(info: response.statusCode.toString());
+    printInfo(info: data.toString());
     printInfo(info: Urls.commonStorage + '$id/');
+    Map<String, dynamic> js = data;
 
-    if (response.statusCode == 200) {
-      Navigator.of(context).pop();
-      getData = Provider.of<GetData>(context, listen: false);
-      getData!.getSetList(type);
-      getData!.getVaultStats(0);
-      //await getData!.checkSetList(id!);
+    if (js.containsKey('msg')) {
+      Get.back();
+      await Provider.of<GetData>(context, listen: false).getSetList(type);
+      await Provider.of<GetData>(context, listen: false).getVaultStats(0);
+      //Navigator.of(context).pop();
       showDialog(
           context: context,
           barrierDismissible: false,
           builder: (_) =>  ResponseMessage(
             icon: Icons.check_circle,
             color: AppColors.primaryColor,
-            message: "Successfully Deleted",
+            message: js["msg"],
           ));
+
     } else {
       Navigator.of(context).pop();
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
+          builder: (_) =>  const ResponseMessage(
             icon: Icons.error,
             color: Colors.purpleAccent,
             message: "Something Went Wrong",
           ));
     }
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
     notifyListeners();
   }
@@ -870,14 +872,14 @@ class PostData extends ChangeNotifier with BaseController {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
+          builder: (_) =>  const ResponseMessage(
             icon: Icons.error,
             color: Colors.purpleAccent,
             message: "Invalid Information",
           ));
     }
 
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
     notifyListeners();
   }

@@ -69,6 +69,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
     return WillPopScope(
       onWillPop: () async {
         await Provider.of<GetData>(context, listen: false).getSetList('');
+        await Provider.of<GetData>(context, listen: false).getVaultStats(0);
         return true;
       },
       child: Scaffold(
