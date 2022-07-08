@@ -51,7 +51,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
     // TODO: implement initState
-    getData!.getSetList('?product__type=0');
+    getData!.getSetList('product__type=0');
     super.initState();
   }
 
@@ -562,7 +562,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                             index]
                                                                         .id,
                                                                     requestHeadersWithToken,
-                                                                    '?type=0',
+                                                                    'product__type=0',
                                                                   );
                                                                 },
                                                                 text: 'Yes'
