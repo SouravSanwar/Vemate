@@ -70,6 +70,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
     return WillPopScope(
       onWillPop: () async {
         await Provider.of<GetData>(context, listen: false).getSetList('');
+        await Provider.of<GetData>(context, listen: false).getVaultStats(0);
         return true;
       },
       child: Scaffold(
@@ -561,6 +562,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                             index]
                                                                         .id,
                                                                     requestHeadersWithToken,
+                                                                    '?type=0',
                                                                   );
                                                                 },
                                                                 text: 'Yes'

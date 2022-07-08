@@ -7,13 +7,11 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
-import 'package:ketemaa/core/utilities/common_widgets/new_text_form_field.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/_controller/sign_up_controller.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
-import 'package:ketemaa/graph/designhelper.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
