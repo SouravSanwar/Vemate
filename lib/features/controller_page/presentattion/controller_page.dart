@@ -28,7 +28,9 @@ import '../../market/presentation/market.dart';
 String? token;
 
 class ControllerPage extends StatefulWidget {
-  const ControllerPage({Key? key}) : super(key: key);
+  late int? seletedItem;
+
+  ControllerPage({Key? key, this.seletedItem = 0}) : super(key: key);
 
   @override
   State<ControllerPage> createState() => _ControllerPageState();
@@ -38,9 +40,9 @@ class _ControllerPageState extends State<ControllerPage> {
   late int productId;
   PostData? postData;
 
-  int _seletedItem = 0;
-  var _pages = [Home(), Market(), Vault()];
-  var _pageController = PageController();
+  //int _seletedItem = 0;
+  final _pages = [const Home(), const Market(), const Vault()];
+  final _pageController = PageController();
 
   List<String> names = [
     'Home',
@@ -86,7 +88,6 @@ class _ControllerPageState extends State<ControllerPage> {
     initPlatformState();
     getToken();
     initMessaging();
-
   }
 
   Future<void> _firebaseMsg(RemoteMessage message) async {
@@ -105,7 +106,7 @@ class _ControllerPageState extends State<ControllerPage> {
 
   Future<void> initPlatformState() async {
     WidgetsFlutterBinding.ensureInitialized();
-    
+
     FirebaseMessaging.onBackgroundMessage(_firebaseMsg);
     await Firebase.initializeApp();
   }
@@ -155,7 +156,8 @@ class _ControllerPageState extends State<ControllerPage> {
                 AppSpaces.spaces_height_10,
                 Text(
                   'Are you sure to exit?',
-                  style: TextStyle(fontFamily: 'Inter',color: AppColors.textColor),
+                  style: TextStyle(
+                      fontFamily: 'Inter', color: AppColors.textColor),
                 ),
                 AppSpaces.spaces_height_10,
                 Row(
@@ -181,7 +183,9 @@ class _ControllerPageState extends State<ControllerPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'No',
-                            style: TextStyle(fontFamily: 'Inter',color: AppColors.textColor),
+                            style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: AppColors.textColor),
                           ),
                         ),
                       ),
@@ -207,7 +211,9 @@ class _ControllerPageState extends State<ControllerPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'Yes',
-                            style: TextStyle(fontFamily: 'Inter',color: AppColors.textColor),
+                            style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: AppColors.textColor),
                           ),
                         ),
                       ),
@@ -227,45 +233,42 @@ class _ControllerPageState extends State<ControllerPage> {
   Widget build(BuildContext context) {
     Get.put(ControllerPageController());
     return WillPopScope(
-        onWillPop: _willPopCallback,
-        child: Stack(
-          children: [
-            Scaffold(
-              backgroundColor: AppColors.backgroundColor,
-              body: PageView(
-                children: _pages,
-                onPageChanged: (index) {
-                  setState(() {
-                    _seletedItem = index;
-                  });
-                },
-                controller: _pageController,
-              ),
-              bottomNavigationBar: Container(
-                decoration: BoxDecoration(
-                  gradient: AppColors.bottomGradiant
-                  ),
-                child: getBottomBar(),
-              ),
+      onWillPop: _willPopCallback,
+      child: Stack(
+        children: [
+          Scaffold(
+            backgroundColor: AppColors.backgroundColor,
+            body: PageView(
+              children: _pages,
+              onPageChanged: (index) {
+                setState(() {
+                  widget.seletedItem = index;
+                });
+              },
+              controller: _pageController,
             ),
-            Positioned(
-              left: 0,
-              right: 0,
-              child: Consumer<AppUpdate>(builder: (context, data, child) {
-                return data.appUpdator != null
-                    ? (int.parse(data.appUpdator!.name!.toString()) >
-                                int.parse(
-                                    VersionControl.packageInfo.buildNumber) &&
-                            data.isUpdate == true
-                        ? const AppUpdateAlert()
-                        : Container())
-                    : Container();
-              }),
+            bottomNavigationBar: Container(
+              decoration: BoxDecoration(gradient: AppColors.bottomGradiant),
+              child: getBottomBar(),
             ),
-          ],
-        ),
-      );
-
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            child: Consumer<AppUpdate>(builder: (context, data, child) {
+              return data.appUpdator != null
+                  ? (int.parse(data.appUpdator!.name!.toString()) >
+                              int.parse(
+                                  VersionControl.packageInfo.buildNumber) &&
+                          data.isUpdate == true
+                      ? const AppUpdateAlert()
+                      : Container())
+                  : Container();
+            }),
+          ),
+        ],
+      ),
+    );
   }
 
   getBody(int index) {
@@ -286,15 +289,15 @@ class _ControllerPageState extends State<ControllerPage> {
       selectedFontSize: 12,
       unselectedFontSize: 12,
       selectedItemColor: AppColors.iconColor,
-      selectedIconTheme: IconThemeData(),
+      selectedIconTheme: const IconThemeData(),
       unselectedItemColor: AppColors.textColor,
       showUnselectedLabels: true,
       items: List.generate(
         ControllerPageController.to.bottomBarData!.length,
         (index) => BottomNavigationBarItem(
-          icon: Icon(icons[index]),
-          label: names[index],
-          activeIcon: ShaderMask(
+            icon: Icon(icons[index]),
+            label: names[index],
+            activeIcon: ShaderMask(
               blendMode: BlendMode.srcIn,
               shaderCallback: (Rect bounds) {
                 return const LinearGradient(
@@ -306,15 +309,15 @@ class _ControllerPageState extends State<ControllerPage> {
                   tileMode: TileMode.repeated,
                 ).createShader(bounds);
               },
-          child: Icon(icons[index]),)
-        ),
+              child: Icon(icons[index]),
+            )),
       ),
-      currentIndex: _seletedItem,
+      currentIndex: widget.seletedItem!,
       onTap: (index) {
         setState(() {
-          _seletedItem = index;
-          _pageController.animateToPage(_seletedItem,
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
+          widget.seletedItem = index;
+          _pageController.animateToPage(widget.seletedItem!,
+              duration: const Duration(milliseconds: 200), curve: Curves.linear);
         });
       },
     );
@@ -383,30 +386,25 @@ class _ControllerPageState extends State<ControllerPage> {
       Map<String, String> requestHeadersWithToken = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-        'token ${prefs!.getString('token')}',
+        'Authorization': 'token ${prefs!.getString('token')}',
       };
 
-      if(message.data["type"] == 0){
+      if (message.data["type"] == 0) {
         setState(() {
-          postData!.notificationRead(
-              context,
-              productId,
-              requestHeadersWithToken);
+          postData!
+              .notificationRead(context, productId, requestHeadersWithToken);
         });
         Get.to(() => CollectibleDetails(
-          productId: productId,
-        ));
+              productId: productId,
+            ));
       } else {
         setState(() {
-          postData!.notificationRead(
-              context,
-              productId,
-              requestHeadersWithToken);
+          postData!
+              .notificationRead(context, productId, requestHeadersWithToken);
         });
         Get.to(
-              () => ComicDetails(
-                productId: productId,
+          () => ComicDetails(
+            productId: productId,
           ),
         );
       }

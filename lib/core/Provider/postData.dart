@@ -963,7 +963,7 @@ class PostData extends ChangeNotifier with BaseController {
     prefs!.setBool("is_login", true);
     printInfo(info: prefs!.get('token').toString());
 
-    Get.offAll(() => const ControllerPage());
+    Get.offAll(() => ControllerPage());
 
     notifyListeners();
   }

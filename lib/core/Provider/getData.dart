@@ -256,7 +256,7 @@ class GetData extends ChangeNotifier with BaseController {
   Future getSetList(String? type) async {
     setListModel = null;
     final response = await BaseClient()
-        .get(Urls.commonStorage + '?type=0$type')
+        .get(Urls.commonStorage + '?type=0&$type')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
