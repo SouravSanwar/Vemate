@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -213,9 +215,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ],
                     ),
                   ),
+
                   SizedBox(
                     height: Get.height * .08,
                   ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    alignment: Alignment.centerLeft,
+                    child: AutoSizeText(
+                      "Username",
+                      style: TextStyle(fontSize: 18.sp,fontFamily: 'Inter'),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  AppSpaces.spaces_height_5,
                   TextInputField(
                     labelText: AppLanguageString.USERNAME.tr,
                     height: Get.height * .04,
@@ -223,9 +236,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     controller:
                         ProfileController.to.userNameTextFiledController,
                   ),
+
                   SizedBox(
                     height: Get.height * .022,
                   ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    alignment: Alignment.centerLeft,
+                    child: AutoSizeText(
+                        "Email",
+                      style: TextStyle(fontSize: 18.sp,fontFamily: 'Inter'),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  AppSpaces.spaces_height_5,
                   TextInputField(
                     labelText: AppLanguageString.EMAIL.tr,
                     height: Get.height * .04,

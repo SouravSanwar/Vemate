@@ -50,7 +50,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
 
-    getData!.getSetList('?type=1');
+    getData!.getSetList('?product__type=1');
     // TODO: implement initState
     super.initState();
   }

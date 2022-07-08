@@ -241,8 +241,10 @@ class _ControllerPageState extends State<ControllerPage> {
                 },
                 controller: _pageController,
               ),
-              bottomNavigationBar: SizedBox(
-                //height: 65,
+              bottomNavigationBar: Container(
+                decoration: BoxDecoration(
+                  gradient: AppColors.bottomGradiant
+                  ),
                 child: getBottomBar(),
               ),
             ),
@@ -277,37 +279,44 @@ class _ControllerPageState extends State<ControllerPage> {
   }
 
   getBottomBar() {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(50.0),
-        topRight: Radius.circular(50.0),
-      ),
-      child: BottomNavigationBar(
-        backgroundColor: AppColors.backgroundColor,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-        type: BottomNavigationBarType.fixed,
-        selectedFontSize: 12,
-        unselectedFontSize: 12,
-        selectedItemColor: AppColors.iconColor,
-        selectedIconTheme: IconThemeData(),
-        unselectedItemColor: AppColors.textColor,
-        showUnselectedLabels: true,
-        items: List.generate(
-          ControllerPageController.to.bottomBarData!.length,
-          (index) => BottomNavigationBarItem(
-            icon: Icon(icons[index]),
-            label: names[index],
-          ),
+    return BottomNavigationBar(
+      backgroundColor: Colors.transparent,
+      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+      type: BottomNavigationBarType.fixed,
+      selectedFontSize: 12,
+      unselectedFontSize: 12,
+      selectedItemColor: AppColors.iconColor,
+      selectedIconTheme: IconThemeData(),
+      unselectedItemColor: AppColors.textColor,
+      showUnselectedLabels: true,
+      items: List.generate(
+        ControllerPageController.to.bottomBarData!.length,
+        (index) => BottomNavigationBarItem(
+          icon: Icon(icons[index]),
+          label: names[index],
+          activeIcon: ShaderMask(
+              blendMode: BlendMode.srcIn,
+              shaderCallback: (Rect bounds) {
+                return const LinearGradient(
+                  colors: [
+                    Color(0xff8760EE),
+                    Color(0xffA984E5),
+                    Color(0xffCA88E8),
+                  ],
+                  tileMode: TileMode.repeated,
+                ).createShader(bounds);
+              },
+          child: Icon(icons[index]),)
         ),
-        currentIndex: _seletedItem,
-        onTap: (index) {
-          setState(() {
-            _seletedItem = index;
-            _pageController.animateToPage(_seletedItem,
-                duration: Duration(milliseconds: 200), curve: Curves.linear);
-          });
-        },
       ),
+      currentIndex: _seletedItem,
+      onTap: (index) {
+        setState(() {
+          _seletedItem = index;
+          _pageController.animateToPage(_seletedItem,
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        });
+      },
     );
   }
 
