@@ -47,7 +47,6 @@ class _WishListPageState extends State<WishListPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
 
@@ -106,8 +105,9 @@ class _WishListPageState extends State<WishListPage> {
                                 child: Container(
                                   width: Get.width,
                                   decoration: BoxDecoration(
-                                      color: AppColors.graphCard,
-                                      borderRadius: BorderRadius.circular(5.0),),
+                                    color: AppColors.graphCard,
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
                                   child: InkWell(
                                     onTap: () {
                                       data.wishListModel!.results![index]
@@ -614,7 +614,7 @@ class _WishListPageState extends State<WishListPage> {
                                                 const EdgeInsets.symmetric(
                                                     horizontal: 20,
                                                     vertical: 10),
-                                            title: Text(""),
+                                            title: const Text(""),
                                             content: Text(
                                               'Do you really want to delete this item?',
                                               style: TextStyle(
@@ -641,17 +641,14 @@ class _WishListPageState extends State<WishListPage> {
                                                             .alertData!
                                                             .id,
                                                         requestHeadersWithToken);
+                                                  } else {
+                                                    postData!.deleteWishlist(
+                                                      context,
+                                                      data.wishListModel!
+                                                          .results![index].id,
+                                                      requestHeadersWithToken,
+                                                    );
                                                   }
-                                                  postData!
-                                                      .deleteWishlist(
-                                                        context,
-                                                        data.wishListModel!
-                                                            .results![index].id,
-                                                        requestHeadersWithToken,
-                                                      )
-                                                      .whenComplete(() =>
-                                                          getData!
-                                                              .getWishList());
                                                 },
                                                 text: 'Yes'.toUpperCase(),
                                                 style: Get.textTheme.button!
@@ -689,13 +686,13 @@ class _WishListPageState extends State<WishListPage> {
                       )
                     : const LoadingExample(),
               )
-            :  ColorLoader();
+            : ColorLoader();
       }),
     );
   }
 
   Widget _loader(BuildContext context, String url) {
-    return ImageIcon(
+    return const ImageIcon(
       AssetImage('assets/media/icon/logo v.png'),
       color: Color(0xFF3A5A98),
     );

@@ -44,7 +44,6 @@ class _ProductGraphState extends State<ProductGraph> {
               ),
               child: data.singleProductModel != null
                   ? SfCartesianChart(
-
                       plotAreaBorderWidth: 0,
                       zoomPanBehavior: _zoomPanBehavior,
                       primaryXAxis: CategoryAxis(

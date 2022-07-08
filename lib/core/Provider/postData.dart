@@ -520,9 +520,7 @@ class PostData extends ChangeNotifier with BaseController {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const LoadingDialogue(
-          message: "Updating Info.Please wait",
-        ));
+        builder: (_) => const LoadingExample());
 
     printInfo(info: body.toString());
 
@@ -655,19 +653,21 @@ class PostData extends ChangeNotifier with BaseController {
     var data = json.decode(response);
 
     Map<String, dynamic> js = data;
-
+    Navigator.of(context).pop();
     if (js.containsKey('id')) {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.checkWishlist(id!);
 
-       showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (_) =>  ResponseMessage(
-                  icon: Icons.check_circle,
-                  color: AppColors.primaryColor,
-                  message: "Added Successfullly",
-                ));
+      showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (_) => ResponseMessage(
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: "Added Successfullly",
+              ));
+      await Future.delayed(const Duration(seconds: 1));
+      Get.back();
     } else {
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
@@ -708,6 +708,7 @@ class PostData extends ChangeNotifier with BaseController {
     if (js.containsKey('id')) {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.checkSetList(id!);
+      Navigator.of(context).pop();
 
       showDialog(
           context: context,
@@ -718,6 +719,7 @@ class PostData extends ChangeNotifier with BaseController {
             message: "Added Successfullly",
           ));
     } else {
+      Navigator.of(context).pop();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
@@ -756,34 +758,37 @@ class PostData extends ChangeNotifier with BaseController {
 
     Map<String, dynamic> js = x;
     if (js.containsKey('msg')) {
-      Navigator.of(context).pop();
-      await Provider.of<GetData>(context, listen: false).checkWishlist(id!);
+      // await Provider.of<GetData>(context, listen: false).checkWishlist(id!);
+      // await Future.delayed(const Duration(seconds: 2));
+      // Get.back();
 
+      // showDialog(
+      //     context: context,
+      //     barrierDismissible: false,
+      //     builder: (_) => ResponseMessage(
+      //           icon: Icons.check_circle,
+      //           color: AppColors.primaryColor,
+      //           message: js["msg"],
+      //         ));
 
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: js["msg"],
-          ));
+      successSnackbar(js["msg"]);
+      getData!.getWishList();
     } else {
-      Navigator.of(context).pop();
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: js["detail"],
-          ));
+      // showDialog(
+      //     context: context,
+      //     barrierDismissible: false,
+      //     builder: (_) => ResponseMessage(
+      //           icon: Icons.error,
+      //           color: Colors.purpleAccent,
+      //           message: js["detail"],
+      //         ));
 
+      // await Future.delayed(const Duration(seconds: 2));
+      // Get.back();
 
     }
 
     await Future.delayed(Duration(seconds: 1));
-    Navigator.of(context).pop();
     Navigator.of(context).pop();
 
     notifyListeners();
@@ -822,11 +827,11 @@ class PostData extends ChangeNotifier with BaseController {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: "Something Went Wrong",
-          ));
+          builder: (_) => const ResponseMessage(
+                icon: Icons.error,
+                color: Colors.purpleAccent,
+                message: "Something Went Wrong",
+              ));
     }
     await Future.delayed(Duration(seconds: 1));
     Navigator.of(context).pop();
@@ -849,10 +854,8 @@ class PostData extends ChangeNotifier with BaseController {
         await BaseClient().post(Urls.alert, body).catchError(handleError);
 
     var data = json.decode(response);
-
+    Get.back();
     printInfo(info: data.toString());
-
-
 
     Map<String, dynamic> js = data;
     if (js.containsKey('id')) {
@@ -965,4 +968,13 @@ class PostData extends ChangeNotifier with BaseController {
 
     notifyListeners();
   }
+}
+
+SnackbarController successSnackbar(String msg) {
+  return Get.snackbar(msg, "",
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(seconds: 3),
+      backgroundColor: Colors.green,
+      colorText: Colors.white);
+  ;
 }

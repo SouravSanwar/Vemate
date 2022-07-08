@@ -125,7 +125,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                       ),
                       AlertTextField(
                         height: Get.height * .03,
-                        controller:valueController,
+                        controller: valueController,
                       ),
                       SizedBox(
                         height: 14.sp,
@@ -174,11 +174,12 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                   "value": double.parse(valueController.text),
                                   "frequency": frequencyIndex,
                                 };*/
-
+                                Get.back();
                                 postData!.deleteAlert(
                                     context,
                                     widget.results!.alertData!.id,
                                     requestHeadersWithToken);
+                                Get.back();
                               },
                               child: Text(
                                 widget.results!.isAlert == true ? 'Delete' : "",
@@ -189,6 +190,8 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                             AppSpaces.spaces_width_10,
                             InkWell(
                               onTap: () {
+                                Get.back();
+
                                 postData = Provider.of<PostData>(context,
                                     listen: false);
                                 var body = {

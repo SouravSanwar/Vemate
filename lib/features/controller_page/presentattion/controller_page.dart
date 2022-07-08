@@ -389,20 +389,16 @@ class _ControllerPageState extends State<ControllerPage> {
 
       if(message.data["type"] == 0){
         setState(() {
-          postData!.notificationRead(
-              context,
-              productId,
-              requestHeadersWithToken);
+          postData!
+              .notificationRead(context, productId, requestHeadersWithToken);
         });
         Get.to(() => CollectibleDetails(
           productId: productId,
         ));
       } else {
         setState(() {
-          postData!.notificationRead(
-              context,
-              productId,
-              requestHeadersWithToken);
+          postData!
+              .notificationRead(context, productId, requestHeadersWithToken);
         });
         Get.to(
               () => ComicDetails(
