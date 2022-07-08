@@ -50,7 +50,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
             splashColor: Colors.blueAccent,
             onPressed: () {
               prefs!.getString('token') != null
-                  ? Get.to(() => const ControllerPage())
+                  ? Get.to(() => ControllerPage())
                   : Get.to(() => const AuthInitialPage());
             },
             child: Align(

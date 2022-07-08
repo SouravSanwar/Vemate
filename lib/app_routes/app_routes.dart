@@ -45,7 +45,7 @@ class AppRoutes {
       ),
       GetPage(
         name: CONTROLLER_PAGE,
-        page: () => const ControllerPage(),
+        page: () => ControllerPage(),
       ),
       GetPage(
         name: EDIT_PROFILE,

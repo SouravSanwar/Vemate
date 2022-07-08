@@ -9,8 +9,10 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
+import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
+import 'package:ketemaa/features/vault/vault.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -69,6 +71,10 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
 
     return WillPopScope(
       onWillPop: () async {
+        /*Get.offAll(() => ControllerPage(
+              seletedItem: 2,
+            ));*/
+
         await Provider.of<GetData>(context, listen: false).getSetList('');
         await Provider.of<GetData>(context, listen: false).getVaultStats(0);
         return true;
@@ -552,7 +558,6 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                     Get.height *
                                                                         .05,
                                                                 onTap: () {
-
                                                                   postData!
                                                                       .deleteSetList(
                                                                     context,

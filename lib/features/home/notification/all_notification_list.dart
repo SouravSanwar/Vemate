@@ -47,7 +47,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
   }
 
   Future<bool> _willPopCallback() async {
-    Get.offAll(() => const ControllerPage());
+    Get.offAll(() => ControllerPage());
     return true;
   }
 

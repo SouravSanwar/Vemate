@@ -69,6 +69,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
     return WillPopScope(
       onWillPop: () async {
         await Provider.of<GetData>(context, listen: false).getSetList('');
+        await Provider.of<GetData>(context, listen: false).getVaultStats(0);
         return true;
       },
       child: Scaffold(
@@ -548,18 +549,16 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                     Get.height *
                                                                         .05,
                                                                 onTap: () {
-                                                                  Get.back();
-                                                                  postData!
-                                                                      .deleteSetList(
-                                                                    context,
-                                                                    data
-                                                                        .setListModel!
-                                                                        .setResults![
-                                                                    index]
-                                                                        .id,
-                                                                    requestHeadersWithToken,
-                                                                    'product__type=1',
-                                                                  );
+
+                                                                  postData!.deleteSetList(
+                                                                      context,
+                                                                      data
+                                                                          .setListModel!
+                                                                          .setResults![
+                                                                              index]
+                                                                          .id,
+                                                                      requestHeadersWithToken,
+                                                                      '?type=1');
                                                                 },
                                                                 text: 'Yes'
                                                                     .toUpperCase(),
