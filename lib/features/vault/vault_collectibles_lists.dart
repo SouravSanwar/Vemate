@@ -51,7 +51,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
     // TODO: implement initState
-    getData!.getSetList('?type=0');
+    getData!.getSetList('?product__type=0');
     super.initState();
   }
 
@@ -552,7 +552,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                     Get.height *
                                                                         .05,
                                                                 onTap: () {
-                                                                  Get.back();
+
                                                                   postData!
                                                                       .deleteSetList(
                                                                     context,

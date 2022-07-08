@@ -25,6 +25,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
   TextEditingController valueController = TextEditingController();
   TextEditingController mintController1 = TextEditingController();
   TextEditingController mintController2 = TextEditingController();
+   int value=0;
 
   bool? toggleValue = false;
   bool? hasDropDownValue = false;
@@ -41,9 +42,9 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
   void initState() {
     if (widget.results!.isAlert == true) {
       valueController.text = widget.results!.alertData!.value.toString();
-     /* if(valueController.text=="0.0"){
-        valueController.text=int.parse("0");
-      }*/
+      if(valueController.text=="0.0"){
+        valueController.text= value.toString();
+      }
     }
 
     // TODO: implement initState
@@ -72,6 +73,33 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
               style: TextStyle(fontFamily: 'Inter',fontSize: 22.0, color: AppColors.textColor),
             ),
 
+            Positioned(
+              right: 0.0,
+              top: -10,
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.of(context).pop();
+                },
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    child: CircleAvatar(
+                      backgroundColor: AppColors.backgroundColor,
+                      radius: 14.0,
+                      child: Icon(Icons.close_sharp, color: Colors.grey),
+                    ),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: AppColors.greyWhite,
+                        width: 1.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
           ],
         ),
         content: /*toggleValue == true
@@ -97,7 +125,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                       ),
                       AlertTextField(
                         height: Get.height * .03,
-                        controller: valueController,
+                        controller:valueController,
                       ),
                       SizedBox(
                         height: 14.sp,
@@ -151,7 +179,6 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                     context,
                                     widget.results!.alertData!.id,
                                     requestHeadersWithToken);
-                                Get.back();
                               },
                               child: Text(
                                 widget.results!.isAlert == true ? 'Delete' : "",
@@ -173,7 +200,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                 };
 
                                 postData!.createAlert(context, body);
-                                Get.back();
+
                               },
                               child: Text(
                                 widget.results!.isAlert == true

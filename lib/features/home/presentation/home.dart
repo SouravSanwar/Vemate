@@ -7,6 +7,7 @@ import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
+import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/home/components/notification_badge.dart';
 import 'package:ketemaa/features/home/notification/notification_alart.dart';
@@ -136,27 +137,27 @@ class _HomeState extends State<Home> {
                       14.0,
                     ),
                     child: InkWell(
-                      onTap: () {
+                      onTap: () async {
                         data.notificationListModel!.results!.isEmpty
-                            ? Flushbar(
-                            flushbarPosition:
-                            FlushbarPosition.BOTTOM,
-                            isDismissible: false,
-                            backgroundColor:
-                            AppColors.backgroundColor,
-                            duration: const Duration(seconds: 1),
-                            messageText: const Text(
-                              "No Notification to show",
-                              style: TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: 16.0,
-                                  color: Colors.grey),
-                            )).show(context)
+                            ? showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) =>  const ResponseMessage(
+                              icon: Icons.error,
+                              color: Colors.purpleAccent,
+                              message: "No notification to show",
+                            ))
                             : showDialog(
                           context: context,
                           builder: (ctx) =>
                           const NotificationAlertBox(),
                         );
+
+                        if(data.notificationListModel!.results!.isEmpty){
+                          await Future.delayed(Duration(seconds: 1));
+                          Navigator.of(context).pop();
+                        }
+
                       },
                       child: NotificationBadge(
                         notificationListModel:

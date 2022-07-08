@@ -39,6 +39,19 @@ class AppColors extends ChangeNotifier {
     ],
   );
 
+  static Gradient bottomGradiant=  const LinearGradient(
+    colors: [
+      Color(0xff121213),
+      Color(0xff030a3b),
+      Color(0xff02072D),
+
+    ],
+
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+
+
   static Gradient graphGradientColors = const LinearGradient(
     colors: [
       Color(0xff23b6e6),

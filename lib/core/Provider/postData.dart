@@ -520,7 +520,9 @@ class PostData extends ChangeNotifier with BaseController {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const LoadingExample());
+        builder: (_) => const LoadingDialogue(
+          message: "Updating Info.Please wait",
+        ));
 
     printInfo(info: body.toString());
 
@@ -657,7 +659,6 @@ class PostData extends ChangeNotifier with BaseController {
     if (js.containsKey('id')) {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.checkWishlist(id!);
-      Navigator.of(context).pop();
 
        showDialog(
                 context: context,
@@ -668,7 +669,6 @@ class PostData extends ChangeNotifier with BaseController {
                   message: "Added Successfullly",
                 ));
     } else {
-      Navigator.of(context).pop();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
@@ -708,7 +708,6 @@ class PostData extends ChangeNotifier with BaseController {
     if (js.containsKey('id')) {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.checkSetList(id!);
-      Navigator.of(context).pop();
 
       showDialog(
           context: context,
@@ -719,7 +718,6 @@ class PostData extends ChangeNotifier with BaseController {
             message: "Added Successfullly",
           ));
     } else {
-      Navigator.of(context).pop();
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
           isDismissible: false,
@@ -772,7 +770,6 @@ class PostData extends ChangeNotifier with BaseController {
           ));
     } else {
       Navigator.of(context).pop();
-
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -786,6 +783,7 @@ class PostData extends ChangeNotifier with BaseController {
     }
 
     await Future.delayed(const Duration(seconds: 1));
+    Navigator.of(context).pop();
     Navigator.of(context).pop();
 
     notifyListeners();
@@ -856,6 +854,8 @@ class PostData extends ChangeNotifier with BaseController {
 
     printInfo(info: data.toString());
 
+
+
     Map<String, dynamic> js = data;
     if (js.containsKey('id')) {
       Navigator.of(context).pop();
@@ -865,9 +865,9 @@ class PostData extends ChangeNotifier with BaseController {
           builder: (_) =>  ResponseMessage(
             icon: Icons.check_circle,
             color: AppColors.primaryColor,
-            message: "Created Successfully",
+            message: "Added Successfully",
           ));
-    } else {
+    } else{
       Navigator.of(context).pop();
       showDialog(
           context: context,
@@ -881,10 +881,17 @@ class PostData extends ChangeNotifier with BaseController {
 
     await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
+    Navigator.of(context).pop();
     notifyListeners();
   }
 
   Future deleteAlert(BuildContext context, int? id, var requestToken) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingDialogue(
+          message: "Deleting Alert.Please wait",
+        ));
     getData = Provider.of<GetData>(context, listen: false);
 
     final response = await http.delete(Uri.parse(Urls.alert + '$id/'),
@@ -893,29 +900,36 @@ class PostData extends ChangeNotifier with BaseController {
     printInfo(info: response.statusCode.toString());
     printInfo(info: Urls.alert + '$id/');
 
-    if (response.statusCode == 204) {
+    if (response.statusCode == 204 ||
+        response.statusCode == 200 ||
+        response.statusCode == 401 ||
+        response.statusCode == 403 ||
+        response.statusCode == 500 ||
+        response.statusCode == 201) {
       Navigator.of(context).pop();
       getData!.getWishList();
-      Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Success",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) =>  ResponseMessage(
+            icon: Icons.check_circle,
+            color: AppColors.primaryColor,
+            message: "Deleted Successfully",
+          ));
     } else {
       Navigator.of(context).pop();
-      Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 3),
-          messageText: const Text(
-            "Something went wrong",
-            style: TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context);
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) =>  const ResponseMessage(
+            icon: Icons.error,
+            color: Colors.purpleAccent,
+            message: "Something went wrong",
+          ));
     }
-
+    await Future.delayed(Duration(seconds: 1));
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
     notifyListeners();
   }
 
