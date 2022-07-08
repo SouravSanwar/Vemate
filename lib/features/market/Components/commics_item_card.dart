@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:provider/provider.dart';
@@ -49,7 +50,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                 enablePullDown: true,
                 enablePullUp: true,
                 header: WaterDropMaterialHeader(
-                  color: AppColors.primaryColor,
+                  color: AppColors.graphCard,
                 ),
                 footer: const ClassicFooter(
                   loadStyle: LoadStyle.ShowWhenLoading,
@@ -62,13 +63,12 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                   itemCount: data.comicsModel!.results!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: const EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.only(top: 4,bottom: 4,left: 4,right: 4),
                       child: Container(
                         width: Get.width,
                         decoration: BoxDecoration(
-                          gradient: AppColors.cardGradient,
+                          color: AppColors.graphCard,
                           borderRadius: BorderRadius.circular(12.0),
-                          border: Border.all(color: AppColors.borderColor),
                         ),
                         child: InkWell(
                           onTap: () {
@@ -87,23 +87,23 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                   height: Get.height * .09,
                                   width: Get.height * .078,
                                   decoration: BoxDecoration(
-                                      color: AppColors.primaryColor
-                                          .withOpacity(.8),
+                                      color: AppColors.backgroundColor,
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
-                                          color: AppColors.borderColor)),
+                                          color: AppColors.textBoxBgColor)),
                                   alignment: Alignment.center,
                                   child: data.comicsModel!.results![index].image==null ?Text(
                                     data.comicsModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
                                     style: TextStyle(
+                                        fontFamily: 'Inter',
                                         color: AppColors.backgroundColor,
                                         fontSize: 35,
                                         fontWeight: FontWeight.bold),
                                   )
                                       :CachedNetworkImage(
-                                    imageUrl: data.comicsModel!.results![index].image!.original!.src.toString(),
+                                    imageUrl: data.comicsModel!.results![index].image!.image_on_list!.src.toString(),
                                     imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
@@ -113,20 +113,20 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                         ),
                                       ),
                                     ),
+                                    placeholder: _loader,
                                   ),
                                 ),
                                 AppSpaces.spaces_width_5,
                                 Expanded(
-                                  flex: 6,
+                                  flex: 7,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: <Widget>[
                                           Expanded(
-                                              flex: 4,
+                                              flex: 5,
                                               child: SizedBox(
-                                                height: Get.height * .02,
                                                 child: Text(
                                                   data.comicsModel!
                                                       .results![index].name
@@ -139,6 +139,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                       .copyWith(
                                                           color: AppColors
                                                               .textColor,
+                                                      fontFamily: 'Inter',
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: 13.sp),
@@ -146,7 +147,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                               )),
                                           AppSpaces.spaces_width_2,
                                           Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(
                                               data.comicsModel!.results![index]
                                                   .edition
@@ -156,6 +157,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
+                                                  fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 10.sp),
@@ -167,7 +169,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 4,
+                                            flex: 5,
                                             child: data
                                                         .comicsModel!
                                                         .results![index]
@@ -188,6 +190,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.8),
+                                                        fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 10.sp),
@@ -195,7 +198,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                           ),
                                           AppSpaces.spaces_width_2,
                                           Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(
                                               data.comicsModel!.results![index]
                                                   .rarity
@@ -205,6 +208,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                   .copyWith(
                                                       color: AppColors.textColor
                                                           .withOpacity(0.8),
+                                                  fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 10.sp),
@@ -216,7 +220,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 4,
+                                            flex: 5,
                                             child: Text(
                                               '\$' +
                                                   data
@@ -229,6 +233,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                   .copyWith(
                                                       color: AppColors.textColor
                                                           .withOpacity(0.8),
+                                                  fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w900,
                                                       fontSize: 11.sp),
@@ -236,7 +241,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                           ),
                                           AppSpaces.spaces_width_2,
                                           const Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(""),
                                           ),
                                         ],
@@ -327,9 +332,10 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                   .copyWith(
                                                       color: AppColors.textColor
                                                           .withOpacity(0.9),
+                                                  fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w400,
-                                                      fontSize: 11),
+                                                      fontSize: 11.sp),
                                             ),
                                           ),
                                           AppSpaces.spaces_width_2,
@@ -359,9 +365,10 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                                   'decrease'
                                                               ? Colors.red
                                                               : Colors.green,
+                                                      fontFamily: 'Inter',
                                                           fontWeight:
                                                               FontWeight.w300,
-                                                          fontSize: 10),
+                                                          fontSize: 10.sp),
                                                 ),
                                                 if (data
                                                         .comicsModel!
@@ -397,9 +404,16 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                   },
                 ),
               )
-            : const LoadingExample(),
+            : ColorLoader()
       );
     });
+  }
+
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
+    );
   }
 
   Future<void> _onRefresh() async {

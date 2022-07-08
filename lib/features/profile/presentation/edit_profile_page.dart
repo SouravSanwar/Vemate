@@ -4,10 +4,14 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/Provider/postFile.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
+import 'package:ketemaa/core/utilities/shimmer/progress_bar.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/profile/_controller/profile_controller.dart';
@@ -27,6 +31,7 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  File? imageFile;
   String? _fileName;
   String? _saveAsFileName;
   List<PlatformFile>? _paths;
@@ -62,6 +67,79 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.initState();
   }
 
+  takeImage() {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            elevation: 5,
+            backgroundColor: AppColors.graphCard,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10)),
+            children: [
+              SimpleDialogOption(
+                child: Text(
+                  "Capture with Camera",
+                  style: TextStyle(
+                    color: AppColors.textColor,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+                onPressed: captureImageWithCamera,
+              ),
+              SimpleDialogOption(
+                child: Text(
+                  "Select From Gallery",
+                  style: TextStyle(
+                    color: AppColors.textColor,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+                onPressed: pickImageFromGallery,
+              ),
+              SimpleDialogOption(
+                child: const Text(
+                  "Cancel",
+                  style: TextStyle(color: Colors.red),
+                ),
+                onPressed: () => Navigator.pop(context),
+              )
+            ],
+          );
+        });
+  }
+
+  captureImageWithCamera() async {
+    Navigator.pop(context);
+    XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+    );
+
+    _cropImage(pickedFile!.path);
+  }
+
+  pickImageFromGallery() async {
+    Navigator.pop(context);
+    XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    _cropImage(pickedFile!.path);
+  }
+
+  void _cropImage(filePath) async {
+    CroppedFile? croppedImage = await ImageCropper()
+        .cropImage(sourcePath: filePath, maxWidth: 1080, maxHeight: 1080);
+    if (croppedImage != null) {
+      setState(() {
+        imageFile = File(croppedImage.path);
+      });
+    }
+    print("&&&&&&&*******&&&&&" + imageFile.toString());
+
+    _pickFiles();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
@@ -86,40 +164,49 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           radius: MediaQuery.of(context).size.width * .25,
                           backgroundColor: AppColors.textColor,
                           backgroundImage: profileModel!.profileImage == null
-                              ? null
-                              : NetworkImage(
-                                  Urls.mainUrl +
-                                      data.profileModel!.profileImage!.mobile!
-                                          .src
-                                          .toString(),
-                                ),
+                              ? imageFile == null
+                                  ? null
+                                  : Image.file(imageFile!).image
+                              : imageFile != null
+                                  ? Image.file(imageFile!).image
+                                  : NetworkImage(
+                                      Urls.mainUrl +
+                                          data.profileModel!.profileImage!
+                                              .mobile!.src
+                                              .toString(),
+                                    ),
                           child: profileModel!.profileImage == null
-                              ? Shader(
-                                  icon: const Icon(
-                                    Icons.person_add_alt_1_rounded,
-                                    size: 100,
-                                  ),
-                                )
+                              ? imageFile != null
+                                  ? Container()
+                                  : Shader(
+                                      icon: const Icon(
+                                        Icons.person_add_alt_1_rounded,
+                                        size: 100,
+                                      ),
+                                    )
                               : null,
                         ),
                         Positioned(
                           bottom: Get.height * .01,
-                          right: Get.height * .055,
+                          right: Get.height * .0001,
                           child: RawMaterialButton(
                             onPressed: () {
                               setState(() {
-                                _pickFiles();
+                                imageFile == null;
+                                takeImage();
+
                               });
+
                             },
                             elevation: 2.0,
                             fillColor: const Color(0xFFF5F6F9),
                             child: Shader(
                               icon: const Icon(
                                 Icons.camera_alt,
-                                size: 20,
+                                size: 30,
                               ),
                             ),
-                            padding: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(10.0),
                             shape: const CircleBorder(),
                           ),
                         ),
@@ -164,11 +251,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         'Accept': 'application/json',
                         'Authorization': 'token ${prefs!.getString('token')}',
                       };
-                      postData!
-                          .updateProfile(context, body, requestHeadersWithToken);
+                      postData!.updateProfile(
+                          context, body, requestHeadersWithToken);
                     },
                     text: AppLanguageString.UPDATE_INFO.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(color: Colors.white),
+                    style: Get.textTheme.button!.copyWith(
+                      color: Colors.white,
+                      fontFamily: 'Inter',
+                    ),
                   )
                 ],
               ),
@@ -182,18 +272,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Future _pickFiles() async {
     _resetState();
     try {
-      _directoryPath = null;
-      _paths = (await FilePicker.platform.pickFiles(
-        type: _pickingType,
-        allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) => print(status),
-        allowedExtensions: (_extension?.isNotEmpty ?? false)
-            ? _extension?.replaceAll(' ', '').split(',')
-            : null,
-      ))
-          ?.files;
-
-      files!.add(File(_paths![0].path!));
+      files!.add(imageFile!);
       fileList!.addAll(files!);
 
       List<String> fileKey = [];
@@ -203,12 +282,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
       }
       Map<String, String>? body = {};
 
-      postFile!.requestWithFile(context,
-          url: Urls.updateProfilePic,
-          method: Method.POST,
-          body: body,
-          fileKey: fileKey,
-          files: fileList);
+      postFile!.requestWithFile(
+        context,
+        url: Urls.updateProfilePic,
+        method: Method.POST,
+        body: body,
+        fileKey: fileKey,
+        files: fileList,
+      );
 
       printInfo(info: 'Files' + fileList.toString());
       printInfo(info: 'Files' + _paths.toString());

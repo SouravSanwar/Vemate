@@ -75,6 +75,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                   "Vemate Update",
                                   style: Get.textTheme.bodyText1!.copyWith(
                                       color: AppColors.textColor,
+                                      fontFamily: 'Inter',
                                       fontWeight: FontWeight.w300,
                                       fontSize: 15.sp),
                                 ),
@@ -82,6 +83,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                   "New Version ${data.appUpdator!.version!}",
                                   style: Get.textTheme.bodyText1!.copyWith(
                                       color: AppColors.textColor,
+                                      fontFamily: 'Inter',
                                       fontWeight: FontWeight.w300,
                                       fontSize: 10.sp),
                                 ),
@@ -109,6 +111,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                         "What's New",
                         style: Get.textTheme.bodyText1!.copyWith(
                             color: AppColors.textColor,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w300,
                             fontSize: 15.sp),
                       ),
@@ -117,6 +120,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                         data.appUpdator!.description!,
                         style: Get.textTheme.bodyText1!.copyWith(
                             color: AppColors.textColor,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w300,
                             fontSize: 10.sp),
                       ),
@@ -134,7 +138,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                     child: Text(
                                       "Maybe Later",
                                       style: Get.textTheme.bodyLarge!
-                                          .copyWith(color: AppColors.textColor),
+                                          .copyWith(color: AppColors.textColor,fontFamily: 'Inter',),
                                     ),
                                   ),
                                 )
@@ -152,13 +156,13 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                   _launchURL(
                                       "market://details?id=${VersionControl.packageInfo.packageName}");
                                 } else if (Platform.isIOS) {
-                                  /*_launchURL(
-                                      "https://apps.apple.com/gt/app/merchant-bay/id1590720968");*/
+                                  _launchURL(
+                                      "https://apps.apple.com/gt/app/merchant-bay/id1590720968");
                                 }
                               },
                               child: Text(
                                 "Update",
-                                style: TextStyle(color: AppColors.white),
+                                style: TextStyle(color: AppColors.white,fontFamily: 'Inter',),
                               ),
                             ),
                           )

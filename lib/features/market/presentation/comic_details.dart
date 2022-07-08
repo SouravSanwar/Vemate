@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/graph/graph_helper_comics.dart';
@@ -66,9 +68,10 @@ class _ComicDetailsState extends State<ComicDetails> {
                   ? data.singleProductModel!.name.toString()
                   : "",
               style: TextStyle(
-                  color: Colors.blueGrey.shade300,
+                  color: AppColors.textColor,
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ),
@@ -82,15 +85,11 @@ class _ComicDetailsState extends State<ComicDetails> {
                       SliverToBoxAdapter(
                         child: Column(
                           children: [
-                            SizedBox(
-                              height: Get.height * .005,
-                            ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 50, vertical: 20),
+                            padding:  EdgeInsets.only(top: 0,right:Get.width*0.05336,left:Get.width*0.05336,bottom: Get.height*0.01667 ),
                               child: Container(
                                 height: Get.height * .5,
-                                padding: const EdgeInsets.all(5),
+                                padding: const EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                     gradient: AppColors.vaultCardGradient,
                                     borderRadius: BorderRadius.circular(10),
@@ -98,15 +97,14 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         color: AppColors.primaryColor)),
                                 alignment: Alignment.center,
                                 child:
-                                    data.singleProductModel!.image!.original ==
+                                    data.singleProductModel!.image ==
                                             null
                                         ? Text(
-                                            data.singleProductModel!.image!
-                                                .original!.src
-                                                .toString()[0]
+                                      data.singleProductModel!.name.toString()[0]
                                                 .toUpperCase(),
                                             style: const TextStyle(
                                                 color: Colors.deepPurpleAccent,
+                                                fontFamily: 'Inter',
                                                 fontSize: 65,
                                                 fontWeight: FontWeight.bold),
                                           )
@@ -162,6 +160,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                             messageText: Text(
                                               "Product already in your wishlist",
                                               style: TextStyle(
+                                                  fontFamily: 'Inter',
                                                   fontSize: 16.0.sp,
                                                   color: Colors.green),
                                             )).show(context);
@@ -177,19 +176,23 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     ),
                                     child: data.checkWishlistModel != null
                                         ? Padding(
-                                            padding: const EdgeInsets.all(12),
+                                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 12),
                                             child: data.checkWishlistModel!
                                                         .isFound ==
                                                     false
-                                                ? Text(
+                                                ? AutoSizeText(
                                                     'Add to Wishlist',
                                                     style: Get
-                                                        .textTheme.bodyMedium,
+                                                        .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                                   )
-                                                : Text(
-                                                    'Already in Wishlist',
+                                                : AutoSizeText(
+                                                    'Added to Wishlist',
                                                     style: Get
-                                                        .textTheme.bodyMedium,
+                                                        .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                                   ),
                                           )
                                         : Container(),
@@ -226,6 +229,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                             messageText: const Text(
                                               "Product already in your Vault",
                                               style: TextStyle(
+                                                  fontFamily: 'Inter',
                                                   fontSize: 16.0,
                                                   color: Colors.green),
                                             )).show(context);
@@ -242,16 +246,20 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     ),
                                     child: data.checkSetCheck != null
                                         ? Padding(
-                                            padding: const EdgeInsets.all(12),
+                                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 12),
                                             child:
                                                 data.checkSetCheck!.isFound ==
                                                         false
-                                                    ? Text('Add to Vault',
+                                                    ? AutoSizeText('Add to Vault',
                                                         style: Get.textTheme
-                                                            .bodyMedium)
-                                                    : Text('Already in Vault',
+                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,)
+                                                    : AutoSizeText('Added to Vault',
                                                         style: Get.textTheme
-                                                            .bodyMedium),
+                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,),
                                           )
                                         : Container(),
                                   ),
@@ -259,13 +267,14 @@ class _ComicDetailsState extends State<ComicDetails> {
                               ],
                             ),
                             Container(
-                              padding: const EdgeInsets.all(12),
+                              padding: EdgeInsets.only(top: Get.height*0.05,right:Get.width*0.05336,left:Get.width*0.05336,bottom: Get.height*0.0334 ),
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Total Distributions",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
-                                    color: Colors.blueGrey.shade300,
+                                    color: AppColors.textColor,
+                                    fontFamily: 'Inter',
                                     fontSize: 15.sp,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -293,7 +302,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     child: CategoryCard(
                                       name: '24H',
                                       gradient: hour == true
-                                          ? AppColors.purpleGradient
+                                          ? AppColors.buttonTrue
                                           : const LinearGradient(
                                               colors: [
                                                 Color(0xff272E49),
@@ -325,7 +334,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     child: CategoryCard(
                                       name: '7D',
                                       gradient: week == true
-                                          ? AppColors.purpleGradient
+                                          ? AppColors.buttonTrue
                                           : const LinearGradient(
                                               colors: [
                                                 Color(0xff272E49),
@@ -357,7 +366,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     child: CategoryCard(
                                       name: '30D',
                                       gradient: month == true
-                                          ? AppColors.purpleGradient
+                                          ? AppColors.buttonTrue
                                           : const LinearGradient(
                                               colors: [
                                                 Color(0xff272E49),
@@ -389,7 +398,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     child: CategoryCard(
                                       name: '60D',
                                       gradient: two_month == true
-                                          ? AppColors.purpleGradient
+                                          ? AppColors.buttonTrue
                                           : const LinearGradient(
                                               colors: [
                                                 Color(0xff272E49),
@@ -420,7 +429,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     child: CategoryCard(
                                       name: '1Y',
                                       gradient: year == true
-                                          ? AppColors.purpleGradient
+                                          ? AppColors.buttonTrue
                                           : const LinearGradient(
                                               colors: [
                                                 Color(0xff272E49),
@@ -433,7 +442,8 @@ class _ComicDetailsState extends State<ComicDetails> {
                               ],
                             ),
                             Container(
-                              padding: const EdgeInsets.all(10),
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.only(top: Get.height*0.0223,right:10,left:7,bottom: 0 ),
                               width: double.infinity,
                               child: FadeInUp(
                                 duration: const Duration(milliseconds: 100),
@@ -451,8 +461,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                             ),
                             Container(
                               alignment: Alignment.topLeft,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
+                              padding: EdgeInsets.only(top: Get.height*0.05,right:Get.width*0.05336,left:Get.width*0.05336,bottom: Get.height*0.0334 ),
                               child: Text(
                                 data.singleProductModel != null
                                     ? data.singleProductModel!.name.toString() +
@@ -460,12 +469,12 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     : "",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
-                                    color: Colors.blueGrey.shade300,
+                                    color: AppColors.textColor,
+                                    fontFamily: 'Inter',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15.sp),
                               ),
                             ),
-                            AppSpaces.spaces_height_15,
                           ],
                         ),
                       )
@@ -474,7 +483,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                   body: const GraphHelperComics(),
                 ),
               )
-            : const LoadingExample(),
+            : ColorLoader(),
       );
     });
   }

@@ -24,7 +24,7 @@ class _NewsDetailsState extends State<NewsDetails> {
       appBar: AppBar(
         elevation: 1.0,
         iconTheme: IconThemeData(
-          color: AppColors.iconColor
+          color: AppColors.greyWhite
         ),
         backgroundColor: AppColors.backgroundColor,
         title: Text(
@@ -33,15 +33,16 @@ class _NewsDetailsState extends State<NewsDetails> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(Get.width *0.05167),
         child: ListView(
           children: [
             Image.network(Urls.mainUrl + news!.backgroundImage!.original!.src!),
-            AppSpaces.spaces_height_10,
+            AppSpaces.spaces_height_20,
             Text(
-              news!.text.toString(),
+              news!.text.toString().replaceAll(r'\n', '\n'),
               textAlign: TextAlign.justify,
               style: Get.textTheme.bodyMedium!.copyWith(
+                fontFamily: 'Inter',
                 color: AppColors.textColor,
               ),
             )

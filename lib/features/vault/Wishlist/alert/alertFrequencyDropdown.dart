@@ -52,7 +52,7 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       width: Get.width,
       decoration: BoxDecoration(
-        color: AppColors.textBoxBgColor,
+        color: AppColors.backgroundColor,
         border: Border.all(
             color: AppColors.textColor, // set border color
             width: 1.w), // set border width
@@ -84,7 +84,8 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
         //Icon color
         style: TextStyle(
             //te
-            color: AppColors.textColor, //Font color
+            color: AppColors.grey,
+            fontFamily: 'Inter',//Font color
             fontSize: 20.sp //font size on dropdown button
             ),
         dropdownColor: AppColors.backgroundColor,
@@ -101,6 +102,6 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
       value: item,
       child: Text(
         item,
-        style: TextStyle(fontSize: 15.sp),
+        style: TextStyle(fontFamily: 'Inter',fontSize: 15.sp),
       ));
 }

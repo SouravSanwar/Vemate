@@ -3,7 +3,7 @@ description: Ketemaa.
 
 publish_to: 'none'
 
-version: 1.1.1+11
+version: 1.1.5+15
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -79,6 +79,8 @@ dependencies:
   upgrader: ^4.2.1
   cached_network_image: ^3.0.0
   app_upgrade_flutter_sdk: ^1.0.2
+  image_cropper: ^2.0.3
+  auto_size_text: ^3.0.0
 
 
 dev_dependencies:
@@ -101,6 +103,12 @@ flutter:
     - assets/media/image/
     - assets/media/icon/
     - assets/media/logo/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/media/font/Inter.ttf
+
 
 
 

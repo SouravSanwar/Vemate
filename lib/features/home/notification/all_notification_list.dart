@@ -1,13 +1,16 @@
 import 'package:another_flushbar/flushbar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/main.dart';
@@ -40,15 +43,16 @@ class _AllNotificationListState extends State<AllNotificationList> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-    getData!.getNotification();
-
     super.initState();
+  }
+
+  Future<bool> _willPopCallback() async {
+    Get.offAll(() => const ControllerPage());
+    return true;
   }
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ControllerPageController());
-
     SharedPreferenceController.to.getToken();
 
     return Scaffold(
@@ -104,11 +108,18 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                     if (data.notificationListModel!
                                             .results![index].target!.type ==
                                         0) {
-                                      postData!.notificationRead(
-                                          context,
-                                          data.notificationListModel!
-                                              .results![index].id,
-                                          requestHeadersWithToken);
+                                      setState(() {
+                                        postData!
+                                            .notificationRead(
+                                                context,
+                                                data.notificationListModel!
+                                                    .results![index].id,
+                                                requestHeadersWithToken)
+                                            .whenComplete(() => data
+                                                .notificationListModel!
+                                                .results![index]
+                                                .unread = false);
+                                      });
                                       Get.to(() => CollectibleDetails(
                                             productId: data
                                                 .notificationListModel!
@@ -117,11 +128,18 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                 .id,
                                           ));
                                     } else {
-                                      postData!.notificationRead(
-                                          context,
-                                          data.notificationListModel!
-                                              .results![index].id,
-                                          requestHeadersWithToken);
+                                      setState(() {
+                                        postData!
+                                            .notificationRead(
+                                                context,
+                                                data.notificationListModel!
+                                                    .results![index].id,
+                                                requestHeadersWithToken)
+                                            .whenComplete(() => data
+                                                .notificationListModel!
+                                                .results![index]
+                                                .unread = false);
+                                      });
                                       Get.to(
                                         () => ComicDetails(
                                           productId: data.notificationListModel!
@@ -130,105 +148,127 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                       );
                                     }
                                   },
-                                  child: Container(
-                                    child: Row(
-                                      children: [
-                                        ///dot icon
-                                        Expanded(
-                                          flex: 1,
-                                          child: Container(
-                                            child: Icon(
-                                              Icons.brightness_1,
-                                              size: 10,
-                                              color: data
-                                                          .notificationListModel!
-                                                          .results![index]
-                                                          .unread ==
-                                                      true
-                                                  ? Color(0xffA473E6)
-                                                  : AppColors.backgroundColor,
-                                            ),
-                                          ),
+                                  child: Row(
+                                    children: [
+                                      ///dot icon
+                                      Expanded(
+                                        flex: 1,
+                                        child: Icon(
+                                          Icons.brightness_1,
+                                          size: 10,
+                                          color: data.notificationListModel!
+                                                      .results![index].unread ==
+                                                  true
+                                              ? const Color(0xffA473E6)
+                                              : AppColors.backgroundColor,
                                         ),
-                                        SizedBox(
-                                          width: Get.width * .02,
-                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: Get.width * .02,
+                                      ),
 
-                                        ///Image
-                                        Container(
-                                          height: 50.h,
-                                          width: 50.h,
-                                          decoration: BoxDecoration(
-                                              color: AppColors.primaryColor
-                                                  .withOpacity(.8),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color:
-                                                      AppColors.borderColor)),
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            data.notificationListModel!
-                                                .results![index].target!.name
-                                                .toString()[0]
-                                                .toUpperCase(),
-                                            style: TextStyle(
-                                                color:
-                                                    AppColors.backgroundColor,
-                                                fontSize: 35,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width * .02,
-                                        ),
-
-                                        ///details
-                                        Expanded(
-                                          flex: 7,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
+                                      ///Image
+                                      Container(
+                                        height: 50.h,
+                                        width: 50.h,
+                                        decoration: BoxDecoration(
+                                            color: AppColors.primaryColor
+                                                .withOpacity(.8),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: AppColors.borderColor)),
+                                        alignment: Alignment.center,
+                                        child: data.notificationListModel!
+                                                    .results![index].image ==
+                                                null
+                                            ? Text(
                                                 data.notificationListModel!
                                                     .results![index].description
+                                                    .toString()[0]
+                                                    .toUpperCase(),
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .backgroundColor,
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 35,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            : CachedNetworkImage(
+                                                imageUrl: data
+                                                    .notificationListModel!
+                                                    .results![index]
+                                                    .image!
+                                                    .image_on_list!
+                                                    .src
                                                     .toString(),
-                                                textAlign: TextAlign.left,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: Get.textTheme.bodyText2!
-                                                    .copyWith(
-                                                        color:
-                                                            AppColors.textColor,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 12.sp),
+                                                imageBuilder:
+                                                    (context, imageProvider) =>
+                                                        Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                placeholder: _loader,
                                               ),
-                                              SizedBox(
-                                                height: Get.height * .01,
-                                              ),
-                                              Text(
-                                                data.notificationListModel!
-                                                    .results![index].timesince
-                                                    .toString(),
-                                                textAlign: TextAlign.left,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: Get.textTheme.bodyText2!
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .textColor
-                                                            .withOpacity(.7),
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 10.sp),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
+                                      ),
+                                      SizedBox(
+                                        width: Get.width * .02,
+                                      ),
+
+                                      ///details
+                                      Expanded(
+                                        flex: 7,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              data.notificationListModel!
+                                                  .results![index].description
+                                                  .toString(),
+                                              textAlign: TextAlign.left,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Get.textTheme.bodyText2!
+                                                  .copyWith(
+                                                      color:
+                                                          AppColors.textColor,
+                                                      fontFamily: 'Inter',
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 12.sp),
+                                            ),
+                                            SizedBox(
+                                              height: Get.height * .01,
+                                            ),
+                                            Text(
+                                              data.notificationListModel!
+                                                  .results![index].timesince
+                                                  .toString(),
+                                              textAlign: TextAlign.left,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Get.textTheme.bodyText2!
+                                                  .copyWith(
+                                                      color: AppColors.textColor
+                                                          .withOpacity(.7),
+                                                      fontFamily: 'Inter',
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 10.sp),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
                                   )),
                             ),
                           ),
@@ -236,8 +276,15 @@ class _AllNotificationListState extends State<AllNotificationList> {
                       );
                     },
                   )
-                : const LoadingExample());
+                : ColorLoader());
       }),
+    );
+  }
+
+  Widget _loader(BuildContext context, String url) {
+    return const ImageIcon(
+      AssetImage('assets/media/icon/logo v.png'),
+      color: const Color(0xFF3A5A98),
     );
   }
 

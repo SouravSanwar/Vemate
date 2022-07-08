@@ -6,6 +6,7 @@ import 'package:ketemaa/CheckInternet/check_internet.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
@@ -28,36 +29,29 @@ class Vault extends StatefulWidget {
 }
 
 class _VaultState extends State<Vault> {
-  double scrnHeight = Get.height;
-  double scrnWidth = Get.width;
-
-  String? selectedValue;
-
   GetData? getData;
 
   @override
   void initState() {
-    //getConnection();
     super.initState();
 
     getData = Provider.of<GetData>(context, listen: false);
 
-    getData!.getSetList();
     getData!.getWishList();
+
+    getData!.getSetList('');
 
     getData!.getVaultStats(0);
   }
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ControllerPageController());
-
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: Consumer<GetData>(builder: (context, data, child) {
-        return data.vaultStatsModel != null
+        return data.vaultStatsModel != null && data.wishListModel != null
             ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Stack(
                   children: [
                     Container(
@@ -65,9 +59,9 @@ class _VaultState extends State<Vault> {
                       width: Get.width,
                       height: Get.height * .268,
                       decoration: BoxDecoration(
-                        gradient: AppColors.cardGradient,
+                        color: AppColors.graphCard,
                         borderRadius: const BorderRadius.vertical(
-                            bottom: Radius.circular(40.0)),
+                            bottom: Radius.circular(25.0)),
                       ),
                       child: ListView(
                         children: [
@@ -82,6 +76,7 @@ class _VaultState extends State<Vault> {
                                 textAlign: TextAlign.start,
                                 style: Get.textTheme.bodyText2!.copyWith(
                                     color: AppColors.textColor,
+                                    fontFamily: 'Inter',
                                     fontWeight: FontWeight.w600,
                                     fontSize: 22.sp),
                               ),
@@ -109,6 +104,7 @@ class _VaultState extends State<Vault> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14.sp),
@@ -147,6 +143,7 @@ class _VaultState extends State<Vault> {
                                                 style: Get.textTheme.bodyText2!
                                                     .copyWith(
                                                         color: AppColors.white,
+                                                        fontFamily: 'Inter',
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         fontSize: 14.sp),
@@ -154,6 +151,9 @@ class _VaultState extends State<Vault> {
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      SizedBox(
+                                        height: Get.height * .005,
                                       ),
                                       Row(
                                         children: [
@@ -169,6 +169,7 @@ class _VaultState extends State<Vault> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14.sp),
@@ -237,6 +238,7 @@ class _VaultState extends State<Vault> {
                                                                   'decrease'
                                                               ? Colors.red
                                                               : Colors.green,
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 14.sp),
@@ -258,6 +260,7 @@ class _VaultState extends State<Vault> {
                               margin: EdgeInsets.zero,
                               plotAreaBorderWidth: 0,
                               primaryXAxis: CategoryAxis(
+                                plotOffset: -8,
                                 isVisible: false,
                                 majorGridLines: const MajorGridLines(width: 0),
                                 labelIntersectAction:
@@ -313,74 +316,60 @@ class _VaultState extends State<Vault> {
                         children: [
                           ///My Collectibles
                           Padding(
-                            padding: EdgeInsets.only(
-                                left: Get.width *
-                                    .06), //apply padding to all four sides
+                            padding: const EdgeInsets.only(left: 15),
                             child: Text(
                               "My Collectibles",
-                              style: TextStyle(
+                              style: Get.textTheme.headline2!.copyWith(
                                   color: AppColors.textColor,
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold),
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                           VaultCollectiblesCard(
                             data: data.vaultStatsModel!.collectible,
                           ),
-                          SizedBox(
-                            height: Get.height * .01,
-                          ),
 
                           ///My Comics
                           Padding(
-                            padding: EdgeInsets.only(
-                                left: Get.width *
-                                    .06), //apply padding to all four sides
+                            padding: const EdgeInsets.only(left: 15),
                             child: Text(
                               "My Comics",
-                              style: TextStyle(
+                              style: Get.textTheme.headline2!.copyWith(
                                   color: AppColors.textColor,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                           VaultComicsCard(
                             data: data.vaultStatsModel!.comic,
                           ),
-                          SizedBox(
-                            height: Get.height * .01,
-                          ),
 
                           ///My Vault
                           Padding(
                             padding: EdgeInsets.only(
-                                left: Get.width *
-                                    .06), //apply padding to all four sides
+                              left: 15,
+                              bottom: Get.height * .0167,
+                            ),
+                            //apply padding to all four sides
                             child: Text(
                               "My Vault",
-                              style: TextStyle(
+                              style: Get.textTheme.headline2!.copyWith(
                                   color: AppColors.textColor,
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold),
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                           data.setListModel != null
-                              ?  SizedBox(
-                                    width: Get.width,
-                                    height: Get.height * .22,
-                                    child: data.setListModel!.count! > 0
-                                        ? MysetsCard(
-                                            list: data.setListModel!.results,
-                                          )
-                                        : const NoDataCard(
-                                            title: 'Your Vault is empty!',
-                                          ),
-
+                              ? SizedBox(
+                                  width: Get.width,
+                                  height: Get.height * .22,
+                                  child: data.setListModel!.count! > 0
+                                      ? const MysetsCard()
+                                      : const NoDataCard(
+                                          title: 'Your Vault is empty!',
+                                        ),
                                 )
                               : const LoadingExample(),
-                          SizedBox(
-                            height: Get.height * .01,
-                          ),
 
                           ///My Wishlist
                           Row(
@@ -388,48 +377,48 @@ class _VaultState extends State<Vault> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left: Get.width *
-                                          .06), //apply padding to all four sides
+                                      left: 15,
+                                      top: Get.height * .0334,
+                                      bottom: Get.height * .0167),
                                   child: Text(
                                     "My Wishlist",
-                                    style: TextStyle(
+                                    style: Get.textTheme.headline2!.copyWith(
                                         color: AppColors.textColor,
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold),
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w500),
                                   ),
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    Get.to(() =>  const WishListPage());
+                                    Get.to(() => const WishListPage());
                                   },
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        right: Get.width *
-                                            .06), //apply padding to all four sides
-                                    child: Text(
-                                      "See All",
-                                      style: TextStyle(
-                                          color: AppColors.textColor,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
+                                  child: data.wishListModel!.results!.isNotEmpty
+                                      ? Padding(
+                                          padding: EdgeInsets.only(
+                                              right: Get.width * .06,
+                                              top: Get.height * .0334,
+                                              bottom: Get.height * .0167),
+                                          child: Text(
+                                            "See All",
+                                            style: TextStyle(
+                                                color: AppColors.textColor,
+                                                fontFamily: 'Inter',
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        )
+                                      : Container(),
                                 ),
                               ]),
-                          data.wishListModel != null
-                              ? SizedBox(
-                                     width: Get.width,
-                                     height: Get.height * .22,
-                                    child: data.wishListModel!.count! > 0
-                                        ? MywishlistCard(
-                                            list: data.wishListModel!.results,
-                                          )
-                                        : const NoDataCard(
-                                            title: 'Your Wishlist is empty!',
-                                          ),
-
-                                )
-                              : const LoadingExample(),
+                          SizedBox(
+                            width: Get.width,
+                            height: Get.height * .22,
+                            child: data.wishListModel!.results!.isNotEmpty
+                                ? const MywishlistCard()
+                                : const NoDataCard(
+                                    title: 'Your Wishlist is empty!',
+                                  ),
+                          ),
                           SizedBox(
                             height: Get.height * .01,
                           ),
@@ -443,9 +432,10 @@ class _VaultState extends State<Vault> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child:  Text(
+                        child: Text(
                           '24H',
                           style: TextStyle(
+                            fontFamily: 'Inter',
                             fontSize: 15.sp,
                             color: Colors.white,
                           ),
@@ -461,7 +451,7 @@ class _VaultState extends State<Vault> {
                   ],
                 ),
               )
-            : const LoadingExample();
+            : ColorLoader();
       }),
     );
   }

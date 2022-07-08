@@ -38,6 +38,10 @@ class _ControllerPageState extends State<ControllerPage> {
   late int productId;
   PostData? postData;
 
+  int _seletedItem = 0;
+  var _pages = [Home(), Market(), Vault()];
+  var _pageController = PageController();
+
   List<String> names = [
     'Home',
     'Market',
@@ -54,7 +58,7 @@ class _ControllerPageState extends State<ControllerPage> {
 
   Curve curve = Curves.ease;
 
-  TransitionType transitionType = TransitionType.fade;
+  TransitionType transitionType = TransitionType.slide;
 
   AppUpdate? appUpdate;
   GetData? getData;
@@ -63,9 +67,15 @@ class _ControllerPageState extends State<ControllerPage> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
+  Future<void> _firebaseMessagingBackgroundHandler(
+      RemoteMessage message) async {
+    await Firebase.initializeApp();
+
+    print("Handling a background message: ${message.messageId}");
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     postData = Provider.of<PostData>(context, listen: false);
 
     appUpdate = Provider.of<AppUpdate>(context, listen: false);
@@ -77,8 +87,6 @@ class _ControllerPageState extends State<ControllerPage> {
     getToken();
     initMessaging();
 
-    //mode = prefs!.getInt('mode');
-    print('Color Mode Cont: ' + mode.toString());
   }
 
   Future<void> _firebaseMsg(RemoteMessage message) async {
@@ -97,6 +105,7 @@ class _ControllerPageState extends State<ControllerPage> {
 
   Future<void> initPlatformState() async {
     WidgetsFlutterBinding.ensureInitialized();
+    
     FirebaseMessaging.onBackgroundMessage(_firebaseMsg);
     await Firebase.initializeApp();
   }
@@ -137,6 +146,7 @@ class _ControllerPageState extends State<ControllerPage> {
                         "Vemate",
                         style: Get.textTheme.headline1!.copyWith(
                             color: AppColors.textColor,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w500),
                       ),
                     ],
@@ -145,7 +155,7 @@ class _ControllerPageState extends State<ControllerPage> {
                 AppSpaces.spaces_height_10,
                 Text(
                   'Are you sure to exit?',
-                  style: TextStyle(color: AppColors.textColor),
+                  style: TextStyle(fontFamily: 'Inter',color: AppColors.textColor),
                 ),
                 AppSpaces.spaces_height_10,
                 Row(
@@ -171,7 +181,7 @@ class _ControllerPageState extends State<ControllerPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'No',
-                            style: TextStyle(color: AppColors.textColor),
+                            style: TextStyle(fontFamily: 'Inter',color: AppColors.textColor),
                           ),
                         ),
                       ),
@@ -197,7 +207,7 @@ class _ControllerPageState extends State<ControllerPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'Yes',
-                            style: TextStyle(color: AppColors.textColor),
+                            style: TextStyle(fontFamily: 'Inter',color: AppColors.textColor),
                           ),
                         ),
                       ),
@@ -216,28 +226,26 @@ class _ControllerPageState extends State<ControllerPage> {
   @override
   Widget build(BuildContext context) {
     Get.put(ControllerPageController());
-    return Obx(() {
-      printInfo(info: prefs!.getString('token').toString());
-
-      return WillPopScope(
+    return WillPopScope(
         onWillPop: _willPopCallback,
         child: Stack(
           children: [
             Scaffold(
               backgroundColor: AppColors.backgroundColor,
-              body: BottomBarPageTransition(
-                builder: (_, index) => getBody(index),
-                currentIndex: ControllerPageController.to.currentPage.value,
-                totalLength: ControllerPageController.to.bottomBarData!.length,
-                transitionType: transitionType,
-                transitionDuration: duration,
-                transitionCurve: curve,
+              body: PageView(
+                children: _pages,
+                onPageChanged: (index) {
+                  setState(() {
+                    _seletedItem = index;
+                  });
+                },
+                controller: _pageController,
               ),
               bottomNavigationBar: SizedBox(
                 //height: 65,
                 child: getBottomBar(),
               ),
-             ),
+            ),
             Positioned(
               left: 0,
               right: 0,
@@ -255,7 +263,7 @@ class _ControllerPageState extends State<ControllerPage> {
           ],
         ),
       );
-    });
+
   }
 
   getBody(int index) {
@@ -277,14 +285,11 @@ class _ControllerPageState extends State<ControllerPage> {
       child: BottomNavigationBar(
         backgroundColor: AppColors.backgroundColor,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-        currentIndex: ControllerPageController.to.currentPage.value,
-        onTap: (index) {
-          ControllerPageController.to.currentPage.value = index;
-        },
         type: BottomNavigationBarType.fixed,
         selectedFontSize: 12,
         unselectedFontSize: 12,
         selectedItemColor: AppColors.iconColor,
+        selectedIconTheme: IconThemeData(),
         unselectedItemColor: AppColors.textColor,
         showUnselectedLabels: true,
         items: List.generate(
@@ -294,6 +299,14 @@ class _ControllerPageState extends State<ControllerPage> {
             label: names[index],
           ),
         ),
+        currentIndex: _seletedItem,
+        onTap: (index) {
+          setState(() {
+            _seletedItem = index;
+            _pageController.animateToPage(_seletedItem,
+                duration: Duration(milliseconds: 200), curve: Curves.linear);
+          });
+        },
       ),
     );
   }
@@ -358,13 +371,36 @@ class _ControllerPageState extends State<ControllerPage> {
       productId = int.tryParse(message.data["id"]) ?? 0;
       print("onMessageOpenedApp Product Id: " + productId.toString());
 
-      message.data["type"] == 0
-          ? Get.to(() => CollectibleDetails(
+      Map<String, String> requestHeadersWithToken = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization':
+        'token ${prefs!.getString('token')}',
+      };
+
+      if(message.data["type"] == 0){
+        setState(() {
+          postData!.notificationRead(
+              context,
+              productId,
+              requestHeadersWithToken);
+        });
+        Get.to(() => CollectibleDetails(
+          productId: productId,
+        ));
+      } else {
+        setState(() {
+          postData!.notificationRead(
+              context,
+              productId,
+              requestHeadersWithToken);
+        });
+        Get.to(
+              () => ComicDetails(
                 productId: productId,
-              ))
-          : Get.to(() => ComicDetails(
-                productId: productId,
-              ));
+          ),
+        );
+      }
     });
   }
 }

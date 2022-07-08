@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ import '../../../core/Provider/getData.dart';
 import '../../../core/models/CollectiblesModel.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
+
 
 class CollectiblesItemCard extends StatefulWidget {
   const CollectiblesItemCard({Key? key}) : super(key: key);
@@ -46,7 +48,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                 enablePullDown: true,
                 enablePullUp: true,
                 header: WaterDropMaterialHeader(
-                  color: AppColors.primaryColor,
+                  color: AppColors.graphCard,
                 ),
                 footer: const ClassicFooter(
                   loadStyle: LoadStyle.ShowWhenLoading,
@@ -58,13 +60,12 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                   itemCount: data.collectiblesModel!.results!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: const EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.only(top: 4,bottom: 4,left: 4,right: 4),
                       child: Container(
                         width: Get.width,
                         decoration: BoxDecoration(
-                          gradient: AppColors.cardGradient,
+                          color: AppColors.graphCard,
                           borderRadius: BorderRadius.circular(12.0),
-                          border: Border.all(color: AppColors.borderColor),
                         ),
                         child: InkWell(
                           onTap: () {
@@ -74,8 +75,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                     data.collectiblesModel!.results![index].id,
                               ),
                             );
-                            /*Get.to(
-                                () => ChartExample(id: data.collectiblesModel!.results![index].id));*/
+
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
@@ -83,25 +83,26 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Container(
-                                  height: Get.height * .078,
+                                  height: Get.height * .09,
                                   width: Get.height * .078,
                                   decoration: BoxDecoration(
                                       color: AppColors.backgroundColor,
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
-                                          color: AppColors.borderColor)),
+                                          color: AppColors.textBoxBgColor)),
                                   alignment: Alignment.center,
-                                  child: data.collectiblesModel!.results![index].image==null ?Text(
+                                  child: data.collectiblesModel!.results![index].image == null ?Text(
                                     data.collectiblesModel!.results![index].name
                                         .toString()[0]
                                         .toUpperCase(),
                                     style: TextStyle(
                                         color: AppColors.backgroundColor,
+                                        fontFamily: 'Inter',
                                         fontSize: 35,
                                         fontWeight: FontWeight.bold),
                                   )
                                     :CachedNetworkImage(
-                                     imageUrl: data.collectiblesModel!.results![index].image!.original!.src.toString(),
+                                     imageUrl: data.collectiblesModel!.results![index].image!.image_on_list!.src.toString(),
                                     imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
@@ -111,9 +112,10 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                         ),
                                       ),
                                     ),
+                                    placeholder: _loader,
                                      ),
                                 ),
-                                AppSpaces.spaces_width_2,
+                                AppSpaces.spaces_width_5,
                                 Expanded(
                                   flex: 7,
                                   child: Column(
@@ -123,9 +125,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       Row(
                                         children: <Widget>[
                                           Expanded(
-                                              flex: 4,
+                                              flex: 5,
                                               child: SizedBox(
-                                                height: Get.height * .02,
                                                 child: Text(
                                                   data.collectiblesModel!
                                                       .results![index].name
@@ -145,7 +146,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                               )),
                                           AppSpaces.spaces_width_2,
                                           Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(
                                               data.collectiblesModel!
                                                   .results![index].edition
@@ -155,6 +156,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
+                                                      fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 10.sp),
@@ -166,7 +168,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 4,
+                                            flex: 5,
                                             child: Text(
                                               data
                                                           .collectiblesModel!
@@ -193,7 +195,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                           ),
                                           AppSpaces.spaces_width_2,
                                           Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(
                                               data.collectiblesModel!
                                                   .results![index].rarity
@@ -214,7 +216,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            flex: 4,
+                                            flex: 5,
                                             child: Text(
                                               r"$" +
                                                   data
@@ -232,11 +234,9 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       fontSize: 11.sp),
                                             ),
                                           ),
-                                          const SizedBox(
-                                            width: 2,
-                                          ),
+                                          AppSpaces.spaces_width_2,
                                           const Expanded(
-                                            flex: 2,
+                                            flex: 3,
                                             child: Text(""),
                                           ),
                                         ],
@@ -389,9 +389,17 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                   },
                 ),
               )
-            : const LoadingExample(),
+            :  ColorLoader(),
       );
     });
+
+
+  }
+  Widget _loader(BuildContext context, String url) {
+    return  ImageIcon(
+      AssetImage( 'assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
+    );
   }
 
   Future<void> _onRefresh() async {

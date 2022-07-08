@@ -132,7 +132,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    print("Comics data"+data["results"][0]["new_graph"].toString());
+    print("Comics data" + data["results"][0]["new_graph"].toString());
 
     if (comicsModel != null) {
       if (offset == 0) comicsModel!.results!.clear();
@@ -253,17 +253,17 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future getSetList() async {
+  Future getSetList(String? type) async {
     setListModel = null;
     final response = await BaseClient()
-        .get(Urls.commonStorage + '?type=0')
+        .get(Urls.commonStorage + '$type')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
-
     setListModel = SetListModel.fromJson(data);
+
+    printInfo(info: 'Set Info: ' + setListModel!.setResults!.length.toString());
 
     notifyListeners();
   }

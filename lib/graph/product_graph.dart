@@ -39,11 +39,12 @@ class _ProductGraphState extends State<ProductGraph> {
           child: Container(
               width: Get.width,
               decoration: BoxDecoration(
-                gradient: AppColors.cardGradient,
+                color: AppColors.graphCard,
                 borderRadius: BorderRadius.circular(12.0),
               ),
               child: data.singleProductModel != null
                   ? SfCartesianChart(
+
                       plotAreaBorderWidth: 0,
                       zoomPanBehavior: _zoomPanBehavior,
                       primaryXAxis: CategoryAxis(
@@ -57,12 +58,15 @@ class _ProductGraphState extends State<ProductGraph> {
                         labelRotation: 0,
                         labelStyle: TextStyle(
                             color: AppColors.textColor,
-                            fontFamily: 'Roboto',
-                            fontSize: 8.sp,
+                            fontFamily: 'Inter',
+                            fontSize: data.singleProductModel!.graphType == '0'
+                                ?10.sp :10.sp,
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w900),
-                        labelAlignment: LabelAlignment.start,
-                        maximumLabels: 12,
+
+                        labelAlignment: LabelAlignment.end,
+
+                        maximumLabels: 6,
                       ),
                       primaryYAxis: NumericAxis(
                         axisBorderType: AxisBorderType.withoutTopAndBottom,
@@ -76,12 +80,13 @@ class _ProductGraphState extends State<ProductGraph> {
                         labelRotation: 0,
                         labelStyle: TextStyle(
                             color: AppColors.textColor,
-                            fontFamily: 'Roboto',
-                            fontSize: 10,
+                            fontFamily: 'Inter',
+                            fontSize: 8.sp,
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w900),
                         labelAlignment: LabelAlignment.center,
-                        maximumLabels: 24,
+                        maximumLabels: 4,
+
                       ),
                       series: <ChartSeries<Graph, String>>[
                         SplineAreaSeries<Graph, String>(

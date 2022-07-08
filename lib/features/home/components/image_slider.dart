@@ -25,6 +25,7 @@ class _ImageSliderState extends State<ImageSlider> {
         options: CarouselOptions(
           height: MediaQuery.of(context).size.height * .17,
           viewportFraction: 0.8,
+
           initialPage: 0,
           //again starts from first image
           enableInfiniteScroll: true,
@@ -65,9 +66,10 @@ class _ImageSliderState extends State<ImageSlider> {
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: Text(
+
                         widget.news![index].title.toString(),
                         style: Get.textTheme.labelMedium!
-                            .copyWith(color: Colors.white),
+                            .copyWith(color: Colors.white,fontFamily: 'Inter',),
                       ),
                     ),
                   ),

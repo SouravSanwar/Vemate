@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
@@ -71,10 +73,9 @@ class _WishListPageState extends State<WishListPage> {
           children: [
             Text(
               'My Wishlist',
-              style:
-                  Get.textTheme.headline2!.copyWith(color: AppColors.textColor),
+              style: Get.textTheme.headline2!
+                  .copyWith(fontFamily: 'Inter', color: AppColors.textColor),
             ),
-
           ],
         ),
       ),
@@ -105,10 +106,8 @@ class _WishListPageState extends State<WishListPage> {
                                 child: Container(
                                   width: Get.width,
                                   decoration: BoxDecoration(
-                                      gradient: AppColors.cardGradient,
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      border: Border.all(
-                                          color: AppColors.borderColor)),
+                                      color: AppColors.graphCard,
+                                      borderRadius: BorderRadius.circular(5.0),),
                                   child: InkWell(
                                     onTap: () {
                                       data.wishListModel!.results![index]
@@ -140,32 +139,65 @@ class _WishListPageState extends State<WishListPage> {
                                             MainAxisAlignment.start,
                                         children: <Widget>[
                                           Container(
-                                            height: Get.height * .078,
+                                            height: Get.height * .09,
                                             width: Get.height * .078,
                                             decoration: BoxDecoration(
-                                                color: const Color(0xD3C89EF3),
+                                                color:
+                                                    AppColors.backgroundColor,
                                                 borderRadius:
-                                                    BorderRadius.circular(5),
+                                                    BorderRadius.circular(10),
                                                 border: Border.all(
-                                                    color:
-                                                        AppColors.borderColor)),
+                                                    color: AppColors
+                                                        .textBoxBgColor)),
                                             alignment: Alignment.center,
-                                            child: Text(
-                                              data
-                                                  .wishListModel!
-                                                  .results![index]
-                                                  .productDetail!
-                                                  .name
-                                                  .toString()[0]
-                                                  .toUpperCase(),
-                                              style: TextStyle(
-                                                  color:
-                                                      AppColors.backgroundColor,
-                                                  fontSize: 35.sp,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
+                                            child: data
+                                                        .wishListModel!
+                                                        .results![index]
+                                                        .productDetail!
+                                                        .image ==
+                                                    null
+                                                ? Text(
+                                                    data
+                                                        .wishListModel!
+                                                        .results![index]
+                                                        .productDetail!
+                                                        .name
+                                                        .toString()[0]
+                                                        .toUpperCase(),
+                                                    style: TextStyle(
+                                                        color: AppColors
+                                                            .backgroundColor,
+                                                        fontFamily: 'Inter',
+                                                        fontSize: 35,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )
+                                                : CachedNetworkImage(
+                                                    imageUrl: data
+                                                        .wishListModel!
+                                                        .results![index]
+                                                        .productDetail!
+                                                        .image!
+                                                        .image_on_list!
+                                                        .src
+                                                        .toString(),
+                                                    imageBuilder: (context,
+                                                            imageProvider) =>
+                                                        Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        image: DecorationImage(
+                                                          image: imageProvider,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    placeholder: _loader,
+                                                  ),
                                           ),
-                                          AppSpaces.spaces_width_2,
+                                          AppSpaces.spaces_width_5,
                                           Expanded(
                                             flex: 7,
                                             child: Column(
@@ -197,6 +229,8 @@ class _WishListPageState extends State<WishListPage> {
                                                                 .copyWith(
                                                                     color: AppColors
                                                                         .textColor,
+                                                                    fontFamily:
+                                                                        'Inter',
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -221,6 +255,8 @@ class _WishListPageState extends State<WishListPage> {
                                                               .copyWith(
                                                                   color: AppColors
                                                                       .textColor,
+                                                                  fontFamily:
+                                                                      'Inter',
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w300,
@@ -273,6 +309,8 @@ class _WishListPageState extends State<WishListPage> {
                                                                     .name
                                                                     .toString()
                                                                 : "",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         textAlign:
                                                             TextAlign.start,
                                                         style: Get.textTheme
@@ -280,6 +318,8 @@ class _WishListPageState extends State<WishListPage> {
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .textColor,
+                                                                fontFamily:
+                                                                    'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w900,
@@ -304,6 +344,8 @@ class _WishListPageState extends State<WishListPage> {
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .textColor,
+                                                                fontFamily:
+                                                                    'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w300,
@@ -333,6 +375,8 @@ class _WishListPageState extends State<WishListPage> {
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .textColor,
+                                                                fontFamily:
+                                                                    'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w900,
@@ -501,6 +545,8 @@ class _WishListPageState extends State<WishListPage> {
                                                                     ? Colors.red
                                                                     : Colors
                                                                         .green,
+                                                                fontFamily:
+                                                                    'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w300,
@@ -573,6 +619,7 @@ class _WishListPageState extends State<WishListPage> {
                                               'Do you really want to delete this item?',
                                               style: TextStyle(
                                                   color: AppColors.textColor,
+                                                  fontFamily: 'Inter',
                                                   fontSize: 15),
                                             ),
                                             actions: <Widget>[
@@ -597,13 +644,11 @@ class _WishListPageState extends State<WishListPage> {
                                                   }
                                                   postData!
                                                       .deleteWishlist(
-                                                          context,
-                                                          data
-                                                              .wishListModel!
-                                                              .results![index]
-                                                              .id,
-                                                          requestHeadersWithToken,
-                                                          index)
+                                                        context,
+                                                        data.wishListModel!
+                                                            .results![index].id,
+                                                        requestHeadersWithToken,
+                                                      )
                                                       .whenComplete(() =>
                                                           getData!
                                                               .getWishList());
@@ -611,8 +656,9 @@ class _WishListPageState extends State<WishListPage> {
                                                 text: 'Yes'.toUpperCase(),
                                                 style: Get.textTheme.button!
                                                     .copyWith(
-                                                        color: AppColors
-                                                            .textColor),
+                                                  color: AppColors.textColor,
+                                                  fontFamily: 'Inter',
+                                                ),
                                               ),
                                               CustomButtons(
                                                 width: Get.width * .2,
@@ -623,8 +669,9 @@ class _WishListPageState extends State<WishListPage> {
                                                 text: 'Close'.toUpperCase(),
                                                 style: Get.textTheme.button!
                                                     .copyWith(
-                                                        color: AppColors
-                                                            .textColor),
+                                                  color: AppColors.textColor,
+                                                  fontFamily: 'Inter',
+                                                ),
                                               ),
                                             ],
                                           );
@@ -642,8 +689,15 @@ class _WishListPageState extends State<WishListPage> {
                       )
                     : const LoadingExample(),
               )
-            : const LoadingExample();
+            :  ColorLoader();
       }),
+    );
+  }
+
+  Widget _loader(BuildContext context, String url) {
+    return ImageIcon(
+      AssetImage('assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
     );
   }
 

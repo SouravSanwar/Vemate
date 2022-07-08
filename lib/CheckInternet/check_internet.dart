@@ -23,6 +23,7 @@ bool? checkInternet=true;
       colorText: Colors.red,
       snackPosition: SnackPosition.BOTTOM,
 
+
     );
   }
 }

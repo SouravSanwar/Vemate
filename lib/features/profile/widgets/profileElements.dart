@@ -15,15 +15,14 @@ class CustomProfileElements extends StatelessWidget {
   Widget build(BuildContext context) {
     //ToDO
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 6),
       child: InkWell(
           onTap: onTap,
           splashColor: AppColors.backgroundColor,
           child: Container(
               decoration: BoxDecoration(
-                gradient: AppColors.cardGradient,
-                borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(color: const Color(0xff454F70)),
+                color: AppColors.graphCard,
+                borderRadius: BorderRadius.circular(15.0),
               ),
               height: 50.h,
               child: Row(
@@ -42,13 +41,15 @@ class CustomProfileElements extends StatelessWidget {
                       ),
                       Text(
                         text.toString(),
-                        style:TextStyle(fontSize: 16.sp, color: AppColors.textColor),
+                        style:TextStyle(fontFamily: 'Inter',fontSize: 16.sp, color: AppColors.textColor),
                       ),
                     ],
                   ),
-                  const Shader(
-                    icon: Icon(
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: Icon(
                       Icons.arrow_forward_ios,
+                      color: AppColors.textColor.withOpacity(.5),
                       size: 20,
                     ),
                   ),

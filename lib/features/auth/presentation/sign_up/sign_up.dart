@@ -76,6 +76,7 @@ class _SignUpState extends State<SignUp> {
                           child: Text(
                             "REGISTER",
                             style: TextStyle(
+                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.textColor),
                           ),
@@ -90,7 +91,6 @@ class _SignUpState extends State<SignUp> {
                         SizedBox(
                           height: Get.height * .022,
                         ),
-
                         TextInputField(
                           labelText: "Email",
                           height: Get.height * .04,
@@ -101,11 +101,11 @@ class _SignUpState extends State<SignUp> {
                           height: 15,
                         ),
                         PasswordInputField(
-                            labelText: "Password",
-                            height: Get.height * .04,
-                            textType: TextInputType.text,
-                            controller:
-                            SignUpController.to.passwordController,),
+                          labelText: "Password",
+                          height: Get.height * .04,
+                          textType: TextInputType.text,
+                          controller: SignUpController.to.passwordController,
+                        ),
                         Container(
                           alignment: Alignment.topLeft,
                           padding: const EdgeInsets.only(left: 35),
@@ -114,20 +114,23 @@ class _SignUpState extends State<SignUp> {
                               ? const Text(
                                   "*Min 8 characters with 1 uppercase, 1 number",
                                   style: TextStyle(
+                                      fontFamily: 'Inter',
                                       color: Colors.grey, fontSize: 11),
                                 )
                               : const Text(
                                   "Password must be atleast 8 characters",
                                   style: TextStyle(
+                                      fontFamily: 'Inter',
                                       color: Colors.red, fontSize: 11),
                                 ),
                         ),
-
                         PasswordInputField(
                           labelText: "Confirm Password",
                           height: Get.height * .04,
                           textType: TextInputType.text,
-                          controller:SignUpController.to.confirmPasswordController,),
+                          controller:
+                              SignUpController.to.confirmPasswordController,
+                        ),
                         SizedBox(
                           height: Get.height * .07,
                         ),
@@ -156,17 +159,19 @@ class _SignUpState extends State<SignUp> {
                                       flushbarPosition: FlushbarPosition.BOTTOM,
                                       isDismissible: false,
                                       duration: const Duration(seconds: 3),
-                                      messageText:  Text(
+                                      messageText: Text(
                                         "Password didn't match",
                                         style: TextStyle(
-                                            fontSize: 16.0.sp, color: Colors.red),
+                                            fontFamily: 'Inter',
+                                            fontSize: 16.0.sp,
+                                            color: Colors.red),
                                       ),
                                     ).show(context);
                             }
                           },
                           text: AppLanguageString.SIGN_UP.tr.toUpperCase(),
                           style: Get.textTheme.button!
-                              .copyWith(color: Colors.white),
+                              .copyWith(color: Colors.white,fontFamily: 'Inter',),
                         )
                       ],
                     ),

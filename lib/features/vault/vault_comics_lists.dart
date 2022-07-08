@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
@@ -47,6 +49,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
   void initState() {
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
+
+    getData!.getSetList('?type=1');
     // TODO: implement initState
     super.initState();
   }
@@ -62,83 +66,120 @@ class _VaultComicsListState extends State<VaultComicsList> {
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        elevation: 1.0,
-        titleSpacing: 0,
-        iconTheme: const IconThemeData(color: Colors.grey),
+    return WillPopScope(
+      onWillPop: () async {
+        await Provider.of<GetData>(context, listen: false).getSetList('');
+        await Provider.of<GetData>(context, listen: false).getVaultStats(0);
+        return true;
+      },
+      child: Scaffold(
         backgroundColor: AppColors.backgroundColor,
-        title: Text(
-          "My Comics",
-          style: TextStyle(
-              color: AppColors.textColor,
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold),
+        appBar: AppBar(
+          elevation: 1.0,
+          titleSpacing: 0,
+          iconTheme: const IconThemeData(color: Colors.grey),
+          backgroundColor: AppColors.backgroundColor,
+          title: Text(
+            "My Comics",
+            style: TextStyle(
+                color: AppColors.textColor,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
-      body: Consumer<GetData>(builder: (content, data, child) {
-        return Container(
-          height: _height! * .9,
-          width: _width,
-          padding: const EdgeInsets.only(bottom: 10),
-          child: data.setListModel != null
-              ? ListView.builder(
-                  itemCount: data.setListModel!.results!.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return data.setListModel!.results![index].productDetail!
-                                .type ==
-                            1
-                        ? InkWell(
+        body: Consumer<GetData>(builder: (content, data, child) {
+          return Container(
+            height: _height! * .9,
+            width: _width,
+            padding: const EdgeInsets.only(bottom: 10),
+            child: data.setListModel != null
+                ? (data.setListModel!.setResults!.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: data.setListModel!.setResults!.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return InkWell(
                             onTap: () {
-                              /*Get.to(() => ChartExample(id: widget.list![index].id));*/
-
-                              data.setListModel!.results![index].productDetail!
-                                          .type ==
-                                      0
-                                  ? Get.to(() => () {})
-                                  : Get.to(() => ComicDetails(
-                                        productId: data.setListModel!
-                                            .results![index].productDetail!.id!,
-                                      ));
+                              Get.to(() => ComicDetails(
+                                    productId: data
+                                        .setListModel!
+                                        .setResults![index]
+                                        .setProductDetail!
+                                        .id!,
+                                  ));
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Container(
                                 width: Get.width,
                                 decoration: BoxDecoration(
-                                    gradient: AppColors.cardGradient,
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    border: Border.all(
-                                        color: AppColors.borderColor)),
+                                  color: AppColors.backgroundColor,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Container(
-                                        height: Get.height * .078,
+                                        height: Get.height * .09,
                                         width: Get.height * .078,
                                         decoration: BoxDecoration(
-                                            color: const Color(0xD3C89EF3),
+                                            color: AppColors.textBoxBgColor,
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             border: Border.all(
                                                 color: AppColors.borderColor)),
                                         alignment: Alignment.center,
-                                        child: Text(
-                                          data.setListModel!.results![index]
-                                              .productDetail!.name
-                                              .toString()[0]
-                                              .toUpperCase(),
-                                          style: TextStyle(
-                                              color: Colors.deepPurpleAccent,
-                                              fontSize: 35.sp,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                        child: data
+                                                    .setListModel!
+                                                    .setResults![index]
+                                                    .setProductDetail!
+                                                    .image!
+                                                    .image_on_list ==
+                                                null
+                                            ? Text(
+                                                data
+                                                    .setListModel!
+                                                    .setResults![index]
+                                                    .setProductDetail!
+                                                    .name
+                                                    .toString()[0]
+                                                    .toUpperCase(),
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .backgroundColor,
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 35,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            : CachedNetworkImage(
+                                                imageUrl: data
+                                                    .setListModel!
+                                                    .setResults![index]
+                                                    .setProductDetail!
+                                                    .image!
+                                                    .image_on_list!
+                                                    .src
+                                                    .toString(),
+                                                imageBuilder:
+                                                    (context, imageProvider) =>
+                                                        Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                placeholder: _loader,
+                                              ),
                                       ),
-                                      AppSpaces.spaces_width_2,
+                                      AppSpaces.spaces_width_5,
                                       Expanded(
                                         flex: 7,
                                         child: Column(
@@ -154,8 +195,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                       child: Text(
                                                         data
                                                             .setListModel!
-                                                            .results![index]
-                                                            .productDetail!
+                                                            .setResults![index]
+                                                            .setProductDetail!
                                                             .name
                                                             .toString(),
                                                         overflow: TextOverflow
@@ -167,6 +208,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .textColor,
+                                                                fontFamily:
+                                                                    'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -180,8 +223,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     child: Text(
                                                       data
                                                           .setListModel!
-                                                          .results![index]
-                                                          .productDetail!
+                                                          .setResults![index]
+                                                          .setProductDetail!
                                                           .edition
                                                           .toString(),
                                                       textAlign:
@@ -191,6 +234,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                           .copyWith(
                                                               color: AppColors
                                                                   .textColor,
+                                                              fontFamily:
+                                                                  'Inter',
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -206,35 +251,38 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                   child: Text(
                                                     data
                                                                 .setListModel!
-                                                                .results![index]
-                                                                .productDetail!
+                                                                .setResults![
+                                                                    index]
+                                                                .setProductDetail!
                                                                 .type ==
                                                             1
                                                         ? data
                                                                     .setListModel!
-                                                                    .results![
+                                                                    .setResults![
                                                                         index]
-                                                                    .productDetail!
+                                                                    .setProductDetail!
                                                                     .series !=
                                                                 null
                                                             ? data
                                                                 .setListModel!
-                                                                .results![index]
-                                                                .productDetail!
+                                                                .setResults![
+                                                                    index]
+                                                                .setProductDetail!
                                                                 .series
                                                                 .toString()
                                                             : ""
                                                         : data
                                                                     .setListModel!
-                                                                    .results![
+                                                                    .setResults![
                                                                         index]
-                                                                    .productDetail!
+                                                                    .setProductDetail!
                                                                     .brand !=
                                                                 null
                                                             ? data
                                                                 .setListModel!
-                                                                .results![index]
-                                                                .productDetail!
+                                                                .setResults![
+                                                                    index]
+                                                                .setProductDetail!
                                                                 .brand!
                                                                 .name
                                                                 .toString()
@@ -245,6 +293,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .textColor,
+                                                            fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 10.sp),
@@ -256,8 +305,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                   child: Text(
                                                     data
                                                         .setListModel!
-                                                        .results![index]
-                                                        .productDetail!
+                                                        .setResults![index]
+                                                        .setProductDetail!
                                                         .rarity
                                                         .toString(),
                                                     textAlign: TextAlign.start,
@@ -266,6 +315,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .textColor,
+                                                            fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10.sp),
@@ -282,8 +332,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     r"$" +
                                                         data
                                                             .setListModel!
-                                                            .results![index]
-                                                            .productDetail!
+                                                            .setResults![index]
+                                                            .setProductDetail!
                                                             .floorPrice
                                                             .toString(),
                                                     textAlign: TextAlign.start,
@@ -292,6 +342,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         .copyWith(
                                                             color: AppColors
                                                                 .textColor,
+                                                            fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 11.sp),
@@ -301,13 +352,14 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                 Expanded(
                                                   flex: 2,
                                                   child: Text(
-                                                    '\$${data.setListModel!.results![index].productDetail!.priceChangePercent!.changePrice != null ? data.setListModel!.results![index].productDetail!.priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
+                                                    '\$${data.setListModel!.setResults![index].setProductDetail!.priceChangePercent!.changePrice != null ? data.setListModel!.setResults![index].setProductDetail!.priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
                                                     textAlign: TextAlign.start,
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
                                                             color: AppColors
                                                                 .textColor,
+                                                            fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 11.sp),
@@ -362,8 +414,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                   LineSeries<Graph, String>(
                                                     color: data
                                                                 .setListModel!
-                                                                .results![index]
-                                                                .productDetail!
+                                                                .setResults![
+                                                                    index]
+                                                                .setProductDetail!
                                                                 .priceChangePercent!
                                                                 .sign ==
                                                             'decrease'
@@ -371,15 +424,15 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         : Colors.green,
                                                     dataSource: data
                                                         .setListModel!
-                                                        .results![index]
-                                                        .productDetail!
+                                                        .setResults![index]
+                                                        .setProductDetail!
                                                         .graph!,
                                                     xValueMapper:
                                                         (Graph plot, _) =>
-                                                            plot.hour,
+                                                            plot.date,
                                                     yValueMapper:
                                                         (Graph plot, _) =>
-                                                            plot.total,
+                                                            plot.floorPrice,
                                                     xAxisName: 'Duration',
                                                     yAxisName: 'Total',
                                                   )
@@ -399,8 +452,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                       Text(
                                                         data
                                                                 .setListModel!
-                                                                .results![index]
-                                                                .productDetail!
+                                                                .setResults![
+                                                                    index]
+                                                                .setProductDetail!
                                                                 .priceChangePercent!
                                                                 .percent!
                                                                 .toString() +
@@ -410,9 +464,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         style: Get.textTheme.bodyText1!.copyWith(
                                                             color: data
                                                                         .setListModel!
-                                                                        .results![
+                                                                        .setResults![
                                                                             index]
-                                                                        .productDetail!
+                                                                        .setProductDetail!
                                                                         .priceChangePercent!
                                                                         .sign ==
                                                                     'decrease'
@@ -424,8 +478,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                       ),
                                                       if (data
                                                               .setListModel!
-                                                              .results![index]
-                                                              .productDetail!
+                                                              .setResults![
+                                                                  index]
+                                                              .setProductDetail!
                                                               .priceChangePercent!
                                                               .sign ==
                                                           'decrease')
@@ -474,12 +529,15 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                         20,
                                                                     vertical:
                                                                         10),
-                                                            title: Text(""),
+                                                            title:
+                                                                const Text(""),
                                                             content: Text(
                                                               'Do you really want to delete this item?',
                                                               style: TextStyle(
                                                                   color: AppColors
                                                                       .textColor,
+                                                                  fontFamily:
+                                                                      'Inter',
                                                                   fontSize: 15),
                                                             ),
                                                             actions: <Widget>[
@@ -491,16 +549,16 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                     Get.height *
                                                                         .05,
                                                                 onTap: () {
-                                                                  postData!
-                                                                      .deleteSetList(
-                                                                    context,
-                                                                    data
-                                                                        .setListModel!
-                                                                        .results![
-                                                                            index]
-                                                                        .id,
-                                                                    requestHeadersWithToken,
-                                                                  );
+                                                                  Get.back();
+                                                                  postData!.deleteSetList(
+                                                                      context,
+                                                                      data
+                                                                          .setListModel!
+                                                                          .setResults![
+                                                                              index]
+                                                                          .id,
+                                                                      requestHeadersWithToken,
+                                                                      '?type=1');
                                                                 },
                                                                 text: 'Yes'
                                                                     .toUpperCase(),
@@ -508,8 +566,11 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                     .textTheme
                                                                     .button!
                                                                     .copyWith(
-                                                                        color: AppColors
-                                                                            .textColor),
+                                                                  color: AppColors
+                                                                      .textColor,
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                ),
                                                               ),
                                                               CustomButtons(
                                                                 width:
@@ -528,8 +589,11 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                     .textTheme
                                                                     .button!
                                                                     .copyWith(
-                                                                        color: AppColors
-                                                                            .textColor),
+                                                                  color: AppColors
+                                                                      .textColor,
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                ),
                                                               ),
                                                             ],
                                                           );
@@ -550,21 +614,29 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                 ),
                               ),
                             ),
-                          )
-                        : Container();
-                  })
-              : const NoDataCard(
-            title: 'Your Comics are empty!',
-          ),
-        );
-      }),
+                          );
+                        })
+                    : const NoDataCard(
+                        title: 'Your Comics are empty!',
+                      ))
+                : ColorLoader(),
+          );
+        }),
+      ),
+    );
+  }
+
+  Widget _loader(BuildContext context, String url) {
+    return const ImageIcon(
+      AssetImage('assets/media/icon/logo v.png'),
+      color: Color(0xFF3A5A98),
     );
   }
 
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    getData!.getWishList();
+    //getData!.getWishList();
 
     setState(() {
       refreshController.refreshCompleted();
@@ -575,7 +647,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
   Future<void> _onLoading() async {
     offset = offset + 20;
 
-    getData!.getWishList(offset: offset);
+    //getData!.getWishList(offset: offset);
 
     await Future.delayed(const Duration(seconds: 2));
 

@@ -85,6 +85,7 @@ class _SignIn2FAState extends State<SignIn2FA> {
                       child: const Text(
                         "Two Factor Sign In",
                         style: TextStyle(
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold, color: Colors.grey),
                       )),
                   AppSpaces.spaces_height_25,
@@ -179,7 +180,7 @@ class _SignIn2FAState extends State<SignIn2FA> {
               duration: const Duration(seconds: 3),
               messageText:  Text(
                 "Login Successful",
-                style: TextStyle(fontSize: 16.0.sp, color: Colors.green),
+                style: TextStyle(fontFamily: 'Inter',fontSize: 16.0.sp, color: Colors.green),
               )).show(context);
         } else {
           Navigator.of(context).pop();
@@ -190,7 +191,7 @@ class _SignIn2FAState extends State<SignIn2FA> {
               duration: const Duration(seconds: 3),
               messageText:  Text(
                 "Invalid Information",
-                style: TextStyle(fontSize: 16.0.sp, color: Colors.green),
+                style: TextStyle(fontFamily: 'Inter',fontSize: 16.0.sp, color: Colors.green),
               )).show(context);
         }
       } catch (e) {
@@ -201,7 +202,7 @@ class _SignIn2FAState extends State<SignIn2FA> {
             duration: const Duration(seconds: 3),
             messageText: Text(
               "Something went wrong",
-              style: TextStyle(fontSize: 16.0.sp, color: Colors.green),
+              style: TextStyle(fontFamily: 'Inter',fontSize: 16.0.sp, color: Colors.green),
             )).show(context);
       }
     } else {
@@ -212,7 +213,7 @@ class _SignIn2FAState extends State<SignIn2FA> {
           duration: const Duration(seconds: 3),
           messageText: Text(
             "Something went wrong",
-            style: TextStyle(fontSize: 16.0.sp, color: Colors.green),
+            style: TextStyle(fontFamily: 'Inter',fontSize: 16.0.sp, color: Colors.green),
           )).show(context);
     }
   }

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:another_flushbar/flushbar.dart';
@@ -35,8 +37,6 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
   bool? month = false;
   bool? two_month = false;
   bool? year = false;
-  bool isAddedVault = false;
-  bool isAddedWishlist = false;
 
   @override
   void initState() {
@@ -66,9 +66,11 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                   ? data.singleProductModel!.name.toString()
                   : "",
               style: TextStyle(
-                  color: Colors.blueGrey.shade300,
+                  color: AppColors.textColor,
+                  fontFamily: 'Inter',
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ),
@@ -82,30 +84,29 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                       SliverToBoxAdapter(
                           child: Column(
                         children: [
-                          SizedBox(
-                            height: Get.height * .005,
-                          ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 50, vertical: 20),
+                            padding: EdgeInsets.only(
+                                top: 0,
+                                right: Get.width * 0.05336,
+                                left: Get.width * 0.05336,
+                                bottom: Get.height * 0.01667),
                             child: Container(
                               height: Get.height * .5,
-                              padding: const EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                   gradient: AppColors.vaultCardGradient,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
                                       color: AppColors.primaryColor)),
                               alignment: Alignment.center,
-                              child: data.singleProductModel!.image!.original ==
-                                      null
+                              child: data.singleProductModel!.image == null
                                   ? Text(
-                                      data.singleProductModel!.image!.original!
-                                          .src
+                                      data.singleProductModel!.name
                                           .toString()[0]
                                           .toUpperCase(),
                                       style: const TextStyle(
                                           color: Colors.deepPurpleAccent,
+                                          fontFamily: 'Inter',
                                           fontSize: 65,
                                           fontWeight: FontWeight.bold),
                                     )
@@ -155,9 +156,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           flushbarPosition:
                                               FlushbarPosition.BOTTOM,
                                           isDismissible: false,
-                                          duration: const Duration(seconds: 3),
+                                          duration: const Duration(seconds: 1),
                                           messageText: const Text(
-                                            "Product already in your wishlist",
+                                            'Already in Wishlist',
                                             style: TextStyle(
                                                 fontSize: 16.0,
                                                 color: Colors.green),
@@ -173,17 +174,23 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     ),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(12),
+                                    padding: const EdgeInsets.all(10),
                                     child: data.checkWishlistModel!.isFound ==
                                             false
-                                        ? Text(
-                                            'Add to Wishlist',
-                                            style: Get.textTheme.bodyMedium,
-                                          )
-                                        : Text(
-                                            'Already in Wishlist',
-                                            style: Get.textTheme.bodyMedium,
-                                          ),
+                                        ? AutoSizeText(
+                                      'Add to Wishlist',
+                                      style: Get
+                                          .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    )
+                                        : AutoSizeText(
+                                      'Added to Wishlist',
+                                      style: Get
+                                          .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -209,75 +216,86 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           data.singleProductModel!.id,
                                           requestHeadersWithToken,
                                         )
-                                      : Flushbar(
-                                          flushbarPosition:
-                                              FlushbarPosition.BOTTOM,
-                                          isDismissible: false,
-                                          duration: const Duration(seconds: 3),
-                                          messageText: const Text(
-                                            "Product already in your Vault",
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                color: Colors.green),
-                                          )).show(context);
-                                },
-                                child: Container(
-                                  width: Get.width * .42,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    gradient: AppColors.purpleGradient,
-                                    //color: AppColors.primaryColor,
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(12),
+                                            : Flushbar(
+                                            flushbarPosition:
+                                            FlushbarPosition.BOTTOM,
+                                            isDismissible: false,
+                                            duration:
+                                            const Duration(seconds: 3),
+                                            messageText: const Text(
+                                              "Product already in your Vault",
+                                              style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontFamily: 'Inter',
+                                                  color: Colors.green),
+                                            )).show(context);
+                                      },
+                                      child: Container(
+                                        width: Get.width * .42,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          gradient: AppColors.purpleGradient,
+                                          //color: AppColors.primaryColor,
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(12),
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12),
+                                          child: data.checkSetCheck!.isFound ==
+                                              false
+                                              ?  AutoSizeText('Add to Vault',
+                                            style: Get.textTheme
+                                                .bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,)
+                                              : AutoSizeText('Added to Vault',
+                                            style: Get.textTheme
+                                                .bodyMedium!.copyWith(fontFamily: 'Inter',),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12),
-                                    child: data.checkSetCheck!.isFound == false
-                                        ? Text('Add to Vault',
-                                            style: Get.textTheme.bodyMedium)
-                                        : Text('Already in Vault',
-                                            style: Get.textTheme.bodyMedium),
+                                  ],
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(top: Get.height*0.05,right:Get.width*0.05336,left:Get.width*0.05336,bottom: Get.height*0.0334 ),
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    "Total Distributions",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        color: AppColors.textColor,
+                                        fontFamily: 'Inter',
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(12),
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              "Total Distributions",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  color: Colors.blueGrey.shade300,
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                width: MediaQuery.of(context).size.width * .18,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 6, vertical: 8),
-                                child: InkWell(
-                                  onTap: () {
-                                    currentIndex = 1;
-                                    hour = true;
-                                    week = false;
-                                    month = false;
-                                    two_month = false;
-                                    year = false;
-                                    getData!.getSingleProduct(widget.productId,
-                                        graphType: 0);
-                                  },
-                                  child: CategoryCard(
-                                    name: '24H',
-                                    gradient: hour == true
-                                        ? AppColors.purpleGradient
-                                        : const LinearGradient(
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                      width:
+                                      MediaQuery.of(context).size.width * .18,
+                                      padding: const EdgeInsets.only(top: 0,bottom: 8,left: 6,right: 6),
+                                      child: InkWell(
+                                        onTap: () {
+                                          currentIndex = 1;
+                                          hour = true;
+                                          week = false;
+                                          month = false;
+                                          two_month = false;
+                                          year = false;
+                                          getData!.getSingleProduct(
+                                              widget.productId,
+                                              graphType: 0);
+                                        },
+                                        child: CategoryCard(
+                                          name: '24H',
+                                          gradient: hour == true
+                                              ? AppColors.buttonTrue
+                                              : const LinearGradient(
                                             colors: [
                                               Color(0xff272E49),
                                               Color(0xff272E49),
@@ -290,8 +308,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                               ///7 Days
                               Container(
                                 width: MediaQuery.of(context).size.width * .18,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 6, vertical: 8),
+                                padding: const EdgeInsets.only(
+                                    top: 0, bottom: 8, left: 6, right: 6),
                                 child: InkWell(
                                   onTap: () {
                                     currentIndex = 2;
@@ -306,7 +324,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   child: CategoryCard(
                                     name: '7D',
                                     gradient: week == true
-                                        ? AppColors.purpleGradient
+                                        ? AppColors.buttonTrue
                                         : const LinearGradient(
                                             colors: [
                                               Color(0xff272E49),
@@ -320,8 +338,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                               ///30 Days
                               Container(
                                 width: MediaQuery.of(context).size.width * .18,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 6, vertical: 8),
+                                padding: const EdgeInsets.only(
+                                    top: 0, bottom: 8, left: 6, right: 6),
                                 child: InkWell(
                                   onTap: () {
                                     currentIndex = 1;
@@ -336,7 +354,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   child: CategoryCard(
                                     name: '30D',
                                     gradient: month == true
-                                        ? AppColors.purpleGradient
+                                        ? AppColors.buttonTrue
                                         : const LinearGradient(
                                             colors: [
                                               Color(0xff272E49),
@@ -350,8 +368,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                               ///60 Days
                               Container(
                                 width: MediaQuery.of(context).size.width * .18,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 6, vertical: 8),
+                                padding: const EdgeInsets.only(
+                                    top: 0, bottom: 8, left: 6, right: 6),
                                 child: InkWell(
                                   onTap: () {
                                     currentIndex = 1;
@@ -366,7 +384,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   child: CategoryCard(
                                     name: '60D',
                                     gradient: two_month == true
-                                        ? AppColors.purpleGradient
+                                        ? AppColors.buttonTrue
                                         : const LinearGradient(
                                             colors: [
                                               Color(0xff272E49),
@@ -379,8 +397,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
 
                               Container(
                                 width: MediaQuery.of(context).size.width * .18,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 6, vertical: 8),
+                                padding: const EdgeInsets.only(
+                                    top: 0, bottom: 8, left: 6, right: 6),
                                 child: InkWell(
                                   onTap: () {
                                     currentIndex = 1;
@@ -395,7 +413,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   child: CategoryCard(
                                     name: '1Y',
                                     gradient: year == true
-                                        ? AppColors.purpleGradient
+                                        ? AppColors.buttonTrue
                                         : const LinearGradient(
                                             colors: [
                                               Color(0xff272E49),
@@ -408,7 +426,12 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                             ],
                           ),
                           Container(
-                            padding: const EdgeInsets.all(10),
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.only(
+                                top: Get.height * 0.0223,
+                                right: 10,
+                                left: 7,
+                                bottom: 0),
                             width: double.infinity,
                             child: FadeInUp(
                               duration: const Duration(milliseconds: 100),
@@ -426,7 +449,11 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                           ),
                           Container(
                             alignment: Alignment.topLeft,
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            padding: EdgeInsets.only(
+                                top: Get.height * 0.05,
+                                right: Get.width * 0.05336,
+                                left: Get.width * 0.05336,
+                                bottom: Get.height * 0.0334),
                             child: Text(
                               data.singleProductModel != null
                                   ? data.singleProductModel!.name.toString() +
@@ -434,7 +461,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   : "",
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                  color: Colors.blueGrey.shade300,
+                                  color: AppColors.textColor,
+                                  fontFamily: 'Inter',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15.sp),
                             ),
@@ -446,7 +474,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                   body: const ProductDetails(),
                 ),
               )
-            : const LoadingExample(),
+            : ColorLoader(),
       );
     });
   }

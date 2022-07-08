@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:provider/provider.dart';
@@ -73,6 +74,7 @@ class _BrandListState extends State<BrandList> {
                           padding: const EdgeInsets.all(5.0),
                           child: Text(
                             data.brandModel!.results![index].name.toString(),
+                            style: TextStyle(fontFamily: 'Inter',),
                           ),
                         ),
                       ),
@@ -80,7 +82,7 @@ class _BrandListState extends State<BrandList> {
                   },
                 ),
               )
-            : const LoadingExample(),
+            : ColorLoader(),
       );
     });
   }
