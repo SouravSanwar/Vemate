@@ -46,8 +46,8 @@ class PostData extends ChangeNotifier with BaseController {
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Please wait",
-        ));
+              message: "Please wait",
+            ));
 
     printInfo(info: body.toString());
 
@@ -81,33 +81,33 @@ class PostData extends ChangeNotifier with BaseController {
           showDialog(
               context: context,
               barrierDismissible: false,
-              builder: (_) =>  ResponseMessage(
-                icon: Icons.check_circle,
-                color: AppColors.primaryColor,
-                message: "Registration Successful",
-              ));
+              builder: (_) => ResponseMessage(
+                    icon: Icons.check_circle,
+                    color: AppColors.primaryColor,
+                    message: "Registration Successful",
+                  ));
         } else {
           Navigator.of(context).pop();
 
           showDialog(
               context: context,
               barrierDismissible: false,
-              builder: (_) =>  const ResponseMessage(
-                icon: Icons.error,
-                color: Colors.purpleAccent,
-                message: "Invalid Information",
-              ));
+              builder: (_) => const ResponseMessage(
+                    icon: Icons.error,
+                    color: Colors.purpleAccent,
+                    message: "Invalid Information",
+                  ));
         }
       } catch (e) {
         Navigator.of(context).pop();
         showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (_) =>  const ResponseMessage(
-              icon: Icons.error,
-              color: Colors.purpleAccent,
-              message: "Something Went Wrong",
-            ));
+            builder: (_) => const ResponseMessage(
+                  icon: Icons.error,
+                  color: Colors.purpleAccent,
+                  message: "Something Went Wrong",
+                ));
       }
     } else {
       Navigator.of(context).pop();
@@ -152,8 +152,8 @@ class PostData extends ChangeNotifier with BaseController {
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Please wait",
-        ));
+              message: "Please wait",
+            ));
 
     printInfo(info: body.toString());
 
@@ -174,11 +174,11 @@ class PostData extends ChangeNotifier with BaseController {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: "Verified Successfully",
-          ));
+          builder: (_) => ResponseMessage(
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: "Verified Successfully",
+              ));
 
       /*try {
         if (x['code'] == 'True') {
@@ -226,11 +226,11 @@ class PostData extends ChangeNotifier with BaseController {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  const ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: "Invalid Information",
-          ));
+          builder: (_) => const ResponseMessage(
+                icon: Icons.error,
+                color: Colors.purpleAccent,
+                message: "Invalid Information",
+              ));
     }
     await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
@@ -242,8 +242,8 @@ class PostData extends ChangeNotifier with BaseController {
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Please wait",
-        ));
+              message: "Please wait",
+            ));
 
     printInfo(info: body.toString());
 
@@ -265,11 +265,11 @@ class PostData extends ChangeNotifier with BaseController {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: "Password Updated",
-          ));
+          builder: (_) => ResponseMessage(
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: "Password Updated",
+              ));
     } else {
       Map<String, dynamic> js = json.decode(response.body);
       Navigator.of(context).pop();
@@ -310,8 +310,8 @@ class PostData extends ChangeNotifier with BaseController {
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Please wait",
-        ));
+              message: "Please wait",
+            ));
 
     printInfo(info: body.toString());
 
@@ -332,22 +332,22 @@ class PostData extends ChangeNotifier with BaseController {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: "Code send successfully",
-          ));
+          builder: (_) => ResponseMessage(
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: "Code send successfully",
+              ));
     } else {
       printInfo(info: 'From else');
       Navigator.of(context).pop();
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  const ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: "Something Went Wrong",
-          ));
+          builder: (_) => const ResponseMessage(
+                icon: Icons.error,
+                color: Colors.purpleAccent,
+                message: "Something Went Wrong",
+              ));
     }
     await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
@@ -359,8 +359,8 @@ class PostData extends ChangeNotifier with BaseController {
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Please wait",
-        ));
+              message: "Please wait",
+            ));
 
     /*final response =
         await BaseClient().post(Urls.logIn, body).catchError(handleError);*/
@@ -398,11 +398,11 @@ class PostData extends ChangeNotifier with BaseController {
           showDialog(
               context: context,
               barrierDismissible: false,
-              builder: (_) =>  ResponseMessage(
-                icon: Icons.check_circle,
-                color: AppColors.primaryColor,
-                message: "Login Successful",
-              ));
+              builder: (_) => ResponseMessage(
+                    icon: Icons.check_circle,
+                    color: AppColors.primaryColor,
+                    message: "Login Successful",
+                  ));
         } else {
           Navigator.of(context).pop();
           prefs!.setString('email', js['email'].toString());
@@ -422,11 +422,11 @@ class PostData extends ChangeNotifier with BaseController {
         showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (_) =>  const ResponseMessage(
-              icon: Icons.error,
-              color: Colors.purpleAccent,
-              message: "Invalid Information",
-            ));
+            builder: (_) => const ResponseMessage(
+                  icon: Icons.error,
+                  color: Colors.purpleAccent,
+                  message: "Invalid Information",
+                ));
       }
     } else {
       Navigator.of(context).pop();
@@ -462,8 +462,8 @@ class PostData extends ChangeNotifier with BaseController {
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Please wait",
-        ));
+              message: "Please wait",
+            ));
 
     final response = await BaseClient()
         .post(Urls.logInWith2FA, body)
@@ -480,11 +480,11 @@ class PostData extends ChangeNotifier with BaseController {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: "Login Successful",
-          ));
+          builder: (_) => ResponseMessage(
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: "Login Successful",
+              ));
     } else {
       Navigator.of(context).pop();
       if (js['username'] == null) {
@@ -521,8 +521,8 @@ class PostData extends ChangeNotifier with BaseController {
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Updating Info.Please wait",
-        ));
+              message: "Updating Info.Please wait",
+            ));
 
     printInfo(info: body.toString());
 
@@ -546,11 +546,11 @@ class PostData extends ChangeNotifier with BaseController {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: "Info Updated Successfully",
-          ));
+          builder: (_) => ResponseMessage(
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: "Info Updated Successfully",
+              ));
     } else if (js['is_email_verified'] == false) {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.getUserInfo();
@@ -572,11 +572,11 @@ class PostData extends ChangeNotifier with BaseController {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  const ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: "Invalid Information",
-          ));
+          builder: (_) => const ResponseMessage(
+                icon: Icons.error,
+                color: Colors.purpleAccent,
+                message: "Invalid Information",
+              ));
     }
     await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
@@ -643,8 +643,8 @@ class PostData extends ChangeNotifier with BaseController {
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Please wait",
-        ));
+              message: "Please wait",
+            ));
 
     printInfo(info: body.toString());
 
@@ -660,14 +660,14 @@ class PostData extends ChangeNotifier with BaseController {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.checkWishlist(id!);
 
-       showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (_) =>  ResponseMessage(
-                  icon: Icons.check_circle,
-                  color: AppColors.primaryColor,
-                  message: "Added Successfullly",
-                ));
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => ResponseMessage(
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: "Added Successfullly",
+              ));
     } else {
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
@@ -689,8 +689,8 @@ class PostData extends ChangeNotifier with BaseController {
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Please wait",
-        ));
+              message: "Please wait",
+            ));
 
     printInfo(info: body.toString());
 
@@ -712,11 +712,11 @@ class PostData extends ChangeNotifier with BaseController {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: "Added Successfullly",
-          ));
+          builder: (_) => ResponseMessage(
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: "Added Successfullly",
+              ));
     } else {
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
@@ -741,8 +741,8 @@ class PostData extends ChangeNotifier with BaseController {
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Please wait",
-        ));
+              message: "Please wait",
+            ));
 
     final response = await http.delete(Uri.parse(Urls.commonStorage + '$id/'),
         headers: requestToken);
@@ -759,27 +759,24 @@ class PostData extends ChangeNotifier with BaseController {
       Navigator.of(context).pop();
       await Provider.of<GetData>(context, listen: false).checkWishlist(id!);
 
-
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: js["msg"],
-          ));
+          builder: (_) => ResponseMessage(
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: js["msg"],
+              ));
     } else {
       Navigator.of(context).pop();
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: js["detail"],
-          ));
-
-
+          builder: (_) => ResponseMessage(
+                icon: Icons.error,
+                color: Colors.purpleAccent,
+                message: js["detail"],
+              ));
     }
 
     await Future.delayed(const Duration(seconds: 1));
@@ -789,13 +786,14 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future deleteSetList(BuildContext context, int? id, var requestToken, var type) async {
+  Future deleteSetList(
+      BuildContext context, int? id, var requestToken, var type) async {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Please wait",
-        ));
+              message: "Please wait",
+            ));
 
     final response = await http.delete(Uri.parse(Urls.commonStorage + '$id/'),
         headers: requestToken);
@@ -813,22 +811,21 @@ class PostData extends ChangeNotifier with BaseController {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: js["msg"],
-          ));
-
+          builder: (_) => ResponseMessage(
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: js["msg"],
+              ));
     } else {
       Navigator.of(context).pop();
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  const ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: "Something Went Wrong",
-          ));
+          builder: (_) => const ResponseMessage(
+                icon: Icons.error,
+                color: Colors.purpleAccent,
+                message: "Something Went Wrong",
+              ));
     }
     await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
@@ -840,8 +837,8 @@ class PostData extends ChangeNotifier with BaseController {
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Adding Alert.Please wait",
-        ));
+              message: "Adding Alert.Please wait",
+            ));
 
     printInfo(info: body.toString());
 
@@ -854,29 +851,27 @@ class PostData extends ChangeNotifier with BaseController {
 
     printInfo(info: data.toString());
 
-
-
     Map<String, dynamic> js = data;
     if (js.containsKey('id')) {
       Navigator.of(context).pop();
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: "Added Successfully",
-          ));
-    } else{
+          builder: (_) => ResponseMessage(
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: "Added Successfully",
+              )).whenComplete(() => getData!.getWishList());
+    } else {
       Navigator.of(context).pop();
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  const ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: "Invalid Information",
-          ));
+          builder: (_) => const ResponseMessage(
+                icon: Icons.error,
+                color: Colors.purpleAccent,
+                message: "Invalid Information",
+              ));
     }
 
     await Future.delayed(const Duration(seconds: 1));
@@ -890,8 +885,8 @@ class PostData extends ChangeNotifier with BaseController {
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Deleting Alert.Please wait",
-        ));
+              message: "Deleting Alert.Please wait",
+            ));
     getData = Provider.of<GetData>(context, listen: false);
 
     final response = await http.delete(Uri.parse(Urls.alert + '$id/'),
@@ -911,21 +906,21 @@ class PostData extends ChangeNotifier with BaseController {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: "Deleted Successfully",
-          ));
+          builder: (_) => ResponseMessage(
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: "Deleted Successfully",
+              ));
     } else {
       Navigator.of(context).pop();
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>  const ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: "Something went wrong",
-          ));
+          builder: (_) => const ResponseMessage(
+                icon: Icons.error,
+                color: Colors.purpleAccent,
+                message: "Something went wrong",
+              ));
     }
     await Future.delayed(Duration(seconds: 1));
     Navigator.of(context).pop();
