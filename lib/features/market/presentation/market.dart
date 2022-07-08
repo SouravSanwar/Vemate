@@ -55,7 +55,7 @@ class _MarketState extends State<Market> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
-        minimum: EdgeInsets.symmetric(vertical: Get.height*0.0209),
+        minimum: EdgeInsets.only(top: Get.height*0.0209),
         child: Consumer<GetData>(builder: (context, data, child) {
           return Padding(
             padding: EdgeInsets.only(top: AppDimension.padding_8),

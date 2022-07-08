@@ -159,7 +159,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       builder: (_) =>  const ResponseMessage(
                                         icon: Icons.error,
                                         color: Colors.purpleAccent,
-                                        message: "Already Added to Wishlist",
+                                        message: "Already Added to Wishlist !!",
                                       ));
                                   await Future.delayed(Duration(seconds: 1));
                                   Navigator.of(context).pop();
@@ -222,7 +222,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       builder: (_) =>  const ResponseMessage(
                                         icon: Icons.error,
                                         color: Colors.purpleAccent,
-                                        message: "Already Added to Vault",
+                                        message: "Already Added to Vault !!",
                                       ));
                                      await Future.delayed(Duration(seconds: 1));
                                      Navigator.of(context).pop();

@@ -11,6 +11,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
+import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/graph/graph_helper_comics.dart';
 import 'package:ketemaa/graph/product_graph.dart';
@@ -131,7 +132,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async {
                                     var body = {
                                       "product": data.singleProductModel!.id,
                                       "type": 1
@@ -151,19 +152,18 @@ class _ComicDetailsState extends State<ComicDetails> {
                                             data.singleProductModel!.id,
                                             requestHeadersWithToken,
                                           )
-                                        : Flushbar(
-                                            flushbarPosition:
-                                                FlushbarPosition.BOTTOM,
-                                            isDismissible: false,
-                                            duration:
-                                                const Duration(seconds: 3),
-                                            messageText: Text(
-                                              "Product already in your wishlist",
-                                              style: TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 16.0.sp,
-                                                  color: Colors.green),
-                                            )).show(context);
+                                        :  showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (_) =>  const ResponseMessage(
+                                          icon: Icons.error,
+                                          color: Colors.purpleAccent,
+                                          message: "Product already in your wishlist !!",
+
+                                        ));
+
+                                    await Future.delayed(Duration(seconds: 1));
+                                    Navigator.of(context).pop();
                                   },
                                   child: Container(
                                     width: Get.width * .42,
@@ -200,7 +200,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                 ),
                                 AppSpaces.spaces_width_20,
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async {
                                     var body = {
                                       "product": data.singleProductModel!.id,
                                       "type": 0
@@ -220,19 +220,18 @@ class _ComicDetailsState extends State<ComicDetails> {
                                             data.singleProductModel!.id,
                                             requestHeadersWithToken,
                                           )
-                                        : Flushbar(
-                                            flushbarPosition:
-                                                FlushbarPosition.BOTTOM,
-                                            isDismissible: false,
-                                            duration:
-                                                const Duration(seconds: 3),
-                                            messageText: const Text(
-                                              "Product already in your Vault",
-                                              style: TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 16.0,
-                                                  color: Colors.green),
-                                            )).show(context);
+                                        : showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (_) =>  const ResponseMessage(
+                                          icon: Icons.error,
+                                          color: Colors.purpleAccent,
+                                          message: "Product already in your Vault !!",
+
+                                        ));
+
+                                    await Future.delayed(Duration(seconds: 1));
+                                    Navigator.of(context).pop();
                                   },
                                   child: Container(
                                     width: Get.width * .42,

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 
@@ -30,12 +31,13 @@ class ResponseMessage extends StatelessWidget {
                 size: 24,
               ),
               const SizedBox(height: 10),
-              Text(
-                message! + " ...",
+              AutoSizeText(
+                message!,
                 style: TextStyle(
                   color: AppColors.textColor,
                   fontFamily: 'Inter',
                 ),
+                textAlign: TextAlign.center,
               )
             ],
           ),

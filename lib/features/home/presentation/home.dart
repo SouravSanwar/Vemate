@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
           ? Scaffold(
         backgroundColor: AppColors.backgroundColor,
         body: SafeArea(
-          minimum: const EdgeInsets.symmetric(vertical: 15),
+          minimum: EdgeInsets.only(top: Get.height*0.0209),
           child:  ListView(
             shrinkWrap: true,
             children: [
@@ -226,7 +226,6 @@ class _HomeState extends State<Home> {
                       : const LoadingExample(),
                 ),
               ),
-              AppSpaces.spaces_height_10,
             ],
           )
 
