@@ -8,7 +8,6 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/main.dart';
