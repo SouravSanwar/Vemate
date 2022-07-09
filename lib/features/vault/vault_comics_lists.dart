@@ -9,6 +9,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
+import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/main.dart';
@@ -68,8 +69,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
 
     return WillPopScope(
       onWillPop: () async {
-        await Provider.of<GetData>(context, listen: false).getSetList('');
-        await Provider.of<GetData>(context, listen: false).getVaultStats(0);
+        Get.offAll(() => ControllerPage(
+          seletedItem: 2,
+        ));
         return true;
       },
       child: Scaffold(
@@ -558,7 +560,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                               index]
                                                                           .id,
                                                                       requestHeadersWithToken,
-                                                                      '?type=1');
+                                                                      'product__type=1');
                                                                 },
                                                                 text: 'Yes'
                                                                     .toUpperCase(),
