@@ -733,10 +733,13 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future deleteWishlist(
-    BuildContext context,
-    int? id,
-    var requestToken,
-  ) async {
+      BuildContext context,
+      int? alterCheck,
+      int? id,
+      var requestToken,
+      ) async {
+
+    print("789789789789"+alterCheck.toString());
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -757,7 +760,7 @@ class PostData extends ChangeNotifier with BaseController {
     Map<String, dynamic> js = x;
     if (js.containsKey('msg')) {
       Navigator.of(context).pop();
-      await Provider.of<GetData>(context, listen: false).checkWishlist(id!);
+      getData!.getWishList();
 
 
       showDialog(
@@ -784,7 +787,9 @@ class PostData extends ChangeNotifier with BaseController {
 
     await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
-    Navigator.of(context).pop();
+    if(alterCheck==0){
+      Navigator.of(context).pop();
+    }
 
     notifyListeners();
   }

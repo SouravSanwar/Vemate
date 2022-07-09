@@ -62,6 +62,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                 ),
                 child: widget.list![index].image == null
                     ? Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                             widget.list![index].name.toString()[0].toUpperCase(),
