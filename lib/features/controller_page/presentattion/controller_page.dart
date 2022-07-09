@@ -42,7 +42,7 @@ class _ControllerPageState extends State<ControllerPage> {
 
   //int _seletedItem = 0;
   final _pages = [const Home(), const Market(), const Vault()];
-  final _pageController = PageController();
+  late PageController pageController = PageController();
 
   List<String> names = [
     'Home',
@@ -88,6 +88,7 @@ class _ControllerPageState extends State<ControllerPage> {
     initPlatformState();
     getToken();
     initMessaging();
+    pageController = PageController(initialPage: widget.seletedItem!);
   }
 
   Future<void> _firebaseMsg(RemoteMessage message) async {
@@ -245,7 +246,7 @@ class _ControllerPageState extends State<ControllerPage> {
                   widget.seletedItem = index;
                 });
               },
-              controller: _pageController,
+              controller: pageController,
             ),
             bottomNavigationBar: Container(
               decoration: BoxDecoration(gradient: AppColors.bottomGradiant),
@@ -316,7 +317,7 @@ class _ControllerPageState extends State<ControllerPage> {
       onTap: (index) {
         setState(() {
           widget.seletedItem = index;
-          _pageController.animateToPage(widget.seletedItem!,
+          pageController.animateToPage(widget.seletedItem!,
               duration: const Duration(milliseconds: 200), curve: Curves.linear);
         });
       },

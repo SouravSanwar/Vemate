@@ -182,6 +182,7 @@ class PostData extends ChangeNotifier with BaseController {
 
       /*try {
         if (x['code'] == 'True') {
+
           Flushbar(
               flushbarPosition: FlushbarPosition.BOTTOM,
               isDismissible: false,
@@ -193,6 +194,7 @@ class PostData extends ChangeNotifier with BaseController {
             .show(context);
         } else {
           Navigator.of(context).pop();
+
           Flushbar(
               flushbarPosition: FlushbarPosition.BOTTOM,
               isDismissible: false,
@@ -203,6 +205,7 @@ class PostData extends ChangeNotifier with BaseController {
               ))
               .show(context);
         }
+
       } catch (e) {
         Navigator.of(context).pop();
         Flushbar(
@@ -272,30 +275,30 @@ class PostData extends ChangeNotifier with BaseController {
       Navigator.of(context).pop();
       js.containsKey('password')
           ? Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 5),
-          messageText: Text(
-            js['password'][0].toString(),
-            style: const TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context)
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              isDismissible: false,
+              duration: const Duration(seconds: 5),
+              messageText: Text(
+                js['password'][0].toString(),
+                style: const TextStyle(fontSize: 16.0, color: Colors.green),
+              )).show(context)
           : (js.containsKey('code')
-          ? Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 5),
-          messageText: Text(
-            js['code'][0].toString(),
-            style: const TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context)
-          : Flushbar(
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          isDismissible: false,
-          duration: const Duration(seconds: 5),
-          messageText: Text(
-            js['email'][0].toString(),
-            style: const TextStyle(fontSize: 16.0, color: Colors.green),
-          )).show(context));
+              ? Flushbar(
+                  flushbarPosition: FlushbarPosition.BOTTOM,
+                  isDismissible: false,
+                  duration: const Duration(seconds: 5),
+                  messageText: Text(
+                    js['code'][0].toString(),
+                    style: const TextStyle(fontSize: 16.0, color: Colors.green),
+                  )).show(context)
+              : Flushbar(
+                  flushbarPosition: FlushbarPosition.BOTTOM,
+                  isDismissible: false,
+                  duration: const Duration(seconds: 5),
+                  messageText: Text(
+                    js['email'][0].toString(),
+                    style: const TextStyle(fontSize: 16.0, color: Colors.green),
+                  )).show(context));
     }
     await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
@@ -316,6 +319,7 @@ class PostData extends ChangeNotifier with BaseController {
         body: json.encode(body), headers: requestHeaders);
 
     /*var x = json.decode(response.body);
+
     printInfo(info: response.body.toString());*/
 
     if (response.statusCode == 200 ||
@@ -387,8 +391,8 @@ class PostData extends ChangeNotifier with BaseController {
 
           js['is_2fa'] == true
               ? postData!
-              .resendCode(context, body)
-              .whenComplete(() => Get.to(() => const SignIn2FA()))
+                  .resendCode(context, body)
+                  .whenComplete(() => Get.to(() => const SignIn2FA()))
               : Store(js, context);
 
           showDialog(
@@ -656,14 +660,14 @@ class PostData extends ChangeNotifier with BaseController {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.checkWishlist(id!);
 
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (_) =>  ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: "Added Successfullly",
-          ));
+       showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) =>  ResponseMessage(
+                  icon: Icons.check_circle,
+                  color: AppColors.primaryColor,
+                  message: "Added Successfullly",
+                ));
     } else {
       Flushbar(
           flushbarPosition: FlushbarPosition.BOTTOM,
@@ -729,10 +733,10 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future deleteWishlist(
-      BuildContext context,
-      int? id,
-      var requestToken,
-      ) async {
+    BuildContext context,
+    int? id,
+    var requestToken,
+  ) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -844,7 +848,7 @@ class PostData extends ChangeNotifier with BaseController {
     getData = Provider.of<GetData>(context, listen: false);
 
     final response =
-    await BaseClient().post(Urls.alert, body).catchError(handleError);
+        await BaseClient().post(Urls.alert, body).catchError(handleError);
 
     var data = json.decode(response);
 

@@ -25,7 +25,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
   TextEditingController valueController = TextEditingController();
   TextEditingController mintController1 = TextEditingController();
   TextEditingController mintController2 = TextEditingController();
-   int value=0;
+  int value = 0;
 
   bool? toggleValue = false;
   bool? hasDropDownValue = false;
@@ -42,8 +42,8 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
   void initState() {
     if (widget.results!.isAlert == true) {
       valueController.text = widget.results!.alertData!.value.toString();
-      if(valueController.text=="0.0"){
-        valueController.text= value.toString();
+      if (valueController.text == "0.0") {
+        valueController.text = value.toString();
       }
     }
 
@@ -70,14 +70,16 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
           children: [
             Text(
               "Price Alert",
-              style: TextStyle(fontFamily: 'Inter',fontSize: 22.0, color: AppColors.textColor),
+              style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 22.0,
+                  color: AppColors.textColor),
             ),
-
             Positioned(
               right: 0.0,
               top: -10,
               child: GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.of(context).pop();
                 },
                 child: Align(
@@ -99,7 +101,6 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                 ),
               ),
             ),
-
           ],
         ),
         content: /*toggleValue == true
@@ -114,7 +115,6 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                       SizedBox(
                         height: 15.h,
                       ),
-
                       Text(
                         "Value",
                         style: TextStyle(
@@ -196,12 +196,13 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                   "product": widget.results!.productDetail!.id,
                                   "type": 0,
                                   "price_type": TypeIndex,
-                                  "value": valueController.text != "" ?double.parse(valueController.text):0.0,
+                                  "value": valueController.text != ""
+                                      ? double.parse(valueController.text)
+                                      : 0.0,
                                   "frequency": frequencyIndex,
                                 };
 
                                 postData!.createAlert(context, body);
-
                               },
                               child: Text(
                                 widget.results!.isAlert == true
