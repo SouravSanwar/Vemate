@@ -53,7 +53,9 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
-                 mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
+                  mode == 0
+                      ? 'assets/media/image/vemate1.png'
+                      : 'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -66,11 +68,12 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   Container(
                       width: Get.width * .9,
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child:  Text(
+                      child: Text(
                         "LOGIN",
                         style: TextStyle(
                             fontFamily: 'Inter',
-                            fontWeight: FontWeight.bold, color: AppColors.textColor),
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(
@@ -110,9 +113,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   SizedBox(
                     height: Get.height * .022,
                   ),
-
                   CustomButtons(
-                    width: Get.width*.9,
+                    width: Get.width * .9,
                     height: Get.height * .065,
                     onTap: () {
                       var body = {
@@ -125,14 +127,15 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       setState(() {
                         postData!.logIn(context, body);
                       });
-
                     },
                     text: AppLanguageString.lOG_IN.tr.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(color: Colors.white,fontFamily: 'Inter',),
+                    style: Get.textTheme.button!.copyWith(
+                      color: Colors.white,
+                      fontFamily: 'Inter',
+                    ),
                   )
                 ],
               ),
-
               AppSpaces.spaces_height_35,
 
               /* Row(
@@ -256,11 +259,9 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
         ),
       ),
     );
-
-
   }
-  Future signIn() async{
-    await GoogleSignInApi.login();
 
+  Future signIn() async {
+    await GoogleSignInApi.login();
   }
 }

@@ -23,12 +23,15 @@ class PasswordInputField extends StatefulWidget {
 
 class _PasswordInputFieldState extends State<PasswordInputField> {
   bool _toggleVisibility = true;
+  TextSelectionControls? _mainContentSelectionController;
+  final _textfieldFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15),
       padding: const EdgeInsets.only(left: 20, right: 5),
+      height: 50,
       decoration: BoxDecoration(
         color: AppColors.backgroundColor,
         border: Border.all(
@@ -37,13 +40,23 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
         borderRadius: const BorderRadius.all(
             Radius.circular(25.0)), // set rounded corner radius
       ),
-      child: TextField(
+      child: TextFormField(
+        autocorrect: true,
         style: TextStyle(color: Colors.white, fontSize: 18.0.sp),
         controller: widget.controller,
         keyboardType: TextInputType.text,
+        enableInteractiveSelection: true,
+        selectionControls: _mainContentSelectionController,
+        //showSelectionHandles: true,
+        toolbarOptions: const ToolbarOptions(
+          copy: true,
+          cut: true,
+          paste: true,
+          selectAll: true,
+        ),
         decoration: InputDecoration(
           hintText: widget.labelText,
-          hintStyle:  TextStyle(fontFamily: 'Inter',fontSize: 15.sp),
+          hintStyle: TextStyle(fontFamily: 'Inter', fontSize: 15.sp),
           labelStyle: const TextStyle(
             fontFamily: 'Inter',
             color: Colors.blue,
@@ -68,7 +81,12 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           ),
         ),
         obscureText: _toggleVisibility,
+        cursorColor: AppColors.primaryColor,
+        focusNode: _textfieldFocusNode,
+        enableSuggestions: true,
+        //backgroundCursorColor: AppColors.primaryColor,
       ),
     );
   }
 }
+

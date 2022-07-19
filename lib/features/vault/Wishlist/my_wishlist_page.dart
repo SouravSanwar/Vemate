@@ -483,10 +483,10 @@ class _WishListPageState extends State<WishListPage> {
                                                 .graph!,
                                             xValueMapper:
                                                 (Graph plot, _) =>
-                                            plot.hour,
+                                            plot.date,
                                             yValueMapper:
                                                 (Graph plot, _) =>
-                                            plot.total,
+                                            plot.floorPrice,
                                             xAxisName: 'Duration',
                                             yAxisName: 'Total',
                                           )
