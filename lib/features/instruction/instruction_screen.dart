@@ -44,10 +44,10 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
       globalBackgroundColor: AppColors.backgroundColor,
       globalHeader: Container(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
-        child: FlatButton(
-            textColor: AppColors.textColor,
+        child: TextButton(
+            /*textColor: AppColors.textColor,
             padding: const EdgeInsets.all(8.0),
-            splashColor: Colors.blueAccent,
+            splashColor: Colors.blueAccent,*/
             onPressed: () {
               prefs!.getString('token') != null
                   ? Get.to(() => ControllerPage())

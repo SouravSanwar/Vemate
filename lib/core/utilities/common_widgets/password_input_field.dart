@@ -41,6 +41,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             Radius.circular(25.0)), // set rounded corner radius
       ),
       child: TextFormField(
+        readOnly: false,
         autocorrect: true,
         style: TextStyle(color: Colors.white, fontSize: 18.0.sp),
         controller: widget.controller,

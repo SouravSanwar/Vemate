@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 
+final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-final GlobalKey<FormState> formKey= GlobalKey<FormState>();
 class TextInputField extends StatefulWidget {
   String labelText;
   num height;
@@ -37,24 +37,24 @@ class _TextInputFieldState extends State<TextInputField> {
         color: AppColors.backgroundColor,
         border: Border.all(
             color: AppColors.grey, // set border color
-            width: 1.5), // set border width
+            width: 1.5),
         borderRadius: const BorderRadius.all(
             Radius.circular(25.0)), // set rounded corner radius
       ),
       child: widget.controller == 'emailController'
           ? TextFormField(
+        enabled: true,
               style: TextStyle(
                 color: AppColors.textColor,
                 fontFamily: 'Inter',
                 fontSize: 18.0.sp,
               ),
               key: formKey,
-              validator: (String? value){
-                if(value!.isEmpty){
+              validator: (String? value) {
+                if (value!.isEmpty) {
                   return 'Email is required';
                 }
                 return null;
-
               },
               onChanged: (value) {
                 setState(() {
@@ -70,11 +70,11 @@ class _TextInputFieldState extends State<TextInputField> {
               keyboardType: widget.textType,
             )
           : TextFormField(
-               validator: (String? value){
-                 if(value!.isEmpty){
-                   return 'This Field is required';
-                 }
-},
+              validator: (String? value) {
+                if (value!.isEmpty) {
+                  return 'This Field is required';
+                }
+              },
               style: TextStyle(
                 fontFamily: 'Inter',
                 color: AppColors.textColor,
@@ -83,7 +83,10 @@ class _TextInputFieldState extends State<TextInputField> {
               controller: widget.controller,
               decoration: InputDecoration(
                 hintText: widget.labelText,
-                hintStyle:  TextStyle(fontSize: 15.sp,fontFamily: 'Inter',),
+                hintStyle: TextStyle(
+                  fontSize: 15.sp,
+                  fontFamily: 'Inter',
+                ),
                 border: InputBorder.none,
               ),
               keyboardType: widget.textType,
