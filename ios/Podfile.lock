@@ -12,14 +12,14 @@ PODS:
     - Flutter
   - device_info_plus (0.0.1):
     - Flutter
-  - DKImagePickerController/Core (4.3.3):
+  - DKImagePickerController/Core (4.3.4):
     - DKImagePickerController/ImageDataManager
     - DKImagePickerController/Resource
-  - DKImagePickerController/ImageDataManager (4.3.3)
-  - DKImagePickerController/PhotoGallery (4.3.3):
+  - DKImagePickerController/ImageDataManager (4.3.4)
+  - DKImagePickerController/PhotoGallery (4.3.4):
     - DKImagePickerController/Core
     - DKPhotoGallery
-  - DKImagePickerController/Resource (4.3.3)
+  - DKImagePickerController/Resource (4.3.4)
   - DKPhotoGallery (0.0.17):
     - DKPhotoGallery/Core (= 0.0.17)
     - DKPhotoGallery/Model (= 0.0.17)
@@ -159,9 +159,9 @@ PODS:
     - Flutter
   - PromisesObjC (2.1.1)
   - ReachabilitySwift (5.0.0)
-  - SDWebImage (5.13.0):
-    - SDWebImage/Core (= 5.13.0)
-  - SDWebImage/Core (5.13.0)
+  - SDWebImage (5.13.1):
+    - SDWebImage/Core (= 5.13.1)
+  - SDWebImage/Core (5.13.1)
   - share_plus (0.0.1):
     - Flutter
   - shared_preferences_ios (0.0.1):
@@ -291,7 +291,7 @@ SPEC CHECKSUMS:
   connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
-  DKImagePickerController: 72fd378f244cef3d27288e0aebf217a4467e4012
+  DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 817ab1d8cd2da9d2da412a417162deee3500fc95
   Firebase: 5f8193dff4b5b7c5d5ef72ae54bb76c08e2b841d
@@ -324,7 +324,7 @@ SPEC CHECKSUMS:
   platform_device_id: 81b3e2993881f87d0c82ef151dc274df4869aef5
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  SDWebImage: 0327043dbb9533e75f2eff8445b3df0f2ceca6ac
+  SDWebImage: fb26a455eeda4c7a55e4dcb6172dbb258af7a4ca
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
