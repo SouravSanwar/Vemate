@@ -26,7 +26,7 @@ class LoadingDialogue extends StatelessWidget {
                 height: 10,
               ),
               AutoSizeText(
-                message! + " ...",style:TextStyle(
+                message! ,style:TextStyle(
                 color: AppColors.textColor,
                 fontFamily: 'Inter',),
                 textAlign: TextAlign.center,

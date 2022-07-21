@@ -42,20 +42,15 @@ class _TextInputFieldState extends State<TextInputField> {
             Radius.circular(25.0)), // set rounded corner radius
       ),
       child: widget.controller == 'emailController'
-          ? TextFormField(
+          ? TextField(
+
               style: TextStyle(
                 color: AppColors.textColor,
                 fontFamily: 'Inter',
                 fontSize: 18.0.sp,
               ),
               key: formKey,
-              validator: (String? value){
-                if(value!.isEmpty){
-                  return 'Email is required';
-                }
-                return null;
 
-              },
               onChanged: (value) {
                 setState(() {
                   value == null ? emailisValid = false : emailisValid = true;
@@ -69,12 +64,7 @@ class _TextInputFieldState extends State<TextInputField> {
               ),
               keyboardType: widget.textType,
             )
-          : TextFormField(
-               validator: (String? value){
-                 if(value!.isEmpty){
-                   return 'This Field is required';
-                 }
-},
+          : TextField(
               style: TextStyle(
                 fontFamily: 'Inter',
                 color: AppColors.textColor,

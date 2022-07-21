@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/graph/product_details.dart';
+import 'package:ketemaa/graph/product_details_collectibles.dart';
 import 'package:provider/provider.dart';
 import '../core/Provider/getData.dart';
 

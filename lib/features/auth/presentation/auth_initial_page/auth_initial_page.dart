@@ -1,19 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
+import 'package:ketemaa/core/Provider/postFile.dart';
 import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
+import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/googleSignApi.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../../../core/utilities/common_widgets/password_input_field.dart';
 import '../../../../core/utilities/common_widgets/text_input_field.dart';
 import '../sign_in/_controller/sign_in_controller.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'dart:math';
 
 class AuthInitialPage extends StatefulWidget {
   const AuthInitialPage({Key? key}) : super(key: key);
@@ -24,12 +32,18 @@ class AuthInitialPage extends StatefulWidget {
 
 class _AuthInitialPageState extends State<AuthInitialPage> {
   PostData? postData;
+  File? imageFile;
+  List<File>? files = <File>[];
+  List<File>? fileList = <File>[];
+  PostFile? postFile;
+
 
   @override
   void initState() {
     // TODO: implement initState
 
     postData = Provider.of<PostData>(context, listen: false);
+    postFile = Provider.of<PostFile>(context, listen: false);
 
     super.initState();
   }
@@ -89,26 +103,28 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       controller:
                           SigninController.to.passwordTextFiledController),
                   SizedBox(
-                    height: Get.height * .003,
+                    height: Get.height * .025,
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Get.toNamed(AppRoutes.RESET_PASS);
-                    },
-                    child: Container(
-                        alignment: Alignment.bottomRight,
-                        width: Get.width * .9,
-                        child: const Text(
+
+                  Container(
+                    width: Get.width * .9,
+                    alignment: Alignment.centerRight,
+                    child: InkWell(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.RESET_PASS);
+                        },
+                        child: Text(
                           "Forgot password?",
-                          style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                              fontSize: 12),
-                        )),
+                                style: TextStyle(
+                                    fontFamily: 'Inter',
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12.sp),
+                              ),
+                      ),
                   ),
                   SizedBox(
-                    height: Get.height * .022,
+                    height: Get.height * .025,
                   ),
 
                   CustomButtons(
@@ -135,7 +151,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
 
               AppSpaces.spaces_height_35,
 
-              /* Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
@@ -187,7 +203,19 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     width: Get.height * .1,
                     height: Get.height * .067,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final credential = await SignInWithApple.getAppleIDCredential(
+                          scopes: [
+                            AppleIDAuthorizationScopes.email,
+                            AppleIDAuthorizationScopes.fullName,
+                          ],
+                        );
+
+                        print("1111111111111111111111111111111111111111111111");
+
+                        // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
+                        // after they have been validated with Apple (see `Integration` section for more information on how to do this)
+                      },
                       child: Image.asset(
                         'assets/media/icon/apple.png',
                         color: Colors.white,
@@ -217,7 +245,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     ),
                   ),
                 ],
-              ),*/
+              ),
 
               SizedBox(
                 height: Get.height * .09,
@@ -260,7 +288,56 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
 
   }
   Future signIn() async{
-    await GoogleSignInApi.login();
+    final user=await GoogleSignInApi.login();
+    var body = {
+      "nickname":user!.displayName,
+      "email": user.email,
+      "gender": "0",
+      "birth_year": "1852",
+      "fcm_device_id": "3",
+      "social_provider": 1
+
+    };
+
+/*    var rng = new Random();
+    Directory tempDir = await getTemporaryDirectory();
+    File file = new File(rng.nextInt(100).toString() +'.jpg');
+    http.Response response = await http.get(Uri.parse(user.photoUrl!));
+    await file.writeAsBytes(response.bodyBytes);
+
+    imageFile=file;
+    print("fileeeeeeeee"+file.toString());*/
+
+    postData!.signUp(context, body);
+
+
+    //postImage();
+
+
+  }
+  Future postImage() async {
+
+    files!.add(imageFile!);
+    fileList!.addAll(files!);
+
+    List<String> fileKey = [];
+
+    for (int i = 0; i < fileList!.length; i++) {
+      fileKey.add('image');
+    }
+    Map<String, String>? body = {};
+
+    postFile!.requestWithFile(
+      context,
+      url: Urls.updateProfilePic,
+      method: Method.POST,
+      body: body,
+      fileKey: fileKey,
+      files: fileList,
+    );
+
+
 
   }
 }
+
