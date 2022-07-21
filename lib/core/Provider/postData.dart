@@ -73,10 +73,11 @@ class PostData extends ChangeNotifier with BaseController {
           prefs!.setString('email', js['email'].toString());
 
           printInfo(info: prefs!.getString('is_email_verified').toString());
-
+          Store(js, context);
           js['is_email_verified'] == true
-              ? Get.to(() => const AuthInitialPage())
+              ? Get.to(() => ControllerPage())
               : Get.to(() => OtpPage());
+
 
           showDialog(
               context: context,
@@ -109,7 +110,8 @@ class PostData extends ChangeNotifier with BaseController {
               message: "Something Went Wrong",
             ));
       }
-    } else {
+    }
+    else {
       Navigator.of(context).pop();
       if (js.containsKey('email')) {
         Flushbar(
@@ -382,6 +384,7 @@ class PostData extends ChangeNotifier with BaseController {
           Navigator.of(context).pop();
           prefs = await SharedPreferences.getInstance();
           prefs!.setString('email', js['email'].toString());
+
           var body = {
             "email": js['email'].toString(),
             "reason": "verify",

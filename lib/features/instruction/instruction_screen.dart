@@ -68,7 +68,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
       pages: [
         PageViewModel(
           titleWidget: Text(
-            'Fasted Floor Price Update',
+            'Fastest Floor Price Update',
             style: titleTextStyle,
             textAlign: TextAlign.center,
           ),
@@ -88,7 +88,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
             textAlign: TextAlign.center,
           ),
           bodyWidget: Text(
-            'Have functions that speed up your trade reaction times and allow you to get those right trades in first at your disposal.',
+            'Have access to functions that speed up your trade reaction times and allow you to get those right trades in first, at your disposal.',
             style: bodyTextStyle,
             textAlign: TextAlign.center,
           ),

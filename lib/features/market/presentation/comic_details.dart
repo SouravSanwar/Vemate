@@ -13,7 +13,7 @@ import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
-import 'package:ketemaa/graph/graph_helper_comics.dart';
+import 'package:ketemaa/graph/product_details_comics.dart';
 import 'package:ketemaa/graph/product_graph.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
