@@ -662,7 +662,7 @@ class PostData extends ChangeNotifier with BaseController {
                 icon: Icons.check_circle,
                 color: AppColors.primaryColor,
                 message: "Added Successfully",
-              ));
+              )).whenComplete(() => getData!.getWishList());
     } else {
       showDialog(
           context: context,
@@ -711,7 +711,7 @@ class PostData extends ChangeNotifier with BaseController {
                 icon: Icons.check_circle,
                 color: AppColors.primaryColor,
                 message: "Added Successfully",
-              ));
+              )).whenComplete(() => getData!.getSetList(''));
     } else {
       showDialog(
           context: context,

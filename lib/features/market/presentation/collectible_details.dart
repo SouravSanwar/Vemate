@@ -161,7 +161,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                         color: Colors.purpleAccent,
                                         message: "Already Added to Wishlist !!",
                                       ));
-                                  await Future.delayed(Duration(seconds: 1));
+                                  await Future.delayed(const Duration(seconds: 1));
                                   Navigator.of(context).pop();
                                 },
                                 child: Container(
@@ -224,7 +224,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                         color: Colors.purpleAccent,
                                         message: "Already Added to Vault !!",
                                       ));
-                                     await Future.delayed(Duration(seconds: 1));
+                                     await Future.delayed(const Duration(seconds: 1));
                                      Navigator.of(context).pop();
                                       },
                                       child: Container(
