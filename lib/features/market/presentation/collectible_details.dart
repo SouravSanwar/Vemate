@@ -68,7 +68,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                   : "",
               style: TextStyle(
                   color: AppColors.textColor,
-                  fontFamily: 'Inter',
+                  //fontFamily: 'Inter',
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold),
               overflow: TextOverflow.ellipsis,
@@ -107,7 +107,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           .toUpperCase(),
                                       style: const TextStyle(
                                           color: Colors.deepPurpleAccent,
-                                          fontFamily: 'Inter',
+                                          //fontFamily: 'Inter',
                                           fontSize: 65,
                                           fontWeight: FontWeight.bold),
                                     )
@@ -459,7 +459,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                   color: AppColors.textColor,
-                                  fontFamily: 'Inter',
+                                  //fontFamily: 'Inter',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15.sp),
                             ),

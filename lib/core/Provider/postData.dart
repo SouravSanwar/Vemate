@@ -71,9 +71,9 @@ class PostData extends ChangeNotifier with BaseController {
           prefs!.setString('email', js['email'].toString());
 
           printInfo(info: prefs!.getString('is_email_verified').toString());
-          Store(js, context);
+          //Store(js, context);
           js['is_email_verified'] == true
-              ? Get.to(() => ControllerPage())
+              ? Get.to(() => const AuthInitialPage())
               : Get.to(() => OtpPage());
 
           showDialog(

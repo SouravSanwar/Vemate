@@ -50,7 +50,9 @@ class _ResetPassState extends State<ResetPass> {
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
-                  mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
+                  mode == 0
+                      ? 'assets/media/image/vemate1.png'
+                      : 'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -67,7 +69,7 @@ class _ResetPassState extends State<ResetPass> {
                         "RESET PASSWORD",
                         style: TextStyle(
                             fontFamily: 'Inter',
-                            fontWeight: FontWeight.bold, color: AppColors.textColor),
+                            color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(
@@ -79,9 +81,8 @@ class _ResetPassState extends State<ResetPass> {
                   SizedBox(
                     height: 40.h,
                   ),
-
                   CustomButtons(
-                    width: Get.width*.9,
+                    width: Get.width * .9,
                     height: Get.height * .065,
                     onTap: () {
                       var body = {
@@ -91,13 +92,15 @@ class _ResetPassState extends State<ResetPass> {
                       postData!.resendCode(context, body).whenComplete(
                             () => Get.to(
                               () => const ForgotPassword(),
-                        ),
-                      );
+                            ),
+                          );
                     },
                     text: 'Send Code'.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(color: Colors.white,fontFamily: 'Inter',),
+                    style: Get.textTheme.button!.copyWith(
+                      color: Colors.white,
+                      fontFamily: 'Inter',
+                    ),
                   ),
-
                   const SizedBox(
                     height: 70,
                   ),

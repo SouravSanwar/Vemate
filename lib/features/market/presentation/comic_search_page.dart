@@ -50,28 +50,21 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
 
   String? rarityValue;
 
-
-
   @override
   void init() {
-
-    rarityValue=filterValue[0].toString().toLowerCase();
+    rarityValue = filterValue[0].toString().toLowerCase();
     getData!.searchComics(rarity: rarityValue!);
 
-    if(rarityValue=='common'){
-      common=true;
-    }
-    else if(rarityValue=='uncommon'){
-      uncommon=true;
-    }
-    else if(rarityValue=='rare'){
-      rare=true;
-    }
-    else if(rarityValue=='ultra rare'){
-      ultraRare=true;
-    }
-    else if(rarityValue=='secret rare'){
-      secretRare=true;
+    if (rarityValue == 'common') {
+      common = true;
+    } else if (rarityValue == 'uncommon') {
+      uncommon = true;
+    } else if (rarityValue == 'rare') {
+      rare = true;
+    } else if (rarityValue == 'ultra rare') {
+      ultraRare = true;
+    } else if (rarityValue == 'secret rare') {
+      secretRare = true;
     }
     print("Filter Value" + filterValue[0]);
   }
@@ -114,7 +107,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                   cursorColor: Colors.grey,
                   keyboardType: TextInputType.text,
                   style: const TextStyle(color: Colors.white),
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                       border: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,
@@ -180,7 +173,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                 decoration: BoxDecoration(
                                   color: AppColors.graphCard,
                                   borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(color: AppColors.textBoxBgColor),
+                                  border: Border.all(
+                                      color: AppColors.textBoxBgColor),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
@@ -191,32 +185,50 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                         height: Get.height * .09,
                                         width: Get.height * .078,
                                         decoration: BoxDecoration(
-                                            color: AppColors.graphCard,
-                                            borderRadius: BorderRadius.circular(10),),
-                                        alignment: Alignment.center,
-                                        child: data.searchComicsModel!.results![index].image==null ?Text(
-                                          data.searchComicsModel!.results![index].name
-                                              .toString()[0]
-                                              .toUpperCase(),
-                                          style: TextStyle(
-                                              color: AppColors.backgroundColor,
-                                              fontFamily: 'Inter',
-                                              fontSize: 35,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                            :CachedNetworkImage(
-                                          imageUrl: data.searchComicsModel!.results![index].image!.image_on_list!.src.toString(),
-                                          imageBuilder: (context, imageProvider) => Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                          placeholder: _loader,
+                                          color: AppColors.graphCard,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
+                                        alignment: Alignment.center,
+                                        child: data.searchComicsModel!
+                                                    .results![index].image ==
+                                                null
+                                            ? Text(
+                                                data.searchComicsModel!
+                                                    .results![index].name
+                                                    .toString()[0]
+                                                    .toUpperCase(),
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .backgroundColor,
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 35,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            : CachedNetworkImage(
+                                                imageUrl: data
+                                                    .searchComicsModel!
+                                                    .results![index]
+                                                    .image!
+                                                    .image_on_list!
+                                                    .src
+                                                    .toString(),
+                                                imageBuilder:
+                                                    (context, imageProvider) =>
+                                                        Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                placeholder: _loader,
+                                              ),
                                       ),
                                       AppSpaces.spaces_width_5,
                                       Expanded(
@@ -232,7 +244,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                     child: SizedBox(
                                                       height: Get.height * .02,
                                                       child: Text(
-                                                        data.searchComicsModel!
+                                                        data
+                                                            .searchComicsModel!
                                                             .results![index]
                                                             .name
                                                             .toString(),
@@ -245,11 +258,12 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .textColor,
-                                                            fontFamily: 'Inter',
+                                                                //fontFamily: 'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
-                                                                fontSize: 13.sp),
+                                                                fontSize:
+                                                                    13.sp),
                                                       ),
                                                     )),
                                                 AppSpaces.spaces_width_2,
@@ -268,7 +282,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                           .copyWith(
                                                               color: AppColors
                                                                   .textColor,
-                                                          fontFamily: 'Inter',
+                                                              fontFamily:
+                                                                  'Inter',
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -293,7 +308,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.8),
-                                                        fontFamily: 'Inter',
+                                                            fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 10.sp),
@@ -314,7 +329,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.8),
-                                                        fontFamily: 'Inter',
+                                                            //fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10.sp),
@@ -342,7 +357,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.8),
-                                                        fontFamily: 'Inter',
+                                                            //fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 11.sp),
@@ -440,7 +455,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.9),
-                                                        fontFamily: 'Inter',
+                                                            //fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 11.sp),
@@ -460,20 +475,25 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                                             .toStringAsFixed(2),
                                                         textAlign:
                                                             TextAlign.end,
-                                                        style: Get.textTheme.bodyText1!.copyWith(
-                                                            color: data
-                                                                        .searchComicsModel!
-                                                                        .results![
-                                                                            index]
-                                                                        .priceChangePercent!
-                                                                        .sign ==
-                                                                    'decrease'
-                                                                ? Colors.red
-                                                                : Colors.green,
-                                                            fontFamily: 'Inter',
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                            fontSize: 10.sp),
+                                                        style: Get.textTheme
+                                                            .bodyText1!
+                                                            .copyWith(
+                                                                color: data
+                                                                            .searchComicsModel!
+                                                                            .results![
+                                                                                index]
+                                                                            .priceChangePercent!
+                                                                            .sign ==
+                                                                        'decrease'
+                                                                    ? Colors.red
+                                                                    : Colors
+                                                                        .green,
+                                                                //fontFamily: 'Inter',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300,
+                                                                fontSize:
+                                                                    10.sp),
                                                       ),
                                                       if (data
                                                               .searchComicsModel!
@@ -517,8 +537,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
   }
 
   Widget _loader(BuildContext context, String url) {
-    return  ImageIcon(
-      AssetImage( 'assets/media/icon/logo v.png'),
+    return ImageIcon(
+      AssetImage('assets/media/icon/logo_v.png'),
       color: Color(0xFF3A5A98),
     );
   }

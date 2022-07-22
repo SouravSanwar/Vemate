@@ -11,8 +11,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class ProductGraph extends StatefulWidget {
   final List<Graph>? graphList;
 
-  const ProductGraph({Key? key, this.graphList})
-      : super(key: key);
+  const ProductGraph({Key? key, this.graphList}) : super(key: key);
 
   @override
   State<ProductGraph> createState() => _ProductGraphState();
@@ -56,15 +55,15 @@ class _ProductGraphState extends State<ProductGraph> {
                         labelIntersectAction: AxisLabelIntersectAction.hide,
                         labelRotation: 0,
                         labelStyle: TextStyle(
-                            color: AppColors.textColor,
-                            fontFamily: 'Inter',
-                            fontSize: data.singleProductModel!.graphType == '0'
-                                ?10.sp :10.sp,
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.w900),
-
+                          color: AppColors.textColor,
+                          fontFamily: 'Inter',
+                          fontSize: data.singleProductModel!.graphType == '0'
+                              ? 10.sp
+                              : 10.sp,
+                          fontStyle: FontStyle.italic,
+                          //fontWeight: FontWeight.w900,
+                        ),
                         labelAlignment: LabelAlignment.end,
-
                         maximumLabels: 6,
                       ),
                       primaryYAxis: NumericAxis(
@@ -85,7 +84,6 @@ class _ProductGraphState extends State<ProductGraph> {
                             fontWeight: FontWeight.w900),
                         labelAlignment: LabelAlignment.center,
                         maximumLabels: 4,
-
                       ),
                       series: <ChartSeries<Graph, String>>[
                         SplineAreaSeries<Graph, String>(

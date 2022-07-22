@@ -7,7 +7,8 @@ class ColorLoader extends StatefulWidget {
   final double radius;
   final double dotRadius;
 
-  ColorLoader({this.radius = 30.0, this.dotRadius = 4.0});
+  const ColorLoader({Key? key, this.radius = 30.0, this.dotRadius = 4.0})
+      : super(key: key);
 
   @override
   _ColorLoaderState createState() => _ColorLoaderState();
@@ -79,32 +80,28 @@ class _ColorLoaderState extends State<ColorLoader>
   @override
   Widget build(BuildContext context) {
     return Center(
-      child:RotationTransition(
+      child: RotationTransition(
         alignment: Alignment.center,
-
         turns: animation_rotation,
-        child: Container(
-          height: Get.height*.1,
-          width: Get.height*.1,
+        child: SizedBox(
+          height: Get.height * .1,
+          width: Get.height * .1,
           //color: Colors.limeAccent,
           child: Center(
-
             child: Stack(
               children: <Widget>[
                 Transform.translate(
-                  offset: const Offset(0.0, 0.0),
-                  child: Center(
-                    child: Container(
-                      width: radius,
-                      height: radius,
-                     child: Image.asset(
-                       'assets/media/icon/logo v.png',
-                       fit: BoxFit.fill,
-                     ),
-
-                    ),
-                  )
-                ),
+                    offset: const Offset(0.0, 0.0),
+                    child: Center(
+                      child: SizedBox(
+                        width: radius,
+                        height: radius,
+                        child: Image.asset(
+                          'assets/media/icon/logo_v.png',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    )),
                 Transform.translate(
                   child: Dot(
                     radius: dotRadius,
@@ -155,7 +152,7 @@ class _ColorLoaderState extends State<ColorLoader>
                     radius * sin(0.0 + 4 * pi / 4),
                   ),
                 ),
-               Transform.translate(
+                Transform.translate(
                   child: Dot(
                     radius: dotRadius,
                     color: Colors.lightGreen,
@@ -195,7 +192,6 @@ class _ColorLoaderState extends State<ColorLoader>
 
   @override
   void dispose() {
-
     controller.dispose();
     super.dispose();
   }
@@ -209,13 +205,11 @@ class Dot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Center(
+    return Center(
       child: Container(
-
         width: radius,
         height: radius,
         decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-
       ),
     );
   }

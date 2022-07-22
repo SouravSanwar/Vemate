@@ -137,7 +137,7 @@ class _ControllerPageState extends State<ControllerPage> {
                         height: Get.height * .02,
                         width: Get.height * .02,
                         child: Image.asset(
-                          'assets/media/icon/logo v.png',
+                          'assets/media/icon/logo_v.png',
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -342,7 +342,7 @@ class _ControllerPageState extends State<ControllerPage> {
   void initMessaging() {
     DidReceiveLocalNotificationCallback? onDidReceiveLocalNotification;
     var androidInit =
-        const AndroidInitializationSettings('assets/media/icon/logo v.png');
+        const AndroidInitializationSettings('assets/media/icon/logo_v.png');
     final IOSInitializationSettings iosInit = IOSInitializationSettings(
       requestSoundPermission: true,
       requestBadgePermission: true,

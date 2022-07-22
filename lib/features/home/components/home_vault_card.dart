@@ -73,7 +73,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                           textAlign: TextAlign.start,
                           style: Get.textTheme.bodyText2!.copyWith(
                               color: AppColors.white,
-                              fontFamily: 'Inter',
+                              //fontFamily: 'Inter',
                               fontWeight: FontWeight.w600,
                               fontSize: 14.sp),
                         ),
@@ -119,7 +119,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText2!.copyWith(
                             color: AppColors.greyWhite,
-                            fontFamily: 'Inter',
+                           // fontFamily: 'Inter',
                             fontWeight: FontWeight.w600,
                             fontSize: 14.sp),
                       ),
