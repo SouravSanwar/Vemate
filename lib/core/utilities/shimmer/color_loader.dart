@@ -41,30 +41,31 @@ class _ColorLoaderState extends State<ColorLoader>
     animation_rotation = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0.0, 1.0, curve: Curves.linear),
+        curve: const Interval(0.0, 1.0, curve: Curves.linear),
       ),
     );
 
     animation_radius_in = Tween(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0.75, 1.0, curve: Curves.elasticIn),
+        curve: const Interval(0.75, 1.0, curve: Curves.elasticIn),
       ),
     );
 
     animation_radius_out = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0.0, 0.25, curve: Curves.elasticOut),
+        curve: const Interval(0.0, 0.25, curve: Curves.elasticOut),
       ),
     );
 
     controller.addListener(() {
       setState(() {
-        if (controller.value >= 0.75 && controller.value <= 1.0)
+        if (controller.value >= 0.75 && controller.value <= 1.0) {
           radius = widget.radius * animation_radius_in.value;
-        else if (controller.value >= 0.0 && controller.value <= 0.25)
+        } else if (controller.value >= 0.0 && controller.value <= 0.25) {
           radius = widget.radius * animation_radius_out.value;
+        }
       });
     });
 
@@ -91,7 +92,7 @@ class _ColorLoaderState extends State<ColorLoader>
             child: Stack(
               children: <Widget>[
                 Transform.translate(
-                  offset: Offset(0.0, 0.0),
+                  offset: const Offset(0.0, 0.0),
                   child: Center(
                     child: Container(
                       width: radius,
