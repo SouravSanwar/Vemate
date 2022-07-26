@@ -617,7 +617,7 @@ class _WishListPageState extends State<WishListPage> {
                                     vertical: 10),
                                 title: const Text(""),
                                 content: Text(
-                                  'Do you really want to delete this item?',
+                                  'Do you really want to delete this item from your wishlist?',
                                   style: TextStyle(
                                       color: AppColors.textColor,
                                       fontFamily: 'Inter',
@@ -666,7 +666,7 @@ class _WishListPageState extends State<WishListPage> {
                                     onTap: () {
                                       Navigator.pop(context);
                                     },
-                                    text: 'Close'.toUpperCase(),
+                                    text: 'No'.toUpperCase(),
                                     style: Get.textTheme.button!
                                         .copyWith(
                                       color: AppColors.textColor,

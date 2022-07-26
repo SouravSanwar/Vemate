@@ -158,7 +158,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         builder: (_) =>  const ResponseMessage(
                                           icon: Icons.error,
                                           color: Colors.purpleAccent,
-                                          message: "Product already in your wishlist !!",
+                                          message: "Product already in your wishlist !",
 
                                         ));
 
@@ -226,7 +226,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         builder: (_) =>  const ResponseMessage(
                                           icon: Icons.error,
                                           color: Colors.purpleAccent,
-                                          message: "Product already in your Vault !!",
+                                          message: "Product already in your Vault !",
 
                                         ));
 

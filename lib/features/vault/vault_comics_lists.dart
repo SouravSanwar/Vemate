@@ -534,7 +534,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                             title:
                                                                 const Text(""),
                                                             content: Text(
-                                                              'Do you really want to delete this item?',
+                                                              'Do you really want to delete this item from your vault?',
                                                               style: TextStyle(
                                                                   color: AppColors
                                                                       .textColor,
@@ -585,7 +585,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                   Navigator.pop(
                                                                       context);
                                                                 },
-                                                                text: 'Close'
+                                                                text: 'No'
                                                                     .toUpperCase(),
                                                                 style: Get
                                                                     .textTheme
@@ -602,7 +602,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                         });
                                                   },
                                                   child: Icon(
-                                                    Icons.delete_forever,
+                                                    Icons.delete,
                                                     color: AppColors.textColor,
                                                   ),
                                                 ),

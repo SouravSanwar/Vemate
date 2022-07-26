@@ -68,9 +68,7 @@ class SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(
-                mode == 0
-                    ? 'assets/media/image/vemate1.png'
-                    : 'assets/media/image/vemate.png',
+                'assets/media/image/splash_logo.png',
                 width: animation.value * 400,
                 height: animation.value * 400,
               ),

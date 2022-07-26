@@ -43,26 +43,22 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
       key: introKey,
       globalBackgroundColor: AppColors.backgroundColor,
       globalHeader: Container(
+        alignment: Alignment.topRight,
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
-        child: FlatButton(
-            textColor: AppColors.textColor,
-            padding: const EdgeInsets.all(8.0),
-            splashColor: Colors.blueAccent,
-            onPressed: () {
-              prefs!.getString('token') != null
-                  ? Get.to(() => ControllerPage())
-                  : Get.to(() => const AuthInitialPage());
-            },
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Text(
-                "Skip",
-                style: TextStyle(
+        child: InkWell(
+          onTap: () {
+            prefs!.getString('token') != null
+                ? Get.to(() => ControllerPage())
+                : Get.to(() => const AuthInitialPage());
+          },
+          child: Text(
+            "Skip",
+            style: TextStyle(
 
-                    fontFamily: 'Inter',
-                    color: AppColors.textColor, fontSize: 12.0.sp),
-              ),
-            )),
+                fontFamily: 'Inter',
+                color: AppColors.textColor, fontSize: 12.0.sp),
+          ),
+        ),
       ),
 
       pages: [
@@ -177,10 +173,10 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
       controlsPosition: Position(left: Get.width * .17, right: 0, bottom: 10),
       controlsPadding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
       dotsDecorator: const DotsDecorator(
-        size: Size(10.0, 10.0),
-        color: Color(0xFFBDBDBD),
+        size: Size(5.0, 5.0),
+        color: Colors.grey,
         activeColor: Color(0xFF1DDFEA),
-        activeSize: Size(15.0, 15.0),
+        activeSize: Size(10.0, 10.0),
         activeShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(25.0)),
         ),

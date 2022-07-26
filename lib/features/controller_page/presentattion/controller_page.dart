@@ -119,7 +119,7 @@ class _ControllerPageState extends State<ControllerPage> {
         child: Container(
           width: Get.height * .25,
           decoration: BoxDecoration(
-            gradient: AppColors.cardGradient,
+            color: AppColors.backgroundColor,
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Padding(

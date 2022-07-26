@@ -210,12 +210,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                             AppleIDAuthorizationScopes.fullName,
                           ],
                         );
-
-                        print("1111111111111111111111111111111111111111111111");
-
-                        // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
-                        // after they have been validated with Apple (see `Integration` section for more information on how to do this)
-                      },
+                        },
                       child: Image.asset(
                         'assets/media/icon/apple.png',
                         color: Colors.white,
@@ -263,7 +258,6 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           style: TextStyle(
                               fontFamily: 'Inter',
                               color: Colors.grey,
-                              fontWeight: FontWeight.bold,
                               fontSize: 15.sp),
                         ),
                         AppSpaces.spaces_width_5,

@@ -538,7 +538,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                             title:
                                                                 const Text(""),
                                                             content: Text(
-                                                              'Do you really want to delete this item?',
+                                                              'Do you really want to delete this item from your vault?',
                                                               style: TextStyle(
                                                                   color: AppColors
                                                                       .textColor,
@@ -589,7 +589,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                   Navigator.pop(
                                                                       context);
                                                                 },
-                                                                text: 'Close'
+                                                                text: 'No'
                                                                     .toUpperCase(),
                                                                 style: Get
                                                                     .textTheme
@@ -606,7 +606,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                         });
                                                   },
                                                   child: Icon(
-                                                    Icons.delete_forever,
+                                                    Icons.delete,
                                                     color: AppColors.textColor,
                                                   ),
                                                 ),
