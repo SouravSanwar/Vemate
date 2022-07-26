@@ -21,7 +21,6 @@ import 'package:ketemaa/features/vault/vault.dart';
 
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
-import 'package:upgrader/upgrader.dart';
 
 import '../../market/presentation/market.dart';
 
@@ -318,7 +317,8 @@ class _ControllerPageState extends State<ControllerPage> {
         setState(() {
           widget.seletedItem = index;
           pageController.animateToPage(widget.seletedItem!,
-              duration: const Duration(milliseconds: 200), curve: Curves.linear);
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.linear);
         });
       },
     );
@@ -340,19 +340,8 @@ class _ControllerPageState extends State<ControllerPage> {
   }
 
   void initMessaging() {
-    DidReceiveLocalNotificationCallback? onDidReceiveLocalNotification;
-    var androidInit =
-        const AndroidInitializationSettings('assets/media/icon/logo_v.png');
-    final IOSInitializationSettings iosInit = IOSInitializationSettings(
-      requestSoundPermission: true,
-      requestBadgePermission: true,
-      requestAlertPermission: true,
-      onDidReceiveLocalNotification: onDidReceiveLocalNotification,
-    );
-    var initSetting =
-        InitializationSettings(android: androidInit, iOS: iosInit);
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    flutterLocalNotificationsPlugin.initialize(initSetting);
+    //DidReceiveLocalNotificationCallback? onDidReceiveLocalNotification;
+
     var androidDetails = const AndroidNotificationDetails(
       '1',
       'Default',
@@ -361,14 +350,75 @@ class _ControllerPageState extends State<ControllerPage> {
       priority: Priority.high,
       playSound: true,
     );
+
     var iosDetails = const IOSNotificationDetails();
 
     var generalNotificationDetails =
         NotificationDetails(android: androidDetails, iOS: iosDetails);
 
-    ///On Message
+    ///Notification When App Closed
+    void onDidReceiveLocalNotification(
+        int id, String? title, String? body, String? payload) async {
+      showDialog(
+          context: context,
+          builder: (_) {
+            return AlertDialog(
+              backgroundColor: AppColors.primaryColor,
+              title: Text(title.toString()),
+              content: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [Text(body.toString())],
+                ),
+              ),
+            );
+          });
+
+      Map<String, String> requestHeadersWithToken = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'token ${prefs!.getString('token')}',
+      };
+
+      /*if (int.parse(payload!) == 0) {
+        setState(() {
+          postData!
+              .notificationRead(context, productId, requestHeadersWithToken);
+        });
+        Get.to(() => CollectibleDetails(
+              productId: productId,
+            ));
+      } else {
+        setState(() {
+          postData!
+              .notificationRead(context, productId, requestHeadersWithToken);
+        });
+        Get.to(
+          () => ComicDetails(
+            productId: productId,
+          ),
+        );
+      }*/
+    }
+
+    var androidInit =
+        const AndroidInitializationSettings('assets/media/icon/logo_v.png');
+
+    final IOSInitializationSettings iosInit = IOSInitializationSettings(
+      requestSoundPermission: true,
+      requestBadgePermission: true,
+      requestAlertPermission: true,
+      onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+    );
+
+    var initSetting =
+        InitializationSettings(android: androidInit, iOS: iosInit);
+
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.initialize(initSetting);
+
+    ///Foreground Notification
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      printInfo(info: "On Message: " + message.data.toString());
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
 
@@ -378,7 +428,7 @@ class _ControllerPageState extends State<ControllerPage> {
       }
     });
 
-    ///On Message Open
+    ///Background Notification
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       print("onMessageOpenedApp: ${message.data}");
       productId = int.tryParse(message.data["id"]) ?? 0;
