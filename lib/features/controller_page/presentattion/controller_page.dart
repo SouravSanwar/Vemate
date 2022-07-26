@@ -374,12 +374,12 @@ class _ControllerPageState extends State<ControllerPage> {
             );
           });
 
+
       Map<String, String> requestHeadersWithToken = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'token ${prefs!.getString('token')}',
       };
-
       /*if (int.parse(payload!) == 0) {
         setState(() {
           postData!
@@ -416,6 +416,37 @@ class _ControllerPageState extends State<ControllerPage> {
 
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.initialize(initSetting);
+
+    FirebaseMessaging.onBackgroundMessage((message) async {
+      productId = int.tryParse(message.data["id"]) ?? 0;
+      print("onMessageOpenedApp Product Id: " + productId.toString());
+
+      Map<String, String> requestHeadersWithToken = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'token ${prefs!.getString('token')}',
+      };
+
+      if (message.data["type"] == 0) {
+        setState(() {
+          postData!
+              .notificationRead(context, productId, requestHeadersWithToken);
+        });
+        Get.to(() => CollectibleDetails(
+              productId: productId,
+            ));
+      } else {
+        setState(() {
+          postData!
+              .notificationRead(context, productId, requestHeadersWithToken);
+        });
+        Get.to(
+          () => ComicDetails(
+            productId: productId,
+          ),
+        );
+      }
+    });
 
     ///Foreground Notification
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
