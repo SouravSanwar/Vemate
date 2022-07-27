@@ -40,7 +40,6 @@ class ControllerPage extends StatefulWidget {
 class _ControllerPageState extends State<ControllerPage> {
   late int productId;
   PostData? postData;
-  int bottomIndex = 0;
 
   //int _seletedItem = 0;
   final _pages = [const Home(), const Market(), const Vault()];
@@ -251,10 +250,15 @@ class _ControllerPageState extends State<ControllerPage> {
               controller: pageController,
             ),
             bottomNavigationBar: Docker(
-              onTap: (int val) {
-                setState(() => bottomIndex = val);
+              onTap: (int index) {
+                setState(() {
+                  widget.seletedItem = index;
+                  pageController.animateToPage(widget.seletedItem!,
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.linear);
+                });
               },
-              currentIndex: bottomIndex,
+              currentIndex: widget.seletedItem,
               backgroundColor: AppColors.backgroundColor,
               selectedItemColor: Colors.white,
               unselectedItemColor: Colors.grey,
