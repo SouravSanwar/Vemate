@@ -42,7 +42,6 @@ class Results {
   Results({
       this.id, 
       this.verb,
-      this.image,
       this.actionObject, 
       this.target, 
       this.unread, 
@@ -52,7 +51,6 @@ class Results {
   Results.fromJson(dynamic json) {
     id = json['id'];
     verb = json['verb'];
-    image = json['image'] != null ? Image.fromJson(json['image']) : null;
     actionObject = json['action_object'];
     target = json['target'] != null ? Target.fromJson(json['target']) : null;
     unread = json['unread'];
@@ -62,7 +60,6 @@ class Results {
   int? id;
   String? verb;
   String? name;
-  Image? image;
   dynamic actionObject;
   Target? target;
   bool? unread;
@@ -73,9 +70,6 @@ class Results {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['verb'] = verb;
-    if (image != null) {
-      map['image'] = image?.toJson();
-    }
     map['action_object'] = actionObject;
     if (target != null) {
       map['target'] = target?.toJson();
@@ -90,22 +84,23 @@ class Results {
 class Image {
   Image({
     this.original,
-    this.image_on_list,});
+    this.imageList,});
 
   Image.fromJson(dynamic json) {
     original = json['original'] != null ? Original.fromJson(json['original']) : null;
-    image_on_list = json['list'] != null ? ImageOnList.fromJson(json['list']) : null;
+    imageList = json['list'] != null ? ImageOnList.fromJson(json['list']) : null;
   }
   Original? original;
-  ImageOnList? image_on_list;
+  ImageOnList? imageList;
+
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (original != null) {
       map['original'] = original?.toJson();
     }
-    if (image_on_list != null) {
-      map['list'] = image_on_list?.toJson();
+    if (imageList != null) {
+      map['list'] = imageList?.toJson();
     }
     return map;
   }
@@ -174,18 +169,21 @@ class Original {
 class Target {
   Target({
       this.id, 
-      this.name, 
+      this.name,
+    this.image,
       this.type, 
       this.rarity,});
 
   Target.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
     type = json['type'];
     rarity = json['rarity'];
   }
   int? id;
   String? name;
+  Image? image;
   int? type;
   String? rarity;
 
@@ -193,6 +191,9 @@ class Target {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['name'] = name;
+    if (image != null) {
+      map['image'] = image?.toJson();
+    }
     map['type'] = type;
     map['rarity'] = rarity;
     return map;

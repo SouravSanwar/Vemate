@@ -57,8 +57,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                             left: index == 0 ? 8 : 4.0,
                             right: index == 9 ? 8 : 4.0),
                         child: InkWell(
-                            onTap: () async {
-
+                            onTap: ()  {
                               Map<String, String> requestHeadersWithToken = {
                                 'Content-type': 'application/json',
                                 'Accept': 'application/json',
@@ -126,8 +125,8 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
 
                                 ///Image
                                 Container(
-                                  height: 50.h,
-                                  width: 50.h,
+                                  height: 55.h,
+                                  width: 55.h,
                                   decoration: BoxDecoration(
                                       color: AppColors.primaryColor
                                           .withOpacity(.8),
@@ -136,7 +135,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                           color: AppColors.borderColor)),
                                   alignment: Alignment.center,
                                   child: data.notificationListModel!
-                                              .results![index].image ==
+                                              .results![index].target!.image ==
                                           null
                                       ? Text(
                                           data.notificationListModel!
@@ -152,9 +151,9 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                       : CachedNetworkImage(
                                           imageUrl: data
                                               .notificationListModel!
-                                              .results![index]
+                                              .results![index].target!
                                               .image!
-                                              .image_on_list!
+                                              .imageList!
                                               .src
                                               .toString(),
                                           imageBuilder:
@@ -188,7 +187,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                             .results![index].description
                                             .toString(),
                                         textAlign: TextAlign.left,
-                                        maxLines: 1,
+                                        maxLines: 3,
                                         overflow: TextOverflow.ellipsis,
                                         style: Get.textTheme.bodyText2!
                                             .copyWith(

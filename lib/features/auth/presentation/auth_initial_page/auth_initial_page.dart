@@ -149,7 +149,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   )
                 ],
               ),
-              /*AppSpaces.spaces_height_35,
+              AppSpaces.spaces_height_35,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -239,7 +239,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     ),
                   ),
                 ],
-              ),*/
+              ),
               SizedBox(
                 height: Get.height * .09,
               ),
@@ -264,7 +264,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           style: TextStyle(
                               fontFamily: 'Inter',
                               color: AppColors.primaryColor,
-                              //fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.bold,
                               fontSize: 15.sp),
                         ),
                       ]),

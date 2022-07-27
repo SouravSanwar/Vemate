@@ -169,8 +169,8 @@ class _AllNotificationListState extends State<AllNotificationList> {
 
                                       ///Image
                                       Container(
-                                        height: 50.h,
-                                        width: 50.h,
+                                        height: 55.h,
+                                        width: 55.h,
                                         decoration: BoxDecoration(
                                             color: AppColors.primaryColor
                                                 .withOpacity(.8),
@@ -180,7 +180,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                 color: AppColors.borderColor)),
                                         alignment: Alignment.center,
                                         child: data.notificationListModel!
-                                                    .results![index].image ==
+                                                    .results![index].target!.image ==
                                                 null
                                             ? Text(
                                                 data.notificationListModel!
@@ -198,9 +198,9 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                             : CachedNetworkImage(
                                                 imageUrl: data
                                                     .notificationListModel!
-                                                    .results![index]
+                                                    .results![index].target!
                                                     .image!
-                                                    .image_on_list!
+                                                    .imageList!
                                                     .src
                                                     .toString(),
                                                 imageBuilder:
@@ -235,7 +235,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                   .results![index].description
                                                   .toString(),
                                               textAlign: TextAlign.left,
-                                              maxLines: 1,
+                                              maxLines: 3,
                                               overflow: TextOverflow.ellipsis,
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(
