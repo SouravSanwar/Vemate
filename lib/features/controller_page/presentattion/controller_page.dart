@@ -6,6 +6,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/Docker/docker.dart';
+import 'package:ketemaa/core/Docker/docker_item.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -38,6 +40,7 @@ class ControllerPage extends StatefulWidget {
 class _ControllerPageState extends State<ControllerPage> {
   late int productId;
   PostData? postData;
+  int bottomIndex = 0;
 
   //int _seletedItem = 0;
   final _pages = [const Home(), const Market(), const Vault()];
@@ -247,9 +250,29 @@ class _ControllerPageState extends State<ControllerPage> {
               },
               controller: pageController,
             ),
-            bottomNavigationBar: Container(
-              decoration: BoxDecoration(gradient: AppColors.bottomGradiant),
-              child: getBottomBar(),
+            bottomNavigationBar: Docker(
+              onTap: (int val) {
+                setState(() => bottomIndex = val);
+              },
+              currentIndex: bottomIndex,
+              backgroundColor: AppColors.backgroundColor,
+              selectedItemColor: Colors.white,
+              unselectedItemColor: Colors.grey,
+              selectedBackgroundColor: AppColors.purpleGradient,
+              items: [
+                DockerItem(
+                  icon: Icons.home,
+                  title: 'Home',
+                ),
+                DockerItem(
+                  icon: Icons.shop,
+                  title: 'Market',
+                ),
+                DockerItem(
+                  icon: Icons.card_travel,
+                  title: 'Vault',
+                ),
+              ],
             ),
           ),
           Positioned(
@@ -294,7 +317,8 @@ class _ControllerPageState extends State<ControllerPage> {
       showUnselectedLabels: true,
       items: List.generate(
         ControllerPageController.to.bottomBarData!.length,
-        (index) => BottomNavigationBarItem(
+        (index) {
+          return BottomNavigationBarItem(
             icon: Icon(icons[index]),
             label: names[index],
             activeIcon: ShaderMask(
@@ -310,7 +334,9 @@ class _ControllerPageState extends State<ControllerPage> {
                 ).createShader(bounds);
               },
               child: Icon(icons[index]),
-            )),
+            ),
+          );
+        },
       ),
       currentIndex: widget.seletedItem!,
       onTap: (index) {
@@ -373,7 +399,6 @@ class _ControllerPageState extends State<ControllerPage> {
               ),
             );
           });
-
 
       Map<String, String> requestHeadersWithToken = {
         'Content-type': 'application/json',
