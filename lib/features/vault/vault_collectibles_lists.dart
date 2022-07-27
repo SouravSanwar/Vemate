@@ -634,7 +634,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
 
   Widget _loader(BuildContext context, String url) {
     return const ImageIcon(
-      AssetImage('assets/media/icon/logo v.png'),
+      AssetImage('assets/media/icon/logo_v.png'),
       color: Color(0xFF3A5A98),
     );
   }

@@ -21,7 +21,6 @@ class _OtpPageState extends State<OtpPage> {
   TextEditingController textEditingController = TextEditingController();
   StreamController<ErrorAnimationType>? errorController;
 
-
   bool hasError = false;
   String currentText = "";
   final formKey = GlobalKey<FormState>();
@@ -56,7 +55,6 @@ class _OtpPageState extends State<OtpPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
       onWillPop: () async {
         /*Navigator.of(context).pushNamedAndRemoveUntil(
@@ -78,7 +76,9 @@ class _OtpPageState extends State<OtpPage> {
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
-                  mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
+                  mode == 0
+                      ? 'assets/media/image/vemate1.png'
+                      : 'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -130,7 +130,6 @@ class _OtpPageState extends State<OtpPage> {
                       length: 6,
                       blinkWhenObscuring: true,
                       animationType: AnimationType.fade,
-
                       pinTheme: PinTheme(
                         selectedFillColor: AppColors.primaryColor,
                         selectedColor: AppColors.lightBackgroundColor,
@@ -192,7 +191,10 @@ class _OtpPageState extends State<OtpPage> {
                 children: [
                   Text(
                     "Didn't receive the code? ",
-                    style: TextStyle(color: Colors.white, fontFamily: 'Inter',fontSize: 15.sp),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Inter',
+                        fontSize: 15.sp),
                   ),
                   TextButton(
                       onPressed: () {
@@ -208,7 +210,6 @@ class _OtpPageState extends State<OtpPage> {
                         style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.primaryColor,
-                            fontWeight: FontWeight.bold,
                             fontSize: 16.sp),
                       ))
                 ],
@@ -216,11 +217,10 @@ class _OtpPageState extends State<OtpPage> {
               SizedBox(
                 height: 15.h,
               ),
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomButtons(
-                  width: Get.width*.9,
+                  width: Get.width * .9,
                   height: Get.height * .065,
                   onTap: () {
                     formKey.currentState!.validate();
@@ -229,7 +229,7 @@ class _OtpPageState extends State<OtpPage> {
                       setState(() => hasError = true);
                     } else {
                       setState(
-                            () {
+                        () {
                           hasError = false;
 
                           var body = {
@@ -245,7 +245,10 @@ class _OtpPageState extends State<OtpPage> {
                     }
                   },
                   text: "VERIFY".toUpperCase(),
-                  style: Get.textTheme.button!.copyWith(color: Colors.white,fontFamily: 'Inter',),
+                  style: Get.textTheme.button!.copyWith(
+                    color: Colors.white,
+                    fontFamily: 'Inter',
+                  ),
                 ),
               )
 

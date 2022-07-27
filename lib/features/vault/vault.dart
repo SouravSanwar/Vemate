@@ -143,7 +143,7 @@ class _VaultState extends State<Vault> {
                                                 style: Get.textTheme.bodyText2!
                                                     .copyWith(
                                                         color: AppColors.white,
-                                                        fontFamily: 'Inter',
+                                                        //fontFamily: 'Inter',
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         fontSize: 14.sp),
@@ -169,7 +169,7 @@ class _VaultState extends State<Vault> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
-                                                      fontFamily: 'Inter',
+                                                      //fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 14.sp),
@@ -402,7 +402,7 @@ class _VaultState extends State<Vault> {
                                             "See All",
                                             style: TextStyle(
                                                 color: AppColors.textColor,
-                                                fontFamily: 'Inter',
+                                                //fontFamily: 'Inter',
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold),
                                           ),

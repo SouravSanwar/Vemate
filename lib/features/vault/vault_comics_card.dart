@@ -139,7 +139,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                               '\$${widget.data!.changePrice != null ? widget.data!.changePrice.toStringAsFixed(2) : "0.0"}',
                               style: TextStyle(
                                   color: AppColors.textColor,
-                                  fontFamily: 'Inter',
+                                  //fontFamily: 'Inter',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14),
                             ),

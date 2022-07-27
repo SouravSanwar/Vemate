@@ -78,7 +78,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                         .toUpperCase(),
                                     style: TextStyle(
                                         color: AppColors.backgroundColor,
-                                        fontFamily: 'Inter',
+                                        //fontFamily: 'Inter',
                                         fontSize: 45,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -122,7 +122,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                               .copyWith(
                                               color: AppColors
                                                   .textColor,
-                                              fontFamily: 'Inter',
+                                              //fontFamily: 'Inter',
                                               fontWeight:
                                               FontWeight.w600,
                                               fontSize: 12.sp),
@@ -217,8 +217,8 @@ class _MysetsCardState extends State<MysetsCard> {
                                                     .copyWith(
                                                     color: AppColors
                                                         .white,
-                                                    fontFamily:
-                                                    'Inter',
+                                                    /*fontFamily:
+                                                    'Inter',*/
                                                     fontWeight:
                                                     FontWeight
                                                         .w600,
@@ -272,8 +272,8 @@ class _MysetsCardState extends State<MysetsCard> {
                                                             ? Colors.red
                                                             : Colors
                                                             .green,
-                                                        fontFamily:
-                                                        'Inter',
+                                                        /*fontFamily:
+                                                        'Inter',*/
                                                         fontWeight:
                                                         FontWeight
                                                             .w300,
@@ -367,7 +367,7 @@ class _MysetsCardState extends State<MysetsCard> {
                                                       .copyWith(
                                                           color: AppColors
                                                               .textColor,
-                                                          fontFamily: 'Inter',
+                                                          //fontFamily: 'Inter',
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: 12.sp),
@@ -462,8 +462,8 @@ class _MysetsCardState extends State<MysetsCard> {
                                                             .copyWith(
                                                                 color: AppColors
                                                                     .white,
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                /*fontFamily:
+                                                                    'Inter',*/
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -517,8 +517,8 @@ class _MysetsCardState extends State<MysetsCard> {
                                                                     ? Colors.red
                                                                     : Colors
                                                                         .green,
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                /*fontFamily:
+                                                                    'Inter',*/
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w300,

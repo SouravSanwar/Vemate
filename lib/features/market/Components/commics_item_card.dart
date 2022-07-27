@@ -97,7 +97,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                         .toString()[0]
                                         .toUpperCase(),
                                     style: TextStyle(
-                                        fontFamily: 'Inter',
+                                        ////fontFamily: 'Inter',
                                         color: AppColors.backgroundColor,
                                         fontSize: 35,
                                         fontWeight: FontWeight.bold),
@@ -139,7 +139,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                       .copyWith(
                                                           color: AppColors
                                                               .textColor,
-                                                      fontFamily: 'Inter',
+                                                      //fontFamily: 'Inter',
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: 13.sp),
@@ -157,7 +157,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
-                                                  fontFamily: 'Inter',
+                                                  //fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 10.sp),
@@ -190,7 +190,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.8),
-                                                        fontFamily: 'Inter',
+                                                        //fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 10.sp),
@@ -208,7 +208,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                   .copyWith(
                                                       color: AppColors.textColor
                                                           .withOpacity(0.8),
-                                                  fontFamily: 'Inter',
+                                                  //fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 10.sp),
@@ -233,7 +233,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                   .copyWith(
                                                       color: AppColors.textColor
                                                           .withOpacity(0.8),
-                                                  fontFamily: 'Inter',
+                                                  //fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w900,
                                                       fontSize: 11.sp),
@@ -332,7 +332,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                   .copyWith(
                                                       color: AppColors.textColor
                                                           .withOpacity(0.9),
-                                                  fontFamily: 'Inter',
+                                                  //fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w400,
                                                       fontSize: 11.sp),
@@ -365,7 +365,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                                   'decrease'
                                                               ? Colors.red
                                                               : Colors.green,
-                                                      fontFamily: 'Inter',
+                                                      //fontFamily: 'Inter',
                                                           fontWeight:
                                                               FontWeight.w300,
                                                           fontSize: 10.sp),
@@ -411,7 +411,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
 
   Widget _loader(BuildContext context, String url) {
     return  ImageIcon(
-      AssetImage( 'assets/media/icon/logo v.png'),
+      AssetImage( 'assets/media/icon/logo_v.png'),
       color: Color(0xFF3A5A98),
     );
   }

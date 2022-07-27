@@ -90,7 +90,7 @@ class _ProfileState extends State<Profile> {
                   shrinkWrap: true,
                   children: [
                     // SizedBox(height: Get.height * .05),
-                   // ToggleButton(),
+                    // ToggleButton(),
                     const BackPreviousScreen(),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -131,7 +131,7 @@ class _ProfileState extends State<Profile> {
                             style: TextStyle(
                                 color: AppColors.textColor,
                                 fontFamily: 'Inter',
-                                fontWeight: FontWeight.bold,
+                                //fontWeight: FontWeight.bold,
                                 fontSize: 20.0),
                             textAlign: TextAlign.center,
                           ),
@@ -206,7 +206,7 @@ class _ProfileState extends State<Profile> {
                                         height: Get.height * .02,
                                         width: Get.height * .02,
                                         child: Image.asset(
-                                          'assets/media/icon/logo v.png',
+                                          'assets/media/icon/logo_v.png',
                                           fit: BoxFit.fill,
                                         ),
                                       ),
@@ -368,7 +368,8 @@ class _ProfileState extends State<Profile> {
                               content: Text(
                                 'Do you really want to exit?',
                                 style: TextStyle(
-                                    color: AppColors.textColor, fontSize: 15.sp),
+                                    color: AppColors.textColor,
+                                    fontSize: 15.sp),
                               ),
                               actions: <Widget>[
                                 TextButton(
@@ -386,7 +387,8 @@ class _ProfileState extends State<Profile> {
                                     },
                                     child: Text(
                                       'Yes',
-                                      style: TextStyle(color: AppColors.greyWhite),
+                                      style:
+                                          TextStyle(color: AppColors.greyWhite),
                                     )),
                                 TextButton(
                                   onPressed: () {

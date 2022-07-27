@@ -2,7 +2,6 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -77,7 +76,6 @@ class _SignUpState extends State<SignUp> {
                             "REGISTER",
                             style: TextStyle(
                                 fontFamily: 'Inter',
-                                fontWeight: FontWeight.bold,
                                 color: AppColors.textColor),
                           ),
                         ),
@@ -115,13 +113,15 @@ class _SignUpState extends State<SignUp> {
                                   "*Min 8 characters with 1 uppercase, 1 number",
                                   style: TextStyle(
                                       fontFamily: 'Inter',
-                                      color: Colors.grey, fontSize: 11),
+                                      color: Colors.grey,
+                                      fontSize: 11),
                                 )
                               : const Text(
                                   "Password must be atleast 8 characters",
                                   style: TextStyle(
                                       fontFamily: 'Inter',
-                                      color: Colors.red, fontSize: 11),
+                                      color: Colors.red,
+                                      fontSize: 11),
                                 ),
                         ),
                         PasswordInputField(
@@ -170,8 +170,10 @@ class _SignUpState extends State<SignUp> {
                             }
                           },
                           text: AppLanguageString.SIGN_UP.tr.toUpperCase(),
-                          style: Get.textTheme.button!
-                              .copyWith(color: Colors.white,fontFamily: 'Inter',),
+                          style: Get.textTheme.button!.copyWith(
+                            color: Colors.white,
+                            fontFamily: 'Inter',
+                          ),
                         )
                       ],
                     ),

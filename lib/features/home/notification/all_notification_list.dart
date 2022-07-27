@@ -241,7 +241,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
-                                                      fontFamily: 'Inter',
+                                                      //fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 12.sp),
@@ -283,7 +283,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
 
   Widget _loader(BuildContext context, String url) {
     return const ImageIcon(
-      AssetImage('assets/media/icon/logo v.png'),
+      AssetImage('assets/media/icon/logo_v.png'),
       color: const Color(0xFF3A5A98),
     );
   }

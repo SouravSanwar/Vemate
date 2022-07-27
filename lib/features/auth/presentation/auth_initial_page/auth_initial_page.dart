@@ -37,7 +37,6 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
   List<File>? fileList = <File>[];
   PostFile? postFile;
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -67,7 +66,9 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
-                 mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
+                  mode == 0
+                      ? 'assets/media/image/vemate1.png'
+                      : 'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -80,11 +81,11 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   Container(
                       width: Get.width * .9,
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child:  Text(
+                      child: Text(
                         "LOGIN",
                         style: TextStyle(
                             fontFamily: 'Inter',
-                            fontWeight: FontWeight.bold, color: AppColors.textColor),
+                            color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(
@@ -105,30 +106,28 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   SizedBox(
                     height: Get.height * .025,
                   ),
-
                   Container(
                     width: Get.width * .9,
                     alignment: Alignment.centerRight,
                     child: InkWell(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.RESET_PASS);
-                        },
-                        child: Text(
-                          "Forgot password?",
-                                style: TextStyle(
-                                    fontFamily: 'Inter',
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12.sp),
-                              ),
+                      onTap: () {
+                        Get.toNamed(AppRoutes.RESET_PASS);
+                      },
+                      child: Text(
+                        "Forgot password?",
+                        style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12.sp),
                       ),
+                    ),
                   ),
                   SizedBox(
                     height: Get.height * .025,
                   ),
-
                   CustomButtons(
-                    width: Get.width*.9,
+                    width: Get.width * .9,
                     height: Get.height * .065,
                     onTap: () {
                       var body = {
@@ -141,17 +140,17 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       setState(() {
                         postData!.logIn(context, body);
                       });
-
                     },
                     text: AppLanguageString.lOG_IN.tr.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(color: Colors.white,fontFamily: 'Inter',),
+                    style: Get.textTheme.button!.copyWith(
+                      color: Colors.white,
+                      fontFamily: 'Inter',
+                    ),
                   )
                 ],
               ),
-
-              AppSpaces.spaces_height_35,
-
-               Row(
+              /*AppSpaces.spaces_height_35,
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
@@ -188,7 +187,6 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         signIn();
-
                       },
                       child: Image.asset('assets/media/icon/google.png'),
                       style: ElevatedButton.styleFrom(
@@ -204,7 +202,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     height: Get.height * .067,
                     child: ElevatedButton(
                       onPressed: () async {
-                        final credential = await SignInWithApple.getAppleIDCredential(
+                        final credential =
+                            await SignInWithApple.getAppleIDCredential(
                           scopes: [
                             AppleIDAuthorizationScopes.email,
                             AppleIDAuthorizationScopes.fullName,
@@ -240,8 +239,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     ),
                   ),
                 ],
-              ),
-
+              ),*/
               SizedBox(
                 height: Get.height * .09,
               ),
@@ -266,7 +264,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           style: TextStyle(
                               fontFamily: 'Inter',
                               color: AppColors.primaryColor,
-                              fontWeight: FontWeight.bold,
+                              //fontWeight: FontWeight.bold,
                               fontSize: 15.sp),
                         ),
                       ]),
@@ -278,19 +276,17 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
         ),
       ),
     );
-
-
   }
-  Future signIn() async{
-    final user=await GoogleSignInApi.login();
+
+  Future signIn() async {
+    final user = await GoogleSignInApi.login();
     var body = {
-      "nickname":user!.displayName,
+      "nickname": user!.displayName,
       "email": user.email,
       "gender": "0",
       "birth_year": "1852",
       "fcm_device_id": "3",
       "social_provider": 1
-
     };
 
 /*    var rng = new Random();
@@ -304,13 +300,10 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
 
     postData!.signUp(context, body);
 
-
     //postImage();
-
-
   }
-  Future postImage() async {
 
+  Future postImage() async {
     files!.add(imageFile!);
     fileList!.addAll(files!);
 
@@ -329,9 +322,5 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
       fileKey: fileKey,
       files: fileList,
     );
-
-
-
   }
 }
-

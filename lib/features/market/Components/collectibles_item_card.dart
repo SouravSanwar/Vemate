@@ -13,7 +13,6 @@ import '../../../core/models/CollectiblesModel.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
 
-
 class CollectiblesItemCard extends StatefulWidget {
   const CollectiblesItemCard({Key? key}) : super(key: key);
 
@@ -60,7 +59,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                   itemCount: data.collectiblesModel!.results!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: const EdgeInsets.only(top: 4,bottom: 4,left: 4,right: 4),
+                      padding: const EdgeInsets.only(
+                          top: 4, bottom: 4, left: 4, right: 4),
                       child: Container(
                         width: Get.width,
                         decoration: BoxDecoration(
@@ -75,7 +75,6 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                     data.collectiblesModel!.results![index].id,
                               ),
                             );
-
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
@@ -91,29 +90,42 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       border: Border.all(
                                           color: AppColors.textBoxBgColor)),
                                   alignment: Alignment.center,
-                                  child: data.collectiblesModel!.results![index].image == null ?Text(
-                                    data.collectiblesModel!.results![index].name
-                                        .toString()[0]
-                                        .toUpperCase(),
-                                    style: TextStyle(
-                                        color: AppColors.backgroundColor,
-                                        fontFamily: 'Inter',
-                                        fontSize: 35,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                    :CachedNetworkImage(
-                                     imageUrl: data.collectiblesModel!.results![index].image!.image_on_list!.src.toString(),
-                                    imageBuilder: (context, imageProvider) => Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover,
+                                  child: data.collectiblesModel!.results![index]
+                                              .image ==
+                                          null
+                                      ? Text(
+                                          data.collectiblesModel!
+                                              .results![index].name
+                                              .toString()[0]
+                                              .toUpperCase(),
+                                          style: TextStyle(
+                                              color: AppColors.backgroundColor,
+                                              fontFamily: 'Inter',
+                                              fontSize: 35,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      : CachedNetworkImage(
+                                          imageUrl: data
+                                              .collectiblesModel!
+                                              .results![index]
+                                              .image!
+                                              .image_on_list!
+                                              .src
+                                              .toString(),
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          placeholder: _loader,
                                         ),
-                                      ),
-                                    ),
-                                    placeholder: _loader,
-                                     ),
                                 ),
                                 AppSpaces.spaces_width_5,
                                 Expanded(
@@ -156,7 +168,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   .copyWith(
                                                       color:
                                                           AppColors.textColor,
-                                                      fontFamily: 'Inter',
+                                                      //fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 10.sp),
@@ -389,15 +401,14 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                   },
                 ),
               )
-            :  ColorLoader(),
+            : ColorLoader(),
       );
     });
-
-
   }
+
   Widget _loader(BuildContext context, String url) {
-    return  ImageIcon(
-      AssetImage( 'assets/media/icon/logo v.png'),
+    return ImageIcon(
+      AssetImage('assets/media/icon/logo_v.png'),
       color: Color(0xFF3A5A98),
     );
   }

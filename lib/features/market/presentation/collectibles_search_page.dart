@@ -118,7 +118,10 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                     contentPadding: EdgeInsets.only(
                         left: 15, bottom: 11, top: 13, right: 15),
                     hintText: "Search Collectible",
-                    hintStyle: TextStyle(color: Colors.white,fontFamily: 'Inter',),
+                    hintStyle: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Inter',
+                    ),
                   ),
                   onChanged: (text) {
                     text = searchController.text;
@@ -133,7 +136,10 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                 )
               : Text(
                   filterValue[0] + " Collectibles",
-                  style: TextStyle(fontSize: 22.sp,fontFamily: 'Inter',),
+                  style: TextStyle(
+                    fontSize: 22.sp,
+                    fontFamily: 'Inter',
+                  ),
                 ),
         ),
       ),
@@ -191,33 +197,51 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                         width: Get.height * .078,
                                         decoration: BoxDecoration(
                                             color: AppColors.graphCard,
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             border: Border.all(
-                                                color: AppColors.textBoxBgColor)),
+                                                color:
+                                                    AppColors.textBoxBgColor)),
                                         alignment: Alignment.center,
-                                        child: data.searchCollectiblesModel!.results![index].image==null ?Text(
-                                          data.searchCollectiblesModel!.results![index].name
-                                              .toString()[0]
-                                              .toUpperCase(),
-                                          style: TextStyle(
-                                              color: AppColors.backgroundColor,
-                                              fontFamily: 'Inter',
-                                              fontSize: 35,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                            :CachedNetworkImage(
-                                          imageUrl: data.searchCollectiblesModel!.results![index].image!.image_on_list!.src.toString(),
-                                          imageBuilder: (context, imageProvider) => Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover,
+                                        child: data.searchCollectiblesModel!
+                                                    .results![index].image ==
+                                                null
+                                            ? Text(
+                                                data.searchCollectiblesModel!
+                                                    .results![index].name
+                                                    .toString()[0]
+                                                    .toUpperCase(),
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .backgroundColor,
+                                                    //fontFamily: 'Inter',
+                                                    fontSize: 35,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            : CachedNetworkImage(
+                                                imageUrl: data
+                                                    .searchCollectiblesModel!
+                                                    .results![index]
+                                                    .image!
+                                                    .image_on_list!
+                                                    .src
+                                                    .toString(),
+                                                imageBuilder:
+                                                    (context, imageProvider) =>
+                                                        Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                placeholder: _loader,
                                               ),
-                                            ),
-                                          ),
-                                          placeholder: _loader,
-                                        ),
                                       ),
                                       AppSpaces.spaces_width_5,
                                       Expanded(
@@ -245,12 +269,14 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                         style: Get.textTheme
                                                             .bodyText2!
                                                             .copyWith(
-                                                                color: AppColors.textColor,
-                                                            fontFamily: 'Inter',
+                                                                color: AppColors
+                                                                    .textColor,
+                                                                //fontFamily: 'Inter',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
-                                                                fontSize: 13.sp),
+                                                                fontSize:
+                                                                    13.sp),
                                                       ),
                                                     )),
                                                 AppSpaces.spaces_width_2,
@@ -267,8 +293,10 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                       style: Get
                                                           .textTheme.bodyText1!
                                                           .copyWith(
-                                                              color: AppColors.textColor,
-                                                          fontFamily: 'Inter',
+                                                              color: AppColors
+                                                                  .textColor,
+                                                              /*fontFamily:
+                                                                  'Inter',*/
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -298,10 +326,11 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                     style: Get
                                                         .textTheme.bodyText1!
                                                         .copyWith(
-                                                            color: AppColors.textColor
+                                                            color: AppColors
+                                                                .textColor
                                                                 .withOpacity(
                                                                     0.8),
-                                                        fontFamily: 'Inter',
+                                                            //fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 10.sp),
@@ -322,7 +351,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.8),
-                                                        fontFamily: 'Inter',
+                                                            /*fontFamily: 'Inter',*/
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10.sp),
@@ -350,7 +379,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                 .textColor
                                                                 .withOpacity(
                                                                     0.8),
-                                                        fontFamily: 'Inter',
+                                                            //fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize: 11.sp),
@@ -448,7 +477,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                 .white
                                                                 .withOpacity(
                                                                     0.9),
-                                                        fontFamily: 'Inter',
+                                                            //fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             fontSize: 11.sp),
@@ -478,7 +507,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                                                     'decrease'
                                                                 ? Colors.red
                                                                 : Colors.green,
-                                                            fontFamily: 'Inter',
+                                                            //fontFamily: 'Inter',
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             fontSize: 10.sp),
@@ -523,9 +552,10 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
       }),
     );
   }
+
   Widget _loader(BuildContext context, String url) {
-    return  ImageIcon(
-      AssetImage( 'assets/media/icon/logo v.png'),
+    return ImageIcon(
+      AssetImage('assets/media/icon/logo_v.png'),
       color: Color(0xFF3A5A98),
     );
   }

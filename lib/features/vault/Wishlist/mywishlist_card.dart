@@ -14,10 +14,7 @@ import '../../../core/Provider/getData.dart';
 import '../../market/presentation/collectible_details.dart';
 
 class MywishlistCard extends StatefulWidget {
-
-  const MywishlistCard({
-    Key? key
-  }) : super(key: key);
+  const MywishlistCard({Key? key}) : super(key: key);
 
   @override
   State<MywishlistCard> createState() => _MywishlistCardState();
@@ -39,9 +36,9 @@ class _MywishlistCardState extends State<MywishlistCard> {
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: EdgeInsets.only(
-                left: index == 0 ? 6: 6.0,
-                right: index == data.wishListModel!.results!.length - 1 ? 6 : 6.0,
-                ),
+              left: index == 0 ? 6 : 6.0,
+              right: index == data.wishListModel!.results!.length - 1 ? 6 : 6.0,
+            ),
             child: Container(
               width: Get.width * .37,
               //height: Get.height * .22,
@@ -66,215 +63,212 @@ class _MywishlistCardState extends State<MywishlistCard> {
                 child: Container(
                   width: Get.width * .37,
                   decoration: BoxDecoration(
-                      gradient: AppColors.cardGradient,
-                      borderRadius: BorderRadius.circular(10),),
+                    gradient: AppColors.cardGradient,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: data.wishListModel!.results![index].productDetail!
-                              .image == null
+                              .image ==
+                          null
                       ? Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
                               data.wishListModel!.results![index].productDetail!
                                   .name
                                   .toString()[0]
                                   .toUpperCase(),
                               style: TextStyle(
-                                  color: AppColors.backgroundColor,
-                                  fontFamily: 'Inter',
-                                  fontSize: 45,
-                                  fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                            ),
-                          Container(
-                            alignment: Alignment.bottomCenter,
-                            child: GlassContainer(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 5),
-                              alignment: Alignment.bottomCenter,
-                              height: Get.height * .11.h,
-                              width: Get.width * .37,
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.white.withOpacity(0.40),
-                                  Colors.white.withOpacity(0.10),
-                                ],
+                                color: AppColors.backgroundColor,
+                                //fontFamily: 'Inter',
+                                fontSize: 45,
+                                fontWeight: FontWeight.bold,
                               ),
-                              borderGradient: AppColors.cardGradient,
-                              blur: 0,
-                              isFrostedGlass: true,
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    data.wishListModel!.results![index]
-                                        .productDetail!.name
-                                        .toString(),
-                                    textAlign: TextAlign.center,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Get.textTheme.bodyText2!
-                                        .copyWith(
-                                        color: AppColors.textColor,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12.sp),
-                                  ),
-                                  Divider(
-                                    color: AppColors.white,
-                                  ),
-                                  SizedBox(
-                                    width: Get.width,
-                                    height: Get.height * .035,
-                                    child: SfCartesianChart(
-                                      plotAreaBorderWidth: 0,
-                                      primaryXAxis: CategoryAxis(
-                                        isVisible: false,
-                                        majorGridLines:
-                                        const MajorGridLines(width: 0),
-                                        labelIntersectAction:
-                                        AxisLabelIntersectAction.hide,
-                                        labelRotation: 270,
-                                        labelAlignment:
-                                        LabelAlignment.start,
-                                        maximumLabels: 7,
-                                      ),
-                                      primaryYAxis: CategoryAxis(
-                                        isVisible: false,
-                                        majorGridLines:
-                                        const MajorGridLines(width: 0),
-                                        labelIntersectAction:
-                                        AxisLabelIntersectAction.hide,
-                                        labelRotation: 0,
-                                        labelAlignment:
-                                        LabelAlignment.start,
-                                        maximumLabels: 10,
-                                      ),
-                                      tooltipBehavior:
-                                      TooltipBehavior(enable: true),
-                                      series: <ChartSeries<Graph, String>>[
-                                        LineSeries<Graph, String>(
-                                          color: data
-                                              .wishListModel!
-                                              .results![index]
-                                              .productDetail!
-                                              .priceChangePercent!
-                                              .sign ==
-                                              'decrease'
-                                              ? Colors.red
-                                              : Colors.green,
-                                          dataSource: data
-                                              .wishListModel!
-                                              .results![index]
-                                              .productDetail!
-                                              .graph!,
-                                          xValueMapper: (Graph plot, _) =>
-                                          plot.hour,
-                                          yValueMapper: (Graph plot, _) =>
-                                          plot.total,
-                                          xAxisName: 'Duration',
-                                          yAxisName: 'Total',
-                                        )
-                                      ],
+                              textAlign: TextAlign.center,
+                            ),
+                            Container(
+                              alignment: Alignment.bottomCenter,
+                              child: GlassContainer(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
+                                alignment: Alignment.bottomCenter,
+                                height: Get.height * .11.h,
+                                width: Get.width * .37,
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.white.withOpacity(0.40),
+                                    Colors.white.withOpacity(0.10),
+                                  ],
+                                ),
+                                borderGradient: AppColors.cardGradient,
+                                blur: 0,
+                                isFrostedGlass: true,
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      data.wishListModel!.results![index]
+                                          .productDetail!.name
+                                          .toString(),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Get.textTheme.bodyText2!.copyWith(
+                                          color: AppColors.textColor,
+                                          //fontFamily: 'Inter',
+                                          //fontWeight: FontWeight.w600,
+                                          fontSize: 12.sp),
                                     ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          r"$" +
-                                              data
-                                                  .wishListModel!
-                                                  .results![index]
-                                                  .productDetail!.floorPrice.toString(),
-                                          textAlign: TextAlign.start,
-                                          style: Get.textTheme.bodyText2!
-                                              .copyWith(
-                                              color: AppColors.white,
-                                              fontFamily: 'Inter',
-                                              fontWeight:
-                                              FontWeight.w600,
-                                              fontSize: 12.sp),
+                                    Divider(
+                                      color: AppColors.white,
+                                    ),
+                                    SizedBox(
+                                      width: Get.width,
+                                      height: Get.height * .035,
+                                      child: SfCartesianChart(
+                                        plotAreaBorderWidth: 0,
+                                        primaryXAxis: CategoryAxis(
+                                          isVisible: false,
+                                          majorGridLines:
+                                              const MajorGridLines(width: 0),
+                                          labelIntersectAction:
+                                              AxisLabelIntersectAction.hide,
+                                          labelRotation: 270,
+                                          labelAlignment: LabelAlignment.start,
+                                          maximumLabels: 7,
                                         ),
+                                        primaryYAxis: CategoryAxis(
+                                          isVisible: false,
+                                          majorGridLines:
+                                              const MajorGridLines(width: 0),
+                                          labelIntersectAction:
+                                              AxisLabelIntersectAction.hide,
+                                          labelRotation: 0,
+                                          labelAlignment: LabelAlignment.start,
+                                          maximumLabels: 10,
+                                        ),
+                                        tooltipBehavior:
+                                            TooltipBehavior(enable: true),
+                                        series: <ChartSeries<Graph, String>>[
+                                          LineSeries<Graph, String>(
+                                            color: data
+                                                        .wishListModel!
+                                                        .results![index]
+                                                        .productDetail!
+                                                        .priceChangePercent!
+                                                        .sign ==
+                                                    'decrease'
+                                                ? Colors.red
+                                                : Colors.green,
+                                            dataSource: data
+                                                .wishListModel!
+                                                .results![index]
+                                                .productDetail!
+                                                .graph!,
+                                            xValueMapper: (Graph plot, _) =>
+                                                plot.date,
+                                            yValueMapper: (Graph plot, _) =>
+                                                plot.floorPrice,
+                                            xAxisName: 'Duration',
+                                            yAxisName: 'Total',
+                                          )
+                                        ],
                                       ),
-                                      Expanded(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              data
-                                                  .wishListModel!
-                                                  .results![index]
-                                                  .productDetail!
-                                                  .priceChangePercent!
-                                                  .percent <
-                                                  0.0
-                                                  ? data
-                                                  .wishListModel!
-                                                  .results![index]
-                                                  .productDetail!
-                                                  .priceChangePercent!
-                                                  .percent
-                                                  .toString()
-                                                  : "+" +
-                                                  data
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            r"$" +
+                                                data
+                                                    .wishListModel!
+                                                    .results![index]
+                                                    .productDetail!
+                                                    .floorPrice
+                                                    .toString(),
+                                            textAlign: TextAlign.start,
+                                            style: Get.textTheme.bodyText2!
+                                                .copyWith(
+                                                    color: AppColors.white,
+                                                    //fontFamily: 'Inter',
+                                                    //fontWeight: FontWeight.w600,
+                                                    fontSize: 12.sp),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                data
+                                                            .wishListModel!
+                                                            .results![index]
+                                                            .productDetail!
+                                                            .priceChangePercent!
+                                                            .percent <
+                                                        0.0
+                                                    ? data
+                                                        .wishListModel!
+                                                        .results![index]
+                                                        .productDetail!
+                                                        .priceChangePercent!
+                                                        .percent
+                                                        .toString()
+                                                    : "+" +
+                                                        data
+                                                            .wishListModel!
+                                                            .results![index]
+                                                            .productDetail!
+                                                            .priceChangePercent!
+                                                            .percent
+                                                            .toString(),
+                                                textAlign: TextAlign.end,
+                                                style: Get.textTheme.bodyText1!.copyWith(
+                                                    color: data
+                                                                .wishListModel!
+                                                                .results![index]
+                                                                .productDetail!
+                                                                .priceChangePercent!
+                                                                .percent <
+                                                            0.0
+                                                        ? Colors.red
+                                                        : Colors.green,
+                                                    //fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w300,
+                                                    fontSize: 12.sp),
+                                              ),
+                                              if (data
                                                       .wishListModel!
                                                       .results![index]
                                                       .productDetail!
                                                       .priceChangePercent!
-                                                      .percent
-                                                      .toString(),
-                                              textAlign: TextAlign.end,
-                                              style: Get.textTheme.bodyText1!.copyWith(
-                                                  color: data
-                                                      .wishListModel!
-                                                      .results![
-                                                  index]
-                                                      .productDetail!
-                                                      .priceChangePercent!
                                                       .percent <
-                                                      0.0
-                                                      ? Colors.red
-                                                      : Colors.green,
-                                                  fontFamily: 'Inter',
-                                                  fontWeight:
-                                                  FontWeight.w300,
-                                                  fontSize: 12.sp),
-                                            ),
-                                            if (data
-                                                .wishListModel!
-                                                .results![index]
-                                                .productDetail!
-                                                .priceChangePercent!
-                                                .percent <
-                                                0.0)
-                                              const Icon(
-                                                Icons.arrow_downward,
-                                                color: Colors.red,
-                                                size: 14,
-                                              )
-                                            else
-                                              const Icon(
-                                                Icons.arrow_upward,
-                                                color: Colors.green,
-                                                size: 14,
-                                              )
-                                          ],
+                                                  0.0)
+                                                const Icon(
+                                                  Icons.arrow_downward,
+                                                  color: Colors.red,
+                                                  size: 14,
+                                                )
+                                              else
+                                                const Icon(
+                                                  Icons.arrow_upward,
+                                                  color: Colors.green,
+                                                  size: 14,
+                                                )
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
-                      )
+                            )
+                          ],
+                        )
                       : CachedNetworkImage(
                           imageUrl: data.wishListModel!.results![index]
                               .productDetail!.image!.image_on_list!.src
@@ -319,7 +313,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                         style: Get.textTheme.bodyText2!
                                             .copyWith(
                                                 color: AppColors.textColor,
-                                                fontFamily: 'Inter',
+                                                //fontFamily: 'Inter',
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 12.sp),
                                       ),
@@ -372,9 +366,9 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                                   .productDetail!
                                                   .graph!,
                                               xValueMapper: (Graph plot, _) =>
-                                                  plot.hour,
+                                                  plot.date,
                                               yValueMapper: (Graph plot, _) =>
-                                                  plot.total,
+                                                  plot.floorPrice,
                                               xAxisName: 'Duration',
                                               yAxisName: 'Total',
                                             )
@@ -391,12 +385,14 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                                   data
                                                       .wishListModel!
                                                       .results![index]
-                                                      .productDetail!.floorPrice.toString(),
+                                                      .productDetail!
+                                                      .floorPrice
+                                                      .toString(),
                                               textAlign: TextAlign.start,
                                               style: Get.textTheme.bodyText2!
                                                   .copyWith(
                                                       color: AppColors.white,
-                                                  fontFamily: 'Inter',
+                                                      //fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 12.sp),
@@ -442,7 +438,7 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                                               0.0
                                                           ? Colors.red
                                                           : Colors.green,
-                                                      fontFamily: 'Inter',
+                                                      //fontFamily: 'Inter',
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 12.sp),

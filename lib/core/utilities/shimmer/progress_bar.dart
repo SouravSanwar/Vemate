@@ -8,7 +8,7 @@ circularProgress(){
         width: 30,
         height: 30,
         child: Image.asset(
-          'assets/media/icon/logo v.png',
+          'assets/media/icon/logo_v.png',
           fit: BoxFit.fill,
         ),
       ),

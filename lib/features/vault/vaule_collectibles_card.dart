@@ -62,7 +62,7 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                           '\$' + widget.data!.totalCollectibleValue!.toString(),
                           style: TextStyle(
                               color: AppColors.textColor,
-                              fontFamily: 'Inter',
+                              //fontFamily: 'Inter',
                               fontWeight: FontWeight.bold),
                         ),
                         AppSpaces.spaces_height_30,
@@ -147,8 +147,8 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                             Text(
                               '\$${widget.data!.changePrice != null ? widget.data!.changePrice.toStringAsFixed(2) : "0.0"}',
                               style: TextStyle(
-                                  color: Colors.grey,
-                                  fontFamily: 'Inter',
+                                  color: Colors.white,
+                                  //fontFamily: 'Inter',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14.sp),
                             ),
