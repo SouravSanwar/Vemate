@@ -14,6 +14,7 @@ import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_controller.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_2fa.dart';
+import 'package:ketemaa/features/auth/reset_pass/forgot_pass.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/main.dart';
@@ -303,7 +304,11 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future resendCode(BuildContext context, var body) async {
+  Future resendCode(
+    BuildContext context,
+    var body, {
+    bool isResetPass = false,
+  }) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -316,9 +321,11 @@ class PostData extends ChangeNotifier with BaseController {
     final response = await http.post(Uri.parse(Urls.resendCode),
         body: json.encode(body), headers: requestHeaders);
 
-    /*var x = json.decode(response.body);
+    var x = json.decode(response.body);
 
-    printInfo(info: response.body.toString());*/
+    printInfo(info: response.body.toString());
+
+    Map<String, dynamic> js = x;
 
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
@@ -327,24 +334,37 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 201) {
       Navigator.of(context).pop();
 
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (_) => ResponseMessage(
-                icon: Icons.check_circle,
-                color: AppColors.primaryColor,
-                message: "Code send successfully",
-              ));
+      isResetPass == true
+          ? showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (_) => ResponseMessage(
+                    icon: Icons.check_circle,
+                    color: AppColors.primaryColor,
+                    message: js['msg'],
+                  )).whenComplete(
+              () => Get.to(
+                () => const ForgotPassword(),
+              ),
+            )
+          : showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (_) => ResponseMessage(
+                    icon: Icons.check_circle,
+                    color: AppColors.primaryColor,
+                    message: js['msg'],
+                  ));
     } else {
       printInfo(info: 'From else');
       Navigator.of(context).pop();
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) => const ResponseMessage(
+          builder: (_) => ResponseMessage(
                 icon: Icons.error,
                 color: Colors.purpleAccent,
-                message: "Something Went Wrong",
+                message: js['email'][0],
               ));
     }
     await Future.delayed(const Duration(seconds: 1));

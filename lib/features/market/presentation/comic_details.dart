@@ -32,6 +32,7 @@ class _ComicDetailsState extends State<ComicDetails> {
 
   PostData? postData;
 
+  int alertCheck = 0;
   int? currentIndex = 1;
   bool? hour = true;
   bool? week = false;
@@ -87,7 +88,11 @@ class _ComicDetailsState extends State<ComicDetails> {
                         child: Column(
                           children: [
                             Padding(
-                            padding:  EdgeInsets.only(top: 0,right:Get.width*0.05336,left:Get.width*0.05336,bottom: Get.height*0.01667 ),
+                              padding: EdgeInsets.only(
+                                  top: 0,
+                                  right: Get.width * 0.05336,
+                                  left: Get.width * 0.05336,
+                                  bottom: Get.height * 0.01667),
                               child: Container(
                                 height: Get.height * .5,
                                 padding: const EdgeInsets.all(2),
@@ -97,35 +102,34 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     border: Border.all(
                                         color: AppColors.primaryColor)),
                                 alignment: Alignment.center,
-                                child:
-                                    data.singleProductModel!.image ==
-                                            null
-                                        ? Text(
-                                      data.singleProductModel!.name.toString()[0]
-                                                .toUpperCase(),
-                                            style: const TextStyle(
-                                                color: Colors.deepPurpleAccent,
-                                                //fontFamily: 'Inter',
-                                                fontSize: 65,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        : CachedNetworkImage(
-                                            imageUrl: data.singleProductModel!
-                                                .image!.original!.src
-                                                .toString(),
-                                            imageBuilder:
-                                                (context, imageProvider) =>
-                                                    Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.fill,
-                                                ),
-                                              ),
+                                child: data.singleProductModel!.image == null
+                                    ? Text(
+                                        data.singleProductModel!.name
+                                            .toString()[0]
+                                            .toUpperCase(),
+                                        style: const TextStyle(
+                                            color: Colors.deepPurpleAccent,
+                                            //fontFamily: 'Inter',
+                                            fontSize: 65,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    : CachedNetworkImage(
+                                        imageUrl: data.singleProductModel!
+                                            .image!.original!.src
+                                            .toString(),
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.fill,
                                             ),
                                           ),
+                                        ),
+                                      ),
                               ),
                             ),
                             Row(
@@ -145,22 +149,45 @@ class _ComicDetailsState extends State<ComicDetails> {
                                           'token ${prefs!.getString('token')}',
                                     };
 
-                                    data.checkWishlistModel!.isFound == false
-                                        ? postData!.addToWishlist(
-                                            context,
-                                            body,
-                                            data.singleProductModel!.id,
-                                            requestHeadersWithToken,
-                                          )
-                                        :  showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (_) =>  const ResponseMessage(
-                                          icon: Icons.error,
-                                          color: Colors.purpleAccent,
-                                          message: "Product already in your wishlist !",
+                                    if (data.wishListModel!.results!
+                                            .firstWhere((element) =>
+                                                element.productDetail!.id ==
+                                                data.singleProductModel!.id)
+                                            .alertData !=
+                                        null) {
+                                      postData!.deleteAlert(
+                                          context,
+                                          data.wishListModel!.results!
+                                              .firstWhere((element) =>
+                                                  element.productDetail!.id ==
+                                                  data.singleProductModel!.id)
+                                              .alertData!
+                                              .id,
+                                          requestHeadersWithToken);
+                                      alertCheck = 1;
+                                    }
 
-                                        ));
+                                    if (data.checkWishlistModel!.isFound ==
+                                        false) {
+                                      postData!.addToWishlist(
+                                        context,
+                                        body,
+                                        data.singleProductModel!.id,
+                                        requestHeadersWithToken,
+                                      );
+                                    } else {
+                                      data.checkWishlistModel!.isFound = false;
+                                      postData!.deleteWishlist(
+                                        context,
+                                        alertCheck,
+                                        data.wishListModel!.results!
+                                            .firstWhere((element) =>
+                                                element.productDetail!.id ==
+                                                data.singleProductModel!.id)
+                                            .id,
+                                        requestHeadersWithToken,
+                                      );
+                                    }
 
                                     await Future.delayed(Duration(seconds: 1));
                                     Navigator.of(context).pop();
@@ -176,23 +203,32 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     ),
                                     child: data.checkWishlistModel != null
                                         ? Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 12),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 6, vertical: 12),
                                             child: data.checkWishlistModel!
                                                         .isFound ==
                                                     false
                                                 ? AutoSizeText(
                                                     'Add to Wishlist',
                                                     style: Get
-                                                        .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
+                                                        .textTheme.bodyMedium!
+                                                        .copyWith(
+                                                      fontFamily: 'Inter',
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                   )
                                                 : AutoSizeText(
-                                                    'Added to Wishlist',
+                                                    'Delete from Wishlist',
                                                     style: Get
-                                                        .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
+                                                        .textTheme.bodyMedium!
+                                                        .copyWith(
+                                                      fontFamily: 'Inter',
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                   ),
                                           )
                                         : Container(),
@@ -213,22 +249,26 @@ class _ComicDetailsState extends State<ComicDetails> {
                                           'token ${prefs!.getString('token')}',
                                     };
 
-                                    data.checkSetCheck!.isFound == false
-                                        ? postData!.addToSet(
-                                            context,
-                                            body,
-                                            data.singleProductModel!.id,
-                                            requestHeadersWithToken,
-                                          )
-                                        : showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (_) =>  const ResponseMessage(
-                                          icon: Icons.error,
-                                          color: Colors.purpleAccent,
-                                          message: "Product already in your Vault !",
-
-                                        ));
+                                    if (data.checkSetCheck!.isFound == false) {
+                                      postData!.addToSet(
+                                        context,
+                                        body,
+                                        data.singleProductModel!.id,
+                                        requestHeadersWithToken,
+                                      );
+                                    } else {
+                                      data.checkSetCheck!.isFound = false;
+                                      postData!.deleteSetList(
+                                        context,
+                                        data.setListModel!.setResults!
+                                            .firstWhere((element) =>
+                                                element.setProductDetail!.id ==
+                                                data.singleProductModel!.id)
+                                            .id,
+                                        requestHeadersWithToken,
+                                        'product__type=0',
+                                      );
+                                    }
 
                                     await Future.delayed(Duration(seconds: 1));
                                     Navigator.of(context).pop();
@@ -245,20 +285,33 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     ),
                                     child: data.checkSetCheck != null
                                         ? Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 12),
-                                            child:
-                                                data.checkSetCheck!.isFound ==
-                                                        false
-                                                    ? AutoSizeText('Add to Vault',
-                                                        style: Get.textTheme
-                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',),
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,)
-                                                    : AutoSizeText('Added to Vault',
-                                                        style: Get.textTheme
-                                                            .bodyMedium!.copyWith(fontFamily: 'Inter',),
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 6, vertical: 12),
+                                            child: data.checkSetCheck!
+                                                        .isFound ==
+                                                    false
+                                                ? AutoSizeText(
+                                                    'Add to Vault',
+                                                    style: Get
+                                                        .textTheme.bodyMedium!
+                                                        .copyWith(
+                                                      fontFamily: 'Inter',
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  )
+                                                : AutoSizeText(
+                                                    'Delete from Vault',
+                                                    style: Get
+                                                        .textTheme.bodyMedium!
+                                                        .copyWith(
+                                                      fontFamily: 'Inter',
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
                                           )
                                         : Container(),
                                   ),
@@ -266,7 +319,11 @@ class _ComicDetailsState extends State<ComicDetails> {
                               ],
                             ),
                             Container(
-                              padding: EdgeInsets.only(top: Get.height*0.05,right:Get.width*0.05336,left:Get.width*0.05336,bottom: Get.height*0.0334 ),
+                              padding: EdgeInsets.only(
+                                  top: Get.height * 0.05,
+                                  right: Get.width * 0.05336,
+                                  left: Get.width * 0.05336,
+                                  bottom: Get.height * 0.0334),
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Total Distributions",
@@ -442,7 +499,11 @@ class _ComicDetailsState extends State<ComicDetails> {
                             ),
                             Container(
                               alignment: Alignment.center,
-                              padding: EdgeInsets.only(top: Get.height*0.0223,right:10,left:7,bottom: 0 ),
+                              padding: EdgeInsets.only(
+                                  top: Get.height * 0.0223,
+                                  right: 10,
+                                  left: 7,
+                                  bottom: 0),
                               width: double.infinity,
                               child: FadeInUp(
                                 duration: const Duration(milliseconds: 100),
@@ -460,7 +521,11 @@ class _ComicDetailsState extends State<ComicDetails> {
                             ),
                             Container(
                               alignment: Alignment.topLeft,
-                              padding: EdgeInsets.only(top: Get.height*0.05,right:Get.width*0.05336,left:Get.width*0.05336,bottom: Get.height*0.0334 ),
+                              padding: EdgeInsets.only(
+                                  top: Get.height * 0.05,
+                                  right: Get.width * 0.05336,
+                                  left: Get.width * 0.05336,
+                                  bottom: Get.height * 0.0334),
                               child: Text(
                                 data.singleProductModel != null
                                     ? data.singleProductModel!.name.toString() +

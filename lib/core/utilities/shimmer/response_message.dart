@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 
 import 'package:ketemaa/core/utilities/shimmer/progress_bar.dart';
@@ -16,6 +17,8 @@ class ResponseMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
+        width: Get.width * .9,
+        height: Get.width * .75,
         alignment: Alignment.center,
         child: AlertDialog(
           shape:
