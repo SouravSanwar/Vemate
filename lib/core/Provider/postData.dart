@@ -752,7 +752,7 @@ class PostData extends ChangeNotifier with BaseController {
 
     Map<String, dynamic> js = x;
     if (js.containsKey('msg')) {
-      //Navigator.of(context).pop();
+      Navigator.of(context).pop();
       getData!.getWishList();
 
       showDialog(
