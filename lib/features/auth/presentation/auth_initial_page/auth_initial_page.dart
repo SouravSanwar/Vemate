@@ -286,7 +286,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
       "gender": "0",
       "birth_year": "1852",
       "fcm_device_id": "3",
-      "social_provider": 1
+      "password":"123",
+      "social_provider": 1,
     };
 
 /*    var rng = new Random();

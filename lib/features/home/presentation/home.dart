@@ -10,6 +10,7 @@ import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/home/components/notification_badge.dart';
+import 'package:ketemaa/features/home/notification/no_notification.dart';
 import 'package:ketemaa/features/home/notification/notification_alart.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
 import 'package:ketemaa/main.dart';
@@ -138,26 +139,18 @@ class _HomeState extends State<Home> {
                             child: InkWell(
                               onTap: () async {
                                 data.notificationListModel!.results!.isEmpty
-                                    ? showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (_) => const ResponseMessage(
-                                              icon: Icons.error,
-                                              color: Colors.purpleAccent,
-                                              message:
-                                                  "No notification to show",
-                                            ))
-                                    : showDialog(
+                                    ? Get.to(() => const NoNotification())
+                                  : showDialog(
                                         context: context,
                                         builder: (ctx) =>
                                             const NotificationAlertBox(),
                                       );
 
-                                if (data
+                                /*if (data
                                     .notificationListModel!.results!.isEmpty) {
-                                  await Future.delayed(Duration(seconds: 1));
+                                  await Future.delayed(const Duration(seconds: 1));
                                   Navigator.of(context).pop();
-                                }
+                                }*/
                               },
                               child: NotificationBadge(
                                 notificationListModel:

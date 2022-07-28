@@ -73,7 +73,6 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
                     ? frequencyIndex = 1
                     : frequencyIndex = 2;
 
-            print(frequencyIndex);
           }); //get value when changed
         },
         icon: const Icon(
