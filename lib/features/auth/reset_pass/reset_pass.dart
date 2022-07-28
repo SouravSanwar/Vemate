@@ -68,8 +68,7 @@ class _ResetPassState extends State<ResetPass> {
                       child: Text(
                         "RESET PASSWORD",
                         style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: AppColors.textColor),
+                            fontFamily: 'Inter', color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(
@@ -89,11 +88,7 @@ class _ResetPassState extends State<ResetPass> {
                         "email": emailController.text,
                         "reason": "forget_password",
                       };
-                      postData!.resendCode(context, body).whenComplete(
-                            () => Get.to(
-                              () => const ForgotPassword(),
-                            ),
-                          );
+                      postData!.resendCode(context, body, isResetPass: true);
                     },
                     text: 'Send Code'.toUpperCase(),
                     style: Get.textTheme.button!.copyWith(

@@ -67,7 +67,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       child:  Text(
                         "Enter New Password",
                         style: TextStyle(
-                            fontFamily: 'Inter',
+                            //fontFamily: 'Inter',
                             fontWeight: FontWeight.bold, color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
