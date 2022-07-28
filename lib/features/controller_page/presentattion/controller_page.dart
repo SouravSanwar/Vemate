@@ -495,6 +495,7 @@ class _ControllerPageState extends State<ControllerPage> {
     });
 
     ///Notification When App Closed
+
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
         productId = int.parse(message.data["id"].toString());
