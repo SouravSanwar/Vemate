@@ -30,6 +30,7 @@ class CollectibleDetails extends StatefulWidget {
 class _CollectibleDetailsState extends State<CollectibleDetails> {
   GetData? getData;
 
+  int alertCheck = 0;
   PostData? postData;
 
   int? currentIndex = 1;
@@ -146,22 +147,48 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                         'token ${prefs!.getString('token')}',
                                   };
 
-                                  data.checkWishlistModel!.isFound == false
-                                      ? postData!.addToWishlist(
-                                          context,
-                                          body,
-                                          data.singleProductModel!.id,
-                                          requestHeadersWithToken,
-                                        )
-                                      :showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (_) =>  const ResponseMessage(
-                                        icon: Icons.error,
-                                        color: Colors.purpleAccent,
-                                        message: "Already Added to Wishlist !!",
-                                      ));
-                                  await Future.delayed(const Duration(seconds: 1));
+                                  if (data.wishListModel!.results!
+                                          .firstWhere((element) =>
+                                              element.productDetail!.id ==
+                                              data.singleProductModel!.id)
+                                          .alertData !=
+                                      null) {
+                                    postData!.deleteAlert(
+                                        context,
+                                        data.wishListModel!.results!
+                                            .firstWhere((element) =>
+                                                element.productDetail!.id ==
+                                                data.singleProductModel!.id)
+                                            .alertData!
+                                            .id,
+                                        requestHeadersWithToken);
+                                    alertCheck = 1;
+                                  }
+
+                                  if (data.checkWishlistModel!.isFound ==
+                                      false) {
+                                    postData!.addToWishlist(
+                                      context,
+                                      body,
+                                      data.singleProductModel!.id,
+                                      requestHeadersWithToken,
+                                    );
+                                  } else {
+                                    data.checkWishlistModel!.isFound = false;
+                                    postData!.deleteWishlist(
+                                      context,
+                                      alertCheck,
+                                      data.wishListModel!.results!
+                                          .firstWhere((element) =>
+                                              element.productDetail!.id ==
+                                              data.singleProductModel!.id)
+                                          .id,
+                                      requestHeadersWithToken,
+                                    );
+                                  }
+
+                                  await Future.delayed(
+                                      const Duration(seconds: 1));
                                   Navigator.of(context).pop();
                                 },
                                 child: Container(
@@ -178,19 +205,23 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     child: data.checkWishlistModel!.isFound ==
                                             false
                                         ? AutoSizeText(
-                                      'Add to Wishlist',
-                                      style: Get
-                                          .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    )
+                                            'Add to Wishlist',
+                                            style: Get.textTheme.bodyMedium!
+                                                .copyWith(
+                                              fontFamily: 'Inter',
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          )
                                         : AutoSizeText(
-                                      'Added to Wishlist',
-                                      style: Get
-                                          .textTheme.bodyMedium!.copyWith(fontFamily: 'Inter',),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                            'Delete from Wishlist',
+                                            style: Get.textTheme.bodyMedium!
+                                                .copyWith(
+                                              fontFamily: 'Inter',
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                   ),
                                 ),
                               ),
@@ -209,90 +240,107 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                         'token ${prefs!.getString('token')}',
                                   };
 
-                                  data.checkSetCheck!.isFound == false
-                                      ? postData!.addToSet(
-                                          context,
-                                          body,
-                                          data.singleProductModel!.id,
-                                          requestHeadersWithToken,
-                                        )
-                                            : showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (_) =>  const ResponseMessage(
-                                        icon: Icons.error,
-                                        color: Colors.purpleAccent,
-                                        message: "Already Added to Vault !!",
-                                      ));
-                                     await Future.delayed(const Duration(seconds: 1));
-                                     Navigator.of(context).pop();
-                                      },
-                                      child: Container(
-                                        width: Get.width * .42,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          gradient: AppColors.purpleGradient,
-                                          //color: AppColors.primaryColor,
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(12),
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: data.checkSetCheck!.isFound ==
-                                              false
-                                              ?  AutoSizeText('Add to Vault',
-                                            style: Get.textTheme
-                                                .bodyMedium!.copyWith(fontFamily: 'Inter',),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,)
-                                              : AutoSizeText('Added to Vault',
-                                            style: Get.textTheme
-                                                .bodyMedium!.copyWith(fontFamily: 'Inter',),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,),
-                                        ),
-                                      ),
+                                  if (data.checkSetCheck!.isFound == false) {
+                                    postData!.addToSet(
+                                      context,
+                                      body,
+                                      data.singleProductModel!.id,
+                                      requestHeadersWithToken,
+                                    );
+                                  } else {
+                                    data.checkSetCheck!.isFound = false;
+                                    postData!.deleteSetList(
+                                      context,
+                                      data.setListModel!.setResults!
+                                          .firstWhere((element) =>
+                                              element.setProductDetail!.id ==
+                                              data.singleProductModel!.id)
+                                          .id,
+                                      requestHeadersWithToken,
+                                      'product__type=0',
+                                    );
+                                  }
+
+                                  await Future.delayed(
+                                      const Duration(seconds: 1));
+                                  Navigator.of(context).pop();
+                                },
+                                child: Container(
+                                  width: Get.width * .42,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    gradient: AppColors.purpleGradient,
+                                    //color: AppColors.primaryColor,
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(12),
                                     ),
-                                  ],
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(top: Get.height*0.05,right:Get.width*0.05336,left:Get.width*0.05336,bottom: Get.height*0.0334 ),
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    "Total Distributions",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        color: AppColors.textColor,
-                                        fontFamily: 'Inter',
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: data.checkSetCheck!.isFound == false
+                                        ? AutoSizeText(
+                                            'Add to Vault',
+                                            style: Get.textTheme.bodyMedium!
+                                                .copyWith(
+                                              fontFamily: 'Inter',
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          )
+                                        : AutoSizeText(
+                                            'Delete from Vault',
+                                            style: Get.textTheme.bodyMedium!
+                                                .copyWith(
+                                              fontFamily: 'Inter',
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                   ),
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Container(
-                                      width:
-                                      MediaQuery.of(context).size.width * .18,
-                                      padding: const EdgeInsets.only(top: 0,bottom: 8,left: 6,right: 6),
-                                      child: InkWell(
-                                        onTap: () {
-                                          currentIndex = 1;
-                                          hour = true;
-                                          week = false;
-                                          month = false;
-                                          two_month = false;
-                                          year = false;
-                                          getData!.getSingleProduct(
-                                              widget.productId,
-                                              graphType: 0);
-                                        },
-                                        child: CategoryCard(
-                                          name: '24H',
-                                          gradient: hour == true
-                                              ? AppColors.buttonTrue
-                                              : const LinearGradient(
+                              ),
+                            ],
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(
+                                top: Get.height * 0.05,
+                                right: Get.width * 0.05336,
+                                left: Get.width * 0.05336,
+                                bottom: Get.height * 0.0334),
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              "Total Distributions",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: AppColors.textColor,
+                                  fontFamily: 'Inter',
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                width: MediaQuery.of(context).size.width * .18,
+                                padding: const EdgeInsets.only(
+                                    top: 0, bottom: 8, left: 6, right: 6),
+                                child: InkWell(
+                                  onTap: () {
+                                    currentIndex = 1;
+                                    hour = true;
+                                    week = false;
+                                    month = false;
+                                    two_month = false;
+                                    year = false;
+                                    getData!.getSingleProduct(widget.productId,
+                                        graphType: 0);
+                                  },
+                                  child: CategoryCard(
+                                    name: '24H',
+                                    gradient: hour == true
+                                        ? AppColors.buttonTrue
+                                        : const LinearGradient(
                                             colors: [
                                               Color(0xff272E49),
                                               Color(0xff272E49),

@@ -95,7 +95,7 @@ class _ControllerPageState extends State<ControllerPage> {
   Future<void> _firebaseMsg(RemoteMessage message) async {
     print("Handling a background message : ${message.data}");
 
-    productId = int.tryParse(message.data["id"]) ?? 0;
+    productId = int.parse(message.data["id"].toString());
 
     message.data["type"] == 0
         ? Get.to(() => CollectibleDetails(
@@ -386,7 +386,6 @@ class _ControllerPageState extends State<ControllerPage> {
     var generalNotificationDetails =
         NotificationDetails(android: androidDetails, iOS: iosDetails);
 
-    ///Notification When App Closed
     void onDidReceiveLocalNotification(
         int id, String? title, String? body, String? payload) async {
       showDialog(
@@ -403,31 +402,6 @@ class _ControllerPageState extends State<ControllerPage> {
               ),
             );
           });
-
-      Map<String, String> requestHeadersWithToken = {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'token ${prefs!.getString('token')}',
-      };
-      /*if (int.parse(payload!) == 0) {
-        setState(() {
-          postData!
-              .notificationRead(context, productId, requestHeadersWithToken);
-        });
-        Get.to(() => CollectibleDetails(
-              productId: productId,
-            ));
-      } else {
-        setState(() {
-          postData!
-              .notificationRead(context, productId, requestHeadersWithToken);
-        });
-        Get.to(
-          () => ComicDetails(
-            productId: productId,
-          ),
-        );
-      }*/
     }
 
     var androidInit =
@@ -447,7 +421,7 @@ class _ControllerPageState extends State<ControllerPage> {
     flutterLocalNotificationsPlugin.initialize(initSetting);
 
     FirebaseMessaging.onBackgroundMessage((message) async {
-      productId = int.tryParse(message.data["id"]) ?? 0;
+      productId = int.parse(message.data["id"].toString());
       print("onMessageOpenedApp Product Id: " + productId.toString());
 
       Map<String, String> requestHeadersWithToken = {
@@ -491,8 +465,7 @@ class _ControllerPageState extends State<ControllerPage> {
     ///Background Notification
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       print("onMessageOpenedApp: ${message.data}");
-      productId = int.tryParse(message.data["id"]) ?? 0;
-      print("onMessageOpenedApp Product Id: " + productId.toString());
+      productId = int.parse(message.data["id"].toString());
 
       Map<String, String> requestHeadersWithToken = {
         'Content-type': 'application/json',
@@ -518,6 +491,66 @@ class _ControllerPageState extends State<ControllerPage> {
             productId: productId,
           ),
         );
+      }
+    });
+
+    ///Notification When App Closed
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if (message != null) {
+        productId = int.parse(message.data["id"].toString());
+
+        Map<String, String> requestHeadersWithToken = {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'token ${prefs!.getString('token')}',
+        };
+
+        if (message.data["type"] == 0) {
+          setState(() {
+            postData!
+                .notificationRead(context, productId, requestHeadersWithToken);
+          });
+          Get.to(() => CollectibleDetails(
+                productId: productId,
+              ));
+        } else {
+          setState(() {
+            postData!
+                .notificationRead(context, productId, requestHeadersWithToken);
+          });
+          Get.to(
+            () => ComicDetails(
+              productId: productId,
+            ),
+          );
+        }
+
+        RemoteNotification? notification = message.notification;
+        AndroidNotification? android = message.notification?.android;
+        AppleNotification? apple = message.notification?.apple;
+
+        if (notification != null && android != null && apple != null) {
+          flutterLocalNotificationsPlugin.show(notification.hashCode,
+              notification.title, notification.body, generalNotificationDetails,
+              payload: message.data["type_id"].toString());
+
+          showDialog(
+              context: context,
+              builder: (_) {
+                return AlertDialog(
+                  backgroundColor: AppColors.primaryColor,
+                  title: Text(notification.title.toString()),
+                  content: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(notification.body.toString()),
+                      ],
+                    ),
+                  ),
+                );
+              });
+        }
       }
     });
   }
