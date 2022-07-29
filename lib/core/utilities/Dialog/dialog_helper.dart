@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -44,9 +45,9 @@ class DialogHelper {
                       size: 20,
                     ),
                     AppSpaces.spaces_height_5,
-                    Text(title,
+                    AutoSizeText(title,
                         style:
-                            const TextStyle(color: Colors.white, fontSize: 20)),
+                            const TextStyle(color: Colors.white, )),
                   ],
                 ),
               ),
@@ -70,15 +71,15 @@ class DialogHelper {
                       decoration: BoxDecoration(
                         gradient: AppColors.purpleGradient, // set border width
                         borderRadius: const BorderRadius.all(
-                            Radius.circular(20.0)),
+                            Radius.circular(15.0)),
                       ),
                       child: TextButton(
                         onPressed: () {
                           if (Get.isDialogOpen!) Get.back();
                         },
-                        child: const Text(
+                        child: const AutoSizeText(
                           'Okay',
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          style: TextStyle(color: Colors.white, ),
                         ),
                       ),
                     )

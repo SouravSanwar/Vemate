@@ -121,7 +121,7 @@ class _ControllerPageState extends State<ControllerPage> {
         child: Container(
           width: Get.height * .25,
           decoration: BoxDecoration(
-            gradient: AppColors.cardGradient,
+            color: AppColors.backgroundColor,
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Padding(
@@ -496,6 +496,7 @@ class _ControllerPageState extends State<ControllerPage> {
     });
 
     ///Notification When App Closed
+
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
         productId = int.parse(message.data["id"].toString());
@@ -504,7 +505,7 @@ class _ControllerPageState extends State<ControllerPage> {
           'Content-type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'token ${prefs!.getString('token')}',
-        };
+         };
 
         if (message.data["type"] == 0) {
           setState(() {

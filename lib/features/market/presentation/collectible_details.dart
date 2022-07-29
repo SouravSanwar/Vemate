@@ -260,7 +260,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       'product__type=0',
                                     );
 
-                                    data.checkSetCheck!.isFound = false;
+                                    await Future.delayed(Duration(seconds: 1));
+                                    Navigator.of(context).pop();
                                   }
 
                                   await Future.delayed(

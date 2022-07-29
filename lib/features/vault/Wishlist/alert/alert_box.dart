@@ -75,28 +75,6 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                   fontSize: 22.0,
                   color: AppColors.textColor),
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  child: CircleAvatar(
-                    backgroundColor: AppColors.backgroundColor,
-                    radius: 14.0,
-                    child: Icon(Icons.close_sharp, color: Colors.grey),
-                  ),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: AppColors.greyWhite,
-                      width: 1.0,
-                    ),
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
         content: /*toggleValue == true

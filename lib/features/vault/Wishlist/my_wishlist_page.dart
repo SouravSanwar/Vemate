@@ -516,186 +516,188 @@ class _WishListPageState extends State<WishListPage> {
                                                                 fontSize: 11),
                                                       ),
                                                     ),*/
-                                                    Expanded(
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            data
-                                                                    .wishListModel!
-                                                                    .results![
-                                                                        index]
-                                                                    .productDetail!
-                                                                    .priceChangePercent!
-                                                                    .percent!
-                                                                    .toString() +
-                                                                "%",
-                                                            textAlign:
-                                                                TextAlign.end,
-                                                            style: Get.textTheme.bodyText1!.copyWith(
-                                                                color: data
-                                                                            .wishListModel!
-                                                                            .results![
-                                                                                index]
-                                                                            .productDetail!
-                                                                            .priceChangePercent!
-                                                                            .sign ==
-                                                                        'decrease'
-                                                                    ? Colors.red
-                                                                    : Colors
-                                                                        .green,
-                                                                /*fontFamily:
-                                                                    'Inter',*/
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                                fontSize:
-                                                                    10.sp),
-                                                          ),
-                                                          if (data
-                                                                  .wishListModel!
-                                                                  .results![
-                                                                      index]
-                                                                  .productDetail!
-                                                                  .priceChangePercent!
-                                                                  .sign ==
-                                                              'decrease')
-                                                            const Icon(
-                                                              Icons
-                                                                  .arrow_downward,
-                                                              color: Colors.red,
-                                                              size: 12,
-                                                            )
-                                                          else
-                                                            const Icon(
-                                                              Icons
-                                                                  .arrow_upward,
-                                                              color:
-                                                                  Colors.green,
-                                                              size: 12,
-                                                            )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 9.0,
-                                right: 10.0,
-                                child: InkWell(
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            backgroundColor:
-                                                AppColors.backgroundColor,
-                                            shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(
-                                                  20.0,
-                                                ),
+                                        Expanded(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .start,
+                                            children: [
+                                              Text(
+                                                data
+                                                    .wishListModel!
+                                                    .results![
+                                                index]
+                                                    .productDetail!
+                                                    .priceChangePercent!
+                                                    .percent!
+                                                    .toString() +
+                                                    "%",
+                                                textAlign:
+                                                TextAlign.end,
+                                                style: Get.textTheme.bodyText1!.copyWith(
+                                                    color: data
+                                                        .wishListModel!
+                                                        .results![
+                                                    index]
+                                                        .productDetail!
+                                                        .priceChangePercent!
+                                                        .sign ==
+                                                        'decrease'
+                                                        ? Colors.red
+                                                        : Colors
+                                                        .green,
+                                                    fontFamily:
+                                                    'Inter',
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w300,
+                                                    fontSize:
+                                                    10.sp),
                                               ),
-                                            ),
-                                            contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 20),
-                                            titlePadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 20,
-                                                    vertical: 10),
-                                            title: const Text(""),
-                                            content: Text(
-                                              'Do you really want to delete this item?',
-                                              style: TextStyle(
-                                                  color: AppColors.textColor,
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 15),
-                                            ),
-                                            actions: <Widget>[
-                                              CustomButtons(
-                                                width: Get.width * .2,
-                                                height: Get.height * .05,
-                                                onTap: () {
-                                                  alertCheck = 0;
-                                                  if (data
-                                                          .wishListModel!
-                                                          .results![index]
-                                                          .alertData !=
-                                                      null) {
-                                                    postData!.deleteAlert(
-                                                        context,
-                                                        data
-                                                            .wishListModel!
-                                                            .results![index]
-                                                            .alertData!
-                                                            .id,
-                                                        requestHeadersWithToken);
-                                                    alertCheck = 1;
-                                                  }
-                                                  postData!.deleteWishlist(
-                                                    context,
-                                                    alertCheck,
-                                                    data.wishListModel!
-                                                        .results![index].id,
-                                                    requestHeadersWithToken,
-                                                  );
-                                                },
-                                                text: 'Yes'.toUpperCase(),
-                                                style: Get.textTheme.button!
-                                                    .copyWith(
-                                                  color: AppColors.textColor,
-                                                  fontFamily: 'Inter',
-                                                ),
-                                              ),
-                                              CustomButtons(
-                                                width: Get.width * .2,
-                                                height: Get.height * .05,
-                                                onTap: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                text: 'Close'.toUpperCase(),
-                                                style: Get.textTheme.button!
-                                                    .copyWith(
-                                                  color: AppColors.textColor,
-                                                  fontFamily: 'Inter',
-                                                ),
-                                              ),
+                                              if (data
+                                                  .wishListModel!
+                                                  .results![
+                                              index]
+                                                  .productDetail!
+                                                  .priceChangePercent!
+                                                  .sign ==
+                                                  'decrease')
+                                                const Icon(
+                                                  Icons
+                                                      .arrow_downward,
+                                                  color: Colors.red,
+                                                  size: 12,
+                                                )
+                                              else
+                                                const Icon(
+                                                  Icons
+                                                      .arrow_upward,
+                                                  color:
+                                                  Colors.green,
+                                                  size: 12,
+                                                )
                                             ],
-                                          );
-                                        });
-                                  },
-                                  child: Icon(
-                                    Icons.delete,
-                                    color: AppColors.textColor,
-                                  ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
-                          );
-                        },
-                      )
-                    : const LoadingExample(),
-              )
-            : ColorLoader();
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 9.0,
+                    right: 10.0,
+                    child: InkWell(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                backgroundColor:
+                                AppColors.backgroundColor,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      20.0,
+                                    ),
+                                  ),
+                                ),
+                                contentPadding:
+                                const EdgeInsets.symmetric(
+                                    horizontal: 20),
+                                titlePadding:
+                                const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 10),
+                                title: const Text(""),
+                                content: Text(
+                                  'Do you really want to delete this item?',
+                                  style: TextStyle(
+                                      color: AppColors.textColor,
+                                      fontFamily: 'Inter',
+                                      fontSize: 15),
+                                ),
+                                actions: <Widget>[
+                                  CustomButtons(
+                                    width: Get.width * .2,
+                                    height: Get.height * .05,
+                                    onTap: () {
+                                      alertCheck=0;
+                                      if (data
+                                          .wishListModel!
+                                          .results![index]
+                                          .alertData !=
+                                      null) {
+                                      postData!.deleteAlert(
+                                      context,
+                                      data
+                                          .wishListModel!
+                                          .results![index]
+                                          .alertData!
+                                          .id,
+                                      requestHeadersWithToken,check: 11);
+                                      alertCheck=1;
+                                      }
+                                      postData!
+                                          .deleteWishlist(
+                                      context,
+                                      alertCheck,
+                                      data.wishListModel!
+                                          .results![index].id,
+                                      requestHeadersWithToken,
+                                        check:12
+                                      );
+                                      },
+                                    text: 'Yes'.toUpperCase(),
+                                    style: Get.textTheme.button!
+                                        .copyWith(
+                                      color: AppColors.textColor,
+                                      fontFamily: 'Inter',
+                                    ),
+                                  ),
+                                  CustomButtons(
+                                    width: Get.width * .2,
+                                    height: Get.height * .05,
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    text: 'Close'.toUpperCase(),
+                                    style: Get.textTheme.button!
+                                        .copyWith(
+                                      color: AppColors.textColor,
+                                      fontFamily: 'Inter',
+                                    ),
+                                  ),
+                                ],
+                              );
+                            });
+                      },
+                      child: Icon(
+                        Icons.delete,
+                        color: AppColors.textColor,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          )
+              : const LoadingExample(),
+        )
+            : const ColorLoader();
       }),
     );
   }
 
   Widget _loader(BuildContext context, String url) {
     return const ImageIcon(
-      AssetImage('assets/media/icon/logo_v.png'),
+      AssetImage('assets/media/icon/logo v.png'),
       color: Color(0xFF3A5A98),
     );
   }

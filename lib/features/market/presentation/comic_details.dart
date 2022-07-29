@@ -266,7 +266,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                 data.singleProductModel!.id)
                                             .id,
                                         requestHeadersWithToken,
-                                        'product__type=0',
+                                        'product__type=1',
                                       );
                                     }
 

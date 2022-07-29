@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+
+import 'package:get/get.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,22 +64,15 @@ class SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(
-                mode == 0
-                    ? 'assets/media/image/vemate1.png'
-                    : 'assets/media/image/vemate.png',
-                width: animation.value * 400,
-                height: animation.value * 400,
-              ),
-            ],
+      body: Center(
+        child: Container(
+          height: Get.width*.8,
+          width: Get.width*.8,
+          child: Image.asset(
+            'assets/media/image/splash_logo.gif',
+            fit: BoxFit.fill,
           ),
-        ],
+        ),
       ),
     );
   }

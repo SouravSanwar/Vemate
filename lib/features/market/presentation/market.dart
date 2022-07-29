@@ -126,6 +126,8 @@ class _MarketState extends State<Market> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
                                   color: AppColors.backgroundColor,
+                                  offset: Offset(0,40),
+
                                   icon: Icon(
                                     Icons.filter_list,
                                     color: AppColors.grey,

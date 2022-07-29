@@ -149,7 +149,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   )
                 ],
               ),
-              /*AppSpaces.spaces_height_35,
+              AppSpaces.spaces_height_35,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -209,12 +209,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                             AppleIDAuthorizationScopes.fullName,
                           ],
                         );
-
-                        print("1111111111111111111111111111111111111111111111");
-
-                        // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
-                        // after they have been validated with Apple (see `Integration` section for more information on how to do this)
-                      },
+                        },
                       child: Image.asset(
                         'assets/media/icon/apple.png',
                         color: Colors.white,
@@ -244,7 +239,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     ),
                   ),
                 ],
-              ),*/
+              ),
               SizedBox(
                 height: Get.height * .09,
               ),
@@ -261,7 +256,6 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           style: TextStyle(
                               fontFamily: 'Inter',
                               color: Colors.grey,
-                              fontWeight: FontWeight.bold,
                               fontSize: 15.sp),
                         ),
                         AppSpaces.spaces_width_5,
@@ -270,7 +264,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           style: TextStyle(
                               fontFamily: 'Inter',
                               color: AppColors.primaryColor,
-                              //fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.bold,
                               fontSize: 15.sp),
                         ),
                       ]),
@@ -292,7 +286,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
       "gender": "0",
       "birth_year": "1852",
       "fcm_device_id": "3",
-      "social_provider": 1
+      "password":"123",
+      "social_provider": 1,
     };
 
 /*    var rng = new Random();
