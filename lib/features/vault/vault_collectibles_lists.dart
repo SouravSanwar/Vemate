@@ -562,7 +562,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                             index]
                                                                         .id,
                                                                     requestHeadersWithToken,
-                                                                    'product__type=0',
+                                                                    'product__type=0',deleteset: 13
                                                                   );
                                                                 },
                                                                 text: 'Yes'
