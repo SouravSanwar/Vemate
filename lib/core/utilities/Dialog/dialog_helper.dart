@@ -25,11 +25,14 @@ class DialogHelper {
               decoration: BoxDecoration(
                 gradient: AppColors.graphGradient,
                 borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20.0,),
-                  topRight: Radius.circular(20.0,),
+                  topLeft: Radius.circular(
+                    20.0,
+                  ),
+                  topRight: Radius.circular(
+                    20.0,
+                  ),
                 ),
               ),
-
               width: Get.width,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -41,7 +44,9 @@ class DialogHelper {
                       size: 20,
                     ),
                     AppSpaces.spaces_height_5,
-                    Text(title,style: const TextStyle(color: Colors.white,fontSize: 20)),
+                    Text(title,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 20)),
                   ],
                 ),
               ),
@@ -54,29 +59,29 @@ class DialogHelper {
                   children: [
                     Text(
                       description ?? '',
-                      style: const TextStyle(color: Colors.white,fontSize: 15),
+                      style: const TextStyle(color: Colors.white, fontSize: 15),
                     ),
-
                     const SizedBox(
                       height: 15,
                     ),
-
                     Container(
-                      height: Get.height*.05,
-                      width: Get.width*.25,
+                      height: Get.height * .05,
+                      width: Get.width * .25,
                       decoration: BoxDecoration(
                         gradient: AppColors.purpleGradient, // set border width
                         borderRadius: const BorderRadius.all(
-                            Radius.circular(20.0)), // set rounded corner radius
+                            Radius.circular(20.0)),
                       ),
                       child: TextButton(
                         onPressed: () {
                           if (Get.isDialogOpen!) Get.back();
                         },
-                        child:  const Text('Okay',style: TextStyle(color: Colors.white,fontSize: 20),),
+                        child: const Text(
+                          'Okay',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
                       ),
                     )
-
                   ],
                 ),
               ),

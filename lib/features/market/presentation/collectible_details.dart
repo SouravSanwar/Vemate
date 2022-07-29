@@ -262,6 +262,10 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
 
                                     data.checkSetCheck!.isFound = false;
                                   }
+
+                                  await Future.delayed(
+                                      const Duration(seconds: 1));
+                                  Navigator.of(context).pop();
                                 },
                                 child: Container(
                                   width: Get.width * .42,
