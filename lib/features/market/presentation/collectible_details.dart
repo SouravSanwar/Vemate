@@ -263,20 +263,16 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       'product__type=0',
                                     );
 
-                        await Future.delayed(const Duration(seconds: 1));
-                        Navigator.of(context).pop();
+                                    await Future.delayed(
+                                        const Duration(seconds: 1));
+                                    Navigator.of(context).pop();
                                   }
-
-                                  await Future.delayed(
-                                      const Duration(seconds: 1));
-                                  Navigator.of(context).pop();
                                 },
                                 child: Container(
                                   width: Get.width * .42,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     gradient: AppColors.purpleGradient,
-                                    //color: AppColors.primaryColor,
                                     borderRadius: const BorderRadius.all(
                                       Radius.circular(12),
                                     ),
