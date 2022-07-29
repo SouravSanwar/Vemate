@@ -560,7 +560,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                               index]
                                                                           .id,
                                                                       requestHeadersWithToken,
-                                                                      'product__type=1');
+                                                                      'product__type=1',deleteset: 13);
                                                                 },
                                                                 text: 'Yes'
                                                                     .toUpperCase(),

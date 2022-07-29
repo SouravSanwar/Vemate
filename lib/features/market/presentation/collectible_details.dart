@@ -248,7 +248,10 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       data.singleProductModel!.id,
                                       requestHeadersWithToken,
                                     );
+                                    await Future.delayed(Duration(seconds: 1));
+                                    Navigator.of(context).pop();
                                   } else {
+                                    data.checkSetCheck!.isFound = false;
                                     postData!.deleteSetList(
                                       context,
                                       data.setListModel!.setResults!
@@ -260,8 +263,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       'product__type=0',
                                     );
 
-                                    await Future.delayed(Duration(seconds: 1));
-                                    Navigator.of(context).pop();
+                        await Future.delayed(const Duration(seconds: 1));
+                        Navigator.of(context).pop();
                                   }
                                 },
                                 child: Container(

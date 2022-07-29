@@ -805,14 +805,13 @@ class PostData extends ChangeNotifier with BaseController {
     Navigator.of(context).pop();
     if (check == 12) {
       Navigator.of(context).pop();
-      Navigator.of(context).pop();
     }
 
     notifyListeners();
   }
 
   Future deleteSetList(
-      BuildContext context, int? id, var requestToken, var type) async {
+      BuildContext context, int? id, var requestToken, var type,{int? deleteset}) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -831,6 +830,9 @@ class PostData extends ChangeNotifier with BaseController {
     if (js.containsKey('msg')) {
       await Provider.of<GetData>(context, listen: false).getSetList(type);
       await Provider.of<GetData>(context, listen: false).getVaultStats(0);
+      if(deleteset==13){
+        Navigator.of(context).pop();
+      }
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -840,6 +842,9 @@ class PostData extends ChangeNotifier with BaseController {
                 message: js["msg"],
               ));
     } else {
+      if(deleteset==13){
+        Navigator.of(context).pop();
+      }
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -851,6 +856,9 @@ class PostData extends ChangeNotifier with BaseController {
     }
     await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
+    if(deleteset==13){
+      Navigator.of(context).pop();
+    }
     notifyListeners();
   }
 

@@ -256,6 +256,8 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         data.singleProductModel!.id,
                                         requestHeadersWithToken,
                                       );
+                                      await Future.delayed(Duration(seconds: 1));
+                                      Navigator.of(context).pop();
                                     } else {
                                       data.checkSetCheck!.isFound = false;
                                       postData!.deleteSetList(
@@ -268,10 +270,11 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         requestHeadersWithToken,
                                         'product__type=1',
                                       );
+                                      await Future.delayed(Duration(seconds: 1));
+                                      Navigator.of(context).pop();
                                     }
 
-                                    await Future.delayed(Duration(seconds: 1));
-                                    Navigator.of(context).pop();
+
                                   },
                                   child: Container(
                                     width: Get.width * .42,
