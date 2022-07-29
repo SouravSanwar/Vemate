@@ -641,7 +641,7 @@ class _WishListPageState extends State<WishListPage> {
                                           .results![index]
                                           .alertData!
                                           .id,
-                                      requestHeadersWithToken);
+                                      requestHeadersWithToken,check: 11);
                                       alertCheck=1;
                                       }
                                       postData!
@@ -651,6 +651,7 @@ class _WishListPageState extends State<WishListPage> {
                                       data.wishListModel!
                                           .results![index].id,
                                       requestHeadersWithToken,
+                                        check:12
                                       );
                                       },
                                     text: 'Yes'.toUpperCase(),
@@ -689,7 +690,7 @@ class _WishListPageState extends State<WishListPage> {
           )
               : const LoadingExample(),
         )
-            : ColorLoader();
+            : const ColorLoader();
       }),
     );
   }
