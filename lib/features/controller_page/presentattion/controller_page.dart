@@ -504,7 +504,7 @@ class _ControllerPageState extends State<ControllerPage> {
           'Content-type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'token ${prefs!.getString('token')}',
-        };
+         };
 
         if (message.data["type"] == 0) {
           setState(() {
