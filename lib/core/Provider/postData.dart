@@ -785,7 +785,7 @@ class PostData extends ChangeNotifier with BaseController {
                 message: js["msg"],
               )).whenComplete(() => getData!.getWishList());
     } else {
-      Navigator.of(context).pop();
+      //Navigator.of(context).pop();
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -798,9 +798,9 @@ class PostData extends ChangeNotifier with BaseController {
 
     await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
-    if (alterCheck == 0) {
+    /*if (alterCheck == 0) {
       Navigator.of(context).pop();
-    }
+    }*/
 
     notifyListeners();
   }
@@ -920,7 +920,6 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
-      Navigator.of(context).pop();
       getData!.getWishList();
       showDialog(
           context: context,
@@ -931,7 +930,6 @@ class PostData extends ChangeNotifier with BaseController {
                 message: "Deleted Successfully",
               ));
     } else {
-      Navigator.of(context).pop();
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -942,7 +940,6 @@ class PostData extends ChangeNotifier with BaseController {
               ));
     }
     await Future.delayed(Duration(seconds: 1));
-    Navigator.of(context).pop();
     Navigator.of(context).pop();
     notifyListeners();
   }
