@@ -8,6 +8,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
+import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/_controller/sign_up_controller.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
@@ -137,7 +138,7 @@ class _SignUpState extends State<SignUp> {
                         CustomButtons(
                           width: Get.width * .9,
                           height: Get.height * .065,
-                          onTap: () {
+                          onTap: () async {
                             var body = {
                               "nickname":
                                   SignUpController.to.nameController.text,
@@ -153,20 +154,17 @@ class _SignUpState extends State<SignUp> {
                                       SignUpController
                                           .to.confirmPasswordController.text
                                   ? postData!.signUp(context, body)
-                                  : Flushbar(
-                                      backgroundColor:
-                                          AppColors.lightBackgroundColor,
-                                      flushbarPosition: FlushbarPosition.BOTTOM,
-                                      isDismissible: false,
-                                      duration: const Duration(seconds: 3),
-                                      messageText: Text(
-                                        "Password didn't match",
-                                        style: TextStyle(
-                                            fontFamily: 'Inter',
-                                            fontSize: 16.0.sp,
-                                            color: Colors.red),
-                                      ),
-                                    ).show(context);
+                                  : showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (_) => ResponseMessage(
+                                            icon: Icons.check_circle,
+                                            color: AppColors.primaryColor,
+                                            message: "Password Didn\'t Match",
+                                          ));
+
+                              await Future.delayed(const Duration(seconds: 1));
+                              Navigator.of(context).pop();
                             }
                           },
                           text: AppLanguageString.SIGN_UP.tr.toUpperCase(),

@@ -147,24 +147,6 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                         'token ${prefs!.getString('token')}',
                                   };
 
-                                  if (data.wishListModel!.results!
-                                          .firstWhere((element) =>
-                                              element.productDetail!.id ==
-                                              data.singleProductModel!.id)
-                                          .alertData !=
-                                      null) {
-                                    postData!.deleteAlert(
-                                        context,
-                                        data.wishListModel!.results!
-                                            .firstWhere((element) =>
-                                                element.productDetail!.id ==
-                                                data.singleProductModel!.id)
-                                            .alertData!
-                                            .id,
-                                        requestHeadersWithToken);
-                                    alertCheck = 1;
-                                  }
-
                                   if (data.checkWishlistModel!.isFound ==
                                       false) {
                                     postData!.addToWishlist(
@@ -174,7 +156,24 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       requestHeadersWithToken,
                                     );
                                   } else {
-                                    data.checkWishlistModel!.isFound = false;
+                                    if (data.wishListModel!.results!
+                                            .firstWhere((element) =>
+                                                element.productDetail!.id ==
+                                                data.singleProductModel!.id)
+                                            .alertData !=
+                                        null) {
+                                      postData!.deleteAlert(
+                                          context,
+                                          data.wishListModel!.results!
+                                              .firstWhere((element) =>
+                                                  element.productDetail!.id ==
+                                                  data.singleProductModel!.id)
+                                              .alertData!
+                                              .id,
+                                          requestHeadersWithToken);
+                                      alertCheck = 1;
+                                    }
+
                                     postData!.deleteWishlist(
                                       context,
                                       alertCheck,
@@ -185,6 +184,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           .id,
                                       requestHeadersWithToken,
                                     );
+
+                                    data.checkWishlistModel!.isFound = false;
                                   }
 
                                   await Future.delayed(
@@ -248,7 +249,6 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       requestHeadersWithToken,
                                     );
                                   } else {
-                                    data.checkSetCheck!.isFound = false;
                                     postData!.deleteSetList(
                                       context,
                                       data.setListModel!.setResults!
@@ -259,6 +259,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       requestHeadersWithToken,
                                       'product__type=0',
                                     );
+
+                                    data.checkSetCheck!.isFound = false;
                                   }
 
                                   await Future.delayed(

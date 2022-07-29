@@ -85,6 +85,7 @@ class _ControllerPageState extends State<ControllerPage> {
     getData = Provider.of<GetData>(context, listen: false);
     //getData!.getUserInfo();
     appUpdate!.getUpdateInfo();
+    getData!.notificationListModel = null;
     super.initState();
     initPlatformState();
     getToken();

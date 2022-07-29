@@ -66,6 +66,14 @@ class PostData extends ChangeNotifier with BaseController {
       try {
         if (js.containsKey('id')) {
           Navigator.of(context).pop();
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (_) => ResponseMessage(
+                    icon: Icons.check_circle,
+                    color: AppColors.primaryColor,
+                    message: "Registration Successful",
+                  ));
           prefs = await SharedPreferences.getInstance();
           prefs!.setString(
               'is_email_verified', js['is_email_verified'].toString());
@@ -77,14 +85,8 @@ class PostData extends ChangeNotifier with BaseController {
               ? Get.to(() => const AuthInitialPage())
               : Get.to(() => OtpPage());
 
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (_) => ResponseMessage(
-                    icon: Icons.check_circle,
-                    color: AppColors.primaryColor,
-                    message: "Registration Successful",
-                  ));
+          await Future.delayed(const Duration(seconds: 1));
+          Navigator.of(context).pop();
         } else {
           Navigator.of(context).pop();
 
@@ -109,7 +111,6 @@ class PostData extends ChangeNotifier with BaseController {
                 ));
       }
     } else {
-      Navigator.of(context).pop();
       if (js.containsKey('email')) {
         showDialog(
             context: context,
@@ -772,8 +773,8 @@ class PostData extends ChangeNotifier with BaseController {
 
     Map<String, dynamic> js = x;
     if (js.containsKey('msg')) {
-      Navigator.of(context).pop();
-      getData!.getWishList();
+      //Navigator.of(context).pop();
+      //getData!.getWishList();
 
       showDialog(
           context: context,
@@ -782,7 +783,7 @@ class PostData extends ChangeNotifier with BaseController {
                 icon: Icons.check_circle,
                 color: AppColors.primaryColor,
                 message: js["msg"],
-              ));
+              )).whenComplete(() => getData!.getWishList());
     } else {
       Navigator.of(context).pop();
       showDialog(
@@ -845,7 +846,6 @@ class PostData extends ChangeNotifier with BaseController {
               ));
     }
     await Future.delayed(const Duration(seconds: 1));
-    Navigator.of(context).pop();
     Navigator.of(context).pop();
     notifyListeners();
   }
