@@ -10,6 +10,7 @@ import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
+import 'package:ketemaa/features/vault/My%20Vault/my_sets_lists.dart';
 import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
 import 'package:ketemaa/features/vault/vault_comics_card.dart';
@@ -345,19 +346,46 @@ class _VaultState extends State<Vault> {
                           ),
 
                           ///My Vault
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: 15,
-                              bottom: Get.height * .0167,
-                            ),
-                            //apply padding to all four sides
-                            child: Text(
-                              "My Vault",
-                              style: Get.textTheme.headline2!.copyWith(
-                                  color: AppColors.textColor,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500),
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left: 15,
+                                  top: Get.height * .0334,
+                                  bottom: Get.height * .0167,
+                                ),
+                                //apply padding to all four sides
+                                child: Text(
+                                  "My Vault",
+                                  style: Get.textTheme.headline2!.copyWith(
+                                      color: AppColors.textColor,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Get.to(() => const SetListPage());
+                                },
+                                child: data.setListModel!.setResults!.isNotEmpty
+                                    ? Padding(
+                                        padding: EdgeInsets.only(
+                                            right: Get.width * .06,
+                                            top: Get.height * .0334,
+                                            bottom: Get.height * .0167),
+                                        child: Text(
+                                          "See All",
+                                          style: TextStyle(
+                                              color: AppColors.textColor,
+                                              //fontFamily: 'Inter',
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      )
+                                    : Container(),
+                              ),
+                            ],
                           ),
                           data.setListModel != null
                               ? SizedBox(
