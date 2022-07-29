@@ -126,6 +126,7 @@ ItemBuilder _defaultItemBuilder({
           children: <Widget>[
             AnimatedContainer(
               duration: const Duration(milliseconds: 3),
+              width: 50,
               decoration: BoxDecoration(
                   gradient: currentIndex == items!.indexOf(item)
                       ? selectedBackgroundColor

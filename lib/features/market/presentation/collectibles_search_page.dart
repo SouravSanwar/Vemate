@@ -157,396 +157,391 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
           ),
           onRefresh: _onRefresh,
           onLoading: _onLoading,
-          child: ListView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            children: [
-              Container(
-                width: _width,
-                padding: const EdgeInsets.only(bottom: 10),
-                child: data.searchCollectiblesModel != null
-                    ? ListView.builder(
-                        itemCount:
-                            data.searchCollectiblesModel!.results!.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              Get.to(
-                                () => CollectibleDetails(
-                                  productId: data.searchCollectiblesModel!
-                                      .results![index].id,
-                                ),
-                              );
-                            },
+          child: Container(
+            width: _width,
+            padding: const EdgeInsets.only(bottom: 10),
+            child: data.searchCollectiblesModel != null
+                ? ListView.builder(
+                    itemCount:
+                        data.searchCollectiblesModel!.results!.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Get.to(
+                            () => CollectibleDetails(
+                              productId: data.searchCollectiblesModel!
+                                  .results![index].id,
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Container(
+                            width: Get.width,
+                            decoration: BoxDecoration(
+                              color: AppColors.graphCard,
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
                             child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Container(
-                                width: Get.width,
-                                decoration: BoxDecoration(
-                                  color: AppColors.graphCard,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        height: Get.height * .09,
-                                        width: Get.height * .078,
-                                        decoration: BoxDecoration(
-                                            color: AppColors.graphCard,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color:
-                                                    AppColors.textBoxBgColor)),
-                                        alignment: Alignment.center,
-                                        child: data.searchCollectiblesModel!
-                                                    .results![index].image ==
-                                                null
-                                            ? Text(
-                                                data.searchCollectiblesModel!
-                                                    .results![index].name
-                                                    .toString()[0]
-                                                    .toUpperCase(),
-                                                style: TextStyle(
-                                                    color: AppColors
-                                                        .backgroundColor,
-                                                    //fontFamily: 'Inter',
-                                                    fontSize: 35,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
-                                            : CachedNetworkImage(
-                                                imageUrl: data
-                                                    .searchCollectiblesModel!
-                                                    .results![index]
-                                                    .image!
-                                                    .image_on_list!
-                                                    .src
-                                                    .toString(),
-                                                imageBuilder:
-                                                    (context, imageProvider) =>
-                                                        Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    image: DecorationImage(
-                                                      image: imageProvider,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
+                              padding: const EdgeInsets.all(5.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    height: Get.height * .09,
+                                    width: Get.height * .078,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.graphCard,
+                                        borderRadius:
+                                            BorderRadius.circular(10),
+                                        border: Border.all(
+                                            color:
+                                                AppColors.textBoxBgColor)),
+                                    alignment: Alignment.center,
+                                    child: data.searchCollectiblesModel!
+                                                .results![index].image ==
+                                            null
+                                        ? Text(
+                                            data.searchCollectiblesModel!
+                                                .results![index].name
+                                                .toString()[0]
+                                                .toUpperCase(),
+                                            style: TextStyle(
+                                                color: AppColors
+                                                    .backgroundColor,
+                                                //fontFamily: 'Inter',
+                                                fontSize: 35,
+                                                fontWeight:
+                                                    FontWeight.bold),
+                                          )
+                                        : CachedNetworkImage(
+                                            imageUrl: data
+                                                .searchCollectiblesModel!
+                                                .results![index]
+                                                .image!
+                                                .image_on_list!
+                                                .src
+                                                .toString(),
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10),
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover,
                                                 ),
-                                                placeholder: _loader,
                                               ),
-                                      ),
-                                      AppSpaces.spaces_width_5,
-                                      Expanded(
-                                        flex: 7,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: <Widget>[
-                                                Expanded(
-                                                    flex: 5,
-                                                    child: SizedBox(
-                                                      height: Get.height * .02,
-                                                      child: Text(
-                                                        data
-                                                            .searchCollectiblesModel!
-                                                            .results![index]
-                                                            .name
-                                                            .toString(),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style: Get.textTheme
-                                                            .bodyText2!
-                                                            .copyWith(
-                                                                color: AppColors
-                                                                    .textColor,
-                                                                //fontFamily: 'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontSize:
-                                                                    13.sp),
-                                                      ),
-                                                    )),
-                                                AppSpaces.spaces_width_2,
-                                                Expanded(
-                                                    flex: 3,
-                                                    child: Text(
-                                                      data
-                                                          .searchCollectiblesModel!
-                                                          .results![index]
-                                                          .edition
-                                                          .toString(),
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: Get
-                                                          .textTheme.bodyText1!
-                                                          .copyWith(
-                                                              color: AppColors
-                                                                  .textColor,
-                                                              /*fontFamily:
-                                                                  'Inter',*/
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w300,
-                                                              fontSize: 10.sp),
-                                                    )),
-                                              ],
                                             ),
-                                            AppSpaces.spaces_height_10,
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  flex: 5,
+                                            placeholder: _loader,
+                                          ),
+                                  ),
+                                  AppSpaces.spaces_width_5,
+                                  Expanded(
+                                    flex: 7,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                                flex: 5,
+                                                child: SizedBox(
+                                                  height: Get.height * .02,
                                                   child: Text(
                                                     data
-                                                                .searchCollectiblesModel!
-                                                                .results![index]
-                                                                .brand !=
-                                                            null
-                                                        ? data
-                                                            .searchCollectiblesModel!
-                                                            .results![index]
-                                                            .brand!
-                                                            .name
-                                                            .toString()
-                                                        : "",
-                                                    textAlign: TextAlign.start,
-                                                    style: Get
-                                                        .textTheme.bodyText1!
-                                                        .copyWith(
-                                                            color: AppColors
-                                                                .textColor
-                                                                .withOpacity(
-                                                                    0.8),
-                                                            //fontFamily: 'Inter',
-                                                            fontWeight:
-                                                                FontWeight.w900,
-                                                            fontSize: 10.sp),
-                                                  ),
-                                                ),
-                                                AppSpaces.spaces_width_2,
-                                                Expanded(
-                                                  flex: 3,
-                                                  child: Text(
-                                                    data.searchCollectiblesModel!
-                                                        .results![index].rarity
+                                                        .searchCollectiblesModel!
+                                                        .results![index]
+                                                        .name
                                                         .toString(),
-                                                    textAlign: TextAlign.start,
-                                                    style: Get
-                                                        .textTheme.bodyText1!
+                                                    overflow: TextOverflow
+                                                        .ellipsis,
+                                                    textAlign:
+                                                        TextAlign.start,
+                                                    style: Get.textTheme
+                                                        .bodyText2!
                                                         .copyWith(
                                                             color: AppColors
-                                                                .textColor
-                                                                .withOpacity(
-                                                                    0.8),
-                                                            /*fontFamily: 'Inter',*/
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                            fontSize: 10.sp),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            AppSpaces.spaces_height_10,
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  flex: 5,
-                                                  child: Text(
-                                                    r"$" +
-                                                        data
-                                                            .searchCollectiblesModel!
-                                                            .results![index]
-                                                            .floorPrice
-                                                            .toString(),
-                                                    textAlign: TextAlign.start,
-                                                    style: Get
-                                                        .textTheme.bodyText1!
-                                                        .copyWith(
-                                                            color: AppColors
-                                                                .textColor
-                                                                .withOpacity(
-                                                                    0.8),
+                                                                .textColor,
                                                             //fontFamily: 'Inter',
                                                             fontWeight:
-                                                                FontWeight.w900,
-                                                            fontSize: 11.sp),
+                                                                FontWeight
+                                                                    .w600,
+                                                            fontSize:
+                                                                13.sp),
                                                   ),
-                                                ),
-                                                AppSpaces.spaces_width_2,
-                                                const Expanded(
-                                                  flex: 3,
-                                                  child: Text(""),
-                                                ),
-                                              ],
+                                                )),
+                                            AppSpaces.spaces_width_2,
+                                            Expanded(
+                                                flex: 3,
+                                                child: Text(
+                                                  data
+                                                      .searchCollectiblesModel!
+                                                      .results![index]
+                                                      .edition
+                                                      .toString(),
+                                                  textAlign:
+                                                      TextAlign.start,
+                                                  style: Get
+                                                      .textTheme.bodyText1!
+                                                      .copyWith(
+                                                          color: AppColors
+                                                              .textColor,
+                                                          /*fontFamily:
+                                                              'Inter',*/
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .w300,
+                                                          fontSize: 10.sp),
+                                                )),
+                                          ],
+                                        ),
+                                        AppSpaces.spaces_height_10,
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 5,
+                                              child: Text(
+                                                data
+                                                            .searchCollectiblesModel!
+                                                            .results![index]
+                                                            .brand !=
+                                                        null
+                                                    ? data
+                                                        .searchCollectiblesModel!
+                                                        .results![index]
+                                                        .brand!
+                                                        .name
+                                                        .toString()
+                                                    : "",
+                                                textAlign: TextAlign.start,
+                                                style: Get
+                                                    .textTheme.bodyText1!
+                                                    .copyWith(
+                                                        color: AppColors
+                                                            .textColor
+                                                            .withOpacity(
+                                                                0.8),
+                                                        //fontFamily: 'Inter',
+                                                        fontWeight:
+                                                            FontWeight.w900,
+                                                        fontSize: 10.sp),
+                                              ),
+                                            ),
+                                            AppSpaces.spaces_width_2,
+                                            Expanded(
+                                              flex: 3,
+                                              child: Text(
+                                                data.searchCollectiblesModel!
+                                                    .results![index].rarity
+                                                    .toString(),
+                                                textAlign: TextAlign.start,
+                                                style: Get
+                                                    .textTheme.bodyText1!
+                                                    .copyWith(
+                                                        color: AppColors
+                                                            .textColor
+                                                            .withOpacity(
+                                                                0.8),
+                                                        /*fontFamily: 'Inter',*/
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                        fontSize: 10.sp),
+                                              ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      Expanded(
-                                        flex: 4,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                        AppSpaces.spaces_height_10,
+                                        Row(
                                           children: [
-                                            SizedBox(
-                                              height: Get.height * .05,
-                                              child: SfCartesianChart(
-                                                plotAreaBorderWidth: 0,
-                                                primaryXAxis: CategoryAxis(
-                                                  isVisible: false,
-                                                  majorGridLines:
-                                                      const MajorGridLines(
-                                                          width: 0),
-                                                  labelIntersectAction:
-                                                      AxisLabelIntersectAction
-                                                          .hide,
-                                                  labelRotation: 270,
-                                                  labelAlignment:
-                                                      LabelAlignment.start,
-                                                  maximumLabels: 7,
-                                                ),
-                                                primaryYAxis: CategoryAxis(
-                                                  isVisible: false,
-                                                  majorGridLines:
-                                                      const MajorGridLines(
-                                                          width: 0),
-                                                  labelIntersectAction:
-                                                      AxisLabelIntersectAction
-                                                          .hide,
-                                                  labelRotation: 0,
-                                                  labelAlignment:
-                                                      LabelAlignment.start,
-                                                  maximumLabels: 10,
-                                                ),
-                                                tooltipBehavior:
-                                                    TooltipBehavior(
-                                                        enable: true),
-                                                series: <
-                                                    ChartSeries<Graph, String>>[
-                                                  LineSeries<Graph, String>(
-                                                    color: data
-                                                                .searchCollectiblesModel!
-                                                                .results![index]
-                                                                .priceChangePercent!
-                                                                .sign ==
-                                                            'decrease'
-                                                        ? Colors.red
-                                                        : Colors.green,
-                                                    dataSource: data
+                                            Expanded(
+                                              flex: 5,
+                                              child: Text(
+                                                r"$" +
+                                                    data
                                                         .searchCollectiblesModel!
                                                         .results![index]
-                                                        .graph!,
-                                                    xValueMapper:
-                                                        (Graph plot, _) =>
-                                                            plot.date,
-                                                    yValueMapper:
-                                                        (Graph plot, _) =>
-                                                            plot.floorPrice,
-                                                    xAxisName: 'Duration',
-                                                    yAxisName: 'Total',
-                                                  )
-                                                ],
+                                                        .floorPrice
+                                                        .toString(),
+                                                textAlign: TextAlign.start,
+                                                style: Get
+                                                    .textTheme.bodyText1!
+                                                    .copyWith(
+                                                        color: AppColors
+                                                            .textColor
+                                                            .withOpacity(
+                                                                0.8),
+                                                        //fontFamily: 'Inter',
+                                                        fontWeight:
+                                                            FontWeight.w900,
+                                                        fontSize: 11.sp),
                                               ),
                                             ),
-                                            AppSpaces.spaces_height_10,
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    '\$${data.searchCollectiblesModel!.results![index].priceChangePercent!.cp != null ? data.searchCollectiblesModel!.results![index].priceChangePercent!.cp!.toStringAsFixed(2) : ""}',
-                                                    textAlign: TextAlign.start,
-                                                    style: Get
-                                                        .textTheme.bodyText1!
-                                                        .copyWith(
-                                                            color: AppColors
-                                                                .white
-                                                                .withOpacity(
-                                                                    0.9),
-                                                            //fontFamily: 'Inter',
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            fontSize: 11.sp),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      Text(
-                                                        data
+                                            AppSpaces.spaces_width_2,
+                                            const Expanded(
+                                              flex: 3,
+                                              child: Text(""),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 4,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: Get.height * .05,
+                                          child: SfCartesianChart(
+                                            plotAreaBorderWidth: 0,
+                                            primaryXAxis: CategoryAxis(
+                                              isVisible: false,
+                                              majorGridLines:
+                                                  const MajorGridLines(
+                                                      width: 0),
+                                              labelIntersectAction:
+                                                  AxisLabelIntersectAction
+                                                      .hide,
+                                              labelRotation: 270,
+                                              labelAlignment:
+                                                  LabelAlignment.start,
+                                              maximumLabels: 7,
+                                            ),
+                                            primaryYAxis: CategoryAxis(
+                                              isVisible: false,
+                                              majorGridLines:
+                                                  const MajorGridLines(
+                                                      width: 0),
+                                              labelIntersectAction:
+                                                  AxisLabelIntersectAction
+                                                      .hide,
+                                              labelRotation: 0,
+                                              labelAlignment:
+                                                  LabelAlignment.start,
+                                              maximumLabels: 10,
+                                            ),
+                                            tooltipBehavior:
+                                                TooltipBehavior(
+                                                    enable: true),
+                                            series: <
+                                                ChartSeries<Graph, String>>[
+                                              LineSeries<Graph, String>(
+                                                color: data
                                                             .searchCollectiblesModel!
                                                             .results![index]
                                                             .priceChangePercent!
-                                                            .percent!
-                                                            .toString(),
-                                                        textAlign:
-                                                            TextAlign.end,
-                                                        style: Get.textTheme.bodyText1!.copyWith(
-                                                            color: data
-                                                                        .searchCollectiblesModel!
-                                                                        .results![
-                                                                            index]
-                                                                        .priceChangePercent!
-                                                                        .sign ==
-                                                                    'decrease'
-                                                                ? Colors.red
-                                                                : Colors.green,
-                                                            //fontFamily: 'Inter',
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                            fontSize: 10.sp),
-                                                      ),
-                                                      if (data
-                                                              .searchCollectiblesModel!
-                                                              .results![index]
-                                                              .priceChangePercent!
-                                                              .sign ==
-                                                          'decrease')
-                                                        const Icon(
-                                                          Icons.arrow_downward,
-                                                          color: Colors.red,
-                                                          size: 12,
-                                                        )
-                                                      else
-                                                        const Icon(
-                                                          Icons.arrow_upward,
-                                                          color: Colors.green,
-                                                          size: 12,
-                                                        )
-                                                    ],
+                                                            .sign ==
+                                                        'decrease'
+                                                    ? Colors.red
+                                                    : Colors.green,
+                                                dataSource: data
+                                                    .searchCollectiblesModel!
+                                                    .results![index]
+                                                    .graph!,
+                                                xValueMapper:
+                                                    (Graph plot, _) =>
+                                                        plot.date,
+                                                yValueMapper:
+                                                    (Graph plot, _) =>
+                                                        plot.floorPrice,
+                                                xAxisName: 'Duration',
+                                                yAxisName: 'Total',
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        AppSpaces.spaces_height_10,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                '\$${data.searchCollectiblesModel!.results![index].priceChangePercent!.cp != null ? data.searchCollectiblesModel!.results![index].priceChangePercent!.cp!.toStringAsFixed(2) : ""}',
+                                                textAlign: TextAlign.start,
+                                                style: Get
+                                                    .textTheme.bodyText1!
+                                                    .copyWith(
+                                                        color: AppColors
+                                                            .white
+                                                            .withOpacity(
+                                                                0.9),
+                                                        //fontFamily: 'Inter',
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 11.sp),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    data
+                                                        .searchCollectiblesModel!
+                                                        .results![index]
+                                                        .priceChangePercent!
+                                                        .percent!
+                                                        .toString(),
+                                                    textAlign:
+                                                        TextAlign.end,
+                                                    style: Get.textTheme.bodyText1!.copyWith(
+                                                        color: data
+                                                                    .searchCollectiblesModel!
+                                                                    .results![
+                                                                        index]
+                                                                    .priceChangePercent!
+                                                                    .sign ==
+                                                                'decrease'
+                                                            ? Colors.red
+                                                            : Colors.green,
+                                                        //fontFamily: 'Inter',
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                        fontSize: 10.sp),
                                                   ),
-                                                ),
-                                              ],
+                                                  if (data
+                                                          .searchCollectiblesModel!
+                                                          .results![index]
+                                                          .priceChangePercent!
+                                                          .sign ==
+                                                      'decrease')
+                                                    const Icon(
+                                                      Icons.arrow_downward,
+                                                      color: Colors.red,
+                                                      size: 12,
+                                                    )
+                                                  else
+                                                    const Icon(
+                                                      Icons.arrow_upward,
+                                                      color: Colors.green,
+                                                      size: 12,
+                                                    )
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
                             ),
-                          );
-                        })
-                    : ColorLoader(),
-              ),
-            ],
+                          ),
+                        ),
+                      );
+                    })
+                : const ColorLoader(),
           ),
         );
       }),
@@ -554,9 +549,11 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
   }
 
   Widget _loader(BuildContext context, String url) {
-    return ImageIcon(
-      AssetImage('assets/media/icon/logo_v.png'),
-      color: Color(0xFF3A5A98),
+    return const Center(
+      child: ImageIcon(
+        AssetImage('assets/media/icon/logo_v.png'),
+        color: Color(0xFF3A5A98),
+      ),
     );
   }
 

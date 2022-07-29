@@ -48,6 +48,7 @@ class GetData extends ChangeNotifier with BaseController {
   NewsModel? newsModel;
 
   AlertModel? alertModel;
+
   NotificationListModel? notificationListModel;
   NotificationReadModel? notificationReadModel;
 

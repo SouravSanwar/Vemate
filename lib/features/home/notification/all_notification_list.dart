@@ -53,8 +53,6 @@ class _AllNotificationListState extends State<AllNotificationList> {
 
   @override
   Widget build(BuildContext context) {
-    SharedPreferenceController.to.getToken();
-
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -91,7 +89,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0, vertical: 4.0),
-                            child: Container(
+                            child: SizedBox(
                               width: Get.width,
                               child: InkWell(
                                   onTap: () async {
@@ -276,7 +274,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                       );
                     },
                   )
-                : ColorLoader());
+                : const ColorLoader());
       }),
     );
   }
@@ -284,7 +282,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
   Widget _loader(BuildContext context, String url) {
     return const ImageIcon(
       AssetImage('assets/media/icon/logo_v.png'),
-      color: const Color(0xFF3A5A98),
+      color: Color(0xFF3A5A98),
     );
   }
 
