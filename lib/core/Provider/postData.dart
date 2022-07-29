@@ -825,6 +825,7 @@ class PostData extends ChangeNotifier with BaseController {
     if (js.containsKey('msg')) {
       await Provider.of<GetData>(context, listen: false).getSetList(type);
       await Provider.of<GetData>(context, listen: false).getVaultStats(0);
+      Navigator.of(context).pop();
       showDialog(
           context: context,
           barrierDismissible: false,
