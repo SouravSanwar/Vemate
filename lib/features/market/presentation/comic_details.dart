@@ -78,7 +78,9 @@ class _ComicDetailsState extends State<ComicDetails> {
           ),
         ),
         backgroundColor: AppColors.backgroundColor,
-        body: data.singleProductModel != null
+        body: data.singleProductModel != null &&
+                data.checkSetCheck != null &&
+                data.checkWishlistModel != null
             ? SafeArea(
                 child: NestedScrollView(
                   headerSliverBuilder:
@@ -256,7 +258,8 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         data.singleProductModel!.id,
                                         requestHeadersWithToken,
                                       );
-                                      await Future.delayed(Duration(seconds: 1));
+                                      await Future.delayed(
+                                          Duration(seconds: 1));
                                       Navigator.of(context).pop();
                                     } else {
                                       data.checkSetCheck!.isFound = false;
@@ -270,11 +273,10 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         requestHeadersWithToken,
                                         'product__type=1',
                                       );
-                                      await Future.delayed(Duration(seconds: 1));
+                                      await Future.delayed(
+                                          Duration(seconds: 1));
                                       Navigator.of(context).pop();
                                     }
-
-
                                   },
                                   child: Container(
                                     width: Get.width * .42,

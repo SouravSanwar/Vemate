@@ -84,8 +84,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       child: Text(
                         "LOGIN",
                         style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: AppColors.textColor),
+                            fontFamily: 'Inter', color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(
@@ -150,7 +149,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 ],
               ),
               AppSpaces.spaces_height_35,
-              Row(
+               /*Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
@@ -178,7 +177,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                 ],
               ),
               AppSpaces.spaces_height_35,
-              Row(
+            Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
@@ -239,7 +238,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     ),
                   ),
                 ],
-              ),
+              ),*/
               SizedBox(
                 height: Get.height * .09,
               ),
@@ -262,7 +261,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                         Text(
                           "Register For Free",
                           style: TextStyle(
-                              fontFamily: 'Inter',
+                              //fontFamily: 'Inter',
                               color: AppColors.primaryColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 15.sp),
@@ -286,7 +285,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
       "gender": "0",
       "birth_year": "1852",
       "fcm_device_id": "3",
-      "password":"123",
+      "password": "123",
       "social_provider": 1,
     };
 

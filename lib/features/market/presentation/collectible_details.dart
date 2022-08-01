@@ -77,7 +77,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
           ),
         ),
         backgroundColor: AppColors.backgroundColor,
-        body: data.singleProductModel != null
+        body: data.singleProductModel != null &&
+                data.checkSetCheck != null &&
+                data.checkWishlistModel != null
             ? SafeArea(
                 child: NestedScrollView(
                   headerSliverBuilder:

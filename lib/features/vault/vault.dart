@@ -364,7 +364,7 @@ class _VaultState extends State<Vault> {
                                       fontWeight: FontWeight.w500),
                                 ),
                               ),
-                              InkWell(
+                              /*InkWell(
                                 onTap: () {
                                   Get.to(() => const SetListPage());
                                 },
@@ -384,7 +384,7 @@ class _VaultState extends State<Vault> {
                                         ),
                                       )
                                     : Container(),
-                              ),
+                              ),*/
                             ],
                           ),
                           data.setListModel != null
