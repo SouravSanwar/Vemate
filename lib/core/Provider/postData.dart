@@ -749,12 +749,8 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future deleteWishlist(
-    BuildContext context,
-    int? alterCheck,
-    int? id,
-    var requestToken,
-  {int? check}
-  ) async {
+      BuildContext context, int? alterCheck, int? id, var requestToken,
+      {int? check}) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -811,7 +807,8 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future deleteSetList(
-      BuildContext context, int? id, var requestToken, var type,{int? deleteset}) async {
+      BuildContext context, int? id, var requestToken, var type,
+      {int? deleteset}) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -829,8 +826,8 @@ class PostData extends ChangeNotifier with BaseController {
 
     if (js.containsKey('msg')) {
       await Provider.of<GetData>(context, listen: false).getSetList(type);
-      await Provider.of<GetData>(context, listen: false).getVaultStats(0);
-      if(deleteset==13){
+      await Provider.of<GetData>(context, listen: false).getVaultStats();
+      if (deleteset == 13) {
         Navigator.of(context).pop();
       }
       showDialog(
@@ -842,7 +839,7 @@ class PostData extends ChangeNotifier with BaseController {
                 message: js["msg"],
               ));
     } else {
-      if(deleteset==13){
+      if (deleteset == 13) {
         Navigator.of(context).pop();
       }
       showDialog(
@@ -856,7 +853,7 @@ class PostData extends ChangeNotifier with BaseController {
     }
     await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
-    if(deleteset==13){
+    if (deleteset == 13) {
       Navigator.of(context).pop();
     }
     notifyListeners();
@@ -911,7 +908,8 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future deleteAlert(BuildContext context, int? id, var requestToken, {int? check}) async {
+  Future deleteAlert(BuildContext context, int? id, var requestToken,
+      {int? check}) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -954,7 +952,7 @@ class PostData extends ChangeNotifier with BaseController {
     }
     await Future.delayed(Duration(seconds: 1));
     Navigator.of(context).pop();
-    if(check==11){
+    if (check == 11) {
       Navigator.of(context).pop();
     }
     notifyListeners();

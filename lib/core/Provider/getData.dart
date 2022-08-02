@@ -269,7 +269,7 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future getVaultStats(int graphType) async {
+  Future getVaultStats({int graphType = 0}) async {
     vaultStatsModel = null;
     final response = await BaseClient()
         .get(Urls.vaultStats + '?graph_type=$graphType')

@@ -28,6 +28,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   void initState() {
     // TODO: implement initState
+    emailController.text = prefs!.getString('email')!;
 
     postData = Provider.of<PostData>(context, listen: false);
 
@@ -51,7 +52,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 height: Get.height * .18,
                 width: Get.width * .9,
                 child: Image.asset(
-                  mode==0? 'assets/media/image/vemate1.png':'assets/media/image/vemate.png',
+                  mode == 0
+                      ? 'assets/media/image/vemate1.png'
+                      : 'assets/media/image/vemate.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -64,11 +67,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   Container(
                       width: Get.width * .9,
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child:  Text(
+                      child: Text(
                         "Enter New Password",
                         style: TextStyle(
                             //fontFamily: 'Inter',
-                            fontWeight: FontWeight.bold, color: AppColors.textColor),
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textColor),
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(
@@ -98,7 +102,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     height: Get.height * .07,
                   ),
                   CustomButtons(
-                    width: Get.width*.9,
+                    width: Get.width * .9,
                     height: Get.height * .065,
                     onTap: () {
                       var body = {
@@ -110,7 +114,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       postData!.forgotPassword(context, body);
                     },
                     text: AppLanguageString.UPDATE_Pass.tr.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(color: Colors.white,fontFamily: 'Inter',),
+                    style: Get.textTheme.button!.copyWith(
+                      color: Colors.white,
+                      fontFamily: 'Inter',
+                    ),
                   )
                 ],
               ),

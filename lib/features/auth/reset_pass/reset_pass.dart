@@ -88,6 +88,7 @@ class _ResetPassState extends State<ResetPass> {
                         "email": emailController.text,
                         "reason": "forget_password",
                       };
+                      prefs!.setString('email', emailController.text);
                       postData!.resendCode(context, body, isResetPass: true);
                     },
                     text: 'Send Code'.toUpperCase(),

@@ -42,7 +42,7 @@ class _VaultState extends State<Vault> {
 
     getData!.getSetList('');
 
-    getData!.getVaultStats(0);
+    getData!.getVaultStats();
   }
 
   @override
@@ -460,14 +460,7 @@ class _VaultState extends State<Vault> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Text(
-                          '24H',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 15.sp,
-                            color: Colors.white,
-                          ),
-                        ),
+                        child:  const DropDown(Colors.cyan),
                         width: Get.width * .125,
                         height: Get.width * .125,
                         decoration: BoxDecoration(

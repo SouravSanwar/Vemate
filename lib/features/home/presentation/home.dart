@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
 
     getData!.getUserInfo();
 
-    getData!.getVaultStats(0);
+    getData!.getVaultStats();
 
     getData!.getCollectibles();
 
@@ -70,158 +70,157 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return data.profileModel != null &&
-          data.vaultStatsModel != null &&
-          data.newsModel != null &&
-          data.notificationListModel != null
+              data.vaultStatsModel != null &&
+              data.newsModel != null &&
+              data.notificationListModel != null
           ? Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        body: SafeArea(
-            minimum: EdgeInsets.only(top: Get.height * 0.0209),
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 15, right: 12, bottom: 15, left: 12),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (c) => const Profile()));
-                            },
-                            child: Container(
-                              child:
-                              data.profileModel!.profileImage != null
-                                  ? CircleAvatar(
-                                radius: 20,
-                                backgroundImage: NetworkImage(
-                                  Urls.mainUrl +
-                                      data
-                                          .profileModel!
-                                          .profileImage!
-                                          .mobile!
-                                          .src
-                                          .toString(),
+              backgroundColor: AppColors.backgroundColor,
+              body: SafeArea(
+                  minimum: EdgeInsets.only(top: Get.height * 0.0209),
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 15, right: 12, bottom: 15, left: 12),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (c) => const Profile()));
+                                  },
+                                  child: Container(
+                                    child:
+                                        data.profileModel!.profileImage != null
+                                            ? CircleAvatar(
+                                                radius: 20,
+                                                backgroundImage: NetworkImage(
+                                                  Urls.mainUrl +
+                                                      data
+                                                          .profileModel!
+                                                          .profileImage!
+                                                          .mobile!
+                                                          .src
+                                                          .toString(),
+                                                ),
+                                              )
+                                            : const CircleAvatar(
+                                                radius: 20,
+                                                backgroundImage: AssetImage(
+                                                    'assets/media/image/profile.png'),
+                                              ),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: AppColors.greyWhite,
+                                        width: 1.0,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              )
-                                  : const CircleAvatar(
-                                radius: 20,
-                                backgroundImage: AssetImage(
-                                    'assets/media/image/profile.png'),
                               ),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: AppColors.greyWhite,
-                                  width: 1.0,
-                                ),
+                              Text(
+                                "Hi, ${data.profileModel!.nickname.toString()}",
+                                style: Get.textTheme.headline1!.copyWith(
+                                    color: AppColors.textColor,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w500),
                               ),
-                            ),
+                            ],
                           ),
-                        ),
-                        Text(
-                          "Hi, ${data.profileModel!.nickname.toString()}",
-                          style: Get.textTheme.headline1!.copyWith(
-                              color: AppColors.textColor,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(
-                        14.0,
-                      ),
-                      child: InkWell(
-                        onTap: () async {
-                          data.notificationListModel!.results!.isEmpty
-                              ? Get.to(() => const NoNotification())
-                              : showDialog(
-                            context: context,
-                            builder: (ctx) =>
-                            const NotificationAlertBox(),
-                          );
+                          Padding(
+                            padding: const EdgeInsets.all(
+                              14.0,
+                            ),
+                            child: InkWell(
+                              onTap: () async {
+                                data.notificationListModel!.results!.isEmpty
+                                    ? Get.to(() => const NoNotification())
+                                    : showDialog(
+                                        context: context,
+                                        builder: (ctx) =>
+                                            const NotificationAlertBox(),
+                                      );
 
-                          /*if (data
+                                /*if (data
                                     .notificationListModel!.results!.isEmpty) {
                                   await Future.delayed(const Duration(seconds: 1));
                                   Navigator.of(context).pop();
                                 }*/
-                        },
-                        child: NotificationBadge(),
+                              },
+                              child: NotificationBadge(),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
 
-                ///News
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 11, bottom: 12, left: 15, right: 15),
-                  child: Text(
-                    'News',
-                    textAlign: TextAlign.left,
-                    style: Get.textTheme.headline2!.copyWith(
-                        color: AppColors.textColor,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w500),
-                  ),
-                ),
+                      ///News
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 11, bottom: 12, left: 15, right: 15),
+                        child: Text(
+                          'News',
+                          textAlign: TextAlign.left,
+                          style: Get.textTheme.headline2!.copyWith(
+                              color: AppColors.textColor,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
 
-                ImageSlider(
-                    news: data.newsModel != null
-                        ? data.newsModel!.results
-                        : null),
+                      ImageSlider(
+                          news: data.newsModel != null
+                              ? data.newsModel!.results
+                              : null),
 
-                ///My Vault
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 24, bottom: 0, left: 15, right: 15),
-                  child: Text(
-                    'My Vault',
-                    style: Get.textTheme.headline2!.copyWith(
-                        color: AppColors.textColor,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w500),
-                  ),
-                ),
-                HomeVaultCard(
-                  vaultStatsModel: data.vaultStatsModel,
-                ),
+                      ///My Vault
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 24, bottom: 0, left: 15, right: 15),
+                        child: Text(
+                          'My Vault',
+                          style: Get.textTheme.headline2!.copyWith(
+                              color: AppColors.textColor,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      HomeVaultCard(
+                        vaultStatsModel: data.vaultStatsModel,
+                      ),
 
-                ///Newest
-                Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 12, left: 15, right: 15),
-                  child: Text(
-                    'Newest',
-                    style: Get.textTheme.headline2!.copyWith(
-                        color: AppColors.textColor,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w500),
-                  ),
-                ),
-                SizedBox(
-                  height: Get.height * .22,
-                  child: SizedBox(
-                    width: Get.width,
-                    child: data.collectiblesModel != null
-                        ? VaultNewItemCard(
-                      list: data.collectiblesModel!.results,
-                    )
-                        : const LoadingExample(),
-                  ),
-                ),
-              ],
-            )),
-      )
+                      ///Newest
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 12, left: 15, right: 15),
+                        child: Text(
+                          'Newest',
+                          style: Get.textTheme.headline2!.copyWith(
+                              color: AppColors.textColor,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Get.height * .22,
+                        child: SizedBox(
+                          width: Get.width,
+                          child: data.collectiblesModel != null
+                              ? VaultNewItemCard(
+                                  list: data.collectiblesModel!.results,
+                                )
+                              : const LoadingExample(),
+                        ),
+                      ),
+                    ],
+                  )),
+            )
           : ColorLoader();
     });
   }
