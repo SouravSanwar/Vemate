@@ -5,6 +5,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
@@ -41,6 +42,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+
+    const StatusBar();
     final appStyleMode = Provider.of<AppColors>(context);
     Get.put(SigninController());
     final _dialog = RatingDialog(
@@ -77,11 +80,12 @@ class _ProfileState extends State<Profile> {
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      /*appBar: AppBar(
+      appBar: AppBar(
+        backgroundColor: AppColors.backgroundColor,
         actions: const [
-          const BackPreviousScreen(),
+          const ToggleButton(),
         ],
-      ),*/
+      ),
       body: SafeArea(
         minimum: EdgeInsets.zero,
         child: Consumer<GetData>(builder: (context, data, child) {
@@ -89,9 +93,8 @@ class _ProfileState extends State<Profile> {
               ? ListView(
                   shrinkWrap: true,
                   children: [
-                    // SizedBox(height: Get.height * .05),
-                    // ToggleButton(),
-                    const BackPreviousScreen(),
+                    SizedBox(height: Get.height * .05),
+
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

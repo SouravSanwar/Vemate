@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertFrequencyDropdown.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertTextfield.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertTypeDropDown.dart';
@@ -53,6 +54,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
 
   @override
   Widget build(BuildContext context) {
+    const StatusBar();
     return AlertDialog(
         backgroundColor: AppColors.backgroundColor,
         shape: const RoundedRectangleBorder(

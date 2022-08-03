@@ -6,6 +6,7 @@ import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 
 import 'package:get/get.dart';
+import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,6 +63,7 @@ class SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    const StatusBar();
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: Center(

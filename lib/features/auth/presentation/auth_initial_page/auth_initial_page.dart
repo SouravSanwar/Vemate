@@ -10,6 +10,7 @@ import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
+import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/googleSignApi.dart';
 import 'package:ketemaa/main.dart';
@@ -49,6 +50,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
 
   @override
   Widget build(BuildContext context) {
+    const StatusBar();
     Get.put(SigninController());
     printInfo(info: 'Auth Token: ' + prefs!.getString('token').toString());
 

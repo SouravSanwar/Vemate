@@ -12,6 +12,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/Provider/postFile.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
+import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/core/utilities/shimmer/progress_bar.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
@@ -144,6 +145,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    const StatusBar();
     return Consumer<GetData>(builder: (context, data, child) {
       return Scaffold(
         backgroundColor: AppColors.backgroundColor,

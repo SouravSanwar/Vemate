@@ -261,6 +261,8 @@ class Graph {
     date = json['date'];
     if (date != null) {
       hourWiseTime = DateFormat('hh a').format(DateTime.parse(date!));
+      dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
+      print("*********"+hourWiseTime.toString()+"******");
     }
   }
 

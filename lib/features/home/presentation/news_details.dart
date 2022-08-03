@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 
 import '../../../core/models/NewsModel.dart';
@@ -19,6 +20,7 @@ class _NewsDetailsState extends State<NewsDetails> {
 
   @override
   Widget build(BuildContext context) {
+    const StatusBar();
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(

@@ -25,18 +25,8 @@ class _ToggleButtonState extends State<ToggleButton> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: Get.width * .045),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          InkWell(
-            onTap: () {
-              Get.to(() => ControllerPage());
-              //Get.back();
-            },
-            child: Icon(
-              Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back,
-              color: Colors.grey,
-            ),
-          ),
           AnimatedContainer(
             padding: EdgeInsets.only(left: 2, right: 2),
             duration: Duration(milliseconds: 100),

@@ -7,6 +7,7 @@ import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -39,6 +40,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
 
   @override
   Widget build(BuildContext context) {
+    const StatusBar();
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
     return Consumer<AppUpdate>(builder: (context, data, child) {

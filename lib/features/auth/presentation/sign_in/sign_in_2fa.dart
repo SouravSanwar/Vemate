@@ -10,6 +10,7 @@ import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
+import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
@@ -54,6 +55,7 @@ class _SignIn2FAState extends State<SignIn2FA> {
 
   @override
   Widget build(BuildContext context) {
+    const StatusBar();
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
