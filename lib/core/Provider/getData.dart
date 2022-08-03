@@ -83,10 +83,10 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future getCollectibles({int offset = 0}) async {
+  Future getCollectibles({int offset = 0, String? keyword}) async {
     final response = await BaseClient()
         .get(Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset')
+            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&name$keyword')
         .catchError(handleError);
 
     var data = json.decode(response.toString());

@@ -44,6 +44,8 @@ class _MarketState extends State<Market> {
   bool? collectibleSelected = true;
   bool? comicSelected = false;
   bool? brandSelected = false;
+  String? searchText = '';
+
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -84,7 +86,7 @@ class _MarketState extends State<Market> {
                         child: Row(children: [
                           InkWell(
                             onTap: () {
-                              setState(() {
+                              /*setState(() {
                                 filterOn = false;
                               });
                               data.searchCollectiblesModel = null;
@@ -93,30 +95,50 @@ class _MarketState extends State<Market> {
                                   ? Get.to(() => const SearchCollectiblePage())
                                   : (currentIndex == 2
                                       ? Get.to(() => const SearchComicsPage())
-                                      : null);
+                                      : null);*/
                             },
                             focusColor: AppColors.backgroundColor,
                             child: SizedBox(
                               width: Get.width * .8,
                               child: Padding(
                                 padding: EdgeInsets.all(AppDimension.padding_8),
-                                child: Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.search,
-                                      size: 30,
-                                      color: Colors.grey,
-                                    ),
-                                    AppSpaces.spaces_width_10,
-                                    Text(
-                                      'Search',
-                                      textAlign: TextAlign.center,
-                                      style: Get.textTheme.bodyText1!.copyWith(
-                                        color: AppColors.grey,
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: TextFormField(
+                                    controller: searchController,
+                                    cursorColor: Colors.grey,
+                                    keyboardType: TextInputType.text,
+                                    style: const TextStyle(color: Colors.white),
+                                    decoration: const InputDecoration(
+                                      isDense: true,
+                                      border: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      errorBorder: InputBorder.none,
+                                      disabledBorder: InputBorder.none,
+                                      contentPadding: EdgeInsets.only(
+                                          left: 15,
+                                          bottom: 11,
+                                          top: 13,
+                                          right: 15),
+                                      hintText: "Search Collectible",
+                                      hintStyle: TextStyle(
+                                        color: Colors.white,
                                         fontFamily: 'Inter',
                                       ),
                                     ),
-                                  ],
+                                    onChanged: (text) {
+                                      text = searchController.text;
+                                      searchText = searchController.text != ''
+                                          ? '=${searchController.text}'
+                                          : '';
+                                      setState(() {
+                                        getData!.getCollectibles(
+                                            keyword: searchText);
+                                      });
+                                    },
+                                    autofocus: true,
+                                  ),
                                 ),
                               ),
                             ),
@@ -126,8 +148,7 @@ class _MarketState extends State<Market> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
                                   color: AppColors.backgroundColor,
-                                  offset: Offset(0,40),
-
+                                  offset: Offset(0, 40),
                                   icon: Icon(
                                     Icons.filter_list,
                                     color: AppColors.grey,
@@ -305,7 +326,9 @@ class _MarketState extends State<Market> {
                     ///Body
                     Container(
                         child: collectibleSelected == true
-                            ? const CollectiblesItemCard()
+                            ? CollectiblesItemCard(
+                                keyword: searchText!,
+                              )
                             : const ComicsItemCard()),
 
                     /* (comicSelected == true

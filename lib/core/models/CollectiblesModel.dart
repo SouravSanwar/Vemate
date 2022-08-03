@@ -9,7 +9,7 @@ class CollectiblesModel {
   });
 
   CollectiblesModel.fromJson(dynamic json) {
-    count = json['count'];
+    //count = json['count'];
     next = json['next'];
     previous = json['previous'];
     if (json['results'] != null) {
