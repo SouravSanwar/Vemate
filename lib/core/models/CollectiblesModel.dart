@@ -10,8 +10,8 @@ class CollectiblesModel {
 
   CollectiblesModel.fromJson(dynamic json) {
     //count = json['count'];
-    next = json['next'];
-    previous = json['previous'];
+    //next = json['next'];
+    //previous = json['previous'];
     if (json['results'] != null) {
       results = [];
       json['results'].forEach((v) {

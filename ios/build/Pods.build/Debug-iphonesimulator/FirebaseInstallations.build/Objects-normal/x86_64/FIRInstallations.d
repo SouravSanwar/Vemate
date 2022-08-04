@@ -1,0 +1,53 @@
+dependencies: \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseInstallations/Source/Library/FIRInstallations.m \
+  /Users/mdmostafizurrahman/Vemate/ios/build/Pods.build/Debug-iphonesimulator/FirebaseInstallations.build/module.modulemap \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseInstallations/Source/Library/Public/FirebaseInstallations/FIRInstallations.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromises.h \
+  /Users/mdmostafizurrahman/Vemate/ios/build/Pods.build/Debug-iphonesimulator/PromisesObjC.build/module.modulemap \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Wrap.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Validate.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Timeout.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Then.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Testing.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Retry.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Reduce.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Recover.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Race.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Do.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Delay.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Catch.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Await.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Async.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Any.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Always.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromiseError.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+All.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/Target\ Support\ Files/PromisesObjC/PromisesObjC-umbrella.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseCore/Sources/Private/FirebaseCoreInternal.h \
+  /Users/mdmostafizurrahman/Vemate/ios/build/Pods.build/Debug-iphonesimulator/FirebaseCore.build/module.modulemap \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseCore/FirebaseCore/Sources/Public/FirebaseCore/FIRVersion.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseCore/FirebaseCore/Sources/Public/FirebaseCore/FIROptions.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseCore/FirebaseCore/Sources/Public/FirebaseCore/FirebaseCore.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseCore/FirebaseCore/Sources/Public/FirebaseCore/FIRLoggerLevel.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseCore/FirebaseCore/Sources/Public/FirebaseCore/FIRConfiguration.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseCore/FirebaseCore/Sources/Public/FirebaseCore/FIRApp.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/Target\ Support\ Files/FirebaseCore/FirebaseCore-umbrella.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseCore/Sources/Private/FIRAppInternal.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseCore/Sources/Private/FIRComponent.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseCore/Sources/Private/FIRComponentContainer.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseCore/Sources/Private/FIRComponentType.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseCore/Sources/Private/FIRDependency.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseCore/Sources/Private/FIRHeartbeatInfo.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseCore/Sources/Private/FIRLibrary.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseCore/Sources/Private/FIRLogger.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseCore/Sources/Private/FIROptionsInternal.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseInstallations/Source/Library/FIRInstallationsAuthTokenResultInternal.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseInstallations/Source/Library/Public/FirebaseInstallations/FIRInstallationsAuthTokenResult.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseInstallations/Source/Library/Errors/FIRInstallationsErrorUtil.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseInstallations/Source/Library/Public/FirebaseInstallations/FIRInstallationsErrors.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseInstallations/Source/Library/FIRInstallationsItem.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseInstallations/Source/Library/InstallationsIDController/FIRInstallationsStatus.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseInstallations/Source/Library/FIRInstallationsLogger.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseInstallations/Source/Library/InstallationsIDController/FIRInstallationsIDController.h \
+  /Users/mdmostafizurrahman/Vemate/ios/Pods/FirebaseInstallations/FirebaseInstallations/Source/Library/InstallationsStore/FIRInstallationsStoredAuthToken.h

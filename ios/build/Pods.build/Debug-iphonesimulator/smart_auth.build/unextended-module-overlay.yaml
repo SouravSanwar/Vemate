@@ -1,0 +1,14 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/mdmostafizurrahman/Vemate/build/ios/Debug-iphonesimulator/smart_auth/smart_auth.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/mdmostafizurrahman/Vemate/ios/build/Pods.build/Debug-iphonesimulator/smart_auth.build/unextended-module.modulemap",
+    }]
+  }]
+}

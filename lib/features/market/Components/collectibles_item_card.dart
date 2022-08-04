@@ -15,8 +15,10 @@ import '../../../core/utilities/app_spaces/app_spaces.dart';
 
 class CollectiblesItemCard extends StatefulWidget {
   final String? keyword;
+  final String? rarity;
 
-  const CollectiblesItemCard({Key? key, this.keyword}) : super(key: key);
+  const CollectiblesItemCard({Key? key, this.keyword, this.rarity})
+      : super(key: key);
 
   @override
   State<CollectiblesItemCard> createState() => _CollectiblesItemCardState();
@@ -418,7 +420,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    getData!.getCollectibles(keyword: widget.keyword);
+    getData!.getCollectibles(keyword: widget.keyword, rarity: widget.rarity!);
 
     setState(() {
       refreshController.refreshCompleted();
@@ -429,7 +431,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
   Future<void> _onLoading() async {
     offset = offset + 20;
 
-    getData!.getCollectibles(offset: offset, keyword: widget.keyword);
+    getData!.getCollectibles(
+        offset: offset, keyword: widget.keyword, rarity: widget.rarity!);
 
     await Future.delayed(const Duration(seconds: 2));
 

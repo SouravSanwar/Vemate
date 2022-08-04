@@ -1,0 +1,38 @@
+version: "Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)"
+options: "d4c0577dbaf8c8fae9611aef0dcaa4954de5033d2e1c5f9ddbfa51db39ee962d"
+build_start_time: [1659622118, 412147045]
+build_end_time: [1659622132, 551542997]
+inputs:
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImageDataManager/DKImageBaseManager.swift": [1659621670, 523372650]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImageDataManager/DKImageDataManager.swift": [1659621670, 522307634]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImageDataManager/DKImageGroupDataManager.swift": [1659621670, 522840499]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImageDataManager/Model/DKAsset+Export.swift": [1659621670, 524360895]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImageDataManager/Model/DKAsset+Fetch.swift": [1659621670, 525443553]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImageDataManager/Model/DKAsset.swift": [1659621670, 525845289]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImageDataManager/Model/DKAssetGroup.swift": [1659621670, 524896621]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/DKImageAssetExporter.swift": [1659621670, 527261734]
+  ? "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/DKImageExtensionController.swift"
+  : [1659621670, 526583671]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/DKImagePickerController.swift": [1659621670, 527927398]
+  ? "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/DKImagePickerControllerBaseUIDelegate.swift"
+  : [1659621670, 528523921]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/DKPopoverViewController.swift": [1659621670, 529020786]
+  ? "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/Resource/DKImagePickerControllerResource.swift"
+  : [1659621670, 574786901]
+  ? "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/View/Cell/DKAssetGroupCellItemProtocol.swift"
+  : [1659621670, 535228252]
+  ? "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/View/Cell/DKAssetGroupDetailBaseCell.swift"
+  : [1659621670, 535759925]
+  ? "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/View/Cell/DKAssetGroupDetailCameraCell.swift"
+  : [1659621670, 534139394]
+  ? "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/View/Cell/DKAssetGroupDetailImageCell.swift"
+  : [1659621670, 536197662]
+  ? "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/View/Cell/DKAssetGroupDetailVideoCell.swift"
+  : [1659621670, 534724235]
+  ? "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/View/DKAssetGroupDetailVC.swift"
+  : [1659621670, 533112525]
+  ? "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/View/DKAssetGroupGridLayout.swift"
+  : [1659621670, 531715869]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/View/DKAssetGroupListVC.swift": [1659621670, 536750078]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/DKImagePickerController/View/DKPermissionView.swift": [1659621670, 530240058]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/DKImagePickerController/Sources/Extensions/DKImageExtensionGallery.swift": [1659621670, 520296573]

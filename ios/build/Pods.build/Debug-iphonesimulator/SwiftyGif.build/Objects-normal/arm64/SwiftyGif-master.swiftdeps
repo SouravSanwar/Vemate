@@ -1,0 +1,11 @@
+version: "Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)"
+options: "c77e6ed5792b214698af73ddd4e1272b5377a0f59341cd1291ea53d8ae307800"
+build_start_time: [1659621982, 686458110]
+build_end_time: [1659621985, 52008152]
+inputs:
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/SwiftyGif/SwiftyGif/NSImage+SwiftyGif.swift": [1659621863, 482209205]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/SwiftyGif/SwiftyGif/NSImageView+SwiftyGif.swift": [1659621863, 484578847]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/SwiftyGif/SwiftyGif/ObjcAssociatedWeakObject.swift": [1659621863, 482586860]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/SwiftyGif/SwiftyGif/SwiftyGifManager.swift": [1659621863, 483949899]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/SwiftyGif/SwiftyGif/UIImage+SwiftyGif.swift": [1659621863, 483023643]
+  "/Users/mdmostafizurrahman/Vemate/ios/Pods/SwiftyGif/SwiftyGif/UIImageView+SwiftyGif.swift": [1659621863, 481759309]

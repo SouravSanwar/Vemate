@@ -1,0 +1,13 @@
+version: "Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)"
+options: "30773877af673ad64ab80f2e2d11ee9a24eeee8f268b0aacf6b33343a52cc033"
+build_start_time: [1659621960, 907689094]
+build_end_time: [1659621963, 30236959]
+inputs:
+  ? "/Users/mdmostafizurrahman/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple-4.1.0/ios/Classes/SignInWithAppleAvailablePlugin.swift"
+  : [1659621271, 165621519]
+  ? "/Users/mdmostafizurrahman/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple-4.1.0/ios/Classes/SignInWithAppleError.swift"
+  : [1659621271, 163088321]
+  ? "/Users/mdmostafizurrahman/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple-4.1.0/ios/Classes/SignInWithAppleUnavailablePlugin.swift"
+  : [1659621271, 162071228]
+  ? "/Users/mdmostafizurrahman/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple-4.1.0/ios/Classes/SwiftSignInWithApplePlugin.swift"
+  : [1659621271, 166570186]

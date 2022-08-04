@@ -1,0 +1,14 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/mdmostafizurrahman/Vemate/build/ios/Debug-iphonesimulator/hexcolor/hexcolor.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/mdmostafizurrahman/Vemate/ios/build/Pods.build/Debug-iphonesimulator/hexcolor.build/unextended-module.modulemap",
+    }]
+  }]
+}

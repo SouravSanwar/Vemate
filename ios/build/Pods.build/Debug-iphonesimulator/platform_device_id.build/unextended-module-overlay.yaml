@@ -1,0 +1,14 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/mdmostafizurrahman/Vemate/build/ios/Debug-iphonesimulator/platform_device_id/platform_device_id.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/mdmostafizurrahman/Vemate/ios/build/Pods.build/Debug-iphonesimulator/platform_device_id.build/unextended-module.modulemap",
+    }]
+  }]
+}

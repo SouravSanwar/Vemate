@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)"
+options: "a793d0806b84109d2d4b82fce582f7ded76e854ebe95b2595df940e991c961b2"
+build_start_time: [1659622181, 897985935]
+build_end_time: [1659622187, 285465002]
+inputs:
+  "/Users/mdmostafizurrahman/Vemate/ios/Runner/AppDelegate.swift": [1659621206, 309456825]

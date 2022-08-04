@@ -83,10 +83,11 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future getCollectibles({int offset = 0, String? keyword}) async {
+  Future getCollectibles(
+      {int offset = 0, String? keyword = '', String rarity = ''}) async {
     final response = await BaseClient()
         .get(Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&name$keyword')
+            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&rarity=$rarity&name=$keyword')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
@@ -127,9 +128,10 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future getComics({int offset = 0}) async {
-    final response =
-        await BaseClient().get(Urls.comic + '$offset').catchError(handleError);
+  Future getComics({int offset = 0, String? keyword = '', String rarity = ''}) async {
+    final response = await BaseClient()
+        .get(Urls.comic + '$offset&rarity=$rarity&name=$keyword')
+        .catchError(handleError);
 
     var data = json.decode(response.toString());
 
