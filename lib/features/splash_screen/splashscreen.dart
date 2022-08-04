@@ -71,7 +71,9 @@ class SplashScreenState extends State<SplashScreen>
           height: Get.width*.8,
           width: Get.width*.8,
           child: Image.asset(
-            'assets/media/image/splash_logo.gif',
+            'assets/media/image/splash_logo.png',
+            width: animation.value * 450,
+            height: animation.value * 450,
             fit: BoxFit.fill,
           ),
         ),

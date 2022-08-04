@@ -97,7 +97,7 @@ class _ColorLoaderState extends State<ColorLoader>
                         width: radius,
                         height: radius,
                         child: Image.asset(
-                          'assets/media/icon/logo_v.png',
+                          'assets/media/image/splash_logo.png',
                           fit: BoxFit.fill,
                         ),
                       ),

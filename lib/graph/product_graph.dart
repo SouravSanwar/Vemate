@@ -20,6 +20,7 @@ class ProductGraph extends StatefulWidget {
 class _ProductGraphState extends State<ProductGraph> {
   late ZoomPanBehavior _zoomPanBehavior;
   late TooltipBehavior _tooltipBehavior;
+  late TrackballBehavior _trackballBehavior;
 
   @override
   void initState() {
@@ -37,6 +38,19 @@ class _ProductGraphState extends State<ProductGraph> {
         color: Color(0xff00A7FF),
 
         );
+
+    _trackballBehavior = TrackballBehavior(
+        enable: true,
+        shouldAlwaysShow: true,
+        tooltipSettings: const InteractiveTooltip(
+          canShowMarker: true,
+            connectorLineColor: Colors.white,
+            enable: true,
+            color: Colors.red
+        ),
+        markerSettings: const TrackballMarkerSettings(
+            markerVisibility: TrackballVisibilityMode.visible)
+    );
     super.initState();
   }
 
@@ -57,6 +71,7 @@ class _ProductGraphState extends State<ProductGraph> {
                       plotAreaBorderWidth: 0,
                       zoomPanBehavior: _zoomPanBehavior,
                       tooltipBehavior: _tooltipBehavior,
+                      trackballBehavior: _trackballBehavior,
 
 
                       primaryXAxis: CategoryAxis(
@@ -108,7 +123,6 @@ class _ProductGraphState extends State<ProductGraph> {
                       ),
                       series: <ChartSeries<Graph, String>>[
                         SplineAreaSeries<Graph, String>(
-
 
                           dataSource: data.singleProductModel!.graph!,
                           borderColor: Color(0xff2093D7),
