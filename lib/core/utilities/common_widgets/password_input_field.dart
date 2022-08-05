@@ -9,12 +9,14 @@ class PasswordInputField extends StatefulWidget {
   num height;
   TextInputType textType;
   TextEditingController controller;
+  FormFieldValidator? validator;
 
   PasswordInputField({
     required this.labelText,
     required this.height,
     required this.textType,
     required this.controller,
+    this.validator
   });
 
   @override

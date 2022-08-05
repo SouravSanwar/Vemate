@@ -91,6 +91,10 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       )),
                   AppSpaces.spaces_height_25,
                   TextInputField(
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Email is required';
+                      }},
                     labelText: "Username/Email",
                     height: Get.height * .04,
                     textType: TextInputType.emailAddress,
@@ -204,13 +208,8 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     height: Get.height * .067,
                     child: ElevatedButton(
                       onPressed: () async {
-                        final credential =
-                            await SignInWithApple.getAppleIDCredential(
-                          scopes: [
-                            AppleIDAuthorizationScopes.email,
-                            AppleIDAuthorizationScopes.fullName,
-                          ],
-                        );
+                       AppleSignIn();
+
                         },
                       child: Image.asset(
                         'assets/media/icon/apple.png',
@@ -288,7 +287,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
       "gender": "0",
       "birth_year": "1852",
       "fcm_device_id": "3",
-      "password":"123",
+      //"password":"123",
       "social_provider": 1,
     };
 
@@ -325,5 +324,33 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
       fileKey: fileKey,
       files: fileList,
     );
+  }
+
+  Future AppleSignIn() async {
+    AppleIDAuthorizationScopes appleEmail,appleName;
+    final credential =
+        await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        appleEmail= AppleIDAuthorizationScopes.email,
+        appleName= AppleIDAuthorizationScopes.fullName,
+      ],
+    );
+
+    var body = {
+      "nickname": appleName.toString(),
+      //"nickname": credential.familyName,
+      "email": appleEmail.toString(),
+     // "email": credential.email,
+      "gender": "0",
+      "birth_year": "1852",
+      "fcm_device_id": "3",
+      "password":"123",
+      "social_provider": 2,
+    };
+    print("Apple Email:"+appleName.toString());
+    print("Apple Email:"+credential.email.toString());
+
+    postData!.signUp(context, body);
+
   }
 }
