@@ -9,6 +9,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
@@ -56,6 +57,7 @@ class _ComicDetailsState extends State<ComicDetails> {
 
   @override
   Widget build(BuildContext context) {
+    const StatusBar();
     return Consumer<GetData>(builder: (context, data, child) {
       return Scaffold(
         appBar: AppBar(

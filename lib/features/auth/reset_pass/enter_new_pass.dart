@@ -5,6 +5,7 @@ import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
+import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/main.dart';
@@ -20,6 +21,7 @@ class EnterNewPassword extends StatefulWidget {
 class _EnterNewPasswordState extends State<EnterNewPassword> {
   @override
   Widget build(BuildContext context) {
+    const StatusBar();
     Get.put(SigninController());
     Size size = MediaQuery.of(context).size;
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
+import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/reset_pass/forgot_pass.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
@@ -35,6 +36,7 @@ class _ResetPassState extends State<ResetPass> {
 
   @override
   Widget build(BuildContext context) {
+    const StatusBar();
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_2fa.dart';
@@ -45,6 +46,7 @@ class _Verify2FAState extends State<Verify2FA> {
 
   @override
   Widget build(BuildContext context) {
+    const StatusBar();
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(

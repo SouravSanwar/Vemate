@@ -14,6 +14,7 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/features/Designs/update_alert_dialog.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/home/presentation/home.dart';
@@ -22,6 +23,7 @@ import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/vault/vault.dart';
 
 import 'package:ketemaa/main.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../market/presentation/market.dart';
@@ -234,6 +236,7 @@ class _ControllerPageState extends State<ControllerPage> {
 
   @override
   Widget build(BuildContext context) {
+    StatusBar();
     Get.put(ControllerPageController());
     return WillPopScope(
       onWillPop: _willPopCallback,

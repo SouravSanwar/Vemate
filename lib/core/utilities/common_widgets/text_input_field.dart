@@ -12,12 +12,14 @@ class TextInputField extends StatefulWidget {
   num height;
   TextInputType textType;
   TextEditingController controller;
+  FormFieldValidator? validator;
 
   TextInputField({
     required this.labelText,
     required this.height,
     required this.textType,
     required this.controller,
+    this.validator
   });
 
   @override
@@ -31,19 +33,11 @@ class _TextInputFieldState extends State<TextInputField> {
   Widget build(BuildContext context) {
     emailisValid = EmailValidator.validate(widget.controller.text);
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15),
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-        color: AppColors.backgroundColor,
-        border: Border.all(
-            color: AppColors.grey, // set border color
-            width: 1.5), // set border width
-        borderRadius: const BorderRadius.all(
-            Radius.circular(25.0)), // set rounded corner radius
-      ),
+      padding: const EdgeInsets.only(left: 15, right: 15),
+      color: AppColors.backgroundColor,
       child: widget.controller == 'emailController'
-          ? TextField(
-
+          ? TextFormField(
+              validator: widget.validator,
               style: TextStyle(
                 color: AppColors.textColor,
                 fontFamily: 'Inter',
@@ -57,26 +51,79 @@ class _TextInputFieldState extends State<TextInputField> {
                 });
               },
               controller: widget.controller,
-              decoration: InputDecoration(
-                errorText:
-                    emailisValid == false ? 'This field is required.' : null,
-                border: InputBorder.none,
+        decoration: InputDecoration(
+          isDense:true,
+
+          border: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: AppColors.grey, // set border color
+                  width: 1.5
               ),
-              keyboardType: widget.textType,
+              borderRadius: BorderRadius.circular(30.0)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide: BorderSide(
+                color: AppColors.grey, // set border color
+                width: 1.5
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide: BorderSide(
+                color: AppColors.grey, // set border color
+                width: 1.5
+            ),
+          ),
+          hintText: widget.labelText,
+          hintStyle:  TextStyle(fontFamily: 'Inter',fontSize: 15.sp),
+          labelStyle: const TextStyle(
+            fontFamily: 'Inter',
+            color: Colors.blue,
+          ),
+
+        ),
+
+         keyboardType: widget.textType,
             )
-          : TextField(
+          : TextFormField(
+              validator: widget.validator,
+
               style: TextStyle(
                 fontFamily: 'Inter',
                 color: AppColors.textColor,
                 fontSize: 18.0.sp,
               ),
               controller: widget.controller,
-              decoration: InputDecoration(
-                hintText: widget.labelText,
-                hintStyle:  TextStyle(fontSize: 15.sp,fontFamily: 'Inter',),
-                border: InputBorder.none,
-              ),
-              keyboardType: widget.textType,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+              borderSide: BorderSide(
+              color: AppColors.grey, // set border color
+              width: 1.5
+          ),
+          borderRadius: BorderRadius.circular(30.0)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide: BorderSide(
+                color: AppColors.grey, // set border color
+                width: 1.5
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide: BorderSide(
+                color: AppColors.grey, // set border color
+                width: 1.5
+            ),
+          ),
+          hintText: widget.labelText,
+          hintStyle:  TextStyle(fontFamily: 'Inter',fontSize: 15.sp),
+          labelStyle: const TextStyle(
+            fontFamily: 'Inter',
+            color: Colors.blue,
+          ),
+
+        ),
+        keyboardType: widget.textType,
             ),
     );
   }

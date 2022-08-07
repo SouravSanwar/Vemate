@@ -215,7 +215,7 @@ class _HomeState extends State<Home> {
                               ? VaultNewItemCard(
                                   list: data.collectiblesModel!.results,
                                 )
-                              : const LoadingExample(),
+                              : const ColorLoader(),
                         ),
                       ),
                     ],
