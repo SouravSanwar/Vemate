@@ -75,17 +75,23 @@ class _MarketState extends State<Market> {
                       cursorColor: Colors.grey,
                       keyboardType: TextInputType.text,
                       style: const TextStyle(color: Colors.white),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            searchCollectible.clear();
+                          },
+                          child: const Icon(Icons.close),
+                        ),
                         isDense: true,
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         enabledBorder: InputBorder.none,
                         errorBorder: InputBorder.none,
                         disabledBorder: InputBorder.none,
-                        contentPadding: EdgeInsets.only(
+                        contentPadding: const EdgeInsets.only(
                             left: 15, bottom: 11, top: 13, right: 15),
                         hintText: "Search Collectible",
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Inter',
                         ),
@@ -93,7 +99,7 @@ class _MarketState extends State<Market> {
                       onChanged: (text) {
                         text = searchCollectible.text;
                         setState(() {
-                          collectibleSearchText = text;
+                          collectibleSearchText = searchCollectible.text;
 
                           if (collectibleSearchText!.length > 3 ||
                               collectibleSearchText!.isEmpty) {
@@ -123,17 +129,23 @@ class _MarketState extends State<Market> {
                       cursorColor: Colors.grey,
                       keyboardType: TextInputType.text,
                       style: const TextStyle(color: Colors.white),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            searchComic.clear();
+                          },
+                          child: const Icon(Icons.close),
+                        ),
                         isDense: true,
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         enabledBorder: InputBorder.none,
                         errorBorder: InputBorder.none,
                         disabledBorder: InputBorder.none,
-                        contentPadding: EdgeInsets.only(
+                        contentPadding: const EdgeInsets.only(
                             left: 15, bottom: 11, top: 13, right: 15),
                         hintText: "Search Comics",
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Inter',
                         ),
@@ -141,7 +153,7 @@ class _MarketState extends State<Market> {
                       onChanged: (text) {
                         text = searchComic.text;
                         setState(() {
-                          comicSearchText = text;
+                          comicSearchText = searchComic.text;
 
                           printInfo(info: 'Search Text: ' + searchComic.text);
                           if (comicSearchText!.length > 3) {
@@ -410,8 +422,6 @@ class _MarketState extends State<Market> {
         return ListView(
           physics: const NeverScrollableScrollPhysics(),
           children: [
-            ///Search Bar
-
             ///Tab
             Padding(
               padding: EdgeInsets.only(
