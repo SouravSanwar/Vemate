@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/language/language_string.dart';
@@ -25,6 +26,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   TextEditingController passController = TextEditingController();
 
   PostData? postData;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -63,65 +66,95 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               SizedBox(
                 height: Get.height * .02,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                      width: Get.width * .9,
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        "Enter New Password",
-                        style: TextStyle(
-                            //fontFamily: 'Inter',
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.textColor),
-                      )),
-                  AppSpaces.spaces_height_25,
-                  TextInputField(
-                    labelText: "Email",
-                    height: .09,
-                    textType: TextInputType.emailAddress,
-                    controller: emailController,
-                  ),
-                  SizedBox(
-                    height: Get.height * .022,
-                  ),
-                  TextInputField(
-                    labelText: "Code",
-                    height: .09,
-                    textType: TextInputType.emailAddress,
-                    controller: codeController,
-                  ),
-                  SizedBox(
-                    height: Get.height * .022,
-                  ),
-                  PasswordInputField(
-                      labelText: "New Password",
-                      height: Get.height * .04,
-                      textType: TextInputType.text,
-                      controller: passController),
-                  SizedBox(
-                    height: Get.height * .07,
-                  ),
-                  CustomButtons(
-                    width: Get.width * .9,
-                    height: Get.height * .065,
-                    onTap: () {
-                      var body = {
-                        "email": emailController.text,
-                        "code": codeController.text,
-                        "password": passController.text
-                      };
+              Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        width: Get.width * .9,
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          "Enter New Password",
+                          style: TextStyle(
+                              //fontFamily: 'Inter',
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.textColor),
+                        )),
+                    AppSpaces.spaces_height_25,
+          Container(
+                padding: const EdgeInsets.only(top: 14,bottom:14,left: 23, right: 23),
+                decoration: BoxDecoration(
+                    color: AppColors.backgroundColor,
+                    border: Border.all(color: AppColors.grey, // set border color
+                        width: 1.5),
+                    borderRadius: BorderRadius.circular(25.0)
 
-                      postData!.forgotPassword(context, body);
-                    },
-                    text: AppLanguageString.UPDATE_Pass.tr.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(
-                      color: Colors.white,
-                      fontFamily: 'Inter',
+                ),
+                child: Text(
+                    emailController.text,
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: AppColors.textColor,
+                    fontSize: 18.0.sp,
+                  ),
+                )
+          ),
+
+                    SizedBox(
+                      height: Get.height * .022,
                     ),
-                  )
-                ],
+                    TextInputField(
+                      validator:  (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'OTP code is required';
+                        }
+
+                      },
+                      labelText: "Code",
+                      height: .09,
+                      textType: TextInputType.emailAddress,
+                      controller: codeController,
+                    ),
+                    SizedBox(
+                      height: Get.height * .022,
+                    ),
+                    PasswordInputField(
+                        validator:  (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'New Password is required';
+                          }
+
+                        },
+                        labelText: "New Password",
+                        height: Get.height * .04,
+                        textType: TextInputType.text,
+                        controller: passController),
+                    SizedBox(
+                      height: Get.height * .07,
+                    ),
+                    CustomButtons(
+                      width: Get.width * .9,
+                      height: Get.height * .065,
+                      onTap: () {
+                        var body = {
+                          "email": emailController.text,
+                          "code": codeController.text,
+                          "password": passController.text
+                        };
+                        if (_formKey.currentState!.validate()) {
+                          postData!.forgotPassword(context, body);
+                        }
+
+                      },
+                      text: AppLanguageString.UPDATE_Pass.tr.toUpperCase(),
+                      style: Get.textTheme.button!.copyWith(
+                        color: Colors.white,
+                        fontFamily: 'Inter',
+                      ),
+                    )
+                  ],
+                ),
               ),
             ],
           ),

@@ -101,7 +101,13 @@ class _SignUpState extends State<SignUp> {
                           validator:  (value) {
                             if (value == null || value.trim().isEmpty) {
                               return 'Email is required';
-                            }},
+                            }
+                            if (!RegExp(
+                                r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$")
+                                .hasMatch(value)) {
+                              return 'Please enter a valid Email';
+                            }
+                            },
                           height: Get.height * .04,
                           textType: TextInputType.emailAddress,
                           controller: SignUpController.to.emailController,
@@ -110,6 +116,12 @@ class _SignUpState extends State<SignUp> {
                           height: 15,
                         ),
                         PasswordInputField(
+                          validator:  (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Password is required';
+                            }
+
+                            },
                           labelText: "Password",
                           height: Get.height * .04,
                           textType: TextInputType.text,
@@ -128,7 +140,7 @@ class _SignUpState extends State<SignUp> {
                                       fontSize: 11),
                                 )
                               : const Text(
-                                  "Password must be atleast 8 characters",
+                                  "Password must be at least 8 characters",
                                   style: TextStyle(
                                       fontFamily: 'Inter',
                                       color: Colors.red,
@@ -136,6 +148,17 @@ class _SignUpState extends State<SignUp> {
                                 ),
                         ),
                         PasswordInputField(
+                          validator:  (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Confirm Password is required';
+                            }
+                            if(SignUpController.to.passwordController.text !=
+                                SignUpController
+                                    .to.confirmPasswordController.text){
+                              return 'Passwords do not match';
+
+                            }
+                            },
                           labelText: "Confirm Password",
                           height: Get.height * .04,
                           textType: TextInputType.text,
@@ -160,21 +183,8 @@ class _SignUpState extends State<SignUp> {
                                   SignUpController.to.passwordController.text
                             };
                             if (_formKey.currentState!.validate()) {
-                              SignUpController.to.passwordController.text ==
-                                      SignUpController
-                                          .to.confirmPasswordController.text
-                                  ? postData!.signUp(context, body)
-                                  : showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (_) => ResponseMessage(
-                                            icon: Icons.check_circle,
-                                            color: AppColors.primaryColor,
-                                            message: "Password Didn\'t Match",
-                                          ));
 
-                              await Future.delayed(const Duration(seconds: 1));
-                              Navigator.of(context).pop();
+                                  postData!.signUp(context, body);
                             }
                           },
                           text: AppLanguageString.SIGN_UP.tr.toUpperCase(),

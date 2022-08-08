@@ -73,12 +73,12 @@ class _MarketState extends State<Market> {
               width: MediaQuery.of(context).size.width,
               child: currentIndex == 1
                   ? TextFormField(
-                      onTap: () {
+                      /*onTap: () {
                         setState(() {
                           collectibleEnable = true;
                         });
                       },
-                      enabled: collectibleEnable,
+                      enabled: collectibleEnable,*/
                       controller: searchCollectible,
                       cursorColor: Colors.grey,
                       keyboardType: TextInputType.text,
@@ -88,7 +88,7 @@ class _MarketState extends State<Market> {
                           onTap: () {
                             setState(() {
                               searchCollectible.clear();
-                              collectibleEnable = false;
+                              //collectibleEnable = false;
                             });
                           },
                           child: const Icon(Icons.close),
@@ -133,7 +133,7 @@ class _MarketState extends State<Market> {
                                     keyword: searchText);
                               });*/
                       },
-                      autofocus: true,
+                      autofocus: false,
                     )
                   : TextFormField(
                       enabled: comicEnable,

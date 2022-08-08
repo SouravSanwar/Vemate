@@ -55,6 +55,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   ProfileModel? profileModel = Get.arguments;
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     Get.put(ProfileController());
@@ -157,136 +159,158 @@ class _EditProfilePageState extends State<EditProfilePage> {
             const BackPreviousScreen(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  AppSpaces.spaces_height_50,
-                  InkWell(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: <Widget>[
-                        CircleAvatar(
-                          radius: MediaQuery.of(context).size.width * .25,
-                          backgroundColor: AppColors.textColor,
-                          backgroundImage: profileModel!.profileImage == null
-                              ? imageFile == null
-                                  ? null
-                                  : Image.file(imageFile!).image
-                              : imageFile != null
-                                  ? Image.file(imageFile!).image
-                                  : NetworkImage(
-                                      Urls.mainUrl +
-                                          data.profileModel!.profileImage!
-                                              .mobile!.src
-                                              .toString(),
-                                    ),
-                          child: profileModel!.profileImage == null
-                              ? imageFile != null
-                                  ? Container()
-                                  : Shader(
-                                      icon: const Icon(
-                                        Icons.person_add_alt_1_rounded,
-                                        size: 100,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    AppSpaces.spaces_height_50,
+                    InkWell(
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: <Widget>[
+                          CircleAvatar(
+                            radius: MediaQuery.of(context).size.width * .25,
+                            backgroundColor: AppColors.textColor,
+                            backgroundImage: profileModel!.profileImage == null
+                                ? imageFile == null
+                                    ? null
+                                    : Image.file(imageFile!).image
+                                : imageFile != null
+                                    ? Image.file(imageFile!).image
+                                    : NetworkImage(
+                                        Urls.mainUrl +
+                                            data.profileModel!.profileImage!
+                                                .mobile!.src
+                                                .toString(),
                                       ),
-                                    )
-                              : null,
-                        ),
-                        Positioned(
-                          bottom: Get.height * .01,
-                          right: Get.height * .0001,
-                          child: RawMaterialButton(
-                            onPressed: () {
-                              setState(() {
-                                imageFile == null;
-                                takeImage();
-
-                              });
-
-                            },
-                            elevation: 2.0,
-                            fillColor: const Color(0xFFF5F6F9),
-                            child: Shader(
-                              icon: const Icon(
-                                Icons.camera_alt,
-                                size: 30,
-                              ),
-                            ),
-                            padding: const EdgeInsets.all(10.0),
-                            shape: const CircleBorder(),
+                            child: profileModel!.profileImage == null
+                                ? imageFile != null
+                                    ? Container()
+                                    : Shader(
+                                        icon: const Icon(
+                                          Icons.person_add_alt_1_rounded,
+                                          size: 100,
+                                        ),
+                                      )
+                                : null,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
+                          Positioned(
+                            bottom: Get.height * .01,
+                            right: Get.height * .0001,
+                            child: RawMaterialButton(
+                              onPressed: () {
+                                setState(() {
+                                  imageFile == null;
+                                  takeImage();
 
-                  SizedBox(
-                    height: Get.height * .08,
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
-                    alignment: Alignment.centerLeft,
-                    child: AutoSizeText(
-                      "Username",
-                      style: TextStyle(fontSize: 18.sp,fontFamily: 'Inter'),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  AppSpaces.spaces_height_5,
-                  TextInputField(
-                    labelText: AppLanguageString.USERNAME.tr,
-                    height: Get.height * .04,
-                    textType: TextInputType.emailAddress,
-                    controller:
-                        ProfileController.to.userNameTextFiledController,
-                  ),
+                                });
 
-                  SizedBox(
-                    height: Get.height * .022,
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
-                    alignment: Alignment.centerLeft,
-                    child: AutoSizeText(
-                        "Email",
-                      style: TextStyle(fontSize: 18.sp,fontFamily: 'Inter'),
-                      textAlign: TextAlign.left,
+                              },
+                              elevation: 2.0,
+                              fillColor: const Color(0xFFF5F6F9),
+                              child: Shader(
+                                icon: const Icon(
+                                  Icons.camera_alt,
+                                  size: 30,
+                                ),
+                              ),
+                              padding: const EdgeInsets.all(10.0),
+                              shape: const CircleBorder(),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  AppSpaces.spaces_height_5,
-                  TextInputField(
-                    labelText: AppLanguageString.EMAIL.tr,
-                    height: Get.height * .04,
-                    textType: TextInputType.emailAddress,
-                    controller: ProfileController.to.emailTextFiledController,
-                  ),
-                  SizedBox(
-                    height: Get.height * .07,
-                  ),
-                  CustomButtons(
-                    width: Get.width * .8,
-                    height: Get.height * .065,
-                    onTap: () {
-                      var body = {
-                        "nickname": ProfileController
-                            .to.userNameTextFiledController.text,
-                        "email":
-                            ProfileController.to.emailTextFiledController.text
-                      };
 
-                      Map<String, String> requestHeadersWithToken = {
-                        'Content-type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'token ${prefs!.getString('token')}',
-                      };
-                      postData!.updateProfile(
-                          context, body, requestHeadersWithToken);
-                    },
-                    text: AppLanguageString.UPDATE_INFO.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(
-                      color: Colors.white,
-                      fontFamily: 'Inter',
+                    SizedBox(
+                      height: Get.height * .08,
                     ),
-                  )
-                ],
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      alignment: Alignment.centerLeft,
+                      child: AutoSizeText(
+                        "Username",
+                        style: TextStyle(fontSize: 18.sp,fontFamily: 'Inter'),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    AppSpaces.spaces_height_5,
+                    TextInputField(
+                      validator:  (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Username is required';
+                        }},
+                      labelText: AppLanguageString.USERNAME.tr,
+                      height: Get.height * .04,
+                      textType: TextInputType.emailAddress,
+                      controller:
+                          ProfileController.to.userNameTextFiledController,
+                    ),
+
+                    SizedBox(
+                      height: Get.height * .022,
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      alignment: Alignment.centerLeft,
+                      child: AutoSizeText(
+                          "Email",
+                        style: TextStyle(fontSize: 18.sp,fontFamily: 'Inter'),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    AppSpaces.spaces_height_5,
+                    TextInputField(
+                      validator:  (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Email is required';
+                        }
+                        if (!RegExp(
+                            r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$")
+                            .hasMatch(value)) {
+                          return 'Please enter a valid Email';
+                        }
+                      },
+                      labelText: AppLanguageString.EMAIL.tr,
+                      height: Get.height * .04,
+                      textType: TextInputType.emailAddress,
+                      controller: ProfileController.to.emailTextFiledController,
+                    ),
+                    SizedBox(
+                      height: Get.height * .07,
+                    ),
+                    CustomButtons(
+                      width: Get.width * .8,
+                      height: Get.height * .065,
+                      onTap: () {
+                        var body = {
+                          "nickname": ProfileController
+                              .to.userNameTextFiledController.text,
+                          "email":
+                              ProfileController.to.emailTextFiledController.text
+                        };
+
+                        Map<String, String> requestHeadersWithToken = {
+                          'Content-type': 'application/json',
+                          'Accept': 'application/json',
+                          'Authorization': 'token ${prefs!.getString('token')}',
+                        };
+
+                        if (_formKey.currentState!.validate()) {
+
+                          postData!.updateProfile(
+                              context, body, requestHeadersWithToken);
+                        }
+
+                      },
+                      text: AppLanguageString.UPDATE_INFO.toUpperCase(),
+                      style: Get.textTheme.button!.copyWith(
+                        color: Colors.white,
+                        fontFamily: 'Inter',
+                      ),
+                    )
+                  ],
+                ),
               ),
             )
           ],
