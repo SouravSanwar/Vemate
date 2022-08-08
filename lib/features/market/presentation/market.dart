@@ -37,6 +37,8 @@ class _MarketState extends State<Market> {
   bool? brandSelected = false;
   bool? collectibleFilterOn = false;
   bool? comicFilterOn = false;
+  bool? collectibleEnable = false;
+  bool? comicEnable = false;
 
   TextEditingController searchCollectible = TextEditingController();
   TextEditingController searchComic = TextEditingController();
@@ -71,6 +73,12 @@ class _MarketState extends State<Market> {
               width: MediaQuery.of(context).size.width,
               child: currentIndex == 1
                   ? TextFormField(
+                      onTap: () {
+                        setState(() {
+                          collectibleEnable = true;
+                        });
+                      },
+                      enabled: collectibleEnable,
                       controller: searchCollectible,
                       cursorColor: Colors.grey,
                       keyboardType: TextInputType.text,
@@ -78,7 +86,10 @@ class _MarketState extends State<Market> {
                       decoration: InputDecoration(
                         suffixIcon: InkWell(
                           onTap: () {
-                            searchCollectible.clear();
+                            setState(() {
+                              searchCollectible.clear();
+                              collectibleEnable = false;
+                            });
                           },
                           child: const Icon(Icons.close),
                         ),
@@ -125,6 +136,12 @@ class _MarketState extends State<Market> {
                       autofocus: true,
                     )
                   : TextFormField(
+                      enabled: comicEnable,
+                      onTap: () {
+                        setState(() {
+                          comicEnable = true;
+                        });
+                      },
                       controller: searchComic,
                       cursorColor: Colors.grey,
                       keyboardType: TextInputType.text,
@@ -132,7 +149,10 @@ class _MarketState extends State<Market> {
                       decoration: InputDecoration(
                         suffixIcon: InkWell(
                           onTap: () {
-                            searchComic.clear();
+                            setState(() {
+                              searchComic.clear();
+                              comicEnable = false;
+                            });
                           },
                           child: const Icon(Icons.close),
                         ),
