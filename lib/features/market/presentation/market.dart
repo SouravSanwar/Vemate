@@ -3,13 +3,6 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
-import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
-import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
-import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
-import 'package:ketemaa/features/market/presentation/brand_list.dart';
-import 'package:ketemaa/features/market/presentation/collectibles_search_page.dart';
-import 'package:ketemaa/features/market/presentation/comic_search_page.dart';
-import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import '../Components/category_card.dart';
 import '../Components/collectibles_item_card.dart';
@@ -73,12 +66,6 @@ class _MarketState extends State<Market> {
               width: MediaQuery.of(context).size.width,
               child: currentIndex == 1
                   ? TextFormField(
-                      /*onTap: () {
-                        setState(() {
-                          collectibleEnable = true;
-                        });
-                      },
-                      enabled: collectibleEnable,*/
                       controller: searchCollectible,
                       cursorColor: Colors.grey,
                       keyboardType: TextInputType.text,
@@ -88,7 +75,14 @@ class _MarketState extends State<Market> {
                           onTap: () {
                             setState(() {
                               searchCollectible.clear();
-                              //collectibleEnable = false;
+                              collectibleSearchText = '';
+                              getData!.collectiblesModel = null;
+                              if (collectibleSearchText!.isNotEmpty) {
+                                getData!.getCollectibles(
+                                  keyword: collectibleSearchText,
+                                  rarity: collectibleRarity,
+                                );
+                              }
                             });
                           },
                           child: const Icon(Icons.close),
@@ -112,7 +106,7 @@ class _MarketState extends State<Market> {
                         setState(() {
                           collectibleSearchText = searchCollectible.text;
 
-                          if (collectibleSearchText!.length > 3 ||
+                          if (collectibleSearchText!.length > 2 ||
                               collectibleSearchText!.isEmpty) {
                             getData!.collectiblesModel = null;
                             getData!.getCollectibles(
@@ -124,24 +118,18 @@ class _MarketState extends State<Market> {
                       },
                       onSaved: (text) {
                         /*text = searchController.text;
-                              searchText = searchController.text != ''
-                                  ? '=${searchController.text}'
-                                  : '';
-                              setState(() {
-                                getData!.collectiblesModel = null;
-                                getData!.getCollectibles(
-                                    keyword: searchText);
-                              });*/
+                            searchText = searchController.text != ''
+                                ? '=${searchController.text}'
+                                : '';
+                            setState(() {
+                              getData!.collectiblesModel = null;
+                              getData!.getCollectibles(
+                                  keyword: searchText);
+                            });*/
                       },
                       autofocus: false,
                     )
                   : TextFormField(
-                      enabled: comicEnable,
-                      onTap: () {
-                        setState(() {
-                          comicEnable = true;
-                        });
-                      },
                       controller: searchComic,
                       cursorColor: Colors.grey,
                       keyboardType: TextInputType.text,
@@ -150,8 +138,13 @@ class _MarketState extends State<Market> {
                         suffixIcon: InkWell(
                           onTap: () {
                             setState(() {
+                              comicSearchText = '';
                               searchComic.clear();
-                              comicEnable = false;
+                              getData!.comicsModel = null;
+                              getData!.getComics(
+                                keyword: comicSearchText,
+                                rarity: comicRarity,
+                              );
                             });
                           },
                           child: const Icon(Icons.close),
@@ -176,7 +169,7 @@ class _MarketState extends State<Market> {
                           comicSearchText = searchComic.text;
 
                           printInfo(info: 'Search Text: ' + searchComic.text);
-                          if (comicSearchText!.length > 3) {
+                          if (comicSearchText!.length > 2) {
                             getData!.comicsModel = null;
                             getData!.getComics(
                               keyword: comicSearchText,
@@ -196,7 +189,7 @@ class _MarketState extends State<Market> {
                                     keyword: searchText);
                               });*/
                       },
-                      autofocus: true,
+                      autofocus: false,
                     ),
             ),
           ),

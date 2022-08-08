@@ -85,6 +85,7 @@ class GetData extends ChangeNotifier with BaseController {
 
   Future getCollectibles(
       {int offset = 0, String? keyword = '', String rarity = ''}) async {
+    keyword = Uri.encodeComponent(keyword!);
     final response = await BaseClient()
         .get(Urls.mainUrl +
             '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&rarity=$rarity&name=$keyword')
@@ -128,14 +129,15 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future getComics({int offset = 0, String? keyword = '', String rarity = ''}) async {
+  Future getComics(
+      {int offset = 0, String? keyword = '', String rarity = ''}) async {
+    //keyword = keyword!.replaceAll('#', '%23');
+    keyword = Uri.encodeComponent(keyword!);
     final response = await BaseClient()
         .get(Urls.comic + '$offset&rarity=$rarity&name=$keyword')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
-
-    print("Comics data" + data["results"][0]["new_graph"].toString());
 
     if (comicsModel != null) {
       if (offset == 0) comicsModel!.results!.clear();
