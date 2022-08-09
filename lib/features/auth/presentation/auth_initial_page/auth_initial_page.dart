@@ -205,6 +205,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         signIn();
+
                       },
                       child: Image.asset('assets/media/icon/google.png'),
                       style: ElevatedButton.styleFrom(
@@ -303,6 +304,10 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
     };
 
 /*    var rng = new Random();
+
+  keytool -genkey -v -keystore c:\Users\Sourav\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+
+
     Directory tempDir = await getTemporaryDirectory();
     File file = new File(rng.nextInt(100).toString() +'.jpg');
     http.Response response = await http.get(Uri.parse(user.photoUrl!));
@@ -310,7 +315,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
 
     imageFile=file;
     print("fileeeeeeeee"+file.toString());*/
-
+    print("emailcheck"+user.displayName.toString());
     postData!.signUp(context, body);
 
     //postImage();
