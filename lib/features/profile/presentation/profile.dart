@@ -83,7 +83,7 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
         actions: const [
-          const ToggleButton(),
+         // const ToggleButton(),
         ],
       ),
       body: SafeArea(

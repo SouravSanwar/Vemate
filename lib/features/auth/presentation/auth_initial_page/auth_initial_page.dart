@@ -167,7 +167,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   ],
                 ),
               ),
-              AppSpaces.spaces_height_35,
+              /*AppSpaces.spaces_height_35,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -252,7 +252,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     ),
                   ),
                 ],
-              ),
+              ),*/
               SizedBox(
                 height: Get.height * .09,
               ),

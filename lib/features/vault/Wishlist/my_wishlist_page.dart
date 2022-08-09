@@ -643,7 +643,7 @@ class _WishListPageState extends State<WishListPage> {
                                           .results![index]
                                           .alertData!
                                           .id,
-                                      requestHeadersWithToken,check: 11);
+                                      requestHeadersWithToken,);
                                       alertCheck=1;
                                       }
                                       postData!

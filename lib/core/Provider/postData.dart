@@ -932,6 +932,7 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 201) {
       getData!.getWishList();
 
+
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -940,6 +941,7 @@ class PostData extends ChangeNotifier with BaseController {
                 color: AppColors.primaryColor,
                 message: "Deleted Successfully",
               ));
+
     } else {
       showDialog(
           context: context,
@@ -952,9 +954,8 @@ class PostData extends ChangeNotifier with BaseController {
     }
     await Future.delayed(Duration(seconds: 1));
     Navigator.of(context).pop();
-    if (check == 11) {
-      Navigator.of(context).pop();
-    }
+    Navigator.of(context).pop();
+
     notifyListeners();
   }
 
