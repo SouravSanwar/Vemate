@@ -71,22 +71,24 @@ class _MarketState extends State<Market> {
                       keyboardType: TextInputType.text,
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        suffixIcon: InkWell(
-                          onTap: () {
-                            setState(() {
-                              searchCollectible.clear();
-                              collectibleSearchText = '';
-                              getData!.collectiblesModel = null;
-                              if (collectibleSearchText!.isNotEmpty) {
-                                getData!.getCollectibles(
-                                  keyword: collectibleSearchText,
-                                  rarity: collectibleRarity,
-                                );
-                              }
-                            });
-                          },
-                          child: const Icon(Icons.close),
-                        ),
+                        suffixIcon: collectibleSearchText!.isNotEmpty
+                            ? InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    searchCollectible.clear();
+                                    collectibleSearchText = '';
+                                    getData!.collectiblesModel = null;
+                                    if (collectibleSearchText!.isNotEmpty) {
+                                      getData!.getCollectibles(
+                                        keyword: collectibleSearchText,
+                                        rarity: collectibleRarity,
+                                      );
+                                    }
+                                  });
+                                },
+                                child: const Icon(Icons.close),
+                              )
+                            : null,
                         isDense: true,
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
@@ -135,20 +137,22 @@ class _MarketState extends State<Market> {
                       keyboardType: TextInputType.text,
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        suffixIcon: InkWell(
-                          onTap: () {
-                            setState(() {
-                              comicSearchText = '';
-                              searchComic.clear();
-                              getData!.comicsModel = null;
-                              getData!.getComics(
-                                keyword: comicSearchText,
-                                rarity: comicRarity,
-                              );
-                            });
-                          },
-                          child: const Icon(Icons.close),
-                        ),
+                        suffixIcon: comicSearchText!.isNotEmpty
+                            ? InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    comicSearchText = '';
+                                    searchComic.clear();
+                                    getData!.comicsModel = null;
+                                    getData!.getComics(
+                                      keyword: comicSearchText,
+                                      rarity: comicRarity,
+                                    );
+                                  });
+                                },
+                                child: const Icon(Icons.close),
+                              )
+                            : null,
                         isDense: true,
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
