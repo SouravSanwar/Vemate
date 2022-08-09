@@ -37,6 +37,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
   List<File>? files = <File>[];
   List<File>? fileList = <File>[];
   PostFile? postFile;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -77,83 +78,94 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
               SizedBox(
                 height: Get.height * .02,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                      width: Get.width * .9,
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        "LOGIN",
-                        style: TextStyle(
-                            fontFamily: 'Inter', color: AppColors.textColor),
-                      )),
-                  AppSpaces.spaces_height_25,
-                  TextInputField(
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'Email is required';
-                      }
-                    },
-                    labelText: "Username/Email",
-                    height: Get.height * .04,
-                    textType: TextInputType.emailAddress,
-                    controller: SigninController.to.userNameTextFiledController,
-                  ),
-                  SizedBox(
-                    height: Get.height * .022,
-                  ),
-                  PasswordInputField(
-                      labelText: "Password",
-                      height: Get.height * .04,
-                      textType: TextInputType.text,
-                      controller:
-                          SigninController.to.passwordTextFiledController),
-                  SizedBox(
-                    height: Get.height * .025,
-                  ),
-                  Container(
-                    width: Get.width * .9,
-                    alignment: Alignment.centerRight,
-                    child: InkWell(
-                      onTap: () {
-                        Get.toNamed(AppRoutes.RESET_PASS);
+              Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        width: Get.width * .9,
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          "LOGIN",
+                          style: TextStyle(
+                              fontFamily: 'Inter', color: AppColors.textColor),
+                        )),
+                    AppSpaces.spaces_height_25,
+                    TextInputField(
+                      validator:  (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Username/Email is required';
+                        }
                       },
-                      child: Text(
-                        "Forgot password?",
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12.sp),
+                      labelText: "Username/Email",
+                      height: Get.height * .04,
+                      textType: TextInputType.emailAddress,
+                      controller: SigninController.to.userNameTextFiledController,
+                    ),
+                    SizedBox(
+                      height: Get.height * .022,
+                    ),
+                    PasswordInputField(
+                        validator:  (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Password is required';
+                          }
+
+                        },
+                        labelText: "Password",
+                        height: Get.height * .04,
+                        textType: TextInputType.text,
+                        controller:
+                            SigninController.to.passwordTextFiledController),
+                    SizedBox(
+                      height: Get.height * .025,
+                    ),
+                    Container(
+                      width: Get.width * .9,
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.RESET_PASS);
+                        },
+                        child: Text(
+                          "Forgot password?",
+                          style: TextStyle(
+                              fontFamily: 'Inter',
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12.sp),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: Get.height * .025,
-                  ),
-                  CustomButtons(
-                    width: Get.width * .9,
-                    height: Get.height * .065,
-                    onTap: () {
-                      var body = {
-                        "username": SigninController
-                            .to.userNameTextFiledController.text,
-                        "password": SigninController
-                            .to.passwordTextFiledController.text,
-                      };
-                      //getConnection();
-                      setState(() {
-                        postData!.logIn(context, body);
-                      });
-                    },
-                    text: AppLanguageString.lOG_IN.tr.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(
-                      color: Colors.white,
-                      fontFamily: 'Inter',
+                    SizedBox(
+                      height: Get.height * .025,
                     ),
-                  )
-                ],
+                    CustomButtons(
+                      width: Get.width * .9,
+                      height: Get.height * .065,
+                      onTap: () {
+                        var body = {
+                          "username": SigninController
+                              .to.userNameTextFiledController.text,
+                          "password": SigninController
+                              .to.passwordTextFiledController.text,
+                        };
+                        //getConnection();
+
+                          if (_formKey.currentState!.validate()) {
+
+                            postData!.logIn(context, body);
+                          }
+                      },
+                      text: AppLanguageString.lOG_IN.tr.toUpperCase(),
+                      style: Get.textTheme.button!.copyWith(
+                        color: Colors.white,
+                        fontFamily: 'Inter',
+                      ),
+                    )
+                  ],
+                ),
               ),
               AppSpaces.spaces_height_35,
               Row(

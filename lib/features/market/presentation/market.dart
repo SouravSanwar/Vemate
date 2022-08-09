@@ -459,6 +459,7 @@ class _MarketState extends State<Market> {
                             brandSelected = false;
                           });
                         },
+
                         child: CategoryCard(
                           name: 'Collectibles',
                           gradient: collectibleSelected == true

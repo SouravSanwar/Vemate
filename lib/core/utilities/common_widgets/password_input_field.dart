@@ -29,29 +29,44 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15),
-      padding: const EdgeInsets.only(left: 20, right: 5),
-      decoration: BoxDecoration(
-        color: AppColors.backgroundColor,
-        border: Border.all(
-            color: AppColors.grey, // set border color
-            width: 1.5), // set border width
-        borderRadius: const BorderRadius.all(
-            Radius.circular(25.0)), // set rounded corner radius
-      ),
-      child: TextField(
+      padding: const EdgeInsets.only(left: 15, right: 15),
+      color: AppColors.backgroundColor,
+      child: TextFormField(
+
+        validator: widget.validator,
         enableInteractiveSelection: true,
         style: TextStyle(color: Colors.white, fontSize: 18.0.sp),
         controller: widget.controller,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
+          isDense: true,
+          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+          border: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: AppColors.grey, // set border color
+                  width: 1.5
+              ),
+              borderRadius: BorderRadius.circular(25.0)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide: BorderSide(
+                color: AppColors.grey, // set border color
+                width: 1.5
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide: BorderSide(
+                color: AppColors.grey, // set border color
+                width: 1.5
+            ),
+          ),
           hintText: widget.labelText,
           hintStyle:  TextStyle(fontFamily: 'Inter',fontSize: 15.sp),
           labelStyle: const TextStyle(
             fontFamily: 'Inter',
             color: Colors.blue,
           ),
-          border: InputBorder.none,
           suffixIcon: IconButton(
             splashColor: AppColors.backgroundColor,
             onPressed: () {

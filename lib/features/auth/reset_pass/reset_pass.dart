@@ -22,7 +22,7 @@ class ResetPass extends StatefulWidget {
 
 class _ResetPassState extends State<ResetPass> {
   TextEditingController emailController = TextEditingController();
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   PostData? postData;
 
   @override
@@ -61,61 +61,77 @@ class _ResetPassState extends State<ResetPass> {
               SizedBox(
                 height: Get.height * .02,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                      width: Get.width * .9,
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        "RESET PASSWORD",
-                        style: TextStyle(
-                            fontFamily: 'Inter', color: AppColors.textColor),
-                      )),
-                  AppSpaces.spaces_height_25,
-                  TextInputField(
-                    labelText: "Enter email",
-                    height: .09,
-                    textType: TextInputType.emailAddress,
-                    controller: emailController,
-                  ),
-                  SizedBox(
-                    height: 40.h,
-                  ),
-                  CustomButtons(
-                    width: Get.width * .9,
-                    height: Get.height * .065,
-                    onTap: () {
-                      var body = {
-                        "email": emailController.text,
-                        "reason": "forget_password",
-                      };
-                      prefs!.setString('email', emailController.text);
-                      postData!.resendCode(context, body, isResetPass: true);
-                    },
-                    text: 'Send Code'.toUpperCase(),
-                    style: Get.textTheme.button!.copyWith(
-                      color: Colors.white,
-                      fontFamily: 'Inter',
+              Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        width: Get.width * .9,
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          "RESET PASSWORD",
+                          style: TextStyle(
+                              fontFamily: 'Inter', color: AppColors.textColor),
+                        )),
+                    AppSpaces.spaces_height_25,
+                    TextInputField(
+                      validator:  (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Email is required';
+                        }
+                        if (!RegExp(
+                            r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$")
+                            .hasMatch(value)) {
+                          return 'Please enter a valid Email';
+                        }
+                      },
+                      labelText: "Enter email",
+                      height: .09,
+                      textType: TextInputType.emailAddress,
+                      controller: emailController,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 70,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Text(
-                      "By clicking SEND CODE, you will receive an e-mail to reset password",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    CustomButtons(
+                      width: Get.width * .9,
+                      height: Get.height * .065,
+                      onTap: () {
+                        var body = {
+                          "email": emailController.text,
+                          "reason": "forget_password",
+                        };
+                        prefs!.setString('email', emailController.text);
+                        if (_formKey.currentState!.validate()) {
+                          postData!.resendCode(context, body, isResetPass: true);
+                        }
+
+                      },
+                      text: 'Send Code'.toUpperCase(),
+                      style: Get.textTheme.button!.copyWith(
+                        color: Colors.white,
                         fontFamily: 'Inter',
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15.sp,
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 70,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        "By clicking SEND CODE, you will receive an e-mail to reset password",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15.sp,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
