@@ -98,7 +98,13 @@ class _ComicDetailsState extends State<ComicDetails> {
                                   left: Get.width * 0.05336,
                                   bottom: Get.height * 0.01667),
                               child: Container(
-                                height: Get.height * .5,
+                                height: data.singleProductModel!.image != null
+                                              ? data.singleProductModel!.image!.original!.height!.toDouble()/2
+                                               : Get.height * .3,
+                                width: data.singleProductModel!.image != null
+                                    ? data.singleProductModel!.image!.original!.width!.toDouble()/2
+                                    : Get.height * .5,
+                                //height: Get.height * .5,
                                 padding: const EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                     gradient: AppColors.vaultCardGradient,
