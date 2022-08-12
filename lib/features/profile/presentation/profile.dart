@@ -19,6 +19,7 @@ import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rating_dialog/rating_dialog.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:store_redirect/store_redirect.dart';
 
@@ -46,7 +47,7 @@ class _ProfileState extends State<Profile> {
     const StatusBar();
     final appStyleMode = Provider.of<AppColors>(context);
     Get.put(SigninController());
-    final _dialog = RatingDialog(
+   /* final _dialog = RatingDialog(
       starSize: 35.0,
       initialRating: 5.0,
       title: Text(
@@ -76,7 +77,7 @@ class _ProfileState extends State<Profile> {
               iOSAppId: 'com.vemateltd.vemate');
         }
       },
-    );
+    );*/
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -161,11 +162,14 @@ class _ProfileState extends State<Profile> {
                           }
                         }),*/
                     CustomProfileElements(Icons.rate_review_outlined, "Rate",
-                        () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => _dialog,
-                      );
+                        () async {
+                          final InAppReview inAppReview = InAppReview.instance;
+
+                          setState(() async {
+                            if (await inAppReview.isAvailable()) {
+                            inAppReview.requestReview();
+                            }
+                          });
                     }),
                     CustomProfileElements(Icons.share, "Share Vemate", () {
                       Share.share(

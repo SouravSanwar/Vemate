@@ -4,14 +4,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 
-class CustomButtons extends StatelessWidget {
+class OnBoardScreenButton extends StatelessWidget {
   final double? height;
   final double? width;
   final VoidCallback? onTap;
   final String? text;
   final TextStyle? style;
 
-  const CustomButtons({
+  const OnBoardScreenButton({
     Key? key,
     this.height,
     this.width,
@@ -29,7 +29,7 @@ class CustomButtons extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          gradient: AppColors.onBoardBtnGradient,
+          gradient: AppColors.purpleGradient,
           borderRadius: const BorderRadius.all(
             Radius.circular(25.0),
           ),

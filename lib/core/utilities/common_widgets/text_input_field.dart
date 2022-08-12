@@ -36,7 +36,7 @@ class _TextInputFieldState extends State<TextInputField> {
     emailisValid = EmailValidator.validate(widget.controller.text);
     return Container(
       padding: const EdgeInsets.only(left: 15, right: 15),
-      color: AppColors.backgroundColor,
+      color: Colors.transparent,
       child: widget.controller == 'emailController'
           ? TextFormField(
               enabled: widget.isEnable,
@@ -58,23 +58,26 @@ class _TextInputFieldState extends State<TextInputField> {
                 contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: AppColors.grey, // set border color
+                        color: AppColors.white.withOpacity(.7), // set border color
                         width: 1.5),
                     borderRadius: BorderRadius.circular(25.0)),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
                   borderSide: BorderSide(
-                      color: AppColors.grey, // set border color
+                      color: AppColors.white.withOpacity(.7), // set border color
                       width: 1.5),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
                   borderSide: BorderSide(
-                      color: AppColors.grey, // set border color
+                      color: AppColors.white.withOpacity(.7), // set border color
                       width: 1.5),
                 ),
                 hintText: widget.labelText,
-                hintStyle: TextStyle(fontFamily: 'Inter', fontSize: 15.sp),
+                hintStyle: TextStyle(
+                    color: AppColors.white.withOpacity(.7),
+                    fontFamily: 'Inter',
+                    fontSize: 15.sp),
                 labelStyle: const TextStyle(
                   fontFamily: 'Inter',
                   color: Colors.blue,
@@ -87,7 +90,7 @@ class _TextInputFieldState extends State<TextInputField> {
               validator: widget.validator,
               style: TextStyle(
                 fontFamily: 'Inter',
-                color: AppColors.textColor,
+                color: AppColors.white.withOpacity(.7),
                 fontSize: 18.0.sp,
               ),
               controller: widget.controller,
@@ -96,23 +99,26 @@ class _TextInputFieldState extends State<TextInputField> {
                 contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: AppColors.grey, // set border color
+                        color: AppColors.white.withOpacity(.7), // set border color
                         width: 1.5),
                     borderRadius: BorderRadius.circular(25.0)),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
                   borderSide: BorderSide(
-                      color: AppColors.grey, // set border color
+                      color: AppColors.white.withOpacity(.7), // set border color
                       width: 1.5),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
                   borderSide: BorderSide(
-                      color: AppColors.grey, // set border color
+                      color: AppColors.white.withOpacity(.7), // set border color
                       width: 1.5),
                 ),
                 hintText: widget.labelText,
-                hintStyle: TextStyle(fontFamily: 'Inter', fontSize: 15.sp),
+                hintStyle: TextStyle(
+                    color: AppColors.white.withOpacity(.7),
+                    fontFamily: 'Inter',
+                    fontSize: 15.sp),
                 labelStyle: const TextStyle(
                   fontFamily: 'Inter',
                   color: Colors.blue,

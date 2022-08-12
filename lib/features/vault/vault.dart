@@ -460,7 +460,7 @@ class _VaultState extends State<Vault> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child:  const DropDown(Colors.cyan),
+                        child:  DropDown(AppColors.backgroundColor),
                         width: Get.width * .125,
                         height: Get.width * .125,
                         decoration: BoxDecoration(

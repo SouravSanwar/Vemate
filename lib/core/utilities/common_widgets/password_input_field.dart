@@ -30,7 +30,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 15, right: 15),
-      color: AppColors.backgroundColor,
+      color: Colors.transparent,
       child: TextFormField(
 
         validator: widget.validator,
@@ -43,45 +43,49 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
           border: OutlineInputBorder(
               borderSide: BorderSide(
-                  color: AppColors.grey, // set border color
+                  color: AppColors.white.withOpacity(.7), // set border color
                   width: 1.5
               ),
               borderRadius: BorderRadius.circular(25.0)),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25.0),
             borderSide: BorderSide(
-                color: AppColors.grey, // set border color
+                color: AppColors.white.withOpacity(.7), // set border color
                 width: 1.5
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25.0),
             borderSide: BorderSide(
-                color: AppColors.grey, // set border color
+                color: AppColors.white.withOpacity(.7), // set border color
                 width: 1.5
             ),
           ),
           hintText: widget.labelText,
-          hintStyle:  TextStyle(fontFamily: 'Inter',fontSize: 15.sp),
+          hintStyle: TextStyle(
+              color: AppColors.white.withOpacity(.7),
+              fontFamily: 'Inter',
+              fontSize: 15.sp),
           labelStyle: const TextStyle(
             fontFamily: 'Inter',
             color: Colors.blue,
           ),
           suffixIcon: IconButton(
-            splashColor: AppColors.backgroundColor,
+
+            splashColor: Colors.transparent,
             onPressed: () {
               setState(() {
                 _toggleVisibility = !_toggleVisibility;
               });
             },
             icon: _toggleVisibility
-                ? const Icon(
+                ?  Icon(
                     Icons.visibility,
-                    color: Colors.grey,
+              color: AppColors.white.withOpacity(.7),
                   )
-                : const Icon(
+                :  Icon(
                     Icons.visibility_off,
-                    color: Colors.grey,
+              color: AppColors.white.withOpacity(.7),
                   ),
           ),
         ),
