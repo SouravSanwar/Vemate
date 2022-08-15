@@ -56,7 +56,7 @@ class _SignUpState extends State<SignUp> {
                   children: [
                     const BackPreviousScreen(),
                     SizedBox(
-                      height: Get.height * .07,
+                      height: Get.height * .02,
                     ),
                     SizedBox(
                       height: Get.height * .18,

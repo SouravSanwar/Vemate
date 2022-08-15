@@ -12,6 +12,7 @@ import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_controller.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
+import 'package:ketemaa/features/profile/feedback/feedback.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/widgets/profileElements.dart';
 import 'package:ketemaa/features/profile/widgets/toggleButton.dart';
@@ -163,13 +164,18 @@ class _ProfileState extends State<Profile> {
                         }),*/
                     CustomProfileElements(Icons.rate_review_outlined, "Rate",
                         () async {
-                          final InAppReview inAppReview = InAppReview.instance;
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return FeedbackScreen();
+                              });
+                          /*final InAppReview inAppReview = InAppReview.instance;
 
                           setState(() async {
                             if (await inAppReview.isAvailable()) {
                             inAppReview.requestReview();
                             }
-                          });
+                          });*/
                     }),
                     CustomProfileElements(Icons.share, "Share Vemate", () {
                       Share.share(

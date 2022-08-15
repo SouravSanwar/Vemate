@@ -76,7 +76,7 @@ class _OtpPageState extends State<OtpPage> {
               children: <Widget>[
                 const BackPreviousScreen(),
                 SizedBox(
-                  height: Get.height * .07,
+                  height: Get.height * .02,
                 ),
                 SizedBox(
                   height: Get.height * .18,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 class BackPreviousScreen extends StatelessWidget{
   const BackPreviousScreen({Key? key}) : super(key: key);
 
@@ -13,9 +14,9 @@ class BackPreviousScreen extends StatelessWidget{
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: const Icon(
+                child: Icon(
                   Icons.arrow_back_ios,
-                  color: Colors.grey,
+                  color: AppColors.white.withOpacity(.9),
                 ),
               )
     );
