@@ -111,6 +111,7 @@ class PostData extends ChangeNotifier with BaseController {
       }
     } else {
       if (js.containsKey('email')) {
+        Navigator.of(context).pop();
         showDialog(
             context: context,
             barrierDismissible: false,
