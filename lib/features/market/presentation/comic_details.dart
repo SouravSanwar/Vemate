@@ -99,10 +99,16 @@ class _ComicDetailsState extends State<ComicDetails> {
                                   bottom: Get.height * 0.01667),
                               child: Container(
                                 height: data.singleProductModel!.image != null
-                                              ? data.singleProductModel!.image!.original!.height!.toDouble()/2
-                                               : Get.height * .3,
+                                    ? data.singleProductModel!.image!.original!
+                                            .height!
+                                            .toDouble() *
+                                        (Get.width * .0011)
+                                    : Get.height * .3,
                                 width: data.singleProductModel!.image != null
-                                    ? data.singleProductModel!.image!.original!.width!.toDouble()/2
+                                    ? data.singleProductModel!.image!.original!
+                                            .width!
+                                            .toDouble() *
+                                        (Get.width * .0011)
                                     : Get.height * .5,
                                 //height: Get.height * .5,
                                 padding: const EdgeInsets.all(2),

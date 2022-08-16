@@ -13,6 +13,7 @@ import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/_controller/sign_up_controller.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
+import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
@@ -84,10 +85,11 @@ class _SignUpState extends State<SignUp> {
                         ),
                         AppSpaces.spaces_height_25,
                         TextInputField(
-                          validator:  (value) {
-                                  if (value == null || value.trim().isEmpty) {
-                                  return 'Username is required';
-                                  }},
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Username is required';
+                            }
+                          },
                           labelText: "Username",
                           height: Get.height * .04,
                           textType: TextInputType.text,
@@ -98,16 +100,16 @@ class _SignUpState extends State<SignUp> {
                         ),
                         TextInputField(
                           labelText: "Email",
-                          validator:  (value) {
+                          validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return 'Email is required';
                             }
                             if (!RegExp(
-                                r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$")
+                                    r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$")
                                 .hasMatch(value)) {
                               return 'Please enter a valid Email';
                             }
-                            },
+                          },
                           height: Get.height * .04,
                           textType: TextInputType.emailAddress,
                           controller: SignUpController.to.emailController,
@@ -116,12 +118,11 @@ class _SignUpState extends State<SignUp> {
                           height: 15,
                         ),
                         PasswordInputField(
-                          validator:  (value) {
+                          validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return 'Password is required';
                             }
-
-                            },
+                          },
                           labelText: "Password",
                           height: Get.height * .04,
                           textType: TextInputType.text,
@@ -148,17 +149,16 @@ class _SignUpState extends State<SignUp> {
                                 ),
                         ),
                         PasswordInputField(
-                          validator:  (value) {
+                          validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return 'Confirm Password is required';
                             }
-                            if(SignUpController.to.passwordController.text !=
+                            if (SignUpController.to.passwordController.text !=
                                 SignUpController
-                                    .to.confirmPasswordController.text){
+                                    .to.confirmPasswordController.text) {
                               return 'Passwords do not match';
-
                             }
-                            },
+                          },
                           labelText: "Confirm Password",
                           height: Get.height * .04,
                           textType: TextInputType.text,
@@ -183,8 +183,8 @@ class _SignUpState extends State<SignUp> {
                                   SignUpController.to.passwordController.text
                             };
                             if (_formKey.currentState!.validate()) {
-
-                                  postData!.signUp(context, body);
+                              //Get.to(() => OtpPage());
+                              postData!.signUp(context, body);
                             }
                           },
                           text: AppLanguageString.SIGN_UP.tr.toUpperCase(),
