@@ -973,6 +973,27 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
+  Future PostFeedback(
+      BuildContext context, var body, var requestToken) async {
+    final response = await http.post(
+        Uri.parse(Urls.feedback),body: json.encode(body),
+        headers: requestToken);
+    print("RESPONSE" + response.body.toString());
+    if (response.statusCode == 201) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => ResponseMessage(
+            icon: Icons.check_circle,
+            color: AppColors.primaryColor,
+            message: "Feedback Submitted Successfully",
+          ));
+      await Future.delayed(const Duration(seconds: 1));
+      Navigator.of(context).pop();
+    }
+    notifyListeners();
+  }
+
   Store(var mat, BuildContext context) async {
     prefs = await SharedPreferences.getInstance();
     prefs!.setString('user_id', mat['user_id'].toString());

@@ -46,7 +46,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
       child: IntroductionScreen(
         //onPressed: () => _onIntroEnd(context),
         key: introKey,
-       globalBackgroundColor: Colors.transparent.withOpacity(0),
+        globalBackgroundColor: Colors.transparent.withOpacity(0),
         globalHeader: Container(
           alignment: Alignment.topRight,
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
