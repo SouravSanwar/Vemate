@@ -121,6 +121,7 @@ class PostData extends ChangeNotifier with BaseController {
                 ));
       }
       if (js.containsKey('nickname')) {
+        Navigator.of(context).pop();
         showDialog(
             context: context,
             barrierDismissible: false,
@@ -131,6 +132,7 @@ class PostData extends ChangeNotifier with BaseController {
                 ));
       }
       if (js.containsKey('password')) {
+        Navigator.of(context).pop();
         showDialog(
             context: context,
             barrierDismissible: false,
@@ -456,7 +458,8 @@ class PostData extends ChangeNotifier with BaseController {
             builder: (_) => ResponseMessage(
                   icon: Icons.check_circle,
                   color: AppColors.primaryColor,
-                  message: js['password'][0].toString(),
+                  message: 'Password didn\'t match',
+                  //message: js['password'][0].toString(),
                 ));
       } else {
         showDialog(

@@ -93,7 +93,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                         )),
                     AppSpaces.spaces_height_25,
                     TextInputField(
-                      validator:  (value) {
+                      validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Username/Email is required';
                         }
@@ -101,17 +101,17 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       labelText: "Username/Email",
                       height: Get.height * .04,
                       textType: TextInputType.emailAddress,
-                      controller: SigninController.to.userNameTextFiledController,
+                      controller:
+                          SigninController.to.userNameTextFiledController,
                     ),
                     SizedBox(
                       height: Get.height * .022,
                     ),
                     PasswordInputField(
-                        validator:  (value) {
+                        validator: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return 'Password is required';
                           }
-
                         },
                         labelText: "Password",
                         height: Get.height * .04,
@@ -153,10 +153,9 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                         };
                         //getConnection();
 
-                          if (_formKey.currentState!.validate()) {
-
-                            postData!.logIn(context, body);
-                          }
+                        if (_formKey.currentState!.validate()) {
+                          postData!.logIn(context, body);
+                        }
                       },
                       text: AppLanguageString.lOG_IN.tr.toUpperCase(),
                       style: Get.textTheme.button!.copyWith(
@@ -311,7 +310,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
 
     imageFile=file;
     print("fileeeeeeeee"+file.toString());*/
-    print("emailcheck"+user.displayName.toString());
+    print("emailcheck" + user.displayName.toString());
     postData!.signUp(context, body);
 
     //postImage();

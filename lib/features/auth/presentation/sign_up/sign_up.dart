@@ -122,6 +122,7 @@ class _SignUpState extends State<SignUp> {
                             if (value == null || value.trim().isEmpty) {
                               return 'Password is required';
                             }
+                            return null;
                           },
                           labelText: "Password",
                           height: Get.height * .04,
