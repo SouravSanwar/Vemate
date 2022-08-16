@@ -66,6 +66,10 @@ class PostData extends ChangeNotifier with BaseController {
       try {
         if (js.containsKey('id')) {
           Navigator.of(context).pop();
+          prefs = await SharedPreferences.getInstance();
+          prefs!.setString(
+              'is_email_verified', js['is_email_verified'].toString());
+          prefs!.setString('email', js['email'].toString());
           showDialog(
               context: context,
               barrierDismissible: false,
@@ -73,20 +77,15 @@ class PostData extends ChangeNotifier with BaseController {
                     icon: Icons.check_circle,
                     color: AppColors.primaryColor,
                     message: "Registration Successful",
-                  ));
-          prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              'is_email_verified', js['is_email_verified'].toString());
-          prefs!.setString('email', js['email'].toString());
+                  )).whenComplete(() {
+            js['is_email_verified'] == true
+                ? Get.to(() => const AuthInitialPage())
+                : Get.to(() => OtpPage());
+          });
 
           printInfo(info: prefs!.getString('is_email_verified').toString());
-          //Store(js, context);
-          js['is_email_verified'] == true
-              ? Get.to(() => const AuthInitialPage())
-              : Get.to(() => OtpPage());
-
-          await Future.delayed(const Duration(seconds: 1));
-          Navigator.of(context).pop();
+          // await Future.delayed(const Duration(seconds: 1));
+          // Navigator.of(context).pop();
         } else {
           Navigator.of(context).pop();
 
@@ -112,6 +111,7 @@ class PostData extends ChangeNotifier with BaseController {
       }
     } else {
       if (js.containsKey('email')) {
+        Navigator.of(context).pop();
         showDialog(
             context: context,
             barrierDismissible: false,
@@ -122,6 +122,7 @@ class PostData extends ChangeNotifier with BaseController {
                 ));
       }
       if (js.containsKey('nickname')) {
+        Navigator.of(context).pop();
         showDialog(
             context: context,
             barrierDismissible: false,
@@ -132,6 +133,7 @@ class PostData extends ChangeNotifier with BaseController {
                 ));
       }
       if (js.containsKey('password')) {
+        Navigator.of(context).pop();
         showDialog(
             context: context,
             barrierDismissible: false,
@@ -457,7 +459,8 @@ class PostData extends ChangeNotifier with BaseController {
             builder: (_) => ResponseMessage(
                   icon: Icons.check_circle,
                   color: AppColors.primaryColor,
-                  message: js['password'][0].toString(),
+                  message: 'Password didn\'t match',
+                  //message: js['password'][0].toString(),
                 ));
       } else {
         showDialog(
@@ -932,7 +935,6 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 201) {
       getData!.getWishList();
 
-
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -941,7 +943,6 @@ class PostData extends ChangeNotifier with BaseController {
                 color: AppColors.primaryColor,
                 message: "Deleted Successfully",
               ));
-
     } else {
       showDialog(
           context: context,

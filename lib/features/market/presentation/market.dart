@@ -229,6 +229,7 @@ class _MarketState extends State<Market> {
                             collectibleRarity = 'Secret Rare';
                             collectibleFilterOn = true;
                           } else {
+                            getData!.getCollectibles();
                             collectibleRarity = '';
                             collectibleFilterOn = false;
                           }
@@ -237,8 +238,9 @@ class _MarketState extends State<Market> {
                         if (collectibleRarity.isNotEmpty) {
                           getData!.collectiblesModel = null;
                           getData!.getCollectibles(
-                              keyword: collectibleSearchText,
-                              rarity: collectibleRarity);
+                            keyword: collectibleSearchText,
+                            rarity: collectibleRarity,
+                          );
                         }
                       },
                       itemBuilder: (context) => [
@@ -346,6 +348,7 @@ class _MarketState extends State<Market> {
                             comicRarity = 'Secret Rare';
                             comicFilterOn = true;
                           } else {
+                            getData!.getComics();
                             comicRarity = '';
                             comicFilterOn = false;
                           }
@@ -354,7 +357,9 @@ class _MarketState extends State<Market> {
                         if (comicRarity.isNotEmpty) {
                           getData!.comicsModel = null;
                           getData!.getComics(
-                              keyword: comicSearchText, rarity: comicRarity);
+                            keyword: comicSearchText,
+                            rarity: comicRarity,
+                          );
                         }
                       },
                       itemBuilder: (context) => [
@@ -459,7 +464,6 @@ class _MarketState extends State<Market> {
                             brandSelected = false;
                           });
                         },
-
                         child: CategoryCard(
                           name: 'Collectibles',
                           gradient: collectibleSelected == true
