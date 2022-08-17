@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/features/profile/feedback/rating_stars.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +11,7 @@ import '../../../main.dart';
 
 
 class FeedbackBody extends StatefulWidget {
+  static int checkFeedback=0;
   const FeedbackBody({Key? key}) : super(key: key);
 
   @override
@@ -74,16 +76,25 @@ class _FeedbackBodyState extends State<FeedbackBody> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: TextFormField(
+                cursorColor: AppColors.white,
                 controller: feedbackController,
                 textAlignVertical: TextAlignVertical.top,
+                style: TextStyle(
+                  color: AppColors.textColor,
+                  fontFamily: 'Inter',
+                  fontSize: 15.0.sp,
+                ),
                 decoration: InputDecoration(
                     border: _border,
+                    focusedBorder: _border,
                     enabledBorder: _border,
                     hintText: "Add a Comment",
                     hintStyle: TextStyle(
+                      color: AppColors.white.withOpacity(.7),
                       fontFamily: 'inter',
                       fontSize: 15.sp,
-                    )
+                    ),
+
 
                 ),
                 maxLines: 5,
@@ -94,7 +105,7 @@ class _FeedbackBodyState extends State<FeedbackBody> {
             SizedBox(height: Get.height*.03,),
 
             InkWell(
-              onTap: (){
+              onTap: () async {
                 Map<String, String>
                 requestHeadersWithToken = {
                   'Content-type': 'application/json',
@@ -105,12 +116,29 @@ class _FeedbackBodyState extends State<FeedbackBody> {
 
                 var body = {
                   "rating": RatingStars.ratingValue,
-                  "comment": feedbackController.text.toString()
+                  "comment": feedbackController.text.isEmpty
+                                  ?'No Comment' :feedbackController.text.toString(),
 
                 };
                 print("Body"+body.toString());
 
-                postData!.PostFeedback(context, body,requestHeadersWithToken);
+                if(RatingStars.ratingValue !=0 || feedbackController.text.isNotEmpty){
+                  postData!.PostFeedback(context, body,requestHeadersWithToken);
+                  FeedbackBody.checkFeedback=1;
+                }
+                else{
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (_) => ResponseMessage(
+                        icon: Icons.check_circle,
+                        color: AppColors.primaryColor,
+                        message: "Please insert rating or add a comment",
+                      ));
+                  await Future.delayed(const Duration(seconds: 1));
+                  Navigator.of(context).pop();
+                }
+
               },
               child: Container(
                 alignment: Alignment.center,

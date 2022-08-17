@@ -33,6 +33,8 @@ class _MarketState extends State<Market> {
   bool? collectibleEnable = false;
   bool? comicEnable = false;
 
+  int? collcetableMintValue;
+
   TextEditingController searchCollectible = TextEditingController();
   TextEditingController searchComic = TextEditingController();
 
@@ -114,6 +116,7 @@ class _MarketState extends State<Market> {
                             getData!.getCollectibles(
                               keyword: collectibleSearchText,
                               rarity: collectibleRarity,
+                              mint_number: 0,
                             );
                           }
                         });
@@ -228,6 +231,12 @@ class _MarketState extends State<Market> {
                           } else if (value == 5) {
                             collectibleRarity = 'Secret Rare';
                             collectibleFilterOn = true;
+                          } else if (value == 7) {
+                            collcetableMintValue=0;
+                            collectibleFilterOn = true;
+                          } else if (value == 8) {
+                            collcetableMintValue=1;
+                            collectibleFilterOn = true;
                           } else {
                             collectibleRarity = '';
                             collectibleFilterOn = false;
@@ -308,6 +317,30 @@ class _MarketState extends State<Market> {
                             'Secret Rare',
                             style: TextStyle(
                               color: collectibleRarity == 'Secret Rare'
+                                  ? AppColors.primaryColor
+                                  : AppColors.textColor,
+                              fontFamily: 'Inter',
+                            ),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 7,
+                          child: Text(
+                            'Low Mint A',
+                            style: TextStyle(
+                              color: collectibleRarity == 'Low Mint A'
+                                  ? AppColors.primaryColor
+                                  : AppColors.textColor,
+                              fontFamily: 'Inter',
+                            ),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 8,
+                          child: Text(
+                            'Low Mint D',
+                            style: TextStyle(
+                              color: collectibleRarity == 'Low Mint D'
                                   ? AppColors.primaryColor
                                   : AppColors.textColor,
                               fontFamily: 'Inter',

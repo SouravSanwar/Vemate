@@ -84,11 +84,11 @@ class GetData extends ChangeNotifier with BaseController {
   }
 
   Future getCollectibles(
-      {int offset = 0, String? keyword = '', String rarity = ''}) async {
+      {int offset = 0, String? keyword = '', String rarity = '',int mint_number=0}) async {
     keyword = Uri.encodeComponent(keyword!);
     final response = await BaseClient()
         .get(Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&rarity=$rarity&name=$keyword')
+            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&rarity=$rarity&name=$keyword&mint_number=$mint_number')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
@@ -151,10 +151,10 @@ class GetData extends ChangeNotifier with BaseController {
   }
 
   Future searchComics(
-      {String keyWord = '', String rarity = '', int offset = 0}) async {
+      {String keyWord = '', String rarity = '', int offset = 0,String mint_number=''}) async {
     final response = await BaseClient()
         .get(Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset&rarity=$rarity&name=$keyWord')
+            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset&rarity=$rarity&name=$keyWord&mint_number=$mint_number')
         .catchError(handleError);
 
     var data = json.decode(response.toString());

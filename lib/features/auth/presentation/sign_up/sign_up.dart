@@ -128,6 +128,14 @@ class _SignUpState extends State<SignUp> {
                               if (value == null || value.trim().isEmpty) {
                                 return 'Password is required';
                               }
+                              if (!RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)")
+                                  .hasMatch(value)) {
+                                return 'Min 8 characters with 1 uppercase, 1 number';
+                              }
+                              if(SignUpController.to.passwordController.text.length < 8
+                                  || SignUpController.to.passwordController.text.length >32){
+                                return 'Password must be at least 8 characters';
+                              }
 
                               },
                             labelText: "Password",

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/profile/feedback/feeback_body.dart';
+import 'package:ketemaa/features/profile/feedback/greetingsPage.dart';
 class FeedbackScreen extends StatefulWidget {
 
   const FeedbackScreen({Key? key}) : super(key: key);
@@ -27,7 +28,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               ),
             ),
             gradient:AppColors.onBoardGradient ),
-        child: FeedbackBody(),
+        child: FeedbackBody.checkFeedback==1
+            ? const FeedbackBody()
+            : const GreetingsPage(),
 
       ),
       contentPadding: const EdgeInsets.all(0.0),

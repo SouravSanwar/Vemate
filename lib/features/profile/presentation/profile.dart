@@ -12,7 +12,9 @@ import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_controller.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
+import 'package:ketemaa/features/profile/feedback/feeback_body.dart';
 import 'package:ketemaa/features/profile/feedback/feedback.dart';
+import 'package:ketemaa/features/profile/feedback/rating_stars.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/widgets/profileElements.dart';
 import 'package:ketemaa/features/profile/widgets/toggleButton.dart';
@@ -41,6 +43,20 @@ class _ProfileState extends State<Profile> {
 
     super.initState();
   }
+  Future<void> _launchInApp(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: true,
+        forceWebView: true,
+        enableDomStorage: true,
+        enableJavaScript: true,
+        headers: <String, String>{'header_key': 'header_value'},
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,37 +64,6 @@ class _ProfileState extends State<Profile> {
     const StatusBar();
     final appStyleMode = Provider.of<AppColors>(context);
     Get.put(SigninController());
-   /* final _dialog = RatingDialog(
-      starSize: 35.0,
-      initialRating: 5.0,
-      title: Text(
-        'Rate Us On App Store or Play Store',
-        textAlign: TextAlign.center,
-        style: Get.textTheme.headlineMedium!,
-      ),
-      message: Text(
-        '',
-        textAlign: TextAlign.center,
-        style: Get.textTheme.bodyMedium!,
-      ),
-      image: Image.asset(
-        mode == 0
-            ? 'assets/media/image/vemate.png'
-            : 'assets/media/image/vemate1.png',
-      ),
-      submitButtonText: 'Submit',
-      onCancelled: () => print('cancelled'),
-      onSubmitted: (response) {
-        print('rating: ${response.rating}, comment: ${response.comment}');
-        // TODO: add your own logic
-        if (response.rating < 3.0) {
-        } else {
-          StoreRedirect.redirect(
-              androidAppId: 'com.vemateltd.vemate',
-              iOSAppId: 'com.vemateltd.vemate');
-        }
-      },
-    );*/
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -153,22 +138,21 @@ class _ProfileState extends State<Profile> {
                     }),
                     /* CustomProfileElements(
                             Icons.help_outline, "Help and Support", () {}),*/
-                    /*CustomProfileElements(
+                    CustomProfileElements(
                             Icons.privacy_tip_outlined, "Privacy Policy", () async {
                           String url = 'https://pages.flycricket.io/vemate-0/privacy.html';
-                          if (await canLaunch(url)) {
-                            await launch(url);
-                          } else {
-                            throw 'Could not launch $url';
-                          }
-                        }),*/
+                          _launchInApp(url);
+                        }),
                     CustomProfileElements(Icons.rate_review_outlined, "Rate",
                         () async {
+                          FeedbackBody.checkFeedback=0;
+                          RatingStars.ratingValue=0;
                           showDialog(
                               context: context,
                               builder: (context) {
                                 return FeedbackScreen();
                               });
+
                           /*final InAppReview inAppReview = InAppReview.instance;
 
                           setState(() async {
@@ -184,11 +168,7 @@ class _ProfileState extends State<Profile> {
                     CustomProfileElements(
                         Icons.info_outline_rounded, "About Vemate", () async {
                       String url = 'https://www.vemate.com/';
-                      if (await canLaunch(url)) {
-                        await launch(url);
-                      } else {
-                        throw 'Could not launch $url';
-                      }
+                      _launchInApp(url);
                     }),
                     /*CustomProfileElements(
                         Icons.toggle_off_outlined,
