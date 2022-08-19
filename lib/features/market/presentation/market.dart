@@ -34,6 +34,7 @@ class _MarketState extends State<Market> {
   bool? comicEnable = false;
 
   int? collcetableMintValue;
+  int? comicMintValue;
 
   TextEditingController searchCollectible = TextEditingController();
   TextEditingController searchComic = TextEditingController();
@@ -235,7 +236,7 @@ class _MarketState extends State<Market> {
                             collcetableMintValue=0;
                             collectibleFilterOn = true;
                           } else if (value == 8) {
-                            collcetableMintValue=1;
+                            comicMintValue=1;
                             collectibleFilterOn = true;
                           } else {
                             collectibleRarity = '';

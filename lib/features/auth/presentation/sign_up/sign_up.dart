@@ -128,13 +128,16 @@ class _SignUpState extends State<SignUp> {
                               if (value == null || value.trim().isEmpty) {
                                 return 'Password is required';
                               }
-                              if (!RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)")
+                              if (SignUpController.to.passwordController.text.length < 8
+                                  || SignUpController.to.passwordController.text.length >32
+                                   ||!RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)")
                                   .hasMatch(value)) {
-                                return 'Min 8 characters with 1 uppercase, 1 number';
+                                return 'Password must be 8-32 characters with 1 uppercase, 1 number';
+
                               }
                               if(SignUpController.to.passwordController.text.length < 8
                                   || SignUpController.to.passwordController.text.length >32){
-                                return 'Password must be at least 8 characters';
+                                return 'Password must be 8-32 characters';
                               }
 
                               },
@@ -143,25 +146,17 @@ class _SignUpState extends State<SignUp> {
                             textType: TextInputType.text,
                             controller: SignUpController.to.passwordController,
                           ),
-                          Container(
+                           Container(
                             alignment: Alignment.topLeft,
                             padding: const EdgeInsets.only(left: 35),
                             height: Get.height * .022,
-                            child: passDigitCheck == true
-                                ?  Text(
+                            child: Text(
                                     "*Min 8 characters with 1 uppercase, 1 number",
                                     style: TextStyle(
                                         fontFamily: 'Inter',
                                         color: AppColors.white.withOpacity(.7),
                                         fontSize: 11),
                                   )
-                                : const Text(
-                                    "Password must be at least 8 characters",
-                                    style: TextStyle(
-                                        fontFamily: 'Inter',
-                                        color: Colors.red,
-                                        fontSize: 11),
-                                  ),
                           ),
                           const SizedBox(
                             height: 8,

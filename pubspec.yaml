@@ -95,7 +95,9 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/media/icon/logo1024.png"
+  image_path: "assets/media/image/splash_logo.png"
+  adaptive_icon_background: "#31357A"
+  adaptive_icon_foreground: "assets/media/image/splash_logo.png"
 
 flutter:
   uses-material-design: true

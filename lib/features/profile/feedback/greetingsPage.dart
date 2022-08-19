@@ -144,17 +144,17 @@ class SocialMediaIcon extends StatelessWidget {
 
   Future<void> _launchInApp(String url) async {
     if (await canLaunch(url)) {
-      await launch(
+      final bool nativeAppLaunchSucceeded = await launch(
         url,
-        forceSafariVC: true,
-        forceWebView: true,
-        enableDomStorage: true,
-        enableJavaScript: true,
-        headers: <String, String>{'header_key': 'header_value'},
+        forceSafariVC: false,
+        forceWebView: false,
+        universalLinksOnly: true,
       );
-    } else {
-      throw 'Could not launch $url';
+
     }
+  }
+  Future<void> _launchUniversalLinkIos(String url) async {
+
   }
 
   @override
