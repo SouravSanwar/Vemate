@@ -94,7 +94,9 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/media/icon/logo1024.png"
+  image_path: "assets/media/logo/new_logo.png"
+
+  #flutter pub run flutter_launcher_icons:main
 
 flutter:
   uses-material-design: true
