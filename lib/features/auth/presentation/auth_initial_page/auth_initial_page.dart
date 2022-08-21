@@ -166,7 +166,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   ],
                 ),
               ),
-              /*AppSpaces.spaces_height_35,
+              AppSpaces.spaces_height_35,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -204,7 +204,6 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         signIn();
-
                       },
                       child: Image.asset('assets/media/icon/google.png'),
                       style: ElevatedButton.styleFrom(
@@ -251,7 +250,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     ),
                   ),
                 ],
-              ),*/
+              ),
               SizedBox(
                 height: Get.height * .09,
               ),
