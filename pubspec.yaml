@@ -3,7 +3,7 @@ description: Ketemaa.
 
 publish_to: 'none'
 
-version: 1.2.2+22
+version: 1.2.3+23
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -94,7 +94,11 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/media/icon/logo1024.png"
+  image_path: "assets/media/logo/new_logo.png"
+  adaptive_icon_background: "#1F273E"
+  adaptive_icon_foreground: "assets/media/logo/new_logo.png"
+
+  #flutter pub run flutter_launcher_icons:main
 
 flutter:
   uses-material-design: true
