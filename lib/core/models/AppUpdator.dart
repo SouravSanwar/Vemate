@@ -1,12 +1,12 @@
-class AppUpdator {
-  AppUpdator({
+class AppUpdatorForAndroid {
+  AppUpdatorForAndroid({
       this.id, 
       this.name, 
       this.version, 
       this.description, 
       this.isMajor,});
 
-  AppUpdator.fromJson(dynamic json) {
+  AppUpdatorForAndroid.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
     version = json['version'];

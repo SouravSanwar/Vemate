@@ -13,7 +13,7 @@ import 'package:ketemaa/main.dart';
 import '../functions/version_control.dart';
 
 class AppUpdate extends ChangeNotifier {
-  AppUpdator? appUpdator;
+  AppUpdatorForAndroid? appUpdator;
   bool isUpdate = true;
   bool isNewUpdateAvailable = false;
 
@@ -22,10 +22,10 @@ class AppUpdate extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getUpdateInfo() async {
+  Future getUpdateInfo({int? os =0}) async {
     appUpdator = null;
     final response = await http.get(
-      Uri.parse(Urls.appUpdate),
+      Uri.parse(Urls.appUpdate + '?os=$os'),
       headers: {
         'Authorization': 'token ${prefs!.getString('token')}',
       },
@@ -35,15 +35,14 @@ class AppUpdate extends ChangeNotifier {
 
     printInfo(info: 'Update Info: ' + data.toString());
 
-    appUpdator = AppUpdator.fromJson(data);
-    isNewUpdateAvailable = await _isHigherThanCurrentVersion(
-        "${appUpdator!.version}", VersionControl.packageInfo.version);
+    appUpdator = AppUpdatorForAndroid.fromJson(data);
+    isNewUpdateAvailable =
+        await _isHigherThanCurrentVersion("${appUpdator!.version}", VersionControl.packageInfo.version);
 
     notifyListeners();
   }
 
-  Future<bool> _isHigherThanCurrentVersion(
-      String newVersion, String currentVersion) async {
+  Future<bool> _isHigherThanCurrentVersion(String newVersion, String currentVersion) async {
     var isHigher = false;
 
     try {
@@ -51,10 +50,8 @@ class AppUpdate extends ChangeNotifier {
       final newVSegments = newVersion.split('.');
       final maxLength = max(currentVSegments.length, newVSegments.length);
       for (var i = 0; i < maxLength; i++) {
-        final newVSegment =
-            i < newVSegments.length ? int.parse(newVSegments[i]) : 0;
-        final currentVSegment =
-            i < currentVSegments.length ? int.parse(currentVSegments[i]) : 0;
+        final newVSegment = i < newVSegments.length ? int.parse(newVSegments[i]) : 0;
+        final currentVSegment = i < currentVSegments.length ? int.parse(currentVSegments[i]) : 0;
         isHigher = newVSegment > currentVSegment;
         if (newVSegment != currentVSegment) {
           break;

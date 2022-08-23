@@ -1,15 +1,9 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:ketemaa/CheckInternet/check_internet.dart';
-import 'package:ketemaa/CheckInternet/no_internet_loader.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
-import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/home/components/notification_badge.dart';
 import 'package:ketemaa/features/home/notification/no_notification.dart';
@@ -22,10 +16,8 @@ import 'package:ketemaa/features/home/components/home_vault_card.dart';
 
 import '../../../core/Provider/getData.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
-import '../../../core/utilities/shimmer/loading.dart';
 import '../components/image_slider.dart';
 import '../components/vault_new_item_card.dart';
-import 'package:badges/badges.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
