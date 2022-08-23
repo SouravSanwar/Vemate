@@ -22,10 +22,12 @@ class AppUpdate extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getUpdateInfo() async {
+  Future getUpdateInfo(int os) async {
+    print("object $os");
     appUpdator = null;
     final response = await http.get(
-      Uri.parse(Urls.appUpdate),
+      Uri.parse(Urls.appUpdate + '?os=$os'),
+
       headers: {
         'Authorization': 'token ${prefs!.getString('token')}',
       },
