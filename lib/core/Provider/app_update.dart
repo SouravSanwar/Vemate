@@ -22,7 +22,7 @@ class AppUpdate extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getUpdateInfo() async {
+  Future getUpdateInfo(int os) async {
     appUpdator = null;
     final response = await http.get(
       Uri.parse(Urls.appUpdate + '?os=$os'),
