@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ProductGraph extends StatefulWidget {
-  final List<Graph>? graphList;
+  final List<SingleProductGraph>? graphList;
 
   const ProductGraph({Key? key, this.graphList}) : super(key: key);
 
@@ -100,8 +100,8 @@ class _ProductGraphState extends State<ProductGraph> {
                             fontWeight: FontWeight.w900),
                         labelAlignment: LabelAlignment.center,
                       ),
-                      series: <ChartSeries<Graph, String>>[
-                        SplineAreaSeries<Graph, String>(
+                      series: <ChartSeries<SingleProductGraph, String>>[
+                        SplineAreaSeries<SingleProductGraph, String>(
                           dataSource: data.singleProductModel!.graph!,
                           borderColor: Color(0xff2093D7),
                           borderWidth: 1,

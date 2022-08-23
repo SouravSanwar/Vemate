@@ -188,6 +188,11 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
+
+  // TODO: check this
+  List<SingleProductGraph>? oneDayGraph=[];
+  List<SingleProductGraph> selenGraph=[];
+
   Future getSingleProduct(int? id, {int graphType = 0}) async {
     singleProductModel = null;
     final response = await BaseClient()
@@ -199,6 +204,7 @@ class GetData extends ChangeNotifier with BaseController {
     printInfo(info: data.toString());
 
     singleProductModel = SingleProductModel.fromJson(data);
+    // oneDayGraph = singleProductModel!.graph; TODO: // check this
 
     //singleProductModel!.graph!.removeAt(0);
     notifyListeners();
