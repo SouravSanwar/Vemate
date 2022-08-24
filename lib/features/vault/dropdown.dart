@@ -54,7 +54,6 @@ class _DropDownState extends State<DropDown> {
           widget.isHome==true
               ?getData!.getHomeVault(graphType: selectIndex)
               :getData!.getVaultStats(graphType: selectIndex);
-
           printInfo(info: 'Value value: ' + value.toString());
           printInfo(info: 'Value value Index: ' + selectIndex.toString());
         }); //get value when changed
