@@ -28,7 +28,6 @@ class _DropDownState extends State<DropDown> {
     // TODO: implement initState
 
     getData = Provider.of<GetData>(context, listen: false);
-
     super.initState();
   }
 
