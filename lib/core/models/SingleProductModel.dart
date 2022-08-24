@@ -253,6 +253,8 @@ class Graph {
     this.date,
     this.hourWiseTime,
     this.dayWiseTime,
+    this.dayWiseTimeWithDate,
+    this.monthWiseTime,
   });
 
   Graph.fromJson(dynamic json) {
@@ -262,7 +264,8 @@ class Graph {
     if (date != null) {
       hourWiseTime = DateFormat('hh a').format(DateTime.parse(date!));
       dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
-      print("*********"+hourWiseTime.toString()+"******");
+      dayWiseTimeWithDate = DateFormat('dd MMM').format(DateTime.parse(date!));
+      monthWiseTime = DateFormat('MMM').format(DateTime.parse(date!));
     }
   }
 
@@ -271,6 +274,8 @@ class Graph {
   String? date;
   String? hourWiseTime;
   String? dayWiseTime;
+  String? dayWiseTimeWithDate;
+  String? monthWiseTime;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

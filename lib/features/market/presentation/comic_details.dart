@@ -102,7 +102,9 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     ? data.singleProductModel!.image!.original!.height!.toDouble() *(Get.width*.0011)
                                     : Get.height * .3,
                                 width: data.singleProductModel!.image != null
-                                    ? data.singleProductModel!.image!.original!.width!.toDouble()*(Get.width*.0011)
+                                    ? data.singleProductModel!.image!.original!
+                                            .width!
+                                            .toDouble() *(Get.width*.0011)
                                     : Get.height * .5,
                                 //height: Get.height * .5,
                                 padding: const EdgeInsets.all(2),

@@ -238,6 +238,7 @@ class _MarketState extends State<Market> {
                             collcetableMintValue = '1';
                             collectibleFilterOn = true;
                           } else {
+                            getData!.getCollectibles();
                             collectibleRarity = '';
                             collcetableMintValue = '';
                             collectibleFilterOn = false;
@@ -398,6 +399,7 @@ class _MarketState extends State<Market> {
                             comicMintValue = '1';
                             collectibleFilterOn = true;
                           } else {
+                            getData!.getComics();
                             comicRarity = '';
                             comicFilterOn = false;
                           }
