@@ -40,6 +40,8 @@ class Urls {
 
   static String vaultStats =
       mainUrl + '/api/v1/veve/public/common-storage/vault_stats';
+  static String homeVault =
+      mainUrl + '/api/v1/veve/public/common-storage/vault_stats_for_home/';
 
   static String news = mainUrl + '/api/v1/home/public/news/';
 
@@ -51,4 +53,5 @@ class Urls {
   static String alertList = mainUrl + '/api/v1/veve/public/alerts/';
   static String notification = mainUrl + '/api/v1/veve/public/notifications/';
   static String feedback = mainUrl + '/api/v1/account/public/feedbacks/';
+
 }

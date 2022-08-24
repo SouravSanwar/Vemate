@@ -57,11 +57,13 @@ class _HomeState extends State<Home> {
 
     getData!.getUserInfo();
 
-    getData!.getVaultStats();
+    //getData!.getVaultStats();
+    //getData!.getHomeVault();
 
-    getData!.getCollectibles();
+    getData!.getCollectibles(limit: 10);
 
     getData!.getNews();
+    getData!.getVaultStats();
 
     super.initState();
   }
@@ -70,7 +72,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       return data.profileModel != null &&
-              data.vaultStatsModel != null &&
+              data.homeVaultModel != null &&
               data.newsModel != null &&
               data.notificationListModel != null
           ? Scaffold(
@@ -191,9 +193,7 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.w500),
                         ),
                       ),
-                      HomeVaultCard(
-                        vaultStatsModel: data.vaultStatsModel,
-                      ),
+                      const HomeVaultCard(),
 
                       ///Newest
                       Padding(

@@ -11,17 +11,14 @@ import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
-import 'package:ketemaa/features/home/components/vault_new_item_card.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
-import 'package:ketemaa/features/vault/My%20Vault/set_card.dart';
-import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../../core/models/setListModel.dart';
+import '../../../core/models/SetListModel.dart';
 
 class SetListPage extends StatefulWidget {
   const SetListPage({Key? key}) : super(key: key);
@@ -97,14 +94,481 @@ class _SetListPageState extends State<SetListPage> {
                 onRefresh: _onRefresh,
                 onLoading: _onLoading,
                 child: data.setListModel!.setResults != null
-                    ? GridView.builder(
+                    ? ListView.builder(
                         shrinkWrap: true,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
                         itemCount: data.setListModel!.setResults!.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return SetCard(
-                            list: data.setListModel!.setResults![index],
+                          return Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Container(
+                                  width: Get.width,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.graphCard,
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      data.setListModel!.setResults![index].setProductDetail!.type ==
+                                          0
+                                          ? Get.to(
+                                            () => CollectibleDetails(
+                                          productId: data.setListModel!.setResults![index].setProductDetail!.id!,
+                                        ),
+                                      )
+                                          : Get.to(
+                                            () => ComicDetails(
+                                          productId: data.setListModel!.setResults![index].setProductDetail!.id!,
+                                        ),
+                                      );
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Container(
+                                            height: Get.height * .09,
+                                            width: Get.height * .078,
+                                            decoration: BoxDecoration(
+                                                color:
+                                                AppColors.backgroundColor,
+                                                borderRadius:
+                                                BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: AppColors
+                                                        .textBoxBgColor)),
+                                            alignment: Alignment.center,
+                                            child: data.setListModel!.setResults![index].setProductDetail!.image ==
+                                                null
+                                                ? Text(
+                                              data.setListModel!.setResults![index].setProductDetail!.name
+                                                  .toString()[0]
+                                                  .toUpperCase(),
+                                              style: TextStyle(
+                                                  color: AppColors
+                                                      .backgroundColor,
+                                                  //fontFamily: 'Inter',
+                                                  fontSize: 35,
+                                                  fontWeight:
+                                                  FontWeight.bold),
+                                            )
+                                                : CachedNetworkImage(
+                                              imageUrl:
+                                              data.setListModel!.setResults![index].setProductDetail!.image!
+                                                  .image_on_list!
+                                                  .src
+                                                  .toString(),
+                                              imageBuilder: (context,
+                                                  imageProvider) =>
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                      BorderRadius
+                                                          .circular(10),
+                                                      image: DecorationImage(
+                                                        image: imageProvider,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                              placeholder: _loader,
+                                            ),
+                                          ),
+                                          AppSpaces.spaces_width_5,
+                                          Expanded(
+                                            flex: 7,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: <Widget>[
+                                                    Expanded(
+                                                        flex: 4,
+                                                        child: SizedBox(
+                                                          height:
+                                                          Get.height * .02,
+                                                          child: Text(
+                                                            data.setListModel!.setResults![index].setProductDetail!.name
+                                                                .toString(),
+                                                            overflow:
+                                                            TextOverflow
+                                                                .ellipsis,
+                                                            textAlign:
+                                                            TextAlign.start,
+                                                            style: Get.textTheme
+                                                                .bodyText2!
+                                                                .copyWith(
+                                                                color: AppColors
+                                                                    .textColor,
+                                                                /*fontFamily:
+                                                                        'Inter',*/
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w600,
+                                                                fontSize:
+                                                                13.sp),
+                                                          ),
+                                                        )),
+                                                    AppSpaces.spaces_width_2,
+                                                    Expanded(
+                                                        flex: 2,
+                                                        child: Text(
+                                                          data.setListModel!.setResults![index].setProductDetail!.edition
+                                                              .toString(),
+                                                          textAlign:
+                                                          TextAlign.start,
+                                                          style: Get.textTheme
+                                                              .bodyText1!
+                                                              .copyWith(
+                                                              color: AppColors
+                                                                  .textColor,
+                                                              /*fontFamily:
+                                                                      'Inter',*/
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w300,
+                                                              fontSize:
+                                                              10.sp),
+                                                        )),
+                                                  ],
+                                                ),
+                                                AppSpaces.spaces_height_10,
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      flex: 4,
+                                                      child: Text(
+                                                        data.setListModel!.setResults![index].setProductDetail!
+                                                            .type ==
+                                                            1
+                                                            ? data.setListModel!.setResults![index].setProductDetail!
+                                                            .series !=
+                                                            null
+                                                            ? data.setListModel!.setResults![index].setProductDetail!
+                                                            .series
+                                                            .toString()
+                                                            : ""
+                                                            : data.setListModel!.setResults![index].setProductDetail!
+                                                            .brand !=
+                                                            null
+                                                            ? data.setListModel!.setResults![index].setProductDetail!
+                                                            .brand!
+                                                            .name
+                                                            .toString()
+                                                            : "",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        textAlign:
+                                                        TextAlign.start,
+                                                        style: Get.textTheme
+                                                            .bodyText1!
+                                                            .copyWith(
+                                                            color: AppColors
+                                                                .textColor,
+                                                            /*fontFamily:
+                                                                    'Inter',*/
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .w900,
+                                                            fontSize:
+                                                            10.sp),
+                                                      ),
+                                                    ),
+                                                    AppSpaces.spaces_width_2,
+                                                    Expanded(
+                                                      flex: 2,
+                                                      child: Text(
+                                                        data.setListModel!.setResults![index].setProductDetail!
+                                                            .rarity
+                                                            .toString(),
+                                                        textAlign:
+                                                        TextAlign.start,
+                                                        style: Get.textTheme
+                                                            .bodyText1!
+                                                            .copyWith(
+                                                            color: AppColors
+                                                                .textColor,
+                                                            /*fontFamily:
+                                                                    'Inter',*/
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .w300,
+                                                            fontSize:
+                                                            10.sp),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                AppSpaces.spaces_height_10,
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      flex: 4,
+                                                      child: Text(
+                                                        r"$" +
+                                                            data.setListModel!.setResults![index].setProductDetail!
+                                                                .floorPrice
+                                                                .toString(),
+                                                        textAlign:
+                                                        TextAlign.start,
+                                                        style: Get.textTheme
+                                                            .bodyText1!
+                                                            .copyWith(
+                                                            color: AppColors
+                                                                .textColor,
+                                                            /*fontFamily:
+                                                                    'Inter',*/
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .w900,
+                                                            fontSize:
+                                                            11.sp),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 2,
+                                                    ),
+
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          AppSpaces.spaces_width_2,
+                                          Expanded(
+                                            flex: 4,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: Get.height * .05,
+                                                  child: SfCartesianChart(
+                                                    plotAreaBorderWidth: 0,
+                                                    primaryXAxis: CategoryAxis(
+                                                      isVisible: false,
+                                                      majorGridLines:
+                                                      const MajorGridLines(
+                                                          width: 0),
+                                                      labelIntersectAction:
+                                                      AxisLabelIntersectAction
+                                                          .hide,
+                                                      labelRotation: 270,
+                                                      labelAlignment:
+                                                      LabelAlignment.start,
+                                                      maximumLabels: 7,
+                                                    ),
+                                                    primaryYAxis: CategoryAxis(
+                                                      isVisible: false,
+                                                      majorGridLines:
+                                                      const MajorGridLines(
+                                                          width: 0),
+                                                      labelIntersectAction:
+                                                      AxisLabelIntersectAction
+                                                          .hide,
+                                                      labelRotation: 0,
+                                                      labelAlignment:
+                                                      LabelAlignment.start,
+                                                      maximumLabels: 10,
+                                                    ),
+                                                    tooltipBehavior:
+                                                    TooltipBehavior(
+                                                        enable: true),
+                                                    series: <
+                                                        ChartSeries<Graph,
+                                                            String>>[
+                                                      LineSeries<Graph, String>(
+                                                        color:data.setListModel!.setResults![index].setProductDetail!
+                                                            .priceChangePercent!
+                                                            .sign ==
+                                                            'decrease'
+                                                            ? Colors.red
+                                                            : Colors.green,
+                                                        dataSource: data.setListModel!.setResults![index].setProductDetail!.graph!,
+
+                                                        xValueMapper:
+                                                            (Graph plot, _) =>
+                                                        plot.date,
+                                                        yValueMapper:
+                                                            (Graph plot, _) =>
+                                                        plot.floorPrice,
+                                                        xAxisName: 'Duration',
+                                                        yAxisName: 'Total',
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                AppSpaces.spaces_height_10,
+                                                Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                                  children: [
+                                                    /*Expanded(
+                                                      child: Text(
+                                                        '',
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: Get.textTheme
+                                                            .bodyText1!
+                                                            .copyWith(
+                                                                color: AppColors
+                                                                    .white
+                                                                    .withOpacity(
+                                                                        0.9),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                fontSize: 11),
+                                                      ),
+                                                    ),*/
+                                                    Expanded(
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .start,
+                                                        children: [
+                                                          Text(
+                                                            data.setListModel!.setResults![index].setProductDetail!
+                                                                .priceChangePercent!
+                                                                .percent!
+                                                                .toString() +
+                                                                "%",
+                                                            textAlign:
+                                                            TextAlign.end,
+                                                            style: Get.textTheme.bodyText1!.copyWith(
+                                                                color: data.setListModel!.setResults![index].setProductDetail!
+                                                                    .priceChangePercent!
+                                                                    .sign ==
+                                                                    'decrease'
+                                                                    ? Colors.red
+                                                                    : Colors
+                                                                    .green,
+                                                                fontFamily:
+                                                                'Inter',
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w300,
+                                                                fontSize:
+                                                                10.sp),
+                                                          ),
+                                                          if (data.setListModel!.setResults![index].setProductDetail!
+                                                              .priceChangePercent!
+                                                              .sign ==
+                                                              'decrease')
+                                                            const Icon(
+                                                              Icons
+                                                                  .arrow_downward,
+                                                              color: Colors.red,
+                                                              size: 12,
+                                                            )
+                                                          else
+                                                            const Icon(
+                                                              Icons
+                                                                  .arrow_upward,
+                                                              color:
+                                                              Colors.green,
+                                                              size: 12,
+                                                            )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 9.0,
+                                right: 10.0,
+                                child: InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            backgroundColor:
+                                            AppColors.backgroundColor,
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(
+                                                  20.0,
+                                                ),
+                                              ),
+                                            ),
+                                            contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            titlePadding:
+                                            const EdgeInsets.symmetric(
+                                                horizontal: 20,
+                                                vertical: 10),
+                                            title: const Text(""),
+                                            content: Text(
+                                              'Do you really want to delete this item?',
+                                              style: TextStyle(
+                                                  color: AppColors.textColor,
+                                                  fontFamily: 'Inter',
+                                                  fontSize: 15),
+                                            ),
+                                            actions: <Widget>[
+                                              CustomButtons(
+                                                width: Get.width * .2,
+                                                height: Get.height * .05,
+                                                onTap: () {
+                                                  postData!
+                                                      .deleteSetList(
+                                                      context,
+                                                      data
+                                                          .setListModel!
+                                                          .setResults![
+                                                      index]
+                                                          .id,
+                                                      requestHeadersWithToken,
+                                                      'product__type=0',deleteset: 13
+                                                  );
+                                                },
+                                                text: 'Yes'.toUpperCase(),
+                                                style: Get.textTheme.button!
+                                                    .copyWith(
+                                                  color: AppColors.textColor,
+                                                  fontFamily: 'Inter',
+                                                ),
+                                              ),
+                                              CustomButtons(
+                                                width: Get.width * .2,
+                                                height: Get.height * .05,
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                text: 'Close'.toUpperCase(),
+                                                style: Get.textTheme.button!
+                                                    .copyWith(
+                                                  color: AppColors.textColor,
+                                                  fontFamily: 'Inter',
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        });
+                                  },
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: AppColors.textColor,
+                                  ),
+                                ),
+                              ),
+                            ],
                           );
                         },
                       )

@@ -6,8 +6,9 @@ import 'package:provider/provider.dart';
 
 class DropDown extends StatefulWidget {
   final Color? color;
+  final bool? isHome;
 
-  const DropDown(this.color, {Key? key}) : super(key: key);
+  const DropDown(this.color, this.isHome,{Key? key}) : super(key: key);
 
   @override
   State<DropDown> createState() => _DropDownState();
@@ -15,6 +16,7 @@ class DropDown extends StatefulWidget {
 
 class _DropDownState extends State<DropDown> {
   String? value = "24H";
+
   final items = ['24H', '7D', '30D', '60D', '1Y'];
 
   int selectIndex = 0;
@@ -49,7 +51,9 @@ class _DropDownState extends State<DropDown> {
                           ? selectIndex = 3
                           : selectIndex = 4;
 
-          getData!.getVaultStats(graphType: selectIndex);
+          widget.isHome==true
+              ?getData!.getHomeVault(graphType: selectIndex)
+              :getData!.getVaultStats(graphType: selectIndex);
 
           printInfo(info: 'Value value: ' + value.toString());
           printInfo(info: 'Value value Index: ' + selectIndex.toString());

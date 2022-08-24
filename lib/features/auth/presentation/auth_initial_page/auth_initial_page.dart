@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
+import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/Provider/postFile.dart';
 import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
-import 'package:ketemaa/core/utilities/common_widgets/SocialLoginBorder.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/common_widgets/social_login.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
@@ -22,9 +22,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../../core/utilities/common_widgets/password_input_field.dart';
 import '../../../../core/utilities/common_widgets/text_input_field.dart';
 import '../sign_in/_controller/sign_in_controller.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
-import 'dart:math';
+
 
 class AuthInitialPage extends StatefulWidget {
   const AuthInitialPage({Key? key}) : super(key: key);
@@ -166,7 +164,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
 
                             if (_formKey.currentState!.validate()) {
 
-                              postData!.logIn(context, body);
+                              postData!.logIn(context, body).whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
                             }
                         },
                         text: AppLanguageString.lOG_IN.tr.toUpperCase(),

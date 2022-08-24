@@ -42,7 +42,7 @@ class _VaultState extends State<Vault> {
 
     getData!.getSetList('');
 
-    getData!.getVaultStats();
+   // getData!.getVaultStats();
   }
 
   @override
@@ -50,7 +50,7 @@ class _VaultState extends State<Vault> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: Consumer<GetData>(builder: (context, data, child) {
-        return data.vaultStatsModel != null && data.wishListModel != null
+        return data.vaultStatsModel != null && data.setListModel != null && data.wishListModel != null
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Stack(
@@ -364,7 +364,7 @@ class _VaultState extends State<Vault> {
                                       fontWeight: FontWeight.w500),
                                 ),
                               ),
-                              /*InkWell(
+                              InkWell(
                                 onTap: () {
                                   Get.to(() => const SetListPage());
                                 },
@@ -384,7 +384,7 @@ class _VaultState extends State<Vault> {
                                         ),
                                       )
                                     : Container(),
-                              ),*/
+                              ),
                             ],
                           ),
                           data.setListModel != null
@@ -460,7 +460,7 @@ class _VaultState extends State<Vault> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child:  DropDown(AppColors.backgroundColor),
+                        child:  DropDown(AppColors.backgroundColor,false),
                         width: Get.width * .125,
                         height: Get.width * .125,
                         decoration: BoxDecoration(

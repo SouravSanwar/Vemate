@@ -8,6 +8,7 @@ import 'package:ketemaa/core/models/BrandModel.dart';
 import 'package:ketemaa/core/models/CheckSetCheck.dart';
 import 'package:ketemaa/core/models/CheckWishlistModel.dart';
 import 'package:ketemaa/core/models/ComicsModel.dart';
+import 'package:ketemaa/core/models/HomeVaultModel.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
 import 'package:ketemaa/core/models/NotificationListModel.dart';
 import 'package:ketemaa/core/models/NotificationReadModel.dart';
@@ -44,6 +45,7 @@ class GetData extends ChangeNotifier with BaseController {
   SetListModel? setListModel;
 
   VaultStatsModel? vaultStatsModel;
+  HomeVaultModel? homeVaultModel;
 
   NewsModel? newsModel;
 
@@ -85,13 +87,14 @@ class GetData extends ChangeNotifier with BaseController {
 
   Future getCollectibles(
       {int offset = 0,
+        int limit =20,
       String? keyword = '',
       String rarity = '',
       String? mint_number = ''}) async {
     keyword = Uri.encodeComponent(keyword!);
     final response = await BaseClient()
         .get(Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&rarity=$rarity&name=$keyword&mint_number=$mint_number')
+            '/api/v1/veve/public/products/?type=0&limit=$limit&offset=$offset&rarity=$rarity&name=$keyword&mint_number=$mint_number')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
@@ -298,6 +301,22 @@ class GetData extends ChangeNotifier with BaseController {
 
     notifyListeners();
   }
+    Future getHomeVault({int graphType = 0}) async {
+    homeVaultModel = null;
+    final response = await BaseClient()
+        .get(Urls.homeVault + '?graph_type=$graphType')
+        .catchError(handleError);
+
+    printInfo(info: Urls.homeVault + '?graph_type=$graphType');
+
+    var data = json.decode(response.toString());
+
+    printInfo(info: data.toString());
+    homeVaultModel = HomeVaultModel.fromJson(data);
+
+    notifyListeners();
+  }
+
 
   Future getNews() async {
     newsModel = null;

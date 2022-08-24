@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 
@@ -32,6 +33,12 @@ class SplashScreenState extends State<SplashScreen>
   Future<void> navigationPage() async {
     VersionControl.initConfig();
     VersionControl.initPackageInfo();
+
+    if(prefs!.getBool("is_login")==true){
+      Provider.of<GetData>(context,listen: false).getHomeVault();
+    }
+
+
     /*prefs!.getString('token') != null
         ? Get.to(() => ControllerPage())
         : Get.to(() => const AuthInitialPage());*/
