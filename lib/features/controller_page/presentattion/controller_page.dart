@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:io' show Platform;
 
 import 'package:bottom_bar_page_transition/bottom_bar_page_transition.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -86,7 +87,12 @@ class _ControllerPageState extends State<ControllerPage> {
     appUpdate = Provider.of<AppUpdate>(context, listen: false);
     getData = Provider.of<GetData>(context, listen: false);
     //getData!.getUserInfo();
-    appUpdate!.getUpdateInfo();
+   if( Platform.isAndroid){
+     appUpdate!.getUpdateInfo(0);
+   }else{
+     appUpdate!.getUpdateInfo(1);
+   }
+
     getData!.notificationListModel = null;
     super.initState();
     initPlatformState();

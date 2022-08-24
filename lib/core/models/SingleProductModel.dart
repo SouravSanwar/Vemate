@@ -73,11 +73,11 @@ class SingleProductModel {
     if (json['graph'] != null) {
       graph = [];
       json['graph'].forEach((v) {
-        graph?.add(Graph.fromJson(v));
+        graph?.add(SingleProductGraph.fromJson(v));
       });
     }
 
-    final Map<String, Graph> graphMap = {};
+    final Map<String, SingleProductGraph> graphMap = {};
     for (var item in graph!) {
       graphMap[item.date!] = item;
     }
@@ -86,7 +86,7 @@ class SingleProductModel {
 
   int? id;
   Brand? brand;
-  List<Graph>? graph;
+  List<SingleProductGraph>? graph;
   Image? image;
   int? type;
   String? name;
@@ -246,8 +246,8 @@ class Original {
   }
 }
 
-class Graph {
-  Graph({
+class SingleProductGraph {
+  SingleProductGraph({
     this.floorPrice,
     this.creationTime,
     this.date,
@@ -257,7 +257,7 @@ class Graph {
     this.monthWiseTime,
   });
 
-  Graph.fromJson(dynamic json) {
+  SingleProductGraph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
     creationTime = json['creation_time'];
     date = json['date'];

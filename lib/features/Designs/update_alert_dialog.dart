@@ -159,7 +159,7 @@ class _AppUpdateAlertState extends State<AppUpdateAlert> {
                                       "market://details?id=${VersionControl.packageInfo.packageName}");
                                 } else if (Platform.isIOS) {
                                   _launchURL(
-                                      "https://apps.apple.com/gt/app/merchant-bay/id1590720968");
+                                      "https://apps.apple.com/us/app/vemate/id1619611139");
                                 }
                               },
                               child: Text(
