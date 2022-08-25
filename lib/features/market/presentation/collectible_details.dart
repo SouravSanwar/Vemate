@@ -256,7 +256,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       body,
                                       data.singleProductModel!.id,
                                       requestHeadersWithToken,
-                                    );
+                                    ).whenComplete(() => getData!.getHomeVault());
                                     await Future.delayed(Duration(seconds: 1));
                                     Navigator.of(context).pop();
                                   } else {
@@ -270,7 +270,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           .id,
                                       requestHeadersWithToken,
                                       'product__type=0',
-                                    );
+                                    ).whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
 
                                     await Future.delayed(
                                         const Duration(seconds: 1));

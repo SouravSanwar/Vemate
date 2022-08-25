@@ -267,7 +267,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         body,
                                         data.singleProductModel!.id,
                                         requestHeadersWithToken,
-                                      );
+                                      ).whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
                                       await Future.delayed(
                                           Duration(seconds: 1));
                                       Navigator.of(context).pop();
@@ -282,7 +282,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                             .id,
                                         requestHeadersWithToken,
                                         'product__type=1',
-                                      );
+                                      ).whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
                                       await Future.delayed(
                                           Duration(seconds: 1));
                                       Navigator.of(context).pop();

@@ -37,11 +37,6 @@ class _VaultState extends State<Vault> {
     super.initState();
 
     getData = Provider.of<GetData>(context, listen: false);
-
-    getData!.getWishList();
-
-    getData!.getSetList('');
-
    // getData!.getVaultStats();
   }
 

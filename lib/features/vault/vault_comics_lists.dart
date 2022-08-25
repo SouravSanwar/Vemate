@@ -562,7 +562,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                               index]
                                                                           .id,
                                                                       requestHeadersWithToken,
-                                                                      'product__type=1',deleteset: 13);
+                                                                      'product__type=1',deleteset: 13)
+                                                                      .whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
                                                                 },
                                                                 text: 'Yes'
                                                                     .toUpperCase(),

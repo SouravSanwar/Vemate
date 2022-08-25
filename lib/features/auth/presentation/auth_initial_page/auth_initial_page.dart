@@ -4,15 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
+import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/Provider/postFile.dart';
 import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
+import 'package:ketemaa/core/utilities/common_widgets/social_login.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/googleSignApi.dart';
+import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -33,6 +37,7 @@ class AuthInitialPage extends StatefulWidget {
 
 class _AuthInitialPageState extends State<AuthInitialPage> {
   PostData? postData;
+  GetData? getData;
   File? imageFile;
   List<File>? files = <File>[];
   List<File>? fileList = <File>[];
@@ -42,7 +47,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
   @override
   void initState() {
     // TODO: implement initState
-
+    getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
     postFile = Provider.of<PostFile>(context, listen: false);
 
@@ -56,9 +61,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
     printInfo(info: 'Auth Token: ' + prefs!.getString('token').toString());
 
     return Container(
-      decoration: BoxDecoration(
-          gradient: AppColors.onBoardGradient
-      ),
+      decoration: BoxDecoration(gradient: AppColors.onBoardGradient),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
@@ -76,9 +79,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     mode == 0
                         ? 'assets/media/image/vemate1.png'
                         : 'assets/media/image/vemate2.png',
-                    fit: mode == 0
-                        ?BoxFit.cover
-                        :BoxFit.contain,
+                    fit: mode == 0 ? BoxFit.cover : BoxFit.contain,
                   ),
                 ),
                 SizedBox(
@@ -95,14 +96,14 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           child: Text(
                             "LOGIN",
                             style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.sp,
-                              color: AppColors.textColor),
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.sp,
+                                color: AppColors.textColor),
                           )),
                       AppSpaces.spaces_height_25,
                       TextInputField(
-                        validator:  (value) {
+                        validator: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return 'Username/Email is required';
                           }
@@ -110,17 +111,17 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                         labelText: "Username/Email",
                         height: Get.height * .04,
                         textType: TextInputType.emailAddress,
-                        controller: SigninController.to.userNameTextFiledController,
+                        controller:
+                            SigninController.to.userNameTextFiledController,
                       ),
                       SizedBox(
                         height: Get.height * .022,
                       ),
                       PasswordInputField(
-                          validator:  (value) {
+                          validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return 'Password is required';
                             }
-
                           },
                           labelText: "Password",
                           height: Get.height * .04,
@@ -162,10 +163,29 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                           };
                           //getConnection();
 
-                            if (_formKey.currentState!.validate()) {
+                          if (_formKey.currentState!.validate()) {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (_) => const LoadingDialogue(
+                                      message: "Please wait",
+                                    ));
 
-                              postData!.logIn(context, body).whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
-                            }
+                            postData!.logIn(context, body).whenComplete(() => {
+                                  if (prefs!.getBool("is_login") == true)
+                                    {
+                                      getData!
+                                          .getHomeVault()
+                                          .whenComplete(() =>
+                                              Get.to(() => ControllerPage()))
+                                          .whenComplete(() => {
+                                                getData!
+                                                    .getCollectibles(limit: 10),
+                                                getData!.getVaultStats(),
+                                              }),
+                                    }
+                                });
+                          }
                         },
                         text: AppLanguageString.lOG_IN.tr.toUpperCase(),
                         style: Get.textTheme.button!.copyWith(
@@ -177,7 +197,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                   ),
                 ),
                 AppSpaces.spaces_height_35,
-                Row(
+                /*Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Expanded(
@@ -229,15 +249,15 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
 
                     AppSpaces.spaces_width_15,
 
-                  /*  SocialLogin(
+                  */ /*  SocialLogin(
                       child: Image.asset('assets/media/icon/facebook.png'),
                       onPressed:() {
 
                       },
-                    )*/
+                    )*/ /*
 
                   ],
-                ),
+                ),*/
                 SizedBox(
                   height: Get.height * .09,
                 ),
@@ -297,7 +317,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
 
     imageFile=file;
     print("fileeeeeeeee"+file.toString());*/
-    print("emailcheck"+user.displayName.toString());
+    print("emailcheck" + user.displayName.toString());
     postData!.signUp(context, body);
 
     //postImage();

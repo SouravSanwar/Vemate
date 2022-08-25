@@ -1,5 +1,6 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
@@ -29,6 +30,10 @@ class VersionControl {
   }
 
   static Future<void> initConfig() async {
+
+
+
+
     await remoteConfig.setConfigSettings(RemoteConfigSettings(
       fetchTimeout: const Duration(
           seconds: 1), // a fetch will wait up to 10 seconds before timing out
@@ -38,7 +43,11 @@ class VersionControl {
     ));
     if (remoteConfig.getInt("version_code").toString().isNotEmpty) {
       prefs!.getString('token') != null
-          ? Get.to(() => ControllerPage())
+          ?
+      Provider.of<GetData>(Get.overlayContext!,listen: false).getHomeVault()
+          .then((value) => Get.to(() => ControllerPage()))
+          .then((value) => Provider.of<GetData>(Get.overlayContext!,listen: false).getCollectibles(limit: 10))
+
           : Get.to(() => const InstructionsScreen());
 
       print('Color Mode: ' + prefs!.getInt('mode').toString());

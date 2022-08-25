@@ -71,7 +71,7 @@ class _SetListPageState extends State<SetListPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'My Sets',
+              'My Vault',
               style: Get.textTheme.headline2!
                   .copyWith(fontFamily: 'Inter', color: AppColors.textColor),
             ),
@@ -536,7 +536,8 @@ class _SetListPageState extends State<SetListPage> {
                                                           .id,
                                                       requestHeadersWithToken,
                                                       'product__type=0',deleteset: 13
-                                                  );
+                                                  ).whenComplete(() => Provider.of<GetData>(context,listen: false).getSetList(''))
+                                                      .whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
                                                 },
                                                 text: 'Yes'.toUpperCase(),
                                                 style: Get.textTheme.button!

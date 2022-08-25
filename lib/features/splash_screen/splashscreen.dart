@@ -35,9 +35,8 @@ class SplashScreenState extends State<SplashScreen>
     VersionControl.initPackageInfo();
 
     if(prefs!.getBool("is_login")==true){
-      Provider.of<GetData>(context,listen: false).getHomeVault();
+      Provider.of<GetData>(context,listen: false).getVaultStats();
     }
-
 
     /*prefs!.getString('token') != null
         ? Get.to(() => ControllerPage())
