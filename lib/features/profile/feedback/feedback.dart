@@ -28,7 +28,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               ),
             ),
             gradient:AppColors.onBoardGradient ),
-        child: FeedbackBody.checkFeedback==1
+        child: FeedbackBody.checkFeedback==0
             ? const FeedbackBody()
             : const GreetingsPage(),
 

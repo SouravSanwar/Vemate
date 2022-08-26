@@ -368,9 +368,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     top: 0, bottom: 8, left: 6, right: 6),
                                 child: InkWell(
                                   onTap: () {
+                                    week = true;
                                     currentIndex = 2;
                                     hour = false;
-                                    week = true;
                                     month = false;
                                     two_month = false;
                                     year = false;
@@ -398,10 +398,11 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     top: 0, bottom: 8, left: 6, right: 6),
                                 child: InkWell(
                                   onTap: () {
+
+                                    month = true;
                                     currentIndex = 1;
                                     hour = false;
                                     week = false;
-                                    month = true;
                                     two_month = false;
                                     year = false;
                                     getData!.getSingleProduct(widget.productId,
@@ -428,11 +429,12 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     top: 0, bottom: 8, left: 6, right: 6),
                                 child: InkWell(
                                   onTap: () {
+
+                                    two_month = true;
                                     currentIndex = 1;
                                     hour = false;
                                     week = false;
                                     month = false;
-                                    two_month = true;
                                     year = false;
                                     getData!.getSingleProduct(widget.productId,
                                         graphType: 3);
@@ -457,12 +459,13 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     top: 0, bottom: 8, left: 6, right: 6),
                                 child: InkWell(
                                   onTap: () {
+
+                                    year = true;
                                     currentIndex = 1;
                                     hour = false;
                                     week = false;
                                     month = false;
                                     two_month = false;
-                                    year = true;
                                     getData!.getSingleProduct(widget.productId,
                                         graphType: 4);
                                   },
@@ -533,5 +536,14 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
             : ColorLoader(),
       );
     });
+  }
+
+  colorchange(bool _hour,bool _week,bool _month,bool _twomonth,bool _year ){
+    year = true;
+    currentIndex = 1;
+    hour = false;
+    week = false;
+    month = false;
+    two_month = false;
   }
 }
