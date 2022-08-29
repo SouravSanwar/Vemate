@@ -284,7 +284,7 @@ class _ControllerPageState extends State<ControllerPage> {
                 ),
                 DockerItem(
                   icon: Icons.card_travel,
-                  title: 'Vault',
+                  title: 'My Vault',
                 ),
               ],
             ),

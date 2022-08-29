@@ -29,7 +29,7 @@ class CustomButtons extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          gradient: AppColors.purpleGradient,
+          gradient: AppColors.onBoardBtnGradient,
           borderRadius: const BorderRadius.all(
             Radius.circular(25.0),
           ),

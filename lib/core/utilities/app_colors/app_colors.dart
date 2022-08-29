@@ -67,6 +67,21 @@ class AppColors extends ChangeNotifier {
     ],
   );
 
+  static Gradient onBoardBtnGradient = const LinearGradient(
+    colors: [
+      Color(0xff00F3FB),
+      Color(0xffE255F4),
+    ],
+  );
+
+  static Gradient buttonGradient = const LinearGradient(
+    colors: [
+      Color(0xff8760EE),
+      Color(0xffA984E5),
+      Color(0xffad88e8),
+    ],
+  );
+
   static Gradient cardGradient = const LinearGradient(
     colors: [
       Color(0xff454F70),
@@ -74,6 +89,18 @@ class AppColors extends ChangeNotifier {
       Color(0xff374162),
       Color(0xff303B5B),
     ],
+  );
+  static Gradient onBoardGradient = const LinearGradient(
+    colors: [
+      Color(0xff615FF0),
+      Color(0xff5A58DE),
+      Color(0xff4D4EBE),
+      Color(0xff31357A),
+      Color(0xff1C2447),
+    ],
+    begin: Alignment.topCenter,
+    // end at the bottom
+    end: Alignment.bottomCenter,
   );
   static Gradient vaultCardGradient = const LinearGradient(
     colors: [

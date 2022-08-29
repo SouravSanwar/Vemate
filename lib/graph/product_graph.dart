@@ -57,77 +57,77 @@ class _ProductGraphState extends State<ProductGraph> {
           ),
           child: data.singleProductModel != null
               ? SfCartesianChart(
-                  plotAreaBorderWidth: 0,
-                  zoomPanBehavior: _zoomPanBehavior,
-                  tooltipBehavior: _tooltipBehavior,
-                  trackballBehavior: _trackballBehavior,
-                  primaryXAxis: CategoryAxis(
-                    //rangePadding: ChartRangePadding.auto,
-                    axisBorderType: AxisBorderType.withoutTopAndBottom,
-                    majorGridLines: const MajorGridLines(
-                      width: 0,
-                    ),
-                    majorTickLines: const MajorTickLines(width: 0),
-                    axisLine: const AxisLine(width: 0),
-                    labelIntersectAction: AxisLabelIntersectAction.hide,
-                    labelRotation: 0,
-                    edgeLabelPlacement: EdgeLabelPlacement.shift,
-                    labelStyle: TextStyle(
-                      color: AppColors.textColor,
-                      fontFamily: 'Inter',
-                      fontSize: data.singleProductModel!.graphType == '0' ? 9.sp : 10.sp,
-                      fontStyle: FontStyle.italic,
-                      //fontWeight: FontWeight.w900,
-                    ),
-                    labelAlignment: LabelAlignment.end,
-                    //maximumLabels: 6
-                  ),
-                  primaryYAxis: NumericAxis(
-                    axisBorderType: AxisBorderType.withoutTopAndBottom,
-                    borderWidth: 0,
-                    axisLine: const AxisLine(width: 0),
-                    majorGridLines: const MajorGridLines(
-                      width: 0,
-                    ),
-                    majorTickLines: const MajorTickLines(width: 0),
-                    labelIntersectAction: AxisLabelIntersectAction.hide,
-                    labelRotation: 0,
-                    labelStyle: TextStyle(
-                        color: AppColors.textColor,
-                        fontFamily: 'Inter',
-                        fontSize: 8.sp,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w900),
-                    labelAlignment: LabelAlignment.center,
-                  ),
-                  series: <ChartSeries<SingleProductGraph, String>>[
-                    SplineAreaSeries<SingleProductGraph, String>(
-                      dataSource: data.singleProductModel!.graph!,
-                      borderColor: const Color(0xff2093D7),
-                      borderWidth: 1,
-                      gradient: AppColors.graphGradient,
-                      xValueMapper: (plot, _) => data.singleProductModel!.graphType == '0'
-                          ? plot.hourWiseTime
-                          : data.singleProductModel!.graphType == '1'
-                              ? plot.dayWiseTime
-                              : data.singleProductModel!.graphType == '2'
-                                  ? plot.dayWiseTimeWithDate
-                                  : data.singleProductModel!.graphType == '3'
-                                      ? plot.dayWiseTimeWithDate
-                                      : plot.monthWiseTime,
-                      yValueMapper: (plot, _) => plot.floorPrice,
-                      xAxisName: 'Duration',
-                      yAxisName: 'Total',
-                      enableTooltip: true,
-                      dataLabelSettings: const DataLabelSettings(
-                        isVisible: false,
-                        angle: 270,
-                      ),
-                      splineType: SplineType.monotonic,
-                      cardinalSplineTension: 0.3,
-                    ),
-                  ],
-                )
+            plotAreaBorderWidth: 0,
+            zoomPanBehavior: _zoomPanBehavior,
+            tooltipBehavior: _tooltipBehavior,
+            trackballBehavior: _trackballBehavior,
+            primaryXAxis: CategoryAxis(
+              //rangePadding: ChartRangePadding.auto,
+              axisBorderType: AxisBorderType.withoutTopAndBottom,
+              majorGridLines: const MajorGridLines(
+                width: 0,
+              ),
+              majorTickLines: const MajorTickLines(width: 0),
+              axisLine: const AxisLine(width: 0),
+              labelIntersectAction: AxisLabelIntersectAction.hide,
+              labelRotation: 0,
+              edgeLabelPlacement: EdgeLabelPlacement.shift,
+              labelStyle: TextStyle(
+                color: AppColors.textColor,
+                fontFamily: 'Inter',
+                fontSize: data.singleProductModel!.graphType == '0' ? 9.sp : 10.sp,
+                fontStyle: FontStyle.italic,
+                //fontWeight: FontWeight.w900,
+              ),
+              labelAlignment: LabelAlignment.end,
+              //maximumLabels: 6
+            ),
+            primaryYAxis: NumericAxis(
+              axisBorderType: AxisBorderType.withoutTopAndBottom,
+              borderWidth: 0,
+              axisLine: const AxisLine(width: 0),
+              majorGridLines: const MajorGridLines(
+                width: 0,
+              ),
+              majorTickLines: const MajorTickLines(width: 0),
+              labelIntersectAction: AxisLabelIntersectAction.hide,
+              labelRotation: 0,
+              labelStyle: TextStyle(
+                  color: AppColors.textColor,
+                  fontFamily: 'Inter',
+                  fontSize: 8.sp,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w900),
+              labelAlignment: LabelAlignment.center,
+            ),
+            series: <ChartSeries<SingleProductGraph, String>>[
+              SplineAreaSeries<SingleProductGraph, String>(
+                dataSource: data.singleProductModel!.graph!,
+                borderColor: const Color(0xff2093D7),
+                borderWidth: 1,
+                gradient: AppColors.graphGradient,
+                xValueMapper: (plot, _) => data.singleProductModel!.graphType == '0'
+                    ? plot.hourWiseTime
+                    : data.singleProductModel!.graphType == '1'
+                    ? plot.dayWiseTime
+                    : data.singleProductModel!.graphType == '2'
+                    ? plot.dayWiseTimeWithDate
+                    : data.singleProductModel!.graphType == '3'
+                    ? plot.dayWiseTimeWithDate
+                    : plot.monthWiseTime,
+                yValueMapper: (plot, _) => plot.floorPrice,
+                xAxisName: 'Duration',
+                yAxisName: 'Total',
+                enableTooltip: true,
+                dataLabelSettings: const DataLabelSettings(
+                  isVisible: false,
+                  angle: 270,
+                ),
+                splineType: SplineType.monotonic,
+                cardinalSplineTension: 0.3,
+              ),
+            ],
+          )
               : const LoadingExample(),
         ),
       );

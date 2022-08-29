@@ -99,16 +99,12 @@ class _ComicDetailsState extends State<ComicDetails> {
                                   bottom: Get.height * 0.01667),
                               child: Container(
                                 height: data.singleProductModel!.image != null
-                                    ? data.singleProductModel!.image!.original!
-                                            .height!
-                                            .toDouble() *
-                                        (Get.width * .0011)
+                                    ? data.singleProductModel!.image!.original!.height!.toDouble() *(Get.width*.0011)
                                     : Get.height * .3,
                                 width: data.singleProductModel!.image != null
                                     ? data.singleProductModel!.image!.original!
                                             .width!
-                                            .toDouble() *
-                                        (Get.width * .0011)
+                                            .toDouble() *(Get.width*.0011)
                                     : Get.height * .5,
                                 //height: Get.height * .5,
                                 padding: const EdgeInsets.all(2),
@@ -271,7 +267,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         body,
                                         data.singleProductModel!.id,
                                         requestHeadersWithToken,
-                                      );
+                                      ).whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
                                       await Future.delayed(
                                           Duration(seconds: 1));
                                       Navigator.of(context).pop();
@@ -286,7 +282,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                             .id,
                                         requestHeadersWithToken,
                                         'product__type=1',
-                                      );
+                                      ).whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
                                       await Future.delayed(
                                           Duration(seconds: 1));
                                       Navigator.of(context).pop();

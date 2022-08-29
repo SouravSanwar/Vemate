@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
+import 'package:ketemaa/core/models/HomeVaultModel.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
+import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -10,9 +12,9 @@ import '../../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/models/VaultStatusModel.dart';
 
 class HomeVaultCard extends StatefulWidget {
-  final VaultStatsModel? vaultStatsModel;
 
-  const HomeVaultCard({Key? key, this.vaultStatsModel}) : super(key: key);
+
+  const HomeVaultCard({Key? key}) : super(key: key);
 
   @override
   State<HomeVaultCard> createState() => _HomeVaultCardState();
@@ -69,7 +71,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                               const BorderRadius.all(Radius.circular(8.0)),
                         ),
                         child: Text(
-                          '\$${data.vaultStatsModel!.totalPriceChange != null ? data.vaultStatsModel!.totalPriceChange!.toStringAsFixed(2) : "0.0"}',
+                          '\$${data.homeVaultModel!.totalPriceChange != null ? data.homeVaultModel!.totalPriceChange!.toStringAsFixed(2) : "0.0"}',
                           textAlign: TextAlign.start,
                           style: Get.textTheme.bodyText2!.copyWith(
                               color: AppColors.white,
@@ -89,12 +91,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Container(
                           alignment: Alignment.center,
-                          child: Text("24H",style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 15.sp,
-                            color: AppColors.textColor,
-                          ),
-                          ),
+                          child: DropDown(AppColors.backgroundColor,true),
                           width: Get.width * .15,
                           height: Get.height * .03,
                           decoration: BoxDecoration(
@@ -115,7 +112,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                     Expanded(
                       flex: 5,
                       child: Text(
-                        '\$${data.vaultStatsModel!.totalVaultValue != null ? data.vaultStatsModel!.totalVaultValue!.toStringAsFixed(2) : "0.0"}',
+                        '\$${data.homeVaultModel!.totalVaultValue != null ? data.homeVaultModel!.totalVaultValue!.toStringAsFixed(2) : "0.0"}',
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText2!.copyWith(
                             color: AppColors.greyWhite,
@@ -133,7 +130,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          data.vaultStatsModel!.sign! == 'decrease'
+                          data.homeVaultModel!.sign! == 'decrease'
                               ? const RotationTransition(
                                   turns: AlwaysStoppedAnimation(45 / 360),
                                   child: Icon(
@@ -151,16 +148,16 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   ),
                                 ),
                           Text(
-                            data.vaultStatsModel!.totalPercentChange! < 0.0
-                                ? data.vaultStatsModel!.totalPercentChange!
+                            data.homeVaultModel!.totalPercentChange! < 0.0
+                                ? data.homeVaultModel!.totalPercentChange!
                                         .toStringAsFixed(2) +
                                     "%"
-                                : data.vaultStatsModel!.totalPercentChange!
+                                : data.homeVaultModel!.totalPercentChange!
                                         .toStringAsFixed(2) +
                                     "%",
                             textAlign: TextAlign.end,
                             style: TextStyle(
-                              color: data.vaultStatsModel!.sign! == 'decrease'
+                              color: data.homeVaultModel!.sign! == 'decrease'
                                   ? Colors.red
                                   : Colors.green,
                               fontFamily: 'Inter',
@@ -207,16 +204,16 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       maximumLabels: 10,
                     ),
                     tooltipBehavior: TooltipBehavior(enable: true),
-                    series: <ChartSeries<VaultStatsModelGraph, String>>[
-                      SplineAreaSeries<VaultStatsModelGraph, String>(
-                        color: data.vaultStatsModel!.sign! == 'decrease'
+                    series: <ChartSeries<HomeVaultModelGraph, String>>[
+                      SplineAreaSeries<HomeVaultModelGraph, String>(
+                        color: data.homeVaultModel!.sign! == 'decrease'
                             ? Colors.red
                             : Colors.green,
                         gradient: AppColors.graphGradient,
-                        dataSource: data.vaultStatsModel!.vaultStatsModelGraph!,
-                        xValueMapper: (VaultStatsModelGraph plot, _) =>
+                        dataSource: data.homeVaultModel!.homeVaultModelGraph!,
+                        xValueMapper: (HomeVaultModelGraph plot, _) =>
                             plot.hour,
-                        yValueMapper: (VaultStatsModelGraph plot, _) =>
+                        yValueMapper: (HomeVaultModelGraph plot, _) =>
                             plot.total,
                         xAxisName: 'Duration',
                         yAxisName: 'Total',

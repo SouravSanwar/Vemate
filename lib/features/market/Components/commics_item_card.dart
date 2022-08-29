@@ -18,8 +18,10 @@ import '../../../core/models/ComicsModel.dart';
 class ComicsItemCard extends StatefulWidget {
   final String? keyword;
   final String? rarity;
+  final String? mintNumber;
 
-  const ComicsItemCard({Key? key, this.keyword, this.rarity}) : super(key: key);
+  const ComicsItemCard({Key? key, this.keyword, this.rarity, this.mintNumber})
+      : super(key: key);
 
   @override
   State<ComicsItemCard> createState() => _ComicsItemCardState();
@@ -502,7 +504,11 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    getData!.getComics(keyword: widget.keyword, rarity: widget.rarity!);
+    getData!.getComics(
+      keyword: widget.keyword,
+      rarity: widget.rarity!,
+      mint_number: widget.mintNumber,
+    );
 
     setState(() {
       refreshController.refreshCompleted();
@@ -514,7 +520,11 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
     offset = offset + 20;
 
     getData!.getComics(
-        offset: offset, keyword: widget.keyword, rarity: widget.rarity!);
+      offset: offset,
+      keyword: widget.keyword,
+      rarity: widget.rarity!,
+      mint_number: widget.mintNumber,
+    );
 
     await Future.delayed(const Duration(seconds: 2));
 

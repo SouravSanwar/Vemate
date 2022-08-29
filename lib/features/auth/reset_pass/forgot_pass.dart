@@ -42,121 +42,129 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     const StatusBar();
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const BackPreviousScreen(),
-              SizedBox(
-                height: Get.height * .07,
-              ),
-              SizedBox(
-                height: Get.height * .18,
-                width: Get.width * .9,
-                child: Image.asset(
-                  mode == 0
-                      ? 'assets/media/image/vemate1.png'
-                      : 'assets/media/image/vemate.png',
-                  fit: BoxFit.cover,
+    return Container(
+      decoration: BoxDecoration(
+          gradient: AppColors.onBoardGradient
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const BackPreviousScreen(),
+                SizedBox(
+                  height: Get.height * .02,
                 ),
-              ),
-              SizedBox(
-                height: Get.height * .02,
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                        width: Get.width * .9,
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(
-                          "Enter New Password",
-                          style: TextStyle(
-                              //fontFamily: 'Inter',
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.textColor),
-                        )),
-                    AppSpaces.spaces_height_25,
-          Container(
-                padding: const EdgeInsets.only(top: 14,bottom:14,left: 23, right: 23),
-                decoration: BoxDecoration(
-                    color: AppColors.backgroundColor,
-                    border: Border.all(color: AppColors.grey, // set border color
-                        width: 1.5),
-                    borderRadius: BorderRadius.circular(25.0)
-
-                ),
-                child: Text(
-                    emailController.text,
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    color: AppColors.textColor,
-                    fontSize: 18.0.sp,
+                SizedBox(
+                  height: Get.height * .18,
+                  width: Get.width * .9,
+                  child: Image.asset(
+                    mode == 0
+                        ? 'assets/media/image/vemate1.png'
+                        : 'assets/media/image/vemate2.png',
+                    fit: mode == 0
+                        ?BoxFit.cover
+                        :BoxFit.contain,
                   ),
-                )
-          ),
+                ),
+                SizedBox(
+                  height: Get.height * .02,
+                ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                          width: Get.width * .9,
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(
+                            "Enter New Password",
+                            style: TextStyle(
+                                //fontFamily: 'Inter',
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textColor),
+                          )),
+                      AppSpaces.spaces_height_25,
+            Container(
+                  padding: const EdgeInsets.only(top: 14,bottom:14,left: 23, right: 23),
+                  decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(
+                      color: AppColors.white.withOpacity(.7),// set border color
+                      width: 1.5),
+                      borderRadius: BorderRadius.circular(25.0)
 
-                    SizedBox(
-                      height: Get.height * .022,
+                  ),
+                  child: Text(
+                      emailController.text,
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      color: AppColors.textColor,
+                      fontSize: 18.0.sp,
                     ),
-                    TextInputField(
-                      validator:  (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'OTP code is required';
-                        }
+                  )
+            ),
 
-                      },
-                      labelText: "Code",
-                      height: .09,
-                      textType: TextInputType.emailAddress,
-                      controller: codeController,
-                    ),
-                    SizedBox(
-                      height: Get.height * .022,
-                    ),
-                    PasswordInputField(
+                      SizedBox(
+                        height: Get.height * .022,
+                      ),
+                      TextInputField(
                         validator:  (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return 'New Password is required';
+                            return 'OTP code is required';
                           }
 
                         },
-                        labelText: "New Password",
-                        height: Get.height * .04,
-                        textType: TextInputType.text,
-                        controller: passController),
-                    SizedBox(
-                      height: Get.height * .07,
-                    ),
-                    CustomButtons(
-                      width: Get.width * .9,
-                      height: Get.height * .065,
-                      onTap: () {
-                        var body = {
-                          "email": emailController.text,
-                          "code": codeController.text,
-                          "password": passController.text
-                        };
-                        if (_formKey.currentState!.validate()) {
-                          postData!.forgotPassword(context, body);
-                        }
-
-                      },
-                      text: AppLanguageString.UPDATE_Pass.tr.toUpperCase(),
-                      style: Get.textTheme.button!.copyWith(
-                        color: Colors.white,
-                        fontFamily: 'Inter',
+                        labelText: "Code",
+                        height: .09,
+                        textType: TextInputType.emailAddress,
+                        controller: codeController,
                       ),
-                    )
-                  ],
+                      SizedBox(
+                        height: Get.height * .022,
+                      ),
+                      PasswordInputField(
+                          validator:  (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'New Password is required';
+                            }
+
+                          },
+                          labelText: "New Password",
+                          height: Get.height * .04,
+                          textType: TextInputType.text,
+                          controller: passController),
+                      SizedBox(
+                        height: Get.height * .07,
+                      ),
+                      CustomButtons(
+                        width: Get.width * .9,
+                        height: Get.height * .065,
+                        onTap: () {
+                          var body = {
+                            "email": emailController.text,
+                            "code": codeController.text,
+                            "password": passController.text
+                          };
+                          if (_formKey.currentState!.validate()) {
+                            postData!.forgotPassword(context, body);
+                          }
+
+                        },
+                        text: AppLanguageString.UPDATE_Pass.tr.toUpperCase(),
+                        style: Get.textTheme.button!.copyWith(
+                          color: Colors.white,
+                          fontFamily: 'Inter',
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

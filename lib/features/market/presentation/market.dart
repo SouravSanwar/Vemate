@@ -33,6 +33,9 @@ class _MarketState extends State<Market> {
   bool? collectibleEnable = false;
   bool? comicEnable = false;
 
+  String? collcetableMintValue = '';
+  String? comicMintValue = '';
+
   TextEditingController searchCollectible = TextEditingController();
   TextEditingController searchComic = TextEditingController();
 
@@ -228,18 +231,27 @@ class _MarketState extends State<Market> {
                           } else if (value == 5) {
                             collectibleRarity = 'Secret Rare';
                             collectibleFilterOn = true;
+                          } else if (value == 7) {
+                            collcetableMintValue = '0';
+                            collectibleFilterOn = true;
+                          } else if (value == 8) {
+                            collcetableMintValue = '1';
+                            collectibleFilterOn = true;
                           } else {
                             getData!.getCollectibles();
                             collectibleRarity = '';
+                            collcetableMintValue = '';
                             collectibleFilterOn = false;
                           }
                         });
 
-                        if (collectibleRarity.isNotEmpty) {
+                        if (collectibleRarity.isNotEmpty ||
+                            collcetableMintValue!.isNotEmpty) {
                           getData!.collectiblesModel = null;
                           getData!.getCollectibles(
                             keyword: collectibleSearchText,
                             rarity: collectibleRarity,
+                            mint_number: collcetableMintValue.toString(),
                           );
                         }
                       },
@@ -249,7 +261,8 @@ class _MarketState extends State<Market> {
                           child: Text(
                             'All',
                             style: TextStyle(
-                              color: collectibleRarity == ''
+                              color: collectibleRarity == '' &&
+                                      collcetableMintValue == '0'
                                   ? AppColors.primaryColor
                                   : AppColors.textColor,
                               fontFamily: 'Inter',
@@ -316,6 +329,38 @@ class _MarketState extends State<Market> {
                             ),
                           ),
                         ),
+                        PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          value: 100,
+                          child: Divider(
+                            thickness: 2.0,
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 7,
+                          child: Text(
+                            'Low Mint A',
+                            style: TextStyle(
+                              color: collcetableMintValue == '0'
+                                  ? AppColors.primaryColor
+                                  : AppColors.textColor,
+                              fontFamily: 'Inter',
+                            ),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 8,
+                          child: Text(
+                            'Low Mint D',
+                            style: TextStyle(
+                              color: collcetableMintValue == '1'
+                                  ? AppColors.primaryColor
+                                  : AppColors.textColor,
+                              fontFamily: 'Inter',
+                            ),
+                          ),
+                        ),
                       ],
                     )
                   : PopupMenuButton(
@@ -347,6 +392,12 @@ class _MarketState extends State<Market> {
                           } else if (value == 5) {
                             comicRarity = 'Secret Rare';
                             comicFilterOn = true;
+                          } else if (value == 7) {
+                            comicMintValue = '0';
+                            collectibleFilterOn = true;
+                          } else if (value == 8) {
+                            comicMintValue = '1';
+                            collectibleFilterOn = true;
                           } else {
                             getData!.getComics();
                             comicRarity = '';
@@ -354,11 +405,13 @@ class _MarketState extends State<Market> {
                           }
                         });
 
-                        if (comicRarity.isNotEmpty) {
+                        if (comicRarity.isNotEmpty ||
+                            comicMintValue!.isNotEmpty) {
                           getData!.comicsModel = null;
                           getData!.getComics(
                             keyword: comicSearchText,
                             rarity: comicRarity,
+                            mint_number: comicMintValue,
                           );
                         }
                       },
@@ -429,6 +482,38 @@ class _MarketState extends State<Market> {
                             'Secret Rare',
                             style: TextStyle(
                               color: comicRarity == 'Secret Rare'
+                                  ? AppColors.primaryColor
+                                  : AppColors.textColor,
+                              fontFamily: 'Inter',
+                            ),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          value: 100,
+                          child: Divider(
+                            thickness: 2.0,
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 7,
+                          child: Text(
+                            'Low Mint A',
+                            style: TextStyle(
+                              color: comicMintValue == '0'
+                                  ? AppColors.primaryColor
+                                  : AppColors.textColor,
+                              fontFamily: 'Inter',
+                            ),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 8,
+                          child: Text(
+                            'Low Mint D',
+                            style: TextStyle(
+                              color: comicMintValue == '1'
                                   ? AppColors.primaryColor
                                   : AppColors.textColor,
                               fontFamily: 'Inter',
@@ -533,15 +618,18 @@ class _MarketState extends State<Market> {
 
             ///Body
             Container(
-                child: collectibleSelected == true
-                    ? CollectiblesItemCard(
-                        keyword: collectibleSearchText!,
-                        rarity: collectibleRarity,
-                      )
-                    : ComicsItemCard(
-                        keyword: comicSearchText!,
-                        rarity: comicRarity,
-                      )),
+              child: collectibleSelected == true
+                  ? CollectiblesItemCard(
+                      keyword: collectibleSearchText!,
+                      rarity: collectibleRarity,
+                      mintNumber: comicMintValue,
+                    )
+                  : ComicsItemCard(
+                      keyword: comicSearchText!,
+                      rarity: comicRarity,
+                      mintNumber: comicMintValue,
+                    ),
+            ),
 
             /* (comicSelected == true
                           ? const ComicsItemCard()

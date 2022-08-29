@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 
@@ -32,6 +33,11 @@ class SplashScreenState extends State<SplashScreen>
   Future<void> navigationPage() async {
     VersionControl.initConfig();
     VersionControl.initPackageInfo();
+
+    if(prefs!.getBool("is_login")==true){
+      Provider.of<GetData>(context,listen: false).getVaultStats();
+    }
+
     /*prefs!.getString('token') != null
         ? Get.to(() => ControllerPage())
         : Get.to(() => const AuthInitialPage());*/
@@ -64,16 +70,20 @@ class SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     const StatusBar();
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      body: Center(
-        child: Container(
-          height: Get.width*.8,
-          width: Get.width*.8,
-          child: Image.asset(
-            'assets/media/image/splash_logo.png',
-            width: animation.value * 450,
-            height: animation.value * 450,
-            fit: BoxFit.fill,
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: AppColors.onBoardGradient
+        ),
+        child: Center(
+          child: Container(
+            height: Get.width*.8,
+            width: Get.width*.8,
+            child: Image.asset(
+              'assets/media/image/splash_logo.png',
+              width: animation.value * 450,
+              height: animation.value * 450,
+              fit: BoxFit.fill,
+            ),
           ),
         ),
       ),

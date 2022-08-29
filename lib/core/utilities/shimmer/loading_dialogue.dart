@@ -19,7 +19,7 @@ class LoadingDialogue extends StatelessWidget {
         height: Get.width * .75,
         alignment: Alignment.center,
         child: AlertDialog(
-          backgroundColor: AppColors.graphCard.withOpacity(.3),
+          backgroundColor: Colors.transparent,
           key: key,
           content: Column(
             mainAxisSize: MainAxisSize.min,

@@ -4,15 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/app_routes/app_routes.dart';
+import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/Provider/postFile.dart';
 import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
+import 'package:ketemaa/core/utilities/common_widgets/social_login.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/googleSignApi.dart';
+import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -33,6 +37,7 @@ class AuthInitialPage extends StatefulWidget {
 
 class _AuthInitialPageState extends State<AuthInitialPage> {
   PostData? postData;
+  GetData? getData;
   File? imageFile;
   List<File>? files = <File>[];
   List<File>? fileList = <File>[];
@@ -42,7 +47,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
   @override
   void initState() {
     // TODO: implement initState
-
+    getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
     postFile = Provider.of<PostFile>(context, listen: false);
 
@@ -55,234 +60,237 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
     Get.put(SigninController());
     printInfo(info: 'Auth Token: ' + prefs!.getString('token').toString());
 
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: Get.height * .05,
-              ),
-              SizedBox(
-                height: Get.height * .18,
-                width: Get.width * .9,
-                child: Image.asset(
-                  mode == 0
-                      ? 'assets/media/image/vemate1.png'
-                      : 'assets/media/image/vemate.png',
-                  fit: BoxFit.cover,
+    return Container(
+      decoration: BoxDecoration(gradient: AppColors.onBoardGradient),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  height: Get.height * .05,
                 ),
-              ),
-              SizedBox(
-                height: Get.height * .02,
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                        width: Get.width * .9,
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(
-                          "LOGIN",
-                          style: TextStyle(
-                              fontFamily: 'Inter', color: AppColors.textColor),
-                        )),
-                    AppSpaces.spaces_height_25,
-                    TextInputField(
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Username/Email is required';
-                        }
-                      },
-                      labelText: "Username/Email",
-                      height: Get.height * .04,
-                      textType: TextInputType.emailAddress,
-                      controller:
-                          SigninController.to.userNameTextFiledController,
-                    ),
-                    SizedBox(
-                      height: Get.height * .022,
-                    ),
-                    PasswordInputField(
+                SizedBox(
+                  height: Get.height * .18,
+                  width: Get.width * .9,
+                  child: Image.asset(
+                    mode == 0
+                        ? 'assets/media/image/vemate1.png'
+                        : 'assets/media/image/vemate2.png',
+                    fit: mode == 0 ? BoxFit.cover : BoxFit.contain,
+                  ),
+                ),
+                SizedBox(
+                  height: Get.height * .02,
+                ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                          width: Get.width * .9,
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(
+                            "LOGIN",
+                            style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.sp,
+                                color: AppColors.textColor),
+                          )),
+                      AppSpaces.spaces_height_25,
+                      TextInputField(
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return 'Password is required';
+                            return 'Username/Email is required';
                           }
                         },
-                        labelText: "Password",
+                        labelText: "Username/Email",
                         height: Get.height * .04,
-                        textType: TextInputType.text,
+                        textType: TextInputType.emailAddress,
                         controller:
-                            SigninController.to.passwordTextFiledController),
-                    SizedBox(
-                      height: Get.height * .025,
-                    ),
-                    Container(
-                      width: Get.width * .9,
-                      alignment: Alignment.centerRight,
-                      child: InkWell(
+                            SigninController.to.userNameTextFiledController,
+                      ),
+                      SizedBox(
+                        height: Get.height * .022,
+                      ),
+                      PasswordInputField(
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Password is required';
+                            }
+                          },
+                          labelText: "Password",
+                          height: Get.height * .04,
+                          textType: TextInputType.text,
+                          controller:
+                              SigninController.to.passwordTextFiledController),
+                      SizedBox(
+                        height: Get.height * .015,
+                      ),
+                      Container(
+                        width: Get.width * .9,
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed(AppRoutes.RESET_PASS);
+                          },
+                          child: Text(
+                            "Forgot password?",
+                            style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: AppColors.white.withOpacity(.7),
+                                //fontWeight: FontWeight.bold,
+                                fontSize: 15.sp),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Get.height * .04,
+                      ),
+                      CustomButtons(
+                        width: Get.width * .9,
+                        height: Get.height * .065,
                         onTap: () {
-                          Get.toNamed(AppRoutes.RESET_PASS);
+                          var body = {
+                            "username": SigninController
+                                .to.userNameTextFiledController.text,
+                            "password": SigninController
+                                .to.passwordTextFiledController.text,
+                          };
+                          //getConnection();
+
+                          if (_formKey.currentState!.validate()) {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (_) => const LoadingDialogue(
+                                      message: "Please wait",
+                                    ));
+
+                            postData!.logIn(context, body).whenComplete(() => {
+                                  if (prefs!.getBool("is_login") == true)
+                                    {
+                                      getData!
+                                          .getHomeVault()
+                                          .whenComplete(() =>
+                                              Get.to(() => ControllerPage()))
+                                          .whenComplete(() => {
+                                                getData!
+                                                    .getCollectibles(limit: 10),
+                                                getData!.getVaultStats(),
+                                              }),
+                                    }
+                                });
+                          }
                         },
-                        child: Text(
-                          "Forgot password?",
-                          style: TextStyle(
-                              fontFamily: 'Inter',
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.sp),
+                        text: AppLanguageString.lOG_IN.tr.toUpperCase(),
+                        style: Get.textTheme.button!.copyWith(
+                          color: Colors.white,
+                          fontFamily: 'Inter',
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                AppSpaces.spaces_height_35,
+                /*Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                          margin: const EdgeInsets.only(left: 45.0, right: 10.0),
+                          child: const Divider(
+                            color: Colors.grey,
+                          )),
+                    ),
+                    Text(
+                      "or continue with",
+                      style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: AppColors.grey,
+                          //fontWeight: FontWeight.bold,
+                          fontSize: 15.sp),
+                    ),
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 10.0, right: 45.0),
+                        child: const Divider(
+                          color: Colors.grey,
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: Get.height * .025,
-                    ),
-                    CustomButtons(
-                      width: Get.width * .9,
-                      height: Get.height * .065,
-                      onTap: () {
-                        var body = {
-                          "username": SigninController
-                              .to.userNameTextFiledController.text,
-                          "password": SigninController
-                              .to.passwordTextFiledController.text,
-                        };
-                        //getConnection();
-
-                        if (_formKey.currentState!.validate()) {
-                          postData!.logIn(context, body);
-                        }
-                      },
-                      text: AppLanguageString.lOG_IN.tr.toUpperCase(),
-                      style: Get.textTheme.button!.copyWith(
-                        color: Colors.white,
-                        fontFamily: 'Inter',
-                      ),
-                    )
                   ],
                 ),
-              ),
-              // AppSpaces.spaces_height_35,
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: <Widget>[
-              //     Expanded(
-              //       child: Container(
-              //           margin: const EdgeInsets.only(left: 45.0, right: 10.0),
-              //           child: const Divider(
-              //             color: Colors.grey,
-              //           )),
-              //     ),
-              //     Text(
-              //       "Or Continue With",
-              //       style: TextStyle(
-              //           color: Colors.grey,
-              //           fontWeight: FontWeight.bold,
-              //           fontSize: 15.sp),
-              //     ),
-              //     Expanded(
-              //       child: Container(
-              //         margin: const EdgeInsets.only(left: 10.0, right: 45.0),
-              //         child: const Divider(
-              //           color: Colors.grey,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // AppSpaces.spaces_height_35,
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     SizedBox(
-              //       width: Get.height * .1,
-              //       height: Get.height * .067,
-              //       child: ElevatedButton(
-              //         onPressed: () {
-              //           signIn();
-              //         },
-              //         child: Image.asset('assets/media/icon/google.png'),
-              //         style: ElevatedButton.styleFrom(
-              //             shape: const CircleBorder(),
-              //             padding: const EdgeInsets.all(10),
-              //             side: BorderSide(
-              //                 width: 1.0, color: AppColors.primaryColor),
-              //             primary: const Color(0xff272E49)),
-              //       ),
-              //     ),
-              //     SizedBox(
-              //       width: Get.height * .1,
-              //       height: Get.height * .067,
-              //       child: ElevatedButton(
-              //         onPressed: () async {
-              //           AppleSignIn();
-              //         },
-              //         child: Image.asset(
-              //           'assets/media/icon/apple.png',
-              //           color: Colors.white,
-              //         ),
-              //         style: ElevatedButton.styleFrom(
-              //             shape: const CircleBorder(),
-              //             padding: const EdgeInsets.all(10),
-              //             side: BorderSide(
-              //                 width: 1.0, color: AppColors.primaryColor),
-              //             primary: const Color(0xff272E49)),
-              //       ),
-              //     ),
-              //     SizedBox(
-              //       width: Get.height * .1,
-              //       height: Get.height * .067,
-              //       child: ElevatedButton(
-              //         onPressed: () {},
-              //         child: Image.asset(
-              //           'assets/media/icon/facebook.png',
-              //         ),
-              //         style: ElevatedButton.styleFrom(
-              //             shape: const CircleBorder(),
-              //             padding: const EdgeInsets.all(10),
-              //             side: BorderSide(
-              //                 width: 1.0, color: AppColors.primaryColor),
-              //             primary: const Color(0xff272E49)),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              SizedBox(
-                height: Get.height * .09,
-              ),
-              Center(
-                child: InkWell(
-                  onTap: () {
-                    Get.toNamed(AppRoutes.SIGN_UP);
-                  },
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Don't have an account?",
-                          style: TextStyle(
-                              fontFamily: 'Inter',
-                              color: Colors.grey,
-                              fontSize: 15.sp),
-                        ),
-                        AppSpaces.spaces_width_5,
-                        Text(
-                          "Register For Free",
-                          style: TextStyle(
-                              //fontFamily: 'Inter',
-                              color: AppColors.primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15.sp),
-                        ),
-                      ]),
+                AppSpaces.spaces_height_35,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                  SocialLogin(
+                    child: Image.asset('assets/media/icon/google.png'),
+                    onPressed:() {
+                      signIn();
+
+                    },
+                  ),
+                    AppSpaces.spaces_width_15,
+
+                    SocialLogin(
+                      child: Image.asset('assets/media/icon/apple.png',color:Colors.white),
+                      onPressed:() {
+                        AppleSignIn();
+
+                      },
+                    ),
+
+                    AppSpaces.spaces_width_15,
+
+                  */ /*  SocialLogin(
+                      child: Image.asset('assets/media/icon/facebook.png'),
+                      onPressed:() {
+
+                      },
+                    )*/ /*
+
+                  ],
+                ),*/
+                SizedBox(
+                  height: Get.height * .09,
                 ),
-              ),
-              AppSpaces.spaces_height_15,
-            ],
+                Center(
+                  child: InkWell(
+                    onTap: () {
+                      Get.toNamed(AppRoutes.SIGN_UP);
+                    },
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Don't have an account?",
+                            style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: AppColors.white.withOpacity(.7),
+                                fontSize: 15.sp),
+                          ),
+                          AppSpaces.spaces_width_5,
+                          Text(
+                            "Register For Free",
+                            style: TextStyle(
+                                //fontFamily: 'Inter',
+                                color: Color(0xFF953FB0),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.sp),
+                          ),
+                        ]),
+                  ),
+                ),
+                AppSpaces.spaces_height_15,
+              ],
+            ),
           ),
         ),
       ),

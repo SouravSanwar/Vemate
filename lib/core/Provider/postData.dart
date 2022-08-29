@@ -376,13 +376,13 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future logIn(BuildContext context, var body) async {
-    showDialog(
+    /*showDialog(
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
               message: "Please wait",
             ));
-
+*/
     /*final response =
         await BaseClient().post(Urls.logIn, body).catchError(handleError);*/
 
@@ -400,7 +400,7 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 201) {
       try {
         if (js['is_email_verified'] == true) {
-          Navigator.of(context).pop();
+         // Navigator.of(context).pop();
           prefs = await SharedPreferences.getInstance();
           prefs!.setString('email', js['email'].toString());
 
@@ -426,7 +426,7 @@ class PostData extends ChangeNotifier with BaseController {
                     message: "Login Successful",
                   ));
         } else {
-          Navigator.of(context).pop();
+          //Navigator.of(context).pop();
           prefs!.setString('email', js['email'].toString());
 
           var body = {
@@ -452,7 +452,15 @@ class PostData extends ChangeNotifier with BaseController {
       }
     } else {
       Navigator.of(context).pop();
-      if (js['username'] == null) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const ResponseMessage(
+            icon: Icons.error,
+            color: Colors.purpleAccent,
+            message: "Invalid Information",
+          ));
+      /*if (js['username'] == null) {
         showDialog(
             context: context,
             barrierDismissible: false,
@@ -471,7 +479,7 @@ class PostData extends ChangeNotifier with BaseController {
                   color: AppColors.primaryColor,
                   message: js['username'][0].toString(),
                 ));
-      }
+      }*/
     }
     await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
@@ -840,7 +848,7 @@ class PostData extends ChangeNotifier with BaseController {
                 icon: Icons.check_circle,
                 color: AppColors.primaryColor,
                 message: js["msg"],
-              ));
+              )).whenComplete(() => getData!.getSetList(''));
     } else {
       if (deleteset == 13) {
         Navigator.of(context).pop();
@@ -974,6 +982,27 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
+  Future PostFeedback(
+      BuildContext context, var body, var requestToken) async {
+    final response = await http.post(
+        Uri.parse(Urls.feedback),body: json.encode(body),
+        headers: requestToken);
+    print("RESPONSE" + response.body.toString());
+    if (response.statusCode == 201) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => ResponseMessage(
+            icon: Icons.check_circle,
+            color: AppColors.primaryColor,
+            message: "Feedback Submitted Successfully",
+          ));
+      await Future.delayed(const Duration(seconds: 1));
+      Navigator.of(context).pop();
+    }
+    notifyListeners();
+  }
+
   Store(var mat, BuildContext context) async {
     prefs = await SharedPreferences.getInstance();
     prefs!.setString('user_id', mat['user_id'].toString());
@@ -990,7 +1019,8 @@ class PostData extends ChangeNotifier with BaseController {
     prefs!.setBool("is_login", true);
     printInfo(info: prefs!.get('token').toString());
 
-    Get.offAll(() => ControllerPage());
+
+    //Get.offAll(() => ControllerPage());
 
     notifyListeners();
   }

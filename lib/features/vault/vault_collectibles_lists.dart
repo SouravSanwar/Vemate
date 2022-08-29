@@ -566,7 +566,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                         .id,
                                                                     requestHeadersWithToken,
                                                                     'product__type=0',deleteset: 13
-                                                                  );
+                                                                  ).whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
                                                                 },
                                                                 text: 'Yes'
                                                                     .toUpperCase(),

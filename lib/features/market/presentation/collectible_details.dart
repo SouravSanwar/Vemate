@@ -98,16 +98,10 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                 bottom: Get.height * 0.01667),
                             child: Container(
                               height: data.singleProductModel!.image != null
-                                  ? data.singleProductModel!.image!.original!
-                                          .height!
-                                          .toDouble() *
-                                      (Get.width * .0011)
+                                  ? data.singleProductModel!.image!.original!.height!.toDouble() *(Get.width*.0011)
                                   : Get.height * .3,
                               width: data.singleProductModel!.image != null
-                                  ? data.singleProductModel!.image!.original!
-                                          .width!
-                                          .toDouble() *
-                                      (Get.width * .0011)
+                                  ? data.singleProductModel!.image!.original!.width!.toDouble()*(Get.width*.0011)
                                   : Get.height * .5,
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
@@ -262,7 +256,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       body,
                                       data.singleProductModel!.id,
                                       requestHeadersWithToken,
-                                    );
+                                    ).whenComplete(() => getData!.getHomeVault());
                                     await Future.delayed(Duration(seconds: 1));
                                     Navigator.of(context).pop();
                                   } else {
@@ -276,7 +270,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           .id,
                                       requestHeadersWithToken,
                                       'product__type=0',
-                                    );
+                                    ).whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
 
                                     await Future.delayed(
                                         const Duration(seconds: 1));
@@ -374,9 +368,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     top: 0, bottom: 8, left: 6, right: 6),
                                 child: InkWell(
                                   onTap: () {
+                                    week = true;
                                     currentIndex = 2;
                                     hour = false;
-                                    week = true;
                                     month = false;
                                     two_month = false;
                                     year = false;
@@ -404,10 +398,11 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     top: 0, bottom: 8, left: 6, right: 6),
                                 child: InkWell(
                                   onTap: () {
+
+                                    month = true;
                                     currentIndex = 1;
                                     hour = false;
                                     week = false;
-                                    month = true;
                                     two_month = false;
                                     year = false;
                                     getData!.getSingleProduct(widget.productId,
@@ -434,11 +429,12 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     top: 0, bottom: 8, left: 6, right: 6),
                                 child: InkWell(
                                   onTap: () {
+
+                                    two_month = true;
                                     currentIndex = 1;
                                     hour = false;
                                     week = false;
                                     month = false;
-                                    two_month = true;
                                     year = false;
                                     getData!.getSingleProduct(widget.productId,
                                         graphType: 3);
@@ -463,12 +459,13 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     top: 0, bottom: 8, left: 6, right: 6),
                                 child: InkWell(
                                   onTap: () {
+
+                                    year = true;
                                     currentIndex = 1;
                                     hour = false;
                                     week = false;
                                     month = false;
                                     two_month = false;
-                                    year = true;
                                     getData!.getSingleProduct(widget.productId,
                                         graphType: 4);
                                   },
@@ -539,5 +536,14 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
             : ColorLoader(),
       );
     });
+  }
+
+  colorchange(bool _hour,bool _week,bool _month,bool _twomonth,bool _year ){
+    year = true;
+    currentIndex = 1;
+    hour = false;
+    week = false;
+    month = false;
+    two_month = false;
   }
 }
