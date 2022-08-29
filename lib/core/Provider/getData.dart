@@ -8,11 +8,11 @@ import 'package:ketemaa/core/models/BrandModel.dart';
 import 'package:ketemaa/core/models/CheckSetCheck.dart';
 import 'package:ketemaa/core/models/CheckWishlistModel.dart';
 import 'package:ketemaa/core/models/ComicsModel.dart';
-import 'package:ketemaa/core/models/Graphs/one_day_graph.dart';
-import 'package:ketemaa/core/models/Graphs/one_year_graph.dart';
-import 'package:ketemaa/core/models/Graphs/seven_day_graph.dart';
-import 'package:ketemaa/core/models/Graphs/sixty_day_graph.dart';
-import 'package:ketemaa/core/models/Graphs/thirty_day_graph.dart';
+import 'package:ketemaa/core/models/Graphs/one_day_graph_model.dart';
+import 'package:ketemaa/core/models/Graphs/one_year_graph_model.dart';
+import 'package:ketemaa/core/models/Graphs/seven_day_graph_model.dart';
+import 'package:ketemaa/core/models/Graphs/sixty_day_graph_model.dart';
+import 'package:ketemaa/core/models/Graphs/thirty_day_graph_model.dart';
 import 'package:ketemaa/core/models/HomeVaultModel.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
 import 'package:ketemaa/core/models/NotificationListModel.dart';
@@ -40,6 +40,11 @@ class GetData extends ChangeNotifier with BaseController {
   BrandModel? brandModel;
 
   SingleProductModel? singleProductModel;
+  OneDayGraphModel? oneDayGraphModel;
+  SevenDayGraphModel? sevenDayGraphModel;
+  ThirtyDayGraphModel? thirtyDayGraphModel;
+  SixtyDayGraphModel? sixtyDayGraphModel;
+  OneYearGraphModel? oneYearGraphModel;
 
   ProfileModel? profileModel;
 
@@ -89,14 +94,12 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future getCollectibles({int offset = 0,
-      int limit = 20,
-      String? keyword = '',
-      String rarity = '',
-      String? mint_number = ''}) async {
+  Future getCollectibles(
+      {int offset = 0, int limit = 20, String? keyword = '', String rarity = '', String? mint_number = ''}) async {
     keyword = Uri.encodeComponent(keyword!);
     final response = await BaseClient()
-        .get(Urls.mainUrl + '/api/v1/veve/public/products/?type=0&limit=$limit&offset=$offset&rarity=$rarity&name=$keyword&mint_number=$mint_number')
+        .get(Urls.mainUrl +
+            '/api/v1/veve/public/products/?type=0&limit=$limit&offset=$offset&rarity=$rarity&name=$keyword&mint_number=$mint_number')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
@@ -133,15 +136,12 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future getComics({int offset = 0,
-      String? keyword = '',
-      String rarity = '',
-      String? mint_number = ''}) async {
+  Future getComics({int offset = 0, String? keyword = '', String rarity = '', String? mint_number = ''}) async {
     //keyword = keyword!.replaceAll('#', '%23');
     keyword = Uri.encodeComponent(keyword!);
-    final response =
-        await BaseClient().get(Urls.comic +
-            '$offset&rarity=$rarity&name=$keyword&mint_number=$mint_number').catchError(handleError);
+    final response = await BaseClient()
+        .get(Urls.comic + '$offset&rarity=$rarity&name=$keyword&mint_number=$mint_number')
+        .catchError(handleError);
 
     var data = json.decode(response.toString());
 
@@ -156,12 +156,10 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future searchComics({String keyWord = '',
-      String rarity = '',
-      int offset = 0,
-      String mint_number = ''}) async {
+  Future searchComics({String keyWord = '', String rarity = '', int offset = 0, String mint_number = ''}) async {
     final response = await BaseClient()
-        .get(Urls.mainUrl + '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset&rarity=$rarity&name=$keyWord&mint_number=$mint_number')
+        .get(Urls.mainUrl +
+            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset&rarity=$rarity&name=$keyWord&mint_number=$mint_number')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
@@ -194,49 +192,42 @@ class GetData extends ChangeNotifier with BaseController {
   }
 
   // TODO: check this
-  OneDayGraphModel? oneDayGraph;
-  SevenDayGraphModel? sevenDayGraph;
-  ThirtyDayGraphModel? thirtyDayGraph;
-  SixtyDayGraphModel? sixtyDayGraph;
-  OneYearGraphModel? oneYearGraph;
 
-  Future getSingleProduct(int? id, {int graphType = 0}) async {
-    singleProductModel = null;
-    final response = await BaseClient().get(Urls.singleProduct + '$id?graph_type=$graphType').catchError(handleError);
-    final response1 = await BaseClient()
-        .get(Urls.singleProduct + '$id?graph_type=0')
-        .catchError(handleError);
-    final response2 = await BaseClient()
-        .get(Urls.singleProduct + '$id?graph_type=1')
-        .catchError(handleError);
-    final response3 = await BaseClient()
-        .get(Urls.singleProduct + '$id?graph_type=2')
-        .catchError(handleError);
-    final response4 = await BaseClient()
-        .get(Urls.singleProduct + '$id?graph_type=3')
-        .catchError(handleError);
-    final response5 = await BaseClient()
-        .get(Urls.singleProduct + '$id?graph_type=4')
-        .catchError(handleError);
+  Future getSingleProductGraphs(int? id) async {
+    oneDayGraphModel = null;
+    sevenDayGraphModel = null;
+    thirtyDayGraphModel = null;
+    sixtyDayGraphModel = null;
+    oneYearGraphModel = null;
 
-    var data = json.decode(response.toString());
+    final response1 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=0').catchError(handleError);
+    final response2 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=1').catchError(handleError);
+    final response4 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=3').catchError(handleError);
+    final response3 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=2').catchError(handleError);
+    final response5 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=4').catchError(handleError);
+
     var data1 = json.decode(response1.toString());
     var data2 = json.decode(response2.toString());
     var data3 = json.decode(response3.toString());
     var data4 = json.decode(response4.toString());
     var data5 = json.decode(response5.toString());
 
+    oneDayGraphModel = OneDayGraphModel.fromJson(data1);
+    sevenDayGraphModel = SevenDayGraphModel.fromJson(data2);
+    thirtyDayGraphModel = ThirtyDayGraphModel.fromJson(data3);
+    sixtyDayGraphModel = SixtyDayGraphModel.fromJson(data4);
+    oneYearGraphModel = OneYearGraphModel.fromJson(data5);
+    notifyListeners();
+  }
+
+  Future getSingleProduct(int? id, {int graphType = 0}) async {
+    singleProductModel = null;
+    final response = await BaseClient().get(Urls.singleProduct + '$id?graph_type=$graphType').catchError(handleError);
+
+    var data = json.decode(response.toString());
+
     printInfo(info: data.toString());
-    printInfo(info: "called single" + data1['graph'].toString());
-
     singleProductModel = SingleProductModel.fromJson(data);
-    oneDayGraph = OneDayGraphModel.fromJson(data1);
-    sevenDayGraph = SevenDayGraphModel.fromJson(data2);
-    thirtyDayGraph = ThirtyDayGraphModel.fromJson(data3);
-    sixtyDayGraph = SixtyDayGraphModel.fromJson(data4);
-    oneYearGraph = OneYearGraphModel.fromJson(data5);
-
-    //singleProductModel!.graph!.removeAt(0);
     notifyListeners();
   }
 
@@ -318,9 +309,7 @@ class GetData extends ChangeNotifier with BaseController {
 
   Future getHomeVault({int graphType = 0}) async {
     homeVaultModel = null;
-    final response = await BaseClient()
-        .get(Urls.homeVault + '?graph_type=$graphType')
-        .catchError(handleError);
+    final response = await BaseClient().get(Urls.homeVault + '?graph_type=$graphType').catchError(handleError);
 
     printInfo(info: Urls.homeVault + '?graph_type=$graphType');
 

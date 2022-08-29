@@ -1,8 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 
-class ThirtyDayGraphModel {
-  ThirtyDayGraphModel({
+class OneYearGraphModel {
+  OneYearGraphModel({
     this.id,
     this.brand,
     this.graph,
@@ -37,7 +37,7 @@ class ThirtyDayGraphModel {
     this.graphType,
   });
 
-  ThirtyDayGraphModel.fromJson(dynamic json) {
+  OneYearGraphModel.fromJson(dynamic json) {
     id = json['id'];
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
@@ -73,11 +73,11 @@ class ThirtyDayGraphModel {
     if (json['graph'] != null) {
       graph = [];
       json['graph'].forEach((v) {
-        graph?.add(SingleProductGraph.fromJson(v));
+        graph?.add(OneYearProductGraph.fromJson(v));
       });
     }
 
-    final Map<String, SingleProductGraph> graphMap = {};
+    final Map<String, OneYearProductGraph> graphMap = {};
     for (var item in graph!) {
       graphMap[item.date!] = item;
     }
@@ -86,7 +86,7 @@ class ThirtyDayGraphModel {
 
   int? id;
   Brand? brand;
-  List<SingleProductGraph>? graph;
+  List<OneYearProductGraph>? graph;
   Image? image;
   int? type;
   String? name;
@@ -246,8 +246,8 @@ class Original {
   }
 }
 
-class SingleProductGraph {
-  SingleProductGraph({
+class OneYearProductGraph {
+  OneYearProductGraph({
     this.floorPrice,
     this.creationTime,
     this.date,
@@ -257,7 +257,7 @@ class SingleProductGraph {
     this.monthWiseTime,
   });
 
-  SingleProductGraph.fromJson(dynamic json) {
+  OneYearProductGraph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
     creationTime = json['creation_time'];
     date = json['date'];
