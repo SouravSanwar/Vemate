@@ -55,8 +55,7 @@ class GetData extends ChangeNotifier with BaseController {
   Future getUserInfo() async {
     profileModel = null;
 
-    final response =
-        await BaseClient().get(Urls.userInfo).catchError(handleError);
+    final response = await BaseClient().get(Urls.userInfo).catchError(handleError);
 
     var data = json.decode(response.toString());
 
@@ -83,12 +82,10 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future getCollectibles(
-      {int offset = 0, String? keyword = '', String rarity = ''}) async {
+  Future getCollectibles({int offset = 0, String? keyword = '', String rarity = ''}) async {
     keyword = Uri.encodeComponent(keyword!);
     final response = await BaseClient()
-        .get(Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&rarity=$rarity&name=$keyword')
+        .get(Urls.mainUrl + '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&rarity=$rarity&name=$keyword')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
@@ -97,8 +94,7 @@ class GetData extends ChangeNotifier with BaseController {
     if (collectiblesModel != null) {
       if (offset == 0) collectiblesModel!.results!.clear();
 
-      collectiblesModel!.results!
-          .addAll(CollectiblesModel.fromJson(data).results!);
+      collectiblesModel!.results!.addAll(CollectiblesModel.fromJson(data).results!);
     } else {
       collectiblesModel = CollectiblesModel.fromJson(data);
     }
@@ -106,11 +102,9 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future searchCollectibles(
-      {String keyWord = '', String rarity = '', int offset = 0}) async {
+  Future searchCollectibles({String keyWord = '', String rarity = '', int offset = 0}) async {
     final response = await BaseClient()
-        .get(Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&rarity=$rarity&name=$keyWord')
+        .get(Urls.mainUrl + '/api/v1/veve/public/products/?type=0&limit=20&offset=$offset&rarity=$rarity&name=$keyWord')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
@@ -120,8 +114,7 @@ class GetData extends ChangeNotifier with BaseController {
     if (searchCollectiblesModel != null) {
       if (offset == 0) searchCollectiblesModel!.results!.clear();
 
-      searchCollectiblesModel!.results!
-          .addAll(SearchCollectiblesModel.fromJson(data).results!);
+      searchCollectiblesModel!.results!.addAll(SearchCollectiblesModel.fromJson(data).results!);
     } else {
       searchCollectiblesModel = SearchCollectiblesModel.fromJson(data);
     }
@@ -129,13 +122,11 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future getComics(
-      {int offset = 0, String? keyword = '', String rarity = ''}) async {
+  Future getComics({int offset = 0, String? keyword = '', String rarity = ''}) async {
     //keyword = keyword!.replaceAll('#', '%23');
     keyword = Uri.encodeComponent(keyword!);
-    final response = await BaseClient()
-        .get(Urls.comic + '$offset&rarity=$rarity&name=$keyword')
-        .catchError(handleError);
+    final response =
+        await BaseClient().get(Urls.comic + '$offset&rarity=$rarity&name=$keyword').catchError(handleError);
 
     var data = json.decode(response.toString());
 
@@ -150,11 +141,9 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future searchComics(
-      {String keyWord = '', String rarity = '', int offset = 0}) async {
+  Future searchComics({String keyWord = '', String rarity = '', int offset = 0}) async {
     final response = await BaseClient()
-        .get(Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset&rarity=$rarity&name=$keyWord')
+        .get(Urls.mainUrl + '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset&rarity=$rarity&name=$keyWord')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
@@ -162,8 +151,7 @@ class GetData extends ChangeNotifier with BaseController {
     if (searchComicsModel != null) {
       if (offset == 0) searchComicsModel!.results!.clear();
 
-      searchComicsModel!.results!
-          .addAll(SearchComicsModel.fromJson(data).results!);
+      searchComicsModel!.results!.addAll(SearchComicsModel.fromJson(data).results!);
     } else {
       searchComicsModel = SearchComicsModel.fromJson(data);
     }
@@ -172,8 +160,7 @@ class GetData extends ChangeNotifier with BaseController {
   }
 
   Future getBrand({int offset = 0}) async {
-    final response =
-        await BaseClient().get(Urls.brand + '$offset').catchError(handleError);
+    final response = await BaseClient().get(Urls.brand + '$offset').catchError(handleError);
 
     var data = json.decode(response.toString());
 
@@ -188,16 +175,13 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-
   // TODO: check this
-  List<SingleProductGraph>? oneDayGraph=[];
-  List<SingleProductGraph> selenGraph=[];
+  List<SingleProductGraph>? oneDayGraph = [];
+  List<SingleProductGraph>? sevenDayGraph = [];
 
   Future getSingleProduct(int? id, {int graphType = 0}) async {
     singleProductModel = null;
-    final response = await BaseClient()
-        .get(Urls.singleProduct + '$id?graph_type=$graphType')
-        .catchError(handleError);
+    final response = await BaseClient().get(Urls.singleProduct + '$id?graph_type=$graphType').catchError(handleError);
 
     var data = json.decode(response.toString());
 
@@ -212,9 +196,7 @@ class GetData extends ChangeNotifier with BaseController {
 
   Future checkWishlist(int id) async {
     checkWishlistModel = null;
-    final response = await BaseClient()
-        .get(Urls.checkWishlist + id.toString())
-        .catchError(handleError);
+    final response = await BaseClient().get(Urls.checkWishlist + id.toString()).catchError(handleError);
 
     var data = json.decode(response.toString());
 
@@ -227,9 +209,7 @@ class GetData extends ChangeNotifier with BaseController {
 
   Future checkSetList(int id) async {
     checkSetCheck = null;
-    final response = await BaseClient()
-        .get(Urls.checkSet + id.toString())
-        .catchError(handleError);
+    final response = await BaseClient().get(Urls.checkSet + id.toString()).catchError(handleError);
 
     var data = json.decode(response.toString());
 
@@ -239,9 +219,8 @@ class GetData extends ChangeNotifier with BaseController {
   }
 
   Future getWishList({int offset = 0}) async {
-    final response = await BaseClient()
-        .get(Urls.commonStorage + '?type=1&limit=20&offset=$offset')
-        .catchError(handleError);
+    final response =
+        await BaseClient().get(Urls.commonStorage + '?type=1&limit=20&offset=$offset').catchError(handleError);
 
     var data = json.decode(response.toString());
 
@@ -266,9 +245,7 @@ class GetData extends ChangeNotifier with BaseController {
 
   Future getSetList(String? type) async {
     setListModel = null;
-    final response = await BaseClient()
-        .get(Urls.commonStorage + '?type=0&$type')
-        .catchError(handleError);
+    final response = await BaseClient().get(Urls.commonStorage + '?type=0&$type').catchError(handleError);
 
     var data = json.decode(response.toString());
 
@@ -281,9 +258,7 @@ class GetData extends ChangeNotifier with BaseController {
 
   Future getVaultStats({int graphType = 0}) async {
     vaultStatsModel = null;
-    final response = await BaseClient()
-        .get(Urls.vaultStats + '?graph_type=$graphType')
-        .catchError(handleError);
+    final response = await BaseClient().get(Urls.vaultStats + '?graph_type=$graphType').catchError(handleError);
 
     printInfo(info: Urls.vaultStats + '?graph_type=$graphType');
 
@@ -309,8 +284,7 @@ class GetData extends ChangeNotifier with BaseController {
 
   Future getAlert() async {
     alertModel = null;
-    final response =
-        await BaseClient().get(Urls.alertList).catchError(handleError);
+    final response = await BaseClient().get(Urls.alertList).catchError(handleError);
 
     var data = json.decode(response.toString());
 
@@ -322,9 +296,7 @@ class GetData extends ChangeNotifier with BaseController {
   }
 
   Future getNotification({int offset = 0}) async {
-    final response = await BaseClient()
-        .get(Urls.notification + '?limit=20&offset=$offset')
-        .catchError(handleError);
+    final response = await BaseClient().get(Urls.notification + '?limit=20&offset=$offset').catchError(handleError);
 
     var data = json.decode(response.toString());
 
@@ -333,8 +305,7 @@ class GetData extends ChangeNotifier with BaseController {
     if (notificationListModel != null) {
       if (offset == 0) notificationListModel!.results!.clear();
 
-      notificationListModel!.results!
-          .addAll(NotificationListModel.fromJson(data).results!);
+      notificationListModel!.results!.addAll(NotificationListModel.fromJson(data).results!);
     } else {
       notificationListModel = NotificationListModel.fromJson(data);
     }
