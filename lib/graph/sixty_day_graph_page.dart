@@ -81,6 +81,8 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                       //fontWeight: FontWeight.w900,
                     ),
                     labelAlignment: LabelAlignment.end,
+                    labelPlacement: LabelPlacement.onTicks,
+                    maximumLabelWidth: Get.width,
                     //maximumLabels: 6
                   ),
                   primaryYAxis: NumericAxis(

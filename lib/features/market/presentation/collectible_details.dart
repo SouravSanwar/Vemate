@@ -15,7 +15,7 @@ import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
-import 'package:ketemaa/graph/components/one_year_graph_page.dart';
+import 'package:ketemaa/graph/one_year_graph_page.dart';
 import 'package:ketemaa/graph/one_day_graph_page.dart';
 import 'package:ketemaa/graph/product_details_collectibles.dart';
 import 'package:ketemaa/graph/seven_day_graph_page.dart';
@@ -39,13 +39,6 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
 
   int alertCheck = 0;
   PostData? postData;
-
-  int? currentIndex = 1;
-  bool? hour = true;
-  bool? week = false;
-  bool? month = false;
-  bool? two_month = false;
-  bool? year = false;
   int? stepSelected = 0;
 
   List<String> graphType = [
@@ -394,14 +387,5 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
             : const ColorLoader(),
       );
     });
-  }
-
-  colorchange(bool _hour, bool _week, bool _month, bool _twomonth, bool _year) {
-    year = true;
-    currentIndex = 1;
-    hour = false;
-    week = false;
-    month = false;
-    two_month = false;
   }
 }

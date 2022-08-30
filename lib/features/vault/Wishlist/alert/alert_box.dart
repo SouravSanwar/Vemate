@@ -26,20 +26,14 @@ class ShowAlertBox extends StatefulWidget {
   _ShowAlertBoxState createState() => _ShowAlertBoxState();
 }
 
-class _ShowAlertBoxState extends State<ShowAlertBox> with SingleTickerProviderStateMixin{
-
+class _ShowAlertBoxState extends State<ShowAlertBox> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
-
-
 
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
   }
-
-
 
   @override
   void initState() {
@@ -51,99 +45,85 @@ class _ShowAlertBoxState extends State<ShowAlertBox> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    const StatusBar();
     return AlertDialog(
-        backgroundColor: AppColors.backgroundColor,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              20.0,
-            ),
+      backgroundColor: AppColors.backgroundColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            20.0,
           ),
         ),
-        contentPadding: const EdgeInsets.only(
-          top: 10.0,
-        ),
-        title:TabBar(
-          tabs: const <Widget>[
-            Tab(
-              
-              text: ("Mint"),
-            ),
-            Tab(
-              text: ("Price"),
-            ),
-          ],
+      ),
+      contentPadding: const EdgeInsets.only(
+        top: 10.0,
+      ),
+      title: TabBar(
+        tabs: const <Widget>[
+          Tab(
+            text: ("Mint"),
+          ),
+          Tab(
+            text: ("Price"),
+          ),
+        ],
+        controller: _tabController,
+      ),
+      content: Container(
+        //height: Get.height * .5,
+        child: TabBarView(
           controller: _tabController,
+          children: <Widget>[
+            ListView(
+              shrinkWrap: true,
+              //crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 15.h,
+                ),
+                MintFrequencyDropDown(
+                  results: widget.results,
+                ),
+                SizedBox(
+                  height: 14.h,
+                ),
+                MintTypeDropDown(
+                  results: widget.results,
+                ),
+                SizedBox(
+                  height: 14.h,
+                ),
+                MintButton(
+                  results: widget.results,
+                ),
+              ],
+            ),
+            ListView(
+              shrinkWrap: true,
+              //crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 15.h,
+                ),
+                AlertFrequencyDropDown(
+                  results: widget.results,
+                ),
+                SizedBox(
+                  height: 14.h,
+                ),
+                AlertTypeDropDown(
+                  results: widget.results,
+                ),
+                SizedBox(
+                  height: 14.h,
+                ),
+                AlertButton(
+                  results: widget.results,
+                ),
+              ],
+            )
+          ],
         ),
-        content:Container(
-          height: Get.height*.5,
-          child: TabBarView(
-            controller: _tabController,
-            children: <Widget>[
-              SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Container(
-                    alignment: Alignment.topLeft,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        MintFrequencyDropDown(
-                          results: widget.results,
-                        ),
-                        SizedBox(
-                          height: 14.h,
-                        ),
-
-                        MintTypeDropDown(
-                          results: widget.results,
-                        ),
-                        SizedBox(
-                          height: 14.h,
-                        ),
-                        MintButton(
-                          results: widget.results,
-                        ),
-                      ],
-                    ),
-                  )),
-              SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Container(
-                    alignment: Alignment.topLeft,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        AlertFrequencyDropDown(
-                          results: widget.results,
-                        ),
-                        SizedBox(
-                          height: 14.h,
-                        ),
-
-                        AlertTypeDropDown(
-                          results: widget.results,
-                        ),
-                        SizedBox(
-                          height: 14.h,
-                        ),
-                        AlertButton(
-                          results: widget.results,
-                        ),
-                      ],
-                    ),
-                  ))
-            ],
-          ),
-        ),
-
-
-        );
+      ),
+    );
   }
 }

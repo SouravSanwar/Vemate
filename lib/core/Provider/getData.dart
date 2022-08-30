@@ -191,8 +191,6 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  // TODO: check this
-
   Future getSingleProductGraphs(int? id) async {
     oneDayGraphModel = null;
     sevenDayGraphModel = null;

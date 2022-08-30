@@ -39,7 +39,7 @@ class _AlertButtonState extends State<AlertButton> {
   @override
   void initState() {
     if (widget.results!.isAlert == true) {
-      if (widget.results!.alertData!.type == 0 ) {
+      if (widget.results!.alertData!.type == 0) {
         valueController.text = widget.results!.alertData!.value.toString();
         if (valueController.text == "0.0") {
           valueController.text = value.toString();
@@ -55,8 +55,6 @@ class _AlertButtonState extends State<AlertButton> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-
-
         AlertTextField(
           height: Get.height * .03,
           controller: valueController,
@@ -74,11 +72,10 @@ class _AlertButtonState extends State<AlertButton> {
               InkWell(
                 onTap: () {
                   postData = Provider.of<PostData>(context, listen: false);
-                  postData!.deleteAlert(context, widget.results!.alertData!.id,
-                      requestHeadersWithToken);
+                  postData!.deleteAlert(context, widget.results!.alertData!.id, requestHeadersWithToken);
                 },
                 child: Text(
-                  widget.results!.isAlert == true && widget.results!.alertData!.type==0? 'Delete' : "",
+                  widget.results!.isAlert == true && widget.results!.alertData!.type == 0 ? 'Delete' : "",
                   style: TextStyle(fontSize: 16.0.sp, color: AppColors.grey),
                 ),
               ),
@@ -90,18 +87,17 @@ class _AlertButtonState extends State<AlertButton> {
                     "product": widget.results!.productDetail!.id,
                     "type": 0,
                     "price_type": TypeIndex,
-                    "value": valueController.text != ""
-                        ? double.parse(valueController.text)
-                        : 0.0,
+                    "value": valueController.text != "" ? double.parse(valueController.text) : 0.0,
                     "frequency": frequencyIndex,
+                    "mint_low": 10,
+                    "mint_upper": 25
                   };
 
                   postData!.createAlert(context, body);
                 },
                 child: Text(
-                  widget.results!.isAlert == true && widget.results!.alertData!.type==0? 'Update' : "Save",
-                  style:
-                      TextStyle(fontSize: 16.0.sp, color: Colors.purpleAccent),
+                  widget.results!.isAlert == true && widget.results!.alertData!.type == 0 ? 'Update' : "Save",
+                  style: TextStyle(fontSize: 16.0.sp, color: Colors.purpleAccent),
                 ),
               ),
             ],

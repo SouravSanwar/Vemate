@@ -82,6 +82,8 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                       //fontWeight: FontWeight.w900,
                     ),
                     labelAlignment: LabelAlignment.end,
+                    labelPlacement: LabelPlacement.onTicks,
+                    maximumLabelWidth: Get.width,
                     //maximumLabels: 6
                   ),
                   primaryYAxis: NumericAxis(
