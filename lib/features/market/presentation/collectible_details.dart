@@ -16,6 +16,7 @@ import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
 import 'package:ketemaa/graph/components/one_year_graph_page.dart';
+import 'package:ketemaa/graph/one_day_graph_page.dart';
 import 'package:ketemaa/graph/product_details_collectibles.dart';
 import 'package:ketemaa/graph/seven_day_graph_page.dart';
 import 'package:ketemaa/graph/single_product_graph.dart';
@@ -349,9 +350,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                 width: double.infinity,
                                 height: 250,
                                 child: stepSelected == 0
-                                    ? ProductGraph(
-                                        graphList: data.singleProductModel!.graph,
-                                      )
+                                    ? const OneDayProductGraphPage()
                                     : stepSelected == 1
                                         ? const SevenDayProductGraphPage()
                                         : stepSelected == 2

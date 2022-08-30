@@ -201,22 +201,25 @@ class GetData extends ChangeNotifier with BaseController {
     oneYearGraphModel = null;
 
     final response1 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=0').catchError(handleError);
-    final response2 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=1').catchError(handleError);
-    final response4 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=3').catchError(handleError);
-    final response3 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=2').catchError(handleError);
-    final response5 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=4').catchError(handleError);
-
     var data1 = json.decode(response1.toString());
-    var data2 = json.decode(response2.toString());
-    var data3 = json.decode(response3.toString());
-    var data4 = json.decode(response4.toString());
-    var data5 = json.decode(response5.toString());
-
     oneDayGraphModel = OneDayGraphModel.fromJson(data1);
+
+    final response2 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=1').catchError(handleError);
+    var data2 = json.decode(response2.toString());
     sevenDayGraphModel = SevenDayGraphModel.fromJson(data2);
+
+    final response3 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=2').catchError(handleError);
+    var data3 = json.decode(response3.toString());
     thirtyDayGraphModel = ThirtyDayGraphModel.fromJson(data3);
+
+    final response4 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=3').catchError(handleError);
+    var data4 = json.decode(response4.toString());
     sixtyDayGraphModel = SixtyDayGraphModel.fromJson(data4);
+
+    final response5 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=4').catchError(handleError);
+    var data5 = json.decode(response5.toString());
     oneYearGraphModel = OneYearGraphModel.fromJson(data5);
+
     notifyListeners();
   }
 

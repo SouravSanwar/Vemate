@@ -70,18 +70,18 @@ class SingleProductModel {
     parent = json['parent'];
     graphType = json['graph_type'];
 
-    if (json['graph'] != null) {
-      graph = [];
-      json['graph'].forEach((v) {
-        graph?.add(SingleProductGraph.fromJson(v));
-      });
-    }
-
-    final Map<String, SingleProductGraph> graphMap = {};
-    for (var item in graph!) {
-      graphMap[item.date!] = item;
-    }
-    graph = graphMap.values.toList();
+    // if (json['graph'] != null) {
+    //   graph = [];
+    //   json['graph'].forEach((v) {
+    //     graph?.add(SingleProductGraph.fromJson(v));
+    //   });
+    // }
+    //
+    // final Map<String, SingleProductGraph> graphMap = {};
+    // for (var item in graph!) {
+    //   graphMap[item.date!] = item;
+    // }
+    // graph = graphMap.values.toList();
   }
 
   int? id;
