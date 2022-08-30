@@ -53,7 +53,7 @@ class _VaultState extends State<Vault> {
                     Container(
                       clipBehavior: Clip.antiAlias,
                       width: Get.width,
-                      height: Get.height * .268,
+                      height: Get.height * .275,
                       decoration: BoxDecoration(
                         color: AppColors.graphCard,
                         borderRadius: const BorderRadius.vertical(
@@ -264,6 +264,7 @@ class _VaultState extends State<Vault> {
                                 labelRotation: 270,
                                 labelAlignment: LabelAlignment.start,
                                 maximumLabels: 7,
+                                labelPlacement: LabelPlacement.onTicks,
                               ),
                               primaryYAxis: CategoryAxis(
                                 isVisible: false,
@@ -303,6 +304,7 @@ class _VaultState extends State<Vault> {
                               ],
                             ),
                           ),
+
                         ],
                       ),
                     ),
