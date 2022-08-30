@@ -50,6 +50,7 @@ class _ProductGraphState extends State<ProductGraph> {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 0),
         child: Container(
+
           width: Get.width,
           decoration: BoxDecoration(
             color: AppColors.graphCard,
@@ -57,12 +58,13 @@ class _ProductGraphState extends State<ProductGraph> {
           ),
           child: data.singleProductModel != null
               ? SfCartesianChart(
+
             plotAreaBorderWidth: 0,
             zoomPanBehavior: _zoomPanBehavior,
             tooltipBehavior: _tooltipBehavior,
             trackballBehavior: _trackballBehavior,
             primaryXAxis: CategoryAxis(
-              //rangePadding: ChartRangePadding.auto,
+
               axisBorderType: AxisBorderType.withoutTopAndBottom,
               majorGridLines: const MajorGridLines(
                 width: 0,
@@ -80,7 +82,9 @@ class _ProductGraphState extends State<ProductGraph> {
                 //fontWeight: FontWeight.w900,
               ),
               labelAlignment: LabelAlignment.end,
-              //maximumLabels: 6
+              labelPlacement: LabelPlacement.onTicks,
+              maximumLabelWidth: Get.width,
+             // maximumLabels: 12
             ),
             primaryYAxis: NumericAxis(
               axisBorderType: AxisBorderType.withoutTopAndBottom,
@@ -120,6 +124,7 @@ class _ProductGraphState extends State<ProductGraph> {
                 yAxisName: 'Total',
                 enableTooltip: true,
                 dataLabelSettings: const DataLabelSettings(
+
                   isVisible: false,
                   angle: 270,
                 ),

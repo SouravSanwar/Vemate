@@ -101,7 +101,7 @@ class AlertData {
     this.updateTime,
     this.product,
     this.user,
-    this.priceValue,
+    this.typeValue,
     this.frequencyValue,
   });
 
@@ -117,15 +117,21 @@ class AlertData {
     user = json['user'];
 
     if (priceType == 0) {
-      priceValue = 'Price rises above';
+      typeValue = 'Price rises above';
     } else if (priceType == 1) {
-      priceValue = 'Price drops under';
+      typeValue = 'Price drops under';
     } else if (priceType == 2) {
-      priceValue = 'Price rises';
+      typeValue = 'Price rises';
     } else if (priceType == 3) {
-      priceValue = 'Price drops';
+      typeValue = 'Price drops';
+    }else if (priceType == 4) {
+      typeValue = 'Below';
+    }else if (priceType == 5) {
+      typeValue = 'Above';
+    }else if (priceType == 6) {
+      typeValue = 'Between';
     } else {
-      priceValue = 'none';
+      typeValue = 'none';
     }
 
     if (frequency == 0) {
@@ -148,7 +154,7 @@ class AlertData {
   String? updateTime;
   int? product;
   int? user;
-  String? priceValue;
+  String? typeValue;
   String? frequencyValue;
 
   Map<String, dynamic> toJson() {

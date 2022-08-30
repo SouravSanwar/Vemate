@@ -6,24 +6,23 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/models/WishListModel.dart';
 
-int? TypeIndex;
+int? TypeIndex1;
 
-class AlertTypeDropDown extends StatefulWidget {
+class MintTypeDropDown extends StatefulWidget {
   final Results? results;
 
-  const AlertTypeDropDown({Key? key, this.results}) : super(key: key);
+  const MintTypeDropDown({Key? key, this.results}) : super(key: key);
 
   @override
-  State<AlertTypeDropDown> createState() => _AlertTypeDropDownState();
+  State<MintTypeDropDown> createState() => _MintTypeDropDownState();
 }
 
-class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
-  String? value = 'Price rises above';
+class _MintTypeDropDownState extends State<MintTypeDropDown> {
+  String? value='Below';
   var items = [
-    'Price rises above',
-    'Price drops under',
-    'Price rises',
-    'Price drops',
+    'Below',
+    'Above',
+    'Between',
   ];
 
   GetData? getData;
@@ -37,17 +36,15 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
 
     if (widget.results!.isAlert == true) {
       print("66666666666--"+widget.results!.alertData!.type.toString());
-      widget.results!.alertData!.type == 0
+      widget.results!.alertData!.type == 1
           ? value = widget.results!.alertData!.typeValue
-          : value = 'Price rises above';
+          : value = 'Below';
     }
-    value == 'Price rises above'
-        ? TypeIndex = 0
-        : value == 'Price drops under'
-        ? TypeIndex = 1
-        : value == 'Price rises'
-        ? TypeIndex = 2
-        : TypeIndex = 3;
+    value == 'Below'
+        ? TypeIndex1= 4
+        : value == 'Above'
+        ? TypeIndex1 = 5
+        : TypeIndex1 = 6;
 
     super.initState();
   }
@@ -73,14 +70,12 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
           setState(() {
             this.value = value;
 
-            value == 'Price rises above'
-                ? TypeIndex = 0
-                : value == 'Price drops under'
-                ? TypeIndex = 1
-                : value == 'Price rises'
-                ? TypeIndex = 2
-                : TypeIndex = 3;
-            print(TypeIndex);
+            value == 'Below'
+                ? TypeIndex1 = 4
+                : value == 'Above'
+                    ? TypeIndex1= 5
+                    : TypeIndex1 = 6;
+            print(TypeIndex1);
           }); //get value when changed
         },
         icon: const Icon(
@@ -90,10 +85,10 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
         iconEnabledColor: Colors.grey,
         //Icon color
         style: TextStyle(
-          //te
+            //te
             color: AppColors.grey, //Font color
             fontSize: 20.sp //font size on dropdown button
-        ),
+            ),
         dropdownColor: AppColors.backgroundColor,
         underline: Container(),
         //dropdown background color
@@ -108,6 +103,6 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
       value: item,
       child: Text(
         item,
-        style: TextStyle(fontFamily: 'Inter',fontSize: 15.sp),
+        style: TextStyle(fontFamily: 'Inter', fontSize: 15.sp),
       ));
 }

@@ -276,11 +276,11 @@ class _ControllerPageState extends State<ControllerPage> {
               items: [
                 DockerItem(
                   icon: Icons.home,
-                  title: 'Home',
+                  title: '  Home  ',
                 ),
                 DockerItem(
                   icon: Icons.shop,
-                  title: 'Market',
+                  title: ' Market ',
                 ),
                 DockerItem(
                   icon: Icons.card_travel,

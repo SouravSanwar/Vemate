@@ -7,18 +7,18 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/models/WishListModel.dart';
 
-int? frequencyIndex;
+int? frequencyIndex1;
 
-class AlertFrequencyDropDown extends StatefulWidget {
+class MintFrequencyDropDown extends StatefulWidget {
   final Results? results;
 
-  const AlertFrequencyDropDown({Key? key, this.results}) : super(key: key);
+  const MintFrequencyDropDown({Key? key, this.results}) : super(key: key);
 
   @override
-  State<AlertFrequencyDropDown> createState() => _AlertFrequencyDropDownState();
+  State<MintFrequencyDropDown> createState() => _MintFrequencyDropDownState();
 }
 
-class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
+class _MintFrequencyDropDownState extends State<MintFrequencyDropDown> {
   String? value = 'Once';
   var items = [
     'Once',
@@ -37,16 +37,16 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
 
     if (widget.results!.isAlert == true) {
 
-      widget.results!.alertData!.type == 0
+      widget.results!.alertData!.type == 1
           ? value = widget.results!.alertData!.frequencyValue
           : value = 'Once';
     }
 
     value == 'Once'
-        ? frequencyIndex = 0
+        ? frequencyIndex1 = 0
         : value == 'Once a day'
-        ? frequencyIndex = 1
-        : frequencyIndex = 2;
+        ? frequencyIndex1 = 1
+        : frequencyIndex1 = 2;
     super.initState();
   }
 
@@ -83,10 +83,10 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
                 this.value = value;
 
                 value == 'Once'
-                    ? frequencyIndex = 0
+                    ? frequencyIndex1 = 0
                     : value == 'Once a day'
-                        ? frequencyIndex = 1
-                        : frequencyIndex = 2;
+                    ? frequencyIndex1 = 1
+                    : frequencyIndex1 = 2;
 
               }); //get value when changed
             },
@@ -97,11 +97,11 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
             iconEnabledColor: Colors.grey,
             //Icon color
             style: TextStyle(
-                //te
+              //te
                 color: AppColors.grey,
                 fontFamily: 'Inter',//Font color
                 fontSize: 20.sp //font size on dropdown button
-                ),
+            ),
             dropdownColor: AppColors.backgroundColor,
             underline: Container(),
             //dropdown background color

@@ -193,6 +193,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       labelRotation: 270,
                       labelAlignment: LabelAlignment.start,
                       maximumLabels: 7,
+                      labelPlacement: LabelPlacement.onTicks,
                     ),
                     primaryYAxis: CategoryAxis(
                       axisLine: AxisLine(width: 0),
@@ -202,6 +203,7 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       labelRotation: 0,
                       labelAlignment: LabelAlignment.start,
                       maximumLabels: 10,
+
                     ),
                     tooltipBehavior: TooltipBehavior(enable: true),
                     series: <ChartSeries<HomeVaultModelGraph, String>>[

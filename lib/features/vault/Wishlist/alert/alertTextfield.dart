@@ -6,8 +6,8 @@ import '../../../../core/utilities/app_colors/app_colors.dart';
 class AlertTextField extends StatelessWidget {
 
   TextEditingController? controller;
-  num? height;//user location
-  num? width;//user location
+  num? height;
+  num? width;
 
   AlertTextField({
     this.controller,
@@ -18,33 +18,46 @@ class AlertTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: AppColors.textColor, // set border color
-            width: 1.w),
-        borderRadius: const BorderRadius.all(Radius.circular(15)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10),
-        child: TextField(
-
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Value",
           style: TextStyle(
-            color: AppColors.textColor,
-            fontFamily: 'Inter',
-            fontSize: 16.0.sp,
-
-          ),
-          textAlign: TextAlign.left,
-          controller: controller,
-          cursorColor: AppColors.grey,
-          decoration: const InputDecoration(
-            border: InputBorder.none,
-
-          ),
-          keyboardType: TextInputType.number,
+              fontSize: 18.0.sp, color: AppColors.textColor),
         ),
-      ),
+        SizedBox(
+          height: 8.h,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+                color: AppColors.textColor, // set border color
+                width: 1.w),
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: TextField(
+
+              style: TextStyle(
+                color: AppColors.textColor,
+                fontFamily: 'Inter',
+                fontSize: 16.0.sp,
+
+              ),
+              textAlign: TextAlign.left,
+              controller: controller,
+              cursorColor: AppColors.grey,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+
+              ),
+              keyboardType: TextInputType.number,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
