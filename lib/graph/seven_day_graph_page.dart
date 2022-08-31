@@ -20,11 +20,15 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
   late ZoomPanBehavior _zoomPanBehavior;
   late TooltipBehavior _tooltipBehavior;
   late TrackballBehavior _trackballBehavior;
+  late CrosshairBehavior _crosshairBehavior;
 
   @override
   void initState() {
-    _zoomPanBehavior =
-        ZoomPanBehavior(enablePinching: true, zoomMode: ZoomMode.x, enablePanning: true, maximumZoomLevel: 0.3);
+    _zoomPanBehavior = ZoomPanBehavior(
+        enablePinching: true,
+        zoomMode: ZoomMode.x,
+        enablePanning: true,
+        maximumZoomLevel: 0.3);
     _tooltipBehavior = TooltipBehavior(
       enable: true,
       format: 'point.y',
@@ -34,12 +38,40 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
       color: const Color(0xff00A7FF),
     );
 
+    _crosshairBehavior = CrosshairBehavior(
+      enable: true,
+      lineColor: const Color(0xff00A7FF),
+      lineDashArray: <double>[2, 2],
+      lineWidth: 1,
+      lineType: CrosshairLineType.vertical,
+      activationMode: ActivationMode.longPress,
+    );
+
     _trackballBehavior = TrackballBehavior(
         enable: true,
+        lineWidth: 0,
         shouldAlwaysShow: true,
         tooltipSettings: const InteractiveTooltip(
-            canShowMarker: true, connectorLineColor: Colors.white, enable: true, color: Colors.red),
-        markerSettings: const TrackballMarkerSettings(markerVisibility: TrackballVisibilityMode.visible));
+          canShowMarker: false,
+          connectorLineColor: Colors.white,
+          enable: true,
+          color: Color(0xff00A7FF),
+        ),
+        markerSettings: const TrackballMarkerSettings(
+            markerVisibility: TrackballVisibilityMode.auto));
+
+    /*  crosshair behaviour kete diye ei portion er kaj korte hbe
+
+  _trackballBehavior =  TrackballBehavior(
+        enable: true,
+        lineType: TrackballLineType.vertical,
+        activationMode: ActivationMode.singleTap,
+        tooltipAlignment: ChartAlignment.center,
+        tooltipDisplayMode: TrackballDisplayMode.nearestPoint,
+        tooltipSettings: InteractiveTooltip(format: 'point.y'),
+        shouldAlwaysShow: false,
+        hideDelay: 2000
+    );*/
     super.initState();
   }
 
@@ -56,11 +88,15 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
           ),
           child: data.sevenDayGraphModel != null
               ? SfCartesianChart(
+            crosshairBehavior: _crosshairBehavior,
             plotAreaBorderWidth: 0,
             zoomPanBehavior: _zoomPanBehavior,
-            tooltipBehavior: _tooltipBehavior,
+            // tooltipBehavior: _tooltipBehavior,
             trackballBehavior: _trackballBehavior,
             primaryXAxis: CategoryAxis(
+              interactiveTooltip: const InteractiveTooltip(
+                enable: false,
+              ),
               //rangePadding: ChartRangePadding.auto,
               axisBorderType: AxisBorderType.withoutTopAndBottom,
               majorGridLines: const MajorGridLines(
@@ -74,16 +110,21 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
               labelStyle: TextStyle(
                 color: AppColors.textColor,
                 fontFamily: 'Inter',
-                fontSize: 10.sp,
+                fontSize: 9.sp,
                 fontStyle: FontStyle.italic,
                 //fontWeight: FontWeight.w900,
               ),
               labelAlignment: LabelAlignment.end,
-              labelPlacement: LabelPlacement.onTicks,
+              labelPlacement: data.sevenDayGraphModel!.graph!.length == 1
+                  ? LabelPlacement.betweenTicks
+                  : LabelPlacement.onTicks,
               maximumLabelWidth: Get.width,
               //maximumLabels: 6
             ),
             primaryYAxis: NumericAxis(
+              interactiveTooltip: const InteractiveTooltip(
+                enable: false,
+              ),
               axisBorderType: AxisBorderType.withoutTopAndBottom,
               borderWidth: 0,
               axisLine: const AxisLine(width: 0),
@@ -102,6 +143,15 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
               labelAlignment: LabelAlignment.center,
             ),
             series: <ChartSeries<SevenDayProductGraph, String>>[
+              data.sevenDayGraphModel!.graph!.length == 1
+                  ? ColumnSeries<SevenDayProductGraph, String>(
+                dataSource: data.sevenDayGraphModel!.graph!,
+                width: .01,
+                gradient: AppColors.graphGradient,
+                xValueMapper: (plot, _) => plot.dayWiseTime,
+                yValueMapper: (plot, _) => plot.floorPrice,
+              )
+                  :
               SplineAreaSeries<SevenDayProductGraph, String>(
                 dataSource: data.sevenDayGraphModel!.graph!,
                 borderColor: const Color(0xff2093D7),

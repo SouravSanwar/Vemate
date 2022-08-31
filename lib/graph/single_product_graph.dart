@@ -21,11 +21,15 @@ class _ProductGraphState extends State<ProductGraph> {
   late ZoomPanBehavior _zoomPanBehavior;
   late TooltipBehavior _tooltipBehavior;
   late TrackballBehavior _trackballBehavior;
+  late CrosshairBehavior _crosshairBehavior;
 
   @override
   void initState() {
-    _zoomPanBehavior =
-        ZoomPanBehavior(enablePinching: true, zoomMode: ZoomMode.x, enablePanning: true, maximumZoomLevel: 0.3);
+    _zoomPanBehavior = ZoomPanBehavior(
+        enablePinching: true,
+        zoomMode: ZoomMode.x,
+        enablePanning: true,
+        maximumZoomLevel: 0.3);
     _tooltipBehavior = TooltipBehavior(
       enable: true,
       format: 'point.y',
@@ -35,12 +39,40 @@ class _ProductGraphState extends State<ProductGraph> {
       color: const Color(0xff00A7FF),
     );
 
+    _crosshairBehavior = CrosshairBehavior(
+      enable: true,
+      lineColor: const Color(0xff00A7FF),
+      lineDashArray: <double>[2, 2],
+      lineWidth: 1,
+      lineType: CrosshairLineType.both,
+      activationMode: ActivationMode.singleTap,
+    );
+
     _trackballBehavior = TrackballBehavior(
         enable: true,
+        lineWidth: 0,
         shouldAlwaysShow: true,
         tooltipSettings: const InteractiveTooltip(
-            canShowMarker: true, connectorLineColor: Colors.white, enable: true, color: Colors.red),
-        markerSettings: const TrackballMarkerSettings(markerVisibility: TrackballVisibilityMode.visible));
+          canShowMarker: false,
+          connectorLineColor: Colors.white,
+          enable: true,
+          color: Color(0xff00A7FF),
+        ),
+        markerSettings: const TrackballMarkerSettings(
+            markerVisibility: TrackballVisibilityMode.auto));
+
+    /*  crosshair behaviour kete diye ei portion er kaj korte hbe
+
+  _trackballBehavior =  TrackballBehavior(
+        enable: true,
+        lineType: TrackballLineType.vertical,
+        activationMode: ActivationMode.singleTap,
+        tooltipAlignment: ChartAlignment.center,
+        tooltipDisplayMode: TrackballDisplayMode.nearestPoint,
+        tooltipSettings: InteractiveTooltip(format: 'point.y'),
+        shouldAlwaysShow: false,
+        hideDelay: 2000
+    );*/
     super.initState();
   }
 
@@ -59,12 +91,16 @@ class _ProductGraphState extends State<ProductGraph> {
           child: data.singleProductModel != null
               ? SfCartesianChart(
 
+            crosshairBehavior: _crosshairBehavior,
             plotAreaBorderWidth: 0,
             zoomPanBehavior: _zoomPanBehavior,
-            tooltipBehavior: _tooltipBehavior,
+            // tooltipBehavior: _tooltipBehavior,
             trackballBehavior: _trackballBehavior,
             primaryXAxis: CategoryAxis(
-
+              interactiveTooltip: const InteractiveTooltip(
+                enable: false,
+              ),
+              //rangePadding: ChartRangePadding.auto,
               axisBorderType: AxisBorderType.withoutTopAndBottom,
               majorGridLines: const MajorGridLines(
                 width: 0,
@@ -77,12 +113,14 @@ class _ProductGraphState extends State<ProductGraph> {
               labelStyle: TextStyle(
                 color: AppColors.textColor,
                 fontFamily: 'Inter',
-                fontSize: data.singleProductModel!.graphType == '0' ? 9.sp : 10.sp,
+                fontSize: 9.sp ,
                 fontStyle: FontStyle.italic,
                 //fontWeight: FontWeight.w900,
               ),
               labelAlignment: LabelAlignment.end,
-              labelPlacement: LabelPlacement.onTicks,
+              labelPlacement: data.singleProductModel!.graph!.length == 1
+                  ? LabelPlacement.betweenTicks
+                  : LabelPlacement.onTicks,
               maximumLabelWidth: Get.width,
              // maximumLabels: 12
             ),
@@ -105,6 +143,23 @@ class _ProductGraphState extends State<ProductGraph> {
               labelAlignment: LabelAlignment.center,
             ),
             series: <ChartSeries<SingleProductGraph, String>>[
+              data.singleProductModel!.graph!.length == 1
+                  ? ColumnSeries<SingleProductGraph, String>(
+                dataSource: data.singleProductModel!.graph!,
+                width: .01,
+                gradient: AppColors.graphGradient,
+                xValueMapper: (plot, _) => data.singleProductModel!.graphType == '0'
+                    ? plot.hourWiseTime
+                    : data.singleProductModel!.graphType == '1'
+                    ? plot.dayWiseTime
+                    : data.singleProductModel!.graphType == '2'
+                    ? plot.dayWiseTimeWithDate
+                    : data.singleProductModel!.graphType == '3'
+                    ? plot.dayWiseTimeWithDate
+                    : plot.monthWiseTime,
+                yValueMapper: (plot, _) => plot.floorPrice,
+              )
+                  :
               SplineAreaSeries<SingleProductGraph, String>(
                 dataSource: data.singleProductModel!.graph!,
                 borderColor: const Color(0xff2093D7),
