@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -10,13 +12,15 @@ class PasswordInputField extends StatefulWidget {
   TextInputType textType;
   TextEditingController controller;
   FormFieldValidator? validator;
+  Bool? enable;
 
   PasswordInputField({
     required this.labelText,
     required this.height,
     required this.textType,
     required this.controller,
-    this.validator
+    this.validator,
+    this.enable
   });
 
   @override
@@ -35,7 +39,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
 
         validator: widget.validator,
         enableInteractiveSelection: true,
-        style: TextStyle(color: Colors.white, fontSize: 18.0.sp),
+        style: TextStyle(color: AppColors.white.withOpacity(.7), fontSize: 18.0.sp),
         controller: widget.controller,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(

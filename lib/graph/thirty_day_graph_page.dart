@@ -45,7 +45,7 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
       lineDashArray: <double>[2, 2],
       lineWidth: 1,
       lineType: CrosshairLineType.vertical,
-      activationMode: ActivationMode.singleTap,
+      activationMode: ActivationMode.longPress,
     );
 
     _trackballBehavior = TrackballBehavior(
@@ -61,7 +61,7 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
         markerSettings: const TrackballMarkerSettings(
             markerVisibility: TrackballVisibilityMode.auto));
 
-    /*  crosshair behaviour kete diye ei portion er kaj korte hbe
+  /*crosshair behaviour kete diye ei portion er kaj korte hbe
 
   _trackballBehavior =  TrackballBehavior(
         enable: true,

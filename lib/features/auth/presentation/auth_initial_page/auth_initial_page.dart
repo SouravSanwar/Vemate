@@ -28,7 +28,9 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'dart:math';
 
+bool? isValidPass=true;
 class AuthInitialPage extends StatefulWidget {
+
   const AuthInitialPage({Key? key}) : super(key: key);
 
   @override
@@ -266,6 +268,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                     onTap: () {
                       Get.toNamed(AppRoutes.SIGN_UP);
                     },
+                    focusColor: Colors.transparent,
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

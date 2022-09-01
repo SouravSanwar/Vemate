@@ -42,7 +42,7 @@ class _TextInputFieldState extends State<TextInputField> {
               enabled: widget.isEnable,
               validator: widget.validator,
               style: TextStyle(
-                color: AppColors.textColor,
+                color: AppColors.white.withOpacity(.7),
                 fontFamily: 'Inter',
                 fontSize: 18.0.sp,
               ),
@@ -68,6 +68,12 @@ class _TextInputFieldState extends State<TextInputField> {
                       width: 1.5),
                 ),
                 enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(
+                      color: AppColors.white.withOpacity(.7), // set border color
+                      width: 1.5),
+                ),
+                disabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
                   borderSide: BorderSide(
                       color: AppColors.white.withOpacity(.7), // set border color
@@ -109,6 +115,12 @@ class _TextInputFieldState extends State<TextInputField> {
                       width: 1.5),
                 ),
                 enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(
+                      color: AppColors.white.withOpacity(.7), // set border color
+                      width: 1.5),
+                ),
+                disabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
                   borderSide: BorderSide(
                       color: AppColors.white.withOpacity(.7), // set border color

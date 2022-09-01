@@ -16,7 +16,7 @@ class LoadingDialogue extends StatelessWidget {
     return Center(
       child: Container(
         width: Get.width * .9,
-        height: Get.width * .75,
+        height: Get.width * .8,
         alignment: Alignment.center,
         child: AlertDialog(
           backgroundColor: Colors.transparent,

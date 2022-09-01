@@ -47,7 +47,7 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
       lineDashArray: <double>[2, 2],
       lineWidth: 1,
       lineType: CrosshairLineType.vertical,
-      activationMode: ActivationMode.singleTap,
+      activationMode: ActivationMode.longPress,
     );
 
     _trackballBehavior = TrackballBehavior(

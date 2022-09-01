@@ -45,7 +45,7 @@ class _ProductGraphState extends State<ProductGraph> {
       lineDashArray: <double>[2, 2],
       lineWidth: 1,
       lineType: CrosshairLineType.both,
-      activationMode: ActivationMode.singleTap,
+      activationMode: ActivationMode.longPress,
     );
 
     _trackballBehavior = TrackballBehavior(
