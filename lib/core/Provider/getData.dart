@@ -99,7 +99,7 @@ class GetData extends ChangeNotifier with BaseController {
     keyword = Uri.encodeComponent(keyword!);
     final response = await BaseClient()
         .get(Urls.mainUrl +
-            '/api/v1/veve/public/products/?type=0&limit=$limit&offset=$offset&rarity=$rarity&name=$keyword&mint_number=$mint_number')
+            '/api/v1/veve/public/products/?type=0&limit=$limit&offset=$offset&rarity=$rarity&name=$keyword')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
@@ -140,7 +140,7 @@ class GetData extends ChangeNotifier with BaseController {
     //keyword = keyword!.replaceAll('#', '%23');
     keyword = Uri.encodeComponent(keyword!);
     final response = await BaseClient()
-        .get(Urls.comic + '$offset&rarity=$rarity&name=$keyword&mint_number=$mint_number')
+        .get(Urls.comic + '$offset&rarity=$rarity&name=$keyword')
         .catchError(handleError);
 
     var data = json.decode(response.toString());

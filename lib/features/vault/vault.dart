@@ -252,7 +252,8 @@ class _VaultState extends State<Vault> {
                           ),
                           SizedBox(
                             height: Get.height * .11,
-                            child: SfCartesianChart(
+                            child:  data.vaultStatsModel!.vaultStatsModelGraph != null
+                                ? SfCartesianChart(
                               margin: EdgeInsets.zero,
                               plotAreaBorderWidth: 0,
                               primaryXAxis: CategoryAxis(
@@ -302,7 +303,8 @@ class _VaultState extends State<Vault> {
                                   cardinalSplineTension: 0.3,
                                 )
                               ],
-                            ),
+                            )
+                                : Container(),
                           ),
 
                         ],
@@ -457,7 +459,7 @@ class _VaultState extends State<Vault> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child:  DropDown(AppColors.backgroundColor,false),
+                        child:  DropDown(Color(0xffA984E5),false),
                         width: Get.width * .125,
                         height: Get.width * .125,
                         decoration: BoxDecoration(

@@ -105,7 +105,7 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                     ),
                     majorTickLines: const MajorTickLines(width: 0),
                     axisLine: const AxisLine(width: 0),
-                    labelIntersectAction: AxisLabelIntersectAction.hide,
+                   labelIntersectAction: AxisLabelIntersectAction.hide,
                     labelRotation: 0,
                     edgeLabelPlacement: EdgeLabelPlacement.shift,
                     labelStyle: TextStyle(

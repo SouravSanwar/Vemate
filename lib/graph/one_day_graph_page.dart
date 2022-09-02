@@ -170,7 +170,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                     ),
                   ],
                 )
-              : const LoadingExample(),
+              :  const LoadingExample(),
         ),
       );
     });

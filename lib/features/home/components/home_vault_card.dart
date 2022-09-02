@@ -180,7 +180,8 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                 ),
                 SizedBox(
                   height: Get.height * .12,
-                  child: SfCartesianChart(
+                  child:  data.homeVaultModel!.homeVaultModelGraph != null
+                      ? SfCartesianChart(
 
                     plotAreaBorderWidth: 0,
                     margin: EdgeInsets.zero,
@@ -227,7 +228,8 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         cardinalSplineTension: 0.3,
                       )
                     ],
-                  ),
+                  )
+                      : Container(),
                 ),
               ],
             ));

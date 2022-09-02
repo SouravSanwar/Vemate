@@ -191,7 +191,7 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(
                             bottom: 12, left: 15, right: 15),
                         child: Text(
-                          'Newest',
+                          'Latest Updates',
                           style: Get.textTheme.headline2!.copyWith(
                               color: AppColors.textColor,
                               fontFamily: 'Inter',
