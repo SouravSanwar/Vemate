@@ -45,6 +45,7 @@ class GetData extends ChangeNotifier with BaseController {
   ThirtyDayGraphModel? thirtyDayGraphModel;
   SixtyDayGraphModel? sixtyDayGraphModel;
   OneYearGraphModel? oneYearGraphModel;
+  SixtyDayProductGraph? sixtyDayProductGraph;
 
   ProfileModel? profileModel;
 
@@ -197,6 +198,7 @@ class GetData extends ChangeNotifier with BaseController {
     thirtyDayGraphModel = null;
     sixtyDayGraphModel = null;
     oneYearGraphModel = null;
+    sixtyDayProductGraph = null;
 
     final response1 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=0').catchError(handleError);
     var data1 = json.decode(response1.toString());
@@ -217,6 +219,10 @@ class GetData extends ChangeNotifier with BaseController {
     final response5 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=4').catchError(handleError);
     var data5 = json.decode(response5.toString());
     oneYearGraphModel = OneYearGraphModel.fromJson(data5);
+
+    final response6 = await BaseClient().get(Urls.singleProduct + '$id?graph_type=3').catchError(handleError);
+    var data6 = json.decode(response6.toString());
+    sixtyDayProductGraph = SixtyDayProductGraph.fromJson(data6);
 
     notifyListeners();
   }

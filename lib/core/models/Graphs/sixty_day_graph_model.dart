@@ -266,8 +266,12 @@ class SixtyDayProductGraph {
       dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
       dayWiseTimeWithDate = DateFormat('dd MMM').format(DateTime.parse(date!));
       monthWiseTime = DateFormat('MMM').format(DateTime.parse(date!));
+      print("+++++++++++++"+dayWiseTimeWithDate.toString());
+      
     }
+
   }
+
 
   double? floorPrice;
   String? creationTime;
