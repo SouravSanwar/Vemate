@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -26,21 +27,18 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
   late TooltipBehavior _tooltipBehavior;
   late TrackballBehavior _trackballBehavior;
   late CrosshairBehavior _crosshairBehavior;
-  GetData? getData;
 
   @override
   void initState() {
-    getData = Provider.of<GetData>(context, listen: false);
     _zoomPanBehavior = ZoomPanBehavior(
         enablePinching: true,
         zoomMode: ZoomMode.xy,
         enablePanning: true,
-       // enableSelectionZooming: true,
+        //enableSelectionZooming: true,
         maximumZoomLevel: 0.6);
     _tooltipBehavior = TooltipBehavior(
-
       enable: true,
-      format: getData!.sixtyDayGraphModel!.floorPrice.toString(),
+      // format: getData!.sixtyDayGraphModel!.floorPrice.toString(),
       header: "",
       tooltipPosition: TooltipPosition.auto,
       canShowMarker: false,
@@ -62,6 +60,7 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
         shouldAlwaysShow: true,
         tooltipSettings: const InteractiveTooltip(
           canShowMarker: false,
+          format: '1000',
           connectorLineColor: Colors.white,
           enable: true,
           color: Color(0xff00A7FF),
@@ -107,7 +106,27 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                       plotAreaBorderWidth: 0,
                       zoomPanBehavior: _zoomPanBehavior,
                       // tooltipBehavior: _tooltipBehavior,
-                      trackballBehavior: _trackballBehavior,
+                      trackballBehavior: TrackballBehavior(
+                          enable: true,
+                          lineWidth: 0,
+                          shouldAlwaysShow: true,
+                          builder: (context, tooltipSettings) {
+                            return Container(
+                              padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                     borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(color: const Color(0xff00A7FF)),
+                                    color: const Color(0xff00A7FF)),
+                                child: Text('${tooltipSettings.point?.dataLabelMapper}'));
+                          },
+                          tooltipSettings: const InteractiveTooltip(
+                            canShowMarker: false,
+                            connectorLineColor: Colors.white,
+                            enable: true,
+                            color: Color(0xff00A7FF),
+                          ),
+                          markerSettings: const TrackballMarkerSettings(
+                              markerVisibility: TrackballVisibilityMode.auto)),
                       primaryXAxis: CategoryAxis(
                         interactiveTooltip: const InteractiveTooltip(
                           enable: false,
@@ -138,7 +157,7 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                         //maximumLabels: 6
                       ),
                       primaryYAxis: NumericAxis(
-                        decimalPlaces: 4,
+                        decimalPlaces: 2,
                         numberFormat: NumberFormat.compact(),
                         interactiveTooltip: const InteractiveTooltip(
                           enable: false,
@@ -182,6 +201,8 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                                 xAxisName: 'Duration',
                                 yAxisName: 'Total',
                                 enableTooltip: true,
+                                dataLabelMapper: (plot, _) =>
+                                    plot.floorPriceString,
                                 dataLabelSettings: const DataLabelSettings(
                                   isVisible: false,
                                   angle: 270,
