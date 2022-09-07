@@ -249,6 +249,7 @@ class Original {
 class OneDayProductGraph {
   OneDayProductGraph({
     this.floorPrice,
+    this.floorPriceString,
     this.creationTime,
     this.date,
     this.hourWiseTime,
@@ -259,6 +260,7 @@ class OneDayProductGraph {
 
   OneDayProductGraph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
+    floorPriceString=floorPrice.toString();
     creationTime = json['creation_time'];
     date = json['date'];
     if (date != null) {
@@ -270,6 +272,7 @@ class OneDayProductGraph {
   }
 
   double? floorPrice;
+  String? floorPriceString;
   String? creationTime;
   String? date;
   String? hourWiseTime;

@@ -14,6 +14,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../core/Provider/getData.dart';
 
 import '../../../core/models/ComicsModel.dart';
+import 'package:intl/intl.dart';
 
 class ComicsItemCard extends StatefulWidget {
   final String? keyword;
@@ -335,8 +336,8 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                                   .start,
                                                           maximumLabels: 7,
                                                         ),
-                                                        primaryYAxis:
-                                                            CategoryAxis(
+                                                        primaryYAxis:NumericAxis(
+                                                          numberFormat: NumberFormat.compact(),
                                                           isVisible: false,
                                                           majorGridLines:
                                                               const MajorGridLines(

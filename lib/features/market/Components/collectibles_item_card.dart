@@ -12,6 +12,7 @@ import '../../../core/Provider/getData.dart';
 import '../../../core/models/CollectiblesModel.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
+import 'package:intl/intl.dart';
 
 class CollectiblesItemCard extends StatefulWidget {
   final String? keyword;
@@ -302,7 +303,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                       LabelAlignment.start,
                                                   maximumLabels: 7,
                                                 ),
-                                                primaryYAxis: CategoryAxis(
+                                                primaryYAxis: NumericAxis(
+                                                  numberFormat: NumberFormat.compact(),
                                                   isVisible: false,
                                                   majorGridLines:
                                                       const MajorGridLines(

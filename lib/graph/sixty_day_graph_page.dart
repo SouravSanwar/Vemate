@@ -8,6 +8,7 @@ import 'package:ketemaa/core/models/Graphs/sixty_day_graph_model.dart';
 import 'package:ketemaa/core/models/Graphs/thirty_day_graph_model.dart';
 import 'package:ketemaa/core/models/SingleProductModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/graph/components/no_graph_card.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,7 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
         zoomMode: ZoomMode.xy,
         enablePanning: true,
         //enableSelectionZooming: true,
+        enableDoubleTapZooming: true,
         maximumZoomLevel: 0.6);
     _tooltipBehavior = TooltipBehavior(
       enable: true,
@@ -48,8 +50,8 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
     _crosshairBehavior = CrosshairBehavior(
       enable: true,
       lineColor: const Color(0xff00A7FF),
-      lineDashArray: <double>[2, 2],
       lineWidth: 1,
+      lineDashArray: <double>[2, 2],
       lineType: CrosshairLineType.vertical,
       activationMode: ActivationMode.singleTap,
     );
@@ -114,12 +116,13 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                             return Container(
                               padding: EdgeInsets.all(5),
                                 decoration: BoxDecoration(
-                                     borderRadius: BorderRadius.circular(5),
+                                     borderRadius: BorderRadius.circular(7),
                                     border: Border.all(color: const Color(0xff00A7FF)),
                                     color: const Color(0xff00A7FF)),
-                                child: Text('${tooltipSettings.point?.dataLabelMapper}'));
+                                child: Text('${tooltipSettings.point?.dataLabelMapper}',style: TextStyle(fontSize: 12.sp),));
                           },
                           tooltipSettings: const InteractiveTooltip(
+                            decimalPlaces: 0,
                             canShowMarker: false,
                             connectorLineColor: Colors.white,
                             enable: true,
@@ -127,7 +130,10 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                           ),
                           markerSettings: const TrackballMarkerSettings(
                               markerVisibility: TrackballVisibilityMode.auto)),
+
+
                       primaryXAxis: CategoryAxis(
+
                         interactiveTooltip: const InteractiveTooltip(
                           enable: false,
                         ),
@@ -138,25 +144,29 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                         ),
                         majorTickLines: const MajorTickLines(width: 0),
                         axisLine: const AxisLine(width: 0),
-                        labelIntersectAction: AxisLabelIntersectAction.hide,
+                       // labelIntersectAction: AxisLabelIntersectAction.hide,
                         labelRotation: 0,
                         edgeLabelPlacement: EdgeLabelPlacement.shift,
                         labelStyle: TextStyle(
                           color: AppColors.textColor,
                           fontFamily: 'Inter',
-                          fontSize: 9.sp,
+                          fontSize: 8.sp,
                           fontStyle: FontStyle.italic,
                           //fontWeight: FontWeight.w900,
                         ),
-                        labelAlignment: LabelAlignment.end,
+                        labelAlignment: LabelAlignment.center,
                         labelPlacement:
                             data.sixtyDayGraphModel!.graph!.length == 1
                                 ? LabelPlacement.betweenTicks
                                 : LabelPlacement.onTicks,
-                        maximumLabelWidth: Get.width,
+                        maximumLabelWidth: 30,
                         //maximumLabels: 6
                       ),
+
+
                       primaryYAxis: NumericAxis(
+                        /*visibleMaximum: data.sixtyDayGraphModel!.graph![data.sixtyDayGraphModel!.graph!.length-1].floorPrice,
+                        visibleMinimum: data.sixtyDayGraphModel!.graph![0].floorPrice,*/
                         decimalPlaces: 2,
                         numberFormat: NumberFormat.compact(),
                         interactiveTooltip: const InteractiveTooltip(
@@ -169,7 +179,7 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                           width: 0,
                         ),
                         majorTickLines: const MajorTickLines(width: 0),
-                        labelIntersectAction: AxisLabelIntersectAction.hide,
+                       // labelIntersectAction: AxisLabelIntersectAction.hide,
                         labelRotation: 0,
                         labelStyle: TextStyle(
                             color: AppColors.textColor,

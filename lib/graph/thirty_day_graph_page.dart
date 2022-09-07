@@ -10,6 +10,7 @@ import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/graph/components/no_graph_card.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:intl/intl.dart';
 
 class ThirtyDayProductGraphPage extends StatefulWidget {
   const ThirtyDayProductGraphPage({Key? key}) : super(key: key);
@@ -31,10 +32,11 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
         enablePinching: true,
         zoomMode: ZoomMode.xy,
         enablePanning: true,
+        //enableSelectionZooming: true,
+        enableDoubleTapZooming: true,
         maximumZoomLevel: 0.6);
     _tooltipBehavior = TooltipBehavior(
       enable: true,
-      format: 'point.y',
       header: "",
       tooltipPosition: TooltipPosition.auto,
       canShowMarker: false,
@@ -101,7 +103,31 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                       plotAreaBorderWidth: 0,
                       zoomPanBehavior: _zoomPanBehavior,
                       // tooltipBehavior: _tooltipBehavior,
-                      trackballBehavior: _trackballBehavior,
+                      trackballBehavior: TrackballBehavior(
+                          enable: true,
+                          lineWidth: 0,
+                          shouldAlwaysShow: true,
+                          builder: (context, tooltipSettings) {
+                            return Container(
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7),
+                                    border: Border.all(
+                                        color: const Color(0xff00A7FF)),
+                                    color: const Color(0xff00A7FF)),
+                                child: Text(
+                                    '${tooltipSettings.point?.dataLabelMapper}',style: TextStyle(fontSize: 12.sp),));
+                          },
+                          tooltipSettings: const InteractiveTooltip(
+                            canShowMarker: false,
+                            connectorLineColor: Colors.white,
+                            enable: true,
+                            color: Color(0xff00A7FF),
+                          ),
+                          markerSettings: const TrackballMarkerSettings(
+                              markerVisibility: TrackballVisibilityMode.auto)),
+
+
                       primaryXAxis: CategoryAxis(
                         interactiveTooltip: const InteractiveTooltip(
                           enable: false,
@@ -113,25 +139,30 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                         ),
                         majorTickLines: const MajorTickLines(width: 0),
                         axisLine: const AxisLine(width: 0),
-                        labelIntersectAction: AxisLabelIntersectAction.hide,
+                        //labelIntersectAction: AxisLabelIntersectAction.hide,
                         labelRotation: 0,
                         edgeLabelPlacement: EdgeLabelPlacement.shift,
                         labelStyle: TextStyle(
                           color: AppColors.textColor,
                           fontFamily: 'Inter',
-                          fontSize: 9.sp,
+                          fontSize: 8.sp,
                           fontStyle: FontStyle.italic,
                           //fontWeight: FontWeight.w900,
                         ),
-                        labelAlignment: LabelAlignment.end,
+                        labelAlignment: LabelAlignment.center,
                         labelPlacement:
                             data.thirtyDayGraphModel!.graph!.length == 1
                                 ? LabelPlacement.betweenTicks
                                 : LabelPlacement.onTicks,
-                        maximumLabelWidth: Get.width,
+                        maximumLabelWidth: 30,
                         //maximumLabels: 6
                       ),
+
+
+
                       primaryYAxis: NumericAxis(
+                        decimalPlaces: 2,
+                        numberFormat: NumberFormat.compact(),
                         interactiveTooltip: const InteractiveTooltip(
                           enable: false,
                         ),
@@ -142,7 +173,7 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                           width: 0,
                         ),
                         majorTickLines: const MajorTickLines(width: 0),
-                        labelIntersectAction: AxisLabelIntersectAction.hide,
+                       // labelIntersectAction: AxisLabelIntersectAction.hide,
                         labelRotation: 0,
                         labelStyle: TextStyle(
                             color: AppColors.textColor,
@@ -174,6 +205,8 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                                 xAxisName: 'Duration',
                                 yAxisName: 'Total',
                                 enableTooltip: true,
+                                dataLabelMapper: (plot, _) =>
+                                    plot.floorPriceString,
                                 dataLabelSettings: const DataLabelSettings(
                                   isVisible: false,
                                   angle: 270,
