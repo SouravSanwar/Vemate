@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
-import '../../../core/models/VaultStatusModel.dart';
+import 'package:intl/intl.dart';
 
 class HomeVaultCard extends StatefulWidget {
 
@@ -196,7 +196,8 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       maximumLabels: 7,
                       labelPlacement: LabelPlacement.onTicks,
                     ),
-                    primaryYAxis: CategoryAxis(
+                    primaryYAxis: NumericAxis(
+                      numberFormat: NumberFormat.compact(),
                       axisLine: AxisLine(width: 0),
                       isVisible: false,
                       majorGridLines: const MajorGridLines(width: 0),

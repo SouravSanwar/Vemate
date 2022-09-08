@@ -18,6 +18,8 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../core/models/SetListModel.dart';
+import 'package:intl/intl.dart';
+
 
 class VaultComicsList extends StatefulWidget {
   const VaultComicsList({Key? key}) : super(key: key);
@@ -397,7 +399,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                       LabelAlignment.start,
                                                   maximumLabels: 7,
                                                 ),
-                                                primaryYAxis: CategoryAxis(
+                                                primaryYAxis: NumericAxis(
+                                                  numberFormat: NumberFormat.compact(),
                                                   isVisible: false,
                                                   majorGridLines:
                                                       const MajorGridLines(

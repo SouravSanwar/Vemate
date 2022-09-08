@@ -14,6 +14,7 @@ import 'package:ketemaa/graph/components/no_graph_card.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
 
 class SixtyDayProductGraphPage extends StatefulWidget {
   const SixtyDayProductGraphPage({Key? key}) : super(key: key);
@@ -165,8 +166,9 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
 
 
                       primaryYAxis: NumericAxis(
-                        /*visibleMaximum: data.sixtyDayGraphModel!.graph![data.sixtyDayGraphModel!.graph!.length-1].floorPrice,
-                        visibleMinimum: data.sixtyDayGraphModel!.graph![0].floorPrice,*/
+
+                        /*visibleMaximum:  data.sixtyDayGraphModel!.graph![data.sixtyDayGraphModel!.graph!.length-1].floorPrice,*/
+                        //visibleMinimum: data.sixtyDayGraphModel!.graph!.
                         decimalPlaces: 2,
                         numberFormat: NumberFormat.compact(),
                         interactiveTooltip: const InteractiveTooltip(
@@ -201,6 +203,7 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                                 yValueMapper: (plot, _) => plot.floorPrice,
                               )
                             : SplineAreaSeries<SixtyDayProductGraph, String>(
+
                                 dataSource: data.sixtyDayGraphModel!.graph!,
                                 borderColor: const Color(0xff2093D7),
                                 borderWidth: 1,

@@ -10,7 +10,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/models/CollectiblesModel.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'package:intl/intl.dart';
 import '../../../../core/utilities/app_colors/app_colors.dart';
 
 class VaultNewItemCard extends StatefulWidget {
@@ -125,7 +125,8 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                         labelAlignment: LabelAlignment.start,
                                         maximumLabels: 7,
                                       ),
-                                      primaryYAxis: CategoryAxis(
+                                      primaryYAxis: NumericAxis(
+                                        numberFormat: NumberFormat.compact(),
                                         isVisible: false,
                                         majorGridLines:
                                             const MajorGridLines(width: 0),

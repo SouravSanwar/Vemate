@@ -8,7 +8,7 @@ import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/core/models/WishListModel.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'package:intl/intl.dart';
 import '../../../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/Provider/getData.dart';
 import '../../market/presentation/collectible_details.dart';
@@ -275,7 +275,8 @@ class _MywishlistCardState extends State<MywishlistCard> {
                                             labelAlignment: LabelAlignment.start,
                                             maximumLabels: 7,
                                           ),
-                                          primaryYAxis: CategoryAxis(
+                                          primaryYAxis: NumericAxis(
+                                            numberFormat: NumberFormat.compact(),
                                             isVisible: false,
                                             majorGridLines: const MajorGridLines(width: 0),
                                             labelIntersectAction: AxisLabelIntersectAction.hide,

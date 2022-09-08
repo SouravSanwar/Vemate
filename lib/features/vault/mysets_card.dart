@@ -7,7 +7,7 @@ import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'package:intl/intl.dart';
 import '../../../../core/utilities/app_colors/app_colors.dart';
 import '../../core/Provider/getData.dart';
 import '../../core/models/SetListModel.dart';
@@ -393,7 +393,8 @@ class _MysetsCardState extends State<MysetsCard> {
                                                           LabelAlignment.start,
                                                       maximumLabels: 7,
                                                     ),
-                                                    primaryYAxis: CategoryAxis(
+                                                    primaryYAxis: NumericAxis(
+                                                      numberFormat: NumberFormat.compact(),
                                                       isVisible: false,
                                                       majorGridLines:
                                                           const MajorGridLines(

@@ -9,6 +9,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
 import '../../core/utilities/app_spaces/app_spaces.dart';
+import 'package:intl/intl.dart';
 
 class VaultCollectiblesCard extends StatefulWidget {
   final Collectible? data;
@@ -106,7 +107,8 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                       labelAlignment: LabelAlignment.start,
                                       maximumLabels: 7,
                                     ),
-                                    primaryYAxis: CategoryAxis(
+                                    primaryYAxis: NumericAxis(
+                                      numberFormat: NumberFormat.compact(),
                                       isVisible: false,
                                       majorGridLines:
                                           const MajorGridLines(width: 0),

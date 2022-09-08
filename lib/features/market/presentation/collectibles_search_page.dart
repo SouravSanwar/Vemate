@@ -17,6 +17,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../core/models/SearchCollectiblesModel.dart';
+import 'package:intl/intl.dart';
 
 class SearchCollectiblePage extends StatefulWidget {
   const SearchCollectiblePage({Key? key}) : super(key: key);
@@ -412,7 +413,8 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                           LabelAlignment.start,
                                           maximumLabels: 7,
                                         ),
-                                        primaryYAxis: CategoryAxis(
+                                        primaryYAxis: NumericAxis(
+                                          numberFormat: NumberFormat.compact(),
                                           isVisible: false,
                                           majorGridLines:
                                           const MajorGridLines(

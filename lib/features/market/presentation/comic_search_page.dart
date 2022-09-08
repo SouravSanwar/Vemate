@@ -15,7 +15,7 @@ import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'package:intl/intl.dart';
 import '../../../core/models/SearchComicsModel.dart';
 
 class SearchComicsPage extends StatefulWidget {
@@ -392,7 +392,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                           LabelAlignment.start,
                                           maximumLabels: 7,
                                         ),
-                                        primaryYAxis: CategoryAxis(
+                                        primaryYAxis: NumericAxis(
+                                          numberFormat: NumberFormat.compact(),
                                           isVisible: false,
                                           majorGridLines:
                                           const MajorGridLines(

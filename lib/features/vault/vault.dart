@@ -7,8 +7,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
-import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
+import 'package:intl/intl.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/features/vault/My%20Vault/my_sets_lists.dart';
 import 'package:ketemaa/features/vault/dropdown.dart';
@@ -267,7 +266,8 @@ class _VaultState extends State<Vault> {
                                 maximumLabels: 7,
                                 labelPlacement: LabelPlacement.onTicks,
                               ),
-                              primaryYAxis: CategoryAxis(
+                              primaryYAxis: NumericAxis(
+                                numberFormat: NumberFormat.compact(),
                                 isVisible: false,
                                 majorGridLines: const MajorGridLines(width: 0),
                                 labelIntersectAction:
