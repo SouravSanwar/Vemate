@@ -212,8 +212,7 @@ class _SetCardState extends State<SetCard> {
                 )
               : CachedNetworkImage(
                   imageUrl: widget
-                      .list!.setProductDetail!.image!.image_on_list!.src
-                      .toString(),
+                      .list!.setProductDetail!.image!.low_res_url.toString(),
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),

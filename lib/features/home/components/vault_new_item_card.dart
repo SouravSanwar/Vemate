@@ -241,8 +241,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                         ],
                       )
                     : CachedNetworkImage(
-                        imageUrl: widget.list![index].image!.image_on_list!.src
-                            .toString(),
+                        imageUrl: widget.list![index].image!.low_res_url.toString(),
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),

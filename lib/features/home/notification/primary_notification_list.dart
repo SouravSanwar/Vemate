@@ -152,10 +152,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                           imageUrl: data
                                               .notificationListModel!
                                               .results![index].target!
-                                              .image!
-                                              .imageList!
-                                              .src
-                                              .toString(),
+                                              .image!.low_res_url.toString(),
                                           imageBuilder:
                                               (context, imageProvider) =>
                                                   Container(

@@ -214,10 +214,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                       .notificationListModel!
                                                       .results![index]
                                                       .target!
-                                                      .image!
-                                                      .imageList!
-                                                      .src
-                                                      .toString(),
+                                                      .image!.low_res_url.toString(),
                                                   imageBuilder: (context,
                                                           imageProvider) =>
                                                       Container(

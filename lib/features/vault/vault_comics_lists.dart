@@ -165,10 +165,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     .setListModel!
                                                     .setResults![index]
                                                     .setProductDetail!
-                                                    .image!
-                                                    .image_on_list!
-                                                    .src
-                                                    .toString(),
+                                                    .image!.low_res_url.toString(),
                                                 imageBuilder:
                                                     (context, imageProvider) =>
                                                         Container(

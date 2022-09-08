@@ -122,10 +122,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                   imageUrl: data
                                                       .comicsModel!
                                                       .results![index]
-                                                      .image!
-                                                      .image_on_list!
-                                                      .src
-                                                      .toString(),
+                                                      .image!.low_res_url.toString(),
                                                   imageBuilder: (context,
                                                           imageProvider) =>
                                                       Container(

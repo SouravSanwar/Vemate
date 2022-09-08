@@ -157,10 +157,7 @@ class _SetListPageState extends State<SetListPage> {
                                             )
                                                 : CachedNetworkImage(
                                               imageUrl:
-                                              data.setListModel!.setResults![index].setProductDetail!.image!
-                                                  .image_on_list!
-                                                  .src
-                                                  .toString(),
+                                              data.setListModel!.setResults![index].setProductDetail!.image!.low_res_url.toString(),
                                               imageBuilder: (context,
                                                   imageProvider) =>
                                                   Container(

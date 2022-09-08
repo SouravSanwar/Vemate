@@ -148,9 +148,7 @@ class _WishListPageState extends State<WishListPage> {
                                                         fontWeight: FontWeight.bold),
                                                   )
                                                 : CachedNetworkImage(
-                                                    imageUrl: data.wishListModel!.results![index].productDetail!.image!
-                                                        .image_on_list!.src
-                                                        .toString(),
+                                                    imageUrl: data.wishListModel!.results![index].productDetail!.image!.low_res_url.toString(),
                                                     imageBuilder: (context, imageProvider) => Container(
                                                       decoration: BoxDecoration(
                                                         borderRadius: BorderRadius.circular(10),

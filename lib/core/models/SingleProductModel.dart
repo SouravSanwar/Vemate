@@ -163,16 +163,31 @@ class Image {
   Image({
     this.original,
     this.detail,
+    this.direction,
+    this.base_url,
+    this.low_res_url,
+    this.mid_res_url,
+    this.high_res_url,
   });
 
   Image.fromJson(dynamic json) {
     original =
         json['original'] != null ? Original.fromJson(json['original']) : null;
     detail = json['detail'] != null ? Detail.fromJson(json['detail']) : null;
+    direction = json['direction'] ;
+    base_url = json['base_url'] ;
+    low_res_url = json['low_res_url'] ;
+    mid_res_url = json['mid_res_url'] ;
+    high_res_url = json['high_res_url'] ;
   }
 
   Original? original;
   Detail? detail;
+  String? direction;
+  String? base_url;
+  String? low_res_url;
+  String? mid_res_url;
+  String? high_res_url;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -182,6 +197,11 @@ class Image {
     if (detail != null) {
       map['detail'] = detail?.toJson();
     }
+    map['direction'] = direction;
+    map['base_url'] = base_url;
+    map['low_res_url'] = low_res_url;
+    map['mid_res_url'] = mid_res_url;
+    map['high_res_url'] = high_res_url;
     return map;
   }
 }

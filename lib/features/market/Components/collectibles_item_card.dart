@@ -121,8 +121,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                     .collectiblesModel!
                                                     .results![index]
                                                     .image!
-                                                    .image_on_list!
-                                                    .src
+                                                    .low_res_url
                                                     .toString(),
                                                 imageBuilder:
                                                     (context, imageProvider) =>
@@ -304,7 +303,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   maximumLabels: 7,
                                                 ),
                                                 primaryYAxis: NumericAxis(
-                                                  numberFormat: NumberFormat.compact(),
+                                                  numberFormat:
+                                                      NumberFormat.compact(),
                                                   isVisible: false,
                                                   majorGridLines:
                                                       const MajorGridLines(

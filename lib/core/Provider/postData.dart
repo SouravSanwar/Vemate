@@ -44,109 +44,50 @@ class PostData extends ChangeNotifier with BaseController {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const LoadingDialogue(
-              message: "Please wait",
-            ));
+        builder: (_) =>
+        const LoadingDialogue(
+          message: "Please wait",
+        ));
 
     printInfo(info: body.toString());
 
     final response = await http.post(Uri.parse(Urls.signUp),
         body: json.encode(body), headers: requestHeaders);
 
-    var x = json.decode(response.body);
+    //var x = json.decode(response.body);
 
-    printInfo(info: x.toString());
+   // printInfo(info: x.toString());
 
-    Map<String, dynamic> js = x;
+    //Map<String, dynamic> js = x;
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
-      try {
-        if (js.containsKey('id')) {
-          Navigator.of(context).pop();
-          prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              'is_email_verified', js['is_email_verified'].toString());
-          prefs!.setString('email', js['email'].toString());
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (_) => ResponseMessage(
-                    icon: Icons.check_circle,
-                    color: AppColors.primaryColor,
-                    message: "Registration Successful",
-                  )).whenComplete(() {
-            js['is_email_verified'] == true
-                ? Get.to(() => const AuthInitialPage())
-                : Get.to(() => OtpPage());
-          });
 
-          printInfo(info: prefs!.getString('is_email_verified').toString());
-          // await Future.delayed(const Duration(seconds: 1));
-          // Navigator.of(context).pop();
-        } else {
-          Navigator.of(context).pop();
+      prefs = await SharedPreferences.getInstance();
 
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (_) => const ResponseMessage(
-                    icon: Icons.error,
-                    color: Colors.purpleAccent,
-                    message: "Invalid Information",
-                  ));
-        }
-      } catch (e) {
-        Navigator.of(context).pop();
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) => const ResponseMessage(
-                  icon: Icons.error,
-                  color: Colors.purpleAccent,
-                  message: "Something Went Wrong",
-                ));
-      }
+      Get.to(() => OtpPage());
+
     } else {
-      if (js.containsKey('email')) {
-        Navigator.of(context).pop();
+      Navigator.of(context).pop();
+      if(response.statusCode==400){
         showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (_) => ResponseMessage(
-                  icon: Icons.error,
-                  color: Colors.purpleAccent,
-                  message: js['email'][0].toString(),
-                ));
-      }
-      if (js.containsKey('nickname')) {
+            builder: (_) =>
+            const ResponseMessage(
+              icon: Icons.error,
+              color: Colors.purpleAccent,
+              message: "Username/Email Exist!",
+            ));
+        await Future.delayed(const Duration(seconds: 1));
         Navigator.of(context).pop();
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) => ResponseMessage(
-                  icon: Icons.error,
-                  color: Colors.purpleAccent,
-                  message: js['nickname'][0].toString(),
-                ));
       }
-      if (js.containsKey('password')) {
-        Navigator.of(context).pop();
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) => ResponseMessage(
-                  icon: Icons.error,
-                  color: Colors.purpleAccent,
-                  message: js['password'][0].toString(),
-                ));
-      }
+
+
+      notifyListeners();
     }
-    await Future.delayed(const Duration(seconds: 1));
-    Navigator.of(context).pop();
-    notifyListeners();
   }
 
   Future verifyCode(BuildContext context, var body) async {

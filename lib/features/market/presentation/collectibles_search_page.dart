@@ -218,10 +218,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                   imageUrl: data
                                       .searchCollectiblesModel!
                                       .results![index]
-                                      .image!
-                                      .image_on_list!
-                                      .src
-                                      .toString(),
+                                      .image!.low_res_url.toString(),
                                   imageBuilder:
                                       (context, imageProvider) =>
                                       Container(

@@ -14,6 +14,8 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 
 class OtpPage extends StatefulWidget {
+
+
   @override
   _OtpPageState createState() => _OtpPageState();
 }
@@ -70,8 +72,14 @@ class _OtpPageState extends State<OtpPage> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
             child: ListView(
               children: <Widget>[
                 const BackPreviousScreen(),
@@ -86,8 +94,8 @@ class _OtpPageState extends State<OtpPage> {
                         ? 'assets/media/image/vemate1.png'
                         : 'assets/media/image/vemate2.png',
                     fit: mode == 0
-                        ?BoxFit.cover
-                        :BoxFit.contain,
+                        ? BoxFit.cover
+                        : BoxFit.contain,
                   ),
                 ),
                 SizedBox(
@@ -106,7 +114,7 @@ class _OtpPageState extends State<OtpPage> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
+                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
                   child: RichText(
                     text: TextSpan(
                         text: "Enter the code sent to ",
@@ -119,7 +127,7 @@ class _OtpPageState extends State<OtpPage> {
                                   fontSize: 15.sp)),
                         ],
                         style:
-                            const TextStyle(color: Colors.white, fontSize: 15)),
+                        const TextStyle(color: Colors.white, fontSize: 15)),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -208,7 +216,9 @@ class _OtpPageState extends State<OtpPage> {
                         onPressed: () {
                           var body = {
                             "email": "${prefs!.getString('email')}",
+                            "user_checking": false,
                             "reason": "verify",
+
                           };
 
                           postData!.resendCode(context, body);
@@ -237,12 +247,20 @@ class _OtpPageState extends State<OtpPage> {
                         setState(() => hasError = true);
                       } else {
                         setState(
-                          () {
+                              () {
                             hasError = false;
 
                             var body = {
                               "email": "${prefs!.getString('email')}",
-                              "code": currentText
+                              "code": currentText,
+                              "user": {
+                                "nickname": "${prefs!.getString('nickname')}",
+                                "email": "${prefs!.getString('email')}",
+                                "gender": "0",
+                                "birth_year": "1852",
+                                "fcm_device_id": "3",
+                                "password": "${prefs!.getString('password')}",
+                              }
                             };
 
                             printInfo(info: body.toString());

@@ -173,6 +173,8 @@ class _SignUpState extends State<SignUp> {
                             width: Get.width * .9,
                             height: Get.height * .065,
                             onTap: () async {
+
+
                               var body = {
                                 "nickname":
                                     SignUpController.to.nameController.text,
@@ -181,13 +183,18 @@ class _SignUpState extends State<SignUp> {
                                 "birth_year": "1852",
                                 "fcm_device_id": "3",
                                 "password":
-                                    SignUpController.to.passwordController.text
+                                    SignUpController.to.passwordController.text,
+                                "user_creation": false
                               };
+
                               if (_formKey.currentState!.validate()) {
 
                                     postData!.signUp(context, body);
                               }
                               setState(() {
+                                prefs!.setString('nickname', SignUpController.to.nameController.text);
+                                prefs!.setString('email', SignUpController.to.emailController.text);
+                                prefs!.setString('password', SignUpController.to.passwordController.text);
                                 isValidPass=false;
                               });
                             },

@@ -124,7 +124,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           fontWeight: FontWeight.bold),
                                     )
                                   : CachedNetworkImage(
-                                      imageUrl: data.singleProductModel!.image!.original!.src.toString(),
+                                      imageUrl: data.singleProductModel!.image!.high_res_url.toString(),
                                       imageBuilder: (context, imageProvider) => Container(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),

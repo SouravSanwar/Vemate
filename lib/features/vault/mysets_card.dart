@@ -315,8 +315,7 @@ class _MysetsCardState extends State<MysetsCard> {
                             )
                             : CachedNetworkImage(
                                 imageUrl: data.setListModel!.setResults![index]
-                                    .setProductDetail!.image!.image_on_list!.src
-                                    .toString(),
+                                    .setProductDetail!.image!.low_res_url.toString(),
                                 imageBuilder: (context, imageProvider) =>
                                     Container(
                                         decoration: BoxDecoration(
