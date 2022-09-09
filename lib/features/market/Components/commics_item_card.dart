@@ -7,6 +7,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/widgets/image_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -92,53 +93,53 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                           MainAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
-                                          height: Get.height * .09,
-                                          width: Get.height * .078,
-                                          decoration: BoxDecoration(
-                                              color: AppColors.backgroundColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: AppColors
-                                                      .textBoxBgColor)),
-                                          alignment: Alignment.center,
-                                          child: data.comicsModel!
-                                                      .results![index].image ==
-                                                  null
-                                              ? Text(
-                                                  data.comicsModel!
-                                                      .results![index].name
-                                                      .toString()[0]
-                                                      .toUpperCase(),
-                                                  style: TextStyle(
-                                                      ////fontFamily: 'Inter',
-                                                      color: AppColors
-                                                          .backgroundColor,
-                                                      fontSize: 35,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                )
-                                              : CachedNetworkImage(
-                                                  imageUrl: data
-                                                      .comicsModel!
-                                                      .results![index]
-                                                      .image!.low_res_url.toString(),
-                                                  imageBuilder: (context,
-                                                          imageProvider) =>
-                                                      Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      image: DecorationImage(
-                                                        image: imageProvider,
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  placeholder: _loader,
-                                                ),
-                                        ),
+                                            height: Get.height * .09,
+                                            width: Get.height * .078,
+                                            decoration: BoxDecoration(
+                                                color:
+                                                    AppColors.backgroundColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: AppColors
+                                                        .textBoxBgColor)),
+                                            alignment: Alignment.center,
+                                            child: data
+                                                        .comicsModel!
+                                                        .results![index]
+                                                        .image ==
+                                                    null
+                                                ? FirstLetterImage(
+                                                    firstLetter: data
+                                                        .comicsModel!
+                                                        .results![index]
+                                                        .name
+                                                        .toString()[0]
+                                                        .toUpperCase(),
+                                                    fontsize: 35,
+                                                  )
+                                                : data
+                                                            .comicsModel!
+                                                            .results![index]
+                                                            .image!
+                                                            .low_res_url ==
+                                                        null
+                                                    ? VeVeLowImage(
+                                                        imageUrl: data
+                                                            .comicsModel!
+                                                            .results![index]
+                                                            .image!
+                                                            .image_on_list
+                                                            .toString(),
+                                                      )
+                                                    : VeVeLowImage(
+                                                        imageUrl: data
+                                                            .comicsModel!
+                                                            .results![index]
+                                                            .image!
+                                                            .low_res_url
+                                                            .toString(),
+                                                      )),
                                         AppSpaces.spaces_width_5,
                                         Expanded(
                                           flex: 7,
@@ -333,8 +334,11 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                                   .start,
                                                           maximumLabels: 7,
                                                         ),
-                                                        primaryYAxis:NumericAxis(
-                                                          numberFormat: NumberFormat.compact(),
+                                                        primaryYAxis:
+                                                            NumericAxis(
+                                                          numberFormat:
+                                                              NumberFormat
+                                                                  .compact(),
                                                           isVisible: false,
                                                           majorGridLines:
                                                               const MajorGridLines(
@@ -490,13 +494,6 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                         )))
               : const ColorLoader());
     });
-  }
-
-  Widget _loader(BuildContext context, String url) {
-    return const ImageIcon(
-      AssetImage('assets/media/icon/logo_v.png'),
-      color: Color(0xFF3A5A98),
-    );
   }
 
   Future<void> _onRefresh() async {

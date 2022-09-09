@@ -17,7 +17,7 @@ import 'package:ketemaa/features/home/components/home_vault_card.dart';
 import '../../../core/Provider/getData.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../components/image_slider.dart';
-import '../components/vault_new_item_card.dart';
+import '../components/New_Item_card/vault_new_item_card.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

@@ -103,10 +103,14 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                 bottom: Get.height * 0.01667),
                             child: Container(
                               height: data.singleProductModel!.image != null
-                                  ? data.singleProductModel!.image!.original!.height!.toDouble() * (Get.width * .0011)
+                                  ? data.singleProductModel!.image!.original!.height!.toDouble()<400
+                                  ?Get.height*.5
+                                  : data.singleProductModel!.image!.original!.height!.toDouble() * (Get.width * .0011)
                                   : Get.height * .3,
                               width: data.singleProductModel!.image != null
-                                  ? data.singleProductModel!.image!.original!.width!.toDouble() * (Get.width * .0011)
+                                  ?data.singleProductModel!.image!.original!.width!.toDouble()<200
+                                  ?Get.width*.8
+                              : data.singleProductModel!.image!.original!.width!.toDouble() * (Get.width * .0011)
                                   : Get.height * .5,
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(

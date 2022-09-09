@@ -10,6 +10,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/models/NotificationListModel.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/widgets/image_widgets.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -57,7 +58,7 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                             left: index == 0 ? 8 : 4.0,
                             right: index == 9 ? 8 : 4.0),
                         child: InkWell(
-                            onTap: ()  {
+                            onTap: () {
                               Map<String, String> requestHeadersWithToken = {
                                 'Content-type': 'application/json',
                                 'Accept': 'application/json',
@@ -125,49 +126,56 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
 
                                 ///Image
                                 Container(
-                                  height: 55.h,
-                                  width: 55.h,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.primaryColor
-                                          .withOpacity(.8),
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          color: AppColors.borderColor)),
-                                  alignment: Alignment.center,
-                                  child: data.notificationListModel!
-                                              .results![index].target!.image ==
-                                          null
-                                      ? Text(
-                                          data.notificationListModel!
-                                              .results![index].description
-                                              .toString()[0]
-                                              .toUpperCase(),
-                                          style: TextStyle(
-                                              color: AppColors.textColor,
-                                              fontFamily: 'Inter',
-                                              fontSize: 35,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : CachedNetworkImage(
-                                          imageUrl: data
-                                              .notificationListModel!
-                                              .results![index].target!
-                                              .image!.low_res_url.toString(),
-                                          imageBuilder:
-                                              (context, imageProvider) =>
-                                                  Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                          placeholder: _loader,
-                                        ),
-                                ),
+                                    height: 55.h,
+                                    width: 55.h,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.primaryColor
+                                            .withOpacity(.8),
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            color: AppColors.borderColor)),
+                                    alignment: Alignment.center,
+                                    child: data
+                                                .notificationListModel!
+                                                .results![index]
+                                                .target!
+                                                .image ==
+                                            null
+                                        ? FirstLetterImage(
+                                            firstLetter: data
+                                                .notificationListModel!
+                                                .results![index]
+                                                .description
+                                                .toString()[0]
+                                                .toUpperCase(),
+                                            fontsize: 35,
+                                          )
+                                        : data
+                                                    .notificationListModel!
+                                                    .results![index]
+                                                    .target!
+                                                    .image!
+                                                    .low_res_url ==
+                                                null
+                                            ? VeVeLowImage(
+                                                imageUrl: data
+                                                    .notificationListModel!
+                                                    .results![index]
+                                                    .target!
+                                                    .image!
+                                                    .image_on_list
+                                                    .toString(),
+                                              )
+                                            : VeVeLowImage(
+                                                imageUrl: data
+                                                    .notificationListModel!
+                                                    .results![index]
+                                                    .target!
+                                                    .image!
+                                                    .low_res_url
+                                                    .toString(),
+                                              )),
+
                                 SizedBox(
                                   width: Get.width * .02,
                                 ),
@@ -186,8 +194,8 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
                                         textAlign: TextAlign.left,
                                         maxLines: 3,
                                         overflow: TextOverflow.ellipsis,
-                                        style: Get.textTheme.bodyText2!
-                                            .copyWith(
+                                        style:
+                                            Get.textTheme.bodyText2!.copyWith(
                                                 color: AppColors.textColor,
                                                 //fontFamily: 'Inter',
                                                 fontWeight: FontWeight.w600,
@@ -232,9 +240,3 @@ class _PrimaryNotificationListState extends State<PrimaryNotificationList> {
   }
 }
 
-Widget _loader(BuildContext context, String url) {
-  return const ImageIcon(
-    AssetImage('assets/media/icon/logo_v.png'),
-    color: Color(0xFF3A5A98),
-  );
-}

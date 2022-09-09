@@ -14,6 +14,7 @@ import 'package:ketemaa/features/controller_page/controller/controller_page_cont
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/widgets/image_widgets.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -177,60 +178,57 @@ class _AllNotificationListState extends State<AllNotificationList> {
 
                                         ///Image
                                         Container(
-                                          height: 55.h,
-                                          width: 55.h,
-                                          decoration: BoxDecoration(
-                                              color: AppColors.primaryColor
-                                                  .withOpacity(.8),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color:
-                                                      AppColors.borderColor)),
-                                          alignment: Alignment.center,
-                                          child: data
-                                                      .notificationListModel!
-                                                      .results![index]
-                                                      .target!
-                                                      .image ==
-                                                  null
-                                              ? Text(
-                                                  data
-                                                      .notificationListModel!
-                                                      .results![index]
-                                                      .description
-                                                      .toString()[0]
-                                                      .toUpperCase(),
-                                                  style: TextStyle(
-                                                      color: AppColors
-                                                          .backgroundColor,
-                                                      fontFamily: 'Inter',
-                                                      fontSize: 35,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                )
-                                              : CachedNetworkImage(
-                                                  imageUrl: data
-                                                      .notificationListModel!
-                                                      .results![index]
-                                                      .target!
-                                                      .image!.low_res_url.toString(),
-                                                  imageBuilder: (context,
-                                                          imageProvider) =>
-                                                      Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      image: DecorationImage(
-                                                        image: imageProvider,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  placeholder: _loader,
-                                                ),
-                                        ),
+                                            height: 55.h,
+                                            width: 55.h,
+                                            decoration: BoxDecoration(
+                                                color: AppColors.primaryColor
+                                                    .withOpacity(.8),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color:
+                                                        AppColors.borderColor)),
+                                            alignment: Alignment.center,
+                                            child: data
+                                                        .notificationListModel!
+                                                        .results![index]
+                                                        .target!
+                                                        .image ==
+                                                    null
+                                                ? FirstLetterImage(
+                                                    firstLetter: data
+                                                        .notificationListModel!
+                                                        .results![index]
+                                                        .description
+                                                        .toString()[0]
+                                                        .toUpperCase(),
+                                                    fontsize: 35,
+                                                  )
+                                                : data
+                                                            .notificationListModel!
+                                                            .results![index]
+                                                            .target!
+                                                            .image!
+                                                            .low_res_url ==
+                                                        null
+                                                    ? VeVeLowImage(
+                                                        imageUrl: data
+                                                            .notificationListModel!
+                                                            .results![index]
+                                                            .target!
+                                                            .image!
+                                                            .image_on_list
+                                                            .toString(),
+                                                      )
+                                                    : VeVeLowImage(
+                                                        imageUrl: data
+                                                            .notificationListModel!
+                                                            .results![index]
+                                                            .target!
+                                                            .image!
+                                                            .low_res_url
+                                                            .toString(),
+                                                      )),
                                         SizedBox(
                                           width: Get.width * .02,
                                         ),
@@ -295,12 +293,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
     );
   }
 
-  Widget _loader(BuildContext context, String url) {
-    return const ImageIcon(
-      AssetImage('assets/media/icon/logo_v.png'),
-      color: Color(0xFF3A5A98),
-    );
-  }
+
 
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));

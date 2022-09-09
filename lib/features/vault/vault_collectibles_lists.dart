@@ -11,6 +11,7 @@ import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/features/market/widgets/image_widgets.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
@@ -145,44 +146,41 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                     .setProductDetail!
                                                     .image ==
                                                 null
-                                            ? Text(
-                                                data
-                                                    .setListModel!
-                                                    .setResults![index]
-                                                    .setProductDetail!
-                                                    .name
-                                                    .toString()[0]
-                                                    .toUpperCase(),
-                                                style: TextStyle(
-                                                    color: AppColors
-                                                        .backgroundColor,
-                                                    fontFamily: 'Inter',
-                                                    fontSize: 35,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
-                                            : CachedNetworkImage(
-                                                imageUrl: data
-                                                    .setListModel!
-                                                    .setResults![index]
-                                                    .setProductDetail!
-                                                    .image!.low_res_url.toString(),
-                                                imageBuilder:
-                                                    (context, imageProvider) =>
-                                                        Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    image: DecorationImage(
-                                                      image: imageProvider,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                                placeholder: _loader,
-                                              ),
-                                      ),
+                                            ? FirstLetterImage(
+                                          firstLetter: data
+                                              .setListModel!
+                                              .setResults![index]
+                                              .setProductDetail!
+                                              .name
+                                              .toString()[0]
+                                              .toUpperCase(),
+                                          fontsize: 35,
+                                        )
+                                            : data
+                                            .setListModel!
+                                            .setResults![index]
+                                            .setProductDetail!
+                                            .image!
+                                            .low_res_url ==
+                                            null
+                                            ? VeVeLowImage(
+                                          imageUrl: data
+                                              .setListModel!
+                                              .setResults![index]
+                                              .setProductDetail!
+                                              .image!
+                                              .image_on_list
+                                              .toString(),
+                                        )
+                                            : VeVeLowImage(
+                                          imageUrl:data
+                                              .setListModel!
+                                              .setResults![index]
+                                              .setProductDetail!
+                                              .image!
+                                              .low_res_url
+                                              .toString(),
+                                        )),
                                       AppSpaces.spaces_width_5,
                                       Expanded(
                                         flex: 7,
