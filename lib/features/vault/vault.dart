@@ -276,7 +276,6 @@ class _VaultState extends State<Vault> {
                                 labelAlignment: LabelAlignment.start,
                                 maximumLabels: 10,
                               ),
-                              tooltipBehavior: TooltipBehavior(enable: true),
                               series: <
                                   ChartSeries<VaultStatsModelGraph, String>>[
                                 SplineAreaSeries<VaultStatsModelGraph, String>(

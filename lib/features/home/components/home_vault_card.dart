@@ -207,7 +207,6 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       maximumLabels: 10,
 
                     ),
-                    tooltipBehavior: TooltipBehavior(enable: true),
                     series: <ChartSeries<HomeVaultModelGraph, String>>[
                       SplineAreaSeries<HomeVaultModelGraph, String>(
                         color: data.homeVaultModel!.sign! == 'decrease'

@@ -364,9 +364,6 @@ class _SetListPageState extends State<SetListPage> {
                                                       LabelAlignment.start,
                                                       maximumLabels: 10,
                                                     ),
-                                                    tooltipBehavior:
-                                                    TooltipBehavior(
-                                                        enable: true),
                                                     series: <
                                                         ChartSeries<Graph,
                                                             String>>[

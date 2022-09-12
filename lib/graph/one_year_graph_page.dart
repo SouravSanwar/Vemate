@@ -67,18 +67,7 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
         markerSettings: const TrackballMarkerSettings(
             markerVisibility: TrackballVisibilityMode.auto));
 
-    /*  crosshair behaviour kete diye ei portion er kaj korte hbe
 
-  _trackballBehavior =  TrackballBehavior(
-        enable: true,
-        lineType: TrackballLineType.vertical,
-        activationMode: ActivationMode.singleTap,
-        tooltipAlignment: ChartAlignment.center,
-        tooltipDisplayMode: TrackballDisplayMode.nearestPoint,
-        tooltipSettings: InteractiveTooltip(format: 'point.y'),
-        shouldAlwaysShow: false,
-        hideDelay: 2000
-    );*/
     super.initState();
   }
 

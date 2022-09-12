@@ -88,7 +88,6 @@ class _NewItemContainerState extends State<NewItemContainer> {
                     labelAlignment: LabelAlignment.start,
                     maximumLabels: 10,
                   ),
-                  tooltipBehavior: TooltipBehavior(enable: true),
                   series: widget.series),
             ),
             Row(

@@ -352,9 +352,6 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                                   .start,
                                                           maximumLabels: 10,
                                                         ),
-                                                        tooltipBehavior:
-                                                            TooltipBehavior(
-                                                                enable: true),
                                                         series: <
                                                             ChartSeries<Graph,
                                                                 String>>[
@@ -396,7 +393,8 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                                 children: [
                                                   Expanded(
                                                     child: Text(
-                                                      '\$${data.comicsModel!.results![index].priceChangePercent!.changePrice != null ? data.comicsModel!.results![index].priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
+                                                      '\$${data.comicsModel!.results![index].priceChangePercent!.changePrice != null
+                                                          ? data.comicsModel!.results![index].priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
                                                       textAlign:
                                                           TextAlign.start,
                                                       style: Get

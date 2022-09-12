@@ -66,7 +66,6 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
 
   @override
   Widget build(BuildContext context) {
-
     const StatusBar();
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
@@ -130,57 +129,57 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Container(
-                                        height: Get.height * .09,
-                                        width: Get.height * .078,
-                                        decoration: BoxDecoration(
-                                            color: AppColors.graphCard,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color:
-                                                    AppColors.textBoxBgColor)),
-                                        alignment: Alignment.center,
-                                        child: data
-                                                    .setListModel!
-                                                    .setResults![index]
-                                                    .setProductDetail!
-                                                    .image ==
-                                                null
-                                            ? FirstLetterImage(
-                                          firstLetter: data
-                                              .setListModel!
-                                              .setResults![index]
-                                              .setProductDetail!
-                                              .name
-                                              .toString()[0]
-                                              .toUpperCase(),
-                                          fontsize: 35,
-                                        )
-                                            : data
-                                            .setListModel!
-                                            .setResults![index]
-                                            .setProductDetail!
-                                            .image!
-                                            .low_res_url ==
-                                            null
-                                            ? VeVeLowImage(
-                                          imageUrl: data
-                                              .setListModel!
-                                              .setResults![index]
-                                              .setProductDetail!
-                                              .image!
-                                              .image_on_list
-                                              .toString(),
-                                        )
-                                            : VeVeLowImage(
-                                          imageUrl:data
-                                              .setListModel!
-                                              .setResults![index]
-                                              .setProductDetail!
-                                              .image!
-                                              .low_res_url
-                                              .toString(),
-                                        )),
+                                          height: Get.height * .09,
+                                          width: Get.height * .078,
+                                          decoration: BoxDecoration(
+                                              color: AppColors.graphCard,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                  color: AppColors
+                                                      .textBoxBgColor)),
+                                          alignment: Alignment.center,
+                                          child: data
+                                                      .setListModel!
+                                                      .setResults![index]
+                                                      .setProductDetail!
+                                                      .image ==
+                                                  null
+                                              ? FirstLetterImage(
+                                                  firstLetter: data
+                                                      .setListModel!
+                                                      .setResults![index]
+                                                      .setProductDetail!
+                                                      .name
+                                                      .toString()[0]
+                                                      .toUpperCase(),
+                                                  fontsize: 35,
+                                                )
+                                              : data
+                                                          .setListModel!
+                                                          .setResults![index]
+                                                          .setProductDetail!
+                                                          .image!
+                                                          .low_res_url ==
+                                                      null
+                                                  ? VeVeLowImage(
+                                                      imageUrl: data
+                                                          .setListModel!
+                                                          .setResults![index]
+                                                          .setProductDetail!
+                                                          .image!
+                                                          .image_on_list
+                                                          .toString(),
+                                                    )
+                                                  : VeVeLowImage(
+                                                      imageUrl: data
+                                                          .setListModel!
+                                                          .setResults![index]
+                                                          .setProductDetail!
+                                                          .image!
+                                                          .low_res_url
+                                                          .toString(),
+                                                    )),
                                       AppSpaces.spaces_width_5,
                                       Expanded(
                                         flex: 7,
@@ -396,7 +395,8 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                   maximumLabels: 7,
                                                 ),
                                                 primaryYAxis: NumericAxis(
-                                                  numberFormat: NumberFormat.compact(),
+                                                  numberFormat:
+                                                      NumberFormat.compact(),
                                                   isVisible: false,
                                                   majorGridLines:
                                                       const MajorGridLines(
@@ -409,9 +409,6 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                       LabelAlignment.start,
                                                   maximumLabels: 10,
                                                 ),
-                                                tooltipBehavior:
-                                                    TooltipBehavior(
-                                                        enable: true),
                                                 series: <
                                                     ChartSeries<Graph, String>>[
                                                   LineSeries<Graph, String>(
@@ -555,15 +552,20 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                 onTap: () {
                                                                   postData!
                                                                       .deleteSetList(
-                                                                    context,
-                                                                    data
-                                                                        .setListModel!
-                                                                        .setResults![
-                                                                            index]
-                                                                        .id,
-                                                                    requestHeadersWithToken,
-                                                                    'product__type=0',deleteset: 13
-                                                                  ).whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
+                                                                          context,
+                                                                          data
+                                                                              .setListModel!
+                                                                              .setResults![
+                                                                                  index]
+                                                                              .id,
+                                                                          requestHeadersWithToken,
+                                                                          'product__type=0',
+                                                                          deleteset:
+                                                                              13)
+                                                                      .whenComplete(() => Provider.of<GetData>(
+                                                                              context,
+                                                                              listen: false)
+                                                                          .getHomeVault());
                                                                 },
                                                                 text: 'Yes'
                                                                     .toUpperCase(),

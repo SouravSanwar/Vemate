@@ -44,47 +44,55 @@ class PostData extends ChangeNotifier with BaseController {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) =>
-        const LoadingDialogue(
-          message: "Please wait",
-        ));
+        builder: (_) => const LoadingDialogue(
+              message: "Please wait",
+            ));
 
     printInfo(info: body.toString());
 
     final response = await http.post(Uri.parse(Urls.signUp),
         body: json.encode(body), headers: requestHeaders);
 
-    //var x = json.decode(response.body);
+    var x = json.decode(response.body);
 
-   // printInfo(info: x.toString());
+    print(x.toString());
 
-    //Map<String, dynamic> js = x;
+    Map<String, dynamic> js = x;
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
-
       prefs = await SharedPreferences.getInstance();
 
       Get.to(() => OtpPage());
-
     } else {
       Navigator.of(context).pop();
-      if(response.statusCode==400){
+      if (js.containsKey('nickname')) {
         showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (_) =>
-            const ResponseMessage(
-              icon: Icons.error,
-              color: Colors.purpleAccent,
-              message: "Username/Email Exist!",
-            ));
+            builder: (_) =>  ResponseMessage(
+                  icon: Icons.error,
+                  color: Colors.purpleAccent,
+                  message: js['nickname'][0].toString(),
+                ));
+
         await Future.delayed(const Duration(seconds: 1));
         Navigator.of(context).pop();
       }
-
+      if (js.containsKey('email')) {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => ResponseMessage(
+                  icon: Icons.error,
+                  color: Colors.purpleAccent,
+                  message: js['email'][0].toString(),
+                ));
+        await Future.delayed(const Duration(seconds: 1));
+        Navigator.of(context).pop();
+      }
 
       notifyListeners();
     }
@@ -341,7 +349,7 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 201) {
       try {
         if (js['is_email_verified'] == true) {
-         // Navigator.of(context).pop();
+          // Navigator.of(context).pop();
           prefs = await SharedPreferences.getInstance();
           prefs!.setString('email', js['email'].toString());
 
@@ -397,10 +405,10 @@ class PostData extends ChangeNotifier with BaseController {
           context: context,
           barrierDismissible: false,
           builder: (_) => const ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: "Invalid Information",
-          ));
+                icon: Icons.error,
+                color: Colors.purpleAccent,
+                message: "Invalid Information",
+              ));
       /*if (js['username'] == null) {
         showDialog(
             context: context,
@@ -923,21 +931,19 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future PostFeedback(
-      BuildContext context, var body, var requestToken) async {
-    final response = await http.post(
-        Uri.parse(Urls.feedback),body: json.encode(body),
-        headers: requestToken);
+  Future PostFeedback(BuildContext context, var body, var requestToken) async {
+    final response = await http.post(Uri.parse(Urls.feedback),
+        body: json.encode(body), headers: requestToken);
     print("RESPONSE" + response.body.toString());
     if (response.statusCode == 201) {
       showDialog(
           context: context,
           barrierDismissible: false,
           builder: (_) => ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: "Feedback Submitted Successfully",
-          ));
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: "Feedback Submitted Successfully",
+              ));
       await Future.delayed(const Duration(seconds: 1));
       Navigator.of(context).pop();
     }
@@ -959,7 +965,6 @@ class PostData extends ChangeNotifier with BaseController {
     prefs!.setBool('is_2fa', mat['is_2fa']);
     prefs!.setBool("is_login", true);
     printInfo(info: prefs!.get('token').toString());
-
 
     //Get.offAll(() => ControllerPage());
 

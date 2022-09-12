@@ -10,16 +10,11 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/core/utilities/shimmer/loading.dart';
-import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
-import 'package:ketemaa/features/market/Components/category_card.dart';
-import 'package:another_flushbar/flushbar.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
 import 'package:ketemaa/graph/one_year_graph_page.dart';
 import 'package:ketemaa/graph/one_day_graph_page.dart';
 import 'package:ketemaa/graph/product_details_collectibles.dart';
 import 'package:ketemaa/graph/seven_day_graph_page.dart';
-import 'package:ketemaa/graph/single_product_graph.dart';
 import 'package:ketemaa/graph/sixty_day_graph_page.dart';
 import 'package:ketemaa/graph/thirty_day_graph_page.dart';
 import 'package:ketemaa/main.dart';
@@ -103,14 +98,14 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                 bottom: Get.height * 0.01667),
                             child: Container(
                               height: data.singleProductModel!.image != null
-                                  ? data.singleProductModel!.image!.original!.height!.toDouble()<400
-                                  ?Get.height*.5
-                                  : data.singleProductModel!.image!.original!.height!.toDouble() * (Get.width * .0011)
+                                  ? data.singleProductModel!.image!.direction=="PORTRAIT"
+                                  ?Get.height*.48
+                                  : Get.height*.36
                                   : Get.height * .3,
                               width: data.singleProductModel!.image != null
-                                  ?data.singleProductModel!.image!.original!.width!.toDouble()<200
-                                  ?Get.width*.8
-                              : data.singleProductModel!.image!.original!.width!.toDouble() * (Get.width * .0011)
+                                  ?data.singleProductModel!.image!.direction=="PORTRAIT"
+                                  ?Get.height*.36
+                              : Get.height*.48
                                   : Get.height * .5,
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
