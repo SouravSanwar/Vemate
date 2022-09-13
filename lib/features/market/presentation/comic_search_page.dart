@@ -11,6 +11,7 @@ import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
 import 'package:ketemaa/features/market/widgets/image_widgets.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
@@ -162,353 +163,60 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                               ),
                             );
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              width: Get.width,
-                              decoration: BoxDecoration(
-                                color: AppColors.graphCard,
-                                borderRadius: BorderRadius.circular(12.0),
-                                border:
-                                    Border.all(color: AppColors.textBoxBgColor),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                        height: Get.height * .09,
-                                        width: Get.height * .078,
-                                        decoration: BoxDecoration(
-                                          color: AppColors.graphCard,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        alignment: Alignment.center,
-                                        child: data
-                                            .setListModel!
-                                            .setResults![index]
-                                            .setProductDetail!
-                                            .image ==
-                                            null
-                                            ? FirstLetterImage(
-                                          firstLetter: data
-                                              .setListModel!
-                                              .setResults![index]
-                                              .setProductDetail!
-                                              .name
-                                              .toString()[0]
-                                              .toUpperCase(),
-                                          fontsize: 35,
-                                        )
-                                            : data
-                                            .setListModel!
-                                            .setResults![index]
-                                            .setProductDetail!
-                                            .image!
-                                            .low_res_url ==
-                                            null
-                                            ? VeVeLowImage(
-                                          imageUrl: data
-                                              .setListModel!
-                                              .setResults![index]
-                                              .setProductDetail!
-                                              .image!
-                                              .image_on_list
-                                              .toString(),
-                                        )
-                                            : VeVeLowImage(
-                                          imageUrl:data
-                                              .setListModel!
-                                              .setResults![index]
-                                              .setProductDetail!
-                                              .image!
-                                              .low_res_url
-                                              .toString(),
-                                        )),
-                                    AppSpaces.spaces_width_5,
-                                    Expanded(
-                                      flex: 7,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: <Widget>[
-                                              Expanded(
-                                                  flex: 5,
-                                                  child: SizedBox(
-                                                    height: Get.height * .02,
-                                                    child: Text(
-                                                      data.searchComicsModel!
-                                                          .results![index].name
-                                                          .toString(),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: Get
-                                                          .textTheme.bodyText2!
-                                                          .copyWith(
-                                                              color: AppColors
-                                                                  .textColor,
-                                                              //fontFamily: 'Inter',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontSize: 13.sp),
-                                                    ),
-                                                  )),
-                                              AppSpaces.spaces_width_2,
-                                              Expanded(
-                                                  flex: 3,
-                                                  child: Text(
-                                                    data.searchComicsModel!
-                                                        .results![index].edition
-                                                        .toString(),
-                                                    textAlign: TextAlign.start,
-                                                    style: Get
-                                                        .textTheme.bodyText1!
-                                                        .copyWith(
-                                                            color: AppColors
-                                                                .textColor,
-                                                            fontFamily: 'Inter',
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                            fontSize: 10.sp),
-                                                  )),
-                                            ],
-                                          ),
-                                          AppSpaces.spaces_height_10,
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(
-                                                  data.searchComicsModel!
-                                                      .results![index].series
-                                                      .toString(),
-                                                  textAlign: TextAlign.start,
-                                                  style: Get
-                                                      .textTheme.bodyText1!
-                                                      .copyWith(
-                                                          color: AppColors
-                                                              .textColor
-                                                              .withOpacity(0.8),
-                                                          fontFamily: 'Inter',
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          fontSize: 10.sp),
-                                                ),
-                                              ),
-                                              AppSpaces.spaces_width_2,
-                                              Expanded(
-                                                flex: 3,
-                                                child: Text(
-                                                  data.searchComicsModel!
-                                                      .results![index].rarity
-                                                      .toString(),
-                                                  textAlign: TextAlign.start,
-                                                  style: Get
-                                                      .textTheme.bodyText1!
-                                                      .copyWith(
-                                                          color: AppColors
-                                                              .textColor
-                                                              .withOpacity(0.8),
-                                                          //fontFamily: 'Inter',
-                                                          fontWeight:
-                                                              FontWeight.w300,
-                                                          fontSize: 10.sp),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          AppSpaces.spaces_height_10,
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(
-                                                  r"$" +
-                                                      data
-                                                          .searchComicsModel!
-                                                          .results![index]
-                                                          .floorPrice
-                                                          .toString(),
-                                                  textAlign: TextAlign.start,
-                                                  style: Get
-                                                      .textTheme.bodyText1!
-                                                      .copyWith(
-                                                          color: AppColors
-                                                              .textColor
-                                                              .withOpacity(0.8),
-                                                          //fontFamily: 'Inter',
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          fontSize: 11.sp),
-                                                ),
-                                              ),
-                                              AppSpaces.spaces_width_2,
-                                              const Expanded(
-                                                flex: 3,
-                                                child: Text(""),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 4,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            height: Get.height * .05,
-                                            child: SfCartesianChart(
-                                              plotAreaBorderWidth: 0,
-                                              primaryXAxis: CategoryAxis(
-                                                isVisible: false,
-                                                majorGridLines:
-                                                    const MajorGridLines(
-                                                        width: 0),
-                                                labelIntersectAction:
-                                                    AxisLabelIntersectAction
-                                                        .hide,
-                                                labelRotation: 270,
-                                                labelAlignment:
-                                                    LabelAlignment.start,
-                                                maximumLabels: 7,
-                                              ),
-                                              primaryYAxis: NumericAxis(
-                                                numberFormat:
-                                                    NumberFormat.compact(),
-                                                isVisible: false,
-                                                majorGridLines:
-                                                    const MajorGridLines(
-                                                        width: 0),
-                                                labelIntersectAction:
-                                                    AxisLabelIntersectAction
-                                                        .hide,
-                                                labelRotation: 0,
-                                                labelAlignment:
-                                                    LabelAlignment.start,
-                                                maximumLabels: 10,
-                                              ),
-                                              tooltipBehavior:
-                                                  TooltipBehavior(enable: true),
-                                              series: <
-                                                  ChartSeries<Graph, String>>[
-                                                LineSeries<Graph, String>(
-                                                  color: data
-                                                              .searchComicsModel!
-                                                              .results![index]
-                                                              .priceChangePercent!
-                                                              .sign ==
-                                                          'decrease'
-                                                      ? Colors.red
-                                                      : Colors.green,
-                                                  dataSource: data
-                                                      .searchComicsModel!
-                                                      .results![index]
-                                                      .graph!,
-                                                  xValueMapper:
-                                                      (Graph plot, _) =>
-                                                          plot.date,
-                                                  yValueMapper:
-                                                      (Graph plot, _) =>
-                                                          plot.floorPrice,
-                                                  xAxisName: 'Duration',
-                                                  yAxisName: 'Total',
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          AppSpaces.spaces_height_10,
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  '\$${data.searchComicsModel!.results![index].priceChangePercent!.changePrice != null ? data.searchComicsModel!.results![index].priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
-                                                  textAlign: TextAlign.start,
-                                                  style: Get
-                                                      .textTheme.bodyText1!
-                                                      .copyWith(
-                                                          color: AppColors
-                                                              .textColor
-                                                              .withOpacity(0.9),
-                                                          //fontFamily: 'Inter',
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          fontSize: 11.sp),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    Text(
-                                                      data
-                                                          .searchComicsModel!
-                                                          .results![index]
-                                                          .priceChangePercent!
-                                                          .percent!
-                                                          .toStringAsFixed(2),
-                                                      textAlign: TextAlign.end,
-                                                      style: Get
-                                                          .textTheme.bodyText1!
-                                                          .copyWith(
-                                                              color: data
-                                                                          .searchComicsModel!
-                                                                          .results![
-                                                                              index]
-                                                                          .priceChangePercent!
-                                                                          .sign ==
-                                                                      'decrease'
-                                                                  ? Colors.red
-                                                                  : Colors
-                                                                      .green,
-                                                              //fontFamily: 'Inter',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w300,
-                                                              fontSize: 10.sp),
-                                                    ),
-                                                    if (data
-                                                            .searchComicsModel!
-                                                            .results![index]
-                                                            .priceChangePercent!
-                                                            .sign ==
-                                                        'decrease')
-                                                      const Icon(
-                                                        Icons.arrow_downward,
-                                                        color: Colors.red,
-                                                        size: 12,
-                                                      )
-                                                    else
-                                                      const Icon(
-                                                        Icons.arrow_upward,
-                                                        color: Colors.green,
-                                                        size: 12,
-                                                      )
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                          child: ProductListContainer(
+                            checkImage: data.searchComicsModel!
+                                .results![index].image == null ? "" :data.searchComicsModel!
+                                .results![index].image.toString(),
+                            name: data.searchComicsModel!
+                                .results![index].name == null ? "" : data.searchComicsModel!
+                                .results![index].name!,
+                            lowResUrl: data.searchComicsModel!
+                                .results![index].image != null ? data.searchComicsModel!
+                                .results![index].image!.low_res_url! :"",
+                            scrappedImage:data.searchComicsModel!
+                                .results![index].image != null ? data.searchComicsModel!
+                                .results![index].image!.image_on_list
+                                .toString() :"",
+                            edition: data.searchComicsModel!
+                                .results![index].edition == null ? "" : data.searchComicsModel!
+                                .results![index].edition!,
+                            brand: data.searchComicsModel!
+                                .results![index].series == null ? "" :data.searchComicsModel!
+                                .results![index].series
+                                .toString(),
+
+                            brandName: data.searchComicsModel!
+                                .results![index].series == null ? "" : data.searchComicsModel!
+                                .results![index].series!,
+                            rarity: data.searchComicsModel!
+                                .results![index].rarity ==null ? "" :data.searchComicsModel!
+                                .results![index].rarity!,
+                            floorPrice: data.searchComicsModel!
+                                .results![index].floorPrice == null ? "" :data.searchComicsModel!
+                                .results![index].floorPrice!,
+                            series: <ChartSeries<Graph, String>>[
+                              LineSeries<Graph, String>(
+                                color: data.searchComicsModel!
+                                    .results![index]
+                                    .priceChangePercent!
+                                    .sign ==
+                                    'decrease'
+                                    ? Colors.red
+                                    : Colors.green,
+                                dataSource: data.searchComicsModel!
+                                    .results![index].graph!,
+                                xValueMapper: (Graph plot, _) =>
+                                plot.date,
+                                yValueMapper: (Graph plot, _) =>
+                                plot.floorPrice,
+                                xAxisName: 'Duration',
+                                yAxisName: 'Total',
+                              )
+                            ],
+                            changePrice: data.searchComicsModel!.results![index].priceChangePercent!.changePrice,
+                            pcpPercent: data.searchComicsModel!.results![index].priceChangePercent!.percent,
+                            pcpSign: data.searchComicsModel!.results![index].priceChangePercent!.sign! ,
+                          )
                         );
                       }))
               : ColorLoader(),

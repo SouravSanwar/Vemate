@@ -97,19 +97,17 @@ class _ComicDetailsState extends State<ComicDetails> {
                             Padding(
                               padding: EdgeInsets.only(
                                   top: 0,
-                                  right: Get.width * 0.05336,
-                                  left: Get.width * 0.05336,
+                                  right: 0,
+                                  left: 0,
                                   bottom: Get.height * 0.01667),
                               child: Container(
                                 height: data.singleProductModel!.image != null
                                     ? data.singleProductModel!.image!.direction=="PORTRAIT"
-                                    ?Get.height*.48
-                                    : Get.height*.36
+                                    ?Get.width*1.173
+                                    : Get.width*.66
                                     : Get.height * .3,
                                 width: data.singleProductModel!.image != null
-                                    ?data.singleProductModel!.image!.direction=="PORTRAIT"
-                                    ?Get.height*.36
-                                    : Get.height*.48
+                                    ?Get.width*.88
                                     : Get.height * .5,
                                 //height: Get.height * .5,
                                 padding: const EdgeInsets.all(2),
@@ -128,7 +126,9 @@ class _ComicDetailsState extends State<ComicDetails> {
                                             fontWeight: FontWeight.bold),
                                       )
                                     : CachedNetworkImage(
-                                        imageUrl: data.singleProductModel!.image!.high_res_url.toString(),
+                                        imageUrl:data.singleProductModel!.image!.high_res_url != null
+                                                ? data.singleProductModel!.image!.high_res_url.toString()
+                                                 : data.singleProductModel!.image!.original.toString(),
                                         imageBuilder: (context, imageProvider) => Container(
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10),
@@ -391,7 +391,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                       )
                     ];
                   },
-                  body: const GraphHelperComics(),
+                  body: const ProductDetailsComics(),
                 ),
               )
             : ColorLoader(),

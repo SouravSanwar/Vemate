@@ -499,6 +499,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                     ],
                                                   ),
                                                 ),
+
                                                 InkWell(
                                                   onTap: () {
                                                     showDialog(

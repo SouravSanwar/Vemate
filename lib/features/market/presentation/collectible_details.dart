@@ -93,19 +93,17 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                           Padding(
                             padding: EdgeInsets.only(
                                 top: 0,
-                                right: Get.width * 0.05336,
-                                left: Get.width * 0.05336,
+                                right: 10,
+                                left: 10,
                                 bottom: Get.height * 0.01667),
                             child: Container(
                               height: data.singleProductModel!.image != null
                                   ? data.singleProductModel!.image!.direction=="PORTRAIT"
-                                  ?Get.height*.48
-                                  : Get.height*.36
+                                  ?Get.width*1.173
+                                  : Get.width*.66
                                   : Get.height * .3,
                               width: data.singleProductModel!.image != null
-                                  ?data.singleProductModel!.image!.direction=="PORTRAIT"
-                                  ?Get.height*.36
-                              : Get.height*.48
+                                  ?Get.width*.88
                                   : Get.height * .5,
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
@@ -123,7 +121,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           fontWeight: FontWeight.bold),
                                     )
                                   : CachedNetworkImage(
-                                      imageUrl: data.singleProductModel!.image!.high_res_url.toString(),
+                                      imageUrl:data.singleProductModel!.image!.high_res_url != null
+                                           ? data.singleProductModel!.image!.high_res_url.toString()
+                                            : data.singleProductModel!.image!.original.toString(),
                                       imageBuilder: (context, imageProvider) => Container(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
@@ -380,7 +380,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                       ))
                     ];
                   },
-                  body: const ProductDetails(),
+                  body: const ProductDetailsCollectibles(),
                 ),
               )
             : const ColorLoader(),

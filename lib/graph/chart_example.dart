@@ -94,7 +94,7 @@ class _ChartExampleState extends State<ChartExample> {
               )
             ];
           },
-          body: const ProductDetails(),
+          body: const ProductDetailsCollectibles(),
         ),
       );
     });

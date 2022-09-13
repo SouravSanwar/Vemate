@@ -7,6 +7,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
 import 'package:ketemaa/features/market/widgets/image_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -86,399 +87,60 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                       ),
                                     );
                                   },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Container(
-                                            height: Get.height * .09,
-                                            width: Get.height * .078,
-                                            decoration: BoxDecoration(
-                                                color:
-                                                    AppColors.backgroundColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: AppColors
-                                                        .textBoxBgColor)),
-                                            alignment: Alignment.center,
-                                            child: data
-                                                        .comicsModel!
-                                                        .results![index]
-                                                        .image ==
-                                                    null
-                                                ? FirstLetterImage(
-                                                    firstLetter: data
-                                                        .comicsModel!
-                                                        .results![index]
-                                                        .name
-                                                        .toString()[0]
-                                                        .toUpperCase(),
-                                                    fontsize: 35,
-                                                  )
-                                                : data
-                                                            .comicsModel!
-                                                            .results![index]
-                                                            .image!
-                                                            .low_res_url ==
-                                                        null
-                                                    ? VeVeLowImage(
-                                                        imageUrl: data
-                                                            .comicsModel!
-                                                            .results![index]
-                                                            .image!
-                                                            .image_on_list
-                                                            .toString(),
-                                                      )
-                                                    : VeVeLowImage(
-                                                        imageUrl: data
-                                                            .comicsModel!
-                                                            .results![index]
-                                                            .image!
-                                                            .low_res_url
-                                                            .toString(),
-                                                      )),
-                                        AppSpaces.spaces_width_5,
-                                        Expanded(
-                                          flex: 7,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: <Widget>[
-                                                  Expanded(
-                                                      flex: 5,
-                                                      child: SizedBox(
-                                                        child: Text(
-                                                          data
-                                                              .comicsModel!
-                                                              .results![index]
-                                                              .name
-                                                              .toString(),
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: Get.textTheme
-                                                              .bodyText2!
-                                                              .copyWith(
-                                                                  color: AppColors
-                                                                      .textColor,
-                                                                  //fontFamily: 'Inter',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize:
-                                                                      13.sp),
-                                                        ),
-                                                      )),
-                                                  AppSpaces.spaces_width_2,
-                                                  Expanded(
-                                                    flex: 3,
-                                                    child: Text(
-                                                      data
-                                                          .comicsModel!
-                                                          .results![index]
-                                                          .edition
-                                                          .toString(),
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: Get
-                                                          .textTheme.bodyText1!
-                                                          .copyWith(
-                                                              color: AppColors
-                                                                  .textColor,
-                                                              //fontFamily: 'Inter',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w300,
-                                                              fontSize: 10.sp),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              AppSpaces.spaces_height_10,
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    flex: 5,
-                                                    child: data
-                                                                .comicsModel!
-                                                                .results![index]
-                                                                .series ==
-                                                            null
-                                                        ? const Text("")
-                                                        : Text(
-                                                            data
-                                                                .comicsModel!
-                                                                .results![index]
-                                                                .series
-                                                                .toString(),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            style: Get.textTheme
-                                                                .bodyText1!
-                                                                .copyWith(
-                                                                    color: AppColors
-                                                                        .textColor
-                                                                        .withOpacity(
-                                                                            0.8),
-                                                                    //fontFamily: 'Inter',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w900,
-                                                                    fontSize:
-                                                                        10.sp),
-                                                          ),
-                                                  ),
-                                                  AppSpaces.spaces_width_2,
-                                                  Expanded(
-                                                    flex: 3,
-                                                    child: Text(
-                                                      data
-                                                          .comicsModel!
-                                                          .results![index]
-                                                          .rarity
-                                                          .toString(),
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: Get
-                                                          .textTheme.bodyText1!
-                                                          .copyWith(
-                                                              color: AppColors
-                                                                  .textColor
-                                                                  .withOpacity(
-                                                                      0.8),
-                                                              //fontFamily: 'Inter',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w300,
-                                                              fontSize: 10.sp),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              AppSpaces.spaces_height_10,
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    flex: 5,
-                                                    child: Text(
-                                                      '\$' +
-                                                          data
-                                                              .comicsModel!
-                                                              .results![index]
-                                                              .floorPrice
-                                                              .toString(),
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: Get
-                                                          .textTheme.bodyText1!
-                                                          .copyWith(
-                                                              color: AppColors
-                                                                  .textColor
-                                                                  .withOpacity(
-                                                                      0.8),
-                                                              //fontFamily: 'Inter',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w900,
-                                                              fontSize: 11.sp),
-                                                    ),
-                                                  ),
-                                                  AppSpaces.spaces_width_2,
-                                                  const Expanded(
-                                                    flex: 3,
-                                                    child: Text(""),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        AppSpaces.spaces_width_2,
-                                        Expanded(
-                                          flex: 4,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                height: Get.height * .05,
-                                                child: data
-                                                            .comicsModel!
-                                                            .results![index]
-                                                            .graph ==
-                                                        null
-                                                    ? const Text("")
-                                                    : SfCartesianChart(
-                                                        plotAreaBorderWidth: 0,
-                                                        primaryXAxis:
-                                                            CategoryAxis(
-                                                          isVisible: false,
-                                                          majorGridLines:
-                                                              const MajorGridLines(
-                                                                  width: 0),
-                                                          labelIntersectAction:
-                                                              AxisLabelIntersectAction
-                                                                  .hide,
-                                                          labelRotation: 270,
-                                                          labelAlignment:
-                                                              LabelAlignment
-                                                                  .start,
-                                                          maximumLabels: 7,
-                                                        ),
-                                                        primaryYAxis:
-                                                            NumericAxis(
-                                                          numberFormat:
-                                                              NumberFormat
-                                                                  .compact(),
-                                                          isVisible: false,
-                                                          majorGridLines:
-                                                              const MajorGridLines(
-                                                                  width: 0),
-                                                          labelIntersectAction:
-                                                              AxisLabelIntersectAction
-                                                                  .hide,
-                                                          labelRotation: 0,
-                                                          labelAlignment:
-                                                              LabelAlignment
-                                                                  .start,
-                                                          maximumLabels: 10,
-                                                        ),
-                                                        series: <
-                                                            ChartSeries<Graph,
-                                                                String>>[
-                                                          LineSeries<Graph,
-                                                              String>(
-                                                            color: data
-                                                                        .comicsModel!
-                                                                        .results![
-                                                                            index]
-                                                                        .priceChangePercent!
-                                                                        .sign ==
-                                                                    'decrease'
-                                                                ? Colors.red
-                                                                : Colors.green,
-                                                            dataSource: data
-                                                                .comicsModel!
-                                                                .results![index]
-                                                                .graph!,
-                                                            xValueMapper:
-                                                                (Graph plot,
-                                                                        _) =>
-                                                                    plot.date,
-                                                            yValueMapper: (Graph
-                                                                        plot,
-                                                                    _) =>
-                                                                plot.floorPrice,
-                                                            xAxisName:
-                                                                'Duration',
-                                                            yAxisName: 'Total',
-                                                          )
-                                                        ],
-                                                      ),
-                                              ),
-                                              AppSpaces.spaces_height_10,
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      '\$${data.comicsModel!.results![index].priceChangePercent!.changePrice != null
-                                                          ? data.comicsModel!.results![index].priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: Get
-                                                          .textTheme.bodyText1!
-                                                          .copyWith(
-                                                              color: AppColors
-                                                                  .textColor
-                                                                  .withOpacity(
-                                                                      0.9),
-                                                              //fontFamily: 'Inter',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              fontSize: 11.sp),
-                                                    ),
-                                                  ),
-                                                  AppSpaces.spaces_width_2,
-                                                  Expanded(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        Text(
-                                                          data
-                                                                  .comicsModel!
-                                                                  .results![
-                                                                      index]
-                                                                  .priceChangePercent!
-                                                                  .percent!
-                                                                  .toStringAsFixed(
-                                                                      2) +
-                                                              "%",
-                                                          textAlign:
-                                                              TextAlign.end,
-                                                          style: Get.textTheme
-                                                              .bodyText1!
-                                                              .copyWith(
-                                                                  color: data
-                                                                              .comicsModel!
-                                                                              .results![
-                                                                                  index]
-                                                                              .priceChangePercent!
-                                                                              .sign ==
-                                                                          'decrease'
-                                                                      ? Colors
-                                                                          .red
-                                                                      : Colors
-                                                                          .green,
-                                                                  //fontFamily: 'Inter',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w300,
-                                                                  fontSize:
-                                                                      10.sp),
-                                                        ),
-                                                        if (data
-                                                                .comicsModel!
-                                                                .results![index]
-                                                                .priceChangePercent!
-                                                                .sign ==
-                                                            'decrease')
-                                                          const Icon(
-                                                            Icons
-                                                                .arrow_downward,
-                                                            color: Colors.red,
-                                                            size: 10,
-                                                          )
-                                                        else
-                                                          const Icon(
-                                                            Icons.arrow_upward,
-                                                            color: Colors.green,
-                                                            size: 10,
-                                                          )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  child: ProductListContainer(
+                                    checkImage: data.comicsModel!
+                                        .results![index].image == null ? "" :data.comicsModel!
+                                        .results![index].image.toString(),
+                                    name: data.comicsModel!
+                                        .results![index].name == null ? "" : data.comicsModel!
+                                        .results![index].name!,
+                                    lowResUrl: data.comicsModel!
+                                        .results![index].image != null ? data.comicsModel!
+                                        .results![index].image!.low_res_url! :"",
+                                    scrappedImage:data.comicsModel!
+                                        .results![index].image != null ? data.comicsModel!
+                                        .results![index].image!.image_on_list
+                                        .toString() :"",
+                                    edition: data.comicsModel!
+                                        .results![index].edition == null ? "" : data.comicsModel!
+                                        .results![index].edition!,
+                                    brand: data.comicsModel!
+                                        .results![index].series == null ? "" :data.comicsModel!
+                                        .results![index].series
+                                        .toString(),
+
+                                    brandName: data.comicsModel!
+                                        .results![index].series == null ? "" : data.comicsModel!
+                                        .results![index].series!,
+                                    rarity: data.comicsModel!
+                                        .results![index].rarity ==null ? "" :data.comicsModel!
+                                        .results![index].rarity!,
+                                    floorPrice: data.comicsModel!
+                                        .results![index].floorPrice == null ? "" :data.comicsModel!
+                                        .results![index].floorPrice!,
+                                    series: <ChartSeries<Graph, String>>[
+                                      LineSeries<Graph, String>(
+                                        color: data.comicsModel!
+                                            .results![index]
+                                            .priceChangePercent!
+                                            .sign ==
+                                            'decrease'
+                                            ? Colors.red
+                                            : Colors.green,
+                                        dataSource: data.comicsModel!
+                                            .results![index].graph!,
+                                        xValueMapper: (Graph plot, _) =>
+                                        plot.date,
+                                        yValueMapper: (Graph plot, _) =>
+                                        plot.floorPrice,
+                                        xAxisName: 'Duration',
+                                        yAxisName: 'Total',
+                                      )
+                                    ],
+                                    changePrice: data.comicsModel!.results![index].priceChangePercent!.changePrice,
+                                    pcpPercent: data.comicsModel!.results![index].priceChangePercent!.percent,
+                                    pcpSign: data.comicsModel!.results![index].priceChangePercent!.sign! ,
+                                  )
                                 ),
                               ),
                             );
