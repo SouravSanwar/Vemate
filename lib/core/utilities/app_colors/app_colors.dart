@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ketemaa/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AppColors extends ChangeNotifier {
   static Color primaryColor = const Color(0xffA984E5);

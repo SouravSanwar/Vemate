@@ -9,7 +9,6 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
@@ -500,6 +499,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                   ),
                                                 ),
                                                 InkWell(
+                                                  focusColor: Colors.transparent,
                                                   onTap: () {
                                                     showDialog(
                                                         context: context,

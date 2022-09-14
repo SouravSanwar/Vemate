@@ -1,14 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:glass_kit/glass_kit.dart';
-import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/features/home/components/New_Item_card/new_item_container.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:intl/intl.dart';
 import '../../../../core/utilities/app_colors/app_colors.dart';
 import '../../core/Provider/getData.dart';
 import '../../core/models/SetListModel.dart';

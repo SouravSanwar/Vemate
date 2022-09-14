@@ -19,6 +19,7 @@ import 'package:ketemaa/graph/sixty_day_graph_page.dart';
 import 'package:ketemaa/graph/thirty_day_graph_page.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
+import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
 
 class CollectibleDetails extends StatefulWidget {
   final int? productId;
@@ -55,6 +56,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
 
     getData!.checkWishlist(widget.productId!);
     getData!.checkSetList(widget.productId!);
+    getData!.getWishList();
   }
 
   @override
@@ -69,22 +71,62 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
           backgroundColor: AppColors.backgroundColor,
           title: Container(
             padding: EdgeInsets.symmetric(horizontal: Get.width * .03),
-            child: Text(
-              data.singleProductModel != null ? data.singleProductModel!.name.toString() : "",
-              style: TextStyle(
-                  color: AppColors.textColor,
-                  //fontFamily: 'Inter',
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold),
-              overflow: TextOverflow.ellipsis,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  data.singleProductModel != null
+                      ? data.singleProductModel!.name.toString()
+                      : "",
+                  style: TextStyle(
+                      color: AppColors.textColor,
+                      //fontFamily: 'Inter',
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                InkWell(
+                  focusColor: Colors.transparent,
+                onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (ctx) =>
+                          ShowAlertBox(
+                            results: data
+                                .wishListModel!
+                                .results![0],
+                          ),
+                    );
+                  },
+                  child: Container(
+                    child: Icon(
+                      Icons.notifications_none,
+                      color: AppColors.textColor,
+                    ),
+                    height: 35.h,
+                    width: 35.h,
+                    decoration: BoxDecoration(
+                      gradient: AppColors.onBoardGradient,
+                      border: Border.all(
+                          color: AppColors.grey, // set border color
+                          width: 1), // set border width
+                      borderRadius: BorderRadius.circular(
+                          12.0), // set rounded corner radius
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
         ),
         backgroundColor: AppColors.backgroundColor,
-        body: data.singleProductModel != null && data.checkSetCheck != null && data.checkWishlistModel != null
+        body: data.singleProductModel != null &&
+                data.checkSetCheck != null &&
+                data.checkWishlistModel != null
             ? SafeArea(
                 child: NestedScrollView(
-                  headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                  headerSliverBuilder:
+                      (BuildContext context, bool innerBoxIsScrolled) {
                     return <Widget>[
                       SliverToBoxAdapter(
                           child: Column(
@@ -98,22 +140,26 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                 bottom: Get.height * 0.01667),
                             child: Container(
                               height: data.singleProductModel!.image != null
-                                  ? data.singleProductModel!.image!.direction=="PORTRAIT"
-                                  ?Get.width*1.173
-                                  : Get.width*.66
+                                  ? data.singleProductModel!.image!.direction ==
+                                          "PORTRAIT"
+                                      ? Get.width * 1.173
+                                      : Get.width * .66
                                   : Get.height * .3,
                               width: data.singleProductModel!.image != null
-                                  ?Get.width*.88
+                                  ? Get.width * .88
                                   : Get.height * .5,
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                   gradient: AppColors.vaultCardGradient,
                                   borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: AppColors.primaryColor)),
+                                  border: Border.all(
+                                      color: AppColors.primaryColor)),
                               alignment: Alignment.center,
                               child: data.singleProductModel!.image == null
                                   ? Text(
-                                      data.singleProductModel!.name.toString()[0].toUpperCase(),
+                                      data.singleProductModel!.name
+                                          .toString()[0]
+                                          .toUpperCase(),
                                       style: const TextStyle(
                                           color: Colors.deepPurpleAccent,
                                           //fontFamily: 'Inter',
@@ -121,12 +167,20 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           fontWeight: FontWeight.bold),
                                     )
                                   : CachedNetworkImage(
-                                      imageUrl:data.singleProductModel!.image!.high_res_url != null
-                                           ? data.singleProductModel!.image!.high_res_url.toString()
-                                            : data.singleProductModel!.image!.original.toString(),
-                                      imageBuilder: (context, imageProvider) => Container(
+                                      imageUrl: data.singleProductModel!.image!
+                                                  .high_res_url !=
+                                              null
+                                          ? data.singleProductModel!.image!
+                                              .high_res_url
+                                              .toString()
+                                          : data.singleProductModel!.image!
+                                              .original
+                                              .toString(),
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           image: DecorationImage(
                                             image: imageProvider,
                                             fit: BoxFit.fill,
@@ -143,14 +197,20 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  var body = {"product": data.singleProductModel!.id, "type": 1};
-                                  Map<String, String> requestHeadersWithToken = {
+                                  var body = {
+                                    "product": data.singleProductModel!.id,
+                                    "type": 1
+                                  };
+                                  Map<String, String> requestHeadersWithToken =
+                                      {
                                     'Content-type': 'application/json',
                                     'Accept': 'application/json',
-                                    'Authorization': 'token ${prefs!.getString('token')}',
+                                    'Authorization':
+                                        'token ${prefs!.getString('token')}',
                                   };
 
-                                  if (data.checkWishlistModel!.isFound == false) {
+                                  if (data.checkWishlistModel!.isFound ==
+                                      false) {
                                     postData!.addToWishlist(
                                       context,
                                       body,
@@ -159,15 +219,17 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     );
                                   } else {
                                     if (data.wishListModel!.results!
-                                            .firstWhere(
-                                                (element) => element.productDetail!.id == data.singleProductModel!.id)
+                                            .firstWhere((element) =>
+                                                element.productDetail!.id ==
+                                                data.singleProductModel!.id)
                                             .alertData !=
                                         null) {
                                       postData!.deleteAlert(
                                           context,
                                           data.wishListModel!.results!
-                                              .firstWhere(
-                                                  (element) => element.productDetail!.id == data.singleProductModel!.id)
+                                              .firstWhere((element) =>
+                                                  element.productDetail!.id ==
+                                                  data.singleProductModel!.id)
                                               .alertData!
                                               .id,
                                           requestHeadersWithToken);
@@ -178,8 +240,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       context,
                                       alertCheck,
                                       data.wishListModel!.results!
-                                          .firstWhere(
-                                              (element) => element.productDetail!.id == data.singleProductModel!.id)
+                                          .firstWhere((element) =>
+                                              element.productDetail!.id ==
+                                              data.singleProductModel!.id)
                                           .id,
                                       requestHeadersWithToken,
                                     );
@@ -187,7 +250,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     data.checkWishlistModel!.isFound = false;
                                   }
 
-                                  await Future.delayed(const Duration(seconds: 1));
+                                  await Future.delayed(
+                                      const Duration(seconds: 1));
                                   Navigator.of(context).pop();
                                 },
                                 child: Container(
@@ -201,10 +265,12 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(10),
-                                    child: data.checkWishlistModel!.isFound == false
+                                    child: data.checkWishlistModel!.isFound ==
+                                            false
                                         ? AutoSizeText(
                                             'Add to Wishlist',
-                                            style: Get.textTheme.bodyMedium!.copyWith(
+                                            style: Get.textTheme.bodyMedium!
+                                                .copyWith(
                                               fontFamily: 'Inter',
                                             ),
                                             maxLines: 1,
@@ -212,7 +278,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           )
                                         : AutoSizeText(
                                             'Delete from Wishlist',
-                                            style: Get.textTheme.bodyMedium!.copyWith(
+                                            style: Get.textTheme.bodyMedium!
+                                                .copyWith(
                                               fontFamily: 'Inter',
                                             ),
                                             maxLines: 1,
@@ -224,11 +291,16 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                               AppSpaces.spaces_width_20,
                               InkWell(
                                 onTap: () async {
-                                  var body = {"product": data.singleProductModel!.id, "type": 0};
-                                  Map<String, String> requestHeadersWithToken = {
+                                  var body = {
+                                    "product": data.singleProductModel!.id,
+                                    "type": 0
+                                  };
+                                  Map<String, String> requestHeadersWithToken =
+                                      {
                                     'Content-type': 'application/json',
                                     'Accept': 'application/json',
-                                    'Authorization': 'token ${prefs!.getString('token')}',
+                                    'Authorization':
+                                        'token ${prefs!.getString('token')}',
                                   };
 
                                   if (data.checkSetCheck!.isFound == false) {
@@ -239,8 +311,10 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           data.singleProductModel!.id,
                                           requestHeadersWithToken,
                                         )
-                                        .whenComplete(() => getData!.getHomeVault());
-                                    await Future.delayed(const Duration(seconds: 1));
+                                        .whenComplete(
+                                            () => getData!.getHomeVault());
+                                    await Future.delayed(
+                                        const Duration(seconds: 1));
                                     Navigator.of(context).pop();
                                   } else {
                                     data.checkSetCheck!.isFound = false;
@@ -249,15 +323,20 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           context,
                                           data.setListModel!.setResults!
                                               .firstWhere((element) =>
-                                                  element.setProductDetail!.id == data.singleProductModel!.id)
+                                                  element
+                                                      .setProductDetail!.id ==
+                                                  data.singleProductModel!.id)
                                               .id,
                                           requestHeadersWithToken,
                                           'product__type=0',
                                         )
-                                        .whenComplete(
-                                            () => Provider.of<GetData>(context, listen: false).getHomeVault());
+                                        .whenComplete(() =>
+                                            Provider.of<GetData>(context,
+                                                    listen: false)
+                                                .getHomeVault());
 
-                                    await Future.delayed(const Duration(seconds: 1));
+                                    await Future.delayed(
+                                        const Duration(seconds: 1));
                                     Navigator.of(context).pop();
                                   }
                                 },
@@ -275,7 +354,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     child: data.checkSetCheck!.isFound == false
                                         ? AutoSizeText(
                                             'Add to Vault',
-                                            style: Get.textTheme.bodyMedium!.copyWith(
+                                            style: Get.textTheme.bodyMedium!
+                                                .copyWith(
                                               fontFamily: 'Inter',
                                             ),
                                             maxLines: 1,
@@ -283,7 +363,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           )
                                         : AutoSizeText(
                                             'Delete from Vault',
-                                            style: Get.textTheme.bodyMedium!.copyWith(
+                                            style: Get.textTheme.bodyMedium!
+                                                .copyWith(
                                               fontFamily: 'Inter',
                                             ),
                                             maxLines: 1,
@@ -325,7 +406,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     });
                                   },
                                   stepName: graphType[index].toString(),
-                                  selected: stepSelected == index ? true : false,
+                                  selected:
+                                      stepSelected == index ? true : false,
                                 ),
                               );
                             }),
@@ -334,7 +416,11 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                           ///Graph
                           Container(
                             alignment: Alignment.center,
-                            padding: EdgeInsets.only(top: Get.height * 0.0223, right: 10, left: 7, bottom: 0),
+                            padding: EdgeInsets.only(
+                                top: Get.height * 0.0223,
+                                right: 10,
+                                left: 7,
+                                bottom: 0),
                             width: Get.width,
                             child: FadeInUp(
                               duration: const Duration(milliseconds: 100),
@@ -366,7 +452,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                 bottom: Get.height * 0.0334),
                             child: Text(
                               data.singleProductModel != null
-                                  ? data.singleProductModel!.name.toString() + "'s Details"
+                                  ? data.singleProductModel!.name.toString() +
+                                      "'s Details"
                                   : "",
                               textAlign: TextAlign.left,
                               style: TextStyle(

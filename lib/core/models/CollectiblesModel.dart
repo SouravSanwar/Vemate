@@ -47,8 +47,9 @@ class Results {
     this.brand,
     this.rarity,
     this.floorPrice,
-    this.priceChangePercent,
-    this.graph,
+    /*this.priceChangePercent,
+    this.graph,*/
+    this.graphData,
     this.rarePoint,
     this.cpp,
   });
@@ -63,7 +64,10 @@ class Results {
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
     rarity = json['rarity'];
     floorPrice = json['floor_price'];
-    priceChangePercent = json['price_change_percent'] != null
+    graphData = json['graph_data'] != null
+        ? GraphData.fromJson(json['graph_data'])
+        : null;
+    /*priceChangePercent = json['price_change_percent'] != null
         ? PriceChangePercent.fromJson(json['price_change_percent'])
         : null;
     if (json['new_graph'] != null) {
@@ -71,8 +75,7 @@ class Results {
       json['new_graph'].forEach((v) {
         graph?.add(Graph.fromJson(v));
       });
-    }
-
+    }*/
   }
 
   int? id;
@@ -83,8 +86,10 @@ class Results {
   Brand? brand;
   String? rarity;
   String? floorPrice;
-  PriceChangePercent? priceChangePercent;
-  List<Graph>? graph;
+
+  /*PriceChangePercent? priceChangePercent;
+  List<Graph>? graph;*/
+  GraphData? graphData;
   int? rarePoint;
   double? cpp;
 
@@ -101,12 +106,13 @@ class Results {
     map['brand'] = brand;
     map['rarity'] = rarity;
     map['floor_price'] = floorPrice;
-    if (priceChangePercent != null) {
+    map['graph_data'] = graphData;
+    /* if (priceChangePercent != null) {
       map['price_change_percent'] = priceChangePercent?.toJson();
     }
     if (graph != null) {
       map['new_graph'] = graph?.map((v) => v.toJson()).toList();
-    }
+    }*/
     return map;
   }
 }
@@ -120,18 +126,20 @@ class Image {
     this.low_res_url,
     this.mid_res_url,
     this.high_res_url,
-
   });
 
   Image.fromJson(dynamic json) {
-    original = json['original'] != null ? Original.fromJson(json['original']) : null;
-    image_on_list = json['list'] != null ? ImageOnList.fromJson(json['list']) : null;
-    direction = json['direction'] ;
-    base_url = json['base_url'] ;
-    low_res_url = json['low_res_url'] ;
-    mid_res_url = json['mid_res_url'] ;
-    high_res_url = json['high_res_url'] ;
+    original =
+        json['original'] != null ? Original.fromJson(json['original']) : null;
+    image_on_list =
+        json['list'] != null ? ImageOnList.fromJson(json['list']) : null;
+    direction = json['direction'];
+    base_url = json['base_url'];
+    low_res_url = json['low_res_url'];
+    mid_res_url = json['mid_res_url'];
+    high_res_url = json['high_res_url'];
   }
+
   Original? original;
   ImageOnList? image_on_list;
   String? direction;
@@ -155,7 +163,6 @@ class Image {
     map['high_res_url'] = high_res_url;
     return map;
   }
-
 }
 
 class ImageOnList {
@@ -163,14 +170,16 @@ class ImageOnList {
     this.src,
     this.width,
     this.height,
-    this.alt,});
+    this.alt,
+  });
 
   ImageOnList.fromJson(dynamic json) {
-    src = 'https://market.vemate.com'+json['src'];
+    src = 'https://market.vemate.com' + json['src'];
     width = json['width'];
     height = json['height'];
     alt = json['alt'];
   }
+
   String? src;
   int? width;
   int? height;
@@ -184,7 +193,6 @@ class ImageOnList {
     map['alt'] = alt;
     return map;
   }
-
 }
 
 class Original {
@@ -192,14 +200,16 @@ class Original {
     this.src,
     this.width,
     this.height,
-    this.alt,});
+    this.alt,
+  });
 
   Original.fromJson(dynamic json) {
-    src = 'https://market.vemate.com'+json['src'];
+    src = 'https://market.vemate.com' + json['src'];
     width = json['width'];
     height = json['height'];
     alt = json['alt'];
   }
+
   String? src;
   int? width;
   int? height;
@@ -213,20 +223,21 @@ class Original {
     map['alt'] = alt;
     return map;
   }
-
 }
 
 class Graph {
   Graph({
     this.floorPrice,
     this.creationTime,
-    this.date,});
+    this.date,
+  });
 
   Graph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
     creationTime = json['creation_time'];
     date = json['date'];
   }
+
   double? floorPrice;
   String? creationTime;
   String? date;
@@ -238,31 +249,68 @@ class Graph {
     map['date'] = date;
     return map;
   }
-
 }
 
+class GraphData {
+  GraphData({
+    this.priceChangePercent,
+    this.graph,
+  });
+
+  GraphData.fromJson(dynamic json) {
+    priceChangePercent = json['price_change_percent'] != null
+        ? PriceChangePercent.fromJson(json['price_change_percent'])
+        : null;
+
+    if (json['graph'] != null) {
+      graph = [];
+      json['graph'].forEach((v) {
+        graph?.add(Graph.fromJson(v));
+      });
+    }
+
+    final Map<String, Graph> graphMap = {};
+    for (var item in graph!) {
+      graphMap[item.date!] = item;
+    }
+    graph = graphMap.values.toList();
+  }
+
+  PriceChangePercent? priceChangePercent;
+  List<Graph>? graph;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (priceChangePercent != null) {
+      map['price_change_percent'] = priceChangePercent?.toJson();
+    }
+    map['graph'] = graph;
+    return map;
+  }
+}
 
 class PriceChangePercent {
   PriceChangePercent({
     this.percent,
-    this.changePrice,
+    // this.changePrice,
     this.sign,
   });
 
   PriceChangePercent.fromJson(dynamic json) {
-    percent = double.parse(json['percent'].toString()).toPrecision(2);
-    changePrice = double.parse(json['changed_price'].toString()).toPrecision(2);
+    percent = double.parse(json['change_percent'].toString()).toPrecision(2);
+    // changePrice = double.parse(json['changed_price'].toString()).toPrecision(2);
     sign = json['sign'];
   }
 
   var percent;
-  var changePrice;
+
+  // var changePrice;
   String? sign;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['percent'] = percent;
-    map['changed_price'] = changePrice;
+    map['change_percent'] = percent;
+    // map['changed_price'] = changePrice;
     map['sign'] = sign;
     return map;
   }
@@ -271,12 +319,14 @@ class PriceChangePercent {
 class Brand {
   Brand({
     this.id,
-    this.name,});
+    this.name,
+  });
 
   Brand.fromJson(dynamic json) {
     id = json['id'];
-    name = json['name']??'';
+    name = json['name'] ?? '';
   }
+
   int? id;
   String? name;
 
@@ -286,5 +336,4 @@ class Brand {
     map['name'] = name;
     return map;
   }
-
 }

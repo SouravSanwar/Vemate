@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/Graphs/one_day_graph_model.dart';
-import 'package:ketemaa/core/models/Graphs/seven_day_graph_model.dart';
-import 'package:ketemaa/core/models/SingleProductModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/graph/components/no_graph_card.dart';
@@ -91,7 +89,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: data.oneDayGraphModel != null
-              ? data.oneDayGraphModel!.graph!.isEmpty
+              ? data.oneDayGraphModel!.graphData!.graph!.isEmpty
                   ? const NoGraphCard(
                       title: "No data for 24 hours!",
                     )
@@ -150,7 +148,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                         ),
                         labelAlignment: LabelAlignment.center,
                         labelPlacement:
-                            data.oneDayGraphModel!.graph!.length == 1
+                            data.oneDayGraphModel!.graphData!.graph!.length == 1
                                 ? LabelPlacement.betweenTicks
                                 : LabelPlacement.onTicks,
                         maximumLabelWidth: 30,
@@ -183,16 +181,16 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                         maximumLabelWidth: 40,
                       ),
                       series: <ChartSeries<OneDayProductGraph, String>>[
-                        data.oneDayGraphModel!.graph!.length == 1
+                        data.oneDayGraphModel!.graphData!.graph!.length == 1
                             ? ColumnSeries<OneDayProductGraph, String>(
                                 width: .01,
                                 gradient: AppColors.graphGradient,
-                                dataSource: data.oneDayGraphModel!.graph!,
+                                dataSource: data.oneDayGraphModel!.graphData!.graph!,
                                 xValueMapper: (plot, _) => plot.hourWiseTime,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                               )
                             : SplineAreaSeries<OneDayProductGraph, String>(
-                                dataSource: data.oneDayGraphModel!.graph!,
+                                dataSource: data.oneDayGraphModel!.graphData!.graph!,
                                 borderColor: const Color(0xff2093D7),
                                 borderWidth: 1,
                                 gradient: AppColors.graphGradient,

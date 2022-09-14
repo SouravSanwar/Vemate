@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 
-import 'package:ketemaa/core/utilities/shimmer/progress_bar.dart';
-
 class LoadingDialogue extends StatelessWidget {
   final String? message;
 

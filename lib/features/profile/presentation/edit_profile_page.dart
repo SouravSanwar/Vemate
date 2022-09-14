@@ -13,8 +13,6 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/Provider/postFile.dart';
 import 'package:ketemaa/core/models/ProfileModel.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
-import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
-import 'package:ketemaa/core/utilities/shimmer/progress_bar.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/features/profile/_controller/profile_controller.dart';

@@ -116,13 +116,13 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                             color: data
                                 .collectiblesModel!
                                 .results![index]
-                                .priceChangePercent!
+                                .graphData!.priceChangePercent!
                                 .sign ==
                                 'decrease'
                                 ? Colors.red
                                 : Colors.green,
                             dataSource: data.collectiblesModel!
-                                .results![index].graph!,
+                                .results![index].graphData!.graph!,
                             xValueMapper: (Graph plot, _) =>
                             plot.date,
                             yValueMapper: (Graph plot, _) =>
@@ -131,9 +131,10 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                             yAxisName: 'Total',
                           )
                         ],
-                        changePrice: data.collectiblesModel!.results![index].priceChangePercent!.changePrice,
-                        pcpPercent: data.collectiblesModel!.results![index].priceChangePercent!.percent,
-                        pcpSign: data.collectiblesModel!.results![index].priceChangePercent!.sign! ,
+                        // changePrice: data.collectiblesModel!.results![index].graphData!.priceChangePercent!.changePrice,
+                        changePrice: '',
+                        pcpPercent: data.collectiblesModel!.results![index].graphData!.priceChangePercent!.percent,
+                        pcpSign: data.collectiblesModel!.results![index].graphData!.priceChangePercent!.sign! ,
                       )
                   ),
                 ),

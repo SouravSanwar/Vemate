@@ -11,7 +11,6 @@ import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
-import 'package:ketemaa/core/utilities/common_widgets/social_login.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
@@ -24,9 +23,6 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../../core/utilities/common_widgets/password_input_field.dart';
 import '../../../../core/utilities/common_widgets/text_input_field.dart';
 import '../sign_in/_controller/sign_in_controller.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
-import 'dart:math';
 
 bool? isValidPass=true;
 class AuthInitialPage extends StatefulWidget {

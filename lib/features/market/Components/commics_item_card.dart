@@ -1,14 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
-import 'package:ketemaa/features/market/widgets/image_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -16,7 +11,6 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../core/Provider/getData.dart';
 
 import '../../../core/models/ComicsModel.dart';
-import 'package:intl/intl.dart';
 
 class ComicsItemCard extends StatefulWidget {
   final String? keyword;

@@ -2,18 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
-import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertFrequencyDropdown.dart';
-import 'package:ketemaa/features/vault/Wishlist/alert/alertTextfield.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertTypeDropDown.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alert_button.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/minFrequencyDropDown.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/min_button.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/mintTypeDropdown.dart';
-import 'package:ketemaa/main.dart';
 
 import '../../../../core/models/WishListModel.dart';
 

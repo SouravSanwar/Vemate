@@ -3,19 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
-import 'package:ketemaa/core/models/Graphs/seven_day_graph_model.dart';
 import 'package:ketemaa/core/models/Graphs/sixty_day_graph_model.dart';
-import 'package:ketemaa/core/models/Graphs/thirty_day_graph_model.dart';
-import 'package:ketemaa/core/models/SingleProductModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/graph/components/no_graph_card.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
-import 'dart:math';
-import 'dart:ffi';
 
 class SixtyDayProductGraphPage extends StatefulWidget {
   const SixtyDayProductGraphPage({Key? key}) : super(key: key);

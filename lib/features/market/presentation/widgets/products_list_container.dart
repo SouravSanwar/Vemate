@@ -9,7 +9,7 @@ import '../../../../core/utilities/app_colors/app_colors.dart';
 
 class ProductListContainer extends StatefulWidget {
   final String checkImage;
-  final String name;
+  final String? name ;
   final String lowResUrl;
   final String scrappedImage;
   final String edition;
@@ -25,7 +25,7 @@ class ProductListContainer extends StatefulWidget {
   const ProductListContainer(
       {Key? key,
       required this.checkImage,
-      required this.name,
+       this.name="",
       required this.lowResUrl,
       required this.scrappedImage,
       required this.edition,

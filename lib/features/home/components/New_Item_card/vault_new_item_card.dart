@@ -2,16 +2,11 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:glass_kit/glass_kit.dart';
-import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
-import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/models/CollectiblesModel.dart';
 import 'package:ketemaa/features/home/components/New_Item_card/new_item_container.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:intl/intl.dart';
 import '../../../../../core/utilities/app_colors/app_colors.dart';
 
 class VaultNewItemCard extends StatefulWidget {
@@ -79,12 +74,12 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                             name: widget.list![index].name.toString(),
                             series: <ChartSeries<Graph, String>>[
                               LineSeries<Graph, String>(
-                                color: widget.list![index].priceChangePercent!
+                                color: widget.list![index].graphData!.priceChangePercent!
                                             .sign ==
                                         'decrease'
                                     ? Colors.red
                                     : Colors.green,
-                                dataSource: widget.list![index].graph!,
+                                dataSource: widget.list![index].graphData!.graph!,
                                 xValueMapper: (Graph plot, _) => plot.date,
                                 yValueMapper: (Graph plot, _) =>
                                     plot.floorPrice,
@@ -95,9 +90,9 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                             floorPrice:
                                 widget.list![index].floorPrice.toString(),
                             pcpPercent:
-                                widget.list![index].priceChangePercent!.percent,
+                                widget.list![index].graphData!.priceChangePercent!.percent,
                             pcpSign: widget
-                                .list![index].priceChangePercent!.sign
+                                .list![index].graphData!.priceChangePercent!.sign
                                 .toString(),
                           )
                         ],
@@ -119,12 +114,12 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                               name: widget.list![index].name.toString(),
                               series: <ChartSeries<Graph, String>>[
                                 LineSeries<Graph, String>(
-                                  color: widget.list![index].priceChangePercent!
+                                  color: widget.list![index].graphData!.priceChangePercent!
                                               .sign ==
                                           'decrease'
                                       ? Colors.red
                                       : Colors.green,
-                                  dataSource: widget.list![index].graph!,
+                                  dataSource: widget.list![index].graphData!.graph!,
                                   xValueMapper: (Graph plot, _) => plot.date,
                                   yValueMapper: (Graph plot, _) =>
                                       plot.floorPrice,
@@ -135,9 +130,9 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                               floorPrice:
                                   widget.list![index].floorPrice.toString(),
                               pcpPercent: widget
-                                  .list![index].priceChangePercent!.percent,
+                                  .list![index].graphData!.priceChangePercent!.percent,
                               pcpSign: widget
-                                  .list![index].priceChangePercent!.sign
+                                  .list![index].graphData!.priceChangePercent!.sign
                                   .toString(),
                             )),
                       ),

@@ -132,6 +132,7 @@ class _HomeState extends State<Home> {
                               14.0,
                             ),
                             child: InkWell(
+                              focusColor: Colors.transparent,
                               onTap: () async {
                                 data.notificationListModel!.results!.isEmpty
                                     ? Get.to(() => const NoNotification())

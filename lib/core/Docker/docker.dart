@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 
 import 'docker_item.dart';
 

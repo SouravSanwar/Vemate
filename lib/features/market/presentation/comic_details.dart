@@ -1,5 +1,4 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:another_flushbar/flushbar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -11,19 +10,17 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/core/utilities/shimmer/loading.dart';
-import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
-import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
 import 'package:ketemaa/graph/one_day_graph_page.dart';
 import 'package:ketemaa/graph/one_year_graph_page.dart';
 import 'package:ketemaa/graph/product_details_comics.dart';
 import 'package:ketemaa/graph/seven_day_graph_page.dart';
-import 'package:ketemaa/graph/single_product_graph.dart';
 import 'package:ketemaa/graph/sixty_day_graph_page.dart';
 import 'package:ketemaa/graph/thirty_day_graph_page.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
+
+import '../../vault/Wishlist/alert/alert_box.dart';
 
 class ComicDetails extends StatefulWidget {
   final int? productId;
@@ -63,6 +60,7 @@ class _ComicDetailsState extends State<ComicDetails> {
 
     getData!.checkWishlist(widget.productId!);
     getData!.checkSetList(widget.productId!);
+    getData!.getWishList();
   }
 
   @override
@@ -77,10 +75,45 @@ class _ComicDetailsState extends State<ComicDetails> {
           backgroundColor: AppColors.backgroundColor,
           title: Container(
             padding: EdgeInsets.symmetric(horizontal: Get.width * .03),
-            child: Text(
-              data.singleProductModel != null ? data.singleProductModel!.name.toString() : "",
-              style: TextStyle(color: AppColors.textColor, fontSize: 18.sp, fontWeight: FontWeight.bold),
-              overflow: TextOverflow.ellipsis,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  data.singleProductModel != null ? data.singleProductModel!.name.toString() : "",
+                  style: TextStyle(color: AppColors.textColor, fontSize: 18.sp, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                InkWell(
+                  focusColor: Colors.transparent,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (ctx) =>
+                          ShowAlertBox(
+                            results: data
+                                .wishListModel!
+                                .results![0],
+                          ),
+                    );
+                  },
+                  child: Container(
+                    child: Icon(
+                      Icons.notifications_none,
+                      color: AppColors.textColor,
+                    ),
+                    height: 35.h,
+                    width: 35.h,
+                    decoration: BoxDecoration(
+                      gradient: AppColors.onBoardGradient,
+                      border: Border.all(
+                          color: AppColors.grey, // set border color
+                          width: 1), // set border width
+                      borderRadius: BorderRadius.circular(
+                          12.0), // set rounded corner radius
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
         ),
