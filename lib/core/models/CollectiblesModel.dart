@@ -63,9 +63,7 @@ class Results {
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
     rarity = json['rarity'];
     floorPrice = json['floor_price'];
-    priceChangePercent = json['price_change_percent'] != null
-        ? PriceChangePercent.fromJson(json['price_change_percent'])
-        : null;
+    priceChangePercent = json['price_change_percent'] != null ? PriceChangePercent.fromJson(json['price_change_percent']) : null;
     if (json['new_graph'] != null) {
       graph = [];
       json['new_graph'].forEach((v) {
@@ -228,8 +226,10 @@ class PriceChangePercent {
   });
 
   PriceChangePercent.fromJson(dynamic json) {
-    percent = double.parse(json['percent'].toString()).toPrecision(2);
-    changePrice = double.parse(json['changed_price'].toString()).toPrecision(2);
+    // percent = double.parse(json['percent'].toString()).toPrecision(2);
+    // changePrice = double.parse(json['changed_price'].toString()).toPrecision(2);
+    percent = 00.00;
+    changePrice = 00.00;
     sign = json['sign'];
   }
 

@@ -71,7 +71,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: 'getUserInfo: ' + data.toString());
+    //printInfo(info: 'getUserInfo: ' + data.toString());
 
     profileModel = ProfileModel.fromJson(data);
 
@@ -103,7 +103,7 @@ class GetData extends ChangeNotifier with BaseController {
         .catchError(handleError);
 
     var data = json.decode(response.toString());
-    //printInfo(info: data.toString());
+    ////printInfo(info: data.toString());
 
     if (collectiblesModel != null) {
       if (offset == 0) collectiblesModel!.results!.clear();
@@ -123,7 +123,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
 
     if (searchCollectiblesModel != null) {
       if (offset == 0) searchCollectiblesModel!.results!.clear();
@@ -227,7 +227,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
     singleProductModel = SingleProductModel.fromJson(data);
     notifyListeners();
   }
@@ -238,7 +238,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
 
     checkWishlistModel = CheckWishlistModel.fromJson(data);
 
@@ -262,7 +262,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
 
     if (wishListModel != null) {
       if (offset == 0) wishListModel!.results!.clear();
@@ -289,7 +289,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     setListModel = SetListModel.fromJson(data);
 
-    printInfo(info: 'Set Info: ' + setListModel!.setResults!.length.toString());
+    //printInfo(info: 'Set Info: ' + setListModel!.setResults!.length.toString());
 
     notifyListeners();
   }
@@ -298,11 +298,11 @@ class GetData extends ChangeNotifier with BaseController {
     vaultStatsModel = null;
     final response = await BaseClient().get(Urls.vaultStats + '?graph_type=$graphType').catchError(handleError);
 
-    printInfo(info: Urls.vaultStats + '?graph_type=$graphType');
+    //printInfo(info: Urls.vaultStats + '?graph_type=$graphType');
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
     vaultStatsModel = VaultStatsModel.fromJson(data);
 
     notifyListeners();
@@ -312,11 +312,11 @@ class GetData extends ChangeNotifier with BaseController {
     homeVaultModel = null;
     final response = await BaseClient().get(Urls.homeVault + '?graph_type=$graphType').catchError(handleError);
 
-    printInfo(info: Urls.homeVault + '?graph_type=$graphType');
+    //printInfo(info: Urls.homeVault + '?graph_type=$graphType');
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
     homeVaultModel = HomeVaultModel.fromJson(data);
 
     notifyListeners();
@@ -328,7 +328,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
     newsModel = NewsModel.fromJson(data);
 
     notifyListeners();
@@ -340,7 +340,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
 
     alertModel = AlertModel.fromJson(data);
 
@@ -352,7 +352,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
 
     if (notificationListModel != null) {
       if (offset == 0) notificationListModel!.results!.clear();

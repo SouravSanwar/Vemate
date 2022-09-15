@@ -10,6 +10,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../core/Provider/getData.dart';
 import '../../../core/models/CollectiblesModel.dart';
+import 'package:intl/intl.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
 
@@ -18,9 +19,7 @@ class CollectiblesItemCard extends StatefulWidget {
   final String? rarity;
   final String? mintNumber;
 
-  const CollectiblesItemCard(
-      {Key? key, this.keyword, this.rarity, this.mintNumber})
-      : super(key: key);
+  const CollectiblesItemCard({Key? key, this.keyword, this.rarity, this.mintNumber}) : super(key: key);
 
   @override
   State<CollectiblesItemCard> createState() => _CollectiblesItemCardState();
@@ -28,8 +27,7 @@ class CollectiblesItemCard extends StatefulWidget {
 
 class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
   int offset = 0;
-  RefreshController refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController refreshController = RefreshController(initialRefresh: false);
   final GlobalKey _contentKey = GlobalKey();
   final GlobalKey _refreshkey = GlobalKey();
 
@@ -66,8 +64,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                         itemCount: data.collectiblesModel!.results!.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
-                            padding: const EdgeInsets.only(
-                                top: 4, bottom: 4, left: 4, right: 4),
+                            padding: const EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 4),
                             child: Container(
                               width: Get.width,
                               decoration: BoxDecoration(
@@ -78,8 +75,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                 onTap: () {
                                   Get.to(
                                     () => CollectibleDetails(
-                                      productId: data.collectiblesModel!
-                                          .results![index].id,
+                                      productId: data.collectiblesModel!.results![index].id,
                                     ),
                                   );
                                 },
@@ -93,43 +89,27 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                         width: Get.height * .078,
                                         decoration: BoxDecoration(
                                             color: AppColors.backgroundColor,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color:
-                                                    AppColors.textBoxBgColor)),
+                                            borderRadius: BorderRadius.circular(10),
+                                            border: Border.all(color: AppColors.textBoxBgColor)),
                                         alignment: Alignment.center,
-                                        child: data.collectiblesModel!
-                                                    .results![index].image ==
-                                                null
+                                        child: data.collectiblesModel!.results![index].image == null
                                             ? Text(
-                                                data.collectiblesModel!
-                                                    .results![index].name
+                                                data.collectiblesModel!.results![index].name
                                                     .toString()[0]
                                                     .toUpperCase(),
                                                 style: TextStyle(
-                                                    color: AppColors
-                                                        .backgroundColor,
+                                                    color: AppColors.backgroundColor,
                                                     fontFamily: 'Inter',
                                                     fontSize: 35,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                    fontWeight: FontWeight.bold),
                                               )
                                             : CachedNetworkImage(
                                                 imageUrl: data
-                                                    .collectiblesModel!
-                                                    .results![index]
-                                                    .image!
-                                                    .image_on_list!
-                                                    .src
+                                                    .collectiblesModel!.results![index].image!.image_on_list!.src
                                                     .toString(),
-                                                imageBuilder:
-                                                    (context, imageProvider) =>
-                                                        Container(
+                                                imageBuilder: (context, imageProvider) => Container(
                                                   decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
+                                                    borderRadius: BorderRadius.circular(10),
                                                     image: DecorationImage(
                                                       image: imageProvider,
                                                       fit: BoxFit.cover,
@@ -143,8 +123,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       Expanded(
                                         flex: 7,
                                         child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Row(
                                               children: <Widget>[
@@ -152,44 +131,26 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                     flex: 5,
                                                     child: SizedBox(
                                                       child: Text(
-                                                        data
-                                                            .collectiblesModel!
-                                                            .results![index]
-                                                            .name
-                                                            .toString(),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style: Get.textTheme
-                                                            .bodyText2!
-                                                            .copyWith(
-                                                                color: AppColors
-                                                                    .textColor,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontSize:
-                                                                    13.sp),
+                                                        data.collectiblesModel!.results![index].name.toString(),
+                                                        overflow: TextOverflow.ellipsis,
+                                                        textAlign: TextAlign.start,
+                                                        style: Get.textTheme.bodyText2!.copyWith(
+                                                            color: AppColors.textColor,
+                                                            fontWeight: FontWeight.w600,
+                                                            fontSize: 13.sp),
                                                       ),
                                                     )),
                                                 AppSpaces.spaces_width_2,
                                                 Expanded(
                                                   flex: 3,
                                                   child: Text(
-                                                    data.collectiblesModel!
-                                                        .results![index].edition
-                                                        .toString(),
+                                                    data.collectiblesModel!.results![index].edition.toString(),
                                                     textAlign: TextAlign.start,
-                                                    style: Get
-                                                        .textTheme.bodyText1!
-                                                        .copyWith(
-                                                            color: AppColors
-                                                                .textColor,
-                                                            //fontFamily: 'Inter',
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                            fontSize: 10.sp),
+                                                    style: Get.textTheme.bodyText1!.copyWith(
+                                                        color: AppColors.textColor,
+                                                        //fontFamily: 'Inter',
+                                                        fontWeight: FontWeight.w300,
+                                                        fontSize: 10.sp),
                                                   ),
                                                 ),
                                               ],
@@ -200,47 +161,27 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                 Expanded(
                                                   flex: 5,
                                                   child: Text(
-                                                    data
-                                                                .collectiblesModel!
-                                                                .results![index]
-                                                                .brand !=
-                                                            null
-                                                        ? data
-                                                            .collectiblesModel!
-                                                            .results![index]
-                                                            .brand!
-                                                            .name
-                                                            .toString()
+                                                    data.collectiblesModel!.results![index].brand != null
+                                                        ? data.collectiblesModel!.results![index].brand!.name.toString()
                                                         : '',
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
+                                                    overflow: TextOverflow.ellipsis,
                                                     textAlign: TextAlign.start,
-                                                    style: Get
-                                                        .textTheme.bodyText1!
-                                                        .copyWith(
-                                                            color: AppColors
-                                                                .textColor,
-                                                            fontWeight:
-                                                                FontWeight.w900,
-                                                            fontSize: 10.sp),
+                                                    style: Get.textTheme.bodyText1!.copyWith(
+                                                        color: AppColors.textColor,
+                                                        fontWeight: FontWeight.w900,
+                                                        fontSize: 10.sp),
                                                   ),
                                                 ),
                                                 AppSpaces.spaces_width_2,
                                                 Expanded(
                                                   flex: 3,
                                                   child: Text(
-                                                    data.collectiblesModel!
-                                                        .results![index].rarity
-                                                        .toString(),
+                                                    data.collectiblesModel!.results![index].rarity.toString(),
                                                     textAlign: TextAlign.start,
-                                                    style: Get
-                                                        .textTheme.bodyText1!
-                                                        .copyWith(
-                                                            color: AppColors
-                                                                .textColor,
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                            fontSize: 10.sp),
+                                                    style: Get.textTheme.bodyText1!.copyWith(
+                                                        color: AppColors.textColor,
+                                                        fontWeight: FontWeight.w300,
+                                                        fontSize: 10.sp),
                                                   ),
                                                 ),
                                               ],
@@ -252,20 +193,12 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                   flex: 5,
                                                   child: Text(
                                                     r"$" +
-                                                        data
-                                                            .collectiblesModel!
-                                                            .results![index]
-                                                            .floorPrice
-                                                            .toString(),
+                                                        data.collectiblesModel!.results![index].floorPrice.toString(),
                                                     textAlign: TextAlign.start,
-                                                    style: Get
-                                                        .textTheme.bodyText1!
-                                                        .copyWith(
-                                                            color: AppColors
-                                                                .textColor,
-                                                            fontWeight:
-                                                                FontWeight.w900,
-                                                            fontSize: 11.sp),
+                                                    style: Get.textTheme.bodyText1!.copyWith(
+                                                        color: AppColors.textColor,
+                                                        fontWeight: FontWeight.w900,
+                                                        fontSize: 11.sp),
                                                   ),
                                                 ),
                                                 AppSpaces.spaces_width_2,
@@ -282,8 +215,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                       Expanded(
                                         flex: 4,
                                         child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             SizedBox(
                                               height: Get.height * .05,
@@ -291,54 +223,32 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                                 plotAreaBorderWidth: 0,
                                                 primaryXAxis: CategoryAxis(
                                                   isVisible: false,
-                                                  majorGridLines:
-                                                      const MajorGridLines(
-                                                          width: 0),
-                                                  labelIntersectAction:
-                                                      AxisLabelIntersectAction
-                                                          .hide,
+                                                  majorGridLines: const MajorGridLines(width: 0),
+                                                  labelIntersectAction: AxisLabelIntersectAction.hide,
                                                   labelRotation: 270,
-                                                  labelAlignment:
-                                                      LabelAlignment.start,
+                                                  labelAlignment: LabelAlignment.start,
                                                   maximumLabels: 7,
                                                 ),
-                                                primaryYAxis: CategoryAxis(
+                                                primaryYAxis: NumericAxis(
+                                                  numberFormat: NumberFormat.compact(),
                                                   isVisible: false,
-                                                  majorGridLines:
-                                                      const MajorGridLines(
-                                                          width: 0),
-                                                  labelIntersectAction:
-                                                      AxisLabelIntersectAction
-                                                          .hide,
+                                                  majorGridLines: const MajorGridLines(width: 0),
+                                                  labelIntersectAction: AxisLabelIntersectAction.hide,
                                                   labelRotation: 0,
-                                                  labelAlignment:
-                                                      LabelAlignment.start,
+                                                  labelAlignment: LabelAlignment.start,
                                                   maximumLabels: 10,
                                                 ),
-                                                tooltipBehavior:
-                                                    TooltipBehavior(
-                                                        enable: true),
-                                                series: <
-                                                    ChartSeries<Graph, String>>[
+                                                tooltipBehavior: TooltipBehavior(enable: true),
+                                                series: <ChartSeries<Graph, String>>[
                                                   LineSeries<Graph, String>(
-                                                    color: data
-                                                                .collectiblesModel!
-                                                                .results![index]
-                                                                .priceChangePercent!
+                                                    color: data.collectiblesModel!.results![index].priceChangePercent!
                                                                 .sign ==
                                                             'decrease'
                                                         ? Colors.red
                                                         : Colors.green,
-                                                    dataSource: data
-                                                        .collectiblesModel!
-                                                        .results![index]
-                                                        .graph!,
-                                                    xValueMapper:
-                                                        (Graph plot, _) =>
-                                                            plot.date,
-                                                    yValueMapper:
-                                                        (Graph plot, _) =>
-                                                            plot.floorPrice,
+                                                    dataSource: data.collectiblesModel!.results![index].graph!,
+                                                    xValueMapper: (Graph plot, _) => plot.date,
+                                                    yValueMapper: (Graph plot, _) => plot.floorPrice,
                                                     xAxisName: 'Duration',
                                                     yAxisName: 'Total',
                                                   )
@@ -347,64 +257,44 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                             ),
                                             AppSpaces.spaces_height_10,
                                             Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 Expanded(
                                                   child: Text(
                                                     '\$${data.collectiblesModel!.results![index].priceChangePercent!.changePrice != null ? data.collectiblesModel!.results![index].priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
                                                     textAlign: TextAlign.start,
-                                                    style: Get
-                                                        .textTheme.bodyText1!
-                                                        .copyWith(
-                                                            color: AppColors
-                                                                .textColor,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            fontSize: 10),
+                                                    style: Get.textTheme.bodyText1!.copyWith(
+                                                        color: AppColors.textColor,
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 10),
                                                   ),
                                                 ),
                                                 AppSpaces.spaces_width_2,
                                                 Expanded(
                                                   child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
+                                                    mainAxisAlignment: MainAxisAlignment.end,
                                                     children: [
                                                       Text(
-                                                        data
-                                                                .collectiblesModel!
-                                                                .results![index]
-                                                                .priceChangePercent!
+                                                        data.collectiblesModel!.results![index].priceChangePercent!
                                                                 .percent!
-                                                                .toStringAsFixed(
-                                                                    2) +
+                                                                .toStringAsFixed(2) +
                                                             "%",
-                                                        textAlign:
-                                                            TextAlign.end,
+                                                        textAlign: TextAlign.end,
                                                         style: Get.textTheme.bodyText1!.copyWith(
-                                                            color: data
-                                                                        .collectiblesModel!
-                                                                        .results![
-                                                                            index]
-                                                                        .priceChangePercent!
-                                                                        .sign ==
+                                                            color: data.collectiblesModel!.results![index]
+                                                                        .priceChangePercent!.sign ==
                                                                     'decrease'
                                                                 ? Colors.red
                                                                 : Colors.green,
-                                                            fontWeight:
-                                                                FontWeight.w300,
+                                                            fontWeight: FontWeight.w300,
                                                             fontSize: 10),
                                                       ),
-                                                      if (data
-                                                              .collectiblesModel!
-                                                              .results![index]
-                                                              .priceChangePercent!
+                                                      if (data.collectiblesModel!.results![index].priceChangePercent!
                                                               .sign ==
                                                           'decrease')
                                                         const Expanded(
                                                           child: Icon(
-                                                            Icons
-                                                                .arrow_downward,
+                                                            Icons.arrow_downward,
                                                             color: Colors.red,
                                                             size: 10,
                                                           ),
@@ -436,8 +326,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                     : Center(
                         child: Text(
                         'No Collectible Found',
-                        style: Get.textTheme.bodySmall!
-                            .copyWith(color: Colors.white),
+                        style: Get.textTheme.bodySmall!.copyWith(color: Colors.white),
                       )),
               )
             : const ColorLoader(),
