@@ -85,7 +85,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                       fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
                 ),
-                InkWell(
+               /* InkWell(
                   focusColor: Colors.transparent,
                 onTap: () {
                     showDialog(
@@ -114,7 +114,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                           12.0), // set rounded corner radius
                     ),
                   ),
-                )
+                )*/
               ],
             ),
           ),

@@ -120,13 +120,13 @@ class _SetCardState extends State<SetCard> {
                                 tooltipBehavior: TooltipBehavior(enable: true),
                                 series: <ChartSeries<Graph, String>>[
                                   LineSeries<Graph, String>(
-                                    color: widget.list!.setProductDetail!
+                                    color: widget.list!.setProductDetail!.graphData!
                                                 .priceChangePercent!.sign ==
                                             'decrease'
                                         ? Colors.red
                                         : Colors.green,
                                     dataSource:
-                                        widget.list!.setProductDetail!.graph!,
+                                        widget.list!.setProductDetail!.graphData!.graph!,
                                     xValueMapper: (Graph plot, _) => plot.date,
                                     yValueMapper: (Graph plot, _) =>
                                         plot.floorPrice,
@@ -160,15 +160,15 @@ class _SetCardState extends State<SetCard> {
                                       Text(
                                         widget
                                                     .list!
-                                                    .setProductDetail!
+                                                    .setProductDetail!.graphData!
                                                     .priceChangePercent!
                                                     .percent <
                                                 0.0
-                                            ? widget.list!.setProductDetail!
+                                            ? widget.list!.setProductDetail!.graphData!
                                                 .priceChangePercent!.percent
                                                 .toString()
                                             : "+" +
-                                                widget.list!.setProductDetail!
+                                                widget.list!.setProductDetail!.graphData!
                                                     .priceChangePercent!.percent
                                                     .toString(),
                                         textAlign: TextAlign.end,
@@ -176,7 +176,7 @@ class _SetCardState extends State<SetCard> {
                                             .copyWith(
                                                 color: widget
                                                             .list!
-                                                            .setProductDetail!
+                                                            .setProductDetail!.graphData!
                                                             .priceChangePercent!
                                                             .percent <
                                                         0.0
@@ -185,7 +185,7 @@ class _SetCardState extends State<SetCard> {
                                                 fontWeight: FontWeight.w300,
                                                 fontSize: 12.sp),
                                       ),
-                                      if (widget.list!.setProductDetail!
+                                      if (widget.list!.setProductDetail!.graphData!
                                               .priceChangePercent!.percent <
                                           0.0)
                                         const Icon(
@@ -271,13 +271,13 @@ class _SetCardState extends State<SetCard> {
                                 tooltipBehavior: TooltipBehavior(enable: true),
                                 series: <ChartSeries<Graph, String>>[
                                   LineSeries<Graph, String>(
-                                    color: widget.list!.setProductDetail!
+                                    color: widget.list!.setProductDetail!.graphData!
                                         .priceChangePercent!.sign ==
                                         'decrease'
                                         ? Colors.red
                                         : Colors.green,
                                     dataSource:
-                                    widget.list!.setProductDetail!.graph!,
+                                    widget.list!.setProductDetail!.graphData!.graph!,
                                     xValueMapper: (Graph plot, _) => plot.date,
                                     yValueMapper: (Graph plot, _) =>
                                     plot.floorPrice,
@@ -325,15 +325,15 @@ class _SetCardState extends State<SetCard> {
                                       Text(
                                         widget
                                                     .list!
-                                                    .setProductDetail!
+                                                    .setProductDetail!.graphData!
                                                     .priceChangePercent!
                                                     .percent <
                                                 0.0
-                                            ? widget.list!.setProductDetail!
+                                            ? widget.list!.setProductDetail!.graphData!
                                                 .priceChangePercent!.percent
                                                 .toString()
                                             : "+" +
-                                                widget.list!.setProductDetail!
+                                                widget.list!.setProductDetail!.graphData!
                                                     .priceChangePercent!.percent
                                                     .toString(),
                                         textAlign: TextAlign.end,
@@ -341,7 +341,7 @@ class _SetCardState extends State<SetCard> {
                                             .copyWith(
                                                 color: widget
                                                             .list!
-                                                            .setProductDetail!
+                                                            .setProductDetail!.graphData!
                                                             .priceChangePercent!
                                                             .percent <
                                                         0.0
@@ -351,7 +351,7 @@ class _SetCardState extends State<SetCard> {
                                                 fontWeight: FontWeight.w300,
                                                 fontSize: 12.sp),
                                       ),
-                                      if (widget.list!.setProductDetail!
+                                      if (widget.list!.setProductDetail!.graphData!
                                               .priceChangePercent!.percent <
                                           0.0)
                                         const Icon(

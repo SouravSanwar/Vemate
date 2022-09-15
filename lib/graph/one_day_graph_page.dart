@@ -147,11 +147,11 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                           //fontWeight: FontWeight.w900,
                         ),
                         labelAlignment: LabelAlignment.center,
+                        labelIntersectAction: AxisLabelIntersectAction.wrap,
                         labelPlacement:
                             data.oneDayGraphModel!.graphData!.graph!.length == 1
                                 ? LabelPlacement.betweenTicks
                                 : LabelPlacement.onTicks,
-                        maximumLabelWidth: 30,
                         //maximumLabels: 6
                       ),
 

@@ -52,11 +52,11 @@ class PostData extends ChangeNotifier with BaseController {
     final response = await http.post(Uri.parse(Urls.signUp),
         body: json.encode(body), headers: requestHeaders);
 
-    var x = json.decode(response.body);
+    //var x = json.decode(response.body);
 
-    print(x.toString());
+   //print(x.toString());
 
-    Map<String, dynamic> js = x;
+   // Map<String, dynamic> js = x;
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
         response.statusCode == 403 ||
@@ -66,6 +66,13 @@ class PostData extends ChangeNotifier with BaseController {
 
       Get.to(() => OtpPage());
     } else {
+
+      var x = json.decode(response.body);
+
+       print(x.toString());
+
+       Map<String, dynamic> js = x;
+
       Navigator.of(context).pop();
       if (js.containsKey('nickname')) {
         showDialog(

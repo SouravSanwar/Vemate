@@ -131,8 +131,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                             yAxisName: 'Total',
                           )
                         ],
-                        // changePrice: data.collectiblesModel!.results![index].graphData!.priceChangePercent!.changePrice,
-                        changePrice: '',
+                        changePrice: data.collectiblesModel!.results![index].graphData!.priceChangePercent!.changePrice,
                         pcpPercent: data.collectiblesModel!.results![index].graphData!.priceChangePercent!.percent,
                         pcpSign: data.collectiblesModel!.results![index].graphData!.priceChangePercent!.sign! ,
                       )

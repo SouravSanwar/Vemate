@@ -292,25 +292,26 @@ class GraphData {
 class PriceChangePercent {
   PriceChangePercent({
     this.percent,
-    // this.changePrice,
+    this.changePrice,
     this.sign,
   });
 
   PriceChangePercent.fromJson(dynamic json) {
+
     percent = double.parse(json['change_percent'].toString()).toPrecision(2);
-    // changePrice = double.parse(json['changed_price'].toString()).toPrecision(2);
+    changePrice = double.parse(json['changed_price'].toString()).toPrecision(2);
     sign = json['sign'];
   }
 
   var percent;
 
-  // var changePrice;
+  var changePrice;
   String? sign;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['change_percent'] = percent;
-    // map['changed_price'] = changePrice;
+    map['changed_price'] = changePrice;
     map['sign'] = sign;
     return map;
   }

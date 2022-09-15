@@ -201,14 +201,14 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                             series: <ChartSeries<Graph, String>>[
                               LineSeries<Graph, String>(
                                 color: data.searchCollectiblesModel!
-                                    .results![index]
+                                    .results![index].graphData!
                                     .priceChangePercent!
                                     .sign ==
                                     'decrease'
                                     ? Colors.red
                                     : Colors.green,
                                 dataSource: data.searchCollectiblesModel!
-                                    .results![index].graph!,
+                                    .results![index].graphData!.graph!,
                                 xValueMapper: (Graph plot, _) =>
                                 plot.date,
                                 yValueMapper: (Graph plot, _) =>
@@ -217,9 +217,9 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                 yAxisName: 'Total',
                               )
                             ],
-                            changePrice: data.searchCollectiblesModel!.results![index].priceChangePercent!.cp,
-                            pcpPercent: data.searchCollectiblesModel!.results![index].priceChangePercent!.percent,
-                            pcpSign: data.searchCollectiblesModel!.results![index].priceChangePercent!.sign! ,
+                            changePrice: data.searchCollectiblesModel!.results![index].graphData!.priceChangePercent!.changePrice,
+                            pcpPercent: data.searchCollectiblesModel!.results![index].graphData!.priceChangePercent!.percent,
+                            pcpSign: data.searchCollectiblesModel!.results![index].graphData!.priceChangePercent!.sign! ,
                           )
                         );
                       }))

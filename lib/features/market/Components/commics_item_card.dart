@@ -115,14 +115,14 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                     series: <ChartSeries<Graph, String>>[
                                       LineSeries<Graph, String>(
                                         color: data.comicsModel!
-                                            .results![index]
+                                            .results![index].graphData!
                                             .priceChangePercent!
                                             .sign ==
                                             'decrease'
                                             ? Colors.red
                                             : Colors.green,
                                         dataSource: data.comicsModel!
-                                            .results![index].graph!,
+                                            .results![index].graphData!.graph!,
                                         xValueMapper: (Graph plot, _) =>
                                         plot.date,
                                         yValueMapper: (Graph plot, _) =>
@@ -131,9 +131,9 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                         yAxisName: 'Total',
                                       )
                                     ],
-                                    changePrice: data.comicsModel!.results![index].priceChangePercent!.changePrice,
-                                    pcpPercent: data.comicsModel!.results![index].priceChangePercent!.percent,
-                                    pcpSign: data.comicsModel!.results![index].priceChangePercent!.sign! ,
+                                    changePrice: data.comicsModel!.results![index].graphData!.priceChangePercent!.changePrice,
+                                    pcpPercent: data.comicsModel!.results![index].graphData!.priceChangePercent!.percent,
+                                    pcpSign: data.comicsModel!.results![index].graphData!.priceChangePercent!.sign! ,
                                   )
                                 ),
                               ),

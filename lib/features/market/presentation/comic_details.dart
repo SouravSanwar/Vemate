@@ -83,7 +83,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                   style: TextStyle(color: AppColors.textColor, fontSize: 18.sp, fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
                 ),
-                InkWell(
+                /*InkWell(
                   focusColor: Colors.transparent,
                   onTap: () {
                     showDialog(
@@ -112,7 +112,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                           12.0), // set rounded corner radius
                     ),
                   ),
-                )
+                )*/
               ],
             ),
           ),

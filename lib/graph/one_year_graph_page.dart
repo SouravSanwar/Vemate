@@ -79,7 +79,7 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: data.oneYearGraphModel != null
-              ? data.oneYearGraphModel!.graph!.isEmpty
+              ? data.oneYearGraphModel!.graphData!.graph!.isEmpty
                   ? const NoGraphCard(
                       title: "No data for 1 year!",
                     )
@@ -138,7 +138,7 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                         ),
                         labelAlignment: LabelAlignment.center,
                         labelPlacement:
-                            data.oneYearGraphModel!.graph!.length == 1
+                            data.oneYearGraphModel!.graphData!.graph!.length == 1
                                 ? LabelPlacement.betweenTicks
                                 : LabelPlacement.onTicks,
                         maximumLabelWidth: 30,
@@ -172,16 +172,16 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                         maximumLabelWidth: 40,
                       ),
                       series: <ChartSeries<OneYearProductGraph, String>>[
-                        data.oneYearGraphModel!.graph!.length == 1
+                        data.oneYearGraphModel!.graphData!.graph!.length == 1
                             ? ColumnSeries<OneYearProductGraph, String>(
-                                dataSource: data.oneYearGraphModel!.graph!,
+                                dataSource: data.oneYearGraphModel!.graphData!.graph!,
                                 width: .01,
                                 gradient: AppColors.graphGradient,
                                 xValueMapper: (plot, _) => plot.monthWiseTime,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                               )
                             : SplineAreaSeries<OneYearProductGraph, String>(
-                                dataSource: data.oneYearGraphModel!.graph!,
+                                dataSource: data.oneYearGraphModel!.graphData!.graph!,
                                 borderColor: const Color(0xff2093D7),
                                 borderWidth: 1,
                                 gradient: AppColors.graphGradient,

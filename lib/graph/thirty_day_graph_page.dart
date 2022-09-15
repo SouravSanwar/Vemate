@@ -90,7 +90,7 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: data.thirtyDayGraphModel != null
-              ? data.thirtyDayGraphModel!.graph!.isEmpty
+              ? data.thirtyDayGraphModel!.graphData!.graph!.isEmpty
                   ? const NoGraphCard(
                       title: "No data for 30 days!",
                     )
@@ -149,7 +149,7 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                         ),
                         labelAlignment: LabelAlignment.center,
                         labelPlacement:
-                            data.thirtyDayGraphModel!.graph!.length == 1
+                            data.thirtyDayGraphModel!.graphData!.graph!.length == 1
                                 ? LabelPlacement.betweenTicks
                                 : LabelPlacement.onTicks,
                         maximumLabelWidth: 30,
@@ -183,9 +183,9 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                         maximumLabelWidth: 40,
                       ),
                       series: <ChartSeries<ThirtyDayProductGraph, String>>[
-                        data.thirtyDayGraphModel!.graph!.length == 1
+                        data.thirtyDayGraphModel!.graphData!.graph!.length == 1
                             ? ColumnSeries<ThirtyDayProductGraph, String>(
-                                dataSource: data.thirtyDayGraphModel!.graph!,
+                                dataSource: data.thirtyDayGraphModel!.graphData!.graph!,
                                 width: .01,
                                 gradient: AppColors.graphGradient,
                                 xValueMapper: (plot, _) =>
@@ -193,7 +193,7 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                                 yValueMapper: (plot, _) => plot.floorPrice,
                               )
                             : SplineAreaSeries<ThirtyDayProductGraph, String>(
-                                dataSource: data.thirtyDayGraphModel!.graph!,
+                                dataSource: data.thirtyDayGraphModel!.graphData!.graph!,
                                 borderColor: const Color(0xff2093D7),
                                 borderWidth: 1,
                                 gradient: AppColors.graphGradient,

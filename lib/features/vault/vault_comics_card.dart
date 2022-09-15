@@ -21,6 +21,9 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      highlightColor: Colors.transparent,
+      splashColor:Colors.transparent ,
+      focusColor: Colors.transparent,
       onTap: () {
         Get.to(() => const VaultComicsList());
       },
@@ -112,8 +115,6 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                                       labelAlignment: LabelAlignment.start,
                                       maximumLabels: 10,
                                     ),
-                                    tooltipBehavior:
-                                        TooltipBehavior(enable: true),
                                     series: <ChartSeries<ComicGraph, String>>[
                                       LineSeries<ComicGraph, String>(
                                         color: widget.data!.sign! == 'decrease'

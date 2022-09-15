@@ -361,6 +361,10 @@ class _VaultState extends State<Vault> {
                                 ),
                               ),
                               InkWell(
+
+                                highlightColor: Colors.transparent,
+                                splashColor:Colors.transparent ,
+                                focusColor: Colors.transparent,
                                 onTap: () {
                                   Get.to(() => const SetListPage());
                                 },
@@ -413,6 +417,10 @@ class _VaultState extends State<Vault> {
                                   ),
                                 ),
                                 InkWell(
+
+                                  highlightColor: Colors.transparent,
+                                  splashColor:Colors.transparent ,
+                                  focusColor: Colors.transparent,
                                   onTap: () {
                                     Get.to(() => const WishListPage());
                                   },

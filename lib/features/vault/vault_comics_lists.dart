@@ -354,7 +354,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                 Expanded(
                                                   flex: 2,
                                                   child: Text(
-                                                    '\$${data.setListModel!.setResults![index].setProductDetail!.priceChangePercent!.changePrice != null ? data.setListModel!.setResults![index].setProductDetail!.priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
+                                                    '\$${data.setListModel!.setResults![index].setProductDetail!.graphData!.priceChangePercent!.changePrice != null
+                                                        ? data.setListModel!.setResults![index].setProductDetail!.graphData!.priceChangePercent!.changePrice!.toStringAsFixed(2)
+                                                        : ""}',
                                                     textAlign: TextAlign.start,
                                                     style: Get
                                                         .textTheme.bodyText1!
@@ -416,7 +418,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                 .setListModel!
                                                                 .setResults![
                                                                     index]
-                                                                .setProductDetail!
+                                                                .setProductDetail!.graphData!
                                                                 .priceChangePercent!
                                                                 .sign ==
                                                             'decrease'
@@ -425,7 +427,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     dataSource: data
                                                         .setListModel!
                                                         .setResults![index]
-                                                        .setProductDetail!
+                                                        .setProductDetail!.graphData!
                                                         .graph!,
                                                     xValueMapper:
                                                         (Graph plot, _) =>
@@ -454,7 +456,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                 .setListModel!
                                                                 .setResults![
                                                                     index]
-                                                                .setProductDetail!
+                                                                .setProductDetail!.graphData!
                                                                 .priceChangePercent!
                                                                 .percent!
                                                                 .toString() +
@@ -466,7 +468,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                                         .setListModel!
                                                                         .setResults![
                                                                             index]
-                                                                        .setProductDetail!
+                                                                        .setProductDetail!.graphData!
                                                                         .priceChangePercent!
                                                                         .sign ==
                                                                     'decrease'
@@ -480,7 +482,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                               .setListModel!
                                                               .setResults![
                                                                   index]
-                                                              .setProductDetail!
+                                                              .setProductDetail!.graphData!
                                                               .priceChangePercent!
                                                               .sign ==
                                                           'decrease')

@@ -7,6 +7,7 @@ class OneDayGraphModel {
     this.id,
     this.brand,
   //  this.graph,
+    this.graphData,
     this.image,
     this.type,
     this.name,
@@ -36,7 +37,6 @@ class OneDayGraphModel {
     this.updateTime,
     this.parent,
     this.graphType,
-    this.graphData,
   });
 
   OneDayGraphModel.fromJson(dynamic json) {
@@ -128,12 +128,13 @@ class OneDayGraphModel {
     /*if (graph != null) {
       map['graph'] = graph?.map((v) => v.toJson()).toList();
     }*/
+
+    map['graph_data'] = graphData;
     if (image != null) {
       map['image'] = image?.toJson();
     }
     map['type'] = type;
     map['name'] = name;
-    map['graph_data'] = graphData;
     map['description'] = description;
     map['listing'] = listing;
     map['floor_price'] = floorPrice;
