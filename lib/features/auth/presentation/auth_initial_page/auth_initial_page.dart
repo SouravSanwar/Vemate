@@ -53,12 +53,11 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
     postFile = Provider.of<PostFile>(context, listen: false);
     appUpdate = Provider.of<AppUpdate>(context, listen: false);
     getData = Provider.of<GetData>(context, listen: false);
-    //getData!.getUserInfo();
-    // if (Platform.isAndroid) {
-    //   appUpdate!.getUpdateInfo(0);
-    // } else {
-    //   appUpdate!.getUpdateInfo(1);
-    // }
+    if (Platform.isAndroid) {
+      appUpdate!.getUpdateInfo(0);
+    } else {
+      appUpdate!.getUpdateInfo(1);
+     }
     super.initState();
   }
 
@@ -295,18 +294,18 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
           ),
         ),
 
-        // Positioned(
-        //   left: 0,
-        //   right: 0,
-        //   child: Consumer<AppUpdate>(builder: (context, data, child) {
-        //     return data.appUpdator != null
-        //         ? (int.parse(data.appUpdator!.name!.toString()) > int.parse(VersionControl.packageInfo.buildNumber) &&
-        //         data.isUpdate == true
-        //         ? const AppUpdateAlert()
-        //         : Container())
-        //         : Container();
-        //   }),
-        // ),
+        Positioned(
+        left: 0,
+        right: 0,
+        child: Consumer<AppUpdate>(builder: (context, data, child) {
+        return data.appUpdator != null
+        ? (int.parse(data.appUpdator!.name!.toString()) > int.parse(VersionControl.packageInfo.buildNumber) &&
+        data.isUpdate == true
+        ? const AppUpdateAlert()
+        : Container())
+        : Container();
+        }),
+        ),
       ],
     );
   }
