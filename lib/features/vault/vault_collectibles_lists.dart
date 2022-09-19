@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,12 +10,14 @@ import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/features/market/widgets/image_widgets.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../core/models/SetListModel.dart';
+import 'package:intl/intl.dart';
 
 class VaultCollectiblesLists extends StatefulWidget {
   const VaultCollectiblesLists({Key? key}) : super(key: key);
@@ -64,7 +65,6 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
 
   @override
   Widget build(BuildContext context) {
-
     const StatusBar();
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
@@ -128,63 +128,57 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Container(
-                                        height: Get.height * .09,
-                                        width: Get.height * .078,
-                                        decoration: BoxDecoration(
-                                            color: AppColors.graphCard,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color:
-                                                    AppColors.textBoxBgColor)),
-                                        alignment: Alignment.center,
-                                        child: data
-                                                    .setListModel!
-                                                    .setResults![index]
-                                                    .setProductDetail!
-                                                    .image ==
-                                                null
-                                            ? Text(
-                                                data
-                                                    .setListModel!
-                                                    .setResults![index]
-                                                    .setProductDetail!
-                                                    .name
-                                                    .toString()[0]
-                                                    .toUpperCase(),
-                                                style: TextStyle(
-                                                    color: AppColors
-                                                        .backgroundColor,
-                                                    fontFamily: 'Inter',
-                                                    fontSize: 35,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
-                                            : CachedNetworkImage(
-                                                imageUrl: data
-                                                    .setListModel!
-                                                    .setResults![index]
-                                                    .setProductDetail!
-                                                    .image!
-                                                    .image_on_list!
-                                                    .src
-                                                    .toString(),
-                                                imageBuilder:
-                                                    (context, imageProvider) =>
-                                                        Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    image: DecorationImage(
-                                                      image: imageProvider,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                                placeholder: _loader,
-                                              ),
-                                      ),
+                                          height: Get.height * .09,
+                                          width: Get.height * .078,
+                                          decoration: BoxDecoration(
+                                              color: AppColors.graphCard,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                  color: AppColors
+                                                      .textBoxBgColor)),
+                                          alignment: Alignment.center,
+                                          child: data
+                                                      .setListModel!
+                                                      .setResults![index]
+                                                      .setProductDetail!
+                                                      .image ==
+                                                  null
+                                              ? FirstLetterImage(
+                                                  firstLetter: data
+                                                      .setListModel!
+                                                      .setResults![index]
+                                                      .setProductDetail!
+                                                      .name
+                                                      .toString()[0]
+                                                      .toUpperCase(),
+                                                  fontsize: 35,
+                                                )
+                                              : data
+                                                          .setListModel!
+                                                          .setResults![index]
+                                                          .setProductDetail!
+                                                          .image!
+                                                          .low_res_url ==
+                                                      null
+                                                  ? VeVeLowImage(
+                                                      imageUrl: data
+                                                          .setListModel!
+                                                          .setResults![index]
+                                                          .setProductDetail!
+                                                          .image!
+                                                          .image_on_list
+                                                          .toString(),
+                                                    )
+                                                  : VeVeLowImage(
+                                                      imageUrl: data
+                                                          .setListModel!
+                                                          .setResults![index]
+                                                          .setProductDetail!
+                                                          .image!
+                                                          .low_res_url
+                                                          .toString(),
+                                                    )),
                                       AppSpaces.spaces_width_5,
                                       Expanded(
                                         flex: 7,
@@ -399,7 +393,9 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                       LabelAlignment.start,
                                                   maximumLabels: 7,
                                                 ),
-                                                primaryYAxis: CategoryAxis(
+                                                primaryYAxis: NumericAxis(
+                                                  numberFormat:
+                                                      NumberFormat.compact(),
                                                   isVisible: false,
                                                   majorGridLines:
                                                       const MajorGridLines(
@@ -412,9 +408,6 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                       LabelAlignment.start,
                                                   maximumLabels: 10,
                                                 ),
-                                                tooltipBehavior:
-                                                    TooltipBehavior(
-                                                        enable: true),
                                                 series: <
                                                     ChartSeries<Graph, String>>[
                                                   LineSeries<Graph, String>(
@@ -505,7 +498,9 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                     ],
                                                   ),
                                                 ),
+
                                                 InkWell(
+                                                  focusColor: Colors.transparent,
                                                   onTap: () {
                                                     showDialog(
                                                         context: context,
@@ -558,15 +553,20 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                 onTap: () {
                                                                   postData!
                                                                       .deleteSetList(
-                                                                    context,
-                                                                    data
-                                                                        .setListModel!
-                                                                        .setResults![
-                                                                            index]
-                                                                        .id,
-                                                                    requestHeadersWithToken,
-                                                                    'product__type=0',deleteset: 13
-                                                                  ).whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
+                                                                          context,
+                                                                          data
+                                                                              .setListModel!
+                                                                              .setResults![
+                                                                                  index]
+                                                                              .id,
+                                                                          requestHeadersWithToken,
+                                                                          'product__type=0',
+                                                                          deleteset:
+                                                                              13)
+                                                                      .whenComplete(() => Provider.of<GetData>(
+                                                                              context,
+                                                                              listen: false)
+                                                                          .getHomeVault());
                                                                 },
                                                                 text: 'Yes'
                                                                     .toUpperCase(),

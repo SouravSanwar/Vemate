@@ -249,6 +249,7 @@ class Original {
 class SevenDayProductGraph {
   SevenDayProductGraph({
     this.floorPrice,
+    this.floorPriceString,
     this.creationTime,
     this.date,
     this.hourWiseTime,
@@ -259,6 +260,7 @@ class SevenDayProductGraph {
 
   SevenDayProductGraph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
+    floorPriceString=floorPrice.toString();
     creationTime = json['creation_time'];
     date = json['date'];
     if (date != null) {
@@ -270,6 +272,7 @@ class SevenDayProductGraph {
   }
 
   double? floorPrice;
+  String? floorPriceString;
   String? creationTime;
   String? date;
   String? hourWiseTime;

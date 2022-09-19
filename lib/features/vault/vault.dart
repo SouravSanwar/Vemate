@@ -1,14 +1,11 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:ketemaa/CheckInternet/check_internet.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
-import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
+import 'package:intl/intl.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/features/vault/My%20Vault/my_sets_lists.dart';
 import 'package:ketemaa/features/vault/dropdown.dart';
@@ -252,7 +249,8 @@ class _VaultState extends State<Vault> {
                           ),
                           SizedBox(
                             height: Get.height * .11,
-                            child: SfCartesianChart(
+                            child:  data.vaultStatsModel!.vaultStatsModelGraph != null
+                                ? SfCartesianChart(
                               margin: EdgeInsets.zero,
                               plotAreaBorderWidth: 0,
                               primaryXAxis: CategoryAxis(
@@ -266,7 +264,8 @@ class _VaultState extends State<Vault> {
                                 maximumLabels: 7,
                                 labelPlacement: LabelPlacement.onTicks,
                               ),
-                              primaryYAxis: CategoryAxis(
+                              primaryYAxis: NumericAxis(
+                                numberFormat: NumberFormat.compact(),
                                 isVisible: false,
                                 majorGridLines: const MajorGridLines(width: 0),
                                 labelIntersectAction:
@@ -275,7 +274,6 @@ class _VaultState extends State<Vault> {
                                 labelAlignment: LabelAlignment.start,
                                 maximumLabels: 10,
                               ),
-                              tooltipBehavior: TooltipBehavior(enable: true),
                               series: <
                                   ChartSeries<VaultStatsModelGraph, String>>[
                                 SplineAreaSeries<VaultStatsModelGraph, String>(
@@ -302,7 +300,8 @@ class _VaultState extends State<Vault> {
                                   cardinalSplineTension: 0.3,
                                 )
                               ],
-                            ),
+                            )
+                                : Container(),
                           ),
 
                         ],
@@ -457,7 +456,7 @@ class _VaultState extends State<Vault> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child:  DropDown(AppColors.backgroundColor,false),
+                        child:  DropDown(Color(0xffA984E5),false),
                         width: Get.width * .125,
                         height: Get.width * .125,
                         decoration: BoxDecoration(

@@ -8,6 +8,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:intl/intl.dart';
 
 class SetCard extends StatefulWidget {
   final SetResults? list;
@@ -211,8 +212,7 @@ class _SetCardState extends State<SetCard> {
                 )
               : CachedNetworkImage(
                   imageUrl: widget
-                      .list!.setProductDetail!.image!.image_on_list!.src
-                      .toString(),
+                      .list!.setProductDetail!.image!.low_res_url.toString(),
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -257,7 +257,8 @@ class _SetCardState extends State<SetCard> {
                                   labelAlignment: LabelAlignment.start,
                                   maximumLabels: 7,
                                 ),
-                                primaryYAxis: CategoryAxis(
+                                primaryYAxis: NumericAxis(
+                                  numberFormat: NumberFormat.compact(),
                                   isVisible: false,
                                   majorGridLines:
                                   const MajorGridLines(width: 0),

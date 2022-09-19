@@ -249,6 +249,7 @@ class Original {
 class SixtyDayProductGraph {
   SixtyDayProductGraph({
     this.floorPrice,
+    this.floorPriceString,
     this.creationTime,
     this.date,
     this.hourWiseTime,
@@ -259,6 +260,10 @@ class SixtyDayProductGraph {
 
   SixtyDayProductGraph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
+    /*if(floorPrice! > 999){
+      floorPrice=floorPrice! / 1000;
+    }*/
+    floorPriceString=floorPrice.toString();
     creationTime = json['creation_time'];
     date = json['date'];
     if (date != null) {
@@ -266,10 +271,15 @@ class SixtyDayProductGraph {
       dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
       dayWiseTimeWithDate = DateFormat('dd MMM').format(DateTime.parse(date!));
       monthWiseTime = DateFormat('MMM').format(DateTime.parse(date!));
+      print("+++++++++++++"+dayWiseTimeWithDate.toString());
+      
     }
+
   }
 
+
   double? floorPrice;
+  String? floorPriceString;
   String? creationTime;
   String? date;
   String? hourWiseTime;

@@ -16,7 +16,6 @@ import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_c
 import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_2fa.dart';
 import 'package:ketemaa/features/auth/reset_pass/forgot_pass.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
-import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,7 +54,7 @@ class PostData extends ChangeNotifier with BaseController {
 
     var x = json.decode(response.body);
 
-    printInfo(info: x.toString());
+    print(x.toString());
 
     Map<String, dynamic> js = x;
     if (response.statusCode == 200 ||
@@ -63,55 +62,25 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
-      try {
-        if (js.containsKey('id')) {
-          Navigator.of(context).pop();
-          prefs = await SharedPreferences.getInstance();
-          prefs!.setString(
-              'is_email_verified', js['is_email_verified'].toString());
-          prefs!.setString('email', js['email'].toString());
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (_) => ResponseMessage(
-                    icon: Icons.check_circle,
-                    color: AppColors.primaryColor,
-                    message: "Registration Successful",
-                  )).whenComplete(() {
-            js['is_email_verified'] == true
-                ? Get.to(() => const AuthInitialPage())
-                : Get.to(() => OtpPage());
-          });
+      prefs = await SharedPreferences.getInstance();
 
-          printInfo(info: prefs!.getString('is_email_verified').toString());
-          // await Future.delayed(const Duration(seconds: 1));
-          // Navigator.of(context).pop();
-        } else {
-          Navigator.of(context).pop();
-
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (_) => const ResponseMessage(
-                    icon: Icons.error,
-                    color: Colors.purpleAccent,
-                    message: "Invalid Information",
-                  ));
-        }
-      } catch (e) {
-        Navigator.of(context).pop();
+      Get.to(() => OtpPage());
+    } else {
+      Navigator.of(context).pop();
+      if (js.containsKey('nickname')) {
         showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (_) => const ResponseMessage(
+            builder: (_) =>  ResponseMessage(
                   icon: Icons.error,
                   color: Colors.purpleAccent,
-                  message: "Something Went Wrong",
+                  message: js['nickname'][0].toString(),
                 ));
-      }
-    } else {
-      if (js.containsKey('email')) {
+
+        await Future.delayed(const Duration(seconds: 1));
         Navigator.of(context).pop();
+      }
+      if (js.containsKey('email')) {
         showDialog(
             context: context,
             barrierDismissible: false,
@@ -120,33 +89,12 @@ class PostData extends ChangeNotifier with BaseController {
                   color: Colors.purpleAccent,
                   message: js['email'][0].toString(),
                 ));
-      }
-      if (js.containsKey('nickname')) {
+        await Future.delayed(const Duration(seconds: 1));
         Navigator.of(context).pop();
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) => ResponseMessage(
-                  icon: Icons.error,
-                  color: Colors.purpleAccent,
-                  message: js['nickname'][0].toString(),
-                ));
       }
-      if (js.containsKey('password')) {
-        Navigator.of(context).pop();
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) => ResponseMessage(
-                  icon: Icons.error,
-                  color: Colors.purpleAccent,
-                  message: js['password'][0].toString(),
-                ));
-      }
+
+      notifyListeners();
     }
-    await Future.delayed(const Duration(seconds: 1));
-    Navigator.of(context).pop();
-    notifyListeners();
   }
 
   Future verifyCode(BuildContext context, var body) async {
@@ -400,7 +348,7 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 201) {
       try {
         if (js['is_email_verified'] == true) {
-         // Navigator.of(context).pop();
+          // Navigator.of(context).pop();
           prefs = await SharedPreferences.getInstance();
           prefs!.setString('email', js['email'].toString());
 
@@ -456,10 +404,10 @@ class PostData extends ChangeNotifier with BaseController {
           context: context,
           barrierDismissible: false,
           builder: (_) => const ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: "Invalid Information",
-          ));
+                icon: Icons.error,
+                color: Colors.purpleAccent,
+                message: "Invalid Information",
+              ));
       /*if (js['username'] == null) {
         showDialog(
             context: context,
@@ -982,21 +930,19 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future PostFeedback(
-      BuildContext context, var body, var requestToken) async {
-    final response = await http.post(
-        Uri.parse(Urls.feedback),body: json.encode(body),
-        headers: requestToken);
+  Future PostFeedback(BuildContext context, var body, var requestToken) async {
+    final response = await http.post(Uri.parse(Urls.feedback),
+        body: json.encode(body), headers: requestToken);
     print("RESPONSE" + response.body.toString());
     if (response.statusCode == 201) {
       showDialog(
           context: context,
           barrierDismissible: false,
           builder: (_) => ResponseMessage(
-            icon: Icons.check_circle,
-            color: AppColors.primaryColor,
-            message: "Feedback Submitted Successfully",
-          ));
+                icon: Icons.check_circle,
+                color: AppColors.primaryColor,
+                message: "Feedback Submitted Successfully",
+              ));
       await Future.delayed(const Duration(seconds: 1));
       Navigator.of(context).pop();
     }
@@ -1018,7 +964,6 @@ class PostData extends ChangeNotifier with BaseController {
     prefs!.setBool('is_2fa', mat['is_2fa']);
     prefs!.setBool("is_login", true);
     printInfo(info: prefs!.get('token').toString());
-
 
     //Get.offAll(() => ControllerPage());
 

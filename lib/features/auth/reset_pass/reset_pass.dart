@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
-import 'package:ketemaa/features/auth/reset_pass/forgot_pass.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';

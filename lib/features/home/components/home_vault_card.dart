@@ -3,13 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/models/HomeVaultModel.dart';
-import 'package:ketemaa/core/models/VaultStatusModel.dart';
 import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
-import '../../../core/models/VaultStatusModel.dart';
+import 'package:intl/intl.dart';
 
 class HomeVaultCard extends StatefulWidget {
 
@@ -180,7 +179,8 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                 ),
                 SizedBox(
                   height: Get.height * .12,
-                  child: SfCartesianChart(
+                  child:  data.homeVaultModel!.homeVaultModelGraph != null
+                      ? SfCartesianChart(
 
                     plotAreaBorderWidth: 0,
                     margin: EdgeInsets.zero,
@@ -195,7 +195,8 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       maximumLabels: 7,
                       labelPlacement: LabelPlacement.onTicks,
                     ),
-                    primaryYAxis: CategoryAxis(
+                    primaryYAxis: NumericAxis(
+                      numberFormat: NumberFormat.compact(),
                       axisLine: AxisLine(width: 0),
                       isVisible: false,
                       majorGridLines: const MajorGridLines(width: 0),
@@ -205,7 +206,6 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                       maximumLabels: 10,
 
                     ),
-                    tooltipBehavior: TooltipBehavior(enable: true),
                     series: <ChartSeries<HomeVaultModelGraph, String>>[
                       SplineAreaSeries<HomeVaultModelGraph, String>(
                         color: data.homeVaultModel!.sign! == 'decrease'
@@ -227,7 +227,8 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         cardinalSplineTension: 0.3,
                       )
                     ],
-                  ),
+                  )
+                      : Container(),
                 ),
               ],
             ));

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/language/language_string.dart';
@@ -10,6 +9,7 @@ import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
+import 'package:ketemaa/features/auth/presentation/auth_initial_page/password_validator.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
@@ -88,25 +88,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 color: AppColors.textColor),
                           )),
                       AppSpaces.spaces_height_25,
-            Container(
-                  padding: const EdgeInsets.only(top: 14,bottom:14,left: 23, right: 23),
-                  decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border.all(
-                      color: AppColors.white.withOpacity(.7),// set border color
-                      width: 1.5),
-                      borderRadius: BorderRadius.circular(25.0)
-
-                  ),
-                  child: Text(
-                      emailController.text,
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      color: AppColors.textColor,
-                      fontSize: 18.0.sp,
-                    ),
-                  )
-            ),
+                      TextInputField(
+                        labelText: "Email",
+                        isEnable: false,
+                        height: Get.height * .04,
+                        textType: TextInputType.emailAddress,
+                        controller: emailController,
+                      ),
 
                       SizedBox(
                         height: Get.height * .022,
@@ -127,12 +115,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         height: Get.height * .022,
                       ),
                       PasswordInputField(
-                          validator:  (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'New Password is required';
-                            }
-
-                          },
+                          validator:  Validator.validator,
                           labelText: "New Password",
                           height: Get.height * .04,
                           textType: TextInputType.text,

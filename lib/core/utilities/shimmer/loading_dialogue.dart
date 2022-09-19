@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 
-import 'package:ketemaa/core/utilities/shimmer/progress_bar.dart';
-
 class LoadingDialogue extends StatelessWidget {
   final String? message;
 
@@ -16,7 +14,7 @@ class LoadingDialogue extends StatelessWidget {
     return Center(
       child: Container(
         width: Get.width * .9,
-        height: Get.width * .75,
+        height: Get.width * .8,
         alignment: Alignment.center,
         child: AlertDialog(
           backgroundColor: Colors.transparent,

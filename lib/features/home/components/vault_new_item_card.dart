@@ -142,14 +142,14 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                       series: <ChartSeries<Graph, String>>[
                                         LineSeries<Graph, String>(
                                           color: widget
-                                                      .list![index]
+                                                      .list![index].graphData!
                                                       .priceChangePercent!
                                                       .sign ==
                                                   'decrease'
                                               ? Colors.red
                                               : Colors.green,
                                           dataSource:
-                                              widget.list![index].graph!,
+                                              widget.list![index].graphData!.graph!,
                                           xValueMapper: (Graph plot, _) =>
                                               plot.date,
                                           yValueMapper: (Graph plot, _) =>
@@ -185,18 +185,18 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                           children: [
                                             Text(
                                               widget
-                                                          .list![index]
+                                                          .list![index].graphData!
                                                           .priceChangePercent!
                                                           .percent <
                                                       0.0
                                                   ? widget
-                                                      .list![index]
+                                                      .list![index].graphData!
                                                       .priceChangePercent!
                                                       .percent
                                                       .toString()
                                                   : "+" +
                                                       widget
-                                                          .list![index]
+                                                          .list![index].graphData!
                                                           .priceChangePercent!
                                                           .percent
                                                           .toString(),
@@ -204,7 +204,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
                                                       color: widget
-                                                                  .list![index]
+                                                                  .list![index].graphData!
                                                                   .priceChangePercent!
                                                                   .percent <
                                                               0.0
@@ -215,7 +215,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                                       fontSize: 12.sp),
                                             ),
                                             if (widget
-                                                    .list![index]
+                                                    .list![index].graphData!
                                                     .priceChangePercent!
                                                     .percent <
                                                 0.0)
@@ -318,14 +318,14 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                       series: <ChartSeries<Graph, String>>[
                                         LineSeries<Graph, String>(
                                           color: widget
-                                                      .list![index]
+                                                      .list![index].graphData!
                                                       .priceChangePercent!
                                                       .sign ==
                                                   'decrease'
                                               ? Colors.red
                                               : Colors.green,
                                           dataSource:
-                                              widget.list![index].graph!,
+                                              widget.list![index].graphData!.graph!,
                                           xValueMapper: (Graph plot, _) =>
                                               plot.date,
                                           yValueMapper: (Graph plot, _) =>
@@ -361,18 +361,18 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                           children: [
                                             Text(
                                               widget
-                                                          .list![index]
+                                                          .list![index].graphData!
                                                           .priceChangePercent!
                                                           .percent <
                                                       0.0
                                                   ? widget
-                                                      .list![index]
+                                                      .list![index].graphData!
                                                       .priceChangePercent!
                                                       .percent
                                                       .toString()
                                                   : "+" +
                                                       widget
-                                                          .list![index]
+                                                          .list![index].graphData!
                                                           .priceChangePercent!
                                                           .percent
                                                           .toString(),
@@ -380,7 +380,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                               style: Get.textTheme.bodyText1!
                                                   .copyWith(
                                                       color: widget
-                                                                  .list![index]
+                                                                  .list![index].graphData!
                                                                   .priceChangePercent!
                                                                   .percent <
                                                               0.0
@@ -392,7 +392,7 @@ class _VaultNewItemCardState extends State<VaultNewItemCard> {
                                                       fontSize: 12.sp),
                                             ),
                                             if (widget
-                                                    .list![index]
+                                                    .list![index].graphData!
                                                     .priceChangePercent!
                                                     .percent <
                                                 0.0)

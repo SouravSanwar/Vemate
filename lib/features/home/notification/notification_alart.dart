@@ -4,8 +4,6 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/home/notification/all_notification_list.dart';
 import 'package:ketemaa/features/home/notification/primary_notification_list.dart';
 
-import 'package:ketemaa/core/models/NotificationListModel.dart';
-
 class NotificationAlertBox extends StatefulWidget {
 
   const NotificationAlertBox({Key? key}) : super(key: key);

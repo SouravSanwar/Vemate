@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 
-import 'package:ketemaa/core/utilities/shimmer/progress_bar.dart';
-
 class ResponseMessage extends StatelessWidget {
   final String? message;
   final IconData? icon;

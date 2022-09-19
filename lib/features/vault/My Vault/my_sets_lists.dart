@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,11 +12,12 @@ import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/widgets/image_widgets.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'package:intl/intl.dart';
 import '../../../core/models/SetListModel.dart';
 
 class SetListPage extends StatefulWidget {
@@ -143,40 +143,26 @@ class _SetListPageState extends State<SetListPage> {
                                             alignment: Alignment.center,
                                             child: data.setListModel!.setResults![index].setProductDetail!.image ==
                                                 null
-                                                ? Text(
-                                              data.setListModel!.setResults![index].setProductDetail!.name
+                                                ? FirstLetterImage(
+                                              firstLetter: data.setListModel!.setResults![index].setProductDetail!.name
                                                   .toString()[0]
                                                   .toUpperCase(),
-                                              style: TextStyle(
-                                                  color: AppColors
-                                                      .backgroundColor,
-                                                  //fontFamily: 'Inter',
-                                                  fontSize: 35,
-                                                  fontWeight:
-                                                  FontWeight.bold),
+                                              fontsize: 35,
                                             )
-                                                : CachedNetworkImage(
-                                              imageUrl:
-                                              data.setListModel!.setResults![index].setProductDetail!.image!
-                                                  .image_on_list!
-                                                  .src
+                                                : data.setListModel!.setResults![index].setProductDetail!
+                                                .image!
+                                                .low_res_url ==
+                                                null
+                                                ? VeVeLowImage(
+                                              imageUrl: data.setListModel!.setResults![index].setProductDetail!.image!
+                                                  .image_on_list
                                                   .toString(),
-                                              imageBuilder: (context,
-                                                  imageProvider) =>
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                      BorderRadius
-                                                          .circular(10),
-                                                      image: DecorationImage(
-                                                        image: imageProvider,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                              placeholder: _loader,
-                                            ),
-                                          ),
+                                            )
+                                                : VeVeLowImage(
+                                              imageUrl: data.setListModel!.setResults![index].setProductDetail!.image!
+                                                  .low_res_url
+                                                  .toString(),
+                                            )),
                                           AppSpaces.spaces_width_5,
                                           Expanded(
                                             flex: 7,
@@ -363,7 +349,8 @@ class _SetListPageState extends State<SetListPage> {
                                                       LabelAlignment.start,
                                                       maximumLabels: 7,
                                                     ),
-                                                    primaryYAxis: CategoryAxis(
+                                                    primaryYAxis: NumericAxis(
+                                                      numberFormat: NumberFormat.compact(),
                                                       isVisible: false,
                                                       majorGridLines:
                                                       const MajorGridLines(
@@ -376,9 +363,6 @@ class _SetListPageState extends State<SetListPage> {
                                                       LabelAlignment.start,
                                                       maximumLabels: 10,
                                                     ),
-                                                    tooltipBehavior:
-                                                    TooltipBehavior(
-                                                        enable: true),
                                                     series: <
                                                         ChartSeries<Graph,
                                                             String>>[
@@ -580,12 +564,6 @@ class _SetListPageState extends State<SetListPage> {
     );
   }
 
-  Widget _loader(BuildContext context, String url) {
-    return const ImageIcon(
-      AssetImage('assets/media/icon/logo_v.png'),
-      color: Color(0xFF3A5A98),
-    );
-  }
 
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));

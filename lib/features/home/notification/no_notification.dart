@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:ketemaa/core/models/Test.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
-import 'package:ketemaa/core/utilities/urls/urls.dart';
-
-import '../../../core/models/NewsModel.dart';
 
 class NoNotification extends StatefulWidget {
   const NoNotification({Key? key}) : super(key: key);

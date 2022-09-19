@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 
@@ -163,16 +164,31 @@ class Image {
   Image({
     this.original,
     this.detail,
+    this.direction,
+    this.base_url,
+    this.low_res_url,
+    this.mid_res_url,
+    this.high_res_url,
   });
 
   Image.fromJson(dynamic json) {
     original =
         json['original'] != null ? Original.fromJson(json['original']) : null;
     detail = json['detail'] != null ? Detail.fromJson(json['detail']) : null;
+    direction = json['direction'];
+    base_url = json['base_url'];
+    low_res_url = json['low_res_url'];
+    mid_res_url = json['mid_res_url'];
+    high_res_url = json['high_res_url'];
   }
 
   Original? original;
   Detail? detail;
+  String? direction;
+  String? base_url;
+  String? low_res_url;
+  String? mid_res_url;
+  String? high_res_url;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -182,6 +198,11 @@ class Image {
     if (detail != null) {
       map['detail'] = detail?.toJson();
     }
+    map['direction'] = direction;
+    map['base_url'] = base_url;
+    map['low_res_url'] = low_res_url;
+    map['mid_res_url'] = mid_res_url;
+    map['high_res_url'] = high_res_url;
     return map;
   }
 }
@@ -304,6 +325,66 @@ class Brand {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['name'] = name;
+    return map;
+  }
+}
+
+class Graph {
+  Graph({
+    this.priceChangePercent,
+    this.graph,
+  });
+
+  Graph.fromJson(dynamic json) {
+    priceChangePercent = json['priceChangePercent'];
+
+    if (json['graph'] != null) {
+      graph = [];
+      json['graph'].forEach((v) {
+        graph?.add(SingleProductGraph.fromJson(v));
+      });
+    }
+
+    final Map<String, SingleProductGraph> graphMap = {};
+    for (var item in graph!) {
+      graphMap[item.date!] = item;
+    }
+    graph = graphMap.values.toList();
+  }
+
+  PriceChangePercent? priceChangePercent;
+  List<SingleProductGraph>? graph;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['priceChangePercent'] = priceChangePercent;
+    map['graph'] = graph;
+    return map;
+  }
+}
+
+class PriceChangePercent {
+  PriceChangePercent({
+    this.percent,
+    this.changePrice,
+    this.sign,
+  });
+
+  PriceChangePercent.fromJson(dynamic json) {
+    percent = double.parse(json['percent'].toString()).toPrecision(2);
+    changePrice = double.parse(json['changed_price'].toString()).toPrecision(2);
+    sign = json['sign'];
+  }
+
+  var percent;
+  var changePrice;
+  String? sign;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['percent'] = percent;
+    map['changed_price'] = changePrice;
+    map['sign'] = sign;
     return map;
   }
 }

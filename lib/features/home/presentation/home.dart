@@ -17,7 +17,7 @@ import 'package:ketemaa/features/home/components/home_vault_card.dart';
 import '../../../core/Provider/getData.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 import '../components/image_slider.dart';
-import '../components/vault_new_item_card.dart';
+import '../components/New_Item_card/vault_new_item_card.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -118,6 +118,7 @@ class _HomeState extends State<Home> {
                               14.0,
                             ),
                             child: InkWell(
+                              focusColor: Colors.transparent,
                               onTap: () async {
                                 data.notificationListModel!.results!.isEmpty
                                     ? Get.to(() => const NoNotification())
@@ -166,7 +167,7 @@ class _HomeState extends State<Home> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 12, left: 15, right: 15),
                         child: Text(
-                          'Newest',
+                          'Latest Updates',
                           style: Get.textTheme.headline2!
                               .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
                         ),

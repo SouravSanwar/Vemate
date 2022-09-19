@@ -10,16 +10,16 @@ import 'designhelper.dart';
 
 
 
-class GraphHelperComics extends StatefulWidget {
+class ProductDetailsComics extends StatefulWidget {
   final int? id;
 
-  const GraphHelperComics({Key? key, this.id}) : super(key: key);
+  const ProductDetailsComics({Key? key, this.id}) : super(key: key);
 
   @override
-  State<GraphHelperComics> createState() => _GraphHelperComicsState();
+  State<ProductDetailsComics> createState() => _ProductDetailsComicsState();
 }
 
-class _GraphHelperComicsState extends State<GraphHelperComics> {
+class _ProductDetailsComicsState extends State<ProductDetailsComics> {
   GetData? getData;
 
   PostData? postData;

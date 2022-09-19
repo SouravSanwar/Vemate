@@ -9,7 +9,6 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
@@ -18,6 +17,8 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../core/models/SetListModel.dart';
+import 'package:intl/intl.dart';
+
 
 class VaultComicsList extends StatefulWidget {
   const VaultComicsList({Key? key}) : super(key: key);
@@ -163,10 +164,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                     .setListModel!
                                                     .setResults![index]
                                                     .setProductDetail!
-                                                    .image!
-                                                    .image_on_list!
-                                                    .src
-                                                    .toString(),
+                                                    .image!.low_res_url.toString(),
                                                 imageBuilder:
                                                     (context, imageProvider) =>
                                                         Container(
@@ -397,7 +395,8 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                       LabelAlignment.start,
                                                   maximumLabels: 7,
                                                 ),
-                                                primaryYAxis: CategoryAxis(
+                                                primaryYAxis: NumericAxis(
+                                                  numberFormat: NumberFormat.compact(),
                                                   isVisible: false,
                                                   majorGridLines:
                                                       const MajorGridLines(
@@ -410,9 +409,6 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                       LabelAlignment.start,
                                                   maximumLabels: 10,
                                                 ),
-                                                tooltipBehavior:
-                                                    TooltipBehavior(
-                                                        enable: true),
                                                 series: <
                                                     ChartSeries<Graph, String>>[
                                                   LineSeries<Graph, String>(
@@ -503,6 +499,7 @@ class _VaultComicsListState extends State<VaultComicsList> {
                                                   ),
                                                 ),
                                                 InkWell(
+                                                  focusColor: Colors.transparent,
                                                   onTap: () {
                                                     showDialog(
                                                         context: context,

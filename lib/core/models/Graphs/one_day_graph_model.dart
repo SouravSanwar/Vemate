@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 
@@ -5,7 +6,7 @@ class OneDayGraphModel {
   OneDayGraphModel({
     this.id,
     this.brand,
-    this.graph,
+    //  this.graph,
     this.image,
     this.type,
     this.name,
@@ -35,6 +36,7 @@ class OneDayGraphModel {
     this.updateTime,
     this.parent,
     this.graphType,
+    this.graphData,
   });
 
   OneDayGraphModel.fromJson(dynamic json) {
@@ -70,23 +72,26 @@ class OneDayGraphModel {
     parent = json['parent'];
     graphType = json['graph_type'];
 
-    if (json['graph'] != null) {
-      graph = [];
-      json['graph'].forEach((v) {
-        graph?.add(OneDayProductGraph.fromJson(v));
-      });
-    }
-
-    final Map<String, OneDayProductGraph> graphMap = {};
-    for (var item in graph!) {
-      graphMap[item.date!] = item;
-    }
-    graph = graphMap.values.toList();
+    graphData = json['graph_data'] != null ? GraphData.fromJson(json['graph_data']) : null;
+    // if (json['graph'] != null) {
+    //   graph = [];
+    //   json['graph'].forEach((v) {
+    //     graph?.add(OneDayProductGraph.fromJson(v));
+    //   });
+    // }
+    //
+    // final Map<String, OneDayProductGraph> graphMap = {};
+    // for (var item in graph!) {
+    //   graphMap[item.date!] = item;
+    // }
+    // graph = graphMap.values.toList();
   }
 
   int? id;
   Brand? brand;
-  List<OneDayProductGraph>? graph;
+
+  //List<OneDayProductGraph>? graph;
+  GraphData? graphData;
   Image? image;
   int? type;
   String? name;
@@ -121,14 +126,15 @@ class OneDayGraphModel {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['brand'] = brand;
-    if (graph != null) {
+    /*if (graph != null) {
       map['graph'] = graph?.map((v) => v.toJson()).toList();
-    }
+    }*/
     if (image != null) {
       map['image'] = image?.toJson();
     }
     map['type'] = type;
     map['name'] = name;
+    map['graph_data'] = graphData;
     map['description'] = description;
     map['listing'] = listing;
     map['floor_price'] = floorPrice;
@@ -166,8 +172,7 @@ class Image {
   });
 
   Image.fromJson(dynamic json) {
-    original =
-    json['original'] != null ? Original.fromJson(json['original']) : null;
+    original = json['original'] != null ? Original.fromJson(json['original']) : null;
     detail = json['detail'] != null ? Detail.fromJson(json['detail']) : null;
   }
 
@@ -249,6 +254,7 @@ class Original {
 class OneDayProductGraph {
   OneDayProductGraph({
     this.floorPrice,
+    this.floorPriceString,
     this.creationTime,
     this.date,
     this.hourWiseTime,
@@ -259,6 +265,7 @@ class OneDayProductGraph {
 
   OneDayProductGraph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
+    floorPriceString = floorPrice.toString();
     creationTime = json['creation_time'];
     date = json['date'];
     if (date != null) {
@@ -270,6 +277,7 @@ class OneDayProductGraph {
   }
 
   double? floorPrice;
+  String? floorPriceString;
   String? creationTime;
   String? date;
   String? hourWiseTime;
@@ -304,6 +312,82 @@ class Brand {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['name'] = name;
+    return map;
+  }
+}
+
+class GraphData {
+  GraphData({
+    this.priceChangePercent,
+    this.graph,
+  });
+
+  GraphData.fromJson(dynamic json) {
+    priceChangePercent = json['priceChangePercent'];
+
+    if (json['graph'] != null) {
+      graph = [];
+      json['graph'].forEach((v) {
+        graph?.add(OneDayProductGraph.fromJson(v));
+      });
+    }
+
+    //Map<String, int>? duplicateGraph;
+
+    final Map<String, OneDayProductGraph> graphMap = {};
+    int length = graph!.length;
+    for (int i = 0; i < length; i++) {
+      if (i == 0) {
+        graphMap[graph![i].date!] = graph![i];
+      } else {
+        var current = DateFormat('hh a').format(DateTime.parse(graph![i].date!));
+        var pre = DateFormat('hh a').format(DateTime.parse(graph![i - 1].date!));
+
+        if (current != pre) {
+          graphMap[graph![i].date!] = graph![i];
+        }
+      }
+    }
+
+    // for (var item in graph!) {
+    //   graphMap[item.date!] = item;
+    // }
+    graph = graphMap.values.toList();
+  }
+
+  PriceChangePercent? priceChangePercent;
+  List<OneDayProductGraph>? graph;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['priceChangePercent'] = priceChangePercent;
+    map['graph'] = graph;
+    return map;
+  }
+}
+
+class PriceChangePercent {
+  PriceChangePercent({
+    this.percent,
+    this.changePrice,
+    this.sign,
+  });
+
+  PriceChangePercent.fromJson(dynamic json) {
+    percent = double.parse(json['percent'].toString()).toPrecision(2);
+    changePrice = double.parse(json['changed_price'].toString()).toPrecision(2);
+    sign = json['sign'];
+  }
+
+  var percent;
+  var changePrice;
+  String? sign;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['percent'] = percent;
+    map['changed_price'] = changePrice;
+    map['sign'] = sign;
     return map;
   }
 }

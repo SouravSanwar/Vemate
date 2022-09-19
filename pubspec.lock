@@ -435,13 +435,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.13"
-  fl_chart:
-    dependency: "direct main"
-    description:
-      name: fl_chart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.45.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -545,13 +538,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.6"
-  flutter_rating_bar:
-    dependency: transitive
-    description:
-      name: flutter_rating_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.1"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -779,13 +765,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  image_downloader:
-    dependency: "direct main"
-    description:
-      name: image_downloader
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.31.0"
   image_picker:
     dependency: "direct main"
     description:
@@ -1073,13 +1052,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.4.0"
-  pie_chart:
-    dependency: "direct main"
-    description:
-      name: pie_chart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.3.1"
   pin_code_fields:
     dependency: "direct main"
     description:
@@ -1185,13 +1157,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.6-nullsafety"
-  rating_dialog:
-    dependency: "direct main"
-    description:
-      name: rating_dialog
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.4"
   rxdart:
     dependency: transitive
     description:
@@ -1420,7 +1385,7 @@ packages:
       name: synchronized
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0+2"
+    version: "3.0.0+3"
   term_glyph:
     dependency: transitive
     description:
@@ -1442,13 +1407,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.0"
-  toggle_switch:
-    dependency: "direct main"
-    description:
-      name: toggle_switch
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
   typed_data:
     dependency: transitive
     description:

@@ -1,4 +1,3 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,8 +8,9 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/common_widgets/text_input_field.dart';
-import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/features/BackPreviousScreen/back_previous_screen.dart';
+import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
+import 'package:ketemaa/features/auth/presentation/auth_initial_page/password_validator.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/_controller/sign_up_controller.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/main.dart';
@@ -28,10 +28,11 @@ class _SignUpState extends State<SignUp> {
   bool? passDigitCheck = true;
   final _formKey = GlobalKey<FormState>();
 
+
   @override
   void initState() {
     // TODO: implement initState
-
+    isValidPass=true;
     postData = Provider.of<PostData>(context, listen: false);
 
     super.initState();
@@ -124,40 +125,24 @@ class _SignUpState extends State<SignUp> {
                             height: 15,
                           ),
                           PasswordInputField(
-                            validator:  (value) {
-                              if (value == null || value.trim().isEmpty) {
-                                return 'Password is required';
-                              }
-                              if (SignUpController.to.passwordController.text.length < 8
-                                  || SignUpController.to.passwordController.text.length >32
-                                   ||!RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)")
-                                  .hasMatch(value)) {
-                                return 'Password must be 8-32 characters with 1 uppercase, 1 number';
-
-                              }
-                              if(SignUpController.to.passwordController.text.length < 8
-                                  || SignUpController.to.passwordController.text.length >32){
-                                return 'Password must be 8-32 characters';
-                              }
-
-                              },
+                            validator:  Validator.validator,
                             labelText: "Password",
                             height: Get.height * .04,
                             textType: TextInputType.text,
                             controller: SignUpController.to.passwordController,
                           ),
-                           Container(
+                          isValidPass==true? Container(
                             alignment: Alignment.topLeft,
                             padding: const EdgeInsets.only(left: 35),
                             height: Get.height * .022,
                             child: Text(
-                                    "*Min 8 characters with 1 uppercase, 1 number",
+                                    "*Min 8 characters with 1 uppercase,1 lowercase,1 number",
                                     style: TextStyle(
                                         fontFamily: 'Inter',
                                         color: AppColors.white.withOpacity(.7),
                                         fontSize: 11),
                                   )
-                          ),
+                          ):Container(),
                           const SizedBox(
                             height: 8,
                           ),
@@ -186,6 +171,8 @@ class _SignUpState extends State<SignUp> {
                             width: Get.width * .9,
                             height: Get.height * .065,
                             onTap: () async {
+
+
                               var body = {
                                 "nickname":
                                     SignUpController.to.nameController.text,
@@ -194,12 +181,20 @@ class _SignUpState extends State<SignUp> {
                                 "birth_year": "1852",
                                 "fcm_device_id": "3",
                                 "password":
-                                    SignUpController.to.passwordController.text
+                                    SignUpController.to.passwordController.text,
+                                "user_creation": false
                               };
+
                               if (_formKey.currentState!.validate()) {
 
                                     postData!.signUp(context, body);
                               }
+                              setState(() {
+                                prefs!.setString('nickname', SignUpController.to.nameController.text);
+                                prefs!.setString('email', SignUpController.to.emailController.text);
+                                prefs!.setString('password', SignUpController.to.passwordController.text);
+                                isValidPass=false;
+                              });
                             },
                             text: AppLanguageString.SIGN_UP.tr.toUpperCase(),
                             style: Get.textTheme.button!.copyWith(

@@ -8,17 +8,17 @@ import 'package:provider/provider.dart';
 import '../core/Provider/getData.dart';
 import 'components/item_details_helper.dart';
 
-class ProductDetails extends StatefulWidget {
+class ProductDetailsCollectibles extends StatefulWidget {
   final int? id;
 
 
-  const ProductDetails({Key? key, this.id}) : super(key: key);
+  const ProductDetailsCollectibles({Key? key, this.id}) : super(key: key);
 
   @override
-  State<ProductDetails> createState() => _ProductDetailsState();
+  State<ProductDetailsCollectibles> createState() => _ProductDetailsCollectiblesState();
 }
 
-class _ProductDetailsState extends State<ProductDetails> {
+class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles> {
   GetData? getData;
 
   PostData? postData;
