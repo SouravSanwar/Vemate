@@ -29,6 +29,7 @@ class _MintButtonState extends State<MintButton> {
 
   bool? toggleValue = false;
   bool? hasDropDownValue = false;
+  RangeValues _currentRangeValues = const RangeValues(40, 80);
 
   Map<String, String> requestHeadersWithToken = {
     'Content-type': 'application/json',
@@ -57,7 +58,23 @@ class _MintButtonState extends State<MintButton> {
       children: [
 
 
-        AlertTextField(
+        TypeIndex1 == 6 ? RangeSlider(
+          values: _currentRangeValues,
+          max: 100,
+          divisions: 100,
+          inactiveColor: AppColors.greyWhite,
+          labels: RangeLabels(
+            _currentRangeValues.start.round().toString(),
+            _currentRangeValues.end.round().toString(),
+          ),
+          onChanged: (RangeValues values) {
+            setState(() {
+              _currentRangeValues = values;
+              print(_currentRangeValues.start.round().toString());
+            });
+          },
+        )
+            :AlertTextField(
           height: Get.height * .03,
           controller: valueController,
         ),

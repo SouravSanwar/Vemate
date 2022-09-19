@@ -334,11 +334,27 @@ class GraphData {
       });
     }
 
-    final Map<String, OneDayProductGraph> graphMap = {};
+ final Map<String, OneDayProductGraph> graphMap = {};
+    int length = graph!.length;
+    for (int i = 0; i < length; i++) {
+      if (i == 0) {
+        graphMap[graph![i].date!] = graph![i];
+      } else {
+        var current = DateFormat('hh a').format(DateTime.parse(graph![i].date!));
+        var pre = DateFormat('hh a').format(DateTime.parse(graph![i - 1].date!));
+
+        if (current != pre) {
+          graphMap[graph![i].date!] = graph![i];
+        }
+      }
+    }
+  graph = graphMap.values.toList();
+
+/*    final Map<String, OneDayProductGraph> graphMap = {};
     for (var item in graph!) {
       graphMap[item.date!] = item;
     }
-    graph = graphMap.values.toList();
+    graph = graphMap.values.toList();*/
   }
 
   PriceChangePercent? priceChangePercent;

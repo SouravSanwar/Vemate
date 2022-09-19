@@ -45,11 +45,12 @@ class _HomeState extends State<Home> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-    getData!.getNotification();
+
     getData!.getUserInfo();
     //getData!.getVaultStats();
     getData!.getNews();
     getData!.getCollectibles(limit: 10);
+    getData!.getNotification();
     getData!.getVaultStats();
 
     getData!.getWishList();

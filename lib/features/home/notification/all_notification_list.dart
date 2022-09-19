@@ -27,7 +27,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
 
   int offset = 0;
   RefreshController refreshController =
-      RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: true);
   final GlobalKey _refreshkey = GlobalKey();
 
   @override
@@ -36,6 +36,9 @@ class _AllNotificationListState extends State<AllNotificationList> {
     postData = Provider.of<PostData>(context, listen: false);
 
     getData = Provider.of<GetData>(context, listen: false);
+    setState(() {
+      getData!.getNotification();
+    });
 
     super.initState();
   }
@@ -122,6 +125,7 @@ class _AllNotificationListState extends State<AllNotificationList> {
                                                   .results![index]
                                                   .target!
                                                   .id,
+                                                  fromNotification: 1,
                                             ));
                                       } else {
                                         setState(() {

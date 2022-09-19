@@ -34,7 +34,7 @@ class _VaultState extends State<Vault> {
     super.initState();
 
     getData = Provider.of<GetData>(context, listen: false);
-   // getData!.getVaultStats();
+   getData!.getVaultStats();
   }
 
   @override

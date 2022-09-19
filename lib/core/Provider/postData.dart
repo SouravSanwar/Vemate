@@ -63,7 +63,7 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 500 ||
         response.statusCode == 201) {
       prefs = await SharedPreferences.getInstance();
-
+      Navigator.of(context).pop();
       Get.to(() => OtpPage());
     } else {
 

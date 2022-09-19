@@ -23,8 +23,10 @@ import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
 
 class CollectibleDetails extends StatefulWidget {
   final int? productId;
+  final int? fromNotification;
 
-  const CollectibleDetails({Key? key, this.productId}) : super(key: key);
+
+  const CollectibleDetails({Key? key, this.productId,this.fromNotification=0}) : super(key: key);
 
   @override
   _CollectibleDetailsState createState() => _CollectibleDetailsState();
@@ -57,6 +59,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
     getData!.checkWishlist(widget.productId!);
     getData!.checkSetList(widget.productId!);
     getData!.getWishList();
+
+    widget.fromNotification==1?
+    getData!.getNotification(): print("no pass from notification");
   }
 
   @override

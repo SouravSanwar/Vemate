@@ -271,10 +271,11 @@ class SevenDayProductGraph {
     date = json['date'];
     if (date != null) {
       hourWiseTime = DateFormat('hh a').format(DateTime.parse(date!));
-      dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
+      dayWiseTime = DateFormat('dd MMM').format(DateTime.parse(date!));
       dayWiseTimeWithDate = DateFormat('dd MMM').format(DateTime.parse(date!));
       monthWiseTime = DateFormat('MMM').format(DateTime.parse(date!));
     }
+    print("DayWiseTime==="+dayWiseTime!);
   }
 
   double? floorPrice;
