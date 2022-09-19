@@ -19,7 +19,7 @@ import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:store_checker/store_checker.dart';
+// import 'package:store_checker/store_checker.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
