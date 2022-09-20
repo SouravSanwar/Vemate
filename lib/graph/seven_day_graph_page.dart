@@ -152,7 +152,6 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
                             data.sevenDayGraphModel!.graphData!.graph!.length == 1
                                 ? LabelPlacement.betweenTicks
                                 : LabelPlacement.onTicks,
-                        maximumLabelWidth: 30,
                         //maximumLabels: 6
                       ),
 
@@ -179,7 +178,6 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w900),
                         labelAlignment: LabelAlignment.center,
-                        maximumLabelWidth: 40,
                       ),
                       series: <ChartSeries<SevenDayProductGraph, String>>[
                         data.sevenDayGraphModel!.graphData!.graph!.length == 1
@@ -187,7 +185,7 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
                                 dataSource: data.sevenDayGraphModel!.graphData!.graph!,
                                 width: .01,
                                 gradient: AppColors.graphGradient,
-                                xValueMapper: (plot, _) => plot.dayWiseTime,
+                                xValueMapper: (plot, _) => data.sevenDayGraphModel!.graphData!.status == 0 ? plot.dayWiseTime:plot.dayWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                               )
                             : SplineAreaSeries<SevenDayProductGraph, String>(
@@ -195,7 +193,7 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
                                 borderColor: const Color(0xff2093D7),
                                 borderWidth: 1,
                                 gradient: AppColors.graphGradient,
-                                xValueMapper: (plot, _) => plot.dayWiseTime,
+                                xValueMapper: (plot, _) => data.sevenDayGraphModel!.graphData!.status == 0 ? plot.dayWiseTime:plot.dayWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                                 xAxisName: 'Duration',
                                 yAxisName: 'Total',

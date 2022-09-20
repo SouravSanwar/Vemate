@@ -26,9 +26,7 @@ class AppUpdate extends ChangeNotifier {
     appUpdator = null;
     final response = await http.get(
       Uri.parse(Urls.appUpdate + '?os=$os'),
-      headers: {
-        'Authorization': 'token ${prefs!.getString('token')}',
-      },
+
     );
 
     var data = json.decode(response.body.toString());

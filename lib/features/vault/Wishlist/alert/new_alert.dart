@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertFrequencyDropdown.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertTypeDropDown.dart';
@@ -53,9 +54,11 @@ class _ShowAlertBoxState extends State<ShowAlertBox> with SingleTickerProviderSt
         top: 10.0,
       ),
       title: TabBar(
+
         tabs: const <Widget>[
           Tab(
             text: ("Mint"),
+
           ),
           Tab(
             text: ("Price"),
@@ -64,7 +67,8 @@ class _ShowAlertBoxState extends State<ShowAlertBox> with SingleTickerProviderSt
         controller: _tabController,
       ),
       content: Container(
-        //height: Get.height * .5,
+        height: Get.height * .5,
+        padding: EdgeInsets.symmetric(horizontal: 10),
         child: TabBarView(
           controller: _tabController,
           children: <Widget>[

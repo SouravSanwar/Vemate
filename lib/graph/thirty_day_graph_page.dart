@@ -152,7 +152,6 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                             data.thirtyDayGraphModel!.graphData!.graph!.length == 1
                                 ? LabelPlacement.betweenTicks
                                 : LabelPlacement.onTicks,
-                        maximumLabelWidth: 30,
                         //maximumLabels: 6
                       ),
 
@@ -180,7 +179,6 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w900),
                         labelAlignment: LabelAlignment.center,
-                        maximumLabelWidth: 40,
                       ),
                       series: <ChartSeries<ThirtyDayProductGraph, String>>[
                         data.thirtyDayGraphModel!.graphData!.graph!.length == 1
@@ -188,8 +186,7 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                                 dataSource: data.thirtyDayGraphModel!.graphData!.graph!,
                                 width: .01,
                                 gradient: AppColors.graphGradient,
-                                xValueMapper: (plot, _) =>
-                                    plot.dayWiseTimeWithDate,
+                                xValueMapper: (plot, _) => data.thirtyDayGraphModel!.graphData!.status==0 ? plot.dayWiseTimeWithDate : plot.dayWiseTimeWithDate1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                               )
                             : SplineAreaSeries<ThirtyDayProductGraph, String>(
@@ -197,8 +194,7 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                                 borderColor: const Color(0xff2093D7),
                                 borderWidth: 1,
                                 gradient: AppColors.graphGradient,
-                                xValueMapper: (plot, _) =>
-                                    plot.dayWiseTimeWithDate,
+                                xValueMapper: (plot, _) => data.thirtyDayGraphModel!.graphData!.status ==0 ?plot.dayWiseTimeWithDate : plot.dayWiseTimeWithDate1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                                 xAxisName: 'Duration',
                                 yAxisName: 'Total',
