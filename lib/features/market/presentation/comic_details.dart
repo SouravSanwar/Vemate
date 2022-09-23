@@ -11,6 +11,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
+import 'package:ketemaa/features/market/presentation/widgets/details_appbar.dart';
 import 'package:ketemaa/graph/one_day_graph_page.dart';
 import 'package:ketemaa/graph/one_year_graph_page.dart';
 import 'package:ketemaa/graph/product_details_comics.dart';
@@ -73,19 +74,10 @@ class _ComicDetailsState extends State<ComicDetails> {
           titleSpacing: 0,
           iconTheme: const IconThemeData(color: Colors.grey),
           backgroundColor: AppColors.backgroundColor,
-          title: Container(
-            padding: EdgeInsets.symmetric(horizontal: Get.width * .03),
-            child: Text(
-              data.singleProductModel != null
-                  ? data.singleProductModel!.name.toString()
-                  : "",
-              style: TextStyle(
-                  color: AppColors.textColor,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
+          title: data.singleProductModel != null ?
+          DetailsAppbar(
+            name: data.singleProductModel!.name!,
+          ): Container()
         ),
         backgroundColor: AppColors.backgroundColor,
         body: data.singleProductModel != null && data.checkSetCheck != null && data.checkWishlistModel != null

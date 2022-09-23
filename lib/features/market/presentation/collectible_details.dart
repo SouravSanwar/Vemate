@@ -11,6 +11,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
+import 'package:ketemaa/features/market/presentation/widgets/details_appbar.dart';
 import 'package:ketemaa/graph/one_year_graph_page.dart';
 import 'package:ketemaa/graph/one_day_graph_page.dart';
 import 'package:ketemaa/graph/product_details_collectibles.dart';
@@ -20,6 +21,7 @@ import 'package:ketemaa/graph/thirty_day_graph_page.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
+import 'package:marquee/marquee.dart';
 
 class CollectibleDetails extends StatefulWidget {
   final int? productId;
@@ -74,7 +76,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
           titleSpacing: 0,
           iconTheme: const IconThemeData(color: Colors.grey),
           backgroundColor: AppColors.backgroundColor,
-          title: Container(
+          title:data.singleProductModel != null ?DetailsAppbar(
+            name: data.singleProductModel!.name!,
+          ): Container()/*Container(
             padding: EdgeInsets.symmetric(horizontal: Get.width * .03),
             child: Text(
               data.singleProductModel != null
@@ -87,7 +91,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                   fontWeight: FontWeight.bold),
               overflow: TextOverflow.ellipsis,
             ),
-          ),
+          ),*/
         ),
         backgroundColor: AppColors.backgroundColor,
         body: data.singleProductModel != null &&

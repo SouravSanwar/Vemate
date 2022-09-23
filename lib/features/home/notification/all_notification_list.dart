@@ -9,6 +9,7 @@ import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
@@ -81,51 +82,22 @@ class _AllNotificationListState extends State<AllNotificationList> with SingleTi
               titleSpacing: 0,
               iconTheme: const IconThemeData(color: Colors.grey),
               backgroundColor: AppColors.backgroundColor,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    notificationSelected == true
-                        ? 'Notifications' : "Alarms set",
-                    style:
-                    Get.textTheme.headline2!.copyWith(
-                        color: AppColors.textColor),
-                  ),
-                  notificationSelected == true
-                      ? InkWell(
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (ctx) =>
-                                AlertDialog(
-                                    alignment: const Alignment(.5, -0.85),
-                                    backgroundColor: AppColors.backgroundColor,
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(
-                                          20.0,
-                                        ),
-                                      ),
-                                    ),
-                                    content: InkWell(
-                                        onTap: () {
-                                          postData!
-                                              .notificationAllRead(
-                                              context,
-                                              requestHeadersWithToken)
-                                              .whenComplete(() =>
-                                              getData!.getNotification());
-                                        },
-                                        child: Text("Mark all as read",style: TextStyle(color: AppColors.white),)
-                                      ))
-
-                        );
-                      },
-                      child: Icon(Icons.more_vert)
-
-                  ) : Container()
-                ],
+              title:  Text(
+                notificationSelected == true
+                    ? 'Notifications' : "Alarms set",
+                style:
+                Get.textTheme.headline2!.copyWith(
+                    color: AppColors.textColor),
               ),
+              actions: [
+                notificationSelected == true
+                    ? PopupMenuButton(
+                  color: Colors.transparent,
+                  itemBuilder: (ctx) => [
+                    _buildPopupMenuItem('Mark all as Read'),
+                  ],
+                ):Container()
+              ],
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(50),
                 child: Row(
@@ -183,8 +155,10 @@ class _AllNotificationListState extends State<AllNotificationList> with SingleTi
                   ],
                 ),
               ),
-
             ),
+
+
+
             body: Container(
 
               child: notificationSelected == true
@@ -1032,8 +1006,11 @@ class _AllNotificationListState extends State<AllNotificationList> with SingleTi
 
           );
         }
+
+
         )
     );
+
   }
 
   Future<void> _onRefresh() async {
@@ -1059,6 +1036,32 @@ class _AllNotificationListState extends State<AllNotificationList> with SingleTi
         refreshController.loadComplete();
       });
     }
+  }
+  PopupMenuItem _buildPopupMenuItem(
+      String title) {
+    return PopupMenuItem(
+      child: InkWell(
+          onTap: () async {
+            showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) => const LoadingDialogue(
+                  message: "Please wait",
+                ));
+            postData!
+                .notificationAllRead(
+                context,
+                requestHeadersWithToken)
+                .whenComplete(() =>
+                getData!.getNotification());
+
+            await Future.delayed(Duration(seconds: 1));
+            Navigator.of(context).pop();
+
+          },
+          child: Text(title,style: TextStyle(color: AppColors.white),)
+      )
+    );
   }
 
 

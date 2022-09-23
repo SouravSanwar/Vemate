@@ -6,6 +6,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/home/components/notification_badge.dart';
+import 'package:ketemaa/features/home/notification/all_notification_list.dart';
 import 'package:ketemaa/features/home/notification/no_notification.dart';
 import 'package:ketemaa/features/home/notification/notification_alart.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
@@ -140,7 +141,7 @@ class _HomeState extends State<Home> {
                                     : showDialog(
                                         context: context,
                                         builder: (ctx) =>
-                                            const NotificationAlertBox(),
+                                            const AllNotificationList(),
                                       );
 
                                 /*if (data
