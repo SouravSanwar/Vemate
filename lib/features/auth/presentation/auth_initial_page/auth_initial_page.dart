@@ -13,6 +13,7 @@ import 'package:ketemaa/core/language/language_string.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
+import 'package:ketemaa/core/utilities/common_widgets/social_login.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
@@ -198,7 +199,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                       ),
                     ),
                     AppSpaces.spaces_height_35,
-                    /*Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
@@ -233,8 +234,10 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
 
                       SocialLogin(
                         child: Image.asset('assets/media/icon/google.png'),
-                        onPressed:() {
-                          signIn();
+                        onPressed:() async {
+                        //  final user = await GoogleSignInApi.login();
+                          print("emailcheck" + "ser!.displayName".toString());
+                          //signIn();
 
                         },
                       ),
@@ -250,15 +253,15 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
 
                         AppSpaces.spaces_width_15,
 
-                      */ /*  SocialLogin(
+                        SocialLogin(
                           child: Image.asset('assets/media/icon/facebook.png'),
                           onPressed:() {
 
                           },
-                        )*/ /*
+                        )
 
                       ],
-                    ),*/
+                    ),
                     SizedBox(
                       height: Get.height * .09,
                     ),

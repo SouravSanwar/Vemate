@@ -80,6 +80,8 @@ dependencies:
   in_app_review: ^2.0.4
   store_checker: ^1.1.0
   marquee: ^2.2.0
+  syncfusion_flutter_sliders: ^19.4.56
+  flutter_swipe_action_cell: ^3.0.4
 
 
 dev_dependencies:

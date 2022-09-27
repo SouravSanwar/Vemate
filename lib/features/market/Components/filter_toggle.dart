@@ -50,7 +50,7 @@ class _FilterToggleButtonState extends State<FilterToggleButton> {
                       alignment: mode == 1
                           ? Alignment.centerLeft
                           : Alignment.centerRight,
-                      height: 20.h,
+                      height: 10.h,
                       width: 20.w,
                       decoration: BoxDecoration(
                         color: Colors.white,

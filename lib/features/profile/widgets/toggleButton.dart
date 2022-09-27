@@ -16,7 +16,8 @@ class ToggleButton extends StatefulWidget {
 }
 
 class _ToggleButtonState extends State<ToggleButton> {
-  /*int? mode=prefs?.getInt('mode');*/
+
+
   @override
   Widget build(BuildContext context) {
     final appStyleMode = Provider.of<AppColors>(context);
@@ -63,7 +64,6 @@ class _ToggleButtonState extends State<ToggleButton> {
                       }
                       appStyleMode.switchMode();
 
-                      print('Color Mode Btn: ' + mode.toString());//eta soman 1/0 check kora lagbe
                     },
                     child: Container(
                       alignment: mode == 1

@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import '../../../../core/models/WishListModel.dart';
 import '../../../../core/utilities/app_colors/dark_white_mode.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 
 class MintButton extends StatefulWidget {
   final Results? results;
@@ -26,7 +28,7 @@ class _MintButtonState extends State<MintButton> {
   TextEditingController mintController1 = TextEditingController();
   TextEditingController mintController2 = TextEditingController();
   int value = 0;
-
+  SfRangeValues _values = SfRangeValues(20.0, 80.0);
   bool? toggleValue = false;
   bool? hasDropDownValue = false;
   RangeValues _currentRangeValues = const RangeValues(40, 80);
@@ -55,29 +57,43 @@ class _MintButtonState extends State<MintButton> {
   @override
   Widget build(BuildContext context) {
     return Column(
+
       children: [
+        TypeIndex1 == 6 ? SizedBox(height: 50,) : Container(),
+        TypeIndex1 == 6
+            ? SfRangeSliderTheme(
+                data: SfRangeSliderThemeData(
 
+                  tooltipBackgroundColor: Colors.transparent,
+                  thumbStrokeWidth: 2,
+                  thumbStrokeColor: AppColors.white,
+                  overlayRadius: 10,
+                 labelOffset: Offset(0,-40) ,
 
-        TypeIndex1 == 6 ? RangeSlider(
-          values: _currentRangeValues,
-          max: 100,
-          divisions: 100,
-          inactiveColor: AppColors.greyWhite,
-          labels: RangeLabels(
-            _currentRangeValues.start.round().toString(),
-            _currentRangeValues.end.round().toString(),
-          ),
-          onChanged: (RangeValues values) {
-            setState(() {
-              _currentRangeValues = values;
-              print(_currentRangeValues.start.round().toString());
-            });
-          },
-        )
-            :AlertTextField(
-          height: Get.height * .03,
-          controller: valueController,
-        ),
+                ),
+                child: SfRangeSlider(
+                  min: 0,
+                  max: 100,
+                  showTicks: true,
+                  showLabels: true,
+                  inactiveColor: Colors.white,
+                  enableTooltip: true,
+                  shouldAlwaysShowTooltip: true,
+                  stepSize: 2,
+
+                  values: _values,
+                  onChanged: (SfRangeValues newValues) {
+                    setState(() {
+                      _values = newValues;
+                      print(_values.start.toString());
+                    });
+                  },
+                ),
+              )
+            : AlertTextField(
+                height: Get.height * .03,
+                controller: valueController,
+              ),
         /*SizedBox( height: 14.sp,),*/
 
         SizedBox(
@@ -95,7 +111,10 @@ class _MintButtonState extends State<MintButton> {
                       requestHeadersWithToken);
                 },
                 child: Text(
-                  widget.results!.isAlert == true && widget.results!.alertData!.type==1? 'Delete' : "",
+                  widget.results!.isAlert == true &&
+                          widget.results!.alertData!.type == 1
+                      ? 'Delete'
+                      : "",
                   style: TextStyle(fontSize: 16.0.sp, color: AppColors.grey),
                 ),
               ),
@@ -111,14 +130,19 @@ class _MintButtonState extends State<MintButton> {
                         ? double.parse(valueController.text)
                         : 0.0,
                     "frequency": frequencyIndex1,
+                    "mint_low": _currentRangeValues.start.round().toString(),
+                    "mint_upper": _currentRangeValues.end.round().toString(),
                   };
 
                   postData!.createAlert(context, body);
                 },
                 child: Text(
-                  widget.results!.isAlert == true && widget.results!.alertData!.type==1? 'Update' : "Save",
+                  widget.results!.isAlert == true &&
+                          widget.results!.alertData!.type == 1
+                      ? 'Update'
+                      : "Save",
                   style:
-                  TextStyle(fontSize: 16.0.sp, color: Colors.purpleAccent),
+                      TextStyle(fontSize: 16.0.sp, color: Colors.purpleAccent),
                 ),
               ),
             ],

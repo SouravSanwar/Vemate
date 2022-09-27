@@ -21,7 +21,7 @@ import 'package:ketemaa/graph/thirty_day_graph_page.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
-import '../../vault/Wishlist/alert/alert_box.dart';
+
 
 class ComicDetails extends StatefulWidget {
   final int? productId;
