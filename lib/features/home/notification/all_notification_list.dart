@@ -426,9 +426,7 @@ class _AllNotificationListState extends State<AllNotificationList>
                                       data.wishListModel!.results!.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    return data.wishListModel!.results![index]
-                                                .alertData !=
-                                            null
+                                    return data.wishListModel!.results![index].productDetail!.productAlertData != null
                                         ? Stack(
                                             children: [
                                               SwipeActionCell(
@@ -726,7 +724,7 @@ class _AllNotificationListState extends State<AllNotificationList>
                                                                             },
                                                                             child: Icon(
                                                                               Icons.notifications_none,
-                                                                              color: data.wishListModel!.results![index].isAlert == true ? AppColors.primaryColor : AppColors.textColor,
+                                                                              color: data.wishListModel!.results![index].productDetail!.productAlertData!=null ? AppColors.primaryColor : AppColors.textColor,
                                                                             )),
                                                                       )
                                                                     ],

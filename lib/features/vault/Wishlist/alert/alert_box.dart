@@ -82,7 +82,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox> with SingleTickerProviderSt
                 MintFrequencyDropDown(
                   results: widget.results,
                 ),
-                SizedBox(
+                 SizedBox(
                   height: 14.h,
                 ),
                 MintTypeDropDown(

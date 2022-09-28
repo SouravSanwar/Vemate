@@ -405,9 +405,7 @@ class _WishListPageState extends State<WishListPage> {
                                                             color: data
                                                                         .wishListModel!
                                                                         .results![
-                                                                            index]
-                                                                        .isAlert ==
-                                                                    true
+                                                                            index].productDetail!.productAlertData != null
                                                                 ? AppColors
                                                                     .primaryColor
                                                                 : AppColors

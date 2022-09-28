@@ -18,7 +18,7 @@ class MintTypeDropDown extends StatefulWidget {
 }
 
 class _MintTypeDropDownState extends State<MintTypeDropDown> {
-  String? value='Below';
+  String? value = 'Below';
   var items = [
     'Below',
     'Above',
@@ -26,25 +26,31 @@ class _MintTypeDropDownState extends State<MintTypeDropDown> {
   ];
 
   GetData? getData;
+  bool? mintAlert = false;
+  int i = 0;
 
   @override
   void initState() {
     // TODO: implement initState
 
     getData = Provider.of<GetData>(context, listen: false);
+    for (i = 0; i < 2; i++) {
+      (widget.results!.productDetail!.productAlertData![i].type == 1
+          ? mintAlert = true
+          : mintAlert = false);
+    }
 
-
-    if (widget.results!.isAlert == true) {
-      print("66666666666--"+widget.results!.alertData!.type.toString());
-      widget.results!.alertData!.type == 1
-          ? value = widget.results!.alertData!.typeValue
+    if (widget.results!.productDetail!.isProductAlert == true) {
+      mintAlert == true
+          ? value =
+              widget.results!.productDetail!.productAlertData![i].typeValue
           : value = 'Below';
     }
     value == 'Below'
-        ? TypeIndex1= 4
+        ? TypeIndex1 = 4
         : value == 'Above'
-        ? TypeIndex1 = 5
-        : TypeIndex1 = 6;
+            ? TypeIndex1 = 5
+            : TypeIndex1 = 6;
 
     super.initState();
   }
@@ -56,8 +62,7 @@ class _MintTypeDropDownState extends State<MintTypeDropDown> {
       children: [
         Text(
           "Type",
-          style: TextStyle(
-              fontSize: 18.0.sp, color: AppColors.textColor),
+          style: TextStyle(fontSize: 18.0.sp, color: AppColors.textColor),
         ),
         SizedBox(
           height: 8.h,
@@ -84,7 +89,7 @@ class _MintTypeDropDownState extends State<MintTypeDropDown> {
                 value == 'Below'
                     ? TypeIndex1 = 4
                     : value == 'Above'
-                        ? TypeIndex1= 5
+                        ? TypeIndex1 = 5
                         : TypeIndex1 = 6;
                 print(TypeIndex1);
               }); //get value when changed
