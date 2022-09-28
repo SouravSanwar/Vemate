@@ -156,7 +156,6 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
               data.sixtyDayGraphModel!.graphData!.graph!.length == 1
                   ? LabelPlacement.betweenTicks
                   : LabelPlacement.onTicks,
-              maximumLabelWidth: 30,
               //maximumLabels: 6
             ),
 
@@ -186,7 +185,6 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                   fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.w900),
               labelAlignment: LabelAlignment.center,
-              maximumLabelWidth: 40,
             ),
             series: <ChartSeries<SixtyDayProductGraph, String>>[
               data.sixtyDayGraphModel!.graphData!.graph!.length == 1
@@ -194,8 +192,7 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                 dataSource: data.sixtyDayGraphModel!.graphData!.graph!,
                 width: .01,
                 gradient: AppColors.graphGradient,
-                xValueMapper: (plot, _) =>
-                plot.dayWiseTimeWithDate,
+                xValueMapper: (plot, _) =>data.sixtyDayGraphModel!.graphData!.status==0 ? plot.dayWiseTimeWithDate : plot.dayWiseTimeWithDate1,
                 yValueMapper: (plot, _) => plot.floorPrice,
               )
                   : SplineAreaSeries<SixtyDayProductGraph, String>(
@@ -204,8 +201,7 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                 borderColor: const Color(0xff2093D7),
                 borderWidth: 1,
                 gradient: AppColors.graphGradient,
-                xValueMapper: (plot, _) =>
-                plot.dayWiseTimeWithDate,
+                xValueMapper: (plot, _) =>data.sixtyDayGraphModel!.graphData!.status==0 ? plot.dayWiseTimeWithDate : plot.dayWiseTimeWithDate1,
                 yValueMapper: (plot, _) => plot.floorPrice,
                 xAxisName: 'Duration',
                 yAxisName: 'Total',

@@ -89,8 +89,6 @@ class _AlertButtonState extends State<AlertButton> {
                     "price_type": TypeIndex,
                     "value": valueController.text != "" ? double.parse(valueController.text) : 0.0,
                     "frequency": frequencyIndex,
-                    "mint_low": 10,
-                    "mint_upper": 25
                   };
 
                   postData!.createAlert(context, body);

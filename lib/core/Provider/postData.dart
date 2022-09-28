@@ -937,6 +937,20 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
+  Future notificationAllRead(
+      BuildContext context, var requestToken) async {
+    final response = await http.get(
+        Uri.parse(Urls.notification + 'make_reads/'),
+        headers: requestToken);
+    print("RESPONSE" + response.statusCode.toString());
+    if (response.statusCode == 200) {
+      getData = Provider.of<GetData>(context, listen: false);
+
+      getData!.notificationListModel = null;
+    }
+    notifyListeners();
+  }
+
   Future PostFeedback(BuildContext context, var body, var requestToken) async {
     final response = await http.post(Uri.parse(Urls.feedback),
         body: json.encode(body), headers: requestToken);

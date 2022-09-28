@@ -65,6 +65,13 @@ class _ProductDetailsComicsState extends State<ProductDetailsComics> {
               ),
               divider(),
               ItemDetailsHelper(
+                text: "Owner",
+                text1: data.singleProductModel != null
+                    ? data.singleProductModel!.owner.toString()
+                    : "",
+              ),
+              divider(),
+              ItemDetailsHelper(
                 text: "Cover Variant",
                 text1: data.singleProductModel != null
                     ? data.singleProductModel!.coverVariant.toString()

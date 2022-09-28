@@ -141,7 +141,6 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                             data.oneYearGraphModel!.graphData!.graph!.length == 1
                                 ? LabelPlacement.betweenTicks
                                 : LabelPlacement.onTicks,
-                        maximumLabelWidth: 30,
                         //maximumLabels: 6
                       ),
 
@@ -169,7 +168,6 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w900),
                         labelAlignment: LabelAlignment.center,
-                        maximumLabelWidth: 40,
                       ),
                       series: <ChartSeries<OneYearProductGraph, String>>[
                         data.oneYearGraphModel!.graphData!.graph!.length == 1
@@ -177,7 +175,7 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                                 dataSource: data.oneYearGraphModel!.graphData!.graph!,
                                 width: .01,
                                 gradient: AppColors.graphGradient,
-                                xValueMapper: (plot, _) => plot.monthWiseTime,
+                                xValueMapper: (plot, _) => data.oneYearGraphModel!.graphData!.status == 0 ?plot.monthWiseTime :plot.monthWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                               )
                             : SplineAreaSeries<OneYearProductGraph, String>(
@@ -185,7 +183,7 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                                 borderColor: const Color(0xff2093D7),
                                 borderWidth: 1,
                                 gradient: AppColors.graphGradient,
-                                xValueMapper: (plot, _) => plot.monthWiseTime,
+                                xValueMapper: (plot, _) => data.oneYearGraphModel!.graphData!.status == 0 ?plot.monthWiseTime :plot.monthWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                                 xAxisName: 'Duration',
                                 yAxisName: 'Total',

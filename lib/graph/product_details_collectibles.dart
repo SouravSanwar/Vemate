@@ -69,6 +69,13 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
                   ),
                   divider(),
                   ItemDetailsHelper(
+                    text: "Owner",
+                    text1: data.singleProductModel != null
+                        ? data.singleProductModel!.owner.toString()
+                        : "",
+                  ),
+                  divider(),
+                  ItemDetailsHelper(
                     text: "Name",
                     text1: data.singleProductModel != null
                         ? data.singleProductModel!.name.toString()

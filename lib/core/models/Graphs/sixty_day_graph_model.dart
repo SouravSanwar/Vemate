@@ -258,10 +258,8 @@ class SixtyDayProductGraph {
     this.floorPriceString,
     this.creationTime,
     this.date,
-    this.hourWiseTime,
-    this.dayWiseTime,
     this.dayWiseTimeWithDate,
-    this.monthWiseTime,
+    this.dayWiseTimeWithDate1,
   });
 
   SixtyDayProductGraph.fromJson(dynamic json) {
@@ -273,11 +271,9 @@ class SixtyDayProductGraph {
     creationTime = json['creation_time'];
     date = json['date'];
     if (date != null) {
-      hourWiseTime = DateFormat('hh a').format(DateTime.parse(date!));
-      dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
       dayWiseTimeWithDate = DateFormat('dd MMM').format(DateTime.parse(date!));
-      monthWiseTime = DateFormat('MMM').format(DateTime.parse(date!));
-      print("+++++++++++++"+dayWiseTimeWithDate.toString());
+      dayWiseTimeWithDate1 = DateFormat('hh:mm a,dd MMM,y').format(DateTime.parse(date!));
+      print("+++++++++++++"+dayWiseTimeWithDate1.toString());
       
     }
 
@@ -288,10 +284,8 @@ class SixtyDayProductGraph {
   String? floorPriceString;
   String? creationTime;
   String? date;
-  String? hourWiseTime;
-  String? dayWiseTime;
   String? dayWiseTimeWithDate;
-  String? monthWiseTime;
+  String? dayWiseTimeWithDate1;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -328,10 +322,12 @@ class GraphData {
   GraphData({
     this.priceChangePercent,
     this.graph,
+    this.status,
   });
 
   GraphData.fromJson(dynamic json) {
     priceChangePercent = json['priceChangePercent'];
+    status = json['status'];
 
     if (json['graph'] != null) {
       graph = [];
@@ -349,11 +345,13 @@ class GraphData {
 
   PriceChangePercent? priceChangePercent;
   List<SixtyDayProductGraph>? graph;
+  int? status;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['priceChangePercent'] = priceChangePercent;
     map['graph'] = graph;
+    map['status'] = status;
     return map;
   }
 }

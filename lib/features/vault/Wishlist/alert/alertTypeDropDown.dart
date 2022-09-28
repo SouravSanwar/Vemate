@@ -58,11 +58,11 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
 
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        /*Text(
           "Type",
           style: TextStyle(
               fontSize: 18.0.sp, color: AppColors.textColor),
-        ),
+        ),*/
         SizedBox(
           height: 8.h,
         ),
