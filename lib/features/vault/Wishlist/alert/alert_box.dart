@@ -72,26 +72,23 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
           children: [
             Text(
               "Price Alert",
-              style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 22.0,
-                  color: AppColors.textColor),
+              style: TextStyle(fontFamily: 'Inter', fontSize: 22.0, color: AppColors.textColor),
             ),
           ],
         ),
         content: /*toggleValue == true
           ?  */
-        SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Container(
-              alignment: Alignment.topLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                 /* Text(
+            SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      /* Text(
                     "Value",
                     style: TextStyle(
                         fontSize: 18.0.sp, color: AppColors.textColor),
@@ -99,28 +96,27 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                   SizedBox(
                     height: 8.h,
                   ),*/
-                  AlertTextField(
-                    height: Get.height * .03,
-                    controller: valueController,
-                  ),
-                  SizedBox(
-                    height: 14.sp,
-                  ),
-                  Text(
-                    "Type",
-                    style: TextStyle(
-                        fontSize: 18.0.sp, color: AppColors.textColor),
-                  ),
-                  SizedBox(
-                    height: 8.sp,
-                  ),
-                  AlertTypeDropDown(
-                    results: widget.results,
-                  ),
-                  SizedBox(
-                    height: 14.h,
-                  ),
-                  /*Text(
+                      AlertTextField(
+                        height: Get.height * .03,
+                        controller: valueController,
+                      ),
+                      SizedBox(
+                        height: 14.sp,
+                      ),
+                      Text(
+                        "Type",
+                        style: TextStyle(fontSize: 18.0.sp, color: AppColors.textColor),
+                      ),
+                      SizedBox(
+                        height: 8.sp,
+                      ),
+                      AlertTypeDropDown(
+                        results: widget.results,
+                      ),
+                      SizedBox(
+                        height: 14.h,
+                      ),
+                      /*Text(
                     "Frequency",
                     style: TextStyle(
                         fontSize: 18.0.sp, color: AppColors.textColor),
@@ -128,22 +124,21 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                   SizedBox(
                     height: 8.h,
                   ),*/
-                  AlertFrequencyDropDown(
-                    results: widget.results,
-                  ),
-                  SizedBox(
-                    height: 25.h,
-                  ),
-                  Container(
-                    alignment: Alignment.bottomRight,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            postData = Provider.of<PostData>(context,
-                                listen: false);
-                            /*var body = {
+                      AlertFrequencyDropDown(
+                        results: widget.results,
+                      ),
+                      SizedBox(
+                        height: 25.h,
+                      ),
+                      Container(
+                        alignment: Alignment.bottomRight,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                postData = Provider.of<PostData>(context, listen: false);
+                                /*var body = {
                                   "product": widget.results!.productDetail!.id,
                                   "type": 0,
                                   "price_type": TypeIndex,
@@ -151,56 +146,44 @@ class _ShowAlertBoxState extends State<ShowAlertBox> {
                                   "frequency": frequencyIndex,
                                 };*/
 
-                            postData!.deleteAlert(
-                                context,
-                                widget.results!.alertData!.id,
-                                requestHeadersWithToken);
-                          },
-                          child: Text(
-                            widget.results!.isAlert == true ? 'Delete' : "",
-                            style: TextStyle(
-                                fontSize: 16.0.sp, color: AppColors.grey),
-                          ),
-                        ),
-                        AppSpaces.spaces_width_10,
-                        InkWell(
-                          onTap: () {
+                                postData!.deleteAlert(context, widget.results!.alertData!.id, requestHeadersWithToken);
+                              },
+                              child: Text(
+                                widget.results!.isAlert == true ? 'Delete' : "",
+                                style: TextStyle(fontSize: 16.0.sp, color: AppColors.grey),
+                              ),
+                            ),
+                            AppSpaces.spaces_width_10,
+                            InkWell(
+                              onTap: () {
+                                postData = Provider.of<PostData>(context, listen: false);
+                                var body = {
+                                  "product": widget.results!.productDetail!.id,
+                                  "type": 0,
+                                  "price_type": TypeIndex,
+                                  "value": valueController.text != "" ? double.parse(valueController.text) : 0.0,
+                                  "frequency": frequencyIndex,
+                                };
 
-                            postData = Provider.of<PostData>(context,
-                                listen: false);
-                            var body = {
-                              "product": widget.results!.productDetail!.id,
-                              "type": 0,
-                              "price_type": TypeIndex,
-                              "value": valueController.text != ""
-                                  ? double.parse(valueController.text)
-                                  : 0.0,
-                              "frequency": frequencyIndex,
-                            };
-
-                            postData!.createAlert(context, body);
-                          },
-                          child: Text(
-                            widget.results!.isAlert == true
-                                ? 'Update'
-                                : "Save",
-                            style: TextStyle(
-                                fontSize: 16.0.sp,
-                                color: Colors.purpleAccent),
-                          ),
+                                postData!.createAlert(context, body);
+                              },
+                              child: Text(
+                                widget.results!.isAlert == true ? 'Update' : "Save",
+                                style: TextStyle(fontSize: 16.0.sp, color: Colors.purpleAccent),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        height: 25.sp,
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 25.sp,
-                  ),
-                ],
-              ),
-            ))
-      /*: Container(
+                ))
+        /*: Container(
         height: Get.height * .01,
       ),*/
-    );
+        );
   }
 }
