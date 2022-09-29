@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alertTextfield.dart';
-import 'package:ketemaa/features/vault/Wishlist/alert/minFrequencyDropDown.dart';
-import 'package:ketemaa/features/vault/Wishlist/alert/mintTypeDropdown.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
@@ -12,6 +10,8 @@ import '../../../../core/models/WishListModel.dart';
 import '../../../../core/utilities/app_colors/dark_white_mode.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+
+import 'mint_alert_page.dart';
 
 class MintButton extends StatefulWidget {
   final Results? results;
@@ -56,13 +56,10 @@ class _MintButtonState extends State<MintButton> {
 
     if (widget.results!.productDetail!.isProductAlert == true) {
       if (widget.results!.productDetail!.productAlertData![j].type == 1) {
-        valueController.text = widget
-            .results!.productDetail!.productAlertData![j].value
-            .toString();
+        valueController.text = widget.results!.productDetail!.productAlertData![j].value.toString();
 
         //if mint ranger value exists
-        _values = SfRangeValues(
-            widget.results!.productDetail!.productAlertData![j].mintLow,
+        _values = SfRangeValues(widget.results!.productDetail!.productAlertData![j].mintLow,
             widget.results!.productDetail!.productAlertData![j].mintUpper);
 
         if (valueController.text == "0.0") {
@@ -81,16 +78,13 @@ class _MintButtonState extends State<MintButton> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         mintAlert == true
-            ? (widget.results!.productDetail!.productAlertData![j].priceType ==
-                        6 &&
-                    TypeIndex1 == 6
+            ? (widget.results!.productDetail!.productAlertData![j].priceType == 6 && TypeIndex1 == 6
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Select range",
-                        style: TextStyle(
-                            fontSize: 18.0.sp, color: AppColors.white),
+                        style: TextStyle(fontSize: 18.0.sp, color: AppColors.white),
                       ),
                       SizedBox(
                         height: Get.height * 0.06945,
@@ -123,18 +117,12 @@ class _MintButtonState extends State<MintButton> {
                       ),
                     ],
                   )
-                : widget.results!.productDetail!.productAlertData![j]
-                                .priceType ==
-                            6 &&
-                        TypeIndex1 != 6
+                : widget.results!.productDetail!.productAlertData![j].priceType == 6 && TypeIndex1 != 6
                     ? AlertTextField(
                         height: Get.height * .03,
                         controller: valueController,
                       )
-                    : widget.results!.productDetail!.productAlertData![j]
-                                    .priceType !=
-                                6 &&
-                            TypeIndex1 != 6
+                    : widget.results!.productDetail!.productAlertData![j].priceType != 6 && TypeIndex1 != 6
                         ? AlertTextField(
                             height: Get.height * .03,
                             controller: valueController,
@@ -144,8 +132,7 @@ class _MintButtonState extends State<MintButton> {
                             children: [
                               Text(
                                 "Select range",
-                                style: TextStyle(
-                                    fontSize: 18.0.sp, color: AppColors.white),
+                                style: TextStyle(fontSize: 18.0.sp, color: AppColors.white),
                               ),
                               SizedBox(
                                 height: Get.height * 0.06945,
@@ -184,8 +171,7 @@ class _MintButtonState extends State<MintButton> {
                     children: [
                       Text(
                         "Select range",
-                        style: TextStyle(
-                            fontSize: 18.0.sp, color: AppColors.white),
+                        style: TextStyle(fontSize: 18.0.sp, color: AppColors.white),
                       ),
                       SizedBox(
                         height: Get.height * 0.06945,
@@ -233,14 +219,10 @@ class _MintButtonState extends State<MintButton> {
               InkWell(
                 onTap: () {
                   postData = Provider.of<PostData>(context, listen: false);
-                  postData!.deleteAlert(context, widget.results!.alertData!.id,
-                      requestHeadersWithToken);
+                  postData!.deleteAlert(context, widget.results!.alertData!.id, requestHeadersWithToken);
                 },
                 child: Text(
-                  widget.results!.productDetail!.productAlertData != null &&
-                          mintAlert == true
-                      ? 'Delete'
-                      : "",
+                  widget.results!.productDetail!.productAlertData != null && mintAlert == true ? 'Delete' : "",
                   style: TextStyle(fontSize: 16.0.sp, color: AppColors.grey),
                 ),
               ),
@@ -252,9 +234,7 @@ class _MintButtonState extends State<MintButton> {
                     "product": widget.results!.productDetail!.id,
                     "type": 1,
                     "price_type": TypeIndex1,
-                    "value": valueController.text != ""
-                        ? double.parse(valueController.text)
-                        : 0.0,
+                    "value": valueController.text != "" ? double.parse(valueController.text) : 0.0,
                     "frequency": frequencyIndex1,
                     "mint_low": _values.start.round().toString(),
                     "mint_upper": _values.end.round().toString(),
@@ -263,12 +243,8 @@ class _MintButtonState extends State<MintButton> {
                   postData!.createAlert(context, body);
                 },
                 child: Text(
-                  widget.results!.productDetail!.productAlertData != null &&
-                          mintAlert == true
-                      ? 'Update'
-                      : "Save",
-                  style:
-                      TextStyle(fontSize: 16.0.sp, color: Colors.purpleAccent),
+                  widget.results!.productDetail!.productAlertData != null && mintAlert == true ? 'Update' : "Save",
+                  style: TextStyle(fontSize: 16.0.sp, color: Colors.purpleAccent),
                 ),
               ),
             ],

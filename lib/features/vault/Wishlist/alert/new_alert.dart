@@ -54,11 +54,9 @@ class _ShowAlertBoxState extends State<ShowAlertBox> with SingleTickerProviderSt
         top: 10.0,
       ),
       title: TabBar(
-
         tabs: const <Widget>[
           Tab(
             text: ("Mint"),
-
           ),
           Tab(
             text: ("Price"),
@@ -79,15 +77,15 @@ class _ShowAlertBoxState extends State<ShowAlertBox> with SingleTickerProviderSt
                 SizedBox(
                   height: 15.h,
                 ),
-                MintFrequencyDropDown(
-                  results: widget.results,
-                ),
+                // MintFrequencyDropDown(
+                //   results: widget.results,
+                // ),
                 SizedBox(
                   height: 14.h,
                 ),
-                MintTypeDropDown(
-                  results: widget.results,
-                ),
+                // MintTypeDropDown(
+                //   results: widget.results,
+                // ),
                 SizedBox(
                   height: 14.h,
                 ),
@@ -103,21 +101,21 @@ class _ShowAlertBoxState extends State<ShowAlertBox> with SingleTickerProviderSt
                 SizedBox(
                   height: 15.h,
                 ),
-                AlertFrequencyDropDown(
-                  results: widget.results,
-                ),
+                // AlertFrequencyDropDown(
+                //   results: widget.results,
+                // ),
                 SizedBox(
                   height: 14.h,
                 ),
-                AlertTypeDropDown(
-                  results: widget.results,
-                ),
+                // AlertTypeDropDown(
+                //   results: widget.results,
+                // ),
                 SizedBox(
                   height: 14.h,
                 ),
-                AlertButton(
-                  results: widget.results,
-                ),
+                // AlertButton(
+                //   results: widget.results,
+                // ),
               ],
             )
           ],
