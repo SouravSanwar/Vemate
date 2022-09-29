@@ -27,6 +27,8 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
   ];
 
   GetData? getData;
+  bool? priceAlert = false;
+  int i=0,j=0;
 
   @override
   void initState() {
@@ -34,13 +36,22 @@ class _AlertFrequencyDropDownState extends State<AlertFrequencyDropDown> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-
-    if (widget.results!.isAlert == true) {
-
-      widget.results!.alertData!.type == 0
-          ? value = widget.results!.alertData!.frequencyValue
-          : value = 'Once';
+    if (widget.results!.productDetail!.isProductAlert == true) {
+      for (i = 0; i < 2; i++) {
+      
+        if(widget.results!.productDetail!.productAlertData![i].type == 0)
+        {
+          setState(() {
+            priceAlert = true;
+            j = i ;
+          });
+        }
+      }
     }
+    if (priceAlert == true) {
+      value = widget.results!.productDetail!.productAlertData![j].frequencyValue;
+    }
+
 
     value == 'Once'
         ? frequencyIndex = 0

@@ -27,6 +27,9 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
   ];
 
   GetData? getData;
+  bool? priceAlert = false;
+  int i = 0,j=0;
+
 
   @override
   void initState() {
@@ -34,13 +37,27 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-
-    if (widget.results!.isAlert == true) {
-      print("66666666666--"+widget.results!.alertData!.type.toString());
-      widget.results!.alertData!.type == 0
-          ? value = widget.results!.alertData!.typeValue
-          : value = 'Price rises above';
+    if (widget.results!.productDetail!.isProductAlert == true) {
+      for (i = 0; i < 2; i++) {
+      
+        if(widget.results!.productDetail!.productAlertData![i].type == 0)
+          {
+            setState(() {
+              priceAlert = true;
+              j = i ;
+            });
+          }
+      }
     }
+
+
+    if (priceAlert == true) {
+       value =
+          widget.results!.productDetail!.productAlertData![j].typeValue;
+       print("jjjjjjj--"+value.toString());
+    }
+
+
     value == 'Price rises above'
         ? TypeIndex = 0
         : value == 'Price drops under'
@@ -58,11 +75,11 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
 
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        /*Text(
+        Text(
           "Type",
           style: TextStyle(
               fontSize: 18.0.sp, color: AppColors.textColor),
-        ),*/
+        ),
         SizedBox(
           height: 8.h,
         ),
