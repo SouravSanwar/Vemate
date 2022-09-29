@@ -69,7 +69,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
     getData = Provider.of<GetData>(context, listen: false);
 
     if (widget.results!.productDetail!.isProductAlert == true) {
-      for (int i = 0; i < 2; i++) {
+      for (int i = 0; i < widget.results!.productDetail!.productAlertData!.length; i++) {
         if (widget.results!.productDetail!.productAlertData![i].type == 1) {
           setState(() {
             mintAlert = true;
@@ -374,7 +374,8 @@ class _MintAlertPageState extends State<MintAlertPage> {
                 InkWell(
                   onTap: () {
                     postData = Provider.of<PostData>(context, listen: false);
-                    postData!.deleteAlert(context, widget.results!.alertData!.id, requestHeadersWithToken);
+                    postData!.deleteAlert(
+                        context, widget.results!.productDetail!.productAlertData![j].id, requestHeadersWithToken);
                   },
                   child: Text(
                     widget.results!.productDetail!.productAlertData != null && mintAlert == true ? 'Delete' : "",

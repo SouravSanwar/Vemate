@@ -71,7 +71,7 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
     getData = Provider.of<GetData>(context, listen: false);
 
     if (widget.results!.productDetail!.isProductAlert == true) {
-      for (int i = 0; i < 2; i++) {
+      for (int i = 0; i < widget.results!.productDetail!.productAlertData!.length; i++) {
         if (widget.results!.productDetail!.productAlertData![i].type == 0) {
           setState(() {
             priceAlert = true;
@@ -258,7 +258,8 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
                 InkWell(
                   onTap: () {
                     postData = Provider.of<PostData>(context, listen: false);
-                    postData!.deleteAlert(context, widget.results!.alertData!.id, requestHeadersWithToken);
+                    postData!.deleteAlert(
+                        context, widget.results!.productDetail!.productAlertData![j].id, requestHeadersWithToken);
                   },
                   child: Text(
                     widget.results!.productDetail!.productAlertData != null && priceAlert == true ? 'Delete' : "",
