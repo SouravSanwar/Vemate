@@ -111,6 +111,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                         floorPrice: data.collectiblesModel!
                             .results![index].floorPrice == null ? "" :data.collectiblesModel!
                             .results![index].floorPrice!,
+                        isAlert: data.collectiblesModel!
+                            .results![index].isProductAlert!,
                         series: <ChartSeries<Graph, String>>[
                           LineSeries<Graph, String>(
                             color: data

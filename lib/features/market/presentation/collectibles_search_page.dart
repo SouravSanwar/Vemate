@@ -198,6 +198,8 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                             floorPrice: data.searchCollectiblesModel!
                                 .results![index].floorPrice == null ? "" :data.searchCollectiblesModel!
                                 .results![index].floorPrice!,
+                            isAlert: data.searchCollectiblesModel!
+                                .results![index].isProductAlert!,
                             series: <ChartSeries<Graph, String>>[
                               LineSeries<Graph, String>(
                                 color: data.searchCollectiblesModel!

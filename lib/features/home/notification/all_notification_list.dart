@@ -15,6 +15,7 @@ import 'package:ketemaa/features/controller_page/presentattion/controller_page.d
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
 import 'package:ketemaa/features/market/widgets/image_widgets.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
@@ -427,457 +428,89 @@ class _AllNotificationListState extends State<AllNotificationList>
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return data.wishListModel!.results![index].productDetail!.productAlertData != null
-                                        ? Stack(
-                                            children: [
-                                              SwipeActionCell(
-                                                backgroundColor: Colors.transparent,
-                                                key: ObjectKey(data
-                                                    .wishListModel!
-                                                    .results![index]),
-                                                trailingActions: <SwipeAction>[
-                                                  SwipeAction(
-                                                    title: "Delete",style: TextStyle(fontSize: 14),
-                                                      performsFirstActionWithFullSwipe: true,
-
-                                                      icon: Icon(
-                                                        Icons.delete,
-                                                        color: AppColors.white,
-                                                      ),
-                                                      onTap: (CompletionHandler
-                                                      handler) async {
-                                                        alertCheck = 0;
-                                                        if (data
-                                                            .wishListModel!
-                                                            .results![index]
-                                                            .alertData !=
-                                                            null) {
-                                                          postData!.deleteAlert(
-                                                            context,
-                                                            data
-                                                                .wishListModel!
-                                                                .results![index]
-                                                                .alertData!
-                                                                .id,
-                                                            requestHeadersWithToken,
-                                                          );
-                                                          alertCheck = 1;
-                                                        }
-                                                        postData!.deleteWishlist(
-                                                            context,
-                                                            alertCheck,
-                                                            data
-                                                                .wishListModel!
-                                                                .results![index]
-                                                                .id,
-                                                            requestHeadersWithToken,
-                                                            check: 12);
-                                                      },
-                                                      color: Colors.red),
-                                                  SwipeAction(
-                                                    title: "Close",style: TextStyle(fontSize: 14),
-                                                      icon: Icon(
-                                                        Icons.close_sharp,
-                                                        color: AppColors.white,
-                                                      ),
-                                                      onTap: (CompletionHandler
-                                                          handler) async {
-                                                        handler(false);
-                                                      },
-                                                      color: Colors.transparent),
-
-                                                ],
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(4.0),
-                                                  child: Container(
-                                                    width: Get.width,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          AppColors.graphCard,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.0),
-                                                    ),
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        data
-                                                                    .wishListModel!
-                                                                    .results![
-                                                                        index]
-                                                                    .productDetail!
-                                                                    .type ==
-                                                                0
-                                                            ? Get.to(
-                                                                () =>
-                                                                    CollectibleDetails(
-                                                                  productId: data
-                                                                      .wishListModel!
-                                                                      .results![
-                                                                          index]
-                                                                      .productDetail!
-                                                                      .id!,
-                                                                ),
-                                                              )
-                                                            : Get.to(
-                                                                () =>
-                                                                    ComicDetails(
-                                                                  productId: data
-                                                                      .wishListModel!
-                                                                      .results![
-                                                                          index]
-                                                                      .productDetail!
-                                                                      .id!,
-                                                                ),
-                                                              );
-                                                      },
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(5.0),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: <Widget>[
-                                                            Container(
-                                                                height:
-                                                                    Get.height *
-                                                                        .09,
-                                                                width:
-                                                                    Get.height *
-                                                                        .078,
-                                                                decoration: BoxDecoration(
-                                                                    color: AppColors
-                                                                        .backgroundColor,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10),
-                                                                    border: Border.all(
-                                                                        color: AppColors
-                                                                            .textBoxBgColor)),
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                child: data
-                                                                            .wishListModel!
-                                                                            .results![index]
-                                                                            .productDetail!
-                                                                            .image ==
-                                                                        null
-                                                                    ? FirstLetterImage(
-                                                                        firstLetter: data
-                                                                            .wishListModel!
-                                                                            .results![index]
-                                                                            .productDetail!
-                                                                            .name
-                                                                            .toString()[0]
-                                                                            .toUpperCase(),
-                                                                        fontsize:
-                                                                            35,
-                                                                      )
-                                                                    : data.wishListModel!.results![index].productDetail!.image!.low_res_url == null
-                                                                        ? VeVeLowImage(
-                                                                            imageUrl:
-                                                                                data.wishListModel!.results![index].productDetail!.image!.image_on_list.toString(),
-                                                                          )
-                                                                        : VeVeLowImage(
-                                                                            imageUrl:
-                                                                                data.wishListModel!.results![index].productDetail!.image!.low_res_url.toString(),
-                                                                          )),
-                                                            AppSpaces
-                                                                .spaces_width_5,
-                                                            Expanded(
-                                                              flex: 7,
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Row(
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Expanded(
-                                                                          flex:
-                                                                              4,
-                                                                          child:
-                                                                              SizedBox(
-                                                                            height:
-                                                                                Get.height * .02,
-                                                                            child:
-                                                                                Text(
-                                                                              data.wishListModel!.results![index].productDetail!.name.toString(),
-                                                                              overflow: TextOverflow.ellipsis,
-                                                                              textAlign: TextAlign.start,
-                                                                              style: Get.textTheme.bodyText2!.copyWith(
-                                                                                  color: AppColors.textColor,
-                                                                                  /*fontFamily:
-                                                                        'Inter',*/
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                  fontSize: 13.sp),
-                                                                            ),
-                                                                          )),
-                                                                      AppSpaces
-                                                                          .spaces_width_2,
-                                                                      Expanded(
-                                                                          flex:
-                                                                              2,
-                                                                          child:
-                                                                              Text(
-                                                                            data.wishListModel!.results![index].productDetail!.edition.toString(),
-                                                                            textAlign:
-                                                                                TextAlign.start,
-                                                                            style: Get.textTheme.bodyText1!.copyWith(
-                                                                                color: AppColors.textColor,
-                                                                                /*fontFamily:
-                                                                      'Inter',*/
-                                                                                fontWeight: FontWeight.w300,
-                                                                                fontSize: 10.sp),
-                                                                          )),
-                                                                    ],
-                                                                  ),
-                                                                  AppSpaces
-                                                                      .spaces_height_10,
-                                                                  Row(
-                                                                    children: [
-                                                                      Expanded(
-                                                                        flex: 4,
-                                                                        child:
-                                                                            Text(
-                                                                          data.wishListModel!.results![index].productDetail!.type == 1
-                                                                              ? data.wishListModel!.results![index].productDetail!.series != null
-                                                                                  ? data.wishListModel!.results![index].productDetail!.series.toString()
-                                                                                  : ""
-                                                                              : data.wishListModel!.results![index].productDetail!.brand != null
-                                                                                  ? data.wishListModel!.results![index].productDetail!.brand!.name.toString()
-                                                                                  : "",
-                                                                          overflow:
-                                                                              TextOverflow.ellipsis,
-                                                                          textAlign:
-                                                                              TextAlign.start,
-                                                                          style: Get.textTheme.bodyText1!.copyWith(
-                                                                              color: AppColors.textColor,
-                                                                              /*fontFamily:
-                                                                    'Inter',*/
-                                                                              fontWeight: FontWeight.w900,
-                                                                              fontSize: 10.sp),
-                                                                        ),
-                                                                      ),
-                                                                      AppSpaces
-                                                                          .spaces_width_2,
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child:
-                                                                            Text(
-                                                                          data
-                                                                              .wishListModel!
-                                                                              .results![index]
-                                                                              .productDetail!
-                                                                              .rarity
-                                                                              .toString(),
-                                                                          textAlign:
-                                                                              TextAlign.start,
-                                                                          style: Get.textTheme.bodyText1!.copyWith(
-                                                                              color: AppColors.textColor,
-                                                                              /*fontFamily:
-                                                                    'Inter',*/
-                                                                              fontWeight: FontWeight.w300,
-                                                                              fontSize: 10.sp),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  AppSpaces
-                                                                      .spaces_height_10,
-                                                                  Row(
-                                                                    children: [
-                                                                      Expanded(
-                                                                        flex: 4,
-                                                                        child:
-                                                                            Text(
-                                                                          r"$" +
-                                                                              data.wishListModel!.results![index].productDetail!.floorPrice.toString(),
-                                                                          textAlign:
-                                                                              TextAlign.start,
-                                                                          style: Get.textTheme.bodyText1!.copyWith(
-                                                                              color: AppColors.textColor,
-                                                                              /*fontFamily:
-                                                                    'Inter',*/
-                                                                              fontWeight: FontWeight.w900,
-                                                                              fontSize: 11.sp),
-                                                                        ),
-                                                                      ),
-                                                                      const SizedBox(
-                                                                        width:
-                                                                            2,
-                                                                      ),
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child: InkWell(
-                                                                            focusColor: Colors.transparent,
-                                                                            onTap: () {
-                                                                              showDialog(
-                                                                                context: context,
-                                                                                builder: (ctx) => ShowAlertBox(
-                                                                                  results: data.wishListModel!.results![index],
-                                                                                ),
-                                                                              );
-                                                                            },
-                                                                            child: Icon(
-                                                                              Icons.notifications_none,
-                                                                              color: data.wishListModel!.results![index].productDetail!.productAlertData!=null ? AppColors.primaryColor : AppColors.textColor,
-                                                                            )),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            AppSpaces
-                                                                .spaces_width_2,
-                                                            Expanded(
-                                                              flex: 4,
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  SizedBox(
-                                                                    height:
-                                                                        Get.height *
-                                                                            .05,
-                                                                    child:
-                                                                        SfCartesianChart(
-                                                                      plotAreaBorderWidth:
-                                                                          0,
-                                                                      primaryXAxis:
-                                                                          CategoryAxis(
-                                                                        isVisible:
-                                                                            false,
-                                                                        majorGridLines:
-                                                                            const MajorGridLines(width: 0),
-                                                                        labelIntersectAction:
-                                                                            AxisLabelIntersectAction.hide,
-                                                                        labelRotation:
-                                                                            270,
-                                                                        labelAlignment:
-                                                                            LabelAlignment.start,
-                                                                        maximumLabels:
-                                                                            7,
-                                                                      ),
-                                                                      primaryYAxis:
-                                                                          NumericAxis(
-                                                                        numberFormat:
-                                                                            NumberFormat.compact(),
-                                                                        isVisible:
-                                                                            false,
-                                                                        majorGridLines:
-                                                                            const MajorGridLines(width: 0),
-                                                                        labelIntersectAction:
-                                                                            AxisLabelIntersectAction.hide,
-                                                                        labelRotation:
-                                                                            0,
-                                                                        labelAlignment:
-                                                                            LabelAlignment.start,
-                                                                        maximumLabels:
-                                                                            10,
-                                                                      ),
-                                                                      tooltipBehavior:
-                                                                          TooltipBehavior(
-                                                                              enable: true),
-                                                                      series: <
-                                                                          ChartSeries<
-                                                                              Graph,
-                                                                              String>>[
-                                                                        LineSeries<
-                                                                            Graph,
-                                                                            String>(
-                                                                          color: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign == 'decrease'
-                                                                              ? Colors.red
-                                                                              : Colors.green,
-                                                                          dataSource: data
-                                                                              .wishListModel!
-                                                                              .results![index]
-                                                                              .productDetail!
-                                                                              .graphData!
-                                                                              .graph!,
-                                                                          xValueMapper: (Graph plot, _) =>
-                                                                              plot.date,
-                                                                          yValueMapper: (Graph plot, _) =>
-                                                                              plot.floorPrice,
-                                                                          xAxisName:
-                                                                              'Duration',
-                                                                          yAxisName:
-                                                                              'Total',
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  AppSpaces
-                                                                      .spaces_height_10,
-                                                                  Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      /*Expanded(
-                                                      child: Text(
-                                                        '',
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style: Get.textTheme
-                                                            .bodyText1!
-                                                            .copyWith(
-                                                                color: AppColors
-                                                                    .white
-                                                                    .withOpacity(
-                                                                        0.9),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                fontSize: 11),
-                                                      ),
-                                                    ),*/
-                                                                      Expanded(
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.start,
-                                                                          children: [
-                                                                            Text(
-                                                                              data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.percent!.toString() + "%",
-                                                                              textAlign: TextAlign.end,
-                                                                              style: Get.textTheme.bodyText1!.copyWith(color: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign == 'decrease' ? Colors.red : Colors.green, fontFamily: 'Inter', fontWeight: FontWeight.w300, fontSize: 10.sp),
-                                                                            ),
-                                                                            if (data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign ==
-                                                                                'decrease')
-                                                                              const Icon(
-                                                                                Icons.arrow_downward,
-                                                                                color: Colors.red,
-                                                                                size: 12,
-                                                                              )
-                                                                            else
-                                                                              const Icon(
-                                                                                Icons.arrow_upward,
-                                                                                color: Colors.green,
-                                                                                size: 12,
-                                                                              )
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                        ? Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 4, bottom: 4, left: 4, right: 4),
+                                        child: Container(
+                                            width: Get.width,
+                                            decoration: BoxDecoration(
+                                              color: AppColors.graphCard,
+                                              borderRadius: BorderRadius.circular(12.0),
+                                            ),
+                                            child: InkWell(
+                                        onTap: () {
+                                          data.wishListModel!.results![index]
+                                              .productDetail!.type ==
+                                              0
+                                              ? Get.to(
+                                                () => CollectibleDetails(
+                                              productId: data
+                                                  .wishListModel!
+                                                  .results![index]
+                                                  .productDetail!
+                                                  .id!,
+                                            ),
                                           )
+                                              : Get.to(
+                                                () => ComicDetails(
+                                              productId: data.wishListModel!.results![index].productDetail!
+                                                  .id!,
+                                            ),
+                                          );
+                                        },
+                                        child: ProductListContainer(
+                                          checkImage: data.wishListModel!.results![index].productDetail!.image == null ? ""
+                                              :data.wishListModel!.results![index].productDetail!.image.toString(),
+                                          name: data.wishListModel!.results![index].productDetail!.name == null ? ""
+                                              : data.wishListModel!.results![index].productDetail!.name!,
+                                          lowResUrl: data.wishListModel!.results![index].productDetail!.image != null
+                                              ? data.wishListModel!.results![index].productDetail!.image!.low_res_url! :"",
+                                          scrappedImage:data.wishListModel!.results![index].productDetail!.image != null ?
+                                          data.wishListModel!.results![index].productDetail!.image!.image_on_list
+                                              .toString() :"",
+                                          edition: data.wishListModel!.results![index].productDetail!.edition == null ? ""
+                                              : data.wishListModel!.results![index].productDetail!.edition!,
+                                          brand: data.wishListModel!.results![index].productDetail!.brand == null ? ""
+                                              :data.wishListModel!.results![index].productDetail!.brand
+                                              .toString(),
+
+                                          brandName: data.wishListModel!.results![index].productDetail!.brand == null ? ""
+                                              : data.wishListModel!.results![index].productDetail!.brand!.name!,
+                                          rarity: data.wishListModel!.results![index].productDetail!.rarity ==null ? ""
+                                              :data.wishListModel!.results![index].productDetail!.rarity!,
+                                          floorPrice: data.wishListModel!.results![index].productDetail!.floorPrice == null ? ""
+                                              :data.wishListModel!.results![index].productDetail!.floorPrice!,
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (ctx) =>
+                                                  ShowAlertBox(
+                                                    results: data.wishListModel!.results![index],
+                                                  ),
+                                            );
+                                          },
+                                          isAlert: data.wishListModel!.results![index].productDetail!.isProductAlert!,
+                                          series: <ChartSeries<Graph, String>>[
+                                            LineSeries<Graph, String>(
+                                              color: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!
+                                                  .sign ==
+                                                  'decrease'
+                                                  ? Colors.red
+                                                  : Colors.green,
+                                              dataSource: data.wishListModel!.results![index].productDetail!.graphData!.graph!,
+                                              xValueMapper: (Graph plot, _) =>
+                                              plot.date,
+                                              yValueMapper: (Graph plot, _) =>
+                                              plot.floorPrice,
+                                              xAxisName: 'Duration',
+                                              yAxisName: 'Total',
+                                            )
+                                          ],
+                                          changePrice: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.changePrice,
+                                          pcpPercent: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.percent,
+                                          pcpSign: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign! ,
+                                        )
+                                    )))
                                         : Container();
                                   },
                                 )

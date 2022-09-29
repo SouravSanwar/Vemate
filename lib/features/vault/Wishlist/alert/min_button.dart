@@ -111,7 +111,7 @@ class _MintButtonState extends State<MintButton> {
                           inactiveColor: Colors.white,
                           enableTooltip: true,
                           shouldAlwaysShowTooltip: true,
-                          stepSize: 2,
+                          stepSize: 1,
                           values: _values,
                           onChanged: (SfRangeValues newValues) {
                             setState(() {
