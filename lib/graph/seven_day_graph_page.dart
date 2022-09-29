@@ -90,7 +90,7 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: data.sevenDayGraphModel != null
-              ? data.sevenDayGraphModel!.graph!.isEmpty
+              ? data.sevenDayGraphModel!.graphData!.graph!.isEmpty
                   ? const NoGraphCard(
                       title: "No data for 7 days!",
                     )
@@ -149,10 +149,9 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
                         ),
                         labelAlignment: LabelAlignment.center,
                         labelPlacement:
-                            data.sevenDayGraphModel!.graph!.length == 1
+                            data.sevenDayGraphModel!.graphData!.graph!.length == 1
                                 ? LabelPlacement.betweenTicks
                                 : LabelPlacement.onTicks,
-                        maximumLabelWidth: 30,
                         //maximumLabels: 6
                       ),
 
@@ -179,23 +178,22 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w900),
                         labelAlignment: LabelAlignment.center,
-                        maximumLabelWidth: 40,
                       ),
                       series: <ChartSeries<SevenDayProductGraph, String>>[
-                        data.sevenDayGraphModel!.graph!.length == 1
+                        data.sevenDayGraphModel!.graphData!.graph!.length == 1
                             ? ColumnSeries<SevenDayProductGraph, String>(
-                                dataSource: data.sevenDayGraphModel!.graph!,
+                                dataSource: data.sevenDayGraphModel!.graphData!.graph!,
                                 width: .01,
                                 gradient: AppColors.graphGradient,
-                                xValueMapper: (plot, _) => plot.dayWiseTime,
+                                xValueMapper: (plot, _) => data.sevenDayGraphModel!.graphData!.status == 0 ? plot.dayWiseTime:plot.dayWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                               )
                             : SplineAreaSeries<SevenDayProductGraph, String>(
-                                dataSource: data.sevenDayGraphModel!.graph!,
+                                dataSource: data.sevenDayGraphModel!.graphData!.graph!,
                                 borderColor: const Color(0xff2093D7),
                                 borderWidth: 1,
                                 gradient: AppColors.graphGradient,
-                                xValueMapper: (plot, _) => plot.dayWiseTime,
+                                xValueMapper: (plot, _) => data.sevenDayGraphModel!.graphData!.status == 0 ? plot.dayWiseTime:plot.dayWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                                 xAxisName: 'Duration',
                                 yAxisName: 'Total',

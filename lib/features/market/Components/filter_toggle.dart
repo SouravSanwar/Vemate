@@ -7,17 +7,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/utilities/app_colors/app_colors.dart';
 
-class ToggleButton extends StatefulWidget {
+class FilterToggleButton extends StatefulWidget {
   final VoidCallback? onTap;
-  const ToggleButton({Key? key,this.onTap,}) : super(key: key);
+  const FilterToggleButton({Key? key,this.onTap,}) : super(key: key);
 
   @override
-  _ToggleButtonState createState() => _ToggleButtonState();
+  _FilterToggleButtonState createState() => _FilterToggleButtonState();
 }
 
-class _ToggleButtonState extends State<ToggleButton> {
-
-
+class _FilterToggleButtonState extends State<FilterToggleButton> {
+  /*int? mode=prefs?.getInt('mode');*/
   @override
   Widget build(BuildContext context) {
     final appStyleMode = Provider.of<AppColors>(context);
@@ -29,8 +28,8 @@ class _ToggleButtonState extends State<ToggleButton> {
           AnimatedContainer(
             padding: EdgeInsets.only(left: 2, right: 2),
             duration: Duration(milliseconds: 100),
-            height: 30.0.h,
-            width: 60.0.w,
+            height: 20.0.h,
+            width: 40.0.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25.0),
               color: darkMode == true ? Colors.purple : Colors.grey,
@@ -41,42 +40,23 @@ class _ToggleButtonState extends State<ToggleButton> {
                   duration: Duration(milliseconds: 100),
                   curve: Curves.easeIn,
                   top: 3.0,
-                  left: darkMode == true ? 30.0 : 0.0,
-                  right: darkMode == true ? 0.0 : 30.0,
+                  left: darkMode == true ? 20.0 : 0.0,
+                  right: darkMode == true ? 0.0 : 20.0,
                   child: InkWell(
                     onTap: () async {
-                      prefs = await SharedPreferences.getInstance();
-                      if (mode == 1) {
-                        setState(() {
-                          prefs!.setInt('mode', 0);
-                          darkMode = true;
-                        });
-                      } else if (mode == 0) {
-                        setState(() {
-                          prefs!.setInt('mode', 1);
-                          darkMode = false;
-                        });
-                      } else {
-                        setState(() {
-                          prefs!.setInt('mode', 0);
-                          darkMode = true;
-                        });
-                      }
-                      appStyleMode.switchMode();
 
                     },
                     child: Container(
                       alignment: mode == 1
                           ? Alignment.centerLeft
                           : Alignment.centerRight,
-                      height: 15.h,
-                      width: 15.w,
+                      height: 10.h,
+                      width: 20.w,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(25.0),
                       ),
-                      child:
-                          Icon(mode == 1 ? Icons.dark_mode : Icons.light_mode),
+                      child:Container()
                     ),
                   ),
                 )

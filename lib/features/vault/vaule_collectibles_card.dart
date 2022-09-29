@@ -24,6 +24,9 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+        highlightColor: Colors.transparent,
+        splashColor:Colors.transparent ,
+        focusColor: Colors.transparent,
         onTap: () {
           Get.to(
             () => const VaultCollectiblesLists(),
@@ -118,8 +121,6 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                                       labelAlignment: LabelAlignment.start,
                                       maximumLabels: 10,
                                     ),
-                                    tooltipBehavior:
-                                        TooltipBehavior(enable: true),
                                     series: <
                                         ChartSeries<CollectibleGraph, String>>[
                                       LineSeries<CollectibleGraph, String>(

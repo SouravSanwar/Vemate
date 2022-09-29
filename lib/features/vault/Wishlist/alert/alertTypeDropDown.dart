@@ -27,6 +27,9 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
   ];
 
   GetData? getData;
+  bool? priceAlert = false;
+  int i = 0,j=0;
+
 
   @override
   void initState() {
@@ -34,13 +37,27 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-
-    if (widget.results!.isAlert == true) {
-      print("66666666666--"+widget.results!.alertData!.type.toString());
-      widget.results!.alertData!.type == 0
-          ? value = widget.results!.alertData!.typeValue
-          : value = 'Price rises above';
+    if (widget.results!.productDetail!.isProductAlert == true) {
+      for (i = 0; i < 2; i++) {
+      
+        if(widget.results!.productDetail!.productAlertData![i].type == 0)
+          {
+            setState(() {
+              priceAlert = true;
+              j = i ;
+            });
+          }
+      }
     }
+
+
+    if (priceAlert == true) {
+       value =
+          widget.results!.productDetail!.productAlertData![j].typeValue;
+       print("jjjjjjj--"+value.toString());
+    }
+
+
     value == 'Price rises above'
         ? TypeIndex = 0
         : value == 'Price drops under'
@@ -54,53 +71,67 @@ class _AlertTypeDropDownState extends State<AlertTypeDropDown> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      width: Get.width,
-      decoration: BoxDecoration(
-        color: AppColors.backgroundColor,
-        border: Border.all(
-            color: AppColors.textColor, // set border color
-            width: 1.w), // set border width
-        borderRadius: const BorderRadius.all(
-            Radius.circular(15.0)), // set rounded corner radius
-      ),
-      child: DropdownButton<String>(
-        isExpanded: true,
-        value: value,
-        items: items.map(buildMenuItem).toList(),
-        onChanged: (value) {
-          setState(() {
-            this.value = value;
+    return Column(
 
-            value == 'Price rises above'
-                ? TypeIndex = 0
-                : value == 'Price drops under'
-                ? TypeIndex = 1
-                : value == 'Price rises'
-                ? TypeIndex = 2
-                : TypeIndex = 3;
-            print(TypeIndex);
-          }); //get value when changed
-        },
-        icon: const Icon(
-          Icons.keyboard_arrow_down,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Type",
+          style: TextStyle(
+              fontSize: 18.0.sp, color: AppColors.textColor),
         ),
+        SizedBox(
+          height: 8.h,
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          width: Get.width,
+          decoration: BoxDecoration(
+            color: AppColors.backgroundColor,
+            border: Border.all(
+                color: AppColors.textColor, // set border color
+                width: 1.w), // set border width
+            borderRadius: const BorderRadius.all(
+                Radius.circular(15.0)), // set rounded corner radius
+          ),
+          child: DropdownButton<String>(
+            isExpanded: true,
+            value: value,
+            items: items.map(buildMenuItem).toList(),
+            onChanged: (value) {
+              setState(() {
+                this.value = value;
 
-        iconEnabledColor: Colors.grey,
-        //Icon color
-        style: TextStyle(
-          //te
-            color: AppColors.grey, //Font color
-            fontSize: 20.sp //font size on dropdown button
+                value == 'Price rises above'
+                    ? TypeIndex = 0
+                    : value == 'Price drops under'
+                    ? TypeIndex = 1
+                    : value == 'Price rises'
+                    ? TypeIndex = 2
+                    : TypeIndex = 3;
+                print(TypeIndex);
+              }); //get value when changed
+            },
+            icon: const Icon(
+              Icons.keyboard_arrow_down,
+            ),
+
+            iconEnabledColor: Colors.grey,
+            //Icon color
+            style: TextStyle(
+              //te
+                color: AppColors.grey, //Font color
+                fontSize: 20.sp //font size on dropdown button
+            ),
+            dropdownColor: AppColors.backgroundColor,
+            underline: Container(),
+            //dropdown background color
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
         ),
-        dropdownColor: AppColors.backgroundColor,
-        underline: Container(),
-        //dropdown background color
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
+      ],
     );
   }
 

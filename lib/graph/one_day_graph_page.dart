@@ -137,21 +137,21 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                         majorTickLines: const MajorTickLines(width: 0),
                         axisLine: const AxisLine(width: 0),
                         //labelIntersectAction: AxisLabelIntersectAction.hide,
-                        labelRotation: 0,
+                      // labelRotation: 90,
                         edgeLabelPlacement: EdgeLabelPlacement.shift,
                         labelStyle: TextStyle(
                           color: AppColors.textColor,
                           fontFamily: 'Inter',
-                          fontSize: 8.sp,
+                          fontSize: 7.sp,
                           fontStyle: FontStyle.italic,
-                          //fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w900,
                         ),
                         labelAlignment: LabelAlignment.center,
+                        //labelIntersectAction: AxisLabelIntersectAction.wrap,
                         labelPlacement:
                             data.oneDayGraphModel!.graphData!.graph!.length == 1
                                 ? LabelPlacement.betweenTicks
                                 : LabelPlacement.onTicks,
-                        maximumLabelWidth: 30,
                         //maximumLabels: 6
                       ),
 
@@ -174,7 +174,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                         labelStyle: TextStyle(
                             color: AppColors.textColor,
                             fontFamily: 'Inter',
-                            fontSize: 8.sp,
+                            fontSize: 7.sp,
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w900),
                         labelAlignment: LabelAlignment.center,
@@ -186,7 +186,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                                 width: .01,
                                 gradient: AppColors.graphGradient,
                                 dataSource: data.oneDayGraphModel!.graphData!.graph!,
-                                xValueMapper: (plot, _) => plot.hourWiseTime,
+                                xValueMapper: (plot, _) =>data.oneDayGraphModel!.graphData!.status == 0 ?plot.hourWiseTime :plot.hourWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                               )
                             : SplineAreaSeries<OneDayProductGraph, String>(
@@ -194,7 +194,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                                 borderColor: const Color(0xff2093D7),
                                 borderWidth: 1,
                                 gradient: AppColors.graphGradient,
-                                xValueMapper: (plot, _) => plot.hourWiseTime,
+                                xValueMapper: (plot, _) =>data.oneDayGraphModel!.graphData!.status == 0 ?plot.hourWiseTime :plot.hourWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                                 xAxisName: 'Duration',
                                 yAxisName: 'Total',

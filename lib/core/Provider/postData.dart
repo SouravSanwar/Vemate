@@ -52,20 +52,27 @@ class PostData extends ChangeNotifier with BaseController {
     final response = await http.post(Uri.parse(Urls.signUp),
         body: json.encode(body), headers: requestHeaders);
 
-    var x = json.decode(response.body);
+    //var x = json.decode(response.body);
 
-    print(x.toString());
+   //print(x.toString());
 
-    Map<String, dynamic> js = x;
+   // Map<String, dynamic> js = x;
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
       prefs = await SharedPreferences.getInstance();
-
+      Navigator.of(context).pop();
       Get.to(() => OtpPage());
     } else {
+
+      var x = json.decode(response.body);
+
+       print(x.toString());
+
+       Map<String, dynamic> js = x;
+
       Navigator.of(context).pop();
       if (js.containsKey('nickname')) {
         showDialog(
@@ -920,6 +927,20 @@ class PostData extends ChangeNotifier with BaseController {
       BuildContext context, int? id, var requestToken) async {
     final response = await http.post(
         Uri.parse(Urls.notification + '$id/make_read_with_id/'),
+        headers: requestToken);
+    print("RESPONSE" + response.statusCode.toString());
+    if (response.statusCode == 200) {
+      getData = Provider.of<GetData>(context, listen: false);
+
+      getData!.notificationListModel = null;
+    }
+    notifyListeners();
+  }
+
+  Future notificationAllRead(
+      BuildContext context, var requestToken) async {
+    final response = await http.get(
+        Uri.parse(Urls.notification + 'make_reads/'),
         headers: requestToken);
     print("RESPONSE" + response.statusCode.toString());
     if (response.statusCode == 200) {

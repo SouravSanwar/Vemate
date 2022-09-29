@@ -85,13 +85,13 @@ class _MysetsCardState extends State<MysetsCard> {
                                   series: <ChartSeries<Graph, String>>[
                                     LineSeries<Graph, String>(
                                       color: data.setListModel!.setResults![index]
-                                          .setProductDetail!.priceChangePercent!
+                                          .setProductDetail!.graphData!.priceChangePercent!
                                           .sign ==
                                           'decrease'
                                           ? Colors.red
                                           : Colors.green,
                                       dataSource: data.setListModel!.setResults![index]
-                                          .setProductDetail!.graph!,
+                                          .setProductDetail!.graphData!.graph!,
                                       xValueMapper: (Graph plot, _) => plot.date,
                                       yValueMapper: (Graph plot, _) =>
                                       plot.floorPrice,
@@ -104,9 +104,9 @@ class _MysetsCardState extends State<MysetsCard> {
                                       .setProductDetail!.floorPrice.toString(),
                                   pcpPercent:
                                   data.setListModel!.setResults![index]
-                                      .setProductDetail!.priceChangePercent!.percent,
+                                      .setProductDetail!.graphData!.priceChangePercent!.percent,
                                   pcpSign: data.setListModel!.setResults![index]
-                                      .setProductDetail!.priceChangePercent!.sign
+                                      .setProductDetail!.graphData!.priceChangePercent!.sign
                                       .toString(),
                                 )
                               ],
@@ -133,13 +133,13 @@ class _MysetsCardState extends State<MysetsCard> {
                                 series: <ChartSeries<Graph, String>>[
                                   LineSeries<Graph, String>(
                                     color: data.setListModel!.setResults![index]
-                                        .setProductDetail!.priceChangePercent!
+                                        .setProductDetail!.graphData!.priceChangePercent!
                                         .sign ==
                                         'decrease'
                                         ? Colors.red
                                         : Colors.green,
                                     dataSource: data.setListModel!.setResults![index]
-                                        .setProductDetail!.graph!,
+                                        .setProductDetail!.graphData!.graph!,
                                     xValueMapper: (Graph plot, _) => plot.date,
                                     yValueMapper: (Graph plot, _) =>
                                     plot.floorPrice,
@@ -151,9 +151,9 @@ class _MysetsCardState extends State<MysetsCard> {
                                 data.setListModel!.setResults![index]
                                     .setProductDetail!.floorPrice.toString(),
                                 pcpPercent: data.setListModel!.setResults![index]
-                                    .setProductDetail!.priceChangePercent!.percent,
+                                    .setProductDetail!.graphData!.priceChangePercent!.percent,
                                 pcpSign: data.setListModel!.setResults![index]
-                                    .setProductDetail!.priceChangePercent!.sign
+                                    .setProductDetail!.graphData!.priceChangePercent!.sign
                                     .toString(),
                               )),
                         ),

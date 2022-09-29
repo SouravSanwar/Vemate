@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
+import 'package:ketemaa/features/market/Components/filter_toggle.dart';
+import 'package:ketemaa/features/profile/widgets/toggleButton.dart';
 import 'package:provider/provider.dart';
 import '../Components/category_card.dart';
 import '../Components/collectibles_item_card.dart';
@@ -33,8 +35,8 @@ class _MarketState extends State<Market> {
   bool? collectibleEnable = false;
   bool? comicEnable = false;
 
- // String? collcetableMintValue = '';
- // String? comicMintValue = '';
+ String? collcetableMintValue = '';
+ String? comicMintValue = '';
 
   TextEditingController searchCollectible = TextEditingController();
   TextEditingController searchComic = TextEditingController();
@@ -52,6 +54,9 @@ class _MarketState extends State<Market> {
       keyword: comicSearchText,
       rarity: comicRarity,
     );
+
+    collectibleSearchText= "";
+    comicSearchText = "" ;
 
     super.initState();
   }
@@ -231,13 +236,13 @@ class _MarketState extends State<Market> {
                           } else if (value == 5) {
                             collectibleRarity = 'Secret Rare';
                             collectibleFilterOn = true;
-                          } /*else if (value == 7) {
+                          } else if (value == 7) {
                             collcetableMintValue = '0';
                             collectibleFilterOn = true;
                           } else if (value == 8) {
                             collcetableMintValue = '1';
                             collectibleFilterOn = true;
-                          } */else {
+                          } else {
                             getData!.getCollectibles();
                             collectibleRarity = '';
                             //collcetableMintValue = '';
@@ -245,13 +250,13 @@ class _MarketState extends State<Market> {
                           }
                         });
 
-                        if (collectibleRarity.isNotEmpty /*||
-                            collcetableMintValue!.isNotEmpty*/) {
+                        if (collectibleRarity.isNotEmpty ||
+                            collcetableMintValue!.isNotEmpty) {
                           getData!.collectiblesModel = null;
                           getData!.getCollectibles(
                             keyword: collectibleSearchText,
                             rarity: collectibleRarity,
-                            //mint_number: collcetableMintValue.toString(),
+                            mint_number: collcetableMintValue.toString(),
                           );
                         }
                       },
@@ -329,7 +334,7 @@ class _MarketState extends State<Market> {
                             ),
                           ),
                         ),
-                        /*PopupMenuItem(
+                        PopupMenuItem(
                           padding: EdgeInsets.zero,
                           value: 100,
                           child: Divider(
@@ -360,7 +365,7 @@ class _MarketState extends State<Market> {
                               fontFamily: 'Inter',
                             ),
                           ),
-                        ),*/
+                        ),
                       ],
                     )
                   : PopupMenuButton(
@@ -392,26 +397,26 @@ class _MarketState extends State<Market> {
                           } else if (value == 5) {
                             comicRarity = 'Secret Rare';
                             comicFilterOn = true;
-                          } /*else if (value == 7) {
+                          } else if (value == 7) {
                             comicMintValue = '0';
                             collectibleFilterOn = true;
                           } else if (value == 8) {
                             comicMintValue = '1';
                             collectibleFilterOn = true;
-                          }*/ else {
+                          } else {
                             getData!.getComics();
                             comicRarity = '';
                             comicFilterOn = false;
                           }
                         });
 
-                        if (comicRarity.isNotEmpty /*||
-                            comicMintValue!.isNotEmpty*/) {
+                        if (comicRarity.isNotEmpty ||
+                            comicMintValue!.isNotEmpty) {
                           getData!.comicsModel = null;
                           getData!.getComics(
                             keyword: comicSearchText,
                             rarity: comicRarity,
-                            //mint_number: comicMintValue,
+                            mint_number: comicMintValue,
                           );
                         }
                       },
@@ -488,7 +493,7 @@ class _MarketState extends State<Market> {
                             ),
                           ),
                         ),
-                        /*PopupMenuItem(
+                        PopupMenuItem(
                           padding: EdgeInsets.zero,
                           value: 100,
                           child: Divider(
@@ -498,28 +503,22 @@ class _MarketState extends State<Market> {
                         ),
                         PopupMenuItem(
                           value: 7,
-                          child: Text(
-                            'Low Mint A',
-                            style: TextStyle(
-                              color: comicMintValue == '0'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
-                              fontFamily: 'Inter',
-                            ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Low Mint',
+                                style: TextStyle(
+                                  color: comicMintValue == '0'
+                                      ? AppColors.primaryColor
+                                      : AppColors.textColor,
+                                  fontFamily: 'Inter',
+                                ),
+                              ),
+                              FilterToggleButton()
+
+                            ],
                           ),
                         ),
-                        PopupMenuItem(
-                          value: 8,
-                          child: Text(
-                            'Low Mint D',
-                            style: TextStyle(
-                              color: comicMintValue == '1'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
-                              fontFamily: 'Inter',
-                            ),
-                          ),
-                        ),*/
                       ],
                     ))
               : Container(),
@@ -622,12 +621,12 @@ class _MarketState extends State<Market> {
                   ? CollectiblesItemCard(
                       keyword: collectibleSearchText!,
                       rarity: collectibleRarity,
-                      //mintNumber: comicMintValue,
+                      mintNumber: collcetableMintValue,
                     )
                   : ComicsItemCard(
                       keyword: comicSearchText!,
                       rarity: comicRarity,
-                     // mintNumber: comicMintValue,
+                     mintNumber: comicMintValue,
                     ),
             ),
 

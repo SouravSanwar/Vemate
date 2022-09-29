@@ -93,7 +93,7 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: data.sixtyDayGraphModel != null
-              ? data.sixtyDayGraphModel!.graph!.isEmpty
+              ? data.sixtyDayGraphModel!.graphData!.graph!.isEmpty
               ? const NoGraphCard(
             title: "No data for 60 days!",
           )
@@ -153,10 +153,9 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
               ),
               labelAlignment: LabelAlignment.center,
               labelPlacement:
-              data.sixtyDayGraphModel!.graph!.length == 1
+              data.sixtyDayGraphModel!.graphData!.graph!.length == 1
                   ? LabelPlacement.betweenTicks
                   : LabelPlacement.onTicks,
-              maximumLabelWidth: 30,
               //maximumLabels: 6
             ),
 
@@ -186,26 +185,23 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                   fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.w900),
               labelAlignment: LabelAlignment.center,
-              maximumLabelWidth: 40,
             ),
             series: <ChartSeries<SixtyDayProductGraph, String>>[
-              data.sixtyDayGraphModel!.graph!.length == 1
+              data.sixtyDayGraphModel!.graphData!.graph!.length == 1
                   ? ColumnSeries<SixtyDayProductGraph, String>(
-                dataSource: data.sixtyDayGraphModel!.graph!,
+                dataSource: data.sixtyDayGraphModel!.graphData!.graph!,
                 width: .01,
                 gradient: AppColors.graphGradient,
-                xValueMapper: (plot, _) =>
-                plot.dayWiseTimeWithDate,
+                xValueMapper: (plot, _) =>data.sixtyDayGraphModel!.graphData!.status==0 ? plot.dayWiseTimeWithDate : plot.dayWiseTimeWithDate1,
                 yValueMapper: (plot, _) => plot.floorPrice,
               )
                   : SplineAreaSeries<SixtyDayProductGraph, String>(
 
-                dataSource: data.sixtyDayGraphModel!.graph!,
+                dataSource: data.sixtyDayGraphModel!.graphData!.graph!,
                 borderColor: const Color(0xff2093D7),
                 borderWidth: 1,
                 gradient: AppColors.graphGradient,
-                xValueMapper: (plot, _) =>
-                plot.dayWiseTimeWithDate,
+                xValueMapper: (plot, _) =>data.sixtyDayGraphModel!.graphData!.status==0 ? plot.dayWiseTimeWithDate : plot.dayWiseTimeWithDate1,
                 yValueMapper: (plot, _) => plot.floorPrice,
                 xAxisName: 'Duration',
                 yAxisName: 'Total',

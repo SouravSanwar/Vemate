@@ -189,14 +189,14 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                             series: <ChartSeries<Graph, String>>[
                               LineSeries<Graph, String>(
                                 color: data.searchComicsModel!
-                                    .results![index]
+                                    .results![index].graphData!
                                     .priceChangePercent!
                                     .sign ==
                                     'decrease'
                                     ? Colors.red
                                     : Colors.green,
                                 dataSource: data.searchComicsModel!
-                                    .results![index].graph!,
+                                    .results![index].graphData!.graph!,
                                 xValueMapper: (Graph plot, _) =>
                                 plot.date,
                                 yValueMapper: (Graph plot, _) =>
@@ -205,9 +205,9 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                 yAxisName: 'Total',
                               )
                             ],
-                            changePrice: data.searchComicsModel!.results![index].priceChangePercent!.changePrice,
-                            pcpPercent: data.searchComicsModel!.results![index].priceChangePercent!.percent,
-                            pcpSign: data.searchComicsModel!.results![index].priceChangePercent!.sign! ,
+                            changePrice: data.searchComicsModel!.results![index].graphData!.priceChangePercent!.changePrice,
+                            pcpPercent: data.searchComicsModel!.results![index].graphData!.priceChangePercent!.percent,
+                            pcpSign: data.searchComicsModel!.results![index].graphData!.priceChangePercent!.sign! ,
                           )
                         );
                       }))

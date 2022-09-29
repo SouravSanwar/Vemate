@@ -8,6 +8,7 @@ import 'package:ketemaa/features/vault/Wishlist/alert/alertTypeDropDown.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 import '../../../../core/models/WishListModel.dart';
 import '../../../../core/utilities/app_colors/dark_white_mode.dart';
 
@@ -26,9 +27,12 @@ class _AlertButtonState extends State<AlertButton> {
   TextEditingController mintController1 = TextEditingController();
   TextEditingController mintController2 = TextEditingController();
   int value = 0;
-
+  SfRangeValues _values = const SfRangeValues(45, 55);
   bool? toggleValue = false;
   bool? hasDropDownValue = false;
+  bool? priceAlert = false;
+  int i = 0, j = 0;
+  Widget? ranger;
 
   Map<String, String> requestHeadersWithToken = {
     'Content-type': 'application/json',
@@ -38,9 +42,26 @@ class _AlertButtonState extends State<AlertButton> {
 
   @override
   void initState() {
-    if (widget.results!.isAlert == true) {
-      if (widget.results!.alertData!.type == 0) {
-        valueController.text = widget.results!.alertData!.value.toString();
+    if (widget.results!.productDetail!.isProductAlert == true) {
+      for (i = 0; i < 2; i++) {
+      
+        if(widget.results!.productDetail!.productAlertData![i].type == 0)
+        {
+          setState(() {
+            priceAlert = true;
+            j = i ;
+          });
+        }
+      }
+    }
+
+
+    if (widget.results!.productDetail!.isProductAlert == true) {
+      if (widget.results!.productDetail!.productAlertData![j].type == 0) {
+        valueController.text = widget
+            .results!.productDetail!.productAlertData![j].value
+            .toString();
+
         if (valueController.text == "0.0") {
           valueController.text = value.toString();
         }
@@ -75,7 +96,8 @@ class _AlertButtonState extends State<AlertButton> {
                   postData!.deleteAlert(context, widget.results!.alertData!.id, requestHeadersWithToken);
                 },
                 child: Text(
-                  widget.results!.isAlert == true && widget.results!.alertData!.type == 0 ? 'Delete' : "",
+                  widget.results!.productDetail!.productAlertData != null &&
+                      priceAlert == true ? 'Delete' : "",
                   style: TextStyle(fontSize: 16.0.sp, color: AppColors.grey),
                 ),
               ),
@@ -89,14 +111,13 @@ class _AlertButtonState extends State<AlertButton> {
                     "price_type": TypeIndex,
                     "value": valueController.text != "" ? double.parse(valueController.text) : 0.0,
                     "frequency": frequencyIndex,
-                    "mint_low": 10,
-                    "mint_upper": 25
                   };
 
                   postData!.createAlert(context, body);
                 },
                 child: Text(
-                  widget.results!.isAlert == true && widget.results!.alertData!.type == 0 ? 'Update' : "Save",
+                  widget.results!.productDetail!.productAlertData != null &&
+                      priceAlert == true ? 'Update' : "Save",
                   style: TextStyle(fontSize: 16.0.sp, color: Colors.purpleAccent),
                 ),
               ),

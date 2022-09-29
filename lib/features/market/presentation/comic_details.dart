@@ -11,6 +11,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
+import 'package:ketemaa/features/market/presentation/widgets/details_appbar.dart';
 import 'package:ketemaa/graph/one_day_graph_page.dart';
 import 'package:ketemaa/graph/one_year_graph_page.dart';
 import 'package:ketemaa/graph/product_details_comics.dart';
@@ -20,7 +21,7 @@ import 'package:ketemaa/graph/thirty_day_graph_page.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
-import '../../vault/Wishlist/alert/alert_box.dart';
+
 
 class ComicDetails extends StatefulWidget {
   final int? productId;
@@ -73,49 +74,10 @@ class _ComicDetailsState extends State<ComicDetails> {
           titleSpacing: 0,
           iconTheme: const IconThemeData(color: Colors.grey),
           backgroundColor: AppColors.backgroundColor,
-          title: Container(
-            padding: EdgeInsets.symmetric(horizontal: Get.width * .03),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  data.singleProductModel != null ? data.singleProductModel!.name.toString() : "",
-                  style: TextStyle(color: AppColors.textColor, fontSize: 18.sp, fontWeight: FontWeight.bold),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                InkWell(
-                  focusColor: Colors.transparent,
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (ctx) =>
-                          ShowAlertBox(
-                            results: data
-                                .wishListModel!
-                                .results![0],
-                          ),
-                    );
-                  },
-                  child: Container(
-                    child: Icon(
-                      Icons.notifications_none,
-                      color: AppColors.textColor,
-                    ),
-                    height: 35.h,
-                    width: 35.h,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.onBoardGradient,
-                      border: Border.all(
-                          color: AppColors.grey, // set border color
-                          width: 1), // set border width
-                      borderRadius: BorderRadius.circular(
-                          12.0), // set rounded corner radius
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
+          title: data.singleProductModel != null ?
+          DetailsAppbar(
+            name: data.singleProductModel!.name!,
+          ): Container()
         ),
         backgroundColor: AppColors.backgroundColor,
         body: data.singleProductModel != null && data.checkSetCheck != null && data.checkWishlistModel != null
@@ -345,7 +307,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                   bottom: Get.height * 0.0334),
                               alignment: Alignment.topLeft,
                               child: Text(
-                                "Total Distributions",
+                                "Floor Price Chart",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     color: AppColors.textColor,

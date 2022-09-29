@@ -352,7 +352,9 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                 Expanded(
                                                   flex: 2,
                                                   child: Text(
-                                                    '\$${data.setListModel!.setResults![index].setProductDetail!.priceChangePercent!.changePrice != null ? data.setListModel!.setResults![index].setProductDetail!.priceChangePercent!.changePrice!.toStringAsFixed(2) : ""}',
+                                                    '\$${data.setListModel!.setResults![index].setProductDetail!.graphData!.priceChangePercent!.changePrice != null
+                                                        ? data.setListModel!.setResults![index].setProductDetail!.graphData!.priceChangePercent!.changePrice!.toStringAsFixed(2)
+                                                        : ""}',
                                                     textAlign: TextAlign.start,
                                                     style: Get
                                                         .textTheme.bodyText1!
@@ -415,7 +417,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                 .setListModel!
                                                                 .setResults![
                                                                     index]
-                                                                .setProductDetail!
+                                                                .setProductDetail!.graphData!
                                                                 .priceChangePercent!
                                                                 .sign ==
                                                             'decrease'
@@ -424,7 +426,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                     dataSource: data
                                                         .setListModel!
                                                         .setResults![index]
-                                                        .setProductDetail!
+                                                        .setProductDetail!.graphData!
                                                         .graph!,
                                                     xValueMapper:
                                                         (Graph plot, _) =>
@@ -453,7 +455,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                 .setListModel!
                                                                 .setResults![
                                                                     index]
-                                                                .setProductDetail!
+                                                                .setProductDetail!.graphData!
                                                                 .priceChangePercent!
                                                                 .percent!
                                                                 .toString() +
@@ -465,7 +467,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                                         .setListModel!
                                                                         .setResults![
                                                                             index]
-                                                                        .setProductDetail!
+                                                                        .setProductDetail!.graphData!
                                                                         .priceChangePercent!
                                                                         .sign ==
                                                                     'decrease'
@@ -480,7 +482,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                                               .setListModel!
                                                               .setResults![
                                                                   index]
-                                                              .setProductDetail!
+                                                              .setProductDetail!.graphData!
                                                               .priceChangePercent!
                                                               .sign ==
                                                           'decrease')

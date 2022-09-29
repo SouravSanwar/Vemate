@@ -64,8 +64,12 @@ class Results {
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
     rarity = json['rarity'];
     floorPrice = json['floor_price'];
-    graphData = json['graph_data'] != null ? GraphData.fromJson(json['graph_data']) : null;
-    /*priceChangePercent = json['price_change_percent'] != null ? PriceChangePercent.fromJson(json['price_change_percent']) : null;
+    graphData = json['graph_data'] != null
+        ? GraphData.fromJson(json['graph_data'])
+        : null;
+    /*priceChangePercent = json['price_change_percent'] != null
+        ? PriceChangePercent.fromJson(json['price_change_percent'])
+        : null;
     if (json['new_graph'] != null) {
       graph = [];
       json['new_graph'].forEach((v) {
@@ -125,8 +129,10 @@ class Image {
   });
 
   Image.fromJson(dynamic json) {
-    original = json['original'] != null ? Original.fromJson(json['original']) : null;
-    image_on_list = json['list'] != null ? ImageOnList.fromJson(json['list']) : null;
+    original =
+        json['original'] != null ? Original.fromJson(json['original']) : null;
+    image_on_list =
+        json['list'] != null ? ImageOnList.fromJson(json['list']) : null;
     direction = json['direction'];
     base_url = json['base_url'];
     low_res_url = json['low_res_url'];
@@ -252,8 +258,9 @@ class GraphData {
   });
 
   GraphData.fromJson(dynamic json) {
-    priceChangePercent =
-        json['price_change_percent'] != null ? PriceChangePercent.fromJson(json['price_change_percent']) : null;
+    priceChangePercent = json['price_change_percent'] != null
+        ? PriceChangePercent.fromJson(json['price_change_percent'])
+        : null;
 
     if (json['graph'] != null) {
       graph = [];
@@ -290,10 +297,9 @@ class PriceChangePercent {
   });
 
   PriceChangePercent.fromJson(dynamic json) {
-    // percent = double.parse(json['change_percent'].toString()).toPrecision(2);
-    // changePrice = double.parse(json['changed_price'].toString()).toPrecision(2);
-    percent = 00.00;
-    changePrice = 00.00;
+
+    percent = double.parse(json['change_percent'].toString()).toPrecision(2);
+    changePrice = double.parse(json['changed_price'].toString()).toPrecision(2);
     sign = json['sign'];
   }
 
@@ -305,7 +311,7 @@ class PriceChangePercent {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['change_percent'] = percent;
-    // map['changed_price'] = changePrice;
+    map['changed_price'] = changePrice;
     map['sign'] = sign;
     return map;
   }

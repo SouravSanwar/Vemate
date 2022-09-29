@@ -79,12 +79,12 @@ class _MywishlistCardState extends State<MywishlistCard> {
                               name: data.wishListModel!.results![index].productDetail!.name.toString(),
                               series: <ChartSeries<Graph, String>>[
                                 LineSeries<Graph, String>(
-                                  color: data.wishListModel!.results![index].productDetail!.priceChangePercent!
+                                  color: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!
                                       .sign ==
                                       'decrease'
                                       ? Colors.red
                                       : Colors.green,
-                                  dataSource: data.wishListModel!.results![index].productDetail!.graph!,
+                                  dataSource: data.wishListModel!.results![index].productDetail!.graphData!.graph!,
                                   xValueMapper: (Graph plot, _) => plot.date,
                                   yValueMapper: (Graph plot, _) =>
                                   plot.floorPrice,
@@ -95,8 +95,8 @@ class _MywishlistCardState extends State<MywishlistCard> {
                               floorPrice:
                               data.wishListModel!.results![index].productDetail!.floorPrice.toString(),
                               pcpPercent:
-                              data.wishListModel!.results![index].productDetail!.priceChangePercent!.percent,
-                              pcpSign: data.wishListModel!.results![index].productDetail!.priceChangePercent!.sign
+                              data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.percent,
+                              pcpSign: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign
                                   .toString(),
                             )
                           ],
@@ -118,12 +118,12 @@ class _MywishlistCardState extends State<MywishlistCard> {
                           name: data.wishListModel!.results![index].productDetail!.name.toString(),
                           series: <ChartSeries<Graph, String>>[
                             LineSeries<Graph, String>(
-                              color: data.wishListModel!.results![index].productDetail!.priceChangePercent!
+                              color: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!
                                   .sign ==
                                   'decrease'
                                   ? Colors.red
                                   : Colors.green,
-                              dataSource: data.wishListModel!.results![index].productDetail!.graph!,
+                              dataSource: data.wishListModel!.results![index].productDetail!.graphData!.graph!,
                               xValueMapper: (Graph plot, _) => plot.date,
                               yValueMapper: (Graph plot, _) =>
                               plot.floorPrice,
@@ -133,8 +133,8 @@ class _MywishlistCardState extends State<MywishlistCard> {
                           ],
                           floorPrice:
                           data.wishListModel!.results![index].productDetail!.floorPrice.toString(),
-                          pcpPercent: data.wishListModel!.results![index].productDetail!.priceChangePercent!.percent,
-                          pcpSign: data.wishListModel!.results![index].productDetail!.priceChangePercent!.sign
+                          pcpPercent: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.percent,
+                          pcpSign: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign
                               .toString(),
                         )),
                   ),

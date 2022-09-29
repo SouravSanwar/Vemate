@@ -11,6 +11,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
+import 'package:ketemaa/features/market/presentation/widgets/details_appbar.dart';
 import 'package:ketemaa/graph/one_year_graph_page.dart';
 import 'package:ketemaa/graph/one_day_graph_page.dart';
 import 'package:ketemaa/graph/product_details_collectibles.dart';
@@ -20,11 +21,14 @@ import 'package:ketemaa/graph/thirty_day_graph_page.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
+import 'package:marquee/marquee.dart';
 
 class CollectibleDetails extends StatefulWidget {
   final int? productId;
+  final int? fromNotification;
 
-  const CollectibleDetails({Key? key, this.productId}) : super(key: key);
+
+  const CollectibleDetails({Key? key, this.productId,this.fromNotification=0}) : super(key: key);
 
   @override
   _CollectibleDetailsState createState() => _CollectibleDetailsState();
@@ -57,6 +61,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
     getData!.checkWishlist(widget.productId!);
     getData!.checkSetList(widget.productId!);
     getData!.getWishList();
+
+    widget.fromNotification==1?
+    getData!.getNotification(): print("no pass from notification");
   }
 
   @override
@@ -69,55 +76,22 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
           titleSpacing: 0,
           iconTheme: const IconThemeData(color: Colors.grey),
           backgroundColor: AppColors.backgroundColor,
-          title: Container(
+          title:data.singleProductModel != null ?DetailsAppbar(
+            name: data.singleProductModel!.name!,
+          ): Container()/*Container(
             padding: EdgeInsets.symmetric(horizontal: Get.width * .03),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  data.singleProductModel != null
-                      ? data.singleProductModel!.name.toString()
-                      : "",
-                  style: TextStyle(
-                      color: AppColors.textColor,
-                      //fontFamily: 'Inter',
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                InkWell(
-                  focusColor: Colors.transparent,
-                onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (ctx) =>
-                          ShowAlertBox(
-                            results: data
-                                .wishListModel!
-                                .results![0],
-                          ),
-                    );
-                  },
-                  child: Container(
-                    child: Icon(
-                      Icons.notifications_none,
-                      color: AppColors.textColor,
-                    ),
-                    height: 35.h,
-                    width: 35.h,
-                    decoration: BoxDecoration(
-                      gradient: AppColors.onBoardGradient,
-                      border: Border.all(
-                          color: AppColors.grey, // set border color
-                          width: 1), // set border width
-                      borderRadius: BorderRadius.circular(
-                          12.0), // set rounded corner radius
-                    ),
-                  ),
-                )
-              ],
+            child: Text(
+              data.singleProductModel != null
+                  ? data.singleProductModel!.name.toString()
+                  : "",
+              style: TextStyle(
+                  color: AppColors.textColor,
+                  //fontFamily: 'Inter',
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
             ),
-          ),
+          ),*/
         ),
         backgroundColor: AppColors.backgroundColor,
         body: data.singleProductModel != null &&
@@ -383,7 +357,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                 bottom: Get.height * 0.0334),
                             alignment: Alignment.topLeft,
                             child: Text(
-                              "Total Distributions",
+                              "Floor Price Chart",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                   color: AppColors.textColor,

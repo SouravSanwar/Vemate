@@ -47,8 +47,9 @@ class Results {
     this.series,
     this.rarity,
     this.floorPrice,
-    this.priceChangePercent,
-    this.graph,
+    /*this.priceChangePercent,
+    this.graph,*/
+    this.graphData,
     this.rarePoint,
     this.cpp,
   });
@@ -63,7 +64,11 @@ class Results {
     series = json['series'];
     rarity = json['rarity'];
     floorPrice = json['floor_price'];
-    priceChangePercent = json['price_change_percent'] != null
+    graphData = json['graph_data'] != null
+        ? GraphData.fromJson(json['graph_data'])
+        : null;
+
+  /*  priceChangePercent = json['price_change_percent'] != null
         ? PriceChangePercent.fromJson(json['price_change_percent'])
         : null;
     if (json['new_graph'] != null) {
@@ -71,7 +76,7 @@ class Results {
       json['new_graph'].forEach((v) {
         graph?.add(Graph.fromJson(v));
       });
-    }
+    }*/
 
   }
 
@@ -83,8 +88,9 @@ class Results {
   String? series;
   String? rarity;
   String? floorPrice;
-  PriceChangePercent? priceChangePercent;
-  List<Graph>? graph;
+  /*PriceChangePercent? priceChangePercent;
+  List<Graph>? graph;*/
+  GraphData? graphData;
   int? rarePoint;
   double? cpp;
 
@@ -101,12 +107,13 @@ class Results {
     map['series'] = series;
     map['rarity'] = rarity;
     map['floor_price'] = floorPrice;
-    if (priceChangePercent != null) {
+    map['graph_data'] = graphData;
+    /*if (priceChangePercent != null) {
       map['price_change_percent'] = priceChangePercent?.toJson();
     }
     if (graph != null) {
       map['new_graph'] = graph?.map((v) => v.toJson()).toList();
-    }
+    }*/
     return map;
   }
 }
@@ -221,13 +228,15 @@ class Graph {
   Graph({
     this.floorPrice,
     this.creationTime,
-    this.date,});
+    this.date,
+  });
 
   Graph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
     creationTime = json['creation_time'];
     date = json['date'];
   }
+
   double? floorPrice;
   String? creationTime;
   String? date;
@@ -239,7 +248,44 @@ class Graph {
     map['date'] = date;
     return map;
   }
+}
 
+class GraphData {
+  GraphData({
+    this.priceChangePercent,
+    this.graph,
+  });
+
+  GraphData.fromJson(dynamic json) {
+    priceChangePercent = json['price_change_percent'] != null
+        ? PriceChangePercent.fromJson(json['price_change_percent'])
+        : null;
+
+    if (json['graph'] != null) {
+      graph = [];
+      json['graph'].forEach((v) {
+        graph?.add(Graph.fromJson(v));
+      });
+    }
+
+    final Map<String, Graph> graphMap = {};
+    for (var item in graph!) {
+      graphMap[item.date!] = item;
+    }
+    graph = graphMap.values.toList();
+  }
+
+  PriceChangePercent? priceChangePercent;
+  List<Graph>? graph;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (priceChangePercent != null) {
+      map['price_change_percent'] = priceChangePercent?.toJson();
+    }
+    map['graph'] = graph;
+    return map;
+  }
 }
 
 class PriceChangePercent {
@@ -250,18 +296,20 @@ class PriceChangePercent {
   });
 
   PriceChangePercent.fromJson(dynamic json) {
-    percent = double.parse(json['percent'].toString()).toPrecision(2);
+
+    percent = double.parse(json['change_percent'].toString()).toPrecision(2);
     changePrice = double.parse(json['changed_price'].toString()).toPrecision(2);
     sign = json['sign'];
   }
 
   var percent;
+
   var changePrice;
   String? sign;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['percent'] = percent;
+    map['change_percent'] = percent;
     map['changed_price'] = changePrice;
     map['sign'] = sign;
     return map;

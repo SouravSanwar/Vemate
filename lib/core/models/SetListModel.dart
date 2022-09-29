@@ -168,8 +168,9 @@ class SetProductDetail {
     this.brand,
     this.rarity,
     this.floorPrice,
-    this.priceChangePercent,
-    this.graph,
+    /*this.priceChangePercent,
+    this.graph,*/
+    this.graphData,
     this.setCollectibleCount,
     this.setComicCount,
   });
@@ -185,7 +186,11 @@ class SetProductDetail {
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
     rarity = json['rarity'];
     floorPrice = json['floor_price'];
-    priceChangePercent = json['price_change_percent'] != null
+    graphData = json['graph_data'] != null
+        ? GraphData.fromJson(json['graph_data'])
+        : null;
+
+    /*priceChangePercent = json['price_change_percent'] != null
         ? PriceChangePercent.fromJson(json['price_change_percent'])
         : null;
     if (json['new_graph'] != null) {
@@ -193,7 +198,7 @@ class SetProductDetail {
       json['new_graph'].forEach((v) {
         graph?.add(Graph.fromJson(v));
       });
-    }
+    }*/
     /*if (type == 0) {
       setCollectibleCount = setCollectibleCount! + 1;
     } else {
@@ -211,8 +216,9 @@ class SetProductDetail {
   dynamic parent;
   String? rarity;
   String? floorPrice;
-  PriceChangePercent? priceChangePercent;
-  List<Graph>? graph;
+  /*PriceChangePercent? priceChangePercent;
+  List<Graph>? graph;*/
+  GraphData? graphData;
   int? setComicCount;
   int? setCollectibleCount;
 
@@ -230,12 +236,13 @@ class SetProductDetail {
     map['brand'] = brand;
     map['rarity'] = rarity;
     map['floor_price'] = floorPrice;
-    if (priceChangePercent != null) {
+    map['graph_data'] = graphData;
+    /*if (priceChangePercent != null) {
       map['price_change_percent'] = priceChangePercent?.toJson();
     }
     if (graph != null) {
       map['new_graph'] = graph?.map((v) => v.toJson()).toList();
-    }
+    }*/
     return map;
   }
 }
@@ -374,37 +381,61 @@ class Graph {
     this.floorPrice,
     this.creationTime,
     this.date,
-    this.hourWiseTime,
-    this.dayWiseTime,
   });
 
   Graph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
     creationTime = json['creation_time'];
     date = json['date'];
-    if (date != null) {
-      hourWiseTime = DateFormat('hh a').format(DateTime.parse(date!));
-      // hourWiseTime = DateFormat('EE').format(DateTime.parse(date!))+":"+DateFormat('hh a').format(DateTime.parse(date!));
-      //hourWiseTime = DateFormat('jm').format(DateTime.parse(creationTime!));
-      // hourWiseTime = hourWiseTime.substring(5,hourWiseTime!.length);
-      dayWiseTime = DateFormat('dMMM').format(DateTime.parse(date!));
-      print("/*/*/*/*/*/*/*/hourwise*/*/*/*/*/*/*/*/*/*/*/*" + date.toString());
-      print("/*/*/*/*/*/*/*/daywise*/*/*/*/*/*/*/*/*/*/*/*" +
-          hourWiseTime.toString());
-    }
   }
 
   double? floorPrice;
   String? creationTime;
   String? date;
-  String? hourWiseTime;
-  String? dayWiseTime;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['floor_price'] = floorPrice;
     map['creation_time'] = creationTime;
     map['date'] = date;
+    return map;
+  }
+}
+
+class GraphData {
+  GraphData({
+    this.priceChangePercent,
+    this.graph,
+  });
+
+  GraphData.fromJson(dynamic json) {
+    priceChangePercent = json['price_change_percent'] != null
+        ? PriceChangePercent.fromJson(json['price_change_percent'])
+        : null;
+
+    if (json['graph'] != null) {
+      graph = [];
+      json['graph'].forEach((v) {
+        graph?.add(Graph.fromJson(v));
+      });
+    }
+
+    final Map<String, Graph> graphMap = {};
+    for (var item in graph!) {
+      graphMap[item.date!] = item;
+    }
+    graph = graphMap.values.toList();
+  }
+
+  PriceChangePercent? priceChangePercent;
+  List<Graph>? graph;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (priceChangePercent != null) {
+      map['price_change_percent'] = priceChangePercent?.toJson();
+    }
+    map['graph'] = graph;
     return map;
   }
 }
@@ -417,18 +448,20 @@ class PriceChangePercent {
   });
 
   PriceChangePercent.fromJson(dynamic json) {
-    percent = double.parse(json['percent'].toString()).toPrecision(2);
+
+    percent = double.parse(json['change_percent'].toString()).toPrecision(2);
     changePrice = double.parse(json['changed_price'].toString()).toPrecision(2);
     sign = json['sign'];
   }
 
   var percent;
+
   var changePrice;
   String? sign;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['percent'] = percent;
+    map['change_percent'] = percent;
     map['changed_price'] = changePrice;
     map['sign'] = sign;
     return map;

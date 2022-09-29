@@ -27,6 +27,8 @@ class _MintFrequencyDropDownState extends State<MintFrequencyDropDown> {
   ];
 
   GetData? getData;
+  bool? mintAlert = false;
+  int i=0,j=0;
 
   @override
   void initState() {
@@ -34,12 +36,21 @@ class _MintFrequencyDropDownState extends State<MintFrequencyDropDown> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
+    if (widget.results!.productDetail!.isProductAlert == true) {
+      for (i = 0; i < 2; i++) {
+      
+        if(widget.results!.productDetail!.productAlertData![i].type == 1)
+        {
+          setState(() {
+            mintAlert = true;
+            j = i ;
+          });
+        }
+      }
+    }
 
-    if (widget.results!.isAlert == true) {
-
-      widget.results!.alertData!.type == 1
-          ? value = widget.results!.alertData!.frequencyValue
-          : value = 'Once';
+    if (mintAlert == true) {
+      value = widget.results!.productDetail!.productAlertData![j].frequencyValue;
     }
 
     value == 'Once'

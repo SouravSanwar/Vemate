@@ -1,11 +1,13 @@
 import 'package:intl/intl.dart';
+import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 
 class SevenDayGraphModel {
   SevenDayGraphModel({
     this.id,
     this.brand,
-    this.graph,
+    //  this.graph,
+    this.graphData,
     this.image,
     this.type,
     this.name,
@@ -70,23 +72,25 @@ class SevenDayGraphModel {
     parent = json['parent'];
     graphType = json['graph_type'];
 
-    if (json['graph'] != null) {
-      graph = [];
-      json['graph'].forEach((v) {
-        graph?.add(SevenDayProductGraph.fromJson(v));
-      });
-    }
-
-    final Map<String, SevenDayProductGraph> graphMap = {};
-    for (var item in graph!) {
-      graphMap[item.date!] = item;
-    }
-    graph = graphMap.values.toList();
+    graphData = json['graph_data'] != null ? GraphData.fromJson(json['graph_data']) : null;
+    // if (json['graph'] != null) {
+    //   graph = [];
+    //   json['graph'].forEach((v) {
+    //     graph?.add(OneDayProductGraph.fromJson(v));
+    //   });
+    // }
+    //
+    // final Map<String, OneDayProductGraph> graphMap = {};
+    // for (var item in graph!) {
+    //   graphMap[item.date!] = item;
+    // }
+    // graph = graphMap.values.toList();
   }
 
   int? id;
   Brand? brand;
-  List<SevenDayProductGraph>? graph;
+  //List<OneDayProductGraph>? graph;
+  GraphData? graphData;
   Image? image;
   int? type;
   String? name;
@@ -121,9 +125,11 @@ class SevenDayGraphModel {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['brand'] = brand;
-    if (graph != null) {
+    /*if (graph != null) {
       map['graph'] = graph?.map((v) => v.toJson()).toList();
-    }
+    }*/
+
+    map['graph_data'] = graphData;
     if (image != null) {
       map['image'] = image?.toJson();
     }
@@ -252,10 +258,8 @@ class SevenDayProductGraph {
     this.floorPriceString,
     this.creationTime,
     this.date,
-    this.hourWiseTime,
     this.dayWiseTime,
-    this.dayWiseTimeWithDate,
-    this.monthWiseTime,
+    this.dayWiseTime1,
   });
 
   SevenDayProductGraph.fromJson(dynamic json) {
@@ -264,21 +268,18 @@ class SevenDayProductGraph {
     creationTime = json['creation_time'];
     date = json['date'];
     if (date != null) {
-      hourWiseTime = DateFormat('hh a').format(DateTime.parse(date!));
-      dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
-      dayWiseTimeWithDate = DateFormat('dd MMM').format(DateTime.parse(date!));
-      monthWiseTime = DateFormat('MMM').format(DateTime.parse(date!));
+      dayWiseTime = DateFormat('dd MMM').format(DateTime.parse(date!));
+      dayWiseTime1 = DateFormat('hh:mm a,dd MMM,y').format(DateTime.parse(date!));
     }
+    print("DayWiseTime==="+dayWiseTime!);
   }
 
   double? floorPrice;
   String? floorPriceString;
   String? creationTime;
   String? date;
-  String? hourWiseTime;
   String? dayWiseTime;
-  String? dayWiseTimeWithDate;
-  String? monthWiseTime;
+  String? dayWiseTime1;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -307,6 +308,69 @@ class Brand {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['name'] = name;
+    return map;
+  }
+}
+class GraphData {
+  GraphData({
+    this.priceChangePercent,
+    this.graph,
+    this.status,
+  });
+
+  GraphData.fromJson(dynamic json) {
+    priceChangePercent = json['priceChangePercent'];
+    status = json['status'];
+
+    if (json['graph'] != null) {
+      graph = [];
+      json['graph'].forEach((v) {
+        graph?.add(SevenDayProductGraph.fromJson(v));
+      });
+    }
+
+    final Map<String, SevenDayProductGraph> graphMap = {};
+    for (var item in graph!) {
+      graphMap[item.date!] = item;
+    }
+    graph = graphMap.values.toList();
+  }
+
+  PriceChangePercent? priceChangePercent;
+  List<SevenDayProductGraph>? graph;
+  int? status;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['priceChangePercent'] = priceChangePercent;
+    map['graph'] = graph;
+    map['status'] = status;
+    return map;
+  }
+}
+
+class PriceChangePercent {
+  PriceChangePercent({
+    this.percent,
+    this.changePrice,
+    this.sign,
+  });
+
+  PriceChangePercent.fromJson(dynamic json) {
+    percent = double.parse(json['percent'].toString()).toPrecision(2);
+    changePrice = double.parse(json['changed_price'].toString()).toPrecision(2);
+    sign = json['sign'];
+  }
+
+  var percent;
+  var changePrice;
+  String? sign;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['percent'] = percent;
+    map['changed_price'] = changePrice;
+    map['sign'] = sign;
     return map;
   }
 }

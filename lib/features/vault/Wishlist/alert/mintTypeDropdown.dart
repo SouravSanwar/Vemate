@@ -18,7 +18,7 @@ class MintTypeDropDown extends StatefulWidget {
 }
 
 class _MintTypeDropDownState extends State<MintTypeDropDown> {
-  String? value='Below';
+  String? value = 'Below';
   var items = [
     'Below',
     'Above',
@@ -26,76 +26,101 @@ class _MintTypeDropDownState extends State<MintTypeDropDown> {
   ];
 
   GetData? getData;
+  bool? mintAlert = false;
+  int i = 0,j=0;
 
   @override
   void initState() {
     // TODO: implement initState
 
     getData = Provider.of<GetData>(context, listen: false);
-
-
-    if (widget.results!.isAlert == true) {
-      print("66666666666--"+widget.results!.alertData!.type.toString());
-      widget.results!.alertData!.type == 1
-          ? value = widget.results!.alertData!.typeValue
-          : value = 'Below';
+    if (widget.results!.productDetail!.isProductAlert == true) {
+      for (i = 0; i < 2; i++) {
+      
+        if(widget.results!.productDetail!.productAlertData![i].type == 1)
+        {
+          setState(() {
+            mintAlert = true;
+            j = i ;
+          });
+        }
+      }
     }
+
+    if (mintAlert == true) {
+      value =
+          widget.results!.productDetail!.productAlertData![j].typeValue;
+      print("jjjjjjj--"+value.toString());
+    }
+
     value == 'Below'
-        ? TypeIndex1= 4
+        ? TypeIndex1 = 4
         : value == 'Above'
-        ? TypeIndex1 = 5
-        : TypeIndex1 = 6;
+            ? TypeIndex1 = 5
+            : TypeIndex1 = 6;
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      width: Get.width,
-      decoration: BoxDecoration(
-        color: AppColors.backgroundColor,
-        border: Border.all(
-            color: AppColors.textColor, // set border color
-            width: 1.w), // set border width
-        borderRadius: const BorderRadius.all(
-            Radius.circular(15.0)), // set rounded corner radius
-      ),
-      child: DropdownButton<String>(
-        isExpanded: true,
-        value: value,
-        items: items.map(buildMenuItem).toList(),
-        onChanged: (value) {
-          setState(() {
-            this.value = value;
-
-            value == 'Below'
-                ? TypeIndex1 = 4
-                : value == 'Above'
-                    ? TypeIndex1= 5
-                    : TypeIndex1 = 6;
-            print(TypeIndex1);
-          }); //get value when changed
-        },
-        icon: const Icon(
-          Icons.keyboard_arrow_down,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Type",
+          style: TextStyle(fontSize: 18.0.sp, color: AppColors.textColor),
         ),
+        SizedBox(
+          height: 8.h,
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          width: Get.width,
+          decoration: BoxDecoration(
+            color: AppColors.backgroundColor,
+            border: Border.all(
+                color: AppColors.textColor, // set border color
+                width: 1.w), // set border width
+            borderRadius: const BorderRadius.all(
+                Radius.circular(15.0)), // set rounded corner radius
+          ),
+          child: DropdownButton<String>(
+            isExpanded: true,
+            value: value,
+            items: items.map(buildMenuItem).toList(),
+            onChanged: (value) {
+              setState(() {
+                this.value = value;
 
-        iconEnabledColor: Colors.grey,
-        //Icon color
-        style: TextStyle(
-            //te
-            color: AppColors.grey, //Font color
-            fontSize: 20.sp //font size on dropdown button
+                value == 'Below'
+                    ? TypeIndex1 = 4
+                    : value == 'Above'
+                        ? TypeIndex1 = 5
+                        : TypeIndex1 = 6;
+                print(TypeIndex1);
+              }); //get value when changed
+            },
+            icon: const Icon(
+              Icons.keyboard_arrow_down,
             ),
-        dropdownColor: AppColors.backgroundColor,
-        underline: Container(),
-        //dropdown background color
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10),
+
+            iconEnabledColor: Colors.grey,
+            //Icon color
+            style: TextStyle(
+                //te
+                color: AppColors.grey, //Font color
+                fontSize: 20.sp //font size on dropdown button
+                ),
+            dropdownColor: AppColors.backgroundColor,
+            underline: Container(),
+            //dropdown background color
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 

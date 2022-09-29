@@ -367,13 +367,13 @@ class _SetListPageState extends State<SetListPage> {
                                                         ChartSeries<Graph,
                                                             String>>[
                                                       LineSeries<Graph, String>(
-                                                        color:data.setListModel!.setResults![index].setProductDetail!
+                                                        color:data.setListModel!.setResults![index].setProductDetail!.graphData!
                                                             .priceChangePercent!
                                                             .sign ==
                                                             'decrease'
                                                             ? Colors.red
                                                             : Colors.green,
-                                                        dataSource: data.setListModel!.setResults![index].setProductDetail!.graph!,
+                                                        dataSource: data.setListModel!.setResults![index].setProductDetail!.graphData!.graph!,
 
                                                         xValueMapper:
                                                             (Graph plot, _) =>
@@ -417,7 +417,7 @@ class _SetListPageState extends State<SetListPage> {
                                                             .start,
                                                         children: [
                                                           Text(
-                                                            data.setListModel!.setResults![index].setProductDetail!
+                                                            data.setListModel!.setResults![index].setProductDetail!.graphData!
                                                                 .priceChangePercent!
                                                                 .percent!
                                                                 .toString() +
@@ -425,7 +425,7 @@ class _SetListPageState extends State<SetListPage> {
                                                             textAlign:
                                                             TextAlign.end,
                                                             style: Get.textTheme.bodyText1!.copyWith(
-                                                                color: data.setListModel!.setResults![index].setProductDetail!
+                                                                color: data.setListModel!.setResults![index].setProductDetail!.graphData!
                                                                     .priceChangePercent!
                                                                     .sign ==
                                                                     'decrease'
@@ -440,7 +440,7 @@ class _SetListPageState extends State<SetListPage> {
                                                                 fontSize:
                                                                 10.sp),
                                                           ),
-                                                          if (data.setListModel!.setResults![index].setProductDetail!
+                                                          if (data.setListModel!.setResults![index].setProductDetail!.graphData!
                                                               .priceChangePercent!
                                                               .sign ==
                                                               'decrease')

@@ -6,6 +6,7 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
+import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_controller.dart';
@@ -18,6 +19,7 @@ import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
+// import 'package:store_checker/store_checker.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -158,6 +160,77 @@ class _ProfileState extends State<Profile> {
                       Share.share(
                           'Visit Vemate Website:\n https://www.vemate.com/');
                     }),
+                   /* CustomProfileElements(Icons.share, "Check Vemate", () async {
+                      Source installationSource = await StoreChecker.getSource;
+
+                      String source = "";
+                      switch (installationSource) {
+                        case Source.IS_INSTALLED_FROM_PLAY_STORE:
+                        // Installed from Play Store
+                          source = "Play Store";
+                          break;
+                        case Source.IS_INSTALLED_FROM_LOCAL_SOURCE:
+                        // Installed using adb commands or side loading or any cloud service
+                          source = "Local Source";
+                          break;
+                        case Source.IS_INSTALLED_FROM_AMAZON_APP_STORE:
+                        // Installed from Amazon app store
+                          source = "Amazon Store";
+                          break;
+                        case Source.IS_INSTALLED_FROM_HUAWEI_APP_GALLERY:
+                        // Installed from Huawei app store
+                          source = "Huawei App Gallery";
+                          break;
+                        case Source.IS_INSTALLED_FROM_SAMSUNG_GALAXY_STORE:
+                        // Installed from Samsung app store
+                          source = "Samsung Galaxy Store";
+                          break;
+                        case Source.IS_INSTALLED_FROM_SAMSUNG_SMART_SWITCH_MOBILE:
+                        // Installed from Samsung Smart Switch Mobile
+                          source = "Samsung Smart Switch Mobile";
+                          break;
+                        case Source.IS_INSTALLED_FROM_XIAOMI_GET_APPS:
+                        // Installed from Xiaomi app store
+                          source = "Xiaomi Get Apps";
+                          break;
+                        case Source.IS_INSTALLED_FROM_OPPO_APP_MARKET:
+                        // Installed from Oppo app store
+                          source = "Oppo App Market";
+                          break;
+                        case Source.IS_INSTALLED_FROM_VIVO_APP_STORE:
+                        // Installed from Vivo app store
+                          source = "Vivo App Store";
+                          break;
+                        case Source.IS_INSTALLED_FROM_OTHER_SOURCE:
+                        // Installed from other market store
+                          source = "Other Source";
+                          break;
+                        case Source.IS_INSTALLED_FROM_APP_STORE:
+                        // Installed from app store
+                          source = "App Store";
+                          break;
+                        case Source.IS_INSTALLED_FROM_TEST_FLIGHT:
+                        // Installed from Test Flight
+                          source = "Test Flight";
+                          break;
+                        case Source.UNKNOWN:
+                        // Installed from Unknown source
+                          source = "Unknown Source";
+                          break;
+                      }
+                     setState(() async {
+                       showDialog(
+                           context: context,
+                           barrierDismissible: false,
+                           builder: (_) => ResponseMessage(
+                             icon: Icons.info,
+                             color: AppColors.primaryColor,
+                             message: source,
+                           ));
+                       await Future.delayed(const Duration(seconds: 1));
+                       Navigator.of(context).pop();
+                     });
+                    }),*/
                     CustomProfileElements(
                         Icons.info_outline_rounded, "About Vemate", () async {
                       String url = 'https://www.vemate.com/';

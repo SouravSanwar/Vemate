@@ -405,9 +405,7 @@ class _WishListPageState extends State<WishListPage> {
                                                             color: data
                                                                         .wishListModel!
                                                                         .results![
-                                                                            index]
-                                                                        .isAlert ==
-                                                                    true
+                                                                            index].productDetail!.productAlertData != null
                                                                 ? AppColors
                                                                     .primaryColor
                                                                 : AppColors
@@ -469,7 +467,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                     .wishListModel!
                                                                     .results![
                                                                         index]
-                                                                    .productDetail!
+                                                                    .productDetail!.graphData!
                                                                     .priceChangePercent!
                                                                     .sign ==
                                                                 'decrease'
@@ -478,7 +476,7 @@ class _WishListPageState extends State<WishListPage> {
                                                         dataSource: data
                                                             .wishListModel!
                                                             .results![index]
-                                                            .productDetail!
+                                                            .productDetail!.graphData!
                                                             .graph!,
                                                         xValueMapper:
                                                             (Graph plot, _) =>
@@ -526,7 +524,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                     .wishListModel!
                                                                     .results![
                                                                         index]
-                                                                    .productDetail!
+                                                                    .productDetail!.graphData!
                                                                     .priceChangePercent!
                                                                     .percent!
                                                                     .toString() +
@@ -538,7 +536,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                             .wishListModel!
                                                                             .results![
                                                                                 index]
-                                                                            .productDetail!
+                                                                            .productDetail!.graphData!
                                                                             .priceChangePercent!
                                                                             .sign ==
                                                                         'decrease'
@@ -557,7 +555,7 @@ class _WishListPageState extends State<WishListPage> {
                                                                   .wishListModel!
                                                                   .results![
                                                                       index]
-                                                                  .productDetail!
+                                                                  .productDetail!.graphData!
                                                                   .priceChangePercent!
                                                                   .sign ==
                                                               'decrease')

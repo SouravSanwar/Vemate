@@ -6,7 +6,8 @@ class OneDayGraphModel {
   OneDayGraphModel({
     this.id,
     this.brand,
-    //  this.graph,
+  //  this.graph,
+    this.graphData,
     this.image,
     this.type,
     this.name,
@@ -36,7 +37,6 @@ class OneDayGraphModel {
     this.updateTime,
     this.parent,
     this.graphType,
-    this.graphData,
   });
 
   OneDayGraphModel.fromJson(dynamic json) {
@@ -89,7 +89,6 @@ class OneDayGraphModel {
 
   int? id;
   Brand? brand;
-
   //List<OneDayProductGraph>? graph;
   GraphData? graphData;
   Image? image;
@@ -129,12 +128,13 @@ class OneDayGraphModel {
     /*if (graph != null) {
       map['graph'] = graph?.map((v) => v.toJson()).toList();
     }*/
+
+    map['graph_data'] = graphData;
     if (image != null) {
       map['image'] = image?.toJson();
     }
     map['type'] = type;
     map['name'] = name;
-    map['graph_data'] = graphData;
     map['description'] = description;
     map['listing'] = listing;
     map['floor_price'] = floorPrice;
@@ -172,7 +172,8 @@ class Image {
   });
 
   Image.fromJson(dynamic json) {
-    original = json['original'] != null ? Original.fromJson(json['original']) : null;
+    original =
+    json['original'] != null ? Original.fromJson(json['original']) : null;
     detail = json['detail'] != null ? Detail.fromJson(json['detail']) : null;
   }
 
@@ -258,21 +259,18 @@ class OneDayProductGraph {
     this.creationTime,
     this.date,
     this.hourWiseTime,
-    this.dayWiseTime,
-    this.dayWiseTimeWithDate,
-    this.monthWiseTime,
+    this.hourWiseTime1,
   });
 
   OneDayProductGraph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
-    floorPriceString = floorPrice.toString();
+    floorPriceString=floorPrice.toString();
     creationTime = json['creation_time'];
     date = json['date'];
     if (date != null) {
+
       hourWiseTime = DateFormat('hh a').format(DateTime.parse(date!));
-      dayWiseTime = DateFormat('EE').format(DateTime.parse(date!));
-      dayWiseTimeWithDate = DateFormat('dd MMM').format(DateTime.parse(date!));
-      monthWiseTime = DateFormat('MMM').format(DateTime.parse(date!));
+      hourWiseTime1 = DateFormat('hh:mm a,dd MMM,y').format(DateTime.parse(date!));
     }
   }
 
@@ -281,9 +279,7 @@ class OneDayProductGraph {
   String? creationTime;
   String? date;
   String? hourWiseTime;
-  String? dayWiseTime;
-  String? dayWiseTimeWithDate;
-  String? monthWiseTime;
+  String? hourWiseTime1;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -316,10 +312,12 @@ class Brand {
   }
 }
 
+
 class GraphData {
   GraphData({
     this.priceChangePercent,
     this.graph,
+    this.status,
   });
 
   GraphData.fromJson(dynamic json) {
@@ -332,9 +330,7 @@ class GraphData {
       });
     }
 
-    //Map<String, int>? duplicateGraph;
-
-    final Map<String, OneDayProductGraph> graphMap = {};
+ final Map<String, OneDayProductGraph> graphMap = {};
     int length = graph!.length;
     for (int i = 0; i < length; i++) {
       if (i == 0) {
@@ -348,20 +344,24 @@ class GraphData {
         }
       }
     }
-
-    // for (var item in graph!) {
-    //   graphMap[item.date!] = item;
-    // }
-    graph = graphMap.values.toList();
+  graph = graphMap.values.toList();
+  status= json['status'];
+/*    final Map<String, OneDayProductGraph> graphMap = {};
+    for (var item in graph!) {
+      graphMap[item.date!] = item;
+    }
+    graph = graphMap.values.toList();*/
   }
 
   PriceChangePercent? priceChangePercent;
   List<OneDayProductGraph>? graph;
+  int? status;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['priceChangePercent'] = priceChangePercent;
     map['graph'] = graph;
+    map['status'] = status;
     return map;
   }
 }

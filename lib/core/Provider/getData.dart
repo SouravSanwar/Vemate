@@ -139,9 +139,8 @@ class GetData extends ChangeNotifier with BaseController {
   Future getComics({int offset = 0, String? keyword = '', String rarity = '', String? mint_number = ''}) async {
     //keyword = keyword!.replaceAll('#', '%23');
     keyword = Uri.encodeComponent(keyword!);
-    final response = await BaseClient()
-        .get(Urls.comic + '$offset&rarity=$rarity&name=$keyword')
-        .catchError(handleError);
+    final response =
+        await BaseClient().get(Urls.comic + '$offset&rarity=$rarity&name=$keyword').catchError(handleError);
 
     var data = json.decode(response.toString());
 
