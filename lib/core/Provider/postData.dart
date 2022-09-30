@@ -739,7 +739,9 @@ class PostData extends ChangeNotifier with BaseController {
       if (check == 12) {
         Navigator.of(context).pop();
       }
-      //getData!.getWishList();
+
+      await Provider.of<GetData>(context, listen: false).getWishList();
+      await Provider.of<GetData>(context, listen: false).getVaultStats();
 
       showDialog(
           context: context,
@@ -753,6 +755,7 @@ class PostData extends ChangeNotifier with BaseController {
       if (check == 12) {
         Navigator.of(context).pop();
       }
+
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -765,9 +768,6 @@ class PostData extends ChangeNotifier with BaseController {
 
     await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
-    if (check == 12) {
-      Navigator.of(context).pop();
-    }
 
     notifyListeners();
   }
@@ -793,9 +793,8 @@ class PostData extends ChangeNotifier with BaseController {
     if (js.containsKey('msg')) {
       await Provider.of<GetData>(context, listen: false).getSetList(type);
       await Provider.of<GetData>(context, listen: false).getVaultStats();
-      if (deleteset == 13) {
+
         Navigator.of(context).pop();
-      }
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -805,9 +804,8 @@ class PostData extends ChangeNotifier with BaseController {
                 message: js["msg"],
               )).whenComplete(() => getData!.getSetList(''));
     } else {
-      if (deleteset == 13) {
+
         Navigator.of(context).pop();
-      }
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -818,10 +816,8 @@ class PostData extends ChangeNotifier with BaseController {
               ));
     }
     await Future.delayed(const Duration(seconds: 1));
-    Navigator.of(context).pop();
-    if (deleteset == 13) {
+
       Navigator.of(context).pop();
-    }
     notifyListeners();
   }
 
@@ -917,6 +913,10 @@ class PostData extends ChangeNotifier with BaseController {
               ));
     }
     await Future.delayed(Duration(seconds: 1));
+    if(check==1){
+      Navigator.of(context).pop();
+    }
+
     Navigator.of(context).pop();
     Navigator.of(context).pop();
 

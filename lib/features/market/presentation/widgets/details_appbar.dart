@@ -24,7 +24,7 @@ class _DetailsAppbarState extends State<DetailsAppbar> {
           padding: EdgeInsets.only(right: 75),
           height: 25,
           child:
-          widget.name!.length < 30 ?
+          widget.name!.length < 26 ?
           Container(
             padding: EdgeInsets.symmetric(horizontal: Get.width * .03),
             child: Text(

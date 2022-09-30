@@ -115,8 +115,8 @@ class _WishListPageState extends State<WishListPage> {
                                   child: SwipeActionCell(
                                     backgroundColor: Colors.transparent,
                                     key: ObjectKey(data
-                                        .setListModel!
-                                        .setResults![index]),
+                                        .wishListModel!
+                                        .results![index]),
                                     trailingActions: <SwipeAction>[
                                       SwipeAction(
                                           title: "Delete",style: TextStyle(fontSize: 14),
@@ -151,7 +151,8 @@ class _WishListPageState extends State<WishListPage> {
                                                 data.wishListModel!
                                                     .results![index].id,
                                                 requestHeadersWithToken,
-                                                check: 12);
+                                                check: 12)
+                                                .whenComplete(() => Provider.of<GetData>(context,listen: false).getWishList());
                                           },
                                           color: Colors.red),
 

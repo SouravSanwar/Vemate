@@ -244,7 +244,8 @@ class _ComicDetailsState extends State<ComicDetails> {
                                               () => Provider.of<GetData>(context, listen: false).getHomeVault());
                                       await Future.delayed(Duration(seconds: 1));
                                       Navigator.of(context).pop();
-                                    } else {
+                                    }
+                                    else {
                                       data.checkSetCheck!.isFound = false;
                                       postData!
                                           .deleteSetList(
@@ -258,8 +259,6 @@ class _ComicDetailsState extends State<ComicDetails> {
                                           )
                                           .whenComplete(
                                               () => Provider.of<GetData>(context, listen: false).getHomeVault());
-                                      await Future.delayed(Duration(seconds: 1));
-                                      Navigator.of(context).pop();
                                     }
                                   },
                                   child: Container(

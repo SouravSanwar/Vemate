@@ -145,17 +145,6 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
                                             .whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
                                       },
                                       color: Colors.red),
-                                  SwipeAction(
-                                      title: "Close",style: TextStyle(fontSize: 14),
-                                      icon: Icon(
-                                        Icons.close_sharp,
-                                        color: AppColors.white,
-                                      ),
-                                      onTap: (CompletionHandler
-                                      handler) async {
-                                        handler(false);
-                                      },
-                                      color: Colors.transparent),
 
                                 ],
                                 child: InkWell(

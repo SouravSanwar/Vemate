@@ -17,14 +17,13 @@ import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
 import 'package:ketemaa/features/market/widgets/image_widgets.dart';
+import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:intl/intl.dart';
-import '../../vault/Wishlist/alert/new_alert.dart';
 
-import '../../../core/models/WishListModel.dart';
+import '../../../core/models/AlertModel.dart';
 
 class AllNotificationList extends StatefulWidget {
   const AllNotificationList({Key? key}) : super(key: key);
@@ -59,7 +58,7 @@ class _AllNotificationListState extends State<AllNotificationList>
     postData = Provider.of<PostData>(context, listen: false);
 
     getData = Provider.of<GetData>(context, listen: false);
-    getData!.getWishList();
+    getData!.getAlert();
     setState(() {
       getData!.getNotification();
     });
@@ -406,7 +405,7 @@ class _AllNotificationListState extends State<AllNotificationList>
                               },
                             )
                           : const ColorLoader())
-                  : data.wishListModel != null
+                  : data.alertModel!= null
                       ? SmartRefresher(
                           key: _refreshkey,
                           controller: refreshController,
@@ -420,15 +419,14 @@ class _AllNotificationListState extends State<AllNotificationList>
                           ),
                           onRefresh: _onRefresh,
                           onLoading: _onLoading,
-                          child: data.wishListModel!.results != null
+                          child: data.alertModel!.results != null
                               ? ListView.builder(
                                   shrinkWrap: true,
                                   itemCount:
-                                      data.wishListModel!.results!.length,
+                                  data.alertModel!.results!.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    return data.wishListModel!.results![index].productDetail!.productAlertData != null
-                                        ? Padding(
+                                    return Padding(
                                         padding: const EdgeInsets.only(
                                             top: 4, bottom: 4, left: 4, right: 4),
                                         child: Container(
@@ -437,81 +435,109 @@ class _AllNotificationListState extends State<AllNotificationList>
                                               color: AppColors.graphCard,
                                               borderRadius: BorderRadius.circular(12.0),
                                             ),
-                                            child: InkWell(
-                                        onTap: () {
-                                          data.wishListModel!.results![index]
-                                              .productDetail!.type ==
-                                              0
-                                              ? Get.to(
-                                                () => CollectibleDetails(
-                                              productId: data
-                                                  .wishListModel!
-                                                  .results![index]
-                                                  .productDetail!
-                                                  .id!,
-                                            ),
-                                          )
-                                              : Get.to(
-                                                () => ComicDetails(
-                                              productId: data.wishListModel!.results![index].productDetail!
-                                                  .id!,
-                                            ),
-                                          );
-                                        },
-                                        child: ProductListContainer(
-                                          checkImage: data.wishListModel!.results![index].productDetail!.image == null ? ""
-                                              :data.wishListModel!.results![index].productDetail!.image.toString(),
-                                          name: data.wishListModel!.results![index].productDetail!.name == null ? ""
-                                              : data.wishListModel!.results![index].productDetail!.name!,
-                                          lowResUrl: data.wishListModel!.results![index].productDetail!.image != null
-                                              ? data.wishListModel!.results![index].productDetail!.image!.low_res_url! :"",
-                                          scrappedImage:data.wishListModel!.results![index].productDetail!.image != null ?
-                                          data.wishListModel!.results![index].productDetail!.image!.image_on_list
-                                              .toString() :"",
-                                          edition: data.wishListModel!.results![index].productDetail!.edition == null ? ""
-                                              : data.wishListModel!.results![index].productDetail!.edition!,
-                                          brand: data.wishListModel!.results![index].productDetail!.brand == null ? ""
-                                              :data.wishListModel!.results![index].productDetail!.brand
-                                              .toString(),
+                                            child: SwipeActionCell(
+                                              backgroundColor: Colors.transparent,
+                                              key: ObjectKey(data.alertModel!.results![index]),
+                                              trailingActions: <SwipeAction>[
+                                                SwipeAction(
+                                                    title: "Delete",style: TextStyle(fontSize: 14),
+                                                    performsFirstActionWithFullSwipe: true,
 
-                                          brandName: data.wishListModel!.results![index].productDetail!.brand == null ? ""
-                                              : data.wishListModel!.results![index].productDetail!.brand!.name!,
-                                          rarity: data.wishListModel!.results![index].productDetail!.rarity ==null ? ""
-                                              :data.wishListModel!.results![index].productDetail!.rarity!,
-                                          floorPrice: data.wishListModel!.results![index].productDetail!.floorPrice == null ? ""
-                                              :data.wishListModel!.results![index].productDetail!.floorPrice!,
-                                          onTap: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (ctx) =>
-                                                  ShowAlertBox(
-                                                    results: data.wishListModel!.results![index],
-                                                  ),
-                                            );
-                                          },
-                                          isAlert: data.wishListModel!.results![index].productDetail!.isProductAlert!,
-                                          series: <ChartSeries<Graph, String>>[
-                                            LineSeries<Graph, String>(
-                                              color: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!
-                                                  .sign ==
-                                                  'decrease'
-                                                  ? Colors.red
-                                                  : Colors.green,
-                                              dataSource: data.wishListModel!.results![index].productDetail!.graphData!.graph!,
-                                              xValueMapper: (Graph plot, _) =>
-                                              plot.date,
-                                              yValueMapper: (Graph plot, _) =>
-                                              plot.floorPrice,
-                                              xAxisName: 'Duration',
-                                              yAxisName: 'Total',
+                                                    icon: Icon(
+                                                      Icons.delete,
+                                                      color: AppColors.white,
+                                                    ),
+                                                    onTap: (CompletionHandler
+                                                    handler) async {
+                                                      alertCheck = 0;
+                                                       
+                                                        postData!.deleteAlert(
+                                                          context,
+                                                          data.alertModel!.results![index].id,
+                                                          requestHeadersWithToken,
+                                                        ).whenComplete(() => Provider.of<GetData>(context,listen: false).getAlert());
+                                                        alertCheck = 1;
+                                                    },
+                                                    color: Colors.red),
+
+                                              ],
+                                              child: InkWell(
+                                                  onTap: () {
+                                                    data.alertModel!.results![index]
+                                                        .productDetail!.type ==
+                                                        0
+                                                        ? Get.to(
+                                                          () => CollectibleDetails(
+                                                        productId: data
+                                                            .alertModel!.results![index]
+                                                            .productDetail!
+                                                            .id!,
+                                                      ),
+                                                    )
+                                                        : Get.to(
+                                                          () => ComicDetails(
+                                                        productId: data.alertModel!.results![index].productDetail!
+                                                            .id!,
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: ProductListContainer(
+                                                    checkImage: data.alertModel!.results![index].productDetail!.image == null ? ""
+                                                        :data.alertModel!.results![index].productDetail!.image.toString(),
+                                                    name: data.alertModel!.results![index].productDetail!.name == null ? ""
+                                                        : data.alertModel!.results![index].productDetail!.name!,
+                                                    lowResUrl: data.alertModel!.results![index].productDetail!.image != null
+                                                        ? data.alertModel!.results![index].productDetail!.image!.low_res_url! :"",
+                                                    scrappedImage:data.alertModel!.results![index].productDetail!.image != null ?
+                                                    data.alertModel!.results![index].productDetail!.image!.image_on_list
+                                                        .toString() :"",
+                                                    edition: data.alertModel!.results![index].productDetail!.edition == null ? ""
+                                                        : data.alertModel!.results![index].productDetail!.edition!,
+                                                    brand: data.alertModel!.results![index].productDetail!.brand == null ? ""
+                                                        :data.alertModel!.results![index].productDetail!.brand
+                                                        .toString(),
+
+                                                    brandName: data.alertModel!.results![index].productDetail!.brand == null ? ""
+                                                        : data.alertModel!.results![index].productDetail!.brand!.name!,
+                                                    rarity: data.alertModel!.results![index].productDetail!.rarity ==null ? ""
+                                                        :data.alertModel!.results![index].productDetail!.rarity!,
+                                                    floorPrice: data.alertModel!.results![index].productDetail!.floorPrice == null ? ""
+                                                        :data.alertModel!.results![index].productDetail!.floorPrice!,
+                                                    onTap: () {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (ctx) =>
+                                                            ShowAlertBox(
+                                                              results: data.alertModel!.results![index]
+                                                            ),
+                                                      );
+                                                    },
+                                                    isAlert: true,
+                                                    series: <ChartSeries<Graph, String>>[
+                                                      LineSeries<Graph, String>(
+                                                        color: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!
+                                                            .sign ==
+                                                            'decrease'
+                                                            ? Colors.red
+                                                            : Colors.green,
+                                                        dataSource: data.alertModel!.results![index].productDetail!.graphData!.graph!,
+                                                        xValueMapper: (Graph plot, _) =>
+                                                        plot.date,
+                                                        yValueMapper: (Graph plot, _) =>
+                                                        plot.floorPrice,
+                                                        xAxisName: 'Duration',
+                                                        yAxisName: 'Total',
+                                                      )
+                                                    ],
+                                                    changePrice: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!.changePrice,
+                                                    pcpPercent: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!.percent,
+                                                    pcpSign: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign! ,
+                                                  )
+                                              )
+
                                             )
-                                          ],
-                                          changePrice: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.changePrice,
-                                          pcpPercent: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.percent,
-                                          pcpSign: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign! ,
-                                        )
-                                    )))
-                                        : Container();
+
+                                        ));
                                   },
                                 )
                               : const LoadingExample(),
@@ -570,3 +596,7 @@ class _AllNotificationListState extends State<AllNotificationList>
             )));
   }
 }
+
+
+
+

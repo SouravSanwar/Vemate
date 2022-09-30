@@ -309,9 +309,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                     listen: false)
                                                 .getHomeVault());
 
-                                    await Future.delayed(
-                                        const Duration(seconds: 1));
-                                    Navigator.of(context).pop();
+
                                   }
                                 },
                                 child: Container(
