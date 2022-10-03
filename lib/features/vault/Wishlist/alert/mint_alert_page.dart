@@ -19,9 +19,9 @@ int? frequencyIndex1;
 int? TypeIndex1;
 
 class MintAlertPage extends StatefulWidget {
-  final Results? results;
+   var results;
 
-  const MintAlertPage({Key? key, this.results}) : super(key: key);
+   MintAlertPage({Key? key, this.results,}) : super(key: key);
 
   @override
   State<MintAlertPage> createState() => _MintAlertPageState();
@@ -68,9 +68,9 @@ class _MintAlertPageState extends State<MintAlertPage> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-    if (widget.results!.productDetail!.isProductAlert == true) {
-      for (int i = 0; i < widget.results!.productDetail!.productAlertData!.length; i++) {
-        if (widget.results!.productDetail!.productAlertData![i].type == 1) {
+    if (widget.results!.isProductAlert == true) {
+      for (int i = 0; i < widget.results!.productAlertData!.length; i++) {
+        if (widget.results!.productAlertData![i].type == 1) {
           setState(() {
             mintAlert = true;
             j = i;
@@ -79,24 +79,31 @@ class _MintAlertPageState extends State<MintAlertPage> {
       }
     }
 
-    if (widget.results!.productDetail!.isProductAlert == true) {
-      if (widget.results!.productDetail!.productAlertData![j].type == 1) {
-        valueController.text = widget.results!.productDetail!.productAlertData![j].value.toString();
+    if (widget.results!.isProductAlert == true) {
+      if (widget.results!.productAlertData![j].type == 1) {
+        valueController.text = widget.results!.productAlertData![j].value.toString();
+        mintController1.text = widget.results!.productAlertData![j].mintLow.toString();
+        mintController2.text = widget.results!.productAlertData![j].mintUpper.toString();
 
-        //if mint ranger value exists
-        _values = SfRangeValues(widget.results!.productDetail!.productAlertData![j].mintLow,
-            widget.results!.productDetail!.productAlertData![j].mintUpper);
 
+
+        if (mintController1.text == "0.0") {
+          mintController1.text = value.toString();
+        }
+        if (mintController2.text == "0.0") {
+          mintController2.text = value.toString();
+        }
         if (valueController.text == "0.0") {
           valueController.text = value.toString();
         }
+
       }
     }
 
     if (mintAlert == true) {
-      frequencyValue = widget.results!.productDetail!.productAlertData![j].frequencyValue;
+      frequencyValue = widget.results!.productAlertData![j].frequencyValue;
 
-      priceTypeValue = widget.results!.productDetail!.productAlertData![j].typeValue;
+      priceTypeValue = widget.results!.productAlertData![j].typeValue;
     }
 
     frequencyValue == 'Once'
@@ -110,6 +117,9 @@ class _MintAlertPageState extends State<MintAlertPage> {
         : priceTypeValue == 'Above'
             ? TypeIndex1 = 5
             : TypeIndex1 = 6;
+
+
+
     super.initState();
   }
 
@@ -233,7 +243,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
             height: 8.h,
           ),
           mintAlert == true
-              ? (widget.results!.productDetail!.productAlertData![j].priceType == 6 && TypeIndex1 == 6
+              ? (widget.results!.productAlertData![j].priceType == 6 && TypeIndex1 == 6
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -244,44 +254,76 @@ class _MintAlertPageState extends State<MintAlertPage> {
                         SizedBox(
                           height: Get.height * 0.06945,
                         ),
-                        SfRangeSliderTheme(
-                          data: SfRangeSliderThemeData(
-                            tooltipBackgroundColor: Colors.transparent,
-                            thumbStrokeWidth: 2,
-                            thumbStrokeColor: AppColors.white,
-                            overlayRadius: 10,
-                            labelOffset: Offset(0, -40),
-                          ),
-                          child: SfRangeSlider(
-                            min: 0,
-                            max: 100,
-                            showTicks: true,
-                            showLabels: true,
-                            inactiveColor: Colors.white,
-                            enableTooltip: true,
-                            shouldAlwaysShowTooltip: true,
-                            stepSize: 1,
-                            values: _values,
-                            onChanged: (SfRangeValues newValues) {
-                              setState(() {
-                                _values = newValues;
-                                print(_values.start.toString());
-                              });
-                            },
-                          ),
-                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "From",
+                              style: TextStyle(fontSize: 16.0.sp, color: AppColors.white),
+                            ),
+                            AppSpaces.spaces_width_5,
+                            Expanded(
+                              // optional flex property if flex is 1 because the default flex is 1
+                                flex: 1,
+                                child: AlertTextField(
+                                  height: Get.height * .03,
+                                  controller: mintController1,
+                                )
+                            ),
+                            AppSpaces.spaces_width_5,
+
+                            Text(
+                              "To",
+                              style: TextStyle(fontSize: 16.0.sp, color: AppColors.white),
+                            ),
+                            AppSpaces.spaces_width_5,
+                            Expanded(
+                              // optional flex property if flex is 1 because the default flex is 1
+                              flex: 1,
+                              child: AlertTextField(
+                                height: Get.height * .03,
+                                controller: mintController2,
+                              )
+                            ),
+
+                          ],
+                        )
                       ],
                     )
-                  : widget.results!.productDetail!.productAlertData![j].priceType == 6 && TypeIndex1 != 6
-                      ? AlertTextField(
-                          height: Get.height * .03,
-                          controller: valueController,
-                        )
-                      : widget.results!.productDetail!.productAlertData![j].priceType != 6 && TypeIndex1 != 6
-                          ? AlertTextField(
+                  : widget.results!.productAlertData![j].priceType == 6 && TypeIndex1 != 6
+                      ? Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Value",
+                            style: TextStyle(
+                                fontSize: 18.0.sp, color: AppColors.textColor),
+                          ),
+                          SizedBox(
+                            height: 8.h,
+                          ),
+                          AlertTextField(
                               height: Get.height * .03,
                               controller: valueController,
-                            )
+                            ),
+                        ],
+                      )
+                      : widget.results!.productAlertData![j].priceType != 6 && TypeIndex1 != 6
+                          ? Column(
+                            children: [
+                              Text(
+                                "Value",
+                                style: TextStyle(
+                                    fontSize: 18.0.sp, color: AppColors.textColor),
+                              ),
+                              SizedBox(
+                                height: 8.h,
+                              ),
+                              AlertTextField(
+                                  height: Get.height * .03,
+                                  controller: valueController,
+                                ),
+                            ],
+                          )
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -375,10 +417,10 @@ class _MintAlertPageState extends State<MintAlertPage> {
                   onTap: () {
                     postData = Provider.of<PostData>(context, listen: false);
                     postData!.deleteAlert(
-                        context, widget.results!.productDetail!.productAlertData![j].id, requestHeadersWithToken,check: 1);
+                        context, widget.results!.productAlertData![j].id, requestHeadersWithToken,check: 1);
                   },
                   child: Text(
-                    widget.results!.productDetail!.productAlertData != null && mintAlert == true ? 'Delete' : "",
+                    widget.results!.productAlertData != null && mintAlert == true ? 'Delete' : "",
                     style: TextStyle(fontSize: 16.0.sp, color: AppColors.grey),
                   ),
                 ),
@@ -387,19 +429,19 @@ class _MintAlertPageState extends State<MintAlertPage> {
                   onTap: () {
                     postData = Provider.of<PostData>(context, listen: false);
                     var body = {
-                      "product": widget.results!.productDetail!.id,
+                      "product": widget.results!.id,
                       "type": 1,
                       "price_type": TypeIndex1,
                       "value": valueController.text != "" ? double.parse(valueController.text) : 0.0,
                       "frequency": frequencyIndex1,
-                      "mint_low": _values.start.round().toString(),
-                      "mint_upper": _values.end.round().toString(),
+                      "mint_low": mintController1.text != "" ? double.parse(mintController1.text) : 0.0,
+                      "mint_upper": mintController2.text != "" ? double.parse(mintController2.text) : 0.0,
                     };
 
                     postData!.createAlert(context, body);
                   },
                   child: Text(
-                    widget.results!.productDetail!.productAlertData != null && mintAlert == true ? 'Update' : "Save",
+                    widget.results!.productAlertData != null && mintAlert == true ? 'Update' : "Save",
                     style: TextStyle(fontSize: 16.0.sp, color: Colors.purpleAccent),
                   ),
                 ),

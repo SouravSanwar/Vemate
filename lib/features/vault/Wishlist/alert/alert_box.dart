@@ -11,7 +11,7 @@ import '../../../../core/models/WishListModel.dart';
 class ShowAlertBox extends StatefulWidget {
   var results;
 
-  ShowAlertBox({Key? key, this.results}) : super(key: key);
+  ShowAlertBox({Key? key, this.results,}) : super(key: key);
 
   @override
   _ShowAlertBoxState createState() => _ShowAlertBoxState();

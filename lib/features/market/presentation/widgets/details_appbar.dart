@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
 import 'package:marquee/marquee.dart';
 
 import '../../../../core/utilities/app_colors/app_colors.dart';
 
 class DetailsAppbar extends StatefulWidget {
   final String? name;
-  const DetailsAppbar({Key? key,  this.name,}) : super(key: key);
+  var results;
+  DetailsAppbar({Key? key,  this.name,this.results}) : super(key: key);
 
   @override
   State<DetailsAppbar> createState() => _DetailsAppbarState();
@@ -74,20 +76,32 @@ class _DetailsAppbarState extends State<DetailsAppbar> {
                     ),
               );*/
             },
-            child: Container(
-              child: Icon(
-                Icons.notifications_none,
-                color: AppColors.textColor,
-              ),
-              height: 35.h,
-              width: 35.h,
-              decoration: BoxDecoration(
-                gradient: AppColors.onBoardGradient,
-                border: Border.all(
-                    color: AppColors.grey, // set border color
-                    width: 1), // set border width
-                borderRadius: BorderRadius.circular(
-                    12.0), // set rounded corner radius
+            child: InkWell(
+              onTap: (){
+                showDialog(
+                  context: context,
+                  builder: (ctx) =>
+                      ShowAlertBox(
+                        results: widget.results,
+                      ),
+                );
+
+              },
+              child: Container(
+                child: Icon(
+                  Icons.notifications_none,
+                  color: AppColors.textColor,
+                ),
+                height: 35.h,
+                width: 35.h,
+                decoration: BoxDecoration(
+                  gradient: AppColors.onBoardGradient,
+                  border: Border.all(
+                      color: AppColors.grey, // set border color
+                      width: 1), // set border width
+                  borderRadius: BorderRadius.circular(
+                      12.0), // set rounded corner radius
+                ),
               ),
             ),
           )

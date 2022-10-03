@@ -36,6 +36,8 @@ class SingleProductModel {
     this.updateTime,
     this.parent,
     this.graphType,
+    this.productAlertData,
+    this.isProductAlert
   });
 
   SingleProductModel.fromJson(dynamic json) {
@@ -70,6 +72,13 @@ class SingleProductModel {
     updateTime = json['update_time'];
     parent = json['parent'];
     graphType = json['graph_type'];
+    if (json['alert_data'] != null) {
+      productAlertData  = [];
+      json['alert_data'].forEach((v) {
+        productAlertData ?.add(ProductAlertData.fromJson(v));
+      });
+    }
+    productAlertData != null ? isProductAlert = true : isProductAlert = false;
 
     // if (json['graph'] != null) {
     //   graph = [];
@@ -117,6 +126,8 @@ class SingleProductModel {
   String? updateTime;
   String? graphType;
   dynamic parent;
+  List<ProductAlertData>? productAlertData;
+  bool? isProductAlert;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -156,6 +167,90 @@ class SingleProductModel {
     map['update_time'] = updateTime;
     map['graph_type'] = graphType;
     map['parent'] = parent;
+    if (productAlertData != null) {
+      map['alert_data'] = productAlertData?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+}
+class ProductAlertData {
+  ProductAlertData({
+    this.id,
+    this.type,
+    this.priceType,
+    this.value,
+    this.frequency,
+    this.mintLow,
+    this.mintUpper,
+    this.product,
+    this.user,
+    this.typeValue,
+    this.frequencyValue,
+  });
+
+  ProductAlertData.fromJson(dynamic json) {
+    id = json['id'];
+    type = json['type'];
+    priceType = json['price_type'];
+    value = json['value'];
+    frequency = json['frequency'];
+    mintLow = json['mint_low'];
+    mintUpper = json['mint_upper'];
+    product = json['product'];
+    user = json['user'];
+
+    if (priceType == 0) {
+      typeValue = 'Price rises above';
+    } else if (priceType == 1) {
+      typeValue = 'Price drops under';
+    } else if (priceType == 2) {
+      typeValue = 'Price rises';
+    } else if (priceType == 3) {
+      typeValue = 'Price drops';
+    }else if (priceType == 4) {
+      typeValue = 'Below';
+    }else if (priceType == 5) {
+      typeValue = 'Above';
+    }else if (priceType == 6) {
+      typeValue = 'Between';
+    } else {
+      typeValue = 'none';
+    }
+
+    if (frequency == 0) {
+      frequencyValue = 'Once';
+    } else if (frequency == 1) {
+      frequencyValue = 'Once a day';
+    } else if (frequency == 2) {
+      frequencyValue = 'Always';
+    } else {
+      frequencyValue = 'none';
+    }
+  }
+
+  int? id;
+  int? type;
+  int? priceType;
+  double? value;
+  int? frequency;
+  int? mintLow;
+  int? mintUpper;
+  int? product;
+  int? user;
+  String? typeValue;
+  String? frequencyValue;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['type'] = type;
+    map['price_type'] = priceType;
+    map['value'] = value;
+    map['frequency'] = frequency;
+    map['mint_low'] = mintLow;
+    map['mint_upper'] = mintUpper;
+    map['product'] = product;
+    map['user'] = user;
     return map;
   }
 }

@@ -19,9 +19,8 @@ int? frequencyIndex;
 int? TypeIndex;
 
 class PriceAlertPage extends StatefulWidget {
-  final Results? results;
-
-  const PriceAlertPage({Key? key, this.results}) : super(key: key);
+  var results;
+   PriceAlertPage({Key? key, this.results,}) : super(key: key);
 
   @override
   State<PriceAlertPage> createState() => _PriceAlertPageState();
@@ -40,6 +39,7 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
   bool? priceAlert = false;
   int j = 0;
   Widget? ranger;
+  
 
   Map<String, String> requestHeadersWithToken = {
     'Content-type': 'application/json',
@@ -67,9 +67,9 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-    if (widget.results!.productDetail!.isProductAlert == true) {
-      for (int i = 0; i < widget.results!.productDetail!.productAlertData!.length; i++) {
-        if (widget.results!.productDetail!.productAlertData![i].type == 0) {
+    if (widget.results!.isProductAlert == true) {
+      for (int i = 0; i < widget.results!.productAlertData!.length; i++) {
+        if (widget.results!.productAlertData![i].type == 0) {
           setState(() {
             priceAlert = true;
             j = i;
@@ -78,13 +78,13 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
       }
     }
     if (priceAlert == true) {
-      frequencyValue = widget.results!.productDetail!.productAlertData![j].frequencyValue;
-      priceValue = widget.results!.productDetail!.productAlertData![j].typeValue;
+      frequencyValue = widget.results!.productAlertData![j].frequencyValue;
+      priceValue = widget.results!.productAlertData![j].typeValue;
     }
 
-    if (widget.results!.productDetail!.isProductAlert == true) {
-      if (widget.results!.productDetail!.productAlertData![j].type == 0) {
-        valueController.text = widget.results!.productDetail!.productAlertData![j].value.toString();
+    if (widget.results!.isProductAlert == true) {
+      if (widget.results!.productAlertData![j].type == 0) {
+        valueController.text = widget.results!.productAlertData![j].value.toString();
 
         if (valueController.text == "0.0") {
           valueController.text = value.toString();
@@ -238,9 +238,22 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
           SizedBox(
             height: 14.h,
           ),
-          AlertTextField(
-            height: Get.height * .03,
-            controller: valueController,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Value",
+                style: TextStyle(
+                    fontSize: 18.0.sp, color: AppColors.textColor),
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              AlertTextField(
+                height: Get.height * .03,
+                controller: valueController,
+              ),
+            ],
           ),
           /*SizedBox( height: 14.sp,),*/
 
@@ -256,10 +269,10 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
                   onTap: () {
                     postData = Provider.of<PostData>(context, listen: false);
                     postData!.deleteAlert(
-                        context, widget.results!.productDetail!.productAlertData![j].id, requestHeadersWithToken,check: 1);
+                        context, widget.results!.productAlertData![j].id, requestHeadersWithToken,check: 1);
                   },
                   child: Text(
-                    widget.results!.productDetail!.productAlertData != null && priceAlert == true ? 'Delete' : "",
+                    widget.results!.productAlertData != null && priceAlert == true ? 'Delete' : "",
                     style: TextStyle(fontSize: 16.0.sp, color: AppColors.grey),
                   ),
                 ),
@@ -268,7 +281,7 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
                   onTap: () {
                     postData = Provider.of<PostData>(context, listen: false);
                     var body = {
-                      "product": widget.results!.productDetail!.id,
+                      "product": widget.results!.id,
                       "type": 0,
                       "price_type": TypeIndex,
                       "value": valueController.text != "" ? double.parse(valueController.text) : 0.0,
@@ -278,7 +291,7 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
                     postData!.createAlert(context, body);
                   },
                   child: Text(
-                    widget.results!.productDetail!.productAlertData != null && priceAlert == true ? 'Update' : "Save",
+                    widget.results!.productAlertData != null && priceAlert == true ? 'Update' : "Save",
                     style: TextStyle(fontSize: 16.0.sp, color: Colors.purpleAccent),
                   ),
                 ),

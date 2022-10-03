@@ -453,7 +453,7 @@ class _AllNotificationListState extends State<AllNotificationList>
                                                        
                                                         postData!.deleteAlert(
                                                           context,
-                                                          data.alertModel!.results![index].id,
+                                                          data.alertModel!.results![index].productDetail!.id,
                                                           requestHeadersWithToken,
                                                         ).whenComplete(() => Provider.of<GetData>(context,listen: false).getAlert());
                                                         alertCheck = 1;
@@ -508,7 +508,7 @@ class _AllNotificationListState extends State<AllNotificationList>
                                                         context: context,
                                                         builder: (ctx) =>
                                                             ShowAlertBox(
-                                                              results: data.alertModel!.results![index]
+                                                              results: data.alertModel!.results![index].productDetail!
                                                             ),
                                                       );
                                                     },

@@ -77,6 +77,7 @@ class _ComicDetailsState extends State<ComicDetails> {
           title: data.singleProductModel != null ?
           DetailsAppbar(
             name: data.singleProductModel!.name!,
+            results: data.singleProductModel,
           ): Container()
         ),
         backgroundColor: AppColors.backgroundColor,

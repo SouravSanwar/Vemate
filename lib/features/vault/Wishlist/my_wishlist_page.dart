@@ -205,7 +205,7 @@ class _WishListPageState extends State<WishListPage> {
                                               context: context,
                                               builder: (ctx) =>
                                                   ShowAlertBox(
-                                                    results: data.wishListModel!.results![index],
+                                                    results: data.wishListModel!.results![index].productDetail!,
                                                   ),
                                             );
                                           },
