@@ -8,11 +8,13 @@ class AlertTextField extends StatelessWidget {
   TextEditingController? controller;
   num? height;
   num? width;
+  FormFieldValidator? validator;
 
   AlertTextField({
     this.controller,
     this.height,
-    this.width
+    this.width,
+    this.validator,
   });
 
 
@@ -27,7 +29,8 @@ class AlertTextField extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.only(left: 10),
-        child: TextField(
+        child: TextFormField(
+          validator: validator,
 
           style: TextStyle(
             color: AppColors.textColor,

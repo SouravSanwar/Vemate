@@ -161,21 +161,6 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     } else {
                                       data.checkWishlistModel!.isFound = false;
 
-                                      if (data.wishListModel!.results!
-                                              .firstWhere(
-                                                  (element) => element.productDetail!.id == data.singleProductModel!.id)
-                                              .alertData !=
-                                          null) {
-                                        postData!.deleteAlert(
-                                            context,
-                                            data.wishListModel!.results!
-                                                .firstWhere((element) =>
-                                                    element.productDetail!.id == data.singleProductModel!.id)
-                                                .alertData!
-                                                .id,
-                                            requestHeadersWithToken);
-                                        alertCheck = 1;
-                                      }
                                       postData!.deleteWishlist(
                                         context,
                                         alertCheck,

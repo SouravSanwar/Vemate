@@ -70,7 +70,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.initState();
   }
 
-  takeImage() {
+ /* takeImage() {
     return showDialog(
         context: context,
         builder: (context) {
@@ -110,19 +110,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ],
           );
         });
-  }
+  }*/
 
-  captureImageWithCamera() async {
+/*  captureImageWithCamera() async {
     Navigator.pop(context);
     XFile? pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
     );
 
     _cropImage(pickedFile!.path);
-  }
+  }*/
 
   pickImageFromGallery() async {
-    Navigator.pop(context);
+    //Navigator.pop(context);
     XFile? pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
@@ -199,7 +199,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               onPressed: () {
                                 setState(() {
                                   imageFile == null;
-                                  takeImage();
+                                  //takeImage();
+                                  pickImageFromGallery();
 
                                 });
 

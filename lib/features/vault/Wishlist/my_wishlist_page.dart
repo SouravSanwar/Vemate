@@ -128,23 +128,7 @@ class _WishListPageState extends State<WishListPage> {
                                           ),
                                           onTap: (CompletionHandler
                                           handler) async {
-                                            alertCheck = 0;
-                                            if (data
-                                                .wishListModel!
-                                                .results![index]
-                                                .alertData !=
-                                                null) {
-                                              postData!.deleteAlert(
-                                                context,
-                                                data
-                                                    .wishListModel!
-                                                    .results![index]
-                                                    .alertData!
-                                                    .id,
-                                                requestHeadersWithToken,
-                                              );
-                                              alertCheck = 1;
-                                            }
+
                                             postData!.deleteWishlist(
                                                 context,
                                                 alertCheck,
@@ -206,6 +190,7 @@ class _WishListPageState extends State<WishListPage> {
                                               builder: (ctx) =>
                                                   ShowAlertBox(
                                                     results: data.wishListModel!.results![index].productDetail!,
+                                                    origin: 'wishlist',
                                                   ),
                                             );
                                           },

@@ -10,8 +10,9 @@ import '../../../../core/models/WishListModel.dart';
 
 class ShowAlertBox extends StatefulWidget {
   var results;
+  String? origin;
 
-  ShowAlertBox({Key? key, this.results,}) : super(key: key);
+  ShowAlertBox({Key? key, this.results,this.origin}) : super(key: key);
 
   @override
   _ShowAlertBoxState createState() => _ShowAlertBoxState();
@@ -65,9 +66,11 @@ class _ShowAlertBoxState extends State<ShowAlertBox>
                 children: <Widget>[
                   MintAlertPage(
                     results: widget.results,
+                    origin: widget.origin,
                   ),
                   PriceAlertPage(
                     results: widget.results,
+                    origin: widget.origin,
                   )
                 ],
               ),

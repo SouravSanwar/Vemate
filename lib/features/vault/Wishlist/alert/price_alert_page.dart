@@ -20,7 +20,8 @@ int? TypeIndex;
 
 class PriceAlertPage extends StatefulWidget {
   var results;
-   PriceAlertPage({Key? key, this.results,}) : super(key: key);
+  String? origin;
+   PriceAlertPage({Key? key, this.results,this.origin}) : super(key: key);
 
   @override
   State<PriceAlertPage> createState() => _PriceAlertPageState();
@@ -269,7 +270,7 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
                   onTap: () {
                     postData = Provider.of<PostData>(context, listen: false);
                     postData!.deleteAlert(
-                        context, widget.results!.productAlertData![j].id, requestHeadersWithToken,check: 1);
+                        context, widget.results!.productAlertData![j].id, requestHeadersWithToken,widget.origin,widget.results!.id);
                   },
                   child: Text(
                     widget.results!.productAlertData != null && priceAlert == true ? 'Delete' : "",
@@ -288,7 +289,7 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
                       "frequency": frequencyIndex,
                     };
 
-                    postData!.createAlert(context, body);
+                    postData!.createAlert(context, body,widget.origin,widget.results!.id);
                   },
                   child: Text(
                     widget.results!.productAlertData != null && priceAlert == true ? 'Update' : "Save",

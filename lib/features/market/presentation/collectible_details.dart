@@ -194,24 +194,6 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       requestHeadersWithToken,
                                     );
                                   } else {
-                                    if (data.wishListModel!.results!
-                                            .firstWhere((element) =>
-                                                element.productDetail!.id ==
-                                                data.singleProductModel!.id)
-                                            .alertData !=
-                                        null) {
-                                      postData!.deleteAlert(
-                                          context,
-                                          data.wishListModel!.results!
-                                              .firstWhere((element) =>
-                                                  element.productDetail!.id ==
-                                                  data.singleProductModel!.id)
-                                              .alertData!
-                                              .id,
-                                          requestHeadersWithToken);
-                                      alertCheck = 1;
-                                    }
-
                                     postData!.deleteWishlist(
                                       context,
                                       alertCheck,

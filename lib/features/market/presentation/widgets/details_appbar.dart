@@ -83,6 +83,7 @@ class _DetailsAppbarState extends State<DetailsAppbar> {
                   builder: (ctx) =>
                       ShowAlertBox(
                         results: widget.results,
+                        origin: 'details',
                       ),
                 );
 

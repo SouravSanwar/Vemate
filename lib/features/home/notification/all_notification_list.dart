@@ -435,106 +435,79 @@ class _AllNotificationListState extends State<AllNotificationList>
                                               color: AppColors.graphCard,
                                               borderRadius: BorderRadius.circular(12.0),
                                             ),
-                                            child: SwipeActionCell(
-                                              backgroundColor: Colors.transparent,
-                                              key: ObjectKey(data.alertModel!.results![index]),
-                                              trailingActions: <SwipeAction>[
-                                                SwipeAction(
-                                                    title: "Delete",style: TextStyle(fontSize: 14),
-                                                    performsFirstActionWithFullSwipe: true,
-
-                                                    icon: Icon(
-                                                      Icons.delete,
-                                                      color: AppColors.white,
+                                            child: InkWell(
+                                                onTap: () {
+                                                  data.alertModel!.results![index]
+                                                      .productDetail!.type ==
+                                                      0
+                                                      ? Get.to(
+                                                        () => CollectibleDetails(
+                                                      productId: data
+                                                          .alertModel!.results![index]
+                                                          .productDetail!
+                                                          .id!,
                                                     ),
-                                                    onTap: (CompletionHandler
-                                                    handler) async {
-                                                      alertCheck = 0;
-                                                       
-                                                        postData!.deleteAlert(
-                                                          context,
-                                                          data.alertModel!.results![index].productDetail!.id,
-                                                          requestHeadersWithToken,
-                                                        ).whenComplete(() => Provider.of<GetData>(context,listen: false).getAlert());
-                                                        alertCheck = 1;
-                                                    },
-                                                    color: Colors.red),
+                                                  )
+                                                      : Get.to(
+                                                        () => ComicDetails(
+                                                      productId: data.alertModel!.results![index].productDetail!
+                                                          .id!,
+                                                    ),
+                                                  );
+                                                },
+                                                child: ProductListContainer(
+                                                  checkImage: data.alertModel!.results![index].productDetail!.image == null ? ""
+                                                      :data.alertModel!.results![index].productDetail!.image.toString(),
+                                                  name: data.alertModel!.results![index].productDetail!.name == null ? ""
+                                                      : data.alertModel!.results![index].productDetail!.name!,
+                                                  lowResUrl: data.alertModel!.results![index].productDetail!.image != null
+                                                      ? data.alertModel!.results![index].productDetail!.image!.low_res_url! :"",
+                                                  scrappedImage:data.alertModel!.results![index].productDetail!.image != null ?
+                                                  data.alertModel!.results![index].productDetail!.image!.image_on_list
+                                                      .toString() :"",
+                                                  edition: data.alertModel!.results![index].productDetail!.edition == null ? ""
+                                                      : data.alertModel!.results![index].productDetail!.edition!,
+                                                  brand: data.alertModel!.results![index].productDetail!.brand == null ? ""
+                                                      :data.alertModel!.results![index].productDetail!.brand
+                                                      .toString(),
 
-                                              ],
-                                              child: InkWell(
+                                                  brandName: data.alertModel!.results![index].productDetail!.brand == null ? ""
+                                                      : data.alertModel!.results![index].productDetail!.brand!.name!,
+                                                  rarity: data.alertModel!.results![index].productDetail!.rarity ==null ? ""
+                                                      :data.alertModel!.results![index].productDetail!.rarity!,
+                                                  floorPrice: data.alertModel!.results![index].productDetail!.floorPrice == null ? ""
+                                                      :data.alertModel!.results![index].productDetail!.floorPrice!,
                                                   onTap: () {
-                                                    data.alertModel!.results![index]
-                                                        .productDetail!.type ==
-                                                        0
-                                                        ? Get.to(
-                                                          () => CollectibleDetails(
-                                                        productId: data
-                                                            .alertModel!.results![index]
-                                                            .productDetail!
-                                                            .id!,
-                                                      ),
-                                                    )
-                                                        : Get.to(
-                                                          () => ComicDetails(
-                                                        productId: data.alertModel!.results![index].productDetail!
-                                                            .id!,
-                                                      ),
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (ctx) =>
+                                                          ShowAlertBox(
+                                                              results: data.alertModel!.results![index].productDetail!,
+                                                                  origin: 'allalert',
+                                                          ),
                                                     );
                                                   },
-                                                  child: ProductListContainer(
-                                                    checkImage: data.alertModel!.results![index].productDetail!.image == null ? ""
-                                                        :data.alertModel!.results![index].productDetail!.image.toString(),
-                                                    name: data.alertModel!.results![index].productDetail!.name == null ? ""
-                                                        : data.alertModel!.results![index].productDetail!.name!,
-                                                    lowResUrl: data.alertModel!.results![index].productDetail!.image != null
-                                                        ? data.alertModel!.results![index].productDetail!.image!.low_res_url! :"",
-                                                    scrappedImage:data.alertModel!.results![index].productDetail!.image != null ?
-                                                    data.alertModel!.results![index].productDetail!.image!.image_on_list
-                                                        .toString() :"",
-                                                    edition: data.alertModel!.results![index].productDetail!.edition == null ? ""
-                                                        : data.alertModel!.results![index].productDetail!.edition!,
-                                                    brand: data.alertModel!.results![index].productDetail!.brand == null ? ""
-                                                        :data.alertModel!.results![index].productDetail!.brand
-                                                        .toString(),
-
-                                                    brandName: data.alertModel!.results![index].productDetail!.brand == null ? ""
-                                                        : data.alertModel!.results![index].productDetail!.brand!.name!,
-                                                    rarity: data.alertModel!.results![index].productDetail!.rarity ==null ? ""
-                                                        :data.alertModel!.results![index].productDetail!.rarity!,
-                                                    floorPrice: data.alertModel!.results![index].productDetail!.floorPrice == null ? ""
-                                                        :data.alertModel!.results![index].productDetail!.floorPrice!,
-                                                    onTap: () {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (ctx) =>
-                                                            ShowAlertBox(
-                                                              results: data.alertModel!.results![index].productDetail!
-                                                            ),
-                                                      );
-                                                    },
-                                                    isAlert: true,
-                                                    series: <ChartSeries<Graph, String>>[
-                                                      LineSeries<Graph, String>(
-                                                        color: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!
-                                                            .sign ==
-                                                            'decrease'
-                                                            ? Colors.red
-                                                            : Colors.green,
-                                                        dataSource: data.alertModel!.results![index].productDetail!.graphData!.graph!,
-                                                        xValueMapper: (Graph plot, _) =>
-                                                        plot.date,
-                                                        yValueMapper: (Graph plot, _) =>
-                                                        plot.floorPrice,
-                                                        xAxisName: 'Duration',
-                                                        yAxisName: 'Total',
-                                                      )
-                                                    ],
-                                                    changePrice: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!.changePrice,
-                                                    pcpPercent: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!.percent,
-                                                    pcpSign: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign! ,
-                                                  )
-                                              )
-
+                                                  isAlert: true,
+                                                  series: <ChartSeries<Graph, String>>[
+                                                    LineSeries<Graph, String>(
+                                                      color: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!
+                                                          .sign ==
+                                                          'decrease'
+                                                          ? Colors.red
+                                                          : Colors.green,
+                                                      dataSource: data.alertModel!.results![index].productDetail!.graphData!.graph!,
+                                                      xValueMapper: (Graph plot, _) =>
+                                                      plot.date,
+                                                      yValueMapper: (Graph plot, _) =>
+                                                      plot.floorPrice,
+                                                      xAxisName: 'Duration',
+                                                      yAxisName: 'Total',
+                                                    )
+                                                  ],
+                                                  changePrice: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!.changePrice,
+                                                  pcpPercent: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!.percent,
+                                                  pcpSign: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign! ,
+                                                )
                                             )
 
                                         ));
