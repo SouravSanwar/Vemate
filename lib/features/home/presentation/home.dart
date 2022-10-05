@@ -10,6 +10,7 @@ import 'package:ketemaa/features/home/notification/all_notification_list.dart';
 import 'package:ketemaa/features/home/notification/no_notification.dart';
 import 'package:ketemaa/features/home/notification/notification_alart.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
+import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +47,6 @@ class _HomeState extends State<Home> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-
     getData!.getUserInfo();
     //getData!.getVaultStats();
     getData!.getNews();
@@ -81,35 +81,23 @@ class _HomeState extends State<Home> {
                           Row(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 15, right: 12, bottom: 15, left: 12),
+                                padding: const EdgeInsets.only(top: 15, right: 12, bottom: 15, left: 12),
                                 child: InkWell(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (c) => const Profile()));
+                                    Navigator.push(context, MaterialPageRoute(builder: (c) => const Profile()));
                                   },
                                   child: Container(
-                                    child:
-                                        data.profileModel!.profileImage != null
-                                            ? CircleAvatar(
-                                                radius: 20,
-                                                backgroundImage: NetworkImage(
-                                                  Urls.mainUrl +
-                                                      data
-                                                          .profileModel!
-                                                          .profileImage!
-                                                          .mobile!
-                                                          .src
-                                                          .toString(),
-                                                ),
-                                              )
-                                            : const CircleAvatar(
-                                                radius: 20,
-                                                backgroundImage: AssetImage(
-                                                    'assets/media/image/profile.png'),
-                                              ),
+                                    child: data.profileModel!.profileImage != null
+                                        ? CircleAvatar(
+                                            radius: 20,
+                                            backgroundImage: NetworkImage(
+                                              Urls.mainUrl + data.profileModel!.profileImage!.mobile!.src.toString(),
+                                            ),
+                                          )
+                                        : const CircleAvatar(
+                                            radius: 20,
+                                            backgroundImage: AssetImage('assets/media/image/profile.png'),
+                                          ),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(
@@ -123,9 +111,7 @@ class _HomeState extends State<Home> {
                               Text(
                                 "Hi, ${data.profileModel!.nickname.toString()}",
                                 style: Get.textTheme.headline1!.copyWith(
-                                    color: AppColors.textColor,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w500),
+                                    color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
                               ),
                             ],
                           ),
@@ -140,8 +126,7 @@ class _HomeState extends State<Home> {
                                     ? Get.to(() => const NoNotification())
                                     : showDialog(
                                         context: context,
-                                        builder: (ctx) =>
-                                            const AllNotificationList(),
+                                        builder: (ctx) => const AllNotificationList(),
                                       );
 
                                 /*if (data
@@ -158,47 +143,35 @@ class _HomeState extends State<Home> {
 
                       ///News
                       Padding(
-                        padding: const EdgeInsets.only(
-                            top: 11, bottom: 12, left: 15, right: 15),
+                        padding: const EdgeInsets.only(top: 11, bottom: 12, left: 15, right: 15),
                         child: Text(
                           'News',
                           textAlign: TextAlign.left,
-                          style: Get.textTheme.headline2!.copyWith(
-                              color: AppColors.textColor,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500),
+                          style: Get.textTheme.headline2!
+                              .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
                         ),
                       ),
 
-                      ImageSlider(
-                          news: data.newsModel != null
-                              ? data.newsModel!.results
-                              : null),
+                      ImageSlider(news: data.newsModel != null ? data.newsModel!.results : null),
 
                       ///My Vault
                       Padding(
-                        padding: const EdgeInsets.only(
-                            top: 24, bottom: 0, left: 15, right: 15),
+                        padding: const EdgeInsets.only(top: 24, bottom: 0, left: 15, right: 15),
                         child: Text(
                           'My Vault',
-                          style: Get.textTheme.headline2!.copyWith(
-                              color: AppColors.textColor,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500),
+                          style: Get.textTheme.headline2!
+                              .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
                         ),
                       ),
                       const HomeVaultCard(),
 
                       ///Newest
                       Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 12, left: 15, right: 15),
+                        padding: const EdgeInsets.only(bottom: 12, left: 15, right: 15),
                         child: Text(
                           'Latest Updates',
-                          style: Get.textTheme.headline2!.copyWith(
-                              color: AppColors.textColor,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500),
+                          style: Get.textTheme.headline2!
+                              .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
                         ),
                       ),
                       SizedBox(
