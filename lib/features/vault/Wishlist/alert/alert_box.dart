@@ -19,7 +19,6 @@ class ShowAlertBox extends StatefulWidget {
   final Results? results;
 
   const ShowAlertBox({Key? key, this.results}) : super(key: key);
-
   @override
   _ShowAlertBoxState createState() => _ShowAlertBoxState();
 }
