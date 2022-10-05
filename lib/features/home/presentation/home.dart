@@ -136,19 +136,8 @@ class _HomeState extends State<Home> {
                             child: InkWell(
                               focusColor: Colors.transparent,
                               onTap: () async {
-                                data.notificationListModel!.results!.isEmpty
-                                    ? Get.to(() => const NoNotification())
-                                    : showDialog(
-                                        context: context,
-                                        builder: (ctx) =>
-                                            const AllNotificationList(),
-                                      );
-
-                                /*if (data
-                                    .notificationListModel!.results!.isEmpty) {
-                                  await Future.delayed(const Duration(seconds: 1));
-                                  Navigator.of(context).pop();
-                                }*/
+                                Get.to(
+                                        () =>const AllNotificationList());
                               },
                               child: NotificationBadge(),
                             ),

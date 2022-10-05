@@ -288,8 +288,7 @@ class _AllNotificationListState extends State<AllNotificationList>
                                                     child: data
                                                                 .notificationListModel!
                                                                 .results![index]
-                                                                .target!
-                                                                .image ==
+                                                                .target ==
                                                             null
                                                         ? FirstLetterImage(
                                                             firstLetter: data
@@ -480,11 +479,17 @@ class _AllNotificationListState extends State<AllNotificationList>
                                                   onTap: () {
                                                     showDialog(
                                                       context: context,
-                                                      builder: (ctx) =>
-                                                          ShowAlertBox(
-                                                              results: data.alertModel!.results![index].productDetail!,
-                                                                  origin: 'allalert',
-                                                          ),
+                                                      builder: (ctx) {
+                                                        if (data.alertModel != null) {
+                                                          return ShowAlertBox(
+                                                            results: data.alertModel!.results![index].productDetail!,
+                                                            origin: 'allalert',
+                                                          );
+                                                        } else {
+                                                          return Container();
+                                                        }
+                                                      }
+
                                                     );
                                                   },
                                                   isAlert: true,

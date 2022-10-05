@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
@@ -33,13 +35,22 @@ class _ProfileState extends State<Profile> {
   PostData? postData;
   GetData? getData;
   TextEditingController passwordController = TextEditingController();
+  Map<String, String> requestHeadersWithToken = {
+    'Content-type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'token ${prefs!.getString('token')}',
+  };
 
   @override
   void initState() {
+    postData = Provider.of<PostData>(context, listen: false);
+
+    getData = Provider.of<GetData>(context, listen: false);
     // TODO: implement initState
 
     super.initState();
   }
+
   Future<void> _launchInApp(String url) async {
     if (await canLaunch(url)) {
       await launch(
@@ -57,7 +68,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-
     const StatusBar();
     final appStyleMode = Provider.of<AppColors>(context);
     Get.put(SigninController());
@@ -67,7 +77,7 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
         actions: const [
-         // const ToggleButton(),
+          // const ToggleButton(),
         ],
       ),
       body: SafeArea(
@@ -78,7 +88,6 @@ class _ProfileState extends State<Profile> {
                   shrinkWrap: true,
                   children: [
                     SizedBox(height: Get.height * .05),
-
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -126,7 +135,6 @@ class _ProfileState extends State<Profile> {
                     SizedBox(
                       height: Get.height * .07,
                     ),
-
                     CustomProfileElements(Icons.person, "Profile Edit", () {
                       Get.to(
                         () => EditProfilePage(),
@@ -136,21 +144,22 @@ class _ProfileState extends State<Profile> {
                     /* CustomProfileElements(
                             Icons.help_outline, "Help and Support", () {}),*/
                     CustomProfileElements(
-                            Icons.privacy_tip_outlined, "Privacy Policy", () async {
-                          String url = 'https://pages.flycricket.io/vemate-0/privacy.html';
-                          _launchInApp(url);
-                        }),
+                        Icons.privacy_tip_outlined, "Privacy Policy", () async {
+                      String url =
+                          'https://pages.flycricket.io/vemate-0/privacy.html';
+                      _launchInApp(url);
+                    }),
                     CustomProfileElements(Icons.rate_review_outlined, "Rate",
                         () async {
-                          FeedbackBody.checkFeedback=0;
-                          RatingStars.ratingValue=0;
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return FeedbackScreen();
-                              });
+                      FeedbackBody.checkFeedback = 0;
+                      RatingStars.ratingValue = 0;
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return FeedbackScreen();
+                          });
 
-                          /*final InAppReview inAppReview = InAppReview.instance;
+                      /*final InAppReview inAppReview = InAppReview.instance;
 
                           setState(() async {
                             if (await inAppReview.isAvailable()) {
@@ -162,7 +171,7 @@ class _ProfileState extends State<Profile> {
                       Share.share(
                           'Visit Vemate Website:\n https://www.vemate.com/');
                     }),
-                   /* CustomProfileElements(Icons.share, "Check Vemate", () async {
+                    /* CustomProfileElements(Icons.share, "Check Vemate", () async {
                       Source installationSource = await StoreChecker.getSource;
 
                       String source = "";
@@ -392,12 +401,22 @@ class _ProfileState extends State<Profile> {
                         ),
                       );
                     }),*/
-                    CustomProfileElements(Icons.delete_forever_outlined, "Delete Account", () {
+                    CustomProfileElements(
+                        Icons.delete_forever_outlined, "Delete Account", () {
+
+                          print(data.profileModel!.id.toString());
                       showDialog(
                           context: context,
                           builder: (context) {
                             return Dialog(
                               backgroundColor: AppColors.backgroundColor,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(
+                                    20.0,
+                                  ),
+                                ),
+                              ),
                               child: Container(
                                 padding: EdgeInsets.all(10),
                                 height: Get.height * .3,
@@ -418,65 +437,77 @@ class _ProfileState extends State<Profile> {
                                       child: Text(
                                         "Please enter your Password to delete account",
                                         style: TextStyle(
-                                          color: Colors.red,
-                                            fontSize: 17.sp,),
+                                          color: AppColors.textColor.withOpacity(.7),
+                                          fontSize: 17.sp,
+                                        ),
                                       ),
                                     ),
                                     SizedBox(
                                       height: 20.w,
                                     ),
-                                PasswordInputField(
-                                    validator: (value) {
-                                      if (value == null || value.trim().isEmpty) {
-                                        return 'Password is required';
-                                      }
-                                    },
-                                    labelText: "Password",
-                                    height: Get.height * .04,
-                                    textType: TextInputType.text,
-                                    controller: passwordController),
-
-                                  Container(
-                                    alignment: Alignment.centerRight,
-                                    child: Row(
-                                      children: [
-                                        TextButton(
+                                    PasswordInputField(
+                                        validator: (value) {
+                                          if (value == null ||
+                                              value.trim().isEmpty) {
+                                            return 'Password is required';
+                                          }
+                                        },
+                                        labelText: "Password",
+                                        height: Get.height * .04,
+                                        textType: TextInputType.text,
+                                        controller: passwordController),
+                                    Container(
+                                      // alignment: Alignment.centerRight,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          TextButton(
                                             onPressed: () {
-                                              prefs!.clear();
-
-                                              SigninController
-                                                  .to.userNameTextFiledController
-                                                  .clear();
-                                              SigninController
-                                                  .to.passwordTextFiledController
-                                                  .clear();
-
-                                              Get.offAll(() => const AuthInitialPage());
+                                              Navigator.pop(
+                                                  context); //close Dialog
                                             },
                                             child: Text(
-                                              'Yes',
-                                              style:
-                                              TextStyle(color: AppColors.greyWhite),
-                                            )),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context); //close Dialog
-                                          },
-                                          child: Text(
-                                            'No',
-                                            style:
-                                            TextStyle(color: AppColors.textColor),
+                                              'No',
+                                              style: TextStyle(
+                                                  color: AppColors.textColor),
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                          TextButton(
+                                              onPressed: () {
+                                                var body = {
+                                                  "username": prefs!.get('email').toString(),
+                                                  "password":
+                                                      passwordController.text,
+                                                };
 
+                                                postData!
+                                                    .deletePassCheck(context, body,
+                                                  data.profileModel!.id,
+                                                  requestHeadersWithToken,);
+
+
+                                                SigninController
+                                                    .to.userNameTextFiledController
+                                                    .clear();
+                                                SigninController
+                                                    .to.passwordTextFiledController
+                                                    .clear();
+
+                                               // Get.offAll(() => const AuthInitialPage());
+                                              },
+                                              child: const Text(
+                                                'Delete Account',
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              )),
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
                             );
-
 
                             /*AlertDialog(
                               backgroundColor: AppColors.backgroundColor,
