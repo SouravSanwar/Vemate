@@ -26,8 +26,8 @@ class _FilterToggleButtonState extends State<FilterToggleButton> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           AnimatedContainer(
-            padding: EdgeInsets.only(left: 2, right: 2),
-            duration: Duration(milliseconds: 100),
+            padding: const EdgeInsets.only(left: 2, right: 2),
+            duration: const Duration(milliseconds: 100),
             height: 20.0.h,
             width: 40.0.w,
             decoration: BoxDecoration(
@@ -37,7 +37,7 @@ class _FilterToggleButtonState extends State<FilterToggleButton> {
             child: Stack(
               children: <Widget>[
                 AnimatedPositioned(
-                  duration: Duration(milliseconds: 100),
+                  duration: const Duration(milliseconds: 100),
                   curve: Curves.easeIn,
                   top: 3.0,
                   left: darkMode == true ? 20.0 : 0.0,

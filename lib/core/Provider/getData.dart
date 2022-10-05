@@ -13,7 +13,11 @@ import 'package:ketemaa/core/models/Graphs/one_year_graph_model.dart';
 import 'package:ketemaa/core/models/Graphs/seven_day_graph_model.dart';
 import 'package:ketemaa/core/models/Graphs/sixty_day_graph_model.dart';
 import 'package:ketemaa/core/models/Graphs/thirty_day_graph_model.dart';
-import 'package:ketemaa/core/models/HomeVaultModel.dart';
+import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultGraph1Y.dart';
+import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultGraph30D.dart';
+import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultGraph60D.dart';
+import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultGraph7D.dart';
+import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultModel.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
 import 'package:ketemaa/core/models/NotificationListModel.dart';
 import 'package:ketemaa/core/models/NotificationReadModel.dart';
@@ -22,7 +26,11 @@ import 'package:ketemaa/core/models/SearchCollectiblesModel.dart';
 import 'package:ketemaa/core/models/SearchComicsModel.dart';
 import 'package:ketemaa/core/models/SetListModel.dart';
 import 'package:ketemaa/core/models/SingleProductModel.dart';
-import 'package:ketemaa/core/models/VaultStatusModel.dart';
+import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel.dart';
+import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel1Y.dart';
+import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel30D.dart';
+import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel60D.dart';
+import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel7D.dart';
 import 'package:ketemaa/core/models/WishListModel.dart';
 import 'package:ketemaa/core/network/base_client.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
@@ -55,7 +63,16 @@ class GetData extends ChangeNotifier with BaseController {
   SetListModel? setListModel;
 
   VaultStatsModel? vaultStatsModel;
+  VaultStatsModel7D? vaultStatsModel7D;
+  VaultStatsModel30D? vaultStatsModel30D;
+  VaultStatsModel60D? vaultStatsModel60D;
+  VaultStatsModel1Y? vaultStatsModel1Y;
+
   HomeVaultModel? homeVaultModel;
+  HomeVaultModel7D? homeVaultModel7D;
+  HomeVaultModel30D? homeVaultModel30D;
+  HomeVaultModel60D? homeVaultModel60D;
+  HomeVaultModel1Y? homeVaultModel1Y;
 
   NewsModel? newsModel;
 
@@ -71,7 +88,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: 'getUserInfo: ' + data.toString());
+    //printInfo(info: 'getUserInfo: ' + data.toString());
 
     profileModel = ProfileModel.fromJson(data);
 
@@ -103,7 +120,7 @@ class GetData extends ChangeNotifier with BaseController {
         .catchError(handleError);
 
     var data = json.decode(response.toString());
-    //printInfo(info: data.toString());
+    ////printInfo(info: data.toString());
 
     if (collectiblesModel != null) {
       if (offset == 0) collectiblesModel!.results!.clear();
@@ -123,7 +140,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
 
     if (searchCollectiblesModel != null) {
       if (offset == 0) searchCollectiblesModel!.results!.clear();
@@ -220,13 +237,72 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
+  Future getHomeVault({int graphType = 0}) async {
+    homeVaultModel = null;
+    homeVaultModel7D = null;
+    homeVaultModel30D = null;
+    homeVaultModel60D = null;
+    homeVaultModel1Y = null;
+
+    final response = await BaseClient().get(Urls.homeVault + '?graph_type=0').catchError(handleError);
+    var data = json.decode(response.toString());
+    homeVaultModel = HomeVaultModel.fromJson(data);
+
+    final response1 = await BaseClient().get(Urls.homeVault + '?graph_type=1').catchError(handleError);
+    var data1 = json.decode(response1.toString());
+    homeVaultModel7D = HomeVaultModel7D.fromJson(data1);
+
+    final response2 = await BaseClient().get(Urls.homeVault + '?graph_type=2').catchError(handleError);
+    var data2 = json.decode(response2.toString());
+    homeVaultModel30D = HomeVaultModel30D.fromJson(data2);
+
+    final response3 = await BaseClient().get(Urls.homeVault + '?graph_type=3').catchError(handleError);
+    var data3 = json.decode(response3.toString());
+    homeVaultModel60D = HomeVaultModel60D.fromJson(data3);
+
+    final response4 = await BaseClient().get(Urls.homeVault + '?graph_type=4').catchError(handleError);
+    var data4 = json.decode(response4.toString());
+    homeVaultModel1Y = HomeVaultModel1Y.fromJson(data4);
+
+    notifyListeners();
+  }
+
+  Future getVaultStats({int graphType = 0}) async {
+    vaultStatsModel = null;
+    vaultStatsModel7D = null;
+    vaultStatsModel30D = null;
+    vaultStatsModel60D = null;
+    vaultStatsModel1Y = null;
+    final response = await BaseClient().get(Urls.vaultStats + '?graph_type=0').catchError(handleError);
+    var data = json.decode(response.toString());
+    vaultStatsModel = VaultStatsModel.fromJson(data);
+
+    final response1 = await BaseClient().get(Urls.vaultStats + '?graph_type=1').catchError(handleError);
+    var data1 = json.decode(response1.toString());
+    vaultStatsModel7D = VaultStatsModel7D.fromJson(data1);
+
+    final response2 = await BaseClient().get(Urls.vaultStats + '?graph_type=2').catchError(handleError);
+    var data2 = json.decode(response2.toString());
+    vaultStatsModel30D = VaultStatsModel30D.fromJson(data2);
+
+    final response3 = await BaseClient().get(Urls.vaultStats + '?graph_type=3').catchError(handleError);
+    var data3 = json.decode(response3.toString());
+    vaultStatsModel60D = VaultStatsModel60D.fromJson(data3);
+
+    final response4 = await BaseClient().get(Urls.vaultStats + '?graph_type=4').catchError(handleError);
+    var data4 = json.decode(response4.toString());
+    vaultStatsModel1Y = VaultStatsModel1Y.fromJson(data4);
+
+    notifyListeners();
+  }
+
   Future getSingleProduct(int? id, {int graphType = 0}) async {
     singleProductModel = null;
     final response = await BaseClient().get(Urls.singleProduct + '$id?graph_type=$graphType').catchError(handleError);
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
     singleProductModel = SingleProductModel.fromJson(data);
     notifyListeners();
   }
@@ -237,7 +313,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
 
     checkWishlistModel = CheckWishlistModel.fromJson(data);
 
@@ -261,7 +337,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
 
     if (wishListModel != null) {
       if (offset == 0) wishListModel!.results!.clear();
@@ -288,35 +364,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     setListModel = SetListModel.fromJson(data);
 
-    printInfo(info: 'Set Info: ' + setListModel!.setResults!.length.toString());
-
-    notifyListeners();
-  }
-
-  Future getVaultStats({int graphType = 0}) async {
-    vaultStatsModel = null;
-    final response = await BaseClient().get(Urls.vaultStats + '?graph_type=$graphType').catchError(handleError);
-
-    printInfo(info: Urls.vaultStats + '?graph_type=$graphType');
-
-    var data = json.decode(response.toString());
-
-    printInfo(info: data.toString());
-    vaultStatsModel = VaultStatsModel.fromJson(data);
-
-    notifyListeners();
-  }
-
-  Future getHomeVault({int graphType = 0}) async {
-    homeVaultModel = null;
-    final response = await BaseClient().get(Urls.homeVault + '?graph_type=$graphType').catchError(handleError);
-
-    printInfo(info: Urls.homeVault + '?graph_type=$graphType');
-
-    var data = json.decode(response.toString());
-
-    printInfo(info: data.toString());
-    homeVaultModel = HomeVaultModel.fromJson(data);
+    //printInfo(info: 'Set Info: ' + setListModel!.setResults!.length.toString());
 
     notifyListeners();
   }
@@ -327,7 +375,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
     newsModel = NewsModel.fromJson(data);
 
     notifyListeners();
@@ -339,7 +387,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
 
     alertModel = AlertModel.fromJson(data);
 
@@ -351,7 +399,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    printInfo(info: data.toString());
+    //printInfo(info: data.toString());
 
     if (notificationListModel != null) {
       if (offset == 0) notificationListModel!.results!.clear();

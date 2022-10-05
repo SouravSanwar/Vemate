@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:ketemaa/core/models/VaultStatusModel.dart';
+import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/vault/vault_comics_lists.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';

@@ -8,6 +8,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../core/Provider/getData.dart';
 import '../../../core/models/CollectiblesModel.dart';
+import 'package:intl/intl.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
 
 class CollectiblesItemCard extends StatefulWidget {
@@ -15,9 +16,7 @@ class CollectiblesItemCard extends StatefulWidget {
   final String? rarity;
   final String? mintNumber;
 
-  const CollectiblesItemCard(
-      {Key? key, this.keyword, this.rarity, this.mintNumber})
-      : super(key: key);
+  const CollectiblesItemCard({Key? key, this.keyword, this.rarity, this.mintNumber}) : super(key: key);
 
   @override
   State<CollectiblesItemCard> createState() => _CollectiblesItemCardState();
@@ -25,8 +24,7 @@ class CollectiblesItemCard extends StatefulWidget {
 
 class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
   int offset = 0;
-  RefreshController refreshController =
-  RefreshController(initialRefresh: false);
+  RefreshController refreshController = RefreshController(initialRefresh: false);
   final GlobalKey _contentKey = GlobalKey();
   final GlobalKey _refreshkey = GlobalKey();
 

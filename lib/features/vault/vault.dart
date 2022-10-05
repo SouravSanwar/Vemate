@@ -2,20 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
-import 'package:ketemaa/core/models/VaultStatusModel.dart';
+import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:intl/intl.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/features/vault/My%20Vault/my_sets_lists.dart';
+import 'package:ketemaa/features/vault/VaultCards/one_year_card.dart';
+import 'package:ketemaa/features/vault/VaultCards/seven_day_card.dart';
+import 'package:ketemaa/features/vault/VaultCards/sixty_day_card.dart';
+import 'package:ketemaa/features/vault/VaultCards/thirty_day_card.dart';
+import 'package:ketemaa/features/vault/VaultCollectibleCards/vault_collectible_card_1Y.dart';
 import 'package:ketemaa/features/vault/dropdown.dart';
-import 'package:ketemaa/features/vault/vaule_collectibles_card.dart';
+import 'package:ketemaa/features/vault/VaultCollectibleCards/vaule_collectibles_card.dart';
+import 'package:ketemaa/features/vault/VaultCards/vault_card.dart';
 import 'package:ketemaa/features/vault/vault_comics_card.dart';
 import 'package:ketemaa/features/vault/Wishlist/my_wishlist_page.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../core/utilities/shimmer/loading.dart';
 import 'Component/no_data_card.dart';
+import 'VaultCollectibleCards/vault_collectible_card_30D.dart';
+import 'VaultCollectibleCards/vault_collectible_card_60D.dart';
+import 'VaultCollectibleCards/vault_collectible_card_7D.dart';
 import 'mysets_card.dart';
 import 'Wishlist/mywishlist_card.dart';
 
@@ -28,13 +37,17 @@ class Vault extends StatefulWidget {
 
 class _VaultState extends State<Vault> {
   GetData? getData;
+  String? value = "24H";
+
+  final items = ['24H', '7D', '30D', '60D', '1Y'];
+  int vaultSelectDropDownIndex = 0;
 
   @override
   void initState() {
     super.initState();
 
     getData = Provider.of<GetData>(context, listen: false);
-   getData!.getVaultStats();
+    getData!.getVaultStats();
   }
 
   @override
@@ -53,8 +66,7 @@ class _VaultState extends State<Vault> {
                       height: Get.height * .275,
                       decoration: BoxDecoration(
                         color: AppColors.graphCard,
-                        borderRadius: const BorderRadius.vertical(
-                            bottom: Radius.circular(25.0)),
+                        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(25.0)),
                       ),
                       child: ListView(
                         children: [
@@ -78,241 +90,15 @@ class _VaultState extends State<Vault> {
                           SizedBox(
                             height: Get.height * .01,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 9,
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 4,
-                                            child: Container(
-                                                height: Get.height * .03,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  gradient:
-                                                  AppColors.purpleGradient,
-                                                  // set border width
-                                                  borderRadius:
-                                                  const BorderRadius.all(
-                                                    Radius.circular(16.0),
-                                                  ), // set rounded corner radius
-                                                ),
-                                              child: Text(
-                                                "Vault Value",
-                                                textAlign: TextAlign.start,
-                                                style: Get.textTheme.bodyText2!
-                                                    .copyWith(
-                                                        color:
-                                                            AppColors.textColor,
-                                                        fontFamily: 'Inter',
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 14.sp),
-                                              ),
-                                            ),
-                                          ),
-                                          const Expanded(
-                                            flex: 2,
-                                            child: Text(""
-                                                /*"MCP",
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText2!
-                                                  .copyWith(
-                                                      color: AppColors.white,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 14),*/
-                                                ),
-                                          ),
-                                          Expanded(
-                                            flex: 5,
-                                            child: Container(
-                                              height: Get.height * .03,
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                '\$${data.vaultStatsModel!.totalPriceChange != null ? data.vaultStatsModel!.totalPriceChange!.toStringAsFixed(2) : ""}',
-                                                textAlign: TextAlign.start,
-                                                style: Get.textTheme.bodyText2!
-                                                    .copyWith(
-                                                        color: AppColors.white,
-                                                        //fontFamily: 'Inter',
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 14.sp),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: Get.height * .005,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 4,
-                                            child: Container(
-                                              height: Get.height * .03,
-                                              alignment: Alignment.center,
-
-                                              child: Text(
-                                                '\$' +
-                                                    data.vaultStatsModel!
-                                                        .totalVaultValue!
-                                                        .toStringAsFixed(2),
-                                                textAlign: TextAlign.start,
-                                                style: Get.textTheme.bodyText2!
-                                                    .copyWith(
-                                                        color:
-                                                            AppColors.textColor,
-                                                        //fontFamily: 'Inter',
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 14.sp),
-                                              ),
-                                            ),
-                                          ),
-                                          const Expanded(
-                                            flex: 2,
-                                            child: Text(""
-                                                /* '\$' +
-                                                  data.vaultStatsModel!.mcp!
-                                                      .toString(),
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText2!
-                                                  .copyWith(
-                                                      color: AppColors.grey,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 14),*/
-                                                ),
-                                          ),
-                                          Expanded(
-                                            flex: 5,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                data.vaultStatsModel!.sign! ==
-                                                        'decrease'
-                                                    ? const RotationTransition(
-                                                        turns:
-                                                            AlwaysStoppedAnimation(
-                                                                45 / 360),
-                                                        child: Icon(
-                                                          Icons.arrow_downward,
-                                                          size: 18,
-                                                          color: Colors.red,
-                                                        ),
-                                                      )
-                                                    : const RotationTransition(
-                                                        turns:
-                                                            AlwaysStoppedAnimation(
-                                                                45 / 360),
-                                                        child: Icon(
-                                                          Icons.arrow_upward,
-                                                          size: 18,
-                                                          color: Colors.green,
-                                                        ),
-                                                      ),
-                                                Text(
-                                                  data.vaultStatsModel!
-                                                              .totalPercentChange! <
-                                                          0.0
-                                                      ? data.vaultStatsModel!
-                                                          .totalPercentChange!
-                                                          .toStringAsFixed(2)
-                                                      : data.vaultStatsModel!
-                                                              .totalPercentChange!
-                                                              .toStringAsFixed(
-                                                                  2) +
-                                                          "%",
-                                                  textAlign: TextAlign.end,
-                                                  style: TextStyle(
-                                                      color:
-                                                          data.vaultStatsModel!
-                                                                      .sign! ==
-                                                                  'decrease'
-                                                              ? Colors.red
-                                                              : Colors.green,
-                                                      fontFamily: 'Inter',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 14.sp),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: Get.height * .11,
-                            child:  data.vaultStatsModel!.vaultStatsModelGraph != null
-                                ? SfCartesianChart(
-                              margin: EdgeInsets.zero,
-                              plotAreaBorderWidth: 0,
-                              primaryXAxis: CategoryAxis(
-                                plotOffset: -8,
-                                isVisible: false,
-                                majorGridLines: const MajorGridLines(width: 0),
-                                labelIntersectAction:
-                                    AxisLabelIntersectAction.hide,
-                                labelRotation: 270,
-                                labelAlignment: LabelAlignment.start,
-                                maximumLabels: 7,
-                                labelPlacement: LabelPlacement.onTicks,
-                              ),
-                              primaryYAxis: NumericAxis(
-                                numberFormat: NumberFormat.compact(),
-                                isVisible: false,
-                                majorGridLines: const MajorGridLines(width: 0),
-                                labelIntersectAction:
-                                    AxisLabelIntersectAction.hide,
-                                labelRotation: 0,
-                                labelAlignment: LabelAlignment.start,
-                                maximumLabels: 10,
-                              ),
-                              series: <
-                                  ChartSeries<VaultStatsModelGraph, String>>[
-                                SplineAreaSeries<VaultStatsModelGraph, String>(
-                                  color:
-                                      data.vaultStatsModel!.sign! == 'decrease'
-                                          ? Colors.red
-                                          : Colors.green,
-                                  gradient: AppColors.graphGradient,
-                                  dataSource: data
-                                      .vaultStatsModel!.vaultStatsModelGraph!,
-                                  xValueMapper:
-                                      (VaultStatsModelGraph plot, _) =>
-                                          plot.hour,
-                                  yValueMapper:
-                                      (VaultStatsModelGraph plot, _) =>
-                                          plot.total,
-                                  xAxisName: 'Duration',
-                                  yAxisName: 'Total',
-                                  dataLabelSettings: const DataLabelSettings(
-                                    isVisible: false,
-                                    angle: 270,
-                                  ),
-                                  splineType: SplineType.monotonic,
-                                  cardinalSplineTension: 0.3,
-                                )
-                              ],
-                            )
-                                : Container(),
-                          ),
-
+                          (vaultSelectDropDownIndex == 0)
+                              ? (const VaultCard())
+                              : (vaultSelectDropDownIndex == 1
+                                  ? const VaultCard7D()
+                                  : vaultSelectDropDownIndex == 2
+                                      ? const VaultCard30D()
+                                      : vaultSelectDropDownIndex == 3
+                                          ? const VaultCard60D()
+                                          : const VaultCard1Y()),
                         ],
                       ),
                     ),
@@ -326,14 +112,28 @@ class _VaultState extends State<Vault> {
                             child: Text(
                               "My Collectibles",
                               style: Get.textTheme.headline2!.copyWith(
-                                  color: AppColors.textColor,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500),
+                                  color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
                             ),
                           ),
-                          VaultCollectiblesCard(
-                            data: data.vaultStatsModel!.collectible,
-                          ),
+                          vaultSelectDropDownIndex == 0
+                              ? VaultCollectiblesCard(
+                                  data: data.vaultStatsModel!.collectible,
+                                )
+                              : vaultSelectDropDownIndex == 1
+                                  ? VaultCollectiblesCard7D(
+                                      data: data.vaultStatsModel7D!.collectible,
+                                    )
+                                  : vaultSelectDropDownIndex == 2
+                                      ? VaultCollectiblesCard30D(
+                                          data: data.vaultStatsModel30D!.collectible,
+                                        )
+                                      : vaultSelectDropDownIndex == 2
+                                          ? VaultCollectiblesCard60D(
+                                              data: data.vaultStatsModel60D!.collectible,
+                                            )
+                                          : VaultCollectiblesCard1Y(
+                                              data: data.vaultStatsModel1Y!.collectible,
+                                            ),
 
                           ///My Comics
                           Padding(
@@ -341,9 +141,10 @@ class _VaultState extends State<Vault> {
                             child: Text(
                               "My Comics",
                               style: Get.textTheme.headline2!.copyWith(
-                                  color: AppColors.textColor,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500),
+                                color: AppColors.textColor,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                           VaultComicsCard(
@@ -364,15 +165,15 @@ class _VaultState extends State<Vault> {
                                 child: Text(
                                   "My Vault",
                                   style: Get.textTheme.headline2!.copyWith(
-                                      color: AppColors.textColor,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w500),
+                                    color: AppColors.textColor,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                               InkWell(
-
                                 highlightColor: Colors.transparent,
-                                splashColor:Colors.transparent ,
+                                splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
                                 onTap: () {
                                   Get.to(() => const SetListPage());
@@ -409,48 +210,38 @@ class _VaultState extends State<Vault> {
                               : const LoadingExample(),
 
                           ///My Wishlist
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: 15,
-                                      top: Get.height * .0334,
-                                      bottom: Get.height * .0167),
-                                  child: Text(
-                                    "My Wishlist",
-                                    style: Get.textTheme.headline2!.copyWith(
-                                        color: AppColors.textColor,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                                InkWell(
-
-                                  highlightColor: Colors.transparent,
-                                  splashColor:Colors.transparent ,
-                                  focusColor: Colors.transparent,
-                                  onTap: () {
-                                    Get.to(() => const WishListPage());
-                                  },
-                                  child: data.wishListModel!.results!.isNotEmpty
-                                      ? Padding(
-                                          padding: EdgeInsets.only(
-                                              right: Get.width * .06,
-                                              top: Get.height * .0334,
-                                              bottom: Get.height * .0167),
-                                          child: Text(
-                                            "See All",
-                                            style: TextStyle(
-                                                color: AppColors.textColor,
-                                                //fontFamily: 'Inter',
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        )
-                                      : Container(),
-                                ),
-                              ]),
+                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 15, top: Get.height * .0334, bottom: Get.height * .0167),
+                              child: Text(
+                                "My Wishlist",
+                                style: Get.textTheme.headline2!.copyWith(
+                                    color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            InkWell(
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              onTap: () {
+                                Get.to(() => const WishListPage());
+                              },
+                              child: data.wishListModel!.results!.isNotEmpty
+                                  ? Padding(
+                                      padding: EdgeInsets.only(
+                                          right: Get.width * .06, top: Get.height * .0334, bottom: Get.height * .0167),
+                                      child: Text(
+                                        "See All",
+                                        style: TextStyle(
+                                            color: AppColors.textColor,
+                                            //fontFamily: 'Inter',
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )
+                                  : Container(),
+                            ),
+                          ]),
                           SizedBox(
                             width: Get.width,
                             height: Get.height * .22,
@@ -473,7 +264,7 @@ class _VaultState extends State<Vault> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child:  DropDown(Color(0xffA984E5),false),
+                        child: dropDown(),
                         width: Get.width * .125,
                         height: Get.width * .125,
                         decoration: BoxDecoration(
@@ -485,8 +276,61 @@ class _VaultState extends State<Vault> {
                   ],
                 ),
               )
-            : ColorLoader();
+            : const ColorLoader();
       }),
     );
   }
+
+  Widget dropDown() {
+    return DropdownButton<String>(
+      value: value,
+      items: items.map(buildMenuItem).toList(),
+      onChanged: (value) {
+        setState(() {
+          this.value = value;
+
+          value == '24H'
+              ? vaultSelectDropDownIndex = 0
+              : value == '7D'
+                  ? vaultSelectDropDownIndex = 1
+                  : value == '30D'
+                      ? vaultSelectDropDownIndex = 2
+                      : value == '60D'
+                          ? vaultSelectDropDownIndex = 3
+                          : vaultSelectDropDownIndex = 4;
+
+          // widget.isHome == true
+          //     ? getData!.getHomeVault(graphType: vaultSelectDropDownIndex)
+          //     : getData!.getVaultStats(graphType: vaultSelectDropDownIndex);
+          printInfo(info: 'Value value: ' + value.toString());
+        }); //get value when changed
+      },
+      icon: const Icon(
+        Icons.arrow_drop_down,
+        size: 10,
+      ),
+
+      iconEnabledColor: Colors.white,
+      //Icon color
+      style: TextStyle(
+          //te
+          color: Colors.white,
+          fontFamily: 'Inter', //Font color
+          fontSize: 20.sp //font size on dropdown button
+          ),
+      dropdownColor: const Color(0xffA984E5),
+      underline: Container(),
+      //dropdown background color
+      borderRadius: const BorderRadius.all(
+        Radius.circular(10),
+      ),
+    );
+  }
+
+  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+      value: item,
+      child: Text(
+        item,
+        style: TextStyle(fontFamily: 'Inter', fontSize: 15.sp),
+      ));
 }
