@@ -63,7 +63,6 @@ class MyApp extends StatelessWidget {
       appStyleMode.switchMode();
     });
 
-    Get.put(SharedPreferenceController());
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,

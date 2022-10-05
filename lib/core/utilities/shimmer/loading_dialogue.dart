@@ -16,26 +16,22 @@ class LoadingDialogue extends StatelessWidget {
         width: Get.width * .9,
         height: Get.width * .8,
         alignment: Alignment.center,
-        child: AlertDialog(
-          backgroundColor: Colors.transparent,
-          key: key,
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ColorLoader(),
-              const SizedBox(
-                height: 10,
+        child:Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ColorLoader(),
+            const SizedBox(
+              height: 10,
+            ),
+            AutoSizeText(
+              message!,
+              style: TextStyle(
+                color: AppColors.textColor,
+                fontFamily: 'Inter',
               ),
-              AutoSizeText(
-                message!,
-                style: TextStyle(
-                  color: AppColors.textColor,
-                  fontFamily: 'Inter',
-                ),
-                textAlign: TextAlign.center,
-              )
-            ],
-          ),
+              textAlign: TextAlign.center,
+            )
+          ],
         ),
       ),
     );

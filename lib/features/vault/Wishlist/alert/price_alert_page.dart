@@ -290,6 +290,7 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
                     };
 
                     postData!.createAlert(context, body,widget.origin,widget.results!.id);
+
                   },
                   child: Text(
                     widget.results!.productAlertData != null && priceAlert == true ? 'Update' : "Save",
