@@ -76,8 +76,10 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
           titleSpacing: 0,
           iconTheme: const IconThemeData(color: Colors.grey),
           backgroundColor: AppColors.backgroundColor,
-          title:data.singleProductModel != null ?DetailsAppbar(
+          title:data.singleProductModel != null
+              ?  DetailsAppbar(
             name: data.singleProductModel!.name!,
+            results: data.singleProductModel,
           ): Container()/*Container(
             padding: EdgeInsets.symmetric(horizontal: Get.width * .03),
             child: Text(
@@ -192,24 +194,6 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       requestHeadersWithToken,
                                     );
                                   } else {
-                                    if (data.wishListModel!.results!
-                                            .firstWhere((element) =>
-                                                element.productDetail!.id ==
-                                                data.singleProductModel!.id)
-                                            .alertData !=
-                                        null) {
-                                      postData!.deleteAlert(
-                                          context,
-                                          data.wishListModel!.results!
-                                              .firstWhere((element) =>
-                                                  element.productDetail!.id ==
-                                                  data.singleProductModel!.id)
-                                              .alertData!
-                                              .id,
-                                          requestHeadersWithToken);
-                                      alertCheck = 1;
-                                    }
-
                                     postData!.deleteWishlist(
                                       context,
                                       alertCheck,
@@ -309,9 +293,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                     listen: false)
                                                 .getHomeVault());
 
-                                    await Future.delayed(
-                                        const Duration(seconds: 1));
-                                    Navigator.of(context).pop();
+
                                   }
                                 },
                                 child: Container(

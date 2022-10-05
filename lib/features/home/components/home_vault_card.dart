@@ -44,14 +44,24 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                     ),
                     Expanded(
                       flex: 5,
-                      child: Text(
-                        "Vault Value",
-                        textAlign: TextAlign.start,
-                        style: Get.textTheme.bodyText2!.copyWith(
-                            color: AppColors.textColor,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14.sp),
+                      child: Container(
+                          height: Get.height * .03,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            gradient: AppColors.purpleGradient,
+                            // set border width
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(8.0)),
+                          ),
+                        child: Text(
+                          "Vault Value",
+                          textAlign: TextAlign.start,
+                          style: Get.textTheme.bodyText2!.copyWith(
+                              color: AppColors.textColor,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14.sp),
+                        ),
                       ),
                     ),
                     const Expanded(
@@ -60,24 +70,17 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                     ),
                     Expanded(
                       flex: 6,
-                      child: Container(
-                        height: Get.height * .03,
+                      child:Container(
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          gradient: AppColors.purpleGradient,
-                          // set border width
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(8.0)),
-                        ),
                         child: Text(
-                          '\$${data.homeVaultModel!.totalPriceChange != null ? data.homeVaultModel!.totalPriceChange!.toStringAsFixed(2) : "0.0"}',
-                          textAlign: TextAlign.start,
-                          style: Get.textTheme.bodyText2!.copyWith(
-                              color: AppColors.white,
-                              //fontFamily: 'Inter',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp),
-                        ),
+                            '\$${data.homeVaultModel!.totalPriceChange != null ? data.homeVaultModel!.totalPriceChange!.toStringAsFixed(2) : "0.0"}',
+                            textAlign: TextAlign.start,
+                            style: Get.textTheme.bodyText2!.copyWith(
+                                color: AppColors.white,
+                                //fontFamily: 'Inter',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.sp),
+                          ),
                       ),
                     ),
                     const Expanded(
@@ -110,14 +113,18 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                     ),
                     Expanded(
                       flex: 5,
-                      child: Text(
-                        '\$${data.homeVaultModel!.totalVaultValue != null ? data.homeVaultModel!.totalVaultValue!.toStringAsFixed(2) : "0.0"}',
-                        textAlign: TextAlign.start,
-                        style: Get.textTheme.bodyText2!.copyWith(
-                            color: AppColors.greyWhite,
-                           // fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14.sp),
+                      child: Container(
+                        height: Get.height * .03,
+                        alignment: Alignment.center,
+                        child: Text(
+                          '\$${data.homeVaultModel!.totalVaultValue != null ? data.homeVaultModel!.totalVaultValue!.toStringAsFixed(2) : "0.0"}',
+                          textAlign: TextAlign.start,
+                          style: Get.textTheme.bodyText2!.copyWith(
+                              color: AppColors.greyWhite,
+                             // fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14.sp),
+                        ),
                       ),
                     ),
                     const Expanded(

@@ -77,6 +77,7 @@ class _ComicDetailsState extends State<ComicDetails> {
           title: data.singleProductModel != null ?
           DetailsAppbar(
             name: data.singleProductModel!.name!,
+            results: data.singleProductModel,
           ): Container()
         ),
         backgroundColor: AppColors.backgroundColor,
@@ -160,21 +161,6 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     } else {
                                       data.checkWishlistModel!.isFound = false;
 
-                                      if (data.wishListModel!.results!
-                                              .firstWhere(
-                                                  (element) => element.productDetail!.id == data.singleProductModel!.id)
-                                              .alertData !=
-                                          null) {
-                                        postData!.deleteAlert(
-                                            context,
-                                            data.wishListModel!.results!
-                                                .firstWhere((element) =>
-                                                    element.productDetail!.id == data.singleProductModel!.id)
-                                                .alertData!
-                                                .id,
-                                            requestHeadersWithToken);
-                                        alertCheck = 1;
-                                      }
                                       postData!.deleteWishlist(
                                         context,
                                         alertCheck,
@@ -244,7 +230,8 @@ class _ComicDetailsState extends State<ComicDetails> {
                                               () => Provider.of<GetData>(context, listen: false).getHomeVault());
                                       await Future.delayed(Duration(seconds: 1));
                                       Navigator.of(context).pop();
-                                    } else {
+                                    }
+                                    else {
                                       data.checkSetCheck!.isFound = false;
                                       postData!
                                           .deleteSetList(
@@ -258,8 +245,6 @@ class _ComicDetailsState extends State<ComicDetails> {
                                           )
                                           .whenComplete(
                                               () => Provider.of<GetData>(context, listen: false).getHomeVault());
-                                      await Future.delayed(Duration(seconds: 1));
-                                      Navigator.of(context).pop();
                                     }
                                   },
                                   child: Container(

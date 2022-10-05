@@ -1,29 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'dart:core';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/features/vault/Wishlist/alert/alertFrequencyDropdown.dart';
-import 'package:ketemaa/features/vault/Wishlist/alert/alertTypeDropDown.dart';
-import 'package:ketemaa/features/vault/Wishlist/alert/alert_button.dart';
-import 'package:ketemaa/features/vault/Wishlist/alert/minFrequencyDropDown.dart';
-import 'package:ketemaa/features/vault/Wishlist/alert/min_button.dart';
-import 'package:ketemaa/features/vault/Wishlist/alert/mintTypeDropdown.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/mint_alert_page.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/price_alert_page.dart';
 
 import '../../../../core/models/WishListModel.dart';
 
 class ShowAlertBox extends StatefulWidget {
-  final Results? results;
+  var results;
+  String? origin;
 
-  const ShowAlertBox({Key? key, this.results}) : super(key: key);
+  ShowAlertBox({Key? key, this.results,this.origin}) : super(key: key);
+
   @override
   _ShowAlertBoxState createState() => _ShowAlertBoxState();
 }
 
-class _ShowAlertBoxState extends State<ShowAlertBox> with SingleTickerProviderStateMixin {
+class _ShowAlertBoxState extends State<ShowAlertBox>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -44,38 +40,43 @@ class _ShowAlertBoxState extends State<ShowAlertBox> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: AppColors.backgroundColor,
-      child: Column(
-        children: [
-          TabBar(
-            tabs: const <Widget>[
-              Tab(
-                child: Text(
-                  'Mint',
+      child: Container(
+        height: Get.height * .6,
+        child: Column(
+          children: [
+            TabBar(
+              tabs: const <Widget>[
+                Tab(
+                  child: Text(
+                    'Mint',
+                  ),
                 ),
-              ),
-              Tab(
-                child: Text(
-                  'Price',
+                Tab(
+                  child: Text(
+                    'Price',
+                  ),
                 ),
-              ),
-            ],
-            controller: _tabController,
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              physics: const NeverScrollableScrollPhysics(),
-              children: <Widget>[
-                MintAlertPage(
-                  results: widget.results,
-                ),
-                PriceAlertPage(
-                  results: widget.results,
-                )
               ],
+              controller: _tabController,
             ),
-          )
-        ],
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                physics: const AlwaysScrollableScrollPhysics(),
+                children: <Widget>[
+                  MintAlertPage(
+                    results: widget.results,
+                    origin: widget.origin,
+                  ),
+                  PriceAlertPage(
+                    results: widget.results,
+                    origin: widget.origin,
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
 

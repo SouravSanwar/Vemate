@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
@@ -31,6 +32,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   PostData? postData;
   GetData? getData;
+  TextEditingController passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -390,6 +392,167 @@ class _ProfileState extends State<Profile> {
                         ),
                       );
                     }),*/
+                    CustomProfileElements(Icons.delete_forever_outlined, "Delete Account", () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              backgroundColor: AppColors.backgroundColor,
+                              child: Container(
+                                padding: EdgeInsets.all(10),
+                                height: Get.height * .3,
+                                width: Get.width,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.warning,
+                                      color: Colors.red,
+                                      size: 30,
+                                    ),
+                                    SizedBox(
+                                      height: 10.w,
+                                    ),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Please enter your Password to delete account",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                            fontSize: 17.sp,),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 20.w,
+                                    ),
+                                PasswordInputField(
+                                    validator: (value) {
+                                      if (value == null || value.trim().isEmpty) {
+                                        return 'Password is required';
+                                      }
+                                    },
+                                    labelText: "Password",
+                                    height: Get.height * .04,
+                                    textType: TextInputType.text,
+                                    controller: passwordController),
+
+                                  Container(
+                                    alignment: Alignment.centerRight,
+                                    child: Row(
+                                      children: [
+                                        TextButton(
+                                            onPressed: () {
+                                              prefs!.clear();
+
+                                              SigninController
+                                                  .to.userNameTextFiledController
+                                                  .clear();
+                                              SigninController
+                                                  .to.passwordTextFiledController
+                                                  .clear();
+
+                                              Get.offAll(() => const AuthInitialPage());
+                                            },
+                                            child: Text(
+                                              'Yes',
+                                              style:
+                                              TextStyle(color: AppColors.greyWhite),
+                                            )),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context); //close Dialog
+                                          },
+                                          child: Text(
+                                            'No',
+                                            style:
+                                            TextStyle(color: AppColors.textColor),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+
+                                  ],
+                                ),
+                              ),
+                            );
+
+
+                            /*AlertDialog(
+                              backgroundColor: AppColors.backgroundColor,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(
+                                    20.0,
+                                  ),
+                                ),
+                              ),
+                              contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 10),
+                              titlePadding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              title: Row(
+                                children: [
+                                  Icon(
+                                    Icons.warning,
+                                    color: AppColors.textColor,
+                                  ),
+                                  SizedBox(
+                                    width: 5.w,
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "Please enter your Password to delete account",
+                                      style: TextStyle(
+                                          color: AppColors.textColor,
+                                          fontSize: 15.sp),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              content: PasswordInputField(
+                                  validator: (value) {
+                                    if (value == null || value.trim().isEmpty) {
+                                      return 'Password is required';
+                                    }
+                                  },
+                                  labelText: "Password",
+                                  height: Get.height * .04,
+                                  textType: TextInputType.text,
+                                  controller: passwordController),
+                              actions: <Widget>[
+                                TextButton(
+                                    onPressed: () {
+                                      prefs!.clear();
+
+                                      SigninController
+                                          .to.userNameTextFiledController
+                                          .clear();
+                                      SigninController
+                                          .to.passwordTextFiledController
+                                          .clear();
+
+                                      Get.offAll(() => const AuthInitialPage());
+                                    },
+                                    child: Text(
+                                      'Yes',
+                                      style:
+                                      TextStyle(color: AppColors.greyWhite),
+                                    )),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context); //close Dialog
+                                  },
+                                  child: Text(
+                                    'No',
+                                    style:
+                                    TextStyle(color: AppColors.textColor),
+                                  ),
+                                )
+                              ],
+                            );*/
+                          });
+                    }),
                     CustomProfileElements(Icons.logout, "Log Out", () {
                       showDialog(
                           context: context,

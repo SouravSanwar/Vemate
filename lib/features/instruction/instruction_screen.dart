@@ -68,21 +68,6 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
         pages: [
           PageViewModel(
             titleWidget: Text(
-              'Fastest Floor Price Update',
-              style: titleTextStyle,
-              textAlign: TextAlign.center,
-            ),
-            bodyWidget: Text(
-              'Unlock the fastest Floor Price update on the market.',
-              style: bodyTextStyle,
-              textAlign: TextAlign.center,
-            ),
-            image:
-                Image.asset('assets/media/logo/instruction1.png', width: 350.w),
-            decoration: pageDecoration,
-          ),
-          PageViewModel(
-            titleWidget: Text(
               'Unique Tools',
               style: titleTextStyle,
               textAlign: TextAlign.center,

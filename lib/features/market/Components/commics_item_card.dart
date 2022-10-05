@@ -112,6 +112,9 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                     floorPrice: data.comicsModel!
                                         .results![index].floorPrice == null ? "" :data.comicsModel!
                                         .results![index].floorPrice!,
+                                    isAlert: data.comicsModel!
+                                        .results![index].isProductAlert!,
+
                                     series: <ChartSeries<Graph, String>>[
                                       LineSeries<Graph, String>(
                                         color: data.comicsModel!

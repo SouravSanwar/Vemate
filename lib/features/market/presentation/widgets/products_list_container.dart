@@ -17,6 +17,8 @@ class ProductListContainer extends StatefulWidget {
   final String brandName;
   final String rarity;
   final String floorPrice;
+  final VoidCallback? onTap;
+  final bool isAlert;
   final dynamic series;
   final dynamic changePrice;
   final double pcpPercent;
@@ -33,6 +35,8 @@ class ProductListContainer extends StatefulWidget {
       required this.brandName,
       required this.rarity,
       required this.floorPrice,
+        this.onTap,
+        required this.isAlert,
       this.series,
       required this.changePrice,
       required this.pcpPercent,
@@ -74,7 +78,7 @@ class _ProductListContainerState extends State<ProductListContainer> {
                         )),
           AppSpaces.spaces_width_5,
           Expanded(
-            flex: 7,
+            flex: 10,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -90,9 +94,44 @@ class _ProductListContainerState extends State<ProductListContainer> {
                             style: Get.textTheme.bodyText2!.copyWith(
                                 color: AppColors.textColor,
                                 fontWeight: FontWeight.w600,
-                                fontSize: 13.sp),
+                                fontSize: 12.sp),
                           ),
                         )),
+                    AppSpaces.spaces_width_2,
+
+                  ],
+                ),
+                AppSpaces.spaces_height_5,
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.brand != null
+                                ? widget.brandName .toString()
+                                : '',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                            style: Get.textTheme.bodyText1!.copyWith(
+                                color: AppColors.grey,
+                                fontWeight: FontWeight.w200,
+                                fontSize: 10.sp),
+                          ),
+                          AppSpaces.spaces_height_5,
+                          Text(
+                            widget.rarity.toString(),
+                            textAlign: TextAlign.start,
+                            style: Get.textTheme.bodyText1!.copyWith(
+                                color: AppColors.grey,
+                                fontWeight: FontWeight.w200,
+                                fontSize: 10.sp),
+                          ),
+                        ],
+                      ),
+                    ),
                     AppSpaces.spaces_width_2,
                     Expanded(
                       flex: 3,
@@ -108,39 +147,9 @@ class _ProductListContainerState extends State<ProductListContainer> {
                     ),
                   ],
                 ),
-                AppSpaces.spaces_height_10,
+                AppSpaces.spaces_height_5,
                 Row(
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: Text(
-                        widget.brand != null
-                            ? widget.brandName .toString()
-                            : '',
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.start,
-                        style: Get.textTheme.bodyText1!.copyWith(
-                            color: AppColors.textColor,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 10.sp),
-                      ),
-                    ),
-                    AppSpaces.spaces_width_2,
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        widget.rarity.toString(),
-                        textAlign: TextAlign.start,
-                        style: Get.textTheme.bodyText1!.copyWith(
-                            color: AppColors.textColor,
-                            fontWeight: FontWeight.w300,
-                            fontSize: 10.sp),
-                      ),
-                    ),
-                  ],
-                ),
-                AppSpaces.spaces_height_10,
-                Row(
+
                   children: [
                     Expanded(
                       flex: 5,
@@ -155,10 +164,21 @@ class _ProductListContainerState extends State<ProductListContainer> {
                       ),
                     ),
                     AppSpaces.spaces_width_2,
-                    const Expanded(
+                     Expanded(
                       flex: 3,
-                      child: Text(""),
-                    ),
+                      child:Container(
+                        alignment: Alignment.centerLeft,
+                        child: InkWell(
+                            focusColor: Colors.transparent,
+                            onTap: widget.onTap,
+                            child: Icon(
+                                Icons.notifications_none,
+                                color:widget.isAlert == true ? AppColors.primaryColor: AppColors.textColor
+                            ),),
+
+
+                      )
+                    )
                   ],
                 ),
               ],

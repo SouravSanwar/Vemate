@@ -90,17 +90,30 @@ class _VaultState extends State<Vault> {
                                         children: [
                                           Expanded(
                                             flex: 4,
-                                            child: Text(
-                                              "Vault Value",
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText2!
-                                                  .copyWith(
-                                                      color:
-                                                          AppColors.textColor,
-                                                      fontFamily: 'Inter',
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 14.sp),
+                                            child: Container(
+                                                height: Get.height * .03,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  gradient:
+                                                  AppColors.purpleGradient,
+                                                  // set border width
+                                                  borderRadius:
+                                                  const BorderRadius.all(
+                                                    Radius.circular(16.0),
+                                                  ), // set rounded corner radius
+                                                ),
+                                              child: Text(
+                                                "Vault Value",
+                                                textAlign: TextAlign.start,
+                                                style: Get.textTheme.bodyText2!
+                                                    .copyWith(
+                                                        color:
+                                                            AppColors.textColor,
+                                                        fontFamily: 'Inter',
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 14.sp),
+                                              ),
                                             ),
                                           ),
                                           const Expanded(
@@ -121,15 +134,6 @@ class _VaultState extends State<Vault> {
                                             child: Container(
                                               height: Get.height * .03,
                                               alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                gradient:
-                                                    AppColors.purpleGradient,
-                                                // set border width
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                  Radius.circular(16.0),
-                                                ), // set rounded corner radius
-                                              ),
                                               child: Text(
                                                 '\$${data.vaultStatsModel!.totalPriceChange != null ? data.vaultStatsModel!.totalPriceChange!.toStringAsFixed(2) : ""}',
                                                 textAlign: TextAlign.start,
@@ -152,20 +156,25 @@ class _VaultState extends State<Vault> {
                                         children: [
                                           Expanded(
                                             flex: 4,
-                                            child: Text(
-                                              '\$' +
-                                                  data.vaultStatsModel!
-                                                      .totalVaultValue!
-                                                      .toStringAsFixed(2),
-                                              textAlign: TextAlign.start,
-                                              style: Get.textTheme.bodyText2!
-                                                  .copyWith(
-                                                      color:
-                                                          AppColors.textColor,
-                                                      //fontFamily: 'Inter',
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 14.sp),
+                                            child: Container(
+                                              height: Get.height * .03,
+                                              alignment: Alignment.center,
+
+                                              child: Text(
+                                                '\$' +
+                                                    data.vaultStatsModel!
+                                                        .totalVaultValue!
+                                                        .toStringAsFixed(2),
+                                                textAlign: TextAlign.start,
+                                                style: Get.textTheme.bodyText2!
+                                                    .copyWith(
+                                                        color:
+                                                            AppColors.textColor,
+                                                        //fontFamily: 'Inter',
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 14.sp),
+                                              ),
                                             ),
                                           ),
                                           const Expanded(

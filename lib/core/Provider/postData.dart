@@ -739,7 +739,9 @@ class PostData extends ChangeNotifier with BaseController {
       if (check == 12) {
         Navigator.of(context).pop();
       }
-      //getData!.getWishList();
+
+      await Provider.of<GetData>(context, listen: false).getWishList();
+      await Provider.of<GetData>(context, listen: false).getVaultStats();
 
       showDialog(
           context: context,
@@ -753,6 +755,7 @@ class PostData extends ChangeNotifier with BaseController {
       if (check == 12) {
         Navigator.of(context).pop();
       }
+
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -765,9 +768,6 @@ class PostData extends ChangeNotifier with BaseController {
 
     await Future.delayed(const Duration(seconds: 1));
     Navigator.of(context).pop();
-    if (check == 12) {
-      Navigator.of(context).pop();
-    }
 
     notifyListeners();
   }
@@ -793,9 +793,8 @@ class PostData extends ChangeNotifier with BaseController {
     if (js.containsKey('msg')) {
       await Provider.of<GetData>(context, listen: false).getSetList(type);
       await Provider.of<GetData>(context, listen: false).getVaultStats();
-      if (deleteset == 13) {
+
         Navigator.of(context).pop();
-      }
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -805,9 +804,8 @@ class PostData extends ChangeNotifier with BaseController {
                 message: js["msg"],
               )).whenComplete(() => getData!.getSetList(''));
     } else {
-      if (deleteset == 13) {
+
         Navigator.of(context).pop();
-      }
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -818,14 +816,12 @@ class PostData extends ChangeNotifier with BaseController {
               ));
     }
     await Future.delayed(const Duration(seconds: 1));
-    Navigator.of(context).pop();
-    if (deleteset == 13) {
+
       Navigator.of(context).pop();
-    }
     notifyListeners();
   }
 
-  Future createAlert(BuildContext context, var body) async {
+  Future createAlert(BuildContext context, var body,String? origin,int? id) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -847,7 +843,17 @@ class PostData extends ChangeNotifier with BaseController {
     Map<String, dynamic> js = data;
     if (js.containsKey('id')) {
       Navigator.of(context).pop();
-      getData!.getWishList();
+
+      if(origin == 'allalert'){
+        getData!.getAlert();
+      }
+      if(origin == 'wishlist'){
+        getData!.getWishList();
+      }
+      if(origin == 'details'){
+        getData!.getSingleProduct(id);
+      }
+
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -856,6 +862,10 @@ class PostData extends ChangeNotifier with BaseController {
                 color: AppColors.primaryColor,
                 message: "Added Successfully",
               ));
+      if(origin == 'allalert'){
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      }
     } else {
       Navigator.of(context).pop();
       showDialog(
@@ -875,7 +885,7 @@ class PostData extends ChangeNotifier with BaseController {
   }
 
   Future deleteAlert(BuildContext context, int? id, var requestToken,
-      {int? check}) async {
+      String? origin, int? pid) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -896,7 +906,17 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
-      getData!.getWishList();
+
+
+      if(origin! == 'allalert'){
+        getData!.getAlert();
+      }
+      if(origin == 'wishlist'){
+        getData!.getWishList();
+      }
+      if(origin == 'details'){
+        getData!.getSingleProduct(pid);
+      }
 
       showDialog(
           context: context,
@@ -906,6 +926,10 @@ class PostData extends ChangeNotifier with BaseController {
                 color: AppColors.primaryColor,
                 message: "Deleted Successfully",
               ));
+      if(origin == 'allalert'){
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      }
     } else {
       showDialog(
           context: context,
@@ -917,6 +941,7 @@ class PostData extends ChangeNotifier with BaseController {
               ));
     }
     await Future.delayed(Duration(seconds: 1));
+
     Navigator.of(context).pop();
     Navigator.of(context).pop();
 

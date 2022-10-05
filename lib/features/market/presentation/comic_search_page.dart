@@ -186,6 +186,9 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                             floorPrice: data.searchComicsModel!
                                 .results![index].floorPrice == null ? "" :data.searchComicsModel!
                                 .results![index].floorPrice!,
+                            isAlert: data.searchComicsModel!
+                                .results![index].isProductAlert!,
+
                             series: <ChartSeries<Graph, String>>[
                               LineSeries<Graph, String>(
                                 color: data.searchComicsModel!

@@ -5,23 +5,26 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/models/WishListModel.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
-
-import 'package:syncfusion_flutter_core/theme.dart';
 
 import 'alertTextfield.dart';
 
 int? frequencyIndex1;
 int? TypeIndex1;
+int? edition;
 
 class MintAlertPage extends StatefulWidget {
-  final Results? results;
+  var results;
+  String? origin;
 
-  const MintAlertPage({Key? key, this.results}) : super(key: key);
+  MintAlertPage({
+    Key? key,
+    this.results,
+    this.origin
+  }) : super(key: key);
 
   @override
   State<MintAlertPage> createState() => _MintAlertPageState();
@@ -33,12 +36,13 @@ class _MintAlertPageState extends State<MintAlertPage> {
   TextEditingController mintController1 = TextEditingController();
   TextEditingController mintController2 = TextEditingController();
   int value = 0;
-  SfRangeValues _values = const SfRangeValues(45, 55);
   bool? toggleValue = false;
   bool? hasDropDownValue = false;
   bool? mintAlert = false;
   int j = 0;
-  Widget? ranger;
+  Column? textColumn;
+  Column? rangeColumn;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Map<String, String> requestHeadersWithToken = {
     'Content-type': 'application/json',
@@ -68,9 +72,9 @@ class _MintAlertPageState extends State<MintAlertPage> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-    if (widget.results!.productDetail!.isProductAlert == true) {
-      for (int i = 0; i < widget.results!.productDetail!.productAlertData!.length; i++) {
-        if (widget.results!.productDetail!.productAlertData![i].type == 1) {
+    if (widget.results!.isProductAlert == true) {
+      for (int i = 0; i < widget.results!.productAlertData!.length; i++) {
+        if (widget.results!.productAlertData![i].type == 1) {
           setState(() {
             mintAlert = true;
             j = i;
@@ -79,14 +83,21 @@ class _MintAlertPageState extends State<MintAlertPage> {
       }
     }
 
-    if (widget.results!.productDetail!.isProductAlert == true) {
-      if (widget.results!.productDetail!.productAlertData![j].type == 1) {
-        valueController.text = widget.results!.productDetail!.productAlertData![j].value.toString();
+    if (widget.results!.isProductAlert == true) {
+      if (widget.results!.productAlertData![j].type == 1) {
+        valueController.text =
+            widget.results!.productAlertData![j].value.toString();
+        mintController1.text =
+            widget.results!.productAlertData![j].mintLow.toString();
+        mintController2.text =
+            widget.results!.productAlertData![j].mintUpper.toString();
 
-        //if mint ranger value exists
-        _values = SfRangeValues(widget.results!.productDetail!.productAlertData![j].mintLow,
-            widget.results!.productDetail!.productAlertData![j].mintUpper);
-
+        if (mintController1.text == "0.0") {
+          mintController1.text = value.toString();
+        }
+        if (mintController2.text == "0.0") {
+          mintController2.text = value.toString();
+        }
         if (valueController.text == "0.0") {
           valueController.text = value.toString();
         }
@@ -94,9 +105,9 @@ class _MintAlertPageState extends State<MintAlertPage> {
     }
 
     if (mintAlert == true) {
-      frequencyValue = widget.results!.productDetail!.productAlertData![j].frequencyValue;
+      frequencyValue = widget.results!.productAlertData![j].frequencyValue;
 
-      priceTypeValue = widget.results!.productDetail!.productAlertData![j].typeValue;
+      priceTypeValue = widget.results!.productAlertData![j].typeValue;
     }
 
     frequencyValue == 'Once'
@@ -110,6 +121,83 @@ class _MintAlertPageState extends State<MintAlertPage> {
         : priceTypeValue == 'Above'
             ? TypeIndex1 = 5
             : TypeIndex1 = 6;
+
+
+   edition= int.parse(widget.results!.edition.toString().replaceAll("#", ""));
+   textColumn =Column(
+     crossAxisAlignment: CrossAxisAlignment.start,
+     children: [
+       Text(
+         "Value",
+         style: TextStyle(
+             fontSize: 18.0.sp,
+             color: AppColors.textColor),
+       ),
+       SizedBox(
+         height: 8.h,
+       ),
+       AlertTextField(
+         height: Get.height * .03,
+         controller: valueController,
+       ),
+     ],
+   );
+   rangeColumn=Column(
+     crossAxisAlignment: CrossAxisAlignment.start,
+     children: [
+       Text(
+         "Select range",
+         style: TextStyle(
+             fontSize: 18.0.sp, color: AppColors.white),
+       ),
+       SizedBox(
+         height: 8.h,
+       ),
+       Row(
+         children: [
+           Text(
+             "From",
+             style: TextStyle(
+                 fontSize: 16.0.sp, color: AppColors.white),
+           ),
+           AppSpaces.spaces_width_5,
+           Expanded(
+             // optional flex property if flex is 1 because the default flex is 1
+               flex: 1,
+               child: AlertTextField(
+                 height: Get.height * .03,
+                 controller: mintController1,
+               )),
+           AppSpaces.spaces_width_5,
+           Text(
+             "To",
+             style: TextStyle(
+                 fontSize: 16.0.sp, color: AppColors.white),
+           ),
+           AppSpaces.spaces_width_5,
+           Expanded(
+             // optional flex property if flex is 1 because the default flex is 1
+               flex: 1,
+               child: AlertTextField(
+                 height: Get.height * .03,
+                 controller: mintController2,
+               )),
+         ],
+       ),
+       SizedBox(
+         height: 8.h,
+       ),
+       Text(
+         "Maximum mint value is "+widget.results!.edition.toString().replaceAll("#", "")+" for this product",
+         style: TextStyle(
+             fontSize: 10.0.sp, color: Colors.red),
+       ),
+
+     ],
+   );
+
+
+
     super.initState();
   }
 
@@ -122,6 +210,9 @@ class _MintAlertPageState extends State<MintAlertPage> {
         // crossAxisAlignment: CrossAxisAlignment.start,
         shrinkWrap: true,
         children: [
+          SizedBox(
+            height: 14.h,
+          ),
           Text(
             "Frequency",
             style: TextStyle(fontSize: 18.0.sp, color: AppColors.textColor),
@@ -137,7 +228,8 @@ class _MintAlertPageState extends State<MintAlertPage> {
               border: Border.all(
                   color: AppColors.textColor, // set border color
                   width: 1.w), // set border width
-              borderRadius: const BorderRadius.all(Radius.circular(15.0)), // set rounded corner radius
+              borderRadius: const BorderRadius.all(
+                  Radius.circular(15.0)), // set rounded corner radius
             ),
             child: DropdownButton<String>(
               isExpanded: true,
@@ -175,7 +267,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
             ),
           ),
           SizedBox(
-            height: 8.h,
+            height: 14.h,
           ),
           Text(
             "Type",
@@ -192,7 +284,8 @@ class _MintAlertPageState extends State<MintAlertPage> {
               border: Border.all(
                   color: AppColors.textColor, // set border color
                   width: 1.w), // set border width
-              borderRadius: const BorderRadius.all(Radius.circular(15.0)), // set rounded corner radius
+              borderRadius: const BorderRadius.all(
+                  Radius.circular(15.0)), // set rounded corner radius
             ),
             child: DropdownButton<String>(
               isExpanded: true,
@@ -230,139 +323,22 @@ class _MintAlertPageState extends State<MintAlertPage> {
             ),
           ),
           SizedBox(
-            height: 8.h,
+            height: 14.h,
           ),
           mintAlert == true
-              ? (widget.results!.productDetail!.productAlertData![j].priceType == 6 && TypeIndex1 == 6
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Select range",
-                          style: TextStyle(fontSize: 18.0.sp, color: AppColors.white),
-                        ),
-                        SizedBox(
-                          height: Get.height * 0.06945,
-                        ),
-                        SfRangeSliderTheme(
-                          data: SfRangeSliderThemeData(
-                            tooltipBackgroundColor: Colors.transparent,
-                            thumbStrokeWidth: 2,
-                            thumbStrokeColor: AppColors.white,
-                            overlayRadius: 10,
-                            labelOffset: Offset(0, -40),
-                          ),
-                          child: SfRangeSlider(
-                            min: 0,
-                            max: 100,
-                            showTicks: true,
-                            showLabels: true,
-                            inactiveColor: Colors.white,
-                            enableTooltip: true,
-                            shouldAlwaysShowTooltip: true,
-                            stepSize: 1,
-                            values: _values,
-                            onChanged: (SfRangeValues newValues) {
-                              setState(() {
-                                _values = newValues;
-                                print(_values.start.toString());
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    )
-                  : widget.results!.productDetail!.productAlertData![j].priceType == 6 && TypeIndex1 != 6
-                      ? AlertTextField(
-                          height: Get.height * .03,
-                          controller: valueController,
-                        )
-                      : widget.results!.productDetail!.productAlertData![j].priceType != 6 && TypeIndex1 != 6
-                          ? AlertTextField(
-                              height: Get.height * .03,
-                              controller: valueController,
-                            )
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Select range",
-                                  style: TextStyle(fontSize: 18.0.sp, color: AppColors.white),
-                                ),
-                                SizedBox(
-                                  height: Get.height * 0.06945,
-                                ),
-                                SfRangeSliderTheme(
-                                  data: SfRangeSliderThemeData(
-                                    tooltipBackgroundColor: Colors.transparent,
-                                    thumbStrokeWidth: 2,
-                                    thumbStrokeColor: AppColors.white,
-                                    overlayRadius: 10,
-                                    labelOffset: Offset(0, -40),
-                                  ),
-                                  child: SfRangeSlider(
-                                    min: 0,
-                                    max: 100,
-                                    showTicks: true,
-                                    showLabels: true,
-                                    inactiveColor: Colors.white,
-                                    enableTooltip: true,
-                                    shouldAlwaysShowTooltip: true,
-                                    stepSize: 2,
-                                    values: _values,
-                                    onChanged: (SfRangeValues newValues) {
-                                      setState(() {
-                                        _values = newValues;
-                                        print(_values.start.toString());
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ))
+              ? (widget.results!.productAlertData![j].priceType == 6 &&
+                      TypeIndex1 == 6
+                  ? rangeColumn!
+                  : widget.results!.productAlertData![j].priceType == 6 &&
+                          TypeIndex1 != 6
+                      ? textColumn!
+                      : widget.results!.productAlertData![j].priceType != 6 &&
+                              TypeIndex1 != 6
+                          ? textColumn!
+                          : rangeColumn!)
               : TypeIndex1 == 6
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Select range",
-                          style: TextStyle(fontSize: 18.0.sp, color: AppColors.white),
-                        ),
-                        SizedBox(
-                          height: Get.height * 0.06945,
-                        ),
-                        SfRangeSliderTheme(
-                          data: SfRangeSliderThemeData(
-                            tooltipBackgroundColor: Colors.transparent,
-                            thumbStrokeWidth: 2,
-                            thumbStrokeColor: AppColors.white,
-                            overlayRadius: 10,
-                            labelOffset: Offset(0, -40),
-                          ),
-                          child: SfRangeSlider(
-                            min: 0,
-                            max: 100,
-                            showTicks: true,
-                            showLabels: true,
-                            inactiveColor: Colors.white,
-                            enableTooltip: true,
-                            shouldAlwaysShowTooltip: true,
-                            stepSize: 2,
-                            values: _values,
-                            onChanged: (SfRangeValues newValues) {
-                              setState(() {
-                                _values = newValues;
-                                print(_values.start.toString());
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    )
-                  : AlertTextField(
-                      height: Get.height * .03,
-                      controller: valueController,
-                    ),
+                  ? rangeColumn!
+                  : textColumn!,
           SizedBox(
             height: 25.h,
           ),
@@ -375,32 +351,65 @@ class _MintAlertPageState extends State<MintAlertPage> {
                   onTap: () {
                     postData = Provider.of<PostData>(context, listen: false);
                     postData!.deleteAlert(
-                        context, widget.results!.productDetail!.productAlertData![j].id, requestHeadersWithToken);
+                        context,
+                        widget.results!.productAlertData![j].id,
+                        requestHeadersWithToken,
+                        widget.origin,widget.results!.id
+                        );
                   },
                   child: Text(
-                    widget.results!.productDetail!.productAlertData != null && mintAlert == true ? 'Delete' : "",
+                    widget.results!.productAlertData != null &&
+                            mintAlert == true
+                        ? 'Delete'
+                        : "",
                     style: TextStyle(fontSize: 16.0.sp, color: AppColors.grey),
                   ),
                 ),
                 AppSpaces.spaces_width_10,
                 InkWell(
-                  onTap: () {
-                    postData = Provider.of<PostData>(context, listen: false);
-                    var body = {
-                      "product": widget.results!.productDetail!.id,
-                      "type": 1,
-                      "price_type": TypeIndex1,
-                      "value": valueController.text != "" ? double.parse(valueController.text) : 0.0,
-                      "frequency": frequencyIndex1,
-                      "mint_low": _values.start.round().toString(),
-                      "mint_upper": _values.end.round().toString(),
-                    };
+                  onTap: () async {
 
-                    postData!.createAlert(context, body);
+                    if (int.parse(mintController2.text.toString()) > edition!) {
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => ResponseMessage(
+                            icon: Icons.check_circle,
+                            color: AppColors.primaryColor,
+                            message: "Maximum mint number is "+edition.toString(),
+                          ));
+                      await Future.delayed(Duration(seconds: 1));
+                        Navigator.of(context).pop();
+                    }
+                    else{
+                      postData = Provider.of<PostData>(context, listen: false);
+                      var body = {
+                        "product": widget.results!.id,
+                        "type": 1,
+                        "price_type": TypeIndex1,
+                        "value": valueController.text != ""
+                            ? double.parse(valueController.text)
+                            : 0.0,
+                        "frequency": frequencyIndex1,
+                        "mint_low": mintController1.text != ""
+                            ? double.parse(mintController1.text)
+                            : 0.0,
+                        "mint_upper": mintController2.text != ""
+                            ? double.parse(mintController2.text)
+                            : 0.0,
+                      };
+
+                      postData!.createAlert(context, body,widget.origin!,widget.results!.id);
+                    }
+
                   },
                   child: Text(
-                    widget.results!.productDetail!.productAlertData != null && mintAlert == true ? 'Update' : "Save",
-                    style: TextStyle(fontSize: 16.0.sp, color: Colors.purpleAccent),
+                    widget.results!.productAlertData != null &&
+                            mintAlert == true
+                        ? 'Update'
+                        : "Save",
+                    style: TextStyle(
+                        fontSize: 16.0.sp, color: Colors.purpleAccent),
                   ),
                 ),
               ],
