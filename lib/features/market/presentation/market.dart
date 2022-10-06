@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
+import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/market/Components/filter_toggle.dart';
 import 'package:ketemaa/features/profile/widgets/toggleButton.dart';
 import 'package:provider/provider.dart';
 import '../Components/category_card.dart';
 import '../Components/collectibles_item_card.dart';
 import '../Components/commics_item_card.dart';
+
+bool? itemValue=false;
+int? itemVal;
 
 class Market extends StatefulWidget {
   const Market({Key? key}) : super(key: key);
@@ -37,6 +42,7 @@ class _MarketState extends State<Market> {
 
  String? collcetableMintValue = '';
  String? comicMintValue = '';
+
 
   TextEditingController searchCollectible = TextEditingController();
   TextEditingController searchComic = TextEditingController();
@@ -245,7 +251,7 @@ class _MarketState extends State<Market> {
                           } else {
                             getData!.getCollectibles();
                             collectibleRarity = '';
-                            //collcetableMintValue = '';
+                            collcetableMintValue = '';
                             collectibleFilterOn = false;
                           }
                         });
@@ -398,7 +404,8 @@ class _MarketState extends State<Market> {
                             comicRarity = 'Secret Rare';
                             comicFilterOn = true;
                           } else if (value == 7) {
-                            comicMintValue = '0';
+                            print("333"+itemValue.toString());
+                            comicMintValue = itemValue==true ?'0' :'';
                             collectibleFilterOn = true;
                           } else if (value == 8) {
                             comicMintValue = '1';
@@ -502,22 +509,71 @@ class _MarketState extends State<Market> {
                           ),
                         ),
                         PopupMenuItem(
-                          value: 7,
-                          child: Row(
-                            children: [
-                              Text(
-                                'Low Mint',
-                                style: TextStyle(
-                                  color: comicMintValue == '0'
-                                      ? AppColors.primaryColor
-                                      : AppColors.textColor,
-                                  fontFamily: 'Inter',
-                                ),
-                              ),
-                              FilterToggleButton()
 
-                            ],
+                          child:InkWell(
+                            onTap: () async {
+                              itemValue= !itemValue!;
+                              if(itemValue==true){
+                                itemVal=7;
+                              }
+                              else
+                                itemVal=8;
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Low Mints',
+                                  style: TextStyle(
+                                    color: comicMintValue == '0'
+                                        ? AppColors.primaryColor
+                                        : AppColors.textColor,
+                                    fontFamily: 'Inter',
+                                  ),
+                                ),
+                                AppSpaces.spaces_width_10,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    AnimatedContainer(
+                                      padding: const EdgeInsets.only(left: 2, right: 2),
+                                      duration: const Duration(milliseconds: 100),
+                                      height: 20.0.h,
+                                      width: 40.0.w,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25.0),
+                                        color: itemValue==true ? Colors.purple : Colors.grey,
+                                      ),
+                                      child: Stack(
+                                        children: <Widget>[
+                                          AnimatedPositioned(
+                                            duration: const Duration(milliseconds: 100),
+                                            curve: Curves.easeIn,
+                                            top: 3.0,
+                                            left: itemValue==true ? 20.0 : 0.0,
+                                            right:itemValue==true ? 0.0 : 20.0,
+                                            child: Container(
+                                                alignment: comicMintValue == '0'
+                                                    ? Alignment.centerLeft
+                                                    : Alignment.centerRight,
+                                                height: 15.h,
+                                                width: 20.w,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius: BorderRadius.circular(25.0),
+                                                ),
+                                                child:Container()
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                              ],
+                            ),
                           ),
+                          value:  itemVal ,
                         ),
                       ],
                     ))

@@ -995,6 +995,113 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
+  Future deletePassCheck(BuildContext context, var body, int? id, var requestToken,) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingDialogue(
+              message: "Please wait",
+            ));
+
+    /*final response =
+        await BaseClient().post(Urls.logIn, body).catchError(handleError);*/
+
+    final response = await http.post(Uri.parse(Urls.logIn),
+        body: json.encode(body), headers: requestHeaders);
+
+    var x = json.decode(response.body);
+
+    Map<String, dynamic> js = x;
+
+    if (response.statusCode == 200 ||
+        response.statusCode == 401 ||
+        response.statusCode == 403 ||
+        response.statusCode == 500 ||
+        response.statusCode == 201) {
+      try {
+
+
+          postData = Provider.of<PostData>(context, listen: false);
+
+          postData!.deleteAccount(
+            context,
+            id,
+            requestToken,
+          );
+
+
+
+      } catch (e) {
+        Navigator.of(context).pop();
+
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const ResponseMessage(
+              icon: Icons.error,
+              color: Colors.purpleAccent,
+              message: "Invalid Information",
+            ));
+      }
+    } else {
+      Navigator.of(context).pop();
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const ResponseMessage(
+            icon: Icons.error,
+            color: Colors.purpleAccent,
+            message: "Invalid Information",
+          ));
+    }
+    notifyListeners();
+  }
+
+
+  Future deleteAccount(BuildContext context, int? id, var requestToken,) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingDialogue(
+          message: "Deleting Account Please wait",
+        ));
+    getData = Provider.of<GetData>(context, listen: false);
+
+    final response = await http.delete(Uri.parse(Urls.deleteAccount + '$id/'),
+        headers: requestToken);
+
+    printInfo(info: response.statusCode.toString());
+    printInfo(info: Urls.alert + '$id/');
+
+    if (response.statusCode == 204 ||
+        response.statusCode == 200 ||
+        response.statusCode == 401 ||
+        response.statusCode == 403 ||
+        response.statusCode == 500 ||
+        response.statusCode == 201) {
+
+
+
+      Get.offAll(() => const AuthInitialPage());
+    } else {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const ResponseMessage(
+            icon: Icons.error,
+            color: Colors.purpleAccent,
+            message: "Something went wrong",
+          ));
+    }
+    await Future.delayed(Duration(seconds: 1));
+
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+
+    notifyListeners();
+  }
+
+
   Store(var mat, BuildContext context) async {
     prefs = await SharedPreferences.getInstance();
     prefs!.setString('user_id', mat['user_id'].toString());
