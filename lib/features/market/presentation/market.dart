@@ -11,8 +11,9 @@ import 'package:provider/provider.dart';
 import '../Components/category_card.dart';
 import '../Components/collectibles_item_card.dart';
 import '../Components/commics_item_card.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
-bool? itemValue=false;
+bool? itemValue = false;
 int? itemVal;
 
 class Market extends StatefulWidget {
@@ -40,9 +41,10 @@ class _MarketState extends State<Market> {
   bool? collectibleEnable = false;
   bool? comicEnable = false;
 
- String? collcetableMintValue = '';
- String? comicMintValue = '';
-
+  bool? mintComicSwitch = false;
+  bool? mintCollectibleSwitch = false;
+  String? collcetableMintValue = '';
+  String? comicMintValue = '';
 
   TextEditingController searchCollectible = TextEditingController();
   TextEditingController searchComic = TextEditingController();
@@ -61,8 +63,8 @@ class _MarketState extends State<Market> {
       rarity: comicRarity,
     );
 
-    collectibleSearchText= "";
-    comicSearchText = "" ;
+    collectibleSearchText = "";
+    comicSearchText = "";
 
     super.initState();
   }
@@ -109,8 +111,7 @@ class _MarketState extends State<Market> {
                         enabledBorder: InputBorder.none,
                         errorBorder: InputBorder.none,
                         disabledBorder: InputBorder.none,
-                        contentPadding: const EdgeInsets.only(
-                            left: 15, bottom: 11, top: 13, right: 15),
+                        contentPadding: const EdgeInsets.only(left: 15, bottom: 11, top: 13, right: 15),
                         hintText: "Search Collectible",
                         hintStyle: const TextStyle(
                           color: Colors.white,
@@ -122,8 +123,7 @@ class _MarketState extends State<Market> {
                         setState(() {
                           collectibleSearchText = searchCollectible.text;
 
-                          if (collectibleSearchText!.length > 2 ||
-                              collectibleSearchText!.isEmpty) {
+                          if (collectibleSearchText!.length > 2 || collectibleSearchText!.isEmpty) {
                             getData!.collectiblesModel = null;
                             getData!.getCollectibles(
                               keyword: collectibleSearchText,
@@ -173,8 +173,7 @@ class _MarketState extends State<Market> {
                         enabledBorder: InputBorder.none,
                         errorBorder: InputBorder.none,
                         disabledBorder: InputBorder.none,
-                        contentPadding: const EdgeInsets.only(
-                            left: 15, bottom: 11, top: 13, right: 15),
+                        contentPadding: const EdgeInsets.only(left: 15, bottom: 11, top: 13, right: 15),
                         hintText: "Search Comics",
                         hintStyle: const TextStyle(
                           color: Colors.white,
@@ -214,15 +213,12 @@ class _MarketState extends State<Market> {
           brandSelected == false
               ? (currentIndex == 1
                   ? PopupMenuButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       color: AppColors.backgroundColor,
                       offset: const Offset(0, 40),
                       icon: Icon(
                         Icons.filter_list,
-                        color: collectibleFilterOn == false
-                            ? AppColors.grey
-                            : AppColors.primaryColor,
+                        color: collectibleFilterOn == false ? AppColors.grey : AppColors.primaryColor,
                         size: 30,
                       ),
                       onSelected: (value) {
@@ -243,7 +239,19 @@ class _MarketState extends State<Market> {
                             collectibleRarity = 'Secret Rare';
                             collectibleFilterOn = true;
                           } else if (value == 7) {
-                            collcetableMintValue = '0';
+                            mintCollectibleSwitch = !mintCollectibleSwitch!;
+
+                            if (mintCollectibleSwitch == true) {
+                              collcetableMintValue = '0';
+                              print(mintCollectibleSwitch.toString());
+                            } else {
+                              print(mintCollectibleSwitch.toString());
+                              getData!.getCollectibles();
+                              collectibleRarity = '';
+                              collcetableMintValue = '';
+                              collectibleFilterOn = false;
+                              getData!.getCollectibles();
+                            }
                             collectibleFilterOn = true;
                           } else if (value == 8) {
                             collcetableMintValue = '1';
@@ -256,8 +264,7 @@ class _MarketState extends State<Market> {
                           }
                         });
 
-                        if (collectibleRarity.isNotEmpty ||
-                            collcetableMintValue!.isNotEmpty) {
+                        if (collectibleRarity.isNotEmpty || collcetableMintValue!.isNotEmpty) {
                           getData!.collectiblesModel = null;
                           getData!.getCollectibles(
                             keyword: collectibleSearchText,
@@ -272,7 +279,8 @@ class _MarketState extends State<Market> {
                           child: Text(
                             'All',
                             style: TextStyle(
-                              color: collectibleRarity == ''/* &&
+                              color: collectibleRarity ==
+                                      '' /* &&
                                       collcetableMintValue == '0'*/
                                   ? AppColors.primaryColor
                                   : AppColors.textColor,
@@ -285,9 +293,7 @@ class _MarketState extends State<Market> {
                           child: Text(
                             'Common',
                             style: TextStyle(
-                              color: collectibleRarity == 'Common'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
+                              color: collectibleRarity == 'Common' ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -297,9 +303,7 @@ class _MarketState extends State<Market> {
                           child: Text(
                             'Uncommon',
                             style: TextStyle(
-                              color: collectibleRarity == 'Uncommon'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
+                              color: collectibleRarity == 'Uncommon' ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -309,9 +313,7 @@ class _MarketState extends State<Market> {
                           child: Text(
                             'Rare',
                             style: TextStyle(
-                              color: collectibleRarity == 'Rare'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
+                              color: collectibleRarity == 'Rare' ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -321,9 +323,7 @@ class _MarketState extends State<Market> {
                           child: Text(
                             'Ultra Rare',
                             style: TextStyle(
-                              color: collectibleRarity == 'Ultra Rare'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
+                              color: collectibleRarity == 'Ultra Rare' ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -333,9 +333,7 @@ class _MarketState extends State<Market> {
                           child: Text(
                             'Secret Rare',
                             style: TextStyle(
-                              color: collectibleRarity == 'Secret Rare'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
+                              color: collectibleRarity == 'Secret Rare' ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -351,23 +349,9 @@ class _MarketState extends State<Market> {
                         PopupMenuItem(
                           value: 7,
                           child: Text(
-                            'Low Mint A',
+                            'Mint',
                             style: TextStyle(
-                              color: collcetableMintValue == '0'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
-                              fontFamily: 'Inter',
-                            ),
-                          ),
-                        ),
-                        PopupMenuItem(
-                          value: 8,
-                          child: Text(
-                            'Low Mint D',
-                            style: TextStyle(
-                              color: collcetableMintValue == '1'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
+                              color: mintCollectibleSwitch == true ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -375,15 +359,12 @@ class _MarketState extends State<Market> {
                       ],
                     )
                   : PopupMenuButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       color: AppColors.backgroundColor,
                       offset: const Offset(0, 40),
                       icon: Icon(
                         Icons.filter_list,
-                        color: comicFilterOn == false
-                            ? AppColors.grey
-                            : AppColors.primaryColor,
+                        color: comicFilterOn == false ? AppColors.grey : AppColors.primaryColor,
                         size: 30,
                       ),
                       onSelected: (value) {
@@ -404,8 +385,19 @@ class _MarketState extends State<Market> {
                             comicRarity = 'Secret Rare';
                             comicFilterOn = true;
                           } else if (value == 7) {
-                            print("333"+itemValue.toString());
-                            comicMintValue = itemValue==true ?'0' :'';
+                            mintComicSwitch = !mintComicSwitch!;
+                            if (mintComicSwitch == true) {
+                              comicMintValue = '0';
+
+                              print(mintComicSwitch.toString());
+                            } else {
+                              print(mintComicSwitch.toString());
+                              comicMintValue = '';
+                              comicRarity = '';
+                              comicFilterOn = false;
+                              getData!.getComics();
+                            }
+
                             collectibleFilterOn = true;
                           } else if (value == 8) {
                             comicMintValue = '1';
@@ -413,12 +405,12 @@ class _MarketState extends State<Market> {
                           } else {
                             getData!.getComics();
                             comicRarity = '';
+                            comicMintValue = '';
                             comicFilterOn = false;
                           }
                         });
 
-                        if (comicRarity.isNotEmpty ||
-                            comicMintValue!.isNotEmpty) {
+                        if (comicRarity.isNotEmpty || comicMintValue!.isNotEmpty) {
                           getData!.comicsModel = null;
                           getData!.getComics(
                             keyword: comicSearchText,
@@ -433,9 +425,7 @@ class _MarketState extends State<Market> {
                           child: Text(
                             'All',
                             style: TextStyle(
-                              color: comicRarity == ''
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
+                              color: comicRarity == '' ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -445,9 +435,7 @@ class _MarketState extends State<Market> {
                           child: Text(
                             'Common',
                             style: TextStyle(
-                              color: comicRarity == 'Common'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
+                              color: comicRarity == 'Common' ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -457,9 +445,7 @@ class _MarketState extends State<Market> {
                           child: Text(
                             'Uncommon',
                             style: TextStyle(
-                              color: comicRarity == 'Uncommon'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
+                              color: comicRarity == 'Uncommon' ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -469,9 +455,7 @@ class _MarketState extends State<Market> {
                           child: Text(
                             'Rare',
                             style: TextStyle(
-                              color: comicRarity == 'Rare'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
+                              color: comicRarity == 'Rare' ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -481,9 +465,7 @@ class _MarketState extends State<Market> {
                           child: Text(
                             'Ultra Rare',
                             style: TextStyle(
-                              color: comicRarity == 'Ultra Rare'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
+                              color: comicRarity == 'Ultra Rare' ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -493,9 +475,7 @@ class _MarketState extends State<Market> {
                           child: Text(
                             'Secret Rare',
                             style: TextStyle(
-                              color: comicRarity == 'Secret Rare'
-                                  ? AppColors.primaryColor
-                                  : AppColors.textColor,
+                              color: comicRarity == 'Secret Rare' ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -509,72 +489,77 @@ class _MarketState extends State<Market> {
                           ),
                         ),
                         PopupMenuItem(
-
-                          child:InkWell(
-                            onTap: () async {
-                              itemValue= !itemValue!;
-                              if(itemValue==true){
-                                itemVal=7;
-                              }
-                              else
-                                itemVal=8;
-                            },
-                            child: Row(
-                              children: [
-                                Text(
-                                  'Low Mints',
-                                  style: TextStyle(
-                                    color: comicMintValue == '0'
-                                        ? AppColors.primaryColor
-                                        : AppColors.textColor,
-                                    fontFamily: 'Inter',
-                                  ),
-                                ),
-                                AppSpaces.spaces_width_10,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    AnimatedContainer(
-                                      padding: const EdgeInsets.only(left: 2, right: 2),
-                                      duration: const Duration(milliseconds: 100),
-                                      height: 20.0.h,
-                                      width: 40.0.w,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(25.0),
-                                        color: itemValue==true ? Colors.purple : Colors.grey,
-                                      ),
-                                      child: Stack(
-                                        children: <Widget>[
-                                          AnimatedPositioned(
-                                            duration: const Duration(milliseconds: 100),
-                                            curve: Curves.easeIn,
-                                            top: 3.0,
-                                            left: itemValue==true ? 20.0 : 0.0,
-                                            right:itemValue==true ? 0.0 : 20.0,
-                                            child: Container(
-                                                alignment: comicMintValue == '0'
-                                                    ? Alignment.centerLeft
-                                                    : Alignment.centerRight,
-                                                height: 15.h,
-                                                width: 20.w,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius: BorderRadius.circular(25.0),
-                                                ),
-                                                child:Container()
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-
-                              ],
+                          value: 7,
+                          child: Text(
+                            'Mint',
+                            style: TextStyle(
+                              color: mintComicSwitch == true ? AppColors.primaryColor : AppColors.textColor,
+                              fontFamily: 'Inter',
                             ),
                           ),
-                          value:  itemVal ,
                         ),
+                        // PopupMenuItem(
+                        //   enabled: false,
+                        //   child: InkWell(
+                        //     onTap: () async {
+                        //       itemValue = !itemValue!;
+                        //       if (itemValue == true) {
+                        //         itemVal = 7;
+                        //       } else
+                        //         itemVal = 8;
+                        //     },
+                        //     child: Row(
+                        //       children: [
+                        //         Text(
+                        //           'Low Mints',
+                        //           style: TextStyle(
+                        //             color: comicMintValue == '0' ? AppColors.primaryColor : AppColors.textColor,
+                        //             fontFamily: 'Inter',
+                        //           ),
+                        //         ),
+                        //         AppSpaces.spaces_width_10,
+                        //         Row(
+                        //           mainAxisAlignment: MainAxisAlignment.end,
+                        //           children: [
+                        //             AnimatedContainer(
+                        //               padding: const EdgeInsets.only(left: 2, right: 2),
+                        //               duration: const Duration(milliseconds: 100),
+                        //               height: 20.0.h,
+                        //               width: 40.0.w,
+                        //               decoration: BoxDecoration(
+                        //                 borderRadius: BorderRadius.circular(25.0),
+                        //                 color: itemValue == true ? Colors.purple : Colors.grey,
+                        //               ),
+                        //               child: Stack(
+                        //                 children: <Widget>[
+                        //                   AnimatedPositioned(
+                        //                     duration: const Duration(milliseconds: 100),
+                        //                     curve: Curves.easeIn,
+                        //                     top: 3.0,
+                        //                     left: itemValue == true ? 20.0 : 0.0,
+                        //                     right: itemValue == true ? 0.0 : 20.0,
+                        //                     child: Container(
+                        //                         alignment: comicMintValue == '0'
+                        //                             ? Alignment.centerLeft
+                        //                             : Alignment.centerRight,
+                        //                         height: 15.h,
+                        //                         width: 20.w,
+                        //                         decoration: BoxDecoration(
+                        //                           color: Colors.white,
+                        //                           borderRadius: BorderRadius.circular(25.0),
+                        //                         ),
+                        //                         child: Container()),
+                        //                   )
+                        //                 ],
+                        //               ),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        //   value: itemVal,
+                        // ),
                       ],
                     ))
               : Container(),
@@ -586,10 +571,7 @@ class _MarketState extends State<Market> {
           children: [
             ///Tab
             Padding(
-              padding: EdgeInsets.only(
-                  left: AppDimension.padding_8,
-                  right: AppDimension.padding_8,
-                  top: 4),
+              padding: EdgeInsets.only(left: AppDimension.padding_8, right: AppDimension.padding_8, top: 4),
               child: Row(
                 children: [
                   Expanded(
@@ -682,7 +664,7 @@ class _MarketState extends State<Market> {
                   : ComicsItemCard(
                       keyword: comicSearchText!,
                       rarity: comicRarity,
-                     mintNumber: comicMintValue,
+                      mintNumber: comicMintValue,
                     ),
             ),
 

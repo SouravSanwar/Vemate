@@ -120,9 +120,7 @@ class _VaultState extends State<Vault> {
                             ),
                           ),
                           vaultSelectDropDownIndex == 0
-                              ? VaultCollectiblesCard(
-                                  data: data.vaultStatsModel!.collectible
-                                )
+                              ? VaultCollectiblesCard(data: data.vaultStatsModel!.collectible)
                               : vaultSelectDropDownIndex == 1
                                   ? VaultCollectiblesCard7D(
                                       data: data.vaultStatsModel7D!.collectible,
