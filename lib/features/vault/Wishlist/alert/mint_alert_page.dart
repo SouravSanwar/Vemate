@@ -171,13 +171,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
                 )),
           ],
         ),
-        SizedBox(
-          height: 8.h,
-        ),
-        Text(
-          "Maximum mint value is " + widget.results!.edition.toString().replaceAll("#", "") + " for this product",
-          style: TextStyle(fontSize: 10.0.sp, color: Colors.red),
-        ),
+
       ],
     );
 
@@ -317,6 +311,14 @@ class _MintAlertPageState extends State<MintAlertPage> {
               : TypeIndex1 == 6
                   ? rangeColumn!
                   : textColumn!,
+
+          SizedBox(
+            height: 8.h,
+          ),
+          Text(
+            "Maximum mint value is " + widget.results!.edition.toString().replaceAll("#", "") + " for this product",
+            style: TextStyle(fontSize: 10.0.sp, color: Colors.white,fontFamily: 'Inter'),
+          ),
           SizedBox(
             height: 25.h,
           ),
@@ -347,25 +349,41 @@ class _MintAlertPageState extends State<MintAlertPage> {
                           context: context,
                           barrierDismissible: false,
                           builder: (_) => ResponseMessage(
-                                icon: Icons.check_circle,
-                                color: AppColors.primaryColor,
+                            icon: Icons.error,
+                            color: Colors.purpleAccent,
                                 message: "Maximum mint number is " + edition.toString(),
                               ));
                       await Future.delayed(Duration(seconds: 1));
                       Navigator.of(context).pop();
-                    } else {
-                      postData = Provider.of<PostData>(context, listen: false);
-                      var body = {
-                        "product": widget.results!.id,
-                        "type": 1,
-                        "price_type": TypeIndex1,
-                        "value": valueController.text != "" ? double.parse(valueController.text) : 0.0,
-                        "frequency": frequencyIndex1,
-                        "mint_low": mintController1.text != "" ? double.parse(mintController1.text) : 0.0,
-                        "mint_upper": mintController2.text != "" ? double.parse(mintController2.text) : 0.0,
-                      };
+                    }
+                     else {
 
-                      postData!.createAlert(context, body, widget.origin!, widget.results!.id);
+                      if (int.parse(mintController1.text.toString())>int.parse(mintController2.text.toString())) {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) => const ResponseMessage(
+                              icon: Icons.error,
+                              color: Colors.purpleAccent,
+                              message: "The range must be from low to high",
+                            ));
+                        await Future.delayed(Duration(seconds: 1));
+                        Navigator.of(context).pop();
+                      }
+                      else{
+                        postData = Provider.of<PostData>(context, listen: false);
+                        var body = {
+                          "product": widget.results!.id,
+                          "type": 1,
+                          "price_type": TypeIndex1,
+                          "value": valueController.text != "" ? double.parse(valueController.text) : 0.0,
+                          "frequency": frequencyIndex1,
+                          "mint_low": mintController1.text != "" ? double.parse(mintController1.text) : 0.0,
+                          "mint_upper": mintController2.text != "" ? double.parse(mintController2.text) : 0.0,
+                        };
+
+                        postData!.createAlert(context, body, widget.origin!, widget.results!.id);
+                      }
                     }
                   },
                   child: Text(

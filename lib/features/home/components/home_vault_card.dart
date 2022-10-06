@@ -57,7 +57,8 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                               decoration: BoxDecoration(
                                 gradient: AppColors.purpleGradient,
                                 // set border width
-                                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(8.0)),
                               ),
                               child: Text(
                                 "Vault Value",
@@ -96,14 +97,16 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                           Expanded(
                             flex: 4,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
                               child: Container(
                                 alignment: Alignment.center,
                                 child: dropDown(),
                                 width: Get.width * .15,
                                 height: Get.height * .03,
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: AppColors.primaryColor),
+                                  border:
+                                      Border.all(color: AppColors.primaryColor),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                               ),
@@ -160,11 +163,18 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                       ),
                                 Text(
                                   data.homeVaultModel!.totalPercentChange! < 0.0
-                                      ? data.homeVaultModel!.totalPercentChange!.toStringAsFixed(2) + "%"
-                                      : data.homeVaultModel!.totalPercentChange!.toStringAsFixed(2) + "%",
+                                      ? data.homeVaultModel!.totalPercentChange!
+                                              .toStringAsFixed(2) +
+                                          "%"
+                                      : data.homeVaultModel!.totalPercentChange!
+                                              .toStringAsFixed(2) +
+                                          "%",
                                   textAlign: TextAlign.end,
                                   style: TextStyle(
-                                    color: data.homeVaultModel!.sign! == 'decrease' ? Colors.red : Colors.green,
+                                    color:
+                                        data.homeVaultModel!.sign! == 'decrease'
+                                            ? Colors.red
+                                            : Colors.green,
                                     fontFamily: 'Inter',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14.sp,
@@ -187,14 +197,15 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                         height: Get.height * .12,
                         child: data.homeVaultModel!.homeVaultModelGraph != null
                             ? SfCartesianChart(
-                                plotAreaBorderWidth: 0,
                                 margin: EdgeInsets.zero,
+                                plotAreaBorderWidth: 0,
                                 primaryXAxis: CategoryAxis(
                                   plotOffset: -8,
-                                  axisLine: const AxisLine(width: 0),
                                   isVisible: false,
-                                  majorGridLines: const MajorGridLines(width: 0),
-                                  labelIntersectAction: AxisLabelIntersectAction.hide,
+                                  majorGridLines:
+                                      const MajorGridLines(width: 0),
+                                  labelIntersectAction:
+                                      AxisLabelIntersectAction.hide,
                                   labelRotation: 270,
                                   labelAlignment: LabelAlignment.start,
                                   maximumLabels: 7,
@@ -202,21 +213,31 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                 ),
                                 primaryYAxis: NumericAxis(
                                   numberFormat: NumberFormat.compact(),
-                                  axisLine: const AxisLine(width: 0),
                                   isVisible: false,
-                                  majorGridLines: const MajorGridLines(width: 0),
-                                  labelIntersectAction: AxisLabelIntersectAction.hide,
+                                  majorGridLines:
+                                      const MajorGridLines(width: 0),
+                                  labelIntersectAction:
+                                      AxisLabelIntersectAction.hide,
                                   labelRotation: 0,
                                   labelAlignment: LabelAlignment.start,
                                   maximumLabels: 10,
                                 ),
-                                series: <ChartSeries<HomeVaultModelGraph, String>>[
+                                series: <
+                                    ChartSeries<HomeVaultModelGraph, String>>[
                                   SplineAreaSeries<HomeVaultModelGraph, String>(
-                                    color: data.homeVaultModel!.sign! == 'decrease' ? Colors.red : Colors.green,
+                                    color:
+                                        data.homeVaultModel!.sign! == 'decrease'
+                                            ? Colors.red
+                                            : Colors.green,
                                     gradient: AppColors.graphGradient,
-                                    dataSource: data.homeVaultModel!.homeVaultModelGraph!,
-                                    xValueMapper: (HomeVaultModelGraph plot, _) => plot.hour,
-                                    yValueMapper: (HomeVaultModelGraph plot, _) => plot.total,
+                                    dataSource: data
+                                        .homeVaultModel!.homeVaultModelGraph!,
+                                    xValueMapper:
+                                        (HomeVaultModelGraph plot, _) =>
+                                            plot.hour,
+                                    yValueMapper:
+                                        (HomeVaultModelGraph plot, _) =>
+                                            plot.total,
                                     xAxisName: 'Duration',
                                     yAxisName: 'Total',
                                     dataLabelSettings: const DataLabelSettings(
@@ -251,7 +272,8 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   decoration: BoxDecoration(
                                     gradient: AppColors.purpleGradient,
                                     // set border width
-                                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(8.0)),
                                   ),
                                   child: Text(
                                     "Vault Value",
@@ -290,14 +312,16 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                               Expanded(
                                 flex: 4,
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: dropDown(),
                                     width: Get.width * .15,
                                     height: Get.height * .03,
                                     decoration: BoxDecoration(
-                                      border: Border.all(color: AppColors.primaryColor),
+                                      border: Border.all(
+                                          color: AppColors.primaryColor),
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
@@ -337,7 +361,8 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   children: [
                                     data.homeVaultModel7D!.sign! == 'decrease'
                                         ? const RotationTransition(
-                                            turns: AlwaysStoppedAnimation(45 / 360),
+                                            turns: AlwaysStoppedAnimation(
+                                                45 / 360),
                                             child: Icon(
                                               Icons.arrow_downward,
                                               size: 18,
@@ -345,7 +370,8 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                             ),
                                           )
                                         : const RotationTransition(
-                                            turns: AlwaysStoppedAnimation(45 / 360),
+                                            turns: AlwaysStoppedAnimation(
+                                                45 / 360),
                                             child: Icon(
                                               Icons.arrow_upward,
                                               size: 18,
@@ -353,12 +379,23 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                             ),
                                           ),
                                     Text(
-                                      data.homeVaultModel7D!.totalPercentChange! < 0.0
-                                          ? data.homeVaultModel7D!.totalPercentChange!.toStringAsFixed(2) + "%"
-                                          : data.homeVaultModel7D!.totalPercentChange!.toStringAsFixed(2) + "%",
+                                      data.homeVaultModel7D!
+                                                  .totalPercentChange! <
+                                              0.0
+                                          ? data.homeVaultModel7D!
+                                                  .totalPercentChange!
+                                                  .toStringAsFixed(2) +
+                                              "%"
+                                          : data.homeVaultModel7D!
+                                                  .totalPercentChange!
+                                                  .toStringAsFixed(2) +
+                                              "%",
                                       textAlign: TextAlign.end,
                                       style: TextStyle(
-                                        color: data.homeVaultModel7D!.sign! == 'decrease' ? Colors.red : Colors.green,
+                                        color: data.homeVaultModel7D!.sign! ==
+                                                'decrease'
+                                            ? Colors.red
+                                            : Colors.green,
                                         fontFamily: 'Inter',
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14.sp,
@@ -379,16 +416,19 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                           ),
                           SizedBox(
                             height: Get.height * .12,
-                            child: data.homeVaultModel7D!.homeVaultModelGraph7D != null
+                            child: data.homeVaultModel7D!
+                                        .homeVaultModelGraph7D !=
+                                    null
                                 ? SfCartesianChart(
-                                    plotAreaBorderWidth: 0,
                                     margin: EdgeInsets.zero,
+                                    plotAreaBorderWidth: 0,
                                     primaryXAxis: CategoryAxis(
                                       plotOffset: -8,
-                                      axisLine: const AxisLine(width: 0),
                                       isVisible: false,
-                                      majorGridLines: const MajorGridLines(width: 0),
-                                      labelIntersectAction: AxisLabelIntersectAction.hide,
+                                      majorGridLines:
+                                          const MajorGridLines(width: 0),
+                                      labelIntersectAction:
+                                          AxisLabelIntersectAction.hide,
                                       labelRotation: 270,
                                       labelAlignment: LabelAlignment.start,
                                       maximumLabels: 7,
@@ -396,24 +436,37 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                     ),
                                     primaryYAxis: NumericAxis(
                                       numberFormat: NumberFormat.compact(),
-                                      axisLine: const AxisLine(width: 0),
                                       isVisible: false,
-                                      majorGridLines: const MajorGridLines(width: 0),
-                                      labelIntersectAction: AxisLabelIntersectAction.hide,
+                                      majorGridLines:
+                                          const MajorGridLines(width: 0),
+                                      labelIntersectAction:
+                                          AxisLabelIntersectAction.hide,
                                       labelRotation: 0,
                                       labelAlignment: LabelAlignment.start,
                                       maximumLabels: 10,
                                     ),
-                                    series: <ChartSeries<HomeVaultModelGraph7D, String>>[
-                                      SplineAreaSeries<HomeVaultModelGraph7D, String>(
-                                        color: data.homeVaultModel7D!.sign! == 'decrease' ? Colors.red : Colors.green,
+                                    series: <
+                                        ChartSeries<HomeVaultModelGraph7D,
+                                            String>>[
+                                      SplineAreaSeries<HomeVaultModelGraph7D,
+                                          String>(
+                                        color: data.homeVaultModel7D!.sign! ==
+                                                'decrease'
+                                            ? Colors.red
+                                            : Colors.green,
                                         gradient: AppColors.graphGradient,
-                                        dataSource: data.homeVaultModel7D!.homeVaultModelGraph7D!,
-                                        xValueMapper: (HomeVaultModelGraph7D plot, _) => plot.hour,
-                                        yValueMapper: (HomeVaultModelGraph7D plot, _) => plot.total,
+                                        dataSource: data.homeVaultModel7D!
+                                            .homeVaultModelGraph7D!,
+                                        xValueMapper:
+                                            (HomeVaultModelGraph7D plot, _) =>
+                                                plot.hour,
+                                        yValueMapper:
+                                            (HomeVaultModelGraph7D plot, _) =>
+                                                plot.total,
                                         xAxisName: 'Duration',
                                         yAxisName: 'Total',
-                                        dataLabelSettings: const DataLabelSettings(
+                                        dataLabelSettings:
+                                            const DataLabelSettings(
                                           isVisible: false,
                                           angle: 270,
                                         ),
@@ -445,16 +498,18 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                       decoration: BoxDecoration(
                                         gradient: AppColors.purpleGradient,
                                         // set border width
-                                        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(8.0)),
                                       ),
                                       child: Text(
                                         "Vault Value",
                                         textAlign: TextAlign.start,
-                                        style: Get.textTheme.bodyText2!.copyWith(
-                                            color: AppColors.textColor,
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 14.sp),
+                                        style: Get.textTheme.bodyText2!
+                                            .copyWith(
+                                                color: AppColors.textColor,
+                                                fontFamily: 'Inter',
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14.sp),
                                       ),
                                     ),
                                   ),
@@ -469,11 +524,12 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                       child: Text(
                                         '\$${data.homeVaultModel30D!.totalPriceChange != null ? data.homeVaultModel30D!.totalPriceChange!.toStringAsFixed(2) : "0.0"}',
                                         textAlign: TextAlign.start,
-                                        style: Get.textTheme.bodyText2!.copyWith(
-                                            color: AppColors.white,
-                                            //fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 14.sp),
+                                        style:
+                                            Get.textTheme.bodyText2!.copyWith(
+                                                color: AppColors.white,
+                                                //fontFamily: 'Inter',
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14.sp),
                                       ),
                                     ),
                                   ),
@@ -484,15 +540,18 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   Expanded(
                                     flex: 4,
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: dropDown(),
                                         width: Get.width * .15,
                                         height: Get.height * .03,
                                         decoration: BoxDecoration(
-                                          border: Border.all(color: AppColors.primaryColor),
-                                          borderRadius: BorderRadius.circular(8.0),
+                                          border: Border.all(
+                                              color: AppColors.primaryColor),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
                                         ),
                                       ),
                                     ),
@@ -512,11 +571,12 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                       child: Text(
                                         '\$${data.homeVaultModel30D!.totalVaultValue != null ? data.homeVaultModel30D!.totalVaultValue!.toStringAsFixed(2) : "0.0"}',
                                         textAlign: TextAlign.start,
-                                        style: Get.textTheme.bodyText2!.copyWith(
-                                            color: AppColors.greyWhite,
-                                            // fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 14.sp),
+                                        style:
+                                            Get.textTheme.bodyText2!.copyWith(
+                                                color: AppColors.greyWhite,
+                                                // fontFamily: 'Inter',
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14.sp),
                                       ),
                                     ),
                                   ),
@@ -527,11 +587,14 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   Expanded(
                                     flex: 6,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        data.homeVaultModel30D!.sign! == 'decrease'
+                                        data.homeVaultModel30D!.sign! ==
+                                                'decrease'
                                             ? const RotationTransition(
-                                                turns: AlwaysStoppedAnimation(45 / 360),
+                                                turns: AlwaysStoppedAnimation(
+                                                    45 / 360),
                                                 child: Icon(
                                                   Icons.arrow_downward,
                                                   size: 18,
@@ -539,7 +602,8 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                                 ),
                                               )
                                             : const RotationTransition(
-                                                turns: AlwaysStoppedAnimation(45 / 360),
+                                                turns: AlwaysStoppedAnimation(
+                                                    45 / 360),
                                                 child: Icon(
                                                   Icons.arrow_upward,
                                                   size: 18,
@@ -547,13 +611,24 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                                 ),
                                               ),
                                         Text(
-                                          data.homeVaultModel30D!.totalPercentChange! < 0.0
-                                              ? data.homeVaultModel30D!.totalPercentChange!.toStringAsFixed(2) + "%"
-                                              : data.homeVaultModel30D!.totalPercentChange!.toStringAsFixed(2) + "%",
+                                          data.homeVaultModel30D!
+                                                      .totalPercentChange! <
+                                                  0.0
+                                              ? data.homeVaultModel30D!
+                                                      .totalPercentChange!
+                                                      .toStringAsFixed(2) +
+                                                  "%"
+                                              : data.homeVaultModel30D!
+                                                      .totalPercentChange!
+                                                      .toStringAsFixed(2) +
+                                                  "%",
                                           textAlign: TextAlign.end,
                                           style: TextStyle(
                                             color:
-                                                data.homeVaultModel30D!.sign! == 'decrease' ? Colors.red : Colors.green,
+                                                data.homeVaultModel30D!.sign! ==
+                                                        'decrease'
+                                                    ? Colors.red
+                                                    : Colors.green,
                                             fontFamily: 'Inter',
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14.sp,
@@ -574,42 +649,61 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                               ),
                               SizedBox(
                                 height: Get.height * .12,
-                                child: data.homeVaultModel30D!.homeVaultModelGraph30D != null
+                                child: data.homeVaultModel30D!
+                                            .homeVaultModelGraph30D !=
+                                        null
                                     ? SfCartesianChart(
-                                        plotAreaBorderWidth: 0,
                                         margin: EdgeInsets.zero,
+                                        plotAreaBorderWidth: 0,
                                         primaryXAxis: CategoryAxis(
                                           plotOffset: -8,
-                                          axisLine: const AxisLine(width: 0),
                                           isVisible: false,
-                                          majorGridLines: const MajorGridLines(width: 0),
-                                          labelIntersectAction: AxisLabelIntersectAction.hide,
+                                          majorGridLines:
+                                              const MajorGridLines(width: 0),
+                                          labelIntersectAction:
+                                              AxisLabelIntersectAction.hide,
                                           labelRotation: 270,
                                           labelAlignment: LabelAlignment.start,
                                           maximumLabels: 7,
-                                          labelPlacement: LabelPlacement.onTicks,
+                                          labelPlacement:
+                                              LabelPlacement.onTicks,
                                         ),
                                         primaryYAxis: NumericAxis(
                                           numberFormat: NumberFormat.compact(),
-                                          axisLine: const AxisLine(width: 0),
                                           isVisible: false,
-                                          majorGridLines: const MajorGridLines(width: 0),
-                                          labelIntersectAction: AxisLabelIntersectAction.hide,
+                                          majorGridLines:
+                                              const MajorGridLines(width: 0),
+                                          labelIntersectAction:
+                                              AxisLabelIntersectAction.hide,
                                           labelRotation: 0,
                                           labelAlignment: LabelAlignment.start,
                                           maximumLabels: 10,
                                         ),
-                                        series: <ChartSeries<HomeVaultModelGraph30D, String>>[
-                                          SplineAreaSeries<HomeVaultModelGraph30D, String>(
+                                        series: <
+                                            ChartSeries<HomeVaultModelGraph30D,
+                                                String>>[
+                                          SplineAreaSeries<
+                                              HomeVaultModelGraph30D, String>(
                                             color:
-                                                data.homeVaultModel30D!.sign! == 'decrease' ? Colors.red : Colors.green,
+                                                data.homeVaultModel30D!.sign! ==
+                                                        'decrease'
+                                                    ? Colors.red
+                                                    : Colors.green,
                                             gradient: AppColors.graphGradient,
-                                            dataSource: data.homeVaultModel30D!.homeVaultModelGraph30D!,
-                                            xValueMapper: (HomeVaultModelGraph30D plot, _) => plot.hour,
-                                            yValueMapper: (HomeVaultModelGraph30D plot, _) => plot.total,
+                                            dataSource: data.homeVaultModel30D!
+                                                .homeVaultModelGraph30D!,
+                                            xValueMapper:
+                                                (HomeVaultModelGraph30D plot,
+                                                        _) =>
+                                                    plot.hour,
+                                            yValueMapper:
+                                                (HomeVaultModelGraph30D plot,
+                                                        _) =>
+                                                    plot.total,
                                             xAxisName: 'Duration',
                                             yAxisName: 'Total',
-                                            dataLabelSettings: const DataLabelSettings(
+                                            dataLabelSettings:
+                                                const DataLabelSettings(
                                               isVisible: false,
                                               angle: 270,
                                             ),
@@ -641,16 +735,19 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                           decoration: BoxDecoration(
                                             gradient: AppColors.purpleGradient,
                                             // set border width
-                                            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(8.0)),
                                           ),
                                           child: Text(
                                             "Vault Value",
                                             textAlign: TextAlign.start,
-                                            style: Get.textTheme.bodyText2!.copyWith(
-                                                color: AppColors.textColor,
-                                                fontFamily: 'Inter',
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14.sp),
+                                            style: Get.textTheme.bodyText2!
+                                                .copyWith(
+                                                    color: AppColors.textColor,
+                                                    fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 14.sp),
                                           ),
                                         ),
                                       ),
@@ -665,11 +762,12 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                           child: Text(
                                             '\$${data.homeVaultModel60D!.totalPriceChange != null ? data.homeVaultModel60D!.totalPriceChange!.toStringAsFixed(2) : "0.0"}',
                                             textAlign: TextAlign.start,
-                                            style: Get.textTheme.bodyText2!.copyWith(
-                                                color: AppColors.white,
-                                                //fontFamily: 'Inter',
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14.sp),
+                                            style: Get.textTheme.bodyText2!
+                                                .copyWith(
+                                                    color: AppColors.white,
+                                                    //fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 14.sp),
                                           ),
                                         ),
                                       ),
@@ -680,15 +778,19 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                       Expanded(
                                         flex: 4,
                                         child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
                                           child: Container(
                                             alignment: Alignment.center,
                                             child: dropDown(),
                                             width: Get.width * .15,
                                             height: Get.height * .03,
                                             decoration: BoxDecoration(
-                                              border: Border.all(color: AppColors.primaryColor),
-                                              borderRadius: BorderRadius.circular(8.0),
+                                              border: Border.all(
+                                                  color:
+                                                      AppColors.primaryColor),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
                                             ),
                                           ),
                                         ),
@@ -708,11 +810,12 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                           child: Text(
                                             '\$${data.homeVaultModel60D!.totalVaultValue != null ? data.homeVaultModel60D!.totalVaultValue!.toStringAsFixed(2) : "0.0"}',
                                             textAlign: TextAlign.start,
-                                            style: Get.textTheme.bodyText2!.copyWith(
-                                                color: AppColors.greyWhite,
-                                                // fontFamily: 'Inter',
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14.sp),
+                                            style: Get.textTheme.bodyText2!
+                                                .copyWith(
+                                                    color: AppColors.greyWhite,
+                                                    // fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 14.sp),
                                           ),
                                         ),
                                       ),
@@ -723,11 +826,15 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                       Expanded(
                                         flex: 6,
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
-                                            data.homeVaultModel60D!.sign! == 'decrease'
+                                            data.homeVaultModel60D!.sign! ==
+                                                    'decrease'
                                                 ? const RotationTransition(
-                                                    turns: AlwaysStoppedAnimation(45 / 360),
+                                                    turns:
+                                                        AlwaysStoppedAnimation(
+                                                            45 / 360),
                                                     child: Icon(
                                                       Icons.arrow_downward,
                                                       size: 18,
@@ -735,7 +842,9 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                                     ),
                                                   )
                                                 : const RotationTransition(
-                                                    turns: AlwaysStoppedAnimation(45 / 360),
+                                                    turns:
+                                                        AlwaysStoppedAnimation(
+                                                            45 / 360),
                                                     child: Icon(
                                                       Icons.arrow_upward,
                                                       size: 18,
@@ -743,13 +852,22 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                                     ),
                                                   ),
                                             Text(
-                                              data.homeVaultModel60D!.totalPercentChange! < 0.0
-                                                  ? data.homeVaultModel60D!.totalPercentChange!.toStringAsFixed(2) + "%"
-                                                  : data.homeVaultModel60D!.totalPercentChange!.toStringAsFixed(2) +
+                                              data.homeVaultModel60D!
+                                                          .totalPercentChange! <
+                                                      0.0
+                                                  ? data.homeVaultModel60D!
+                                                          .totalPercentChange!
+                                                          .toStringAsFixed(2) +
+                                                      "%"
+                                                  : data.homeVaultModel60D!
+                                                          .totalPercentChange!
+                                                          .toStringAsFixed(2) +
                                                       "%",
                                               textAlign: TextAlign.end,
                                               style: TextStyle(
-                                                color: data.homeVaultModel60D!.sign! == 'decrease'
+                                                color: data.homeVaultModel60D!
+                                                            .sign! ==
+                                                        'decrease'
                                                     ? Colors.red
                                                     : Colors.green,
                                                 fontFamily: 'Inter',
@@ -772,47 +890,77 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   ),
                                   SizedBox(
                                     height: Get.height * .12,
-                                    child: data.homeVaultModel60D!.homeVaultModelGraph60D != null
+                                    child: data.homeVaultModel60D!
+                                                .homeVaultModelGraph60D !=
+                                            null
                                         ? SfCartesianChart(
-                                            plotAreaBorderWidth: 0,
                                             margin: EdgeInsets.zero,
+                                            plotAreaBorderWidth: 0,
                                             primaryXAxis: CategoryAxis(
                                               plotOffset: -8,
-                                              axisLine: const AxisLine(width: 0),
                                               isVisible: false,
-                                              majorGridLines: const MajorGridLines(width: 0),
-                                              labelIntersectAction: AxisLabelIntersectAction.hide,
+                                              majorGridLines:
+                                                  const MajorGridLines(
+                                                      width: 0),
+                                              labelIntersectAction:
+                                                  AxisLabelIntersectAction.hide,
                                               labelRotation: 270,
-                                              labelAlignment: LabelAlignment.start,
+                                              labelAlignment:
+                                                  LabelAlignment.start,
                                               maximumLabels: 7,
-                                              labelPlacement: LabelPlacement.onTicks,
+                                              labelPlacement:
+                                                  LabelPlacement.onTicks,
                                             ),
                                             primaryYAxis: NumericAxis(
-                                              numberFormat: NumberFormat.compact(),
-                                              axisLine: const AxisLine(width: 0),
+                                              numberFormat:
+                                                  NumberFormat.compact(),
                                               isVisible: false,
-                                              majorGridLines: const MajorGridLines(width: 0),
-                                              labelIntersectAction: AxisLabelIntersectAction.hide,
+                                              majorGridLines:
+                                                  const MajorGridLines(
+                                                      width: 0),
+                                              labelIntersectAction:
+                                                  AxisLabelIntersectAction.hide,
                                               labelRotation: 0,
-                                              labelAlignment: LabelAlignment.start,
+                                              labelAlignment:
+                                                  LabelAlignment.start,
                                               maximumLabels: 10,
                                             ),
-                                            series: <ChartSeries<HomeVaultModelGraph60D, String>>[
-                                              SplineAreaSeries<HomeVaultModelGraph60D, String>(
-                                                color: data.homeVaultModel60D!.sign! == 'decrease'
+                                            series: <
+                                                ChartSeries<
+                                                    HomeVaultModelGraph60D,
+                                                    String>>[
+                                              SplineAreaSeries<
+                                                  HomeVaultModelGraph60D,
+                                                  String>(
+                                                color: data.homeVaultModel60D!
+                                                            .sign! ==
+                                                        'decrease'
                                                     ? Colors.red
                                                     : Colors.green,
-                                                gradient: AppColors.graphGradient,
-                                                dataSource: data.homeVaultModel60D!.homeVaultModelGraph60D!,
-                                                xValueMapper: (HomeVaultModelGraph60D plot, _) => plot.hour,
-                                                yValueMapper: (HomeVaultModelGraph60D plot, _) => plot.total,
+                                                gradient:
+                                                    AppColors.graphGradient,
+                                                dataSource: data
+                                                    .homeVaultModel60D!
+                                                    .homeVaultModelGraph60D!,
+                                                xValueMapper:
+                                                    (HomeVaultModelGraph60D
+                                                                plot,
+                                                            _) =>
+                                                        plot.hour,
+                                                yValueMapper:
+                                                    (HomeVaultModelGraph60D
+                                                                plot,
+                                                            _) =>
+                                                        plot.total,
                                                 xAxisName: 'Duration',
                                                 yAxisName: 'Total',
-                                                dataLabelSettings: const DataLabelSettings(
+                                                dataLabelSettings:
+                                                    const DataLabelSettings(
                                                   isVisible: false,
                                                   angle: 270,
                                                 ),
-                                                splineType: SplineType.monotonic,
+                                                splineType:
+                                                    SplineType.monotonic,
                                                 cardinalSplineTension: 0.3,
                                               )
                                             ],
@@ -839,16 +987,19 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                           decoration: BoxDecoration(
                                             gradient: AppColors.purpleGradient,
                                             // set border width
-                                            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(8.0)),
                                           ),
                                           child: Text(
                                             "Vault Value",
                                             textAlign: TextAlign.start,
-                                            style: Get.textTheme.bodyText2!.copyWith(
-                                                color: AppColors.textColor,
-                                                fontFamily: 'Inter',
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14.sp),
+                                            style: Get.textTheme.bodyText2!
+                                                .copyWith(
+                                                    color: AppColors.textColor,
+                                                    fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 14.sp),
                                           ),
                                         ),
                                       ),
@@ -863,11 +1014,12 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                           child: Text(
                                             '\$${data.homeVaultModel1Y!.totalPriceChange != null ? data.homeVaultModel1Y!.totalPriceChange!.toStringAsFixed(2) : "0.0"}',
                                             textAlign: TextAlign.start,
-                                            style: Get.textTheme.bodyText2!.copyWith(
-                                                color: AppColors.white,
-                                                //fontFamily: 'Inter',
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14.sp),
+                                            style: Get.textTheme.bodyText2!
+                                                .copyWith(
+                                                    color: AppColors.white,
+                                                    //fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 14.sp),
                                           ),
                                         ),
                                       ),
@@ -878,15 +1030,19 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                       Expanded(
                                         flex: 4,
                                         child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
                                           child: Container(
                                             alignment: Alignment.center,
                                             child: dropDown(),
                                             width: Get.width * .15,
                                             height: Get.height * .03,
                                             decoration: BoxDecoration(
-                                              border: Border.all(color: AppColors.primaryColor),
-                                              borderRadius: BorderRadius.circular(8.0),
+                                              border: Border.all(
+                                                  color:
+                                                      AppColors.primaryColor),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
                                             ),
                                           ),
                                         ),
@@ -906,11 +1062,12 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                           child: Text(
                                             '\$${data.homeVaultModel1Y!.totalVaultValue != null ? data.homeVaultModel1Y!.totalVaultValue!.toStringAsFixed(2) : "0.0"}',
                                             textAlign: TextAlign.start,
-                                            style: Get.textTheme.bodyText2!.copyWith(
-                                                color: AppColors.greyWhite,
-                                                // fontFamily: 'Inter',
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14.sp),
+                                            style: Get.textTheme.bodyText2!
+                                                .copyWith(
+                                                    color: AppColors.greyWhite,
+                                                    // fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 14.sp),
                                           ),
                                         ),
                                       ),
@@ -921,11 +1078,15 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                       Expanded(
                                         flex: 6,
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
-                                            data.homeVaultModel1Y!.sign! == 'decrease'
+                                            data.homeVaultModel1Y!.sign! ==
+                                                    'decrease'
                                                 ? const RotationTransition(
-                                                    turns: AlwaysStoppedAnimation(45 / 360),
+                                                    turns:
+                                                        AlwaysStoppedAnimation(
+                                                            45 / 360),
                                                     child: Icon(
                                                       Icons.arrow_downward,
                                                       size: 18,
@@ -933,7 +1094,9 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                                     ),
                                                   )
                                                 : const RotationTransition(
-                                                    turns: AlwaysStoppedAnimation(45 / 360),
+                                                    turns:
+                                                        AlwaysStoppedAnimation(
+                                                            45 / 360),
                                                     child: Icon(
                                                       Icons.arrow_upward,
                                                       size: 18,
@@ -941,12 +1104,22 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                                     ),
                                                   ),
                                             Text(
-                                              data.homeVaultModel1Y!.totalPercentChange! < 0.0
-                                                  ? data.homeVaultModel1Y!.totalPercentChange!.toStringAsFixed(2) + "%"
-                                                  : data.homeVaultModel1Y!.totalPercentChange!.toStringAsFixed(2) + "%",
+                                              data.homeVaultModel1Y!
+                                                          .totalPercentChange! <
+                                                      0.0
+                                                  ? data.homeVaultModel1Y!
+                                                          .totalPercentChange!
+                                                          .toStringAsFixed(2) +
+                                                      "%"
+                                                  : data.homeVaultModel1Y!
+                                                          .totalPercentChange!
+                                                          .toStringAsFixed(2) +
+                                                      "%",
                                               textAlign: TextAlign.end,
                                               style: TextStyle(
-                                                color: data.homeVaultModel1Y!.sign! == 'decrease'
+                                                color: data.homeVaultModel1Y!
+                                                            .sign! ==
+                                                        'decrease'
                                                     ? Colors.red
                                                     : Colors.green,
                                                 fontFamily: 'Inter',
@@ -969,47 +1142,75 @@ class _HomeVaultCardState extends State<HomeVaultCard> {
                                   ),
                                   SizedBox(
                                     height: Get.height * .12,
-                                    child: data.homeVaultModel1Y!.homeVaultModelGraph1Y != null
+                                    child: data.homeVaultModel1Y!
+                                                .homeVaultModelGraph1Y !=
+                                            null
                                         ? SfCartesianChart(
-                                            plotAreaBorderWidth: 0,
                                             margin: EdgeInsets.zero,
+                                            plotAreaBorderWidth: 0,
                                             primaryXAxis: CategoryAxis(
                                               plotOffset: -8,
-                                              axisLine: const AxisLine(width: 0),
                                               isVisible: false,
-                                              majorGridLines: const MajorGridLines(width: 0),
-                                              labelIntersectAction: AxisLabelIntersectAction.hide,
+                                              majorGridLines:
+                                                  const MajorGridLines(
+                                                      width: 0),
+                                              labelIntersectAction:
+                                                  AxisLabelIntersectAction.hide,
                                               labelRotation: 270,
-                                              labelAlignment: LabelAlignment.start,
+                                              labelAlignment:
+                                                  LabelAlignment.start,
                                               maximumLabels: 7,
-                                              labelPlacement: LabelPlacement.onTicks,
+                                              labelPlacement:
+                                                  LabelPlacement.onTicks,
                                             ),
                                             primaryYAxis: NumericAxis(
-                                              numberFormat: NumberFormat.compact(),
-                                              axisLine: const AxisLine(width: 0),
+                                              numberFormat:
+                                                  NumberFormat.compact(),
                                               isVisible: false,
-                                              majorGridLines: const MajorGridLines(width: 0),
-                                              labelIntersectAction: AxisLabelIntersectAction.hide,
+                                              majorGridLines:
+                                                  const MajorGridLines(
+                                                      width: 0),
+                                              labelIntersectAction:
+                                                  AxisLabelIntersectAction.hide,
                                               labelRotation: 0,
-                                              labelAlignment: LabelAlignment.start,
+                                              labelAlignment:
+                                                  LabelAlignment.start,
                                               maximumLabels: 10,
                                             ),
-                                            series: <ChartSeries<HomeVaultModelGraph1Y, String>>[
-                                              SplineAreaSeries<HomeVaultModelGraph1Y, String>(
-                                                color: data.homeVaultModel1Y!.sign! == 'decrease'
+                                            series: <
+                                                ChartSeries<
+                                                    HomeVaultModelGraph1Y,
+                                                    String>>[
+                                              SplineAreaSeries<
+                                                  HomeVaultModelGraph1Y,
+                                                  String>(
+                                                color: data.homeVaultModel1Y!
+                                                            .sign! ==
+                                                        'decrease'
                                                     ? Colors.red
                                                     : Colors.green,
-                                                gradient: AppColors.graphGradient,
-                                                dataSource: data.homeVaultModel1Y!.homeVaultModelGraph1Y!,
-                                                xValueMapper: (HomeVaultModelGraph1Y plot, _) => plot.hour,
-                                                yValueMapper: (HomeVaultModelGraph1Y plot, _) => plot.total,
+                                                gradient:
+                                                    AppColors.graphGradient,
+                                                dataSource: data
+                                                    .homeVaultModel1Y!
+                                                    .homeVaultModelGraph1Y!,
+                                                xValueMapper:
+                                                    (HomeVaultModelGraph1Y plot,
+                                                            _) =>
+                                                        plot.hour,
+                                                yValueMapper:
+                                                    (HomeVaultModelGraph1Y plot,
+                                                            _) =>
+                                                        plot.total,
                                                 xAxisName: 'Duration',
                                                 yAxisName: 'Total',
-                                                dataLabelSettings: const DataLabelSettings(
+                                                dataLabelSettings:
+                                                    const DataLabelSettings(
                                                   isVisible: false,
                                                   angle: 270,
                                                 ),
-                                                splineType: SplineType.monotonic,
+                                                splineType:
+                                                    SplineType.monotonic,
                                                 cardinalSplineTension: 0.3,
                                               )
                                             ],

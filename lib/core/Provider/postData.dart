@@ -853,6 +853,18 @@ class PostData extends ChangeNotifier with BaseController {
       if(origin == 'details'){
         getData!.getSingleProduct(id);
       }
+      if(origin == 'collectible'){
+        getData!.getCollectibles();
+      }
+      if(origin == 'comics'){
+        getData!.getComics();
+      }
+      if(origin == 'search_collectible'){
+        getData!.searchCollectibles();
+      }
+      if(origin == 'search_comics'){
+        getData!.searchComics();
+      }
 
       showDialog(
           context: context,
@@ -908,14 +920,26 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 201) {
 
 
-      if(origin! == 'allalert'){
+      if(origin == 'allalert'){
         getData!.getAlert();
       }
       if(origin == 'wishlist'){
         getData!.getWishList();
       }
       if(origin == 'details'){
-        getData!.getSingleProduct(pid);
+        getData!.getSingleProduct(id);
+      }
+      if(origin == 'collectible'){
+        getData!.getCollectibles();
+      }
+      if(origin == 'comics'){
+        getData!.getComics();
+      }
+      if(origin == 'search_collectible'){
+        getData!.searchCollectibles();
+      }
+      if(origin == 'search_comics'){
+        getData!.searchComics();
       }
 
       showDialog(
@@ -930,6 +954,7 @@ class PostData extends ChangeNotifier with BaseController {
         Navigator.of(context).pop();
         Navigator.of(context).pop();
       }
+
     } else {
       showDialog(
           context: context,

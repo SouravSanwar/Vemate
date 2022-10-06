@@ -349,7 +349,7 @@ class _MarketState extends State<Market> {
                         PopupMenuItem(
                           value: 7,
                           child: Text(
-                            'Mint',
+                            'Low Mints',
                             style: TextStyle(
                               color: mintCollectibleSwitch == true ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',
@@ -388,10 +388,7 @@ class _MarketState extends State<Market> {
                             mintComicSwitch = !mintComicSwitch!;
                             if (mintComicSwitch == true) {
                               comicMintValue = '0';
-
-                              print(mintComicSwitch.toString());
                             } else {
-                              print(mintComicSwitch.toString());
                               comicMintValue = '';
                               comicRarity = '';
                               comicFilterOn = false;
@@ -492,7 +489,7 @@ class _MarketState extends State<Market> {
                         PopupMenuItem(
                           value: 7,
                           child: Text(
-                            'Mint',
+                            'Low Mints',
                             style: TextStyle(
                               color: mintComicSwitch == true ? AppColors.primaryColor : AppColors.textColor,
                               fontFamily: 'Inter',

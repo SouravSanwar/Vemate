@@ -4,6 +4,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
+import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -112,6 +113,16 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                     floorPrice: data.comicsModel!
                                         .results![index].floorPrice == null ? "" :data.comicsModel!
                                         .results![index].floorPrice!,
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (ctx) =>
+                                            ShowAlertBox(
+                                              results: data.comicsModel!.results![index],
+                                              origin: 'comics',
+                                            ),
+                                      );
+                                    },
                                     isAlert: data.comicsModel!
                                         .results![index].isProductAlert!,
 
