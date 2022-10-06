@@ -61,9 +61,6 @@ class _WishListPageState extends State<WishListPage> {
   @override
   Widget build(BuildContext context) {
     const StatusBar();
-    Get.put(ControllerPageController());
-
-    SharedPreferenceController.to.getToken();
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,

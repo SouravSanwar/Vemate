@@ -330,6 +330,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
                     postData = Provider.of<PostData>(context, listen: false);
                     postData!.deleteAlert(context, widget.results!.productAlertData![j].id, requestHeadersWithToken,
                         widget.origin, widget.results!.id);
+                    Get.back();
                   },
                   child: Text(
                     widget.results!.productAlertData != null && mintAlert == true ? 'Delete' : "",
