@@ -471,6 +471,7 @@ class _MarketState extends State<Market> {
                           ),
                         ),
                         PopupMenuItem(
+
                           value: 5,
                           child: Text(
                             'Secret Rare',
