@@ -1,38 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel.dart';
+import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel30D.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/vault/vault_comics_lists.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
-import '../../../../core/utilities/app_colors/app_colors.dart';
+import '../../../../../core/utilities/app_colors/app_colors.dart';
 
-class VaultComicsCard extends StatefulWidget {
+class VaultComicsCard30D extends StatefulWidget {
   final Comic? data;
 
-  const VaultComicsCard({Key? key, this.data}) : super(key: key);
+  const VaultComicsCard30D({Key? key, this.data}) : super(key: key);
 
   @override
-  State<VaultComicsCard> createState() => _VaultComicsCardState();
+  State<VaultComicsCard30D> createState() => _VaultComicsCard30DState();
 }
 
-class _VaultComicsCardState extends State<VaultComicsCard> {
+class _VaultComicsCard30DState extends State<VaultComicsCard30D> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
       highlightColor: Colors.transparent,
-      splashColor:Colors.transparent ,
+      splashColor: Colors.transparent,
       focusColor: Colors.transparent,
       onTap: () {
         Get.to(() => const VaultComicsList());
       },
       child: Padding(
-        padding: EdgeInsets.only(
-            left: 6,
-            right: 10,
-            top: Get.height * .0167,
-            bottom: Get.height * .0334),
+        padding: EdgeInsets.only(left: 6, right: 10, top: Get.height * .0167, bottom: Get.height * .0334),
         child: Container(
             width: Get.width,
             decoration: BoxDecoration(
@@ -60,9 +56,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                         AppSpaces.spaces_height_5,
                         Text(
                           '\$' + widget.data!.totalComicValue!.toString(),
-                          style: TextStyle(
-                              color: AppColors.greyWhite,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: AppColors.greyWhite, fontWeight: FontWeight.bold),
                         ),
                         AppSpaces.spaces_height_30,
                         Text(
@@ -82,8 +76,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                 Expanded(
                   flex: 6,
                   child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, top: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 20, top: 10, right: 10),
                     child: Column(
                       children: [
                         SizedBox(
@@ -91,46 +84,38 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                           child: widget.data!.comicGraph == null
                               ? Container()
                               : SizedBox(
-                                  height: Get.height * .05,
-                                  child: SfCartesianChart(
-                                    plotAreaBorderWidth: 0,
-                                    primaryXAxis: CategoryAxis(
-                                      isVisible: false,
-                                      majorGridLines:
-                                          const MajorGridLines(width: 0),
-                                      labelIntersectAction:
-                                          AxisLabelIntersectAction.hide,
-                                      labelRotation: 270,
-                                      labelAlignment: LabelAlignment.start,
-                                      maximumLabels: 7,
-                                    ),
-                                    primaryYAxis: NumericAxis(
-                                      numberFormat: NumberFormat.compact(),
-                                      isVisible: false,
-                                      majorGridLines:
-                                          const MajorGridLines(width: 0),
-                                      labelIntersectAction:
-                                          AxisLabelIntersectAction.hide,
-                                      labelRotation: 0,
-                                      labelAlignment: LabelAlignment.start,
-                                      maximumLabels: 10,
-                                    ),
-                                    series: <ChartSeries<ComicGraph, String>>[
-                                      LineSeries<ComicGraph, String>(
-                                        color: widget.data!.sign! == 'decrease'
-                                            ? Colors.red
-                                            : Colors.green,
-                                        dataSource: widget.data!.comicGraph!,
-                                        xValueMapper: (ComicGraph plot, _) =>
-                                            plot.hour,
-                                        yValueMapper: (ComicGraph plot, _) =>
-                                            plot.total,
-                                        xAxisName: 'Duration',
-                                        yAxisName: 'Total',
-                                      )
-                                    ],
-                                  ),
-                                ),
+                            height: Get.height * .05,
+                            child: SfCartesianChart(
+                              plotAreaBorderWidth: 0,
+                              primaryXAxis: CategoryAxis(
+                                isVisible: false,
+                                majorGridLines: const MajorGridLines(width: 0),
+                                labelIntersectAction: AxisLabelIntersectAction.hide,
+                                labelRotation: 270,
+                                labelAlignment: LabelAlignment.start,
+                                maximumLabels: 7,
+                              ),
+                              primaryYAxis: NumericAxis(
+                                numberFormat: NumberFormat.compact(),
+                                isVisible: false,
+                                majorGridLines: const MajorGridLines(width: 0),
+                                labelIntersectAction: AxisLabelIntersectAction.hide,
+                                labelRotation: 0,
+                                labelAlignment: LabelAlignment.start,
+                                maximumLabels: 10,
+                              ),
+                              series: <ChartSeries<ComicGraph, String>>[
+                                LineSeries<ComicGraph, String>(
+                                  color: widget.data!.sign! == 'decrease' ? Colors.red : Colors.green,
+                                  dataSource: widget.data!.comicGraph!,
+                                  xValueMapper: (ComicGraph plot, _) => plot.hour,
+                                  yValueMapper: (ComicGraph plot, _) => plot.total,
+                                  xAxisName: 'Duration',
+                                  yAxisName: 'Total',
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                         SizedBox(
                           height: Get.height * .038,
@@ -154,16 +139,12 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                                   ),
                                   Text(
                                     widget.data!.changePercent != null
-                                        ? widget.data!.changePercent
-                                                .toStringAsFixed(2) +
-                                            "%"
+                                        ? widget.data!.changePercent.toStringAsFixed(2) + "%"
                                         : "0.0"
-                                            "%",
+                                        "%",
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
-                                        color: widget.data!.sign == 'decrease'
-                                            ? Colors.red
-                                            : Colors.green,
+                                        color: widget.data!.sign == 'decrease' ? Colors.red : Colors.green,
                                         fontFamily: 'Inter',
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14.sp),

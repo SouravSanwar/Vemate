@@ -13,10 +13,14 @@ import 'package:ketemaa/features/vault/VaultCards/seven_day_card.dart';
 import 'package:ketemaa/features/vault/VaultCards/sixty_day_card.dart';
 import 'package:ketemaa/features/vault/VaultCards/thirty_day_card.dart';
 import 'package:ketemaa/features/vault/VaultCollectibleCards/vault_collectible_card_1Y.dart';
+import 'package:ketemaa/features/vault/VaultComicCards/vault_comic_card_1Y.dart';
+import 'package:ketemaa/features/vault/VaultComicCards/vault_comic_card_30D.dart';
+import 'package:ketemaa/features/vault/VaultComicCards/vault_comic_card_60D.dart';
+import 'package:ketemaa/features/vault/VaultComicCards/vault_comic_card_7D.dart';
 import 'package:ketemaa/features/vault/dropdown.dart';
 import 'package:ketemaa/features/vault/VaultCollectibleCards/vaule_collectibles_card.dart';
 import 'package:ketemaa/features/vault/VaultCards/vault_card.dart';
-import 'package:ketemaa/features/vault/vault_comics_card.dart';
+import 'package:ketemaa/features/vault/VaultComicCards/vault_comics_card.dart';
 import 'package:ketemaa/features/vault/Wishlist/my_wishlist_page.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -127,7 +131,7 @@ class _VaultState extends State<Vault> {
                                       ? VaultCollectiblesCard30D(
                                           data: data.vaultStatsModel30D!.collectible,
                                         )
-                                      : vaultSelectDropDownIndex == 2
+                                      : vaultSelectDropDownIndex == 3
                                           ? VaultCollectiblesCard60D(
                                               data: data.vaultStatsModel60D!.collectible,
                                             )
@@ -147,9 +151,26 @@ class _VaultState extends State<Vault> {
                               ),
                             ),
                           ),
-                          VaultComicsCard(
-                            data: data.vaultStatsModel!.comic,
-                          ),
+
+                          vaultSelectDropDownIndex == 0
+                              ? VaultComicsCard(
+                                  data: data.vaultStatsModel!.comic,
+                                )
+                              : vaultSelectDropDownIndex == 1
+                                  ? VaultComicsCard7D(
+                                      data: data.vaultStatsModel7D!.comic,
+                                    )
+                                  : vaultSelectDropDownIndex == 2
+                                      ? VaultComicsCard30D(
+                                          data: data.vaultStatsModel30D!.comic,
+                                        )
+                                      : vaultSelectDropDownIndex == 3
+                                          ? VaultComicsCard60D(
+                                              data: data.vaultStatsModel60D!.comic,
+                                            )
+                                          : VaultComicsCard1Y(
+                                              data: data.vaultStatsModel1Y!.comic,
+                                            ),
 
                           ///My Vault
                           Row(
