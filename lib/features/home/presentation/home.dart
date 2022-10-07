@@ -52,6 +52,7 @@ class _HomeState extends State<Home> {
     getData!.getNews();
     getData!.getCollectibles(limit: 10);
     getData!.getNotification();
+    getData!.getAlert();
     getData!.getVaultStats();
 
     getData!.getWishList();

@@ -625,6 +625,17 @@ class _ProfileState extends State<Profile> {
                                     fontSize: 15.sp),
                               ),
                               actions: <Widget>[
+
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context); //close Dialog
+                                  },
+                                  child: Text(
+                                    'No',
+                                    style:
+                                        TextStyle(color: AppColors.textColor),
+                                  ),
+                                ),
                                 TextButton(
                                     onPressed: () {
                                       prefs!.clear();
@@ -641,18 +652,8 @@ class _ProfileState extends State<Profile> {
                                     child: Text(
                                       'Yes',
                                       style:
-                                          TextStyle(color: AppColors.greyWhite),
+                                      TextStyle(color: AppColors.greyWhite),
                                     )),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context); //close Dialog
-                                  },
-                                  child: Text(
-                                    'No',
-                                    style:
-                                        TextStyle(color: AppColors.textColor),
-                                  ),
-                                )
                               ],
                             );
                           });

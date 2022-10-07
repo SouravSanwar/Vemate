@@ -18,6 +18,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/features/Designs/update_alert_dialog.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:ketemaa/features/home/notification/system_notification_details.dart';
 import 'package:ketemaa/features/home/presentation/home.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
@@ -69,9 +70,11 @@ class _ControllerPageState extends State<ControllerPage> {
   GetData? getData;
 
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
-  Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  Future<void> _firebaseMessagingBackgroundHandler(
+      RemoteMessage message) async {
     await Firebase.initializeApp();
 
     print("Handling a background message: ${message.messageId}");
@@ -101,15 +104,26 @@ class _ControllerPageState extends State<ControllerPage> {
   Future<void> _firebaseMsg(RemoteMessage message) async {
     print("Handling a background message : ${message.data}");
 
-    productId = int.parse(message.data["id"].toString());
 
-    message.data["type"] == 0
-        ? Get.to(() => CollectibleDetails(
-              productId: productId,
-            ))
-        : Get.to(() => ComicDetails(
-              productId: productId,
-            ));
+    if (message.data["verb"] == "7") {
+
+      Get.to(() => SystemNotificationDetails(
+        title: message.data["title"].toString(),
+        description: message.data["description"].toString(),
+        link: message.data["link"].toString(),
+      ));
+    }
+    else{
+      productId = int.parse(message.data["id"].toString());
+
+      message.data["type"] == 0
+          ? Get.to(() => CollectibleDetails(
+                productId: productId,
+              ))
+          : Get.to(() => ComicDetails(
+                productId: productId,
+              ));
+    }
   }
 
   Future<void> initPlatformState() async {
@@ -130,7 +144,8 @@ class _ControllerPageState extends State<ControllerPage> {
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -152,8 +167,10 @@ class _ControllerPageState extends State<ControllerPage> {
                       ),
                       Text(
                         "Vemate",
-                        style: Get.textTheme.headline1!
-                            .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
+                        style: Get.textTheme.headline1!.copyWith(
+                            color: AppColors.textColor,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
@@ -161,7 +178,8 @@ class _ControllerPageState extends State<ControllerPage> {
                 AppSpaces.spaces_height_10,
                 Text(
                   'Are you sure to exit?',
-                  style: TextStyle(fontFamily: 'Inter', color: AppColors.textColor),
+                  style: TextStyle(
+                      fontFamily: 'Inter', color: AppColors.textColor),
                 ),
                 AppSpaces.spaces_height_10,
                 Row(
@@ -187,7 +205,9 @@ class _ControllerPageState extends State<ControllerPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'No',
-                            style: TextStyle(fontFamily: 'Inter', color: AppColors.textColor),
+                            style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: AppColors.textColor),
                           ),
                         ),
                       ),
@@ -213,7 +233,9 @@ class _ControllerPageState extends State<ControllerPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'Yes',
-                            style: TextStyle(fontFamily: 'Inter', color: AppColors.textColor),
+                            style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: AppColors.textColor),
                           ),
                         ),
                       ),
@@ -253,7 +275,8 @@ class _ControllerPageState extends State<ControllerPage> {
                 setState(() {
                   widget.seletedItem = index;
                   pageController.animateToPage(widget.seletedItem!,
-                      duration: const Duration(milliseconds: 200), curve: Curves.linear);
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.linear);
                 });
               },
               currentIndex: widget.seletedItem,
@@ -282,7 +305,9 @@ class _ControllerPageState extends State<ControllerPage> {
             right: 0,
             child: Consumer<AppUpdate>(builder: (context, data, child) {
               return data.appUpdator != null
-                  ? (int.parse(data.appUpdator!.name!.toString()) > int.parse(VersionControl.packageInfo.buildNumber) &&
+                  ? (int.parse(data.appUpdator!.name!.toString()) >
+                              int.parse(
+                                  VersionControl.packageInfo.buildNumber) &&
                           data.isUpdate == true
                       ? const AppUpdateAlert()
                       : Container())
@@ -343,7 +368,8 @@ class _ControllerPageState extends State<ControllerPage> {
         setState(() {
           widget.seletedItem = index;
           pageController.animateToPage(widget.seletedItem!,
-              duration: const Duration(milliseconds: 200), curve: Curves.linear);
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.linear);
         });
       },
     );
@@ -378,9 +404,11 @@ class _ControllerPageState extends State<ControllerPage> {
 
     var iosDetails = const IOSNotificationDetails();
 
-    var generalNotificationDetails = NotificationDetails(android: androidDetails, iOS: iosDetails);
+    var generalNotificationDetails =
+        NotificationDetails(android: androidDetails, iOS: iosDetails);
 
-    void onDidReceiveLocalNotification(int id, String? title, String? body, String? payload) async {
+    void onDidReceiveLocalNotification(
+        int id, String? title, String? body, String? payload) async {
       showDialog(
           context: context,
           builder: (_) {
@@ -397,7 +425,8 @@ class _ControllerPageState extends State<ControllerPage> {
           });
     }
 
-    var androidInit = const AndroidInitializationSettings('assets/media/icon/logo_v.png');
+    var androidInit =
+        const AndroidInitializationSettings('assets/media/icon/logo_v.png');
 
     final IOSInitializationSettings iosInit = IOSInitializationSettings(
       requestSoundPermission: true,
@@ -406,7 +435,8 @@ class _ControllerPageState extends State<ControllerPage> {
       onDidReceiveLocalNotification: onDidReceiveLocalNotification,
     );
 
-    var initSetting = InitializationSettings(android: androidInit, iOS: iosInit);
+    var initSetting =
+        InitializationSettings(android: androidInit, iOS: iosInit);
 
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.initialize(initSetting);
@@ -421,22 +451,40 @@ class _ControllerPageState extends State<ControllerPage> {
         'Authorization': 'token ${prefs!.getString('token')}',
       };
 
-      if (message.data["type"] == 0) {
+      if (message.data["verb"] == "7") {
+
         setState(() {
-          postData!.notificationRead(context, productId, requestHeadersWithToken);
+          postData!
+              .notificationRead(context, productId, requestHeadersWithToken);
         });
-        Get.to(() => CollectibleDetails(
-              productId: productId,
-            ));
-      } else {
-        setState(() {
-          postData!.notificationRead(context, productId, requestHeadersWithToken);
-        });
-        Get.to(
-          () => ComicDetails(
+        Get.to(() => SystemNotificationDetails(
+          title: message.data["title"].toString(),
+          description: message.data["description"].toString(),
+          link: message.data["link"].toString(),
+        ));
+
+      }
+      else{
+        if (message.data["type"] == 0) {
+          setState(() {
+            postData!
+                .notificationRead(context, productId, requestHeadersWithToken);
+          });
+          Get.to(() => CollectibleDetails(
             productId: productId,
-          ),
-        );
+          ));
+        } else {
+          setState(() {
+            postData!
+                .notificationRead(context, productId, requestHeadersWithToken);
+          });
+          Get.to(
+                () => ComicDetails(
+              productId: productId,
+            ),
+          );
+        }
+
       }
     });
 
@@ -446,8 +494,8 @@ class _ControllerPageState extends State<ControllerPage> {
       AndroidNotification? android = message.notification!.android;
 
       if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode, notification.title, notification.body, generalNotificationDetails);
+        flutterLocalNotificationsPlugin.show(notification.hashCode,
+            notification.title, notification.body, generalNotificationDetails);
       }
     });
 
@@ -462,22 +510,38 @@ class _ControllerPageState extends State<ControllerPage> {
         'Authorization': 'token ${prefs!.getString('token')}',
       };
 
-      if (message.data["type"] == 0) {
+      if (message.data["verb"] == "7"){
         setState(() {
-          postData!.notificationRead(context, productId, requestHeadersWithToken);
+          postData!
+              .notificationRead(context, productId, requestHeadersWithToken);
         });
-        Get.to(() => CollectibleDetails(
-              productId: productId,
-            ));
-      } else {
-        setState(() {
-          postData!.notificationRead(context, productId, requestHeadersWithToken);
-        });
-        Get.to(
-          () => ComicDetails(
+        Get.to(() => SystemNotificationDetails(
+          title: message.data["title"].toString(),
+          description: message.data["description"].toString(),
+          link: message.data["link"].toString(),
+        ));
+      }
+      else{
+        if (message.data["type"] == 0) {
+          setState(() {
+            postData!
+                .notificationRead(context, productId, requestHeadersWithToken);
+          });
+          Get.to(() => CollectibleDetails(
             productId: productId,
-          ),
-        );
+          ));
+        } else {
+          setState(() {
+            postData!
+                .notificationRead(context, productId, requestHeadersWithToken);
+          });
+          Get.to(
+                () => ComicDetails(
+              productId: productId,
+            ),
+          );
+        }
+
       }
     });
 
@@ -493,22 +557,36 @@ class _ControllerPageState extends State<ControllerPage> {
           'Authorization': 'token ${prefs!.getString('token')}',
         };
 
-        if (message.data["type"] == 0) {
+        if (message.data["verb"] == "7") {
           setState(() {
-            postData!.notificationRead(context, productId, requestHeadersWithToken);
+            postData!
+                .notificationRead(context, productId, requestHeadersWithToken);
           });
-          Get.to(() => CollectibleDetails(
-                productId: productId,
-              ));
+          Get.to(() => SystemNotificationDetails(
+            title: message.data["title"].toString(),
+            description: message.data["description"].toString(),
+            link: message.data["link"].toString(),
+          ));
         } else {
-          setState(() {
-            postData!.notificationRead(context, productId, requestHeadersWithToken);
-          });
-          Get.to(
-            () => ComicDetails(
-              productId: productId,
-            ),
-          );
+          if (message.data["type"] == 0) {
+            setState(() {
+              postData!
+                  .notificationRead(context, productId, requestHeadersWithToken);
+            });
+            Get.to(() => CollectibleDetails(
+                  productId: productId,
+                ));
+          } else {
+            setState(() {
+              postData!
+                  .notificationRead(context, productId, requestHeadersWithToken);
+            });
+            Get.to(
+              () => ComicDetails(
+                productId: productId,
+              ),
+            );
+          }
         }
 
         RemoteNotification? notification = message.notification;
@@ -516,8 +594,8 @@ class _ControllerPageState extends State<ControllerPage> {
         AppleNotification? apple = message.notification?.apple;
 
         if (notification != null && android != null && apple != null) {
-          flutterLocalNotificationsPlugin.show(
-              notification.hashCode, notification.title, notification.body, generalNotificationDetails,
+          flutterLocalNotificationsPlugin.show(notification.hashCode,
+              notification.title, notification.body, generalNotificationDetails,
               payload: message.data["type_id"].toString());
 
           showDialog(

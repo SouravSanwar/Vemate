@@ -12,6 +12,7 @@ import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
+import 'package:ketemaa/features/home/notification/system_notification_details.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
@@ -90,7 +91,7 @@ class _AllNotificationListState extends State<AllNotificationList>
               ),
               actions: [
                 notificationSelected == true
-                    ? PopupMenuButton(
+                    ?  PopupMenuButton(
                         color: Colors.transparent,
                         itemBuilder: (ctx) => [
                           _buildPopupMenuItem('Mark all as Read'),
@@ -197,57 +198,88 @@ class _AllNotificationListState extends State<AllNotificationList>
                                                     'token ${prefs!.getString('token')}',
                                               };
 
-                                              if (data
+                                              if (int.parse(data
                                                       .notificationListModel!
                                                       .results![index]
-                                                      .target!
-                                                      .type ==
-                                                  0) {
-                                                setState(() {
-                                                  postData!
-                                                      .notificationRead(
-                                                          context,
-                                                          data
-                                                              .notificationListModel!
-                                                              .results![index]
-                                                              .id,
-                                                          requestHeadersWithToken)
-                                                      .whenComplete(() => data
-                                                          .notificationListModel!
-                                                          .results![index]
-                                                          .unread = false);
-                                                });
-                                                Get.to(() => CollectibleDetails(
+                                                      .verb
+                                                      .toString()) !=
+                                                  7) {
+                                                if (data
+                                                        .notificationListModel!
+                                                        .results![index]
+                                                        .target!
+                                                        .type ==
+                                                    0) {
+                                                  setState(() {
+                                                    postData!
+                                                        .notificationRead(
+                                                            context,
+                                                            data
+                                                                .notificationListModel!
+                                                                .results![index]
+                                                                .id,
+                                                            requestHeadersWithToken)
+                                                        .whenComplete(() => data
+                                                            .notificationListModel!
+                                                            .results![index]
+                                                            .unread = false);
+                                                  });
+                                                  Get.to(
+                                                      () => CollectibleDetails(
+                                                            productId: data
+                                                                .notificationListModel!
+                                                                .results![index]
+                                                                .target!
+                                                                .id,
+                                                            fromNotification: 1,
+                                                          ));
+                                                } else {
+                                                  setState(() {
+                                                    postData!
+                                                        .notificationRead(
+                                                            context,
+                                                            data
+                                                                .notificationListModel!
+                                                                .results![index]
+                                                                .id,
+                                                            requestHeadersWithToken)
+                                                        .whenComplete(() => data
+                                                            .notificationListModel!
+                                                            .results![index]
+                                                            .unread = false);
+                                                  });
+                                                  Get.to(
+                                                    () => ComicDetails(
                                                       productId: data
                                                           .notificationListModel!
                                                           .results![index]
                                                           .target!
                                                           .id,
-                                                      fromNotification: 1,
-                                                    ));
-                                              } else {
+                                                    ),
+                                                  );
+                                                }
+                                              }
+                                              else{
                                                 setState(() {
                                                   postData!
                                                       .notificationRead(
-                                                          context,
-                                                          data
-                                                              .notificationListModel!
-                                                              .results![index]
-                                                              .id,
-                                                          requestHeadersWithToken)
-                                                      .whenComplete(() => data
+                                                      context,
+                                                      data
                                                           .notificationListModel!
                                                           .results![index]
-                                                          .unread = false);
+                                                          .id,
+                                                      requestHeadersWithToken)
+                                                      .whenComplete(() => data
+                                                      .notificationListModel!
+                                                      .results![index]
+                                                      .unread = false);
                                                 });
                                                 Get.to(
-                                                  () => ComicDetails(
-                                                    productId: data
-                                                        .notificationListModel!
-                                                        .results![index]
-                                                        .target!
-                                                        .id,
-                                                  ),
+                                                      () => SystemNotificationDetails(
+                                                        title: data.notificationListModel!.results![index].title,
+                                                        description: data.notificationListModel!.results![index].description,
+                                                        link: data.notificationListModel!.results![index].link,
+                                                      )
                                                 );
                                               }
                                             },
@@ -404,7 +436,7 @@ class _AllNotificationListState extends State<AllNotificationList>
                               },
                             )
                           : const ColorLoader())
-                  : data.alertModel!= null
+                  : data.alertModel != null
                       ? SmartRefresher(
                           key: _refreshkey,
                           controller: refreshController,
@@ -421,101 +453,239 @@ class _AllNotificationListState extends State<AllNotificationList>
                           child: data.alertModel!.results != null
                               ? ListView.builder(
                                   shrinkWrap: true,
-                                  itemCount:
-                                  data.alertModel!.results!.length,
+                                  itemCount: data.alertModel!.results!.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return Padding(
                                         padding: const EdgeInsets.only(
-                                            top: 4, bottom: 4, left: 4, right: 4),
+                                            top: 4,
+                                            bottom: 4,
+                                            left: 4,
+                                            right: 4),
                                         child: Container(
                                             width: Get.width,
                                             decoration: BoxDecoration(
                                               color: AppColors.graphCard,
-                                              borderRadius: BorderRadius.circular(12.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
                                             ),
                                             child: InkWell(
                                                 onTap: () {
-                                                  data.alertModel!.results![index]
-                                                      .productDetail!.type ==
-                                                      0
+                                                  data
+                                                              .alertModel!
+                                                              .results![index]
+                                                              .productDetail!
+                                                              .type ==
+                                                          0
                                                       ? Get.to(
-                                                        () => CollectibleDetails(
-                                                      productId: data
-                                                          .alertModel!.results![index]
-                                                          .productDetail!
-                                                          .id!,
-                                                    ),
-                                                  )
+                                                          () =>
+                                                              CollectibleDetails(
+                                                            productId: data
+                                                                .alertModel!
+                                                                .results![index]
+                                                                .productDetail!
+                                                                .id!,
+                                                          ),
+                                                        )
                                                       : Get.to(
-                                                        () => ComicDetails(
-                                                      productId: data.alertModel!.results![index].productDetail!
-                                                          .id!,
-                                                    ),
-                                                  );
+                                                          () => ComicDetails(
+                                                            productId: data
+                                                                .alertModel!
+                                                                .results![index]
+                                                                .productDetail!
+                                                                .id!,
+                                                          ),
+                                                        );
                                                 },
                                                 child: ProductListContainer(
-                                                  checkImage: data.alertModel!.results![index].productDetail!.image == null ? ""
-                                                      :data.alertModel!.results![index].productDetail!.image.toString(),
-                                                  name: data.alertModel!.results![index].productDetail!.name == null ? ""
-                                                      : data.alertModel!.results![index].productDetail!.name!,
-                                                  lowResUrl: data.alertModel!.results![index].productDetail!.image != null
-                                                      ? data.alertModel!.results![index].productDetail!.image!.low_res_url! :"",
-                                                  scrappedImage:data.alertModel!.results![index].productDetail!.image != null ?
-                                                  data.alertModel!.results![index].productDetail!.image!.image_on_list
-                                                      .toString() :"",
-                                                  edition: data.alertModel!.results![index].productDetail!.edition == null ? ""
-                                                      : data.alertModel!.results![index].productDetail!.edition!,
-                                                  brand: data.alertModel!.results![index].productDetail!.brand == null ? ""
-                                                      :data.alertModel!.results![index].productDetail!.brand
-                                                      .toString(),
-
-                                                  brandName: data.alertModel!.results![index].productDetail!.brand == null ? ""
-                                                      : data.alertModel!.results![index].productDetail!.brand!.name!,
-                                                  rarity: data.alertModel!.results![index].productDetail!.rarity ==null ? ""
-                                                      :data.alertModel!.results![index].productDetail!.rarity!,
-                                                  floorPrice: data.alertModel!.results![index].productDetail!.floorPrice == null ? ""
-                                                      :data.alertModel!.results![index].productDetail!.floorPrice!,
+                                                  checkImage: data
+                                                              .alertModel!
+                                                              .results![index]
+                                                              .productDetail!
+                                                              .image ==
+                                                          null
+                                                      ? ""
+                                                      : data
+                                                          .alertModel!
+                                                          .results![index]
+                                                          .productDetail!
+                                                          .image
+                                                          .toString(),
+                                                  name: data
+                                                              .alertModel!
+                                                              .results![index]
+                                                              .productDetail!
+                                                              .name ==
+                                                          null
+                                                      ? ""
+                                                      : data
+                                                          .alertModel!
+                                                          .results![index]
+                                                          .productDetail!
+                                                          .name!,
+                                                  lowResUrl: data
+                                                              .alertModel!
+                                                              .results![index]
+                                                              .productDetail!
+                                                              .image !=
+                                                          null
+                                                      ? data
+                                                          .alertModel!
+                                                          .results![index]
+                                                          .productDetail!
+                                                          .image!
+                                                          .low_res_url!
+                                                      : "",
+                                                  scrappedImage: data
+                                                              .alertModel!
+                                                              .results![index]
+                                                              .productDetail!
+                                                              .image !=
+                                                          null
+                                                      ? data
+                                                          .alertModel!
+                                                          .results![index]
+                                                          .productDetail!
+                                                          .image!
+                                                          .image_on_list
+                                                          .toString()
+                                                      : "",
+                                                  edition: data
+                                                              .alertModel!
+                                                              .results![index]
+                                                              .productDetail!
+                                                              .edition ==
+                                                          null
+                                                      ? ""
+                                                      : data
+                                                          .alertModel!
+                                                          .results![index]
+                                                          .productDetail!
+                                                          .edition!,
+                                                  brand: data
+                                                              .alertModel!
+                                                              .results![index]
+                                                              .productDetail!
+                                                              .brand ==
+                                                          null
+                                                      ? ""
+                                                      : data
+                                                          .alertModel!
+                                                          .results![index]
+                                                          .productDetail!
+                                                          .brand
+                                                          .toString(),
+                                                  brandName: data
+                                                              .alertModel!
+                                                              .results![index]
+                                                              .productDetail!
+                                                              .brand ==
+                                                          null
+                                                      ? ""
+                                                      : data
+                                                          .alertModel!
+                                                          .results![index]
+                                                          .productDetail!
+                                                          .brand!
+                                                          .name!,
+                                                  rarity: data
+                                                              .alertModel!
+                                                              .results![index]
+                                                              .productDetail!
+                                                              .rarity ==
+                                                          null
+                                                      ? ""
+                                                      : data
+                                                          .alertModel!
+                                                          .results![index]
+                                                          .productDetail!
+                                                          .rarity!,
+                                                  floorPrice: data
+                                                              .alertModel!
+                                                              .results![index]
+                                                              .productDetail!
+                                                              .floorPrice ==
+                                                          null
+                                                      ? ""
+                                                      : data
+                                                          .alertModel!
+                                                          .results![index]
+                                                          .productDetail!
+                                                          .floorPrice!,
                                                   onTap: () {
                                                     showDialog(
-                                                      context: context,
-                                                      builder: (ctx) {
-                                                        if (data.alertModel != null) {
-                                                          return ShowAlertBox(
-                                                            results: data.alertModel!.results![index].productDetail!,
-                                                            origin: 'allalert',
-                                                          );
-                                                        } else {
-                                                          return Container();
-                                                        }
-                                                      }
-
-                                                    );
+                                                        context: context,
+                                                        builder: (ctx) {
+                                                          if (data.alertModel !=
+                                                              null) {
+                                                            return ShowAlertBox(
+                                                              results: data
+                                                                  .alertModel!
+                                                                  .results![
+                                                                      index]
+                                                                  .productDetail!,
+                                                              origin:
+                                                                  'allalert',
+                                                            );
+                                                          } else {
+                                                            return Container();
+                                                          }
+                                                        });
                                                   },
                                                   isAlert: true,
-                                                  series: <ChartSeries<Graph, String>>[
+                                                  series: <
+                                                      ChartSeries<Graph,
+                                                          String>>[
                                                     LineSeries<Graph, String>(
-                                                      color: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!
-                                                          .sign ==
-                                                          'decrease'
+                                                      color: data
+                                                                  .alertModel!
+                                                                  .results![
+                                                                      index]
+                                                                  .productDetail!
+                                                                  .graphData!
+                                                                  .priceChangePercent!
+                                                                  .sign ==
+                                                              'decrease'
                                                           ? Colors.red
                                                           : Colors.green,
-                                                      dataSource: data.alertModel!.results![index].productDetail!.graphData!.graph!,
-                                                      xValueMapper: (Graph plot, _) =>
-                                                      plot.date,
-                                                      yValueMapper: (Graph plot, _) =>
-                                                      plot.floorPrice,
+                                                      dataSource: data
+                                                          .alertModel!
+                                                          .results![index]
+                                                          .productDetail!
+                                                          .graphData!
+                                                          .graph!,
+                                                      xValueMapper:
+                                                          (Graph plot, _) =>
+                                                              plot.date,
+                                                      yValueMapper:
+                                                          (Graph plot, _) =>
+                                                              plot.floorPrice,
                                                       xAxisName: 'Duration',
                                                       yAxisName: 'Total',
                                                     )
                                                   ],
-                                                  changePrice: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!.changePrice,
-                                                  pcpPercent: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!.percent,
-                                                  pcpSign: data.alertModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign! ,
-                                                )
-                                            )
-
-                                        ));
+                                                  changePrice: data
+                                                      .alertModel!
+                                                      .results![index]
+                                                      .productDetail!
+                                                      .graphData!
+                                                      .priceChangePercent!
+                                                      .changePrice,
+                                                  pcpPercent: data
+                                                      .alertModel!
+                                                      .results![index]
+                                                      .productDetail!
+                                                      .graphData!
+                                                      .priceChangePercent!
+                                                      .percent,
+                                                  pcpSign: data
+                                                      .alertModel!
+                                                      .results![index]
+                                                      .productDetail!
+                                                      .graphData!
+                                                      .priceChangePercent!
+                                                      .sign!,
+                                                ))));
                                   },
                                 )
                               : const LoadingExample(),
@@ -574,7 +744,3 @@ class _AllNotificationListState extends State<AllNotificationList>
             )));
   }
 }
-
-
-
-

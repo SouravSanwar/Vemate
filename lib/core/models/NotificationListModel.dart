@@ -46,7 +46,11 @@ class Results {
       this.target, 
       this.unread, 
       this.timesince, 
-      this.description,});
+      this.description,
+      this.title,
+      this.link,
+
+  });
 
   Results.fromJson(dynamic json) {
     id = json['id'];
@@ -56,6 +60,8 @@ class Results {
     unread = json['unread'];
     timesince = json['timesince'];
     description = json['description'];
+    title = json['title'];
+    link = json['link'];
   }
   int? id;
   String? verb;
@@ -65,6 +71,8 @@ class Results {
   bool? unread;
   String? timesince;
   String? description;
+  String? title;
+  String? link;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -77,6 +85,8 @@ class Results {
     map['unread'] = unread;
     map['timesince'] = timesince;
     map['description'] = description;
+    map['title'] = title;
+    map['link'] = link;
     return map;
   }
 

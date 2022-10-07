@@ -91,7 +91,7 @@ class _DetailsAppbarState extends State<DetailsAppbar> {
               child: Container(
                 child: Icon(
                   Icons.notifications_none,
-                  color: AppColors.textColor,
+                  color: widget.results!.isProductAlert ==true ? AppColors.primaryColor : AppColors.textColor,
                 ),
                 height: 35.h,
                 width: 35.h,
