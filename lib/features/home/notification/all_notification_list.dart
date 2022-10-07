@@ -700,7 +700,7 @@ class _AllNotificationListState extends State<AllNotificationList>
     await Future.delayed(const Duration(seconds: 2));
 
     getData!.getNotification();
-    getData!.getWishList();
+    getData!.getAlert();
     setState(() {
       refreshController.refreshCompleted();
       offset = 0;
@@ -711,7 +711,7 @@ class _AllNotificationListState extends State<AllNotificationList>
     offset = offset + 20;
 
     getData!.getNotification(offset: offset);
-    getData!.getWishList(offset: offset);
+    getData!.getAlert(offset: offset);
     await Future.delayed(const Duration(seconds: 2));
 
     if (mounted) {

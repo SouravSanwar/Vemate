@@ -114,7 +114,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
             ? TypeIndex1 = 5
             : TypeIndex1 = 6;
 
-    edition = int.parse(widget.results!.edition.toString().replaceAll("#", ""));
+    edition = int.parse(widget.results!.editions.toString());
     print('object: ' + edition.toString());
     textColumn = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -316,7 +316,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
             height: 8.h,
           ),
           Text(
-            "Maximum mint value is " + widget.results!.edition.toString().replaceAll("#", "") + " for this product",
+            "Maximum mint value is " + widget.results!.editions.toString()+ " for this product",
             style: TextStyle(fontSize: 10.0.sp, color: Colors.white,fontFamily: 'Inter'),
           ),
           SizedBox(

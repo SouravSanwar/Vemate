@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 
+import 'package:ketemaa/core/utilities/shimmer/progress_bar.dart';
+
 class LoadingDialogue extends StatelessWidget {
   final String? message;
 
@@ -16,22 +18,26 @@ class LoadingDialogue extends StatelessWidget {
         width: Get.width * .9,
         height: Get.width * .8,
         alignment: Alignment.center,
-        child:Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ColorLoader(),
-            const SizedBox(
-              height: 10,
-            ),
-            AutoSizeText(
-              message!,
-              style: TextStyle(
-                color: AppColors.textColor,
-                fontFamily: 'Inter',
+        child: AlertDialog(
+          backgroundColor: Colors.transparent,
+          key: key,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ColorLoader(),
+              const SizedBox(
+                height: 10,
               ),
-              textAlign: TextAlign.center,
-            )
-          ],
+              AutoSizeText(
+                message!,
+                style: TextStyle(
+                  color: AppColors.textColor,
+                  fontFamily: 'Inter',
+                ),
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
         ),
       ),
     );
