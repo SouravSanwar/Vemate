@@ -358,13 +358,18 @@ class GetData extends ChangeNotifier with BaseController {
   }
 
   Future getSetList(String? type, {int offset = 0}) async {
-    setListModel = null;
     final response =
-        await BaseClient().get(Urls.commonStorage + '?type=0&$type&limit=20&offset=$offset').catchError(handleError);
+        await BaseClient().get(Urls.commonStorage + '?type=0&limit=20&offset=$offset').catchError(handleError);
 
     var data = json.decode(response.toString());
 
-    setListModel = SetListModel.fromJson(data);
+    if (setListModel != null) {
+      if (offset == 0) setListModel!.setResults!.clear();
+
+      setListModel!.setResults!.addAll(SetListModel.fromJson(data).setResults!);
+    } else {
+      setListModel = SetListModel.fromJson(data);
+    }
 
     //printInfo(info: 'Set Info: ' + setListModel!.setResults!.length.toString());
 

@@ -57,10 +57,6 @@ class _SetListPageState extends State<SetListPage> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ControllerPageController());
-
-    SharedPreferenceController.to.getToken();
-
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
