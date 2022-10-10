@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ketemaa/core/models/AlertModel.dart';
 import 'package:ketemaa/core/models/BrandModel.dart';
 import 'package:ketemaa/core/models/CheckSetCheck.dart';
@@ -120,6 +121,7 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
     ////printInfo(info: data.toString());
+
     if (collectiblesModel != null) {
       if (offset == 0) collectiblesModel!.results!.clear();
 
@@ -173,7 +175,7 @@ class GetData extends ChangeNotifier with BaseController {
   Future searchComics({String keyWord = '', String rarity = '', int offset = 0, String mint_number = ''}) async {
     final response = await BaseClient()
         .get(Urls.mainUrl +
-        '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset&rarity=$rarity&name=$keyWord&mint_number=$mint_number')
+            '/api/v1/veve/public/products/?type=1&limit=20&offset=$offset&rarity=$rarity&name=$keyWord&mint_number=$mint_number')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
@@ -354,13 +356,19 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future getSetList(String? type) async {
-    setListModel = null;
-    final response = await BaseClient().get(Urls.commonStorage + '?type=0&$type').catchError(handleError);
+  Future getSetList(String? type, {int offset = 0}) async {
+    final response =
+        await BaseClient().get(Urls.commonStorage + '?type=0&limit=20&offset=$offset').catchError(handleError);
 
     var data = json.decode(response.toString());
 
-    setListModel = SetListModel.fromJson(data);
+    if (setListModel != null) {
+      if (offset == 0) setListModel!.setResults!.clear();
+
+      setListModel!.setResults!.addAll(SetListModel.fromJson(data).setResults!);
+    } else {
+      setListModel = SetListModel.fromJson(data);
+    }
 
     //printInfo(info: 'Set Info: ' + setListModel!.setResults!.length.toString());
 
