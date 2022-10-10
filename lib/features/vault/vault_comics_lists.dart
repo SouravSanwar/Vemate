@@ -6,13 +6,10 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
-import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
-import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/main.dart';
@@ -20,7 +17,6 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../core/models/SetListModel.dart';
-import 'package:intl/intl.dart';
 
 
 class VaultComicsList extends StatefulWidget {

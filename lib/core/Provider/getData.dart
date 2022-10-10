@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ketemaa/core/models/AlertModel.dart';
 import 'package:ketemaa/core/models/BrandModel.dart';
 import 'package:ketemaa/core/models/CheckSetCheck.dart';

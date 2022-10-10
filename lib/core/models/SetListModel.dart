@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 
 class SetListModel {
