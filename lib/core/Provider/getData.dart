@@ -389,11 +389,11 @@ class GetData extends ChangeNotifier with BaseController {
 
   Future getAlert({int offset = 0}) async {
     alertModel = null;
-    final response = await BaseClient().get(Urls.alertList+'limit=20&&offset=$offset').catchError(handleError);
+    final response = await BaseClient().get(Urls.alertList+'?limit=20&offset=$offset').catchError(handleError);
 
     var data = json.decode(response.toString());
 
-    //printInfo(info: data.toString());
+    print("alertInfo"+ Urls.alertList+'limit=20&&offset=$offset');
 
 
     if (alertModel != null) {

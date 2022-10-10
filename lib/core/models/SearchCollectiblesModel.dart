@@ -44,6 +44,7 @@ class Results {
     this.name,
     this.image,
     this.edition,
+    this.editions,
     this.brand,
     this.rarity,
     this.floorPrice,
@@ -63,6 +64,7 @@ class Results {
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
     cpp = json['changed_price'];
     edition = json['edition'];
+    editions = json['editions'];
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
     rarity = json['rarity'];
     floorPrice = json['floor_price'];
@@ -93,6 +95,7 @@ class Results {
   String? name;
   Image? image;
   String? edition;
+  String? editions;
   Brand? brand;
   String? rarity;
   String? floorPrice;
@@ -114,6 +117,7 @@ class Results {
     }
     map['changed_price'] = cpp;
     map['edition'] = edition;
+    map['editions'] = editions;
     map['brand'] = brand;
     map['rarity'] = rarity;
     map['floor_price'] = floorPrice;

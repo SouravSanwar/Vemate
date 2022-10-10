@@ -225,7 +225,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                             body,
                                             data.singleProductModel!.id,
                                             requestHeadersWithToken,
-                                          )
+                                          ).whenComplete(() => getData!.getSetList(''))
                                           .whenComplete(
                                               () => Provider.of<GetData>(context, listen: false).getHomeVault());
                                       await Future.delayed(Duration(seconds: 1));

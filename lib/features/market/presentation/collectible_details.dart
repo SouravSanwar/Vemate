@@ -268,7 +268,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           body,
                                           data.singleProductModel!.id,
                                           requestHeadersWithToken,
-                                        )
+                                        ).whenComplete(() => getData!.getSetList(''))
                                         .whenComplete(
                                             () => getData!.getHomeVault());
                                     await Future.delayed(

@@ -216,7 +216,7 @@ class _VaultState extends State<Vault> {
                               ? SizedBox(
                                   width: Get.width,
                                   height: Get.height * .22,
-                                  child: data.setListModel!.count! > 0
+                                  child: data.setListModel!.setResults!.isNotEmpty
                                       ? const MysetsCard()
                                       : const NoDataCard(
                                           title: 'Your Vault is empty!',

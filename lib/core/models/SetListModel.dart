@@ -162,6 +162,7 @@ class SetProductDetail {
     this.name,
     this.image,
     this.edition,
+    this.editions,
     this.series,
     this.parent,
     this.brand,
@@ -182,6 +183,7 @@ class SetProductDetail {
     name = json['name'];
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
     edition = json['edition'];
+    editions = json['editions'];
     series = json['series'];
     parent = json['parent'];
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
@@ -220,6 +222,7 @@ class SetProductDetail {
   String? name;
   Image? image;
   String? edition;
+  String? editions;
   String? series;
   Brand? brand;
   dynamic parent;
@@ -242,6 +245,7 @@ class SetProductDetail {
       map['image'] = image?.toJson();
     }
     map['edition'] = edition;
+    map['editions'] = editions;
     map['series'] = series;
     map['parent'] = parent;
     map['brand'] = brand;

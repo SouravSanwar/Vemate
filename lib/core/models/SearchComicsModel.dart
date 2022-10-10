@@ -44,6 +44,7 @@ class Results {
     this.name,
     this.image,
     this.edition,
+    this.editions,
     this.series,
     this.rarity,
     this.floorPrice,
@@ -62,6 +63,7 @@ class Results {
     name = json['name'];
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
     edition = json['edition'];
+    editions = json['editions'];
     series= json['series'];
     rarity = json['rarity'];
     floorPrice = json['floor_price'];
@@ -101,6 +103,7 @@ class Results {
   String? name;
   Image? image;
   String? edition;
+  String? editions;
   String? series;
   String? rarity;
   String? floorPrice;
@@ -121,6 +124,7 @@ class Results {
       map['image'] = image?.toJson();
     }
     map['edition'] = edition;
+    map['editions'] = editions;
     map['series'] = series;
     map['rarity'] = rarity;
     map['floor_price'] = floorPrice;
