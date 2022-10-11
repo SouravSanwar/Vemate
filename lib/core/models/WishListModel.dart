@@ -130,6 +130,8 @@ class AlertData {
       typeValue = 'Above';
     }else if (priceType == 6) {
       typeValue = 'Between';
+    }else if (priceType == 8) {
+      typeValue = 'Is';
     } else {
       typeValue = 'none';
     }

@@ -5,6 +5,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
@@ -27,9 +28,9 @@ class MintAlertPage extends StatefulWidget {
 
 class _MintAlertPageState extends State<MintAlertPage> {
   PostData? postData;
-  TextEditingController valueController = TextEditingController();
-  TextEditingController mintController1 = TextEditingController(text: '0');
-  TextEditingController mintController2 = TextEditingController(text: '0');
+  TextEditingController valueController = TextEditingController(text: '1');
+  TextEditingController mintController1 = TextEditingController(text: '1');
+  TextEditingController mintController2 = TextEditingController();
   int value = 0;
   bool? toggleValue = false;
   bool? hasDropDownValue = false;
@@ -52,8 +53,9 @@ class _MintAlertPageState extends State<MintAlertPage> {
     'Always',
   ];
 
-  String? priceTypeValue = 'Below';
+  String? priceTypeValue = 'Is';
   var items = [
+    'Is',
     'Below',
     'Above',
     'Between',
@@ -66,6 +68,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
     // TODO: implement initState
 
     getData = Provider.of<GetData>(context, listen: false);
+    mintController2.text= widget.results!.editions.toString();
 
     if (widget.results!.isProductAlert == true) {
       for (int i = 0; i < widget.results!.productAlertData!.length; i++) {
@@ -80,7 +83,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
 
     if (widget.results!.isProductAlert == true) {
       if (widget.results!.productAlertData![j].type == 1) {
-        valueController.text = widget.results!.productAlertData![j].value.toString();
+        valueController.text = widget.results!.productAlertData![j].value.toInt().toString();
         mintController1.text = widget.results!.productAlertData![j].mintLow.toString();
         mintController2.text = widget.results!.productAlertData![j].mintUpper.toString();
 
@@ -112,7 +115,9 @@ class _MintAlertPageState extends State<MintAlertPage> {
         ? TypeIndex1 = 4
         : priceTypeValue == 'Above'
             ? TypeIndex1 = 5
-            : TypeIndex1 = 6;
+        : priceTypeValue == 'Between'
+        ? TypeIndex1 = 6
+            : TypeIndex1 = 8;
 
     edition = int.parse(widget.results!.editions.toString());
     print('object: ' + edition.toString());
@@ -129,6 +134,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
         AlertTextField(
           height: Get.height * .03,
           controller: valueController,
+
         ),
       ],
     );
@@ -274,7 +280,9 @@ class _MintAlertPageState extends State<MintAlertPage> {
                       ? TypeIndex1 = 4
                       : value == 'Above'
                           ? TypeIndex1 = 5
-                          : TypeIndex1 = 6;
+                      : value == 'Between'
+                      ? TypeIndex1 = 6
+                          : TypeIndex1 = 8;
                   print(TypeIndex1);
                 }); //get value when changed
               },
@@ -328,10 +336,10 @@ class _MintAlertPageState extends State<MintAlertPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
                     postData = Provider.of<PostData>(context, listen: false);
                     postData!.deleteAlert(context, widget.results!.productAlertData![j].id, requestHeadersWithToken,
-                        widget.origin, widget.results!.id);
+                        widget.origin, widget.results!.id,from: 'mint').whenComplete(() => getData!.getAlert());
                     Get.back();
                   },
                   child: Text(
@@ -344,7 +352,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
                   onTap: () async {
                     printInfo(
                         info: 'Info: ' + int.parse(mintController2.text.toString()).toString() + edition.toString());
-                    if (int.parse(mintController2.text.toString()) > edition!) {
+                    if (int.parse(mintController2.text.toString()) > edition! || double.parse(valueController.text.toString()).toInt() > edition!  ) {
                       showDialog(
                           context: context,
                           barrierDismissible: false,
@@ -371,19 +379,20 @@ class _MintAlertPageState extends State<MintAlertPage> {
                         Navigator.of(context).pop();
                       }
                       else{
-                        postData = Provider.of<PostData>(context, listen: false);
-                        var body = {
-                          "product": widget.results!.id,
-                          "type": 1,
-                          "price_type": TypeIndex1,
-                          "value": valueController.text != "" ? double.parse(valueController.text) : 0.0,
-                          "frequency": frequencyIndex1,
-                          "mint_low": mintController1.text != "" ? double.parse(mintController1.text) : 0.0,
-                          "mint_upper": mintController2.text != "" ? double.parse(mintController2.text) : 0.0,
-                        };
 
-                        postData!.createAlert(context, body, widget.origin!, widget.results!.id);
-                      }
+                          postData = Provider.of<PostData>(context, listen: false);
+                          var body = {
+                            "product": widget.results!.id,
+                            "type": 1,
+                            "price_type": TypeIndex1,
+                            "value": valueController.text != "" ? double.parse(valueController.text) : null,
+                            "frequency": frequencyIndex1,
+                            "mint_low": mintController1.text != "" ? double.parse(mintController1.text).toInt() : null,
+                            "mint_upper": mintController2.text != "" ? double.parse(mintController2.text).toInt() : null,
+                          };
+                          postData!.createAlert(context, body, widget.origin!, widget.results!.id).whenComplete(() => getData!.getAlert());
+                        }
+
                     }
                   },
                   child: Text(
