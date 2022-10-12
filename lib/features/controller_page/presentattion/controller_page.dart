@@ -116,7 +116,7 @@ class _ControllerPageState extends State<ControllerPage> {
     else{
       productId = int.parse(message.data["id"].toString());
 
-      message.data["type"] == 0
+      message.data["type"].toString() == '0'
           ? Get.to(() => CollectibleDetails(
                 productId: productId,
               ))
@@ -465,9 +465,9 @@ class _ControllerPageState extends State<ControllerPage> {
       }
       else{
         productId = int.parse(message.data["id"].toString());
-        print("onMessageOpenedApp Product Id: " + productId.toString());
+        print("onMessageOpenedApp Product Id: " + message.data["type"].toString());
 
-        if (message.data["type"] == 0) {
+        if (message.data["type"].toString() == '0') {
           setState(() {
             postData!
                 .notificationRead(context, productId, requestHeadersWithToken);
@@ -524,9 +524,10 @@ class _ControllerPageState extends State<ControllerPage> {
         ));
       }
       else{
+        print("onMessageOpenedApp Product Id: " + message.data["type"].toString());
 
         productId = int.parse(message.data["id"].toString());
-        if (message.data["type"] == 0) {
+        if (message.data["type"].toString() == '0') {
           setState(() {
             postData!
                 .notificationRead(context, productId, requestHeadersWithToken);
@@ -573,8 +574,9 @@ class _ControllerPageState extends State<ControllerPage> {
           ));
         } else {
           productId = int.parse(message.data["id"].toString());
+          print("onMessageOpenedApp Product Id: " + message.data["type"].toString());
 
-          if (message.data["type"] == 0) {
+          if (message.data["type"].toString() == '0') {
             setState(() {
               postData!
                   .notificationRead(context, productId, requestHeadersWithToken);

@@ -272,10 +272,6 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
                     postData!.deleteAlert(
                         context, widget.results!.productAlertData![j].id,
                         requestHeadersWithToken,widget.origin,widget.results!.id).whenComplete(() => getData!.getAlert());
-                    if(widget.origin == 'collectible' || widget.origin == 'comics'){
-                      await Future.delayed(Duration(seconds: 2));
-                      Navigator.of(context).pop();
-                    }
                   },
                   child: Text(
                     widget.results!.productAlertData != null && priceAlert == true ? 'Delete' : "",

@@ -80,7 +80,6 @@ class _MintAlertPageState extends State<MintAlertPage> {
         }
       }
     }
-
     if (widget.results!.isProductAlert == true) {
       if (widget.results!.productAlertData![j].type == 1) {
         valueController.text = widget.results!.productAlertData![j].value.toInt().toString();
@@ -340,7 +339,6 @@ class _MintAlertPageState extends State<MintAlertPage> {
                     postData = Provider.of<PostData>(context, listen: false);
                     postData!.deleteAlert(context, widget.results!.productAlertData![j].id, requestHeadersWithToken,
                         widget.origin, widget.results!.id,from: 'mint').whenComplete(() => getData!.getAlert());
-                    Get.back();
                   },
                   child: Text(
                     widget.results!.productAlertData != null && mintAlert == true ? 'Delete' : "",
@@ -352,49 +350,61 @@ class _MintAlertPageState extends State<MintAlertPage> {
                   onTap: () async {
                     printInfo(
                         info: 'Info: ' + int.parse(mintController2.text.toString()).toString() + edition.toString());
-                    if (int.parse(mintController2.text.toString()) > edition! || double.parse(valueController.text.toString()).toInt() > edition!  ) {
-                      showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (_) => ResponseMessage(
-                            icon: Icons.error,
-                            color: Colors.purpleAccent,
-                                message: "Maximum mint number is " + edition.toString(),
-                              ));
+
+                    if(TypeIndex1==6 && (mintController1.text == "" || mintController2.text =="")){
+                        showResponse();
+                        await Future.delayed(Duration(seconds: 1));
+                        Navigator.of(context).pop();
+                    }
+                    if(TypeIndex1 !=6 && valueController.text == ""){
+                      showResponse();
                       await Future.delayed(Duration(seconds: 1));
                       Navigator.of(context).pop();
                     }
-                     else {
 
-                      if (int.parse(mintController1.text.toString())>int.parse(mintController2.text.toString())) {
+                      if (int.parse(mintController2.text.toString()) > edition! || double.parse(valueController.text.toString()).toInt() > edition!  ) {
                         showDialog(
                             context: context,
                             barrierDismissible: false,
-                            builder: (_) => const ResponseMessage(
+                            builder: (_) => ResponseMessage(
                               icon: Icons.error,
                               color: Colors.purpleAccent,
-                              message: "The range must be from low to high",
-                            ));
+                                  message: "Maximum mint number is " + edition.toString(),
+                                ));
                         await Future.delayed(Duration(seconds: 1));
                         Navigator.of(context).pop();
                       }
-                      else{
+                       else {
 
-                          postData = Provider.of<PostData>(context, listen: false);
-                          var body = {
-                            "product": widget.results!.id,
-                            "type": 1,
-                            "price_type": TypeIndex1,
-                            "value": valueController.text != "" ? double.parse(valueController.text) : null,
-                            "frequency": frequencyIndex1,
-                            "mint_low": mintController1.text != "" ? double.parse(mintController1.text).toInt() : null,
-                            "mint_upper": mintController2.text != "" ? double.parse(mintController2.text).toInt() : null,
-                          };
-                          postData!.createAlert(context, body, widget.origin!, widget.results!.id).whenComplete(() => getData!.getAlert());
+                        if (int.parse(mintController1.text.toString())>int.parse(mintController2.text.toString())) {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (_) => const ResponseMessage(
+                                icon: Icons.error,
+                                color: Colors.purpleAccent,
+                                message: "The range must be from low to high",
+                              ));
+                          await Future.delayed(Duration(seconds: 1));
+                          Navigator.of(context).pop();
                         }
+                        else{
 
-                    }
-                  },
+                            postData = Provider.of<PostData>(context, listen: false);
+                            var body = {
+                              "product": widget.results!.id,
+                              "type": 1,
+                              "price_type": TypeIndex1,
+                              "value": valueController.text != "" ? double.parse(valueController.text) : null,
+                              "frequency": frequencyIndex1,
+                              "mint_low": mintController1.text != "" ? double.parse(mintController1.text).toInt() : null,
+                              "mint_upper": mintController2.text != "" ? double.parse(mintController2.text).toInt() : null,
+                            };
+                            postData!.createAlert(context, body, widget.origin!, widget.results!.id).whenComplete(() => getData!.getAlert());
+                          }
+
+                      }
+                    },
                   child: Text(
                     widget.results!.productAlertData != null && mintAlert == true ? 'Update' : "Save",
                     style: TextStyle(fontSize: 16.0.sp, color: Colors.purpleAccent),
@@ -414,4 +424,17 @@ class _MintAlertPageState extends State<MintAlertPage> {
         item,
         style: TextStyle(fontFamily: 'Inter', fontSize: 15.sp),
       ));
+
+  Future<void> showResponse() async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const ResponseMessage(
+          icon: Icons.error,
+          color: Colors.purpleAccent,
+          message: "Text field is empty",
+        ));
+  }
+
+
 }

@@ -890,7 +890,11 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
+
+      Navigator.of(context).pop();
+
       if (origin == 'allalert') {
+        Navigator.of(context).pop();
         getData!.getAlert();
       }
       if (origin == 'wishlist') {
@@ -924,18 +928,13 @@ class PostData extends ChangeNotifier with BaseController {
                 message: "Deleted Successfully",
               ));
       if (origin == 'allalert') {
-        if(from !='mint')
+        if(from =='mint')
           {
             Navigator.of(context).pop();
           }
 
       }
-     if (origin == 'details' && from != 'mint') {
-        Navigator.of(context).pop();
-      }
-     if (origin == 'wishlist' && from != 'mint') {
-        Navigator.of(context).pop();
-      }
+
 
     } else {
       showDialog(

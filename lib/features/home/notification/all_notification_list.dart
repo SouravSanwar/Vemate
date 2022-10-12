@@ -772,6 +772,7 @@ class _AllNotificationListState extends State<AllNotificationList>
 
               await Future.delayed(Duration(seconds: 1));
               Navigator.of(context).pop();
+              Navigator.of(context).pop();
             },
             child: Text(
               title,
