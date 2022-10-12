@@ -75,10 +75,10 @@ class SplashScreenState extends State<SplashScreen>
         ),
         child: Center(
           child: Container(
-            height: Get.width*1.2,
+            height: Get.width*.8,
             width: Get.width*.8,
             child: Image.asset(
-              'assets/media/image/presale_logo.png',
+              'assets/media/image/splash_logo.png',
               width: animation.value * 450,
               height: animation.value * 450,
               fit: BoxFit.fill,

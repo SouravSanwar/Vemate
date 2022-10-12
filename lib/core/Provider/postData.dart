@@ -928,11 +928,7 @@ class PostData extends ChangeNotifier with BaseController {
                 message: "Deleted Successfully",
               ));
       if (origin == 'allalert') {
-        if(from =='mint')
-          {
             Navigator.of(context).pop();
-          }
-
       }
 
 
