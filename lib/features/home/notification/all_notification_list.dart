@@ -278,6 +278,8 @@ class _AllNotificationListState extends State<AllNotificationList>
                                                             .results![index]
                                                             .target!
                                                             .id,
+                                                            fromNotification:
+                                                            1,
                                                       ),
                                                     );
                                                   }

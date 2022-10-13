@@ -25,8 +25,9 @@ import 'package:provider/provider.dart';
 
 class ComicDetails extends StatefulWidget {
   final int? productId;
+  final int? fromNotification;
 
-  const ComicDetails({Key? key, this.productId}) : super(key: key);
+  const ComicDetails({Key? key, this.productId,this.fromNotification=0}) : super(key: key);
 
   @override
   _ComicDetailsState createState() => _ComicDetailsState();
@@ -62,6 +63,9 @@ class _ComicDetailsState extends State<ComicDetails> {
     getData!.checkWishlist(widget.productId!);
     getData!.checkSetList(widget.productId!);
     getData!.getWishList();
+
+    widget.fromNotification==1?
+    getData!.getNotification(): print("no pass from notification");
   }
 
   @override
