@@ -83,6 +83,7 @@ dependencies:
   syncfusion_flutter_sliders: ^19.4.56
   flutter_swipe_action_cell: ^3.0.4
   flutter_switch: ^0.3.2
+  flutter_holo_date_picker: ^1.1.0
 
 
 dev_dependencies:
