@@ -12,7 +12,8 @@ import '../../../../../core/utilities/app_colors/app_colors.dart';
 class VaultNewItemCard extends StatefulWidget {
   final List<Results>? list;
 
-  const VaultNewItemCard({
+  const
+  VaultNewItemCard({
     Key? key,
     this.list,
   }) : super(key: key);
