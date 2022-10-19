@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
@@ -15,85 +14,87 @@ class Multiform extends StatefulWidget {
 }
 
 class _MultiformState extends State<Multiform> {
-  List<MintInfo> mint_info =[];
-  List<MintRow> mint_row =[];
+  List<MintInfo> mint_info = [];
+  List<MintRow> mint_row = [];
   TextEditingController mintController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     mint_row.clear();
-    for(int i=0;i<mint_info.length;i++){
+    for (int i = 0; i < mint_info.length; i++) {
       mint_row.add(MintRow(
         mint_info: mint_info[i],
-          deleteRow: (){onDelete(i);},
+        deleteRow: () {
+          onDelete(i);
+        },
       ));
     }
 
     return Dialog(
-      backgroundColor: AppColors.backgroundColor,
-      child:Container(
-        height: Get.height * .6,
+        backgroundColor: AppColors.backgroundColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Container(
+          height: mint_info.length * 50 + (125-(mint_info.length*10)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AppSpaces.spaces_height_20,
+              Row(
+                children: [
+                  AppSpaces.spaces_width_10,
+                  MintTextField(
+                      width: Get.width * .65,
+                      labelText: 'Enter Mint',
+                      textType: TextInputType.number,
+                      controller: mintController),
+                  AppSpaces.spaces_width_5,
+                  InkWell(
+                    child: Icon(
+                      Icons.add,
+                      size: 25,
+                      color: AppColors.grey,
+                    ),
+                    onTap: onAddForm,
+                  )
+                ],
+              ),
+              AppSpaces.spaces_height_20,
+              mint_info == 0
+                  ? Container()
+                  : Container(
+                      height: mint_info.length * 40,
+                      child: ListView.builder(
+                        itemCount: mint_info.length,
+                        itemBuilder: (_, i) => mint_row[i],
+                      ),
+                    ),
 
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AppSpaces.spaces_height_20,
-            Row(
-              children: [
-                AppSpaces.spaces_width_10,
-                MintTextField(
-                    width: Get.width*.65,
-                    labelText: 'Enter Mint',
-                    textType: TextInputType.number,
-                    controller: mintController),
-                AppSpaces.spaces_width_5,
-                InkWell(
-                  child: Icon(Icons.add,size: 25,color: AppColors.grey,),
-                  onTap: onAddForm,
-                )
-
-              ],
-            ),
-            AppSpaces.spaces_height_20,
-            mint_info == 0 ?
-
-            Container()
-                : Container(
-              height: Get.height*.4,
-                  child: ListView.builder(
-              itemCount: mint_info.length,
-              itemBuilder: (_,i)=>mint_row[i],
-            ),
-                ),
-
-            /*floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: onAddForm,
-            ),*/
-          ],
-        ),
-      )
-
-
-
-
-    );
+            TextButton(
+                onPressed: (){},
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text("Save",style: TextStyle(color:AppColors.white.withOpacity(.7), ),),
+                ))
+            ],
+          ),
+        ));
   }
 
-  void onDelete(int index){
+  void onDelete(int index) {
     setState(() {
-
       mint_info.removeAt(index);
     });
   }
-  void onAddForm(){
+
+  void onAddForm() {
     setState(() {
       mint_info.add(MintInfo());
-
     });
   }
 
-  void onSave(){
-    mint_row.forEach((element) { element.isValid();});
+  void onSave() {
+    mint_row.forEach((element) {
+      element.isValid();
+    });
   }
 }

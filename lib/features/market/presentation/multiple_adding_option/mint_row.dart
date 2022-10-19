@@ -69,12 +69,12 @@ class _MintRowState extends State<MintRow> {
                 children: [
                   Text(textDate!.day.toString()+'-'+textDate!.month.toString()
                       +'-'+textDate!.year.toString(),
-                    style: TextStyle(fontSize: 6
+                    style: TextStyle(fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      color: AppColors.white.withOpacity(.7),
                     ),),
-                  IconButton(
-                    icon: Icon(Icons.calendar_month,color:  AppColors.white.withOpacity(.7) ,),
-                    iconSize: 20,
-                    onPressed: () async {
+                  InkWell(
+                    onTap:  () async {
                       var datePicked = await DatePicker.showSimpleDatePicker(
                         context,
                         initialDate: DateTime.now(),
@@ -93,7 +93,8 @@ class _MintRowState extends State<MintRow> {
                       SnackBar(content: Text("Date Picked $datePicked"));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
-                  ),
+                    child: Icon(Icons.calendar_month,color:  AppColors.white.withOpacity(.7),size: 17 ,),
+                  )
                 ],
               ),
 
