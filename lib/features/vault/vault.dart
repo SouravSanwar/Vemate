@@ -261,7 +261,11 @@ class _VaultState extends State<Vault> {
                             width: Get.width,
                             height: Get.height * .22,
                             child: data.wishListModel!.results!.isNotEmpty
-                                ? const MywishlistCard()
+                                ?  Align(
+                              alignment: Alignment.center,
+                              child: MywishlistCard(),
+
+                            )
                                 : const NoDataCard(
                                     title: 'Your Wishlist is empty!',
                                   ),

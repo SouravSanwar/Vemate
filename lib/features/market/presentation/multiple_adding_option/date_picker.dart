@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:ketemaa/core/utilities/app_colors/dark_white_mode.dart';
+import 'package:ketemaa/features/market/presentation/multiple_adding_option/Date_Picker/date_picker.dart';
+import 'package:ketemaa/features/market/presentation/multiple_adding_option/Date_Picker/i18n/date_picker_i18n.dart';
 
 class DateViewer extends StatefulWidget {
   const DateViewer({Key? key}) : super(key: key);
@@ -30,11 +31,11 @@ class _DateViewerState extends State<DateViewer> {
                 looping: true,
                 backgroundColor: Color(0xff02072D),
                 textColor: AppColors.white.withOpacity(.7),
-              );
+              );/*
 
               final snackBar =
               SnackBar(content: Text("Date Picked $datePicked"));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
             },
           ),
 
