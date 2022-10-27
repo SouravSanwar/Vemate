@@ -10,7 +10,9 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
+import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
+import 'package:ketemaa/features/market/presentation/multiple_adding_option/multi_row.dart';
 import 'package:ketemaa/features/market/presentation/widgets/details_appbar.dart';
 import 'package:ketemaa/graph/one_year_graph_page.dart';
 import 'package:ketemaa/graph/one_day_graph_page.dart';
@@ -249,7 +251,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                               AppSpaces.spaces_width_20,
                               InkWell(
                                 onTap: () async {
-                                  var body = {
+                                  /*var body = {
                                     "product": data.singleProductModel!.id,
                                     "type": 0
                                   };
@@ -268,7 +270,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           body,
                                           data.singleProductModel!.id,
                                           requestHeadersWithToken,
-                                        )
+                                        ).whenComplete(() => getData!.getSetList(''))
                                         .whenComplete(
                                             () => getData!.getHomeVault());
                                     await Future.delayed(
@@ -294,7 +296,12 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                 .getHomeVault());
 
 
-                                  }
+                                  }*/
+                                  showDialog(
+                                    context: context,
+                                    builder: (ctx) =>
+                                        Multiform()
+                                  );
                                 },
                                 child: Container(
                                   width: Get.width * .42,

@@ -40,6 +40,7 @@ class _ShowAlertBoxState extends State<ShowAlertBox>
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: AppColors.backgroundColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Container(
         height: Get.height * .6,
         child: Column(

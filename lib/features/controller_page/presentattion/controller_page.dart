@@ -109,14 +109,14 @@ class _ControllerPageState extends State<ControllerPage> {
 
       Get.to(() => SystemNotificationDetails(
         title: message.data["title"].toString(),
-        description: message.data["description"].toString(),
+        description: message.data["body"].toString(),
         link: message.data["link"].toString(),
       ));
     }
     else{
       productId = int.parse(message.data["id"].toString());
 
-      message.data["type"] == 0
+      message.data["type"].toString() == '0'
           ? Get.to(() => CollectibleDetails(
                 productId: productId,
               ))
@@ -442,8 +442,7 @@ class _ControllerPageState extends State<ControllerPage> {
     flutterLocalNotificationsPlugin.initialize(initSetting);
 
     FirebaseMessaging.onBackgroundMessage((message) async {
-      productId = int.parse(message.data["id"].toString());
-      print("onMessageOpenedApp Product Id: " + productId.toString());
+
 
       Map<String, String> requestHeadersWithToken = {
         'Content-type': 'application/json',
@@ -453,19 +452,22 @@ class _ControllerPageState extends State<ControllerPage> {
 
       if (message.data["verb"] == "7") {
 
-        setState(() {
+        /*setState(() {
           postData!
               .notificationRead(context, productId, requestHeadersWithToken);
-        });
+        });*/
         Get.to(() => SystemNotificationDetails(
           title: message.data["title"].toString(),
-          description: message.data["description"].toString(),
+          description: message.data["body"].toString(),
           link: message.data["link"].toString(),
         ));
 
       }
       else{
-        if (message.data["type"] == 0) {
+        productId = int.parse(message.data["id"].toString());
+        print("onMessageOpenedApp Product Id: " + message.data["type"].toString());
+
+        if (message.data["type"].toString() == '0') {
           setState(() {
             postData!
                 .notificationRead(context, productId, requestHeadersWithToken);
@@ -502,7 +504,7 @@ class _ControllerPageState extends State<ControllerPage> {
     ///Background Notification
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       print("onMessageOpenedApp: ${message.data}");
-      productId = int.parse(message.data["id"].toString());
+
 
       Map<String, String> requestHeadersWithToken = {
         'Content-type': 'application/json',
@@ -511,18 +513,21 @@ class _ControllerPageState extends State<ControllerPage> {
       };
 
       if (message.data["verb"] == "7"){
-        setState(() {
+        /*setState(() {
           postData!
               .notificationRead(context, productId, requestHeadersWithToken);
-        });
+        });*/
         Get.to(() => SystemNotificationDetails(
           title: message.data["title"].toString(),
-          description: message.data["description"].toString(),
+          description: message.data["body"].toString(),
           link: message.data["link"].toString(),
         ));
       }
       else{
-        if (message.data["type"] == 0) {
+        print("onMessageOpenedApp Product Id: " + message.data["type"].toString());
+
+        productId = int.parse(message.data["id"].toString());
+        if (message.data["type"].toString() == '0') {
           setState(() {
             postData!
                 .notificationRead(context, productId, requestHeadersWithToken);
@@ -549,7 +554,7 @@ class _ControllerPageState extends State<ControllerPage> {
 
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
-        productId = int.parse(message.data["id"].toString());
+
 
         Map<String, String> requestHeadersWithToken = {
           'Content-type': 'application/json',
@@ -558,17 +563,20 @@ class _ControllerPageState extends State<ControllerPage> {
         };
 
         if (message.data["verb"] == "7") {
-          setState(() {
+          /*setState(() {
             postData!
                 .notificationRead(context, productId, requestHeadersWithToken);
-          });
+          });*/
           Get.to(() => SystemNotificationDetails(
             title: message.data["title"].toString(),
-            description: message.data["description"].toString(),
+            description: message.data["body"].toString(),
             link: message.data["link"].toString(),
           ));
         } else {
-          if (message.data["type"] == 0) {
+          productId = int.parse(message.data["id"].toString());
+          print("onMessageOpenedApp Product Id: " + message.data["type"].toString());
+
+          if (message.data["type"].toString() == '0') {
             setState(() {
               postData!
                   .notificationRead(context, productId, requestHeadersWithToken);

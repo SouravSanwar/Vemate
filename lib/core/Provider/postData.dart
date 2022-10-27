@@ -868,7 +868,7 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future deleteAlert(BuildContext context, int? id, var requestToken, String? origin, int? pid) async {
+  Future deleteAlert(BuildContext context, int? id, var requestToken, String? origin, int? pid, {String? from}) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -882,23 +882,32 @@ class PostData extends ChangeNotifier with BaseController {
     printInfo(info: response.statusCode.toString());
     printInfo(info: Urls.alert + '$id/');
 
+
+
     if (response.statusCode == 204 ||
         response.statusCode == 200 ||
         response.statusCode == 401 ||
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
+
+      Navigator.of(context).pop();
+
       if (origin == 'allalert') {
+        Navigator.of(context).pop();
         getData!.getAlert();
       }
       if (origin == 'wishlist') {
+       // Navigator.of(context).pop();
         getData!.getWishList();
       }
       if (origin == 'details') {
-        getData!.getSingleProduct(id);
+        getData!.getSingleProduct(pid);
+
       }
       if (origin == 'collectible') {
         getData!.getCollectibles();
+
       }
       if (origin == 'comics') {
         getData!.getComics();
@@ -919,9 +928,10 @@ class PostData extends ChangeNotifier with BaseController {
                 message: "Deleted Successfully",
               ));
       if (origin == 'allalert') {
-        Navigator.of(context).pop();
-        Navigator.of(context).pop();
+            Navigator.of(context).pop();
       }
+
+
     } else {
       showDialog(
           context: context,

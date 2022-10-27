@@ -271,11 +271,7 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
                     postData = Provider.of<PostData>(context, listen: false);
                     postData!.deleteAlert(
                         context, widget.results!.productAlertData![j].id,
-                        requestHeadersWithToken,widget.origin,widget.results!.id);
-                    if(widget.origin == 'collectible' || widget.origin == 'comics'){
-                      await Future.delayed(Duration(seconds: 2));
-                      Navigator.of(context).pop();
-                    }
+                        requestHeadersWithToken,widget.origin,widget.results!.id).whenComplete(() => getData!.getAlert());
                   },
                   child: Text(
                     widget.results!.productAlertData != null && priceAlert == true ? 'Delete' : "",
@@ -294,7 +290,7 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
                       "frequency": frequencyIndex,
                     };
 
-                    postData!.createAlert(context, body,widget.origin,widget.results!.id);
+                    postData!.createAlert(context, body,widget.origin,widget.results!.id).whenComplete(() => getData!.getAlert());
 
                   },
                   child: Text(

@@ -48,7 +48,6 @@ class _HomeState extends State<Home> {
 
 
     getData!.getUserInfo();
-    //getData!.getVaultStats();
     getData!.getNews();
     getData!.getCollectibles(limit: 10);
     getData!.getNotification();

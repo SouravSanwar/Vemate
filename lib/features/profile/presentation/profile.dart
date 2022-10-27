@@ -637,7 +637,7 @@ class _ProfileState extends State<Profile> {
                                   ),
                                 ),
                                 TextButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       prefs!.clear();
 
                                       SigninController
@@ -646,6 +646,14 @@ class _ProfileState extends State<Profile> {
                                       SigninController
                                           .to.passwordTextFiledController
                                           .clear();
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (_) => const LoadingDialogue(
+                                            message: "Please wait",
+                                          ));
+
+                                      await Future.delayed(const Duration(seconds: 2));
 
                                       Get.offAll(() => const AuthInitialPage());
                                     },

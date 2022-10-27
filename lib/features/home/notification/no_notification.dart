@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 
 class NoNotification extends StatefulWidget {
-  const NoNotification({Key? key}) : super(key: key);
+  String? title;
+   NoNotification({Key? key,this.title}) : super(key: key);
 
   @override
   State<NoNotification> createState() => _NoNotificationState();
@@ -17,14 +18,7 @@ class _NoNotificationState extends State<NoNotification> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        elevation: 1.0,
-        titleSpacing: 0,
-        iconTheme: const IconThemeData(color: Colors.grey),
-        backgroundColor: AppColors.backgroundColor,
-        title: const Text(""),
-      ),
-      body: Center(
+    body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -34,7 +28,7 @@ class _NoNotificationState extends State<NoNotification> {
               width: 100.w,
             ),
             Text(
-              "No notification to show",
+              widget.title!,
               style: Get.textTheme.bodyMedium!.copyWith(
                 fontSize: 14.0.sp,
                 fontFamily: 'Inter',
