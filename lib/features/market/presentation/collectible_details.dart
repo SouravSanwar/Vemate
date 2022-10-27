@@ -300,7 +300,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   showDialog(
                                     context: context,
                                     builder: (ctx) =>
-                                        Multiform()
+                                    Multiform()
                                   );
                                 },
                                 child: Container(

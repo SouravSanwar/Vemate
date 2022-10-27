@@ -34,8 +34,8 @@ class _NewItemContainerState extends State<NewItemContainer> {
       child: GlassContainer(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         alignment: Alignment.bottomCenter,
-        height: Get.height * .11.h,
-        width: Get.width * .37,
+        height: Get.height * .15.h,
+        width: Get.width * .87,
         gradient: LinearGradient(
           colors: [
             Colors.white.withOpacity(0.40),
