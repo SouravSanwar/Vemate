@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class MintInfo{
   int? mint_number;
   double?  purchase_price;
