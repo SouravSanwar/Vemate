@@ -31,11 +31,8 @@ class _DateViewerState extends State<DateViewer> {
                 looping: true,
                 backgroundColor: Color(0xff02072D),
                 textColor: AppColors.white.withOpacity(.7),
-              );/*
+              );
 
-              final snackBar =
-              SnackBar(content: Text("Date Picked $datePicked"));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
             },
           ),
 

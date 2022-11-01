@@ -990,10 +990,7 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future deletePassCheck(
-    BuildContext context,
-    var body,
-    int? id,
+  Future deletePassCheck(BuildContext context, var body, int? id,
     var requestToken,
   ) async {
     showDialog(
@@ -1093,6 +1090,70 @@ class PostData extends ChangeNotifier with BaseController {
 
     notifyListeners();
   }
+
+
+  Future postMAO(
+      BuildContext context,
+      var body,
+      var requestToken,
+      ) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingDialogue(
+          message: "Please wait",
+        ));
+
+
+    /*final response =
+        await BaseClient().post(Urls.logIn, body).catchError(handleError);*/
+
+    final response = await http.post(Uri.parse(Urls.postMAO), body: json.encode(body), headers: requestToken);
+    printInfo(info: response.body.toString());
+
+    var x = json.decode(response.body);
+
+    Map<String, dynamic> js = x;
+
+    if (response.statusCode == 200)
+    {
+      try {
+        postData = Provider.of<PostData>(context, listen: false);
+
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const ResponseMessage(
+              icon: Icons.error,
+              color: Colors.purpleAccent,
+              message: "Added Successfully",
+            ));
+      } catch (e) {
+        Navigator.of(context).pop();
+
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const ResponseMessage(
+              icon: Icons.error,
+              color: Colors.purpleAccent,
+              message: "Invalid Information",
+            ));
+      }
+    } else {
+      Navigator.of(context).pop();
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const ResponseMessage(
+            icon: Icons.error,
+            color: Colors.purpleAccent,
+            message: "Invalid Information",
+          ));
+    }
+    notifyListeners();
+  }
+
 
   Store(var mat, BuildContext context) async {
     prefs = await SharedPreferences.getInstance();
