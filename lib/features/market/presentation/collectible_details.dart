@@ -299,8 +299,11 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   }*/
                                   showDialog(
                                     context: context,
-                                    builder: (ctx) =>
-                                    Multiform()
+                                    builder: (ctx) =>Dialog(
+                                      backgroundColor: AppColors.backgroundColor,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                                      child:Multiform(id: data.singleProductModel!.id,type: 0,)
+                                    )
                                   );
                                 },
                                 child: Container(

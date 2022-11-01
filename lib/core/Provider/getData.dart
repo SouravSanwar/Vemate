@@ -18,6 +18,7 @@ import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultGraph30D.dart';
 import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultGraph60D.dart';
 import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultGraph7D.dart';
 import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultModel.dart';
+import 'package:ketemaa/core/models/MAOModel.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
 import 'package:ketemaa/core/models/NotificationListModel.dart';
 import 'package:ketemaa/core/models/NotificationReadModel.dart';
@@ -80,6 +81,7 @@ class GetData extends ChangeNotifier with BaseController {
 
   NotificationListModel? notificationListModel;
   NotificationReadModel? notificationReadModel;
+  MaoModel? maoModel;
 
   Future getUserInfo() async {
     profileModel = null;
@@ -423,4 +425,23 @@ class GetData extends ChangeNotifier with BaseController {
 
     notifyListeners();
   }
+  Future getMAO(String? type, String? productID,{int offset = 0}) async {
+    final response = await BaseClient().get(Urls.productMAO + '?type=$type&product=$productID&limit=20&offset=$offset').catchError(handleError);
+
+    var data = json.decode(response.toString());
+
+    //printInfo(info: data.toString());
+
+    if (maoModel != null) {
+      if (offset == 0) maoModel!.results!.clear();
+
+      maoModel!.results!.addAll(MaoModel.fromJson(data).results!);
+    } else {
+      maoModel = MaoModel.fromJson(data);
+    }
+
+    notifyListeners();
+  }
+
+
 }
