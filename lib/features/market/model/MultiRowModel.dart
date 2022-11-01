@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MultiRowModel {
   final TextEditingController? mintNumber1;
   final TextEditingController? mintNumber2;
-  final DateTime? dateTime;
+   DateTime dateTime;
 
   MultiRowModel(
     this.mintNumber1,

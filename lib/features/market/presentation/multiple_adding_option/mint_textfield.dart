@@ -38,7 +38,8 @@ class _MintTextFieldState extends State<MintTextField> {
     return Container(
       //width: Get.width*.25,
       width: widget.width,
-     // padding: const EdgeInsets.only(left: 5, right: 5),
+
+      height: Get.height*.038,
       color: Colors.transparent,
       child:TextFormField(
         textAlign: TextAlign.center,
@@ -48,12 +49,12 @@ class _MintTextFieldState extends State<MintTextField> {
         style: TextStyle(
           fontFamily: 'Inter',
           color: AppColors.white.withOpacity(.7),
-          fontSize: 18.0.sp,
+          fontSize: 13.0.sp,
         ),
         controller: widget.controller,
         decoration: InputDecoration(
           isDense: true,
-          contentPadding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+          contentPadding: const EdgeInsets.fromLTRB(2, 5, 2, 5),
           border: OutlineInputBorder(
               borderSide: BorderSide(
                   color: AppColors.white.withOpacity(.7), // set border color
