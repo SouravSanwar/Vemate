@@ -15,15 +15,14 @@ class MintTextField extends StatefulWidget {
   dynamic onsaved;
   bool? isEnable;
 
-  MintTextField({
-    required this.labelText,
-     this.width,
-    required this.textType,
-    required this.controller,
-    this.validator,
-    this.onsaved,
-    this.isEnable
-  });
+  MintTextField(
+      {required this.labelText,
+      this.width,
+      required this.textType,
+      required this.controller,
+      this.validator,
+      this.onsaved,
+      this.isEnable});
 
   @override
   _MintTextFieldState createState() => _MintTextFieldState();
@@ -39,9 +38,9 @@ class _MintTextFieldState extends State<MintTextField> {
       //width: Get.width*.25,
       width: widget.width,
 
-      height: Get.height*.038,
+      height: Get.height * .038,
       color: Colors.transparent,
-      child:TextFormField(
+      child: TextFormField(
         textAlign: TextAlign.center,
         enabled: widget.isEnable,
         onSaved: widget.onsaved,
@@ -79,10 +78,7 @@ class _MintTextFieldState extends State<MintTextField> {
                 width: 1.5),
           ),
           hintText: widget.labelText,
-          hintStyle: TextStyle(
-              color: AppColors.white.withOpacity(.7),
-              fontFamily: 'Inter',
-              fontSize: 15.sp),
+          hintStyle: TextStyle(color: AppColors.white.withOpacity(.7), fontFamily: 'Inter', fontSize: 15.sp),
           labelStyle: const TextStyle(
             fontFamily: 'Inter',
             color: Colors.blue,
