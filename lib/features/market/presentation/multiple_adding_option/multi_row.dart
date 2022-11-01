@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/models/SingleProductModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/market/model/MultiRowModel.dart';
@@ -12,7 +13,9 @@ import 'Date_Picker/i18n/date_picker_i18n.dart';
 import 'package:intl/intl.dart';
 
 class Multiform extends StatefulWidget {
-  const Multiform({Key? key}) : super(key: key);
+  final SingleProductModel? singleProductModel;
+
+  const Multiform({Key? key, this.singleProductModel}) : super(key: key);
 
   @override
   State<Multiform> createState() => _MultiformState();
@@ -192,7 +195,7 @@ class _MultiformState extends State<Multiform> {
                 ? TextButton(
                     onPressed: () {
                       var body = {
-                        "product": 3199,
+                        "product": widget.singleProductModel!.id,
                         "type": 0,
                         "mints": [
                           for (int i = 0; i < addToListController.length; i++)
