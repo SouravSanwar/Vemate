@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
@@ -7,6 +6,10 @@ import 'package:ketemaa/features/market/model/MultiRowModel.dart';
 import 'package:ketemaa/features/market/presentation/multiple_adding_option/mint_info.dart';
 import 'package:ketemaa/features/market/presentation/multiple_adding_option/mint_row.dart';
 import 'package:ketemaa/features/market/presentation/multiple_adding_option/mint_textfield.dart';
+
+import 'Date_Picker/date_picker.dart';
+import 'Date_Picker/i18n/date_picker_i18n.dart';
+import 'package:intl/intl.dart';
 
 class Multiform extends StatefulWidget {
   const Multiform({Key? key}) : super(key: key);
@@ -24,7 +27,7 @@ class _MultiformState extends State<Multiform> {
     MultiRowModel(
       TextEditingController(),
       TextEditingController(),
-      DateTime(2022),
+      TextEditingController(),
     )
   ];
 
@@ -78,7 +81,11 @@ class _MultiformState extends State<Multiform> {
                         MultiRowModel(
                           TextEditingController(text: mintController.text),
                           TextEditingController(),
-                          DateTime(2022),
+                          TextEditingController(
+                            text: DateFormat('yyyy-MM-dd').format(
+                              DateTime.now(),
+                            ),
+                          ),
                         ),
                       );
                     });
@@ -107,7 +114,7 @@ class _MultiformState extends State<Multiform> {
                         labelText: 'Price',
                         textType: TextInputType.number,
                         // onsaved: (value) => widget.mint_info!.purchase_price = value as double?,
-                        controller: addToListController[index].mintNumber2!),
+                        controller: addToListController[index].price!),
                     AppSpaces.spaces_width_5,
                     Container(
                       width: Get.width * .21,
@@ -123,12 +130,14 @@ class _MultiformState extends State<Multiform> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            addToListController[index].dateTime!.year.toString(),
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.white.withOpacity(.7),
+                          Expanded(
+                            child: Text(
+                              addToListController[index].dateTime!.text.toString(),
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.white.withOpacity(.7),
+                              ),
                             ),
                           ),
                           InkWell(
@@ -145,7 +154,8 @@ class _MultiformState extends State<Multiform> {
                                 textColor: AppColors.white.withOpacity(.7),
                               );
                               setState(() {
-                                // textDate = datePicked;
+                                addToListController[index].dateTime!.text =
+                                    DateFormat('yyyy-MM-dd').format(datePicked!);
                               });
                               final snackBar = SnackBar(content: Text("Date Picked $datePicked"));
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -181,7 +191,20 @@ class _MultiformState extends State<Multiform> {
             addToListController.isNotEmpty
                 ? TextButton(
                     onPressed: () {
-                      printInfo(info: addToListController.length.toString());
+                      var body = {
+                        "product": 3199,
+                        "type": 0,
+                        "mints": [
+                          for (int i = 0; i < addToListController.length; i++)
+                            {
+                              "mint_number": addToListController[i].mintNumber1!.text,
+                              "ap": addToListController[i].price!.text,
+                              "ad": addToListController[i].dateTime!.text
+                            }
+                        ]
+                      };
+
+                      printInfo(info: body.toString());
                     },
                     child: Align(
                       alignment: Alignment.centerRight,
