@@ -13,16 +13,19 @@ class MintTextField extends StatefulWidget {
   TextEditingController controller;
   FormFieldValidator? validator;
   dynamic onsaved;
+  dynamic onChanged;
   bool? isEnable;
 
-  MintTextField(
-      {required this.labelText,
-      this.width,
-      required this.textType,
-      required this.controller,
-      this.validator,
-      this.onsaved,
-      this.isEnable});
+  MintTextField({
+    required this.labelText,
+    this.width,
+    required this.textType,
+    required this.controller,
+    this.validator,
+    this.onsaved,
+    this.onChanged,
+    this.isEnable,
+  });
 
   @override
   _MintTextFieldState createState() => _MintTextFieldState();
@@ -41,6 +44,7 @@ class _MintTextFieldState extends State<MintTextField> {
       height: Get.height * .038,
       color: Colors.transparent,
       child: TextFormField(
+        onChanged: widget.onChanged,
         textAlign: TextAlign.center,
         enabled: widget.isEnable,
         onSaved: widget.onsaved,

@@ -51,6 +51,7 @@ class _MultiformState extends State<Multiform> {
   ];
   List<TextEditingController> storedMintController = [];
   List<TextEditingController> storedPriceController = [];
+  List<TextEditingController> storedDateController = [];
 
   @override
   void initState() {
@@ -143,12 +144,25 @@ class _MultiformState extends State<Multiform> {
                                 shrinkWrap: true,
                                 itemCount: data.maoModel!.results!.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  storedMintController.add(TextEditingController());
-                                  storedPriceController.add(TextEditingController());
+                                  storedMintController.add(
+                                    TextEditingController(
+                                      text: data.maoModel!.results![index].mintNumber.toString(),
+                                    ),
+                                  );
+                                  storedPriceController.add(
+                                    TextEditingController(
+                                      text: data.maoModel!.results![index].ap.toString(),
+                                    ),
+                                  );
+                                  storedDateController.add(
+                                    TextEditingController(
+                                      text: data.maoModel!.results![index].ad.toString(),
+                                    ),
+                                  );
 
-                                  storedMintController[index].text =
-                                      data.maoModel!.results![index].mintNumber.toString();
-                                  storedPriceController[index].text = data.maoModel!.results![index].ap.toString();
+                                  // storedMintController[index].text =
+                                  //     data.maoModel!.results![index].mintNumber.toString();
+                                  // storedPriceController[index].text = data.maoModel!.results![index].ap.toString();
                                   return Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -194,7 +208,7 @@ class _MultiformState extends State<Multiform> {
                                             Expanded(
                                               child: Text(
                                                 DateFormat('yyyy-MM-dd')
-                                                    .format(DateTime.parse(data.maoModel!.results![index].ad!))
+                                                    .format(DateTime.parse(storedDateController[index].text))
                                                     .toString(),
                                                 style: TextStyle(
                                                   fontSize: 10,
@@ -213,12 +227,11 @@ class _MultiformState extends State<Multiform> {
                                                   dateFormat: "dd-MM-yyyy",
                                                   locale: DateTimePickerLocale.en_us,
                                                   looping: true,
-                                                  backgroundColor: Color(0xff02072D),
+                                                  backgroundColor: const Color(0xff02072D),
                                                   textColor: AppColors.white.withOpacity(.7),
                                                 );
                                                 setState(() {
-                                                  addToListController[index].dateTime!.text =
-                                                      datePicked!.toIso8601String();
+                                                  storedDateController[index].text = datePicked!.toIso8601String();
                                                 });
                                               },
                                               child: Icon(
@@ -232,30 +245,57 @@ class _MultiformState extends State<Multiform> {
                                       ),
                                       AppSpaces.spaces_width_5,
                                       InkWell(
+                                        onTap: () {},
                                         child: Container(
-                                            height: Get.height * .035,
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: AppColors.white.withOpacity(.7),
-                                                width: 1.5,
-                                              ),
-                                              borderRadius: BorderRadius.circular(7.0),
+                                          height: Get.height * .035,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: AppColors.white.withOpacity(.7),
+                                              width: 1.5,
                                             ),
-                                            child: Icon(
-                                              Icons.minimize,
-                                              color: AppColors.textColor,
-                                              size: 20,
-                                            )),
-                                        onTap: () {
-                                          // if (addToListController.isNotEmpty) {
-                                          //   setState(() {
-                                          //     addToListController.removeAt(index);
-                                          //   });
-                                          // }
-                                          print(addToListController.length.toString());
-                                        },
-                                      )
+                                            borderRadius: BorderRadius.circular(7.0),
+                                          ),
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: AppColors.textColor,
+                                            size: 20,
+                                          ),
+                                        ),
+                                      ),
+                                      AppSpaces.spaces_width_5,
+                                      storedMintController[index].text !=
+                                                  data.maoModel!.results![index].mintNumber.toString() ||
+                                              storedPriceController[index].text !=
+                                                  data.maoModel!.results![index].ap.toString() ||
+                                              storedDateController[index].text !=
+                                                  data.maoModel!.results![index].ad.toString()
+                                          ? InkWell(
+                                              onTap: () {
+                                                var body = {
+                                                  "mint_number": data.maoModel!.results![index].mintNumber.toString(),
+                                                  "ap": data.maoModel!.results![index].ap.toString(),
+                                                  "ad": data.maoModel!.results![index].ad.toString()
+                                                };
+                                              },
+                                              child: Container(
+                                                height: Get.height * .035,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: AppColors.white.withOpacity(.7),
+                                                    width: 1.5,
+                                                  ),
+                                                  borderRadius: BorderRadius.circular(7.0),
+                                                ),
+                                                child: Icon(
+                                                  Icons.save_as_outlined,
+                                                  color: AppColors.textColor,
+                                                  size: 20,
+                                                ),
+                                              ),
+                                            )
+                                          : Container(),
                                     ],
                                   );
                                 },
@@ -334,7 +374,7 @@ class _MultiformState extends State<Multiform> {
                                               dateFormat: "dd-MM-yyyy",
                                               locale: DateTimePickerLocale.en_us,
                                               looping: true,
-                                              backgroundColor: Color(0xff02072D),
+                                              backgroundColor: const Color(0xff02072D),
                                               textColor: AppColors.white.withOpacity(.7),
                                             );
                                             setState(() {
