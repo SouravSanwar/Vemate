@@ -1108,7 +1108,7 @@ class PostData extends ChangeNotifier with BaseController {
     /*final response =
         await BaseClient().post(Urls.logIn, body).catchError(handleError);*/
 
-    final response = await http.post(Uri.parse(Urls.postMAO), body: json.encode(body), headers: requestToken);
+    final response = await http.post(Uri.parse(Urls.MAO+'vault_bulk_upload/'), body: json.encode(body), headers: requestToken);
     printInfo(info: response.body.toString());
 
     var x = json.decode(response.body);
@@ -1128,6 +1128,135 @@ class PostData extends ChangeNotifier with BaseController {
               color: Colors.purpleAccent,
               message: "Added Successfully",
             ));
+        Navigator.of(context).pop();
+      } catch (e) {
+        Navigator.of(context).pop();
+
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const ResponseMessage(
+              icon: Icons.error,
+              color: Colors.purpleAccent,
+              message: "Invalid Information",
+            ));
+      }
+    } else {
+      Navigator.of(context).pop();
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const ResponseMessage(
+            icon: Icons.error,
+            color: Colors.purpleAccent,
+            message: "Invalid Information",
+          ));
+    }
+    notifyListeners();
+  }
+
+  Future editMAO(
+      num? id,
+      BuildContext context,
+      var body,
+      var requestToken,
+      ) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingDialogue(
+          message: "Please wait",
+        ));
+
+
+    /*final response =
+        await BaseClient().post(Urls.logIn, body).catchError(handleError);*/
+
+    final response = await http.patch(Uri.parse(Urls.MAO+ '$id/'), body: json.encode(body), headers: requestToken);
+    printInfo(info: response.body.toString());
+
+    var x = json.decode(response.body);
+
+    Map<String, dynamic> js = x;
+
+    if (response.statusCode == 200)
+    {
+      try {
+        postData = Provider.of<PostData>(context, listen: false);
+
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const ResponseMessage(
+              icon: Icons.error,
+              color: Colors.purpleAccent,
+              message: "Added Successfully",
+            ));
+        Navigator.of(context).pop();
+      } catch (e) {
+        Navigator.of(context).pop();
+
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const ResponseMessage(
+              icon: Icons.error,
+              color: Colors.purpleAccent,
+              message: "Invalid Information",
+            ));
+      }
+    } else {
+      Navigator.of(context).pop();
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const ResponseMessage(
+            icon: Icons.error,
+            color: Colors.purpleAccent,
+            message: "Invalid Information",
+          ));
+    }
+    notifyListeners();
+  }
+
+  Future deleteMAO(
+      num? id,
+      BuildContext context,
+      var body,
+      var requestToken,
+      ) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingDialogue(
+          message: "Please wait",
+        ));
+
+
+    /*final response =
+        await BaseClient().post(Urls.logIn, body).catchError(handleError);*/
+
+    final response = await http.delete(Uri.parse(Urls.MAO+ '$id/'), body: json.encode(body), headers: requestToken);
+    printInfo(info: response.body.toString());
+
+    var x = json.decode(response.body);
+
+    Map<String, dynamic> js = x;
+
+    if (response.statusCode == 200)
+    {
+      try {
+        postData = Provider.of<PostData>(context, listen: false);
+
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const ResponseMessage(
+              icon: Icons.error,
+              color: Colors.purpleAccent,
+              message: "Added Successfully",
+            ));
+        Navigator.of(context).pop();
       } catch (e) {
         Navigator.of(context).pop();
 

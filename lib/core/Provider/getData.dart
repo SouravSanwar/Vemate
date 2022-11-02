@@ -424,14 +424,12 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future getMAO(String? type, String? productID, {int offset = 0}) async {
-    final response = await BaseClient()
-        .get(Urls.productMAO + '?type=$type&product=$productID&limit=20&offset=$offset')
-        .catchError(handleError);
+  Future getMAO(String? type, String? productID,{int offset = 0}) async {
+    final response = await BaseClient().get(Urls.productMAO + '?type=$type&product=$productID&limit=20&offset=$offset').catchError(handleError);
 
     var data = json.decode(response.toString());
 
-    printInfo(info: 'getMAO: ' + data.toString());
+    //printInfo(info: data.toString());
 
     if (maoModel != null) {
       if (offset == 0) maoModel!.results!.clear();

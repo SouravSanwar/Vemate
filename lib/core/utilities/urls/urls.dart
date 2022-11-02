@@ -55,7 +55,7 @@ class Urls {
   static String feedback = mainUrl + '/api/v1/account/public/feedbacks/';
   static String deleteAccount = mainUrl + '/api/v1/account/public/users/';
 
-  static String postMAO = mainUrl + '/api/v1/veve/public/common-storage/vault_bulk_upload/';
+  static String MAO = mainUrl + '/api/v1/veve/public/common-storage/';
   static String productMAO = mainUrl + '/api/v1/veve/public/common-storages/product-detail/';
 
 }

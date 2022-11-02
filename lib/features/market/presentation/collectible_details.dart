@@ -267,9 +267,14 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   showDialog(
                                     context: context,
                                     builder: (ctx) => Dialog(
-                                      backgroundColor: AppColors.backgroundColor,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                                      child: Multiform(id: data.singleProductModel!.id, type: 0),
+                                      backgroundColor: Colors.transparent,
+                                      child: Container(
+                                          height: Get.height * .6,
+                                          decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Multiform(id: data.singleProductModel!.id, type: 0)),
                                     ),
                                   );
                                 },
