@@ -264,11 +264,12 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
 
 
                                   }*/
-                                  showDialog(
+                                  /*showDialog(
                                     context: context,
-                                    builder: (ctx) => Dialog(
+                                    builder: (ctx) => AlertDialog(
                                       backgroundColor: Colors.transparent,
-                                      child: Container(
+                                      contentPadding: EdgeInsets.zero,
+                                      content: Container(
                                           height: Get.height * .6,
                                           decoration: BoxDecoration(
                                             color: Colors.transparent,
@@ -276,6 +277,14 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           ),
                                           child: Multiform(id: data.singleProductModel!.id, type: 0)),
                                     ),
+                                  );*/
+                                  showDialog(
+                                      context: context,
+                                      builder: (ctx) =>Dialog(
+                                      backgroundColor: Colors.transparent,
+                                      insetPadding: EdgeInsets.symmetric(vertical: 16,horizontal: 16),
+                                      child: Multiform(id: data.singleProductModel!.id, type: 0),
+                                      )
                                   );
                                 },
                                 child: Container(

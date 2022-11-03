@@ -40,8 +40,7 @@ class _MintTextFieldState extends State<MintTextField> {
     return Container(
       //width: Get.width*.25,
       width: widget.width,
-
-      height: Get.height * .038,
+      height: Get.height * .0467,
       color: Colors.transparent,
       child: TextFormField(
         onChanged: widget.onChanged,
