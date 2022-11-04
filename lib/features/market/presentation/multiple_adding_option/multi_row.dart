@@ -417,7 +417,7 @@ class _MultiformState extends State<Multiform> {
                                                         textColor: AppColors.white.withOpacity(.7),
                                                       );
                                                       setState(() {
-                                                        addToListController[index].dateTime!.text =
+                                                        storedDateController[index].text =
                                                             datePicked!.toIso8601String();
                                                       });
                                                     },
@@ -499,7 +499,8 @@ class _MultiformState extends State<Multiform> {
                                                 flex: 2,
                                                 child: InkWell(
                                                   child: Container(
-                                                      margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+
+                                                      margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
                                                       decoration: BoxDecoration(
                                                         border: Border.all(
                                                           color: AppColors.white.withOpacity(.7),
@@ -510,7 +511,7 @@ class _MultiformState extends State<Multiform> {
                                                       child: Icon(
                                                         Icons.upgrade,
                                                         color: AppColors.textColor,
-                                                        size: 20,
+                                                        size: 17,
                                                       )),
                                                   onTap: () {
                                                     var body = {
@@ -551,7 +552,7 @@ class _MultiformState extends State<Multiform> {
                                                       child: Icon(
                                                         Icons.clear,
                                                         color: AppColors.textColor,
-                                                        size: 18,
+                                                        size: 17,
                                                       )),
                                                   onTap: () {
                                                     var body = {};
