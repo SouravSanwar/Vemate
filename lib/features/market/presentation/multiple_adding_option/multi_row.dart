@@ -35,6 +35,7 @@ class _MultiformState extends State<Multiform> {
   PostData? postData;
   GetData? getData;
   int offset = 0;
+  int? storedLenth=0;
 
   RefreshController refreshController = RefreshController(initialRefresh: false);
   final GlobalKey _refreshkey = GlobalKey();
@@ -85,10 +86,12 @@ class _MultiformState extends State<Multiform> {
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
       // addData(results: data.maoModel!.results);
+      data.maoModel != null
+     ? storedLenth = data.maoModel!.results!.length : 0;
       return Container(
-        height: (data.maoModel!.results!.length+addToListController.length) <8 ?
-        (data.maoModel!.results!.length+addToListController.length) * (Get.height * .055) -
-            ((data.maoModel!.results!.length+addToListController.length) * 5)+140
+        height: (storedLenth! + addToListController.length) <8 ?
+        (storedLenth! +addToListController.length) * (Get.height * .055) -
+            ((storedLenth! + addToListController.length) * 5)+140
              //10 er beshi hole
             :570,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: AppColors.backgroundColor),
