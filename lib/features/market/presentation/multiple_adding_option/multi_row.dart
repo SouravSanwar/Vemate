@@ -61,8 +61,11 @@ class _MultiformState extends State<Multiform> {
     addToListController.length = 0;
     postData = Provider.of<PostData>(context, listen: false);
     getData = Provider.of<GetData>(context, listen: false);
+    storedMintController=[];
+    storedPriceController=[];
+    storedDateController=[];
     getData!.getMAO(widget.type.toString(), widget.id.toString());
-    // .whenComplete(() => addData(results: getData!.maoModel!.results));
+    Future.delayed(const Duration(seconds: 2));
     super.initState();
   }
 
@@ -83,16 +86,11 @@ class _MultiformState extends State<Multiform> {
     return Consumer<GetData>(builder: (context, data, child) {
       // addData(results: data.maoModel!.results);
       return Container(
-        /*height: (data.maoModel!.results!.length+addToListController.length) <8 ?
-           (data.maoModel!.results!.length < 8
-            ? data.maoModel!.results!.length* (Get.height * .055) -
-            (data.maoModel!.results!.length * 5)
-            : (Get.height * .385 - 35))+(addToListController.length < 8
-            ? addToListController.length * (Get.height * .055) -
-            (addToListController.length * 5)
-            : (Get.height * .385 - 35))+150
+        height: (data.maoModel!.results!.length+addToListController.length) <8 ?
+        (data.maoModel!.results!.length+addToListController.length) * (Get.height * .055) -
+            ((data.maoModel!.results!.length+addToListController.length) * 5)+140
              //10 er beshi hole
-            :570,*/
+            :570,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: AppColors.backgroundColor),
         padding: EdgeInsets.zero,
         width: double.infinity,
@@ -246,7 +244,7 @@ class _MultiformState extends State<Multiform> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(4.0, 0.0, 4.0, 0.0),
+                                    padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
@@ -376,7 +374,63 @@ class _MultiformState extends State<Multiform> {
                                       ),
                                     ),
                                     AppSpaces.spaces_width_5,
+                                    //datetime_new_row
                                     Expanded(
+                                      flex: 7,
+                                      child: Container(
+                                        height: Get.height * .035,
+                                        padding: EdgeInsets.zero,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: AppColors.white.withOpacity(.7),
+                                            width: 1.5,
+                                          ),
+                                          borderRadius: BorderRadius.circular(10.0),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                DateFormat('yyyy-MM-dd')
+                                                    .format(DateTime.parse(storedDateController[index].text))
+                                                    .toString(),
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AppColors.white.withOpacity(.7),
+                                                ),
+                                              ),
+                                              InkWell(
+                                                onTap: () async {
+                                                  var datePicked = await DatePicker.showSimpleDatePicker(
+                                                    context,
+                                                    initialDate: DateTime.now(),
+                                                    firstDate: DateTime(2015),
+                                                    lastDate: DateTime.now(),
+                                                    dateFormat: "dd-MM-yyyy",
+                                                    locale: DateTimePickerLocale.en_us,
+                                                    looping: true,
+                                                    backgroundColor: const Color(0xff02072D),
+                                                    textColor: AppColors.white.withOpacity(.7),
+                                                  );
+                                                  setState(() {
+                                                    addToListController[index].dateTime!.text = datePicked!.toIso8601String();
+                                                  });
+                                                },
+                                                child: Icon(
+                                                  Icons.calendar_month,
+                                                  color: AppColors.white.withOpacity(.7),
+                                                  size: 17,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    /*Expanded(
                                       flex: 7,
                                       child: Container(
                                         height: Get.height * .035,
@@ -390,8 +444,7 @@ class _MultiformState extends State<Multiform> {
                                         child: Padding(
                                           padding: const EdgeInsets.fromLTRB(4.0, 0.0, 4.0, 0.0),
                                           child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Expanded(
                                                 child: Text(
@@ -432,7 +485,7 @@ class _MultiformState extends State<Multiform> {
                                           ),
                                         ),
                                       ),
-                                    ),
+                                    ),*/
                                     AppSpaces.spaces_width_5,
                                     storedMintController[index].text !=
                                                 data.maoModel!.results![index].mintNumber.toString() ||
@@ -473,7 +526,11 @@ class _MultiformState extends State<Multiform> {
                                                     .whenComplete(() =>
                                                         getData!.getMAO(widget.type.toString(), widget.id.toString()))
                                                     .whenComplete(() => Navigator.of(context).pop());
-                                                printInfo(info: body.toString() + requestHeadersWithToken.toString());
+                                                setState(() {
+                                                  storedMintController[index] = storedMintController[index];
+                                                  storedPriceController[index] =storedPriceController[index];
+                                                  storedDateController[index]= storedDateController[index];
+                                                });
                                               },
                                             ),
                                           )
@@ -505,7 +562,33 @@ class _MultiformState extends State<Multiform> {
                                                     )
                                                     .whenComplete(() =>
                                                         getData!.getMAO(widget.type.toString(), widget.id.toString()))
+                                                .whenComplete(() => storedMintController.removeAt(index))
+                                                .whenComplete(() => storedPriceController.removeAt(index))
+                                                .whenComplete(() => storedDateController.removeAt(index))
                                                     .whenComplete(() => Navigator.of(context).pop());
+                                                /*setState(() {
+                                                  for(int l=0; l<data.maoModel!.results!.length;l++)
+                                                    {
+                                                      storedMintController.em;
+                                                      storedPriceController = [];
+                                                      storedDateController = [];
+                                                      storedMintController.add(
+                                                        TextEditingController(
+                                                          text: data.maoModel!.results![index].mintNumber.toString(),
+                                                        ),
+                                                      );
+                                                      storedPriceController.add(
+                                                        TextEditingController(
+                                                          text: data.maoModel!.results![index].ap.toString(),
+                                                        ),
+                                                      );
+                                                      storedDateController.add(
+                                                        TextEditingController(
+                                                          text: data.maoModel!.results![index].ad.toString(),
+                                                        ),
+                                                      );
+                                                    }
+                                                });*/
                                                 printInfo(info: body.toString() + requestHeadersWithToken.toString());
                                               },
                                             ),
@@ -580,7 +663,7 @@ class _MultiformState extends State<Multiform> {
                                       requestHeadersWithToken,
                                     )
                                     .whenComplete(() => getData!.getMAO(widget.type.toString(), widget.id.toString()))
-                                    .whenComplete(() => Navigator.of(context).pop());
+                                    .whenComplete(() => Navigator.of(context).pop()).whenComplete(() => Navigator.of(context).pop());
                               }
                               addToListController.clear();
 
