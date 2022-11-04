@@ -61,376 +61,378 @@ class _MultiformState extends State<Multiform> {
     addToListController.length = 0;
     postData = Provider.of<PostData>(context, listen: false);
     getData = Provider.of<GetData>(context, listen: false);
-    storedMintController=[];
-    storedPriceController=[];
-    storedDateController=[];
+    // getData!.maoModel = null;
     getData!.getMAO(widget.type.toString(), widget.id.toString());
-    Future.delayed(const Duration(seconds: 2));
     super.initState();
-  }
-
-  addData({List<Results>? results}) {
-    for (int i = 0; i < results!.length; i++) {
-      addToListController.add(
-        MultiRowModel(
-          TextEditingController(text: results[i].mintNumber.toString()),
-          TextEditingController(text: results[i].ap.toString()),
-          TextEditingController(text: results[i].ad.toString()),
-        ),
-      );
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
-      // addData(results: data.maoModel!.results);
-      return Container(
-        height: (data.maoModel!.results!.length+addToListController.length) <8 ?
-        (data.maoModel!.results!.length+addToListController.length) * (Get.height * .055) -
-            ((data.maoModel!.results!.length+addToListController.length) * 5)+140
-             //10 er beshi hole
-            :570,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: AppColors.backgroundColor),
-        padding: EdgeInsets.zero,
-        width: double.infinity,
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              AppSpaces.spaces_height_20,
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: Get.height * .0667,
-                    child: MintTextField(
-                      width: Get.width * .65,
-                      labelText: 'Enter Mint',
-                      textType: TextInputType.number,
-                      controller: mintController,
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Enter mint number';
-                        }
-                      },
-                    ),
-                  ),
-                  AppSpaces.spaces_width_5,
-                  Container(
-                    alignment: Alignment.center,
-                    height: Get.height * .035,
-                    width: Get.width * .12,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: AppColors.white.withOpacity(.7),
-                        width: 1.5,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: InkWell(
-                      child: Icon(
-                        Icons.add,
-                        size: 20,
-                        color: AppColors.grey,
-                      ),
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          setState(() {
-                            // storedMintController.add(
-                            //   TextEditingController(
-                            //     text: mintController.text,
-                            //   ),
-                            // );
-                            // storedPriceController.add(
-                            //   TextEditingController(
-                            //     text: '',
-                            //   ),
-                            // );
-                            // storedDateController.add(
-                            //   TextEditingController(
-                            //     text: DateTime.now().toIso8601String(),
-                            //   ),
-                            // );
-                            //
-                            // data.maoModel!.results!.add(
-                            //   Results(
-                            //     id: data.maoModel!.results![data.maoModel!.results!.length - 1].id! + 1,
-                            //     type: 0,
-                            //     mintNumber: int.parse(mintController.text),
-                            //     ap: '',
-                            //     ad: data.maoModel!.results![0].ad,
-                            //     creationTime: data.maoModel!.results![0].creationTime,
-                            //     user: 17,
-                            //     product: widget.id,
-                            //   ),
-                            // );
-                            // printInfo(
-                            //     info: 'data.maoModel!.results![0]' +
-                            //         data.maoModel!.results![data.maoModel!.results!.length - 1].mintNumber.toString());
-
-                            addToListController.add(
-                              MultiRowModel(
-                                TextEditingController(text: mintController.text),
-                                TextEditingController(),
-                                TextEditingController(text: DateTime.now().toIso8601String()),
-                              ),
-                            );
-                          });
-                        }
-                      },
-                    ),
-                  )
-                ],
-              ),
-              Expanded(
-                child: ListView(
-                  physics: AlwaysScrollableScrollPhysics(),
+      return data.maoModel != null
+          ? Container(
+              height: (data.maoModel!.results!.length + addToListController.length) < 8
+                  ? (data.maoModel!.results!.length + addToListController.length) * (Get.height * .055) -
+                      ((data.maoModel!.results!.length + addToListController.length) * 5) +
+                      140
+                  //10 er beshi hole
+                  : 570,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: AppColors.backgroundColor),
+              padding: EdgeInsets.zero,
+              width: double.infinity,
+              child: Form(
+                key: _formKey,
+                child: Column(
                   children: [
+                    AppSpaces.spaces_height_20,
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: Get.height * .0667,
+                          child: MintTextField(
+                            width: Get.width * .65,
+                            labelText: 'Enter Mint',
+                            textType: TextInputType.number,
+                            controller: mintController,
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Enter mint number';
+                              }
+                            },
+                          ),
+                        ),
+                        AppSpaces.spaces_width_5,
+                        Container(
+                          alignment: Alignment.center,
+                          height: Get.height * .035,
+                          width: Get.width * .12,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: AppColors.white.withOpacity(.7),
+                              width: 1.5,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: InkWell(
+                            child: Icon(
+                              Icons.add,
+                              size: 20,
+                              color: AppColors.grey,
+                            ),
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  // storedMintController.add(
+                                  //   TextEditingController(
+                                  //     text: mintController.text,
+                                  //   ),
+                                  // );
+                                  // storedPriceController.add(
+                                  //   TextEditingController(
+                                  //     text: '',
+                                  //   ),
+                                  // );
+                                  // storedDateController.add(
+                                  //   TextEditingController(
+                                  //     text: DateTime.now().toIso8601String(),
+                                  //   ),
+                                  // );
+                                  //
+                                  // data.maoModel!.results!.add(
+                                  //   Results(
+                                  //     id: data.maoModel!.results![data.maoModel!.results!.length - 1].id! + 1,
+                                  //     type: 0,
+                                  //     mintNumber: int.parse(mintController.text),
+                                  //     ap: '',
+                                  //     ad: data.maoModel!.results![0].ad,
+                                  //     creationTime: data.maoModel!.results![0].creationTime,
+                                  //     user: 17,
+                                  //     product: widget.id,
+                                  //   ),
+                                  // );
+                                  // printInfo(
+                                  //     info: 'data.maoModel!.results![0]' +
+                                  //         data.maoModel!.results![data.maoModel!.results!.length - 1].mintNumber.toString());
 
-                    /// new_row
-                    Container(
-                      // height: addToListController.length < 5
-                      //     ? addToListController.length * (Get.height * .055) - (addToListController.length * 5)
-                      //     : (Get.height * .275 - 35),
-                      child: ListView.builder(
-                        reverse: true,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: addToListController.length,
-                        itemBuilder: (context, index) {
-                          return Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                                  addToListController.add(
+                                    MultiRowModel(
+                                      TextEditingController(text: mintController.text),
+                                      TextEditingController(),
+                                      TextEditingController(text: DateTime.now().toIso8601String()),
+                                    ),
+                                  );
+                                });
+                              }
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+
+                    Expanded(
+                      child: SmartRefresher(
+                          key: _refreshkey,
+                          controller: refreshController,
+                          enablePullDown: true,
+                          enablePullUp: true,
+                          header: WaterDropMaterialHeader(
+                            color: AppColors.graphCard,
+                          ),
+                          footer: const ClassicFooter(
+                            loadStyle: LoadStyle.ShowWhenLoading,
+                          ),
+                          onRefresh: _onRefresh,
+                          onLoading: _onLoading,
+                          child: ListView(
+                            physics: const AlwaysScrollableScrollPhysics(),
                             children: [
-                              AppSpaces.spaces_width_5,
-
-                              //mint_number_new_row
-                              Expanded(
-                                flex: 7,
-                                child: MintTextField(
-                                  labelText: 'Mint Number',
-                                  textType: TextInputType.number,
-                                  controller: addToListController[index].mintNumber1!,
-                                ),
-                              ),
-                              AppSpaces.spaces_width_5,
-
-                              //price_new_row
-                              Expanded(
-                                flex: 7,
-                                child: MintTextField(
-                                  labelText: 'Price',
-                                  textType: TextInputType.number,
-                                  controller: addToListController[index].price!,
-                                ),
-                              ),
-                              AppSpaces.spaces_width_5,
-
-                              //datetime_new_row
-                              Expanded(
-                                flex: 7,
-                                child: Container(
-                                  height: Get.height * .035,
-                                  padding: EdgeInsets.zero,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: AppColors.white.withOpacity(.7),
-                                      width: 1.5,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              /// new_row
+                              Container(
+                                // height: addToListController.length < 5
+                                //     ? addToListController.length * (Get.height * .055) - (addToListController.length * 5)
+                                //     : (Get.height * .275 - 35),
+                                child: ListView.builder(
+                                  reverse: true,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: addToListController.length,
+                                  itemBuilder: (context, index) {
+                                    return Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          DateFormat('yyyy-MM-dd')
-                                              .format(DateTime.parse(addToListController[index].dateTime!.text))
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColors.white.withOpacity(.7),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () async {
-                                            var datePicked = await DatePicker.showSimpleDatePicker(
-                                              context,
-                                              initialDate: DateTime.now(),
-                                              firstDate: DateTime(2015),
-                                              lastDate: DateTime.now(),
-                                              dateFormat: "dd-MM-yyyy",
-                                              locale: DateTimePickerLocale.en_us,
-                                              looping: true,
-                                              backgroundColor: const Color(0xff02072D),
-                                              textColor: AppColors.white.withOpacity(.7),
-                                            );
-                                            setState(() {
-                                              addToListController[index].dateTime!.text = datePicked!.toIso8601String();
-                                            });
-                                          },
-                                          child: Icon(
-                                            Icons.calendar_month,
-                                            color: AppColors.white.withOpacity(.7),
-                                            size: 17,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              AppSpaces.spaces_width_5,
+                                        AppSpaces.spaces_width_5,
 
-                              //delete__new_row
-                              Expanded(
-                                flex: 2,
-                                child: InkWell(
-                                  child: Container(
-                                      margin: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: AppColors.white.withOpacity(.7),
-                                          width: 2,
+                                        //mint_number_new_row
+                                        Expanded(
+                                          flex: 7,
+                                          child: MintTextField(
+                                            labelText: 'Mint Number',
+                                            textType: TextInputType.number,
+                                            controller: addToListController[index].mintNumber1!,
+                                          ),
                                         ),
-                                        borderRadius: BorderRadius.circular(20.0),
-                                      ),
-                                      child: Icon(
-                                        Icons.clear,
-                                        color: AppColors.textColor,
-                                        size: 17,
-                                      )),
-                                  onTap: () {
-                                    if (addToListController.isNotEmpty) {
-                                      setState(() {
-                                        addToListController.removeAt(index);
-                                      });
-                                    }
-                                    print(Get.width.toString());
+                                        AppSpaces.spaces_width_5,
+
+                                        //price_new_row
+                                        Expanded(
+                                          flex: 7,
+                                          child: MintTextField(
+                                            labelText: 'Price',
+                                            textType: TextInputType.number,
+                                            controller: addToListController[index].price!,
+                                          ),
+                                        ),
+                                        AppSpaces.spaces_width_5,
+
+                                        //datetime_new_row
+                                        Expanded(
+                                          flex: 7,
+                                          child: Container(
+                                            height: Get.height * .035,
+                                            padding: EdgeInsets.zero,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: AppColors.white.withOpacity(.7),
+                                                width: 1.5,
+                                              ),
+                                              borderRadius: BorderRadius.circular(10.0),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    DateFormat('yyyy-MM-dd')
+                                                        .format(
+                                                            DateTime.parse(addToListController[index].dateTime!.text))
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: AppColors.white.withOpacity(.7),
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () async {
+                                                      var datePicked = await DatePicker.showSimpleDatePicker(
+                                                        context,
+                                                        initialDate: DateTime.now(),
+                                                        firstDate: DateTime(2015),
+                                                        lastDate: DateTime.now(),
+                                                        dateFormat: "dd-MM-yyyy",
+                                                        locale: DateTimePickerLocale.en_us,
+                                                        looping: true,
+                                                        backgroundColor: const Color(0xff02072D),
+                                                        textColor: AppColors.white.withOpacity(.7),
+                                                      );
+                                                      setState(() {
+                                                        addToListController[index].dateTime!.text =
+                                                            datePicked!.toIso8601String();
+                                                      });
+                                                    },
+                                                    child: Icon(
+                                                      Icons.calendar_month,
+                                                      color: AppColors.white.withOpacity(.7),
+                                                      size: 17,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        AppSpaces.spaces_width_5,
+
+                                        //delete__new_row
+                                        Expanded(
+                                          flex: 2,
+                                          child: InkWell(
+                                            child: Container(
+                                                margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: AppColors.white.withOpacity(.7),
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius: BorderRadius.circular(20.0),
+                                                ),
+                                                child: Icon(
+                                                  Icons.clear,
+                                                  color: AppColors.textColor,
+                                                  size: 17,
+                                                )),
+                                            onTap: () {
+                                              if (addToListController.isNotEmpty) {
+                                                setState(() {
+                                                  addToListController.removeAt(index);
+                                                });
+                                              }
+                                              print(Get.width.toString());
+                                            },
+                                          ),
+                                        ),
+                                        AppSpaces.spaces_width_5,
+                                      ],
+                                    );
                                   },
                                 ),
                               ),
-                              AppSpaces.spaces_width_5,
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                    /// StoredRow
-                    data.maoModel != null
-                        ? Container(
-                            // height: data.maoModel!.results!.length < 5
-                            //     ? data.maoModel!.results!.length * (Get.height * .055) -
-                            //         (data.maoModel!.results!.length * 5)
-                            //     : (Get.height * .275),
-                            child: ListView.builder(
-                              reverse: true,
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: data.maoModel!.results!.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                storedMintController.add(
-                                  TextEditingController(
-                                    text: data.maoModel!.results![index].mintNumber.toString(),
-                                  ),
-                                );
-                                storedPriceController.add(
-                                  TextEditingController(
-                                    text: data.maoModel!.results![index].ap.toString(),
-                                  ),
-                                );
-                                storedDateController.add(
-                                  TextEditingController(
-                                    text: data.maoModel!.results![index].ad.toString(),
-                                  ),
-                                );
-                                return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    AppSpaces.spaces_width_5,
-                                    Expanded(
-                                      flex: 7,
-                                      child: MintTextField(
-                                        labelText: 'Mint Number',
-                                        textType: TextInputType.number,
-                                        controller: storedMintController[index],
+
+                              /// StoredRow
+                              Container(
+                                // height: data.maoModel!.results!.length < 5
+                                //     ? data.maoModel!.results!.length * (Get.height * .055) -
+                                //         (data.maoModel!.results!.length * 5)
+                                //     : (Get.height * .275),
+                                child: ListView.builder(
+                                  reverse: true,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: data.maoModel!.results!.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    storedMintController.add(
+                                      TextEditingController(
+                                        text: data.maoModel!.results![index].mintNumber.toString(),
                                       ),
-                                    ),
-                                    AppSpaces.spaces_width_5,
-                                    Expanded(
-                                      flex: 7,
-                                      child: MintTextField(
-                                        labelText: 'Price',
-                                        textType: TextInputType.number,
-                                        controller: storedPriceController[index],
+                                    );
+                                    storedPriceController.add(
+                                      TextEditingController(
+                                        text: data.maoModel!.results![index].ap.toString(),
                                       ),
-                                    ),
-                                    AppSpaces.spaces_width_5,
-                                    //datetime_new_row
-                                    Expanded(
-                                      flex: 7,
-                                      child: Container(
-                                        height: Get.height * .035,
-                                        padding: EdgeInsets.zero,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: AppColors.white.withOpacity(.7),
-                                            width: 1.5,
+                                    );
+                                    storedDateController.add(
+                                      TextEditingController(
+                                        text: data.maoModel!.results![index].ad.toString(),
+                                      ),
+                                    );
+                                    return Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        AppSpaces.spaces_width_5,
+                                        Expanded(
+                                          flex: 7,
+                                          child: MintTextField(
+                                            labelText: 'Mint Number',
+                                            textType: TextInputType.number,
+                                            controller: storedMintController[index],
                                           ),
-                                          borderRadius: BorderRadius.circular(10.0),
                                         ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                DateFormat('yyyy-MM-dd')
-                                                    .format(DateTime.parse(storedDateController[index].text))
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: AppColors.white.withOpacity(.7),
-                                                ),
+                                        AppSpaces.spaces_width_5,
+                                        Expanded(
+                                          flex: 7,
+                                          child: MintTextField(
+                                            labelText: 'Price',
+                                            textType: TextInputType.number,
+                                            controller: storedPriceController[index],
+                                          ),
+                                        ),
+                                        AppSpaces.spaces_width_5,
+                                        //datetime_new_row
+                                        Expanded(
+                                          flex: 7,
+                                          child: Container(
+                                            height: Get.height * .035,
+                                            padding: EdgeInsets.zero,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: AppColors.white.withOpacity(.7),
+                                                width: 1.5,
                                               ),
-                                              InkWell(
-                                                onTap: () async {
-                                                  var datePicked = await DatePicker.showSimpleDatePicker(
-                                                    context,
-                                                    initialDate: DateTime.now(),
-                                                    firstDate: DateTime(2015),
-                                                    lastDate: DateTime.now(),
-                                                    dateFormat: "dd-MM-yyyy",
-                                                    locale: DateTimePickerLocale.en_us,
-                                                    looping: true,
-                                                    backgroundColor: const Color(0xff02072D),
-                                                    textColor: AppColors.white.withOpacity(.7),
-                                                  );
-                                                  setState(() {
-                                                    addToListController[index].dateTime!.text = datePicked!.toIso8601String();
-                                                  });
-                                                },
-                                                child: Icon(
-                                                  Icons.calendar_month,
-                                                  color: AppColors.white.withOpacity(.7),
-                                                  size: 17,
-                                                ),
-                                              )
-                                            ],
+                                              borderRadius: BorderRadius.circular(10.0),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    DateFormat('yyyy-MM-dd')
+                                                        .format(DateTime.parse(storedDateController[index].text))
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: AppColors.white.withOpacity(.7),
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () async {
+                                                      var datePicked = await DatePicker.showSimpleDatePicker(
+                                                        context,
+                                                        initialDate: DateTime.now(),
+                                                        firstDate: DateTime(2015),
+                                                        lastDate: DateTime.now(),
+                                                        dateFormat: "dd-MM-yyyy",
+                                                        locale: DateTimePickerLocale.en_us,
+                                                        looping: true,
+                                                        backgroundColor: const Color(0xff02072D),
+                                                        textColor: AppColors.white.withOpacity(.7),
+                                                      );
+                                                      setState(() {
+                                                        addToListController[index].dateTime!.text =
+                                                            datePicked!.toIso8601String();
+                                                      });
+                                                    },
+                                                    child: Icon(
+                                                      Icons.calendar_month,
+                                                      color: AppColors.white.withOpacity(.7),
+                                                      size: 17,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    /*Expanded(
+                                        /*Expanded(
                                       flex: 7,
                                       child: Container(
                                         height: Get.height * .035,
@@ -486,87 +488,87 @@ class _MultiformState extends State<Multiform> {
                                         ),
                                       ),
                                     ),*/
-                                    AppSpaces.spaces_width_5,
-                                    storedMintController[index].text !=
-                                                data.maoModel!.results![index].mintNumber.toString() ||
-                                            storedPriceController[index].text !=
-                                                data.maoModel!.results![index].ap.toString() ||
-                                            storedDateController[index].text !=
-                                                data.maoModel!.results![index].ad.toString()
-                                        ? Expanded(
-                                            flex: 2,
-                                            child: InkWell(
-                                              child: Container(
-                                                  margin: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: AppColors.white.withOpacity(.7),
-                                                      width: 2,
-                                                    ),
-                                                    borderRadius: BorderRadius.circular(20.0),
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.upgrade,
-                                                    color: AppColors.textColor,
-                                                    size: 20,
-                                                  )),
-                                              onTap: () {
-                                                var body = {
-                                                  "mint_number": storedMintController[index].text,
-                                                  "ap": storedPriceController[index].text,
-                                                  "ad": storedDateController[index].text
-                                                };
-                                                postData!
-                                                    .editMAO(
-                                                      data.maoModel!.results![index].id,
-                                                      context,
-                                                      body,
-                                                      requestHeadersWithToken,
-                                                    )
-                                                    .whenComplete(() =>
-                                                        getData!.getMAO(widget.type.toString(), widget.id.toString()))
-                                                    .whenComplete(() => Navigator.of(context).pop());
-                                                setState(() {
-                                                  storedMintController[index] = storedMintController[index];
-                                                  storedPriceController[index] =storedPriceController[index];
-                                                  storedDateController[index]= storedDateController[index];
-                                                });
-                                              },
-                                            ),
-                                          )
-                                        : Expanded(
-                                            flex: 2,
-                                            child: InkWell(
-                                              child: Container(
-                                                  margin: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: AppColors.white.withOpacity(.7),
-                                                      width: 2,
-                                                    ),
-                                                    borderRadius: BorderRadius.circular(20.0),
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.clear,
-                                                    color: AppColors.textColor,
-                                                    size: 18,
-                                                  )),
-                                              onTap: () {
-                                                var body = {};
-                                                postData!
-                                                    .deleteMAO(
-                                                      data.maoModel!.results![index].id,
-                                                      context,
-                                                      body,
-                                                      requestHeadersWithToken,
-                                                    )
-                                                    .whenComplete(() =>
-                                                        getData!.getMAO(widget.type.toString(), widget.id.toString()))
-                                                .whenComplete(() => storedMintController.removeAt(index))
-                                                .whenComplete(() => storedPriceController.removeAt(index))
-                                                .whenComplete(() => storedDateController.removeAt(index))
-                                                    .whenComplete(() => Navigator.of(context).pop());
-                                                /*setState(() {
+                                        AppSpaces.spaces_width_5,
+                                        storedMintController[index].text !=
+                                                    data.maoModel!.results![index].mintNumber.toString() ||
+                                                storedPriceController[index].text !=
+                                                    data.maoModel!.results![index].ap.toString() ||
+                                                storedDateController[index].text !=
+                                                    data.maoModel!.results![index].ad.toString()
+                                            ? Expanded(
+                                                flex: 2,
+                                                child: InkWell(
+                                                  child: Container(
+                                                      margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          color: AppColors.white.withOpacity(.7),
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius: BorderRadius.circular(20.0),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.upgrade,
+                                                        color: AppColors.textColor,
+                                                        size: 20,
+                                                      )),
+                                                  onTap: () {
+                                                    var body = {
+                                                      "mint_number": storedMintController[index].text,
+                                                      "ap": storedPriceController[index].text,
+                                                      "ad": storedDateController[index].text
+                                                    };
+                                                    postData!
+                                                        .editMAO(
+                                                          data.maoModel!.results![index].id,
+                                                          context,
+                                                          body,
+                                                          requestHeadersWithToken,
+                                                        )
+                                                        .whenComplete(() => getData!
+                                                            .getMAO(widget.type.toString(), widget.id.toString()))
+                                                        .whenComplete(() => Navigator.of(context).pop());
+                                                    setState(() {
+                                                      storedMintController[index] = storedMintController[index];
+                                                      storedPriceController[index] = storedPriceController[index];
+                                                      storedDateController[index] = storedDateController[index];
+                                                    });
+                                                  },
+                                                ),
+                                              )
+                                            : Expanded(
+                                                flex: 2,
+                                                child: InkWell(
+                                                  child: Container(
+                                                      margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          color: AppColors.white.withOpacity(.7),
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius: BorderRadius.circular(20.0),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.clear,
+                                                        color: AppColors.textColor,
+                                                        size: 18,
+                                                      )),
+                                                  onTap: () {
+                                                    var body = {};
+                                                    postData!
+                                                        .deleteMAO(
+                                                          data.maoModel!.results![index].id,
+                                                          context,
+                                                          body,
+                                                          requestHeadersWithToken,
+                                                        )
+                                                        .whenComplete(() => getData!
+                                                            .getMAO(widget.type.toString(), widget.id.toString()))
+                                                        .whenComplete(() => storedMintController.removeAt(index))
+                                                        .whenComplete(() => storedPriceController.removeAt(index))
+                                                        .whenComplete(() => storedDateController.removeAt(index))
+                                                        .whenComplete(() => Navigator.of(context).pop());
+                                                    /*setState(() {
                                                   for(int l=0; l<data.maoModel!.results!.length;l++)
                                                     {
                                                       storedMintController.em;
@@ -589,120 +591,121 @@ class _MultiformState extends State<Multiform> {
                                                       );
                                                     }
                                                 });*/
-                                                printInfo(info: body.toString() + requestHeadersWithToken.toString());
-                                              },
-                                            ),
-                                          ),
-                                    AppSpaces.spaces_width_5,
-                                  ],
-                                );
-                              },
-                            ),
-                          )
-                        : Container(),
+                                                    printInfo(
+                                                        info: body.toString() + requestHeadersWithToken.toString());
+                                                  },
+                                                ),
+                                              ),
+                                        AppSpaces.spaces_width_5,
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          )),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    //Save Button
+                    Container(
+                      height: Get.height * .055,
+                      alignment: Alignment.topCenter,
+                      child: addToListController.isNotEmpty
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Get.back();
+                                  },
+                                  child: Container(
+                                    width: Get.width * .3,
+                                    height: Get.height * .038,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: AppColors.white.withOpacity(.7),
+                                        width: 1.5,
+                                      ),
+                                      borderRadius: BorderRadius.circular(14.0),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Text(
+                                        'Cancel',
+                                        style: TextStyle(fontSize: 14, fontFamily: 'Inter', color: AppColors.textColor),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                AppSpaces.spaces_width_15,
+                                InkWell(
+                                  onTap: () {
+                                    var body = {
+                                      "product": widget.id,
+                                      "type": widget.type,
+                                      "mints": [
+                                        for (int i = 0; i < addToListController.length; i++)
+                                          {
+                                            "mint_number": addToListController[i].mintNumber1!.text,
+                                            "ap": addToListController[i].price!.text,
+                                            "ad": addToListController[i].dateTime!.text
+                                          }
+                                      ]
+                                    };
 
+                                    if (_formKey.currentState!.validate()) {
+                                      postData!
+                                          .postMAO(
+                                            context,
+                                            body,
+                                            requestHeadersWithToken,
+                                          )
+                                          .whenComplete(
+                                              () => getData!.getMAO(widget.type.toString(), widget.id.toString()))
+                                          .whenComplete(() => Navigator.of(context).pop())
+                                          .whenComplete(() => Navigator.of(context).pop());
+                                    }
+                                    addToListController.clear();
+
+                                    printInfo(info: body.toString() + requestHeadersWithToken.toString());
+                                  },
+                                  child: Container(
+                                    width: Get.width * .3,
+                                    height: Get.height * .038,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      gradient: AppColors.purpleGradient,
+                                      borderRadius: BorderRadius.circular(14),
+                                      boxShadow: [],
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Text(
+                                        'Save',
+                                        style: TextStyle(fontSize: 14, fontFamily: 'Inter', color: AppColors.textColor),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Container(),
+                    ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              //Save Button
-              Container(
-                height: Get.height * .055,
-                alignment: Alignment.topCenter,
-                child: addToListController.isNotEmpty
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Get.back();
-                            },
-                            child: Container(
-                              width: Get.width * .3,
-                              height: Get.height * .038,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: AppColors.white.withOpacity(.7),
-                                  width: 1.5,
-                                ),
-                                borderRadius: BorderRadius.circular(14.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: Text(
-                                  'Cancel',
-                                  style: TextStyle(fontSize: 14, fontFamily: 'Inter', color: AppColors.textColor),
-                                ),
-                              ),
-                            ),
-                          ),
-                          AppSpaces.spaces_width_15,
-                          InkWell(
-                            onTap: () {
-                              var body = {
-                                "product": widget.id,
-                                "type": widget.type,
-                                "mints": [
-                                  for (int i = 0; i < addToListController.length; i++)
-                                    {
-                                      "mint_number": addToListController[i].mintNumber1!.text,
-                                      "ap": addToListController[i].price!.text,
-                                      "ad": addToListController[i].dateTime!.text
-                                    }
-                                ]
-                              };
-
-                              if (_formKey.currentState!.validate()) {
-                                postData!
-                                    .postMAO(
-                                      context,
-                                      body,
-                                      requestHeadersWithToken,
-                                    )
-                                    .whenComplete(() => getData!.getMAO(widget.type.toString(), widget.id.toString()))
-                                    .whenComplete(() => Navigator.of(context).pop()).whenComplete(() => Navigator.of(context).pop());
-                              }
-                              addToListController.clear();
-
-                              printInfo(info: body.toString() + requestHeadersWithToken.toString());
-                            },
-                            child: Container(
-                              width: Get.width * .3,
-                              height: Get.height * .038,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                gradient: AppColors.purpleGradient,
-                                borderRadius: BorderRadius.circular(14),
-                                boxShadow: [],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: Text(
-                                  'Save',
-                                  style: TextStyle(fontSize: 14, fontFamily: 'Inter', color: AppColors.textColor),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    : Container(),
-              ),
-            ],
-          ),
-        ),
-      );
+            )
+          : Container();
     });
   }
 
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    getData!.getNotification();
-    getData!.getAlert();
+    getData!.getMAO(widget.type.toString(), widget.id.toString());
     setState(() {
       refreshController.refreshCompleted();
       offset = 0;
@@ -710,10 +713,9 @@ class _MultiformState extends State<Multiform> {
   }
 
   Future<void> _onLoading() async {
-    offset = offset + 20;
+    offset = offset + 10;
 
-    getData!.getNotification(offset: offset);
-    getData!.getAlert(offset: offset);
+    getData!.getMAO(widget.type.toString(), widget.id.toString(), offset: offset);
     await Future.delayed(const Duration(seconds: 2));
 
     if (mounted) {
