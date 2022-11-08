@@ -57,5 +57,6 @@ class Urls {
 
   static String MAO = mainUrl + '/api/v1/veve/public/common-storage/';
   static String productMAO = mainUrl + '/api/v1/veve/public/common-storages/product-detail/';
+  static String mySets = mainUrl + '/api/v1/veve/public/common-storages/vault/';
 
 }

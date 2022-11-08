@@ -25,7 +25,7 @@ import 'Component/no_data_card.dart';
 import 'VaultCollectibleCards/vault_collectible_card_30D.dart';
 import 'VaultCollectibleCards/vault_collectible_card_60D.dart';
 import 'VaultCollectibleCards/vault_collectible_card_7D.dart';
-import 'mysets_card.dart';
+import 'MySets/mysets_card.dart';
 import 'Wishlist/mywishlist_card.dart';
 
 class Vault extends StatefulWidget {
@@ -215,7 +215,7 @@ class _VaultState extends State<Vault> {
                           data.setListModel != null
                               ? SizedBox(
                                   width: Get.width,
-                                  height: Get.height * .22,
+                                  height: Get.height * .31,
                                   child: data.setListModel!.setResults!.isNotEmpty
                                       ? const MysetsCard()
                                       : const NoDataCard(
