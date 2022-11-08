@@ -27,9 +27,17 @@ import 'package:marquee/marquee.dart';
 
 class CollectibleDetails extends StatefulWidget {
   final int? productId;
+  final int? productType;
   final int? fromNotification;
+  final bool? fromVault;
 
-  const CollectibleDetails({Key? key, this.productId, this.fromNotification = 0}) : super(key: key);
+  const CollectibleDetails({
+    Key? key,
+    this.productId,
+    this.fromNotification = 0,
+    this.productType,
+    this.fromVault = false,
+  }) : super(key: key);
 
   @override
   _CollectibleDetailsState createState() => _CollectibleDetailsState();
@@ -62,6 +70,10 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
     getData!.checkWishlist(widget.productId!);
     getData!.checkSetList(widget.productId!);
     getData!.getWishList();
+
+    if (widget.fromVault == true) {
+      getData!.getVaultProductDetails(widget.productId, widget.productType);
+    }
 
     widget.fromNotification == 1 ? getData!.getNotification() : print("no pass from notification");
   }
@@ -280,12 +292,11 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   );*/
                                   showDialog(
                                       context: context,
-                                      builder: (ctx) =>Dialog(
-                                      backgroundColor: Colors.transparent,
-                                      insetPadding: EdgeInsets.symmetric(vertical: 16,horizontal: 16),
-                                      child: Multiform(id: data.singleProductModel!.id, type: 0),
-                                      )
-                                  );
+                                      builder: (ctx) => Dialog(
+                                            backgroundColor: Colors.transparent,
+                                            insetPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                                            child: Multiform(id: data.singleProductModel!.id, type: 0),
+                                          ));
                                 },
                                 child: Container(
                                   width: Get.width * .42,
@@ -320,6 +331,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                               ),
                             ],
                           ),
+
+                          ///Graph
                           Container(
                             padding: EdgeInsets.only(
                                 top: Get.height * 0.05,
@@ -390,16 +403,42 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                 right: Get.width * 0.05336,
                                 left: Get.width * 0.05336,
                                 bottom: Get.height * 0.0334),
-                            child: Text(
-                              data.singleProductModel != null
-                                  ? data.singleProductModel!.name.toString() + "'s Details"
-                                  : "",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  color: AppColors.textColor,
-                                  //fontFamily: 'Inter',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15.sp),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  data.singleProductModel != null
+                                      ? data.singleProductModel!.name.toString() + "'s Details"
+                                      : "",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: AppColors.textColor,
+                                      //fontFamily: 'Inter',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.sp),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: AppColors.primaryColor),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {},
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Text(
+                                        "Edit",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: AppColors.textColor,
+                                            //fontFamily: 'Inter',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12.sp),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],

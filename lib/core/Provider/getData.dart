@@ -32,6 +32,7 @@ import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel1Y.dart';
 import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel30D.dart';
 import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel60D.dart';
 import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel7D.dart';
+import 'package:ketemaa/core/models/VaultProductDetailsModel.dart';
 import 'package:ketemaa/core/models/WishListModel.dart';
 import 'package:ketemaa/core/network/base_client.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
@@ -82,6 +83,22 @@ class GetData extends ChangeNotifier with BaseController {
   NotificationListModel? notificationListModel;
   NotificationReadModel? notificationReadModel;
   MaoModel? maoModel;
+
+  VaultProductDetailsModel? vaultProductDetailsModel;
+
+  Future getVaultProductDetails(int? id, int? type) async {
+    vaultProductDetailsModel = null;
+
+    final response = await BaseClient().get(Urls.productMAO + '?type=$type&product=$id').catchError(handleError);
+
+    var data = json.decode(response.toString());
+
+    //printInfo(info: 'getUserInfo: ' + data.toString());
+
+    vaultProductDetailsModel = VaultProductDetailsModel.fromJson(data);
+
+    notifyListeners();
+  }
 
   Future getUserInfo() async {
     profileModel = null;
