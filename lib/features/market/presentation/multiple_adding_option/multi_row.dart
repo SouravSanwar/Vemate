@@ -51,10 +51,10 @@ class _MultiformState extends State<Multiform> {
       TextEditingController(),
       TextEditingController(),
     )
-  ];
-  List<TextEditingController> storedMintController = [];
-  List<TextEditingController> storedPriceController = [];
-  List<TextEditingController> storedDateController = [];
+    ];
+    List<TextEditingController> storedMintController = [];
+    List<TextEditingController> storedPriceController = [];
+    List<TextEditingController> storedDateController = [];
 
   @override
   void initState() {

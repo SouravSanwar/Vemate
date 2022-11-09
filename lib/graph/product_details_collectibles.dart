@@ -10,8 +10,9 @@ import 'components/item_details_helper.dart';
 
 class ProductDetailsCollectibles extends StatefulWidget {
   final int? id;
+  final bool? fromVault;
 
-  const ProductDetailsCollectibles({Key? key, this.id}) : super(key: key);
+  const ProductDetailsCollectibles({Key? key, this.id, this.fromVault = false}) : super(key: key);
 
   @override
   State<ProductDetailsCollectibles> createState() => _ProductDetailsCollectiblesState();
@@ -48,34 +49,41 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
               borderRadius: BorderRadius.circular(12.0),
             ),
             child: ListView(
-              children: <Widget>[
+              children: [
                 SizedBox(
                   height: Get.height * .01,
                 ),
-                ItemDetailsHelper(
-                  text: "Edition",
-                  text1: data.vaultProductDetailsModel != null
-                      ? data.vaultProductDetailsModel!.results![0].mintNumber.toString()
-                      : "",
-                  fromVault: true,
-                ),
-                divider(),
-                ItemDetailsHelper(
-                  text: "Acquisition Price",
-                  text1: data.vaultProductDetailsModel != null
-                      ? data.vaultProductDetailsModel!.results![0].ap.toString()
-                      : "",
-                  fromVault: true,
-                ),
-                divider(),
-                ItemDetailsHelper(
-                  text: "Acquisition Date",
-                  text1: data.vaultProductDetailsModel != null
-                      ? data.vaultProductDetailsModel!.results![0].ad.toString()
-                      : "",
-                  fromVault: true,
-                ),
-                divider(),
+
+                widget.fromVault == true
+                    ? Column(
+                  children: [
+                    ItemDetailsHelper(
+                      text: "Edition",
+                      text1: data.vaultProductDetailsModel != null
+                          ? data.vaultProductDetailsModel!.results![0].mintNumber.toString()
+                          : "",
+                      fromVault: true,
+                    ),
+                    divider(),
+                    ItemDetailsHelper(
+                      text: "Acquisition Price",
+                      text1: data.vaultProductDetailsModel != null
+                          ? data.vaultProductDetailsModel!.results![0].ap.toString()
+                          : "",
+                      fromVault: true,
+                    ),
+                    divider(),
+                    ItemDetailsHelper(
+                      text: "Acquisition Date",
+                      text1: data.vaultProductDetailsModel != null
+                          ? data.vaultProductDetailsModel!.results![0].ad.toString()
+                          : "",
+                      fromVault: true,
+                    ),
+                    divider(),
+                  ],
+                ) : Container(),
+
                 ItemDetailsHelper(
                   text: "Floor Price",
                   text1: data.singleProductModel != null ? data.singleProductModel!.floorPrice.toString() : "",

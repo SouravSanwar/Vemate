@@ -13,6 +13,7 @@ class AppColors extends ChangeNotifier {
   //static Color categoryCardColor = Color(0xffA984E5);
   static Color? categoryCardColor;
   static Color iconColor = Color(0xff8760EE);
+  static Color priceInfoColor = Color(0xff6366F1);
   static Color borderColor = Color(0xff4e4f53).withOpacity(0.2);
 
   static Color textColorBold = const Color(0xff5c5c5c);

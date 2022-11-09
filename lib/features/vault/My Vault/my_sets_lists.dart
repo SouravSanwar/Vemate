@@ -36,8 +36,7 @@ class _SetListPageState extends State<SetListPage> {
 
   int alertCheck = 0;
   int offset = 0;
-  RefreshController refreshController =
-  RefreshController(initialRefresh: false);
+  RefreshController refreshController = RefreshController(initialRefresh: false);
   final GlobalKey _contentKey = GlobalKey();
   final GlobalKey _refreshkey = GlobalKey();
 
@@ -58,7 +57,6 @@ class _SetListPageState extends State<SetListPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -71,8 +69,7 @@ class _SetListPageState extends State<SetListPage> {
           children: [
             Text(
               'My Vault',
-              style: Get.textTheme.headline2!
-                  .copyWith(fontFamily: 'Inter', color: AppColors.textColor),
+              style: Get.textTheme.headline2!.copyWith(fontFamily: 'Inter', color: AppColors.textColor),
             ),
           ],
         ),
@@ -98,8 +95,7 @@ class _SetListPageState extends State<SetListPage> {
                         itemCount: data.setListModel!.setResults!.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 4, bottom: 4, left: 4, right: 4),
+                              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 4),
                               child: Container(
                                   width: Get.width,
                                   decoration: BoxDecoration(
@@ -107,109 +103,98 @@ class _SetListPageState extends State<SetListPage> {
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   child: SwipeActionCell(
-                            backgroundColor: Colors.transparent,
-                            key: ObjectKey(data
-                                .setListModel!
-                                .setResults![index]),
-                            trailingActions: <SwipeAction>[
-                              SwipeAction(
-                                  title: "Delete",style: TextStyle(fontSize: 14),
-                                  performsFirstActionWithFullSwipe: true,
-
-                                  icon: Icon(
-                                    Icons.delete,
-                                    color: AppColors.white,
-                                  ),
-                                  onTap: (CompletionHandler
-                                  handler) async {
-                                    postData!
-                                        .deleteSetList(
-                                        context,
-                                        data
-                                            .setListModel!
-                                            .setResults![
-                                        index]
-                                            .id,
-                                        requestHeadersWithToken,
-                                        'product__type=0',deleteset: 13
-                                    ).whenComplete(() => Provider.of<GetData>(context,listen: false).getSetList(''))
-                                        .whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
-                                  },
-                                  color: Colors.red),
-
-                            ],
-                            child: InkWell(
-                                onTap: () {
-                                  Get.to(() => CollectibleDetails(
-                                    productId: data
-                                        .setListModel!
-                                        .setResults![index]
-                                        .setProductDetail!
-                                        .id!,
-                                  ));
-                                },
-                                child: ProductListContainer(
-                                  checkImage: data.setListModel!
-                                      .setResults![index].setProductDetail!.image == null ? "" :data.setListModel!
-                                      .setResults![index].setProductDetail!.image.toString(),
-                                  name: data.setListModel!
-                                      .setResults![index].setProductDetail!.name == null ? "" : data.setListModel!
-                                      .setResults![index].setProductDetail!.name!,
-                                  lowResUrl: data.setListModel!
-                                      .setResults![index].setProductDetail!.image != null ? data.setListModel!
-                                      .setResults![index].setProductDetail!.image!.low_res_url! :"",
-                                  scrappedImage:data.setListModel!
-                                      .setResults![index].setProductDetail!.image != null ? data.setListModel!
-                                      .setResults![index].setProductDetail!.image!.image_on_list
-                                      .toString() :"",
-                                  edition: data.setListModel!
-                                      .setResults![index].setProductDetail!.edition == null ? "" : data.setListModel!
-                                      .setResults![index].setProductDetail!.edition!,
-                                  brand: data.setListModel!
-                                      .setResults![index].setProductDetail!.brand == null ? "" :data.setListModel!
-                                      .setResults![index].setProductDetail!.brand
-                                      .toString(),
-
-                                  brandName: data.setListModel!
-                                      .setResults![index].setProductDetail!.brand == null ? "" : data.setListModel!
-                                      .setResults![index].setProductDetail!.brand!.name!,
-                                  rarity: data.setListModel!
-                                      .setResults![index].setProductDetail!.rarity ==null ? "" :data.setListModel!
-                                      .setResults![index].setProductDetail!.rarity!,
-                                  floorPrice: data.setListModel!
-                                      .setResults![index].setProductDetail!.floorPrice == null ? "" :data.setListModel!
-                                      .setResults![index].setProductDetail!.floorPrice!,
-                                  isAlert: data.setListModel!
-                                      .setResults![index].setProductDetail!.isProductAlert!,
-                                  series: <ChartSeries<Graph, String>>[
-                                    LineSeries<Graph, String>(
-                                      color: data.setListModel!
-                                          .setResults![index].setProductDetail!.graphData!.priceChangePercent!
-                                          .sign ==
-                                          'decrease'
-                                          ? Colors.red
-                                          : Colors.green,
-                                      dataSource: data.setListModel!
-                                          .setResults![index].setProductDetail!.graphData!.graph!,
-                                      xValueMapper: (Graph plot, _) =>
-                                      plot.date,
-                                      yValueMapper: (Graph plot, _) =>
-                                      plot.floorPrice,
-                                      xAxisName: 'Duration',
-                                      yAxisName: 'Total',
-                                    )
-                                  ],
-                                  changePrice: data.setListModel!
-                                      .setResults![index].setProductDetail!.graphData!.priceChangePercent!.changePrice,
-                                  pcpPercent: data.setListModel!
-                                      .setResults![index].setProductDetail!.graphData!.priceChangePercent!.percent,
-                                  pcpSign: data.setListModel!
-                                      .setResults![index].setProductDetail!.graphData!.priceChangePercent!.sign! ,
-                                )
-                            ),
-                          )
-                          )
-                          );
+                                    backgroundColor: Colors.transparent,
+                                    key: ObjectKey(data.setListModel!.setResults![index]),
+                                    trailingActions: <SwipeAction>[
+                                      SwipeAction(
+                                          title: "Delete",
+                                          style: TextStyle(fontSize: 14),
+                                          performsFirstActionWithFullSwipe: true,
+                                          icon: Icon(
+                                            Icons.delete,
+                                            color: AppColors.white,
+                                          ),
+                                          onTap: (CompletionHandler handler) async {
+                                            postData!
+                                                .deleteSetList(context, data.setListModel!.setResults![index].id,
+                                                    requestHeadersWithToken, 'product__type=0', deleteset: 13)
+                                                .whenComplete(
+                                                    () => Provider.of<GetData>(context, listen: false).getSetList(''))
+                                                .whenComplete(
+                                                    () => Provider.of<GetData>(context, listen: false).getHomeVault());
+                                          },
+                                          color: Colors.red),
+                                    ],
+                                    child: InkWell(
+                                        onTap: () {
+                                          Get.to(() => CollectibleDetails(
+                                                productId: data.setListModel!.setResults![index].setProductDetail!.id!,
+                                              ));
+                                        },
+                                        child: ProductListContainer(
+                                          checkImage:
+                                              data.setListModel!.setResults![index].setProductDetail!.image == null
+                                                  ? ""
+                                                  : data.setListModel!.setResults![index].setProductDetail!.image
+                                                      .toString(),
+                                          name: data.setListModel!.setResults![index].setProductDetail!.name == null
+                                              ? ""
+                                              : data.setListModel!.setResults![index].setProductDetail!.name!,
+                                          lowResUrl:
+                                              data.setListModel!.setResults![index].setProductDetail!.image != null
+                                                  ? data.setListModel!.setResults![index].setProductDetail!.image!
+                                                      .low_res_url!
+                                                  : "",
+                                          scrappedImage:
+                                              data.setListModel!.setResults![index].setProductDetail!.image != null
+                                                  ? data.setListModel!.setResults![index].setProductDetail!.image!
+                                                      .image_on_list
+                                                      .toString()
+                                                  : "",
+                                          edition:
+                                              data.setListModel!.setResults![index].setProductDetail!.edition == null
+                                                  ? ""
+                                                  : data.setListModel!.setResults![index].setProductDetail!.edition!,
+                                          brand: data.setListModel!.setResults![index].setProductDetail!.brand == null
+                                              ? ""
+                                              : data.setListModel!.setResults![index].setProductDetail!.brand
+                                                  .toString(),
+                                          brandName: data.setListModel!.setResults![index].setProductDetail!.brand ==
+                                                  null
+                                              ? ""
+                                              : data.setListModel!.setResults![index].setProductDetail!.brand!.name!,
+                                          rarity: data.setListModel!.setResults![index].setProductDetail!.rarity == null
+                                              ? ""
+                                              : data.setListModel!.setResults![index].setProductDetail!.rarity!,
+                                          floorPrice:
+                                              data.setListModel!.setResults![index].setProductDetail!.floorPrice == null
+                                                  ? ""
+                                                  : data.setListModel!.setResults![index].setProductDetail!.floorPrice!,
+                                          isAlert:
+                                              data.setListModel!.setResults![index].setProductDetail!.isProductAlert!,
+                                          series: <ChartSeries<Graph, String>>[
+                                            LineSeries<Graph, String>(
+                                              color: data.setListModel!.setResults![index].setProductDetail!.graphData!
+                                                          .priceChangePercent!.sign ==
+                                                      'decrease'
+                                                  ? Colors.red
+                                                  : Colors.green,
+                                              dataSource: data
+                                                  .setListModel!.setResults![index].setProductDetail!.graphData!.graph!,
+                                              xValueMapper: (Graph plot, _) => plot.date,
+                                              yValueMapper: (Graph plot, _) => plot.floorPrice,
+                                              xAxisName: 'Duration',
+                                              yAxisName: 'Total',
+                                            )
+                                          ],
+                                          changePrice: data.setListModel!.setResults![index].setProductDetail!
+                                              .graphData!.priceChangePercent!.changePrice,
+                                          pcpPercent: data.setListModel!.setResults![index].setProductDetail!.graphData!
+                                              .priceChangePercent!.percent,
+                                          pcpSign: data.setListModel!.setResults![index].setProductDetail!.graphData!
+                                              .priceChangePercent!.sign!,
+                                        )),
+                                  )));
                         },
                       )
                     : const LoadingExample(),
@@ -218,7 +203,6 @@ class _SetListPageState extends State<SetListPage> {
       }),
     );
   }
-
 
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
