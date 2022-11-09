@@ -442,15 +442,28 @@ class GetData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future getMySets(String? type,String? productType,String productID, bool unique,bool single)
+  Future getMySets(int? type, bool unique)
   async {
     final response = await BaseClient()
-        .get(Urls.mySets + '?type=$type&product__type=$productType&product=$productID&unique=$unique&single=$single')
+        .get(Urls.mySets + '?type=$type&unique=$unique')
         .catchError(handleError);
 
     var data = json.decode(response.toString());
 
       mySetsModel = MySetsModel.fromJson(data);
+
+
+    notifyListeners();
+  }
+  Future getMySets1(int? type,int? productID, bool single)
+  async {
+    final response = await BaseClient()
+        .get(Urls.mySets + '?type=$type&product=$productID&single=$single')
+        .catchError(handleError);
+
+    var data = json.decode(response.toString());
+
+    mySetsModel = MySetsModel.fromJson(data);
 
 
     notifyListeners();

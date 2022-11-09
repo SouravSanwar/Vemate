@@ -54,8 +54,9 @@ class _MySetsStructureState extends State<MySetsStructure> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
-              height: Get.height*.160,
-              margin: EdgeInsets.all(10),
+              height: Get.height*.190,
+              width: Get.height*.190,
+              margin: EdgeInsets.all(7),
               alignment: Alignment.center,
               child: widget.checkImage == null
                   ? FirstLetterImage(
@@ -71,7 +72,7 @@ class _MySetsStructureState extends State<MySetsStructure> {
                 imageUrl: widget.lowResUrl.toString(),
               )),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
+            margin: EdgeInsets.symmetric(horizontal: 10,vertical: 1),
               child: Text(
                 widget.name.toString(),
                 overflow: TextOverflow.ellipsis,
@@ -84,7 +85,7 @@ class _MySetsStructureState extends State<MySetsStructure> {
           ),
           Container(
             height: 2,
-              margin:  EdgeInsets.symmetric(horizontal: 10,vertical: 3),
+              margin:  EdgeInsets.symmetric(horizontal: 10,vertical: 2),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -98,7 +99,7 @@ class _MySetsStructureState extends State<MySetsStructure> {
           ),
           Container(
             height:20,
-            margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 3),
+            margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -125,7 +126,7 @@ class _MySetsStructureState extends State<MySetsStructure> {
           ),
           Container(
             height: 20,
-            margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 3),
+            margin: const EdgeInsets.only(left: 15,right: 10,top: 0,bottom: 2),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -136,10 +137,9 @@ class _MySetsStructureState extends State<MySetsStructure> {
                   style: Get.textTheme.bodyText1!.copyWith(
                       color: AppColors.textColor,
                       fontWeight: FontWeight.w900,
-                      fontSize: 11.sp),
+                      fontSize: 10.sp),
                 ),
-               /* Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+               Row(
                   children: [
                     Text(
                       widget.pcpPercent.toStringAsFixed(2) +
@@ -155,23 +155,19 @@ class _MySetsStructureState extends State<MySetsStructure> {
                     ),
                     if (widget.pcpSign ==
                         'decrease')
-                      const Expanded(
-                        child: Icon(
-                          Icons.arrow_downward,
-                          color: Colors.red,
-                          size: 10,
-                        ),
+                      Icon(
+                        Icons.arrow_downward,
+                        color: Colors.red,
+                        size: 10,
                       )
                     else
-                      const Expanded(
-                        child: Icon(
-                          Icons.arrow_upward,
-                          color: Colors.green,
-                          size: 10,
-                        ),
+                      Icon(
+                        Icons.arrow_upward,
+                        color: Colors.green,
+                        size: 10,
                       )
                   ],
-                ),*/
+                ),
 
               ],
             ),

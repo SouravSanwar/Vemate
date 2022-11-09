@@ -1,8 +1,8 @@
 class MySetsModel {
   MySetsModel({
-      this.count, 
-      this.next, 
-      this.previous, 
+      this.count,
+      this.next,
+      this.previous,
       this.results,});
 
   MySetsModel.fromJson(dynamic json) {
@@ -36,21 +36,21 @@ class MySetsModel {
 
 class Results {
   Results({
-      this.id, 
-      this.productDetail, 
-      this.statsDetail, 
-      this.type, 
-      this.mintNumber, 
-      this.ap, 
-      this.ad, 
-      this.creationTime, 
-      this.user, 
-      this.product,});
+    this.id,
+    this.productDetail,
+    this.statsDetail,
+    this.type,
+    this.mintNumber,
+    this.ap,
+    this.ad,
+    this.creationTime,
+    this.user,
+    this.product,});
 
   Results.fromJson(dynamic json) {
     id = json['id'];
     productDetail = json['product_detail'] != null ? ProductDetail.fromJson(json['product_detail']) : null;
-    statsDetail = json['stats_detail'];
+    statsDetail = json['stats_detail'] != null ? StatsDetail.fromJson(json['stats_detail']) : null;
     type = json['type'];
     mintNumber = json['mint_number'];
     ap = json['ap'];
@@ -59,13 +59,13 @@ class Results {
     user = json['user'];
     product = json['product'];
   }
-  num? id;
+  int? id;
   ProductDetail? productDetail;
-  dynamic statsDetail;
+  StatsDetail? statsDetail;
   num? type;
-  dynamic mintNumber;
-  dynamic ap;
-  dynamic ad;
+  num? mintNumber;
+  String? ap;
+  String? ad;
   String? creationTime;
   num? user;
   num? product;
@@ -76,7 +76,9 @@ class Results {
     if (productDetail != null) {
       map['product_detail'] = productDetail?.toJson();
     }
-    map['stats_detail'] = statsDetail;
+    if (statsDetail != null) {
+      map['stats_detail'] = statsDetail?.toJson();
+    }
     map['type'] = type;
     map['mint_number'] = mintNumber;
     map['ap'] = ap;
@@ -89,19 +91,48 @@ class Results {
 
 }
 
+class StatsDetail {
+  StatsDetail({
+    this.totalItem,
+    this.sign,
+    this.priceChange,
+    this.changePercent,});
+
+  StatsDetail.fromJson(dynamic json) {
+    totalItem = json['total_item'];
+    sign = json['sign'];
+    priceChange = json['price_change'];
+    changePercent = json['change_percent'];
+  }
+  num? totalItem;
+  String? sign;
+  double? priceChange;
+  double? changePercent;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['total_item'] = totalItem;
+    map['sign'] = sign;
+    map['price_change'] = priceChange;
+    map['change_percent'] = changePercent;
+    return map;
+  }
+
+}
+
 class ProductDetail {
   ProductDetail({
-      this.id, 
-      this.mintNumber, 
-      this.type, 
-      this.name, 
-      this.edition, 
-      this.editions, 
-      this.parent, 
-      this.brand, 
-      this.rarity, 
-      this.floorPrice, 
-      this.series, 
+      this.id,
+      this.mintNumber,
+      this.type,
+      this.name,
+      this.edition,
+      this.editions,
+      this.parent,
+      this.brand,
+      this.rarity,
+      this.floorPrice,
+      this.series,
       this.image,});
 
   ProductDetail.fromJson(dynamic json) {
@@ -118,7 +149,7 @@ class ProductDetail {
     series = json['series'];
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
   }
-  num? id;
+  int? id;
   num? mintNumber;
   num? type;
   String? name;
@@ -154,10 +185,10 @@ class ProductDetail {
 
 class Image {
   Image({
-      this.direction, 
-      this.baseUrl, 
-      this.lowResUrl, 
-      this.midResUrl, 
+      this.direction,
+      this.baseUrl,
+      this.lowResUrl,
+      this.midResUrl,
       this.highResUrl,});
 
   Image.fromJson(dynamic json) {

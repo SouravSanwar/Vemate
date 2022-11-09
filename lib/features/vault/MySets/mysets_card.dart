@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ketemaa/core/models/Test.dart';
 import 'package:ketemaa/features/home/components/New_Item_card/new_item_container.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/vault/MySets/MySets_Individual_List.dart';
 import 'package:ketemaa/features/vault/MySets/mysets_structure.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -32,7 +35,7 @@ class _MysetsCardState extends State<MysetsCard> {
   void initState() {
     getData = Provider.of<GetData>(context, listen: false);
     // TODO: implement initState
-    getData!.getMySets("0", "", "", true, false);
+    getData!.getMySets(0, true,);
 
     super.initState();
   }
@@ -73,7 +76,11 @@ class _MysetsCardState extends State<MysetsCard> {
               ),
               child: InkWell(
                 onTap: () {
-                  getData!.getMySets("0", "", "", true, false);
+                  Get.to(() => MySetsIndividualList(
+                    productId: data.mySetsModel!.results![index].productDetail!.id,
+                    productName: data.mySetsModel!.results![index].productDetail!.name,
+                  )
+                  );
                   /*data.setListModel!.setResults![index].setProductDetail!
                       .type ==
                       1
@@ -106,7 +113,7 @@ class _MysetsCardState extends State<MysetsCard> {
                         width: mysetWidth,
                         height: mysetHeight,
                         decoration: BoxDecoration(
-                          // color: Colors.white,
+                          color: Color(0xff282742),
                           border: Border.all(color: Color(0xff282742)),
                           borderRadius: BorderRadius.circular(10),
 
@@ -175,14 +182,49 @@ class _MysetsCardState extends State<MysetsCard> {
                               :data.mySetsModel!.results![index].productDetail!.rarity!,
                           floorPrice: data.mySetsModel!.results![index].productDetail!.floorPrice == null ? ""
                               :data.mySetsModel!.results![index].productDetail!.floorPrice!,
-                          pcpPercent: 10,
-                          pcpSign: "",
+                          pcpPercent: data.mySetsModel!.results![index].statsDetail!.changePercent == null ? 0.0
+                              :data.mySetsModel!.results![index].statsDetail!.changePercent!,
+                          pcpSign: data.mySetsModel!.results![index].statsDetail!.sign == null ? ""
+                              :data.mySetsModel!.results![index].statsDetail!.sign!,
 
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 16,
+                      right: 0,
+                      child: Container(
+                        width: 22,
+                        height: 22,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xffD15EED),
+                              Color(0xff8D5FED),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.all(1),
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            data.mySetsModel!.results![index].statsDetail!.totalItem.toString(),
+                            style: TextStyle(color: AppColors.black,fontSize: 14,fontWeight: FontWeight.bold),
+
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
+
 
 
                 /*Container(
