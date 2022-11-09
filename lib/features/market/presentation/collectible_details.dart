@@ -473,8 +473,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                   child: Padding(
                                                     padding: const EdgeInsets.all(20.0),
                                                     child: Container(
-                                                      height: data.vaultProductDetailsModel!.results!.length *
-                                                          (Get.height * .055),
+                                                      height:Get.height * .27,
                                                       child: Column(
                                                         children: [
                                                           AppSpaces.spaces_height_5,
