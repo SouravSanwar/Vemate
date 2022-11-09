@@ -290,6 +290,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           child: Multiform(id: data.singleProductModel!.id, type: 0)),
                                     ),
                                   );*/
+                                  getData!.maoModel = null;
                                   showDialog(
                                       context: context,
                                       builder: (ctx) => Dialog(

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:ketemaa/features/home/components/New_Item_card/new_item_container.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/core/models/WishListModel.dart';
-import 'package:ketemaa/features/vault/StackCard/PlanetCard.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../../core/utilities/app_colors/app_colors.dart';
@@ -47,7 +46,6 @@ class MywishlistCardState extends State<MywishlistCard> {
   }
 
   List<Widget> _generateCards(dynamic data) {
-    List<PlanetCard> planetCard = [];
 
     List<Widget> cardList = [];
 

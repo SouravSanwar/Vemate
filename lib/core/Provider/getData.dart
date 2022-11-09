@@ -19,6 +19,7 @@ import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultGraph60D.dart';
 import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultGraph7D.dart';
 import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultModel.dart';
 import 'package:ketemaa/core/models/MAOModel.dart';
+import 'package:ketemaa/core/models/MySetsModel.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
 import 'package:ketemaa/core/models/NotificationListModel.dart';
 import 'package:ketemaa/core/models/NotificationReadModel.dart';
@@ -83,6 +84,7 @@ class GetData extends ChangeNotifier with BaseController {
   NotificationListModel? notificationListModel;
   NotificationReadModel? notificationReadModel;
   MaoModel? maoModel;
+  MySetsModel? mySetsModel;
 
   VaultProductDetailsModel? vaultProductDetailsModel;
 
@@ -453,6 +455,33 @@ class GetData extends ChangeNotifier with BaseController {
     } else {
       maoModel = MaoModel.fromJson(data);
     }
+
+    notifyListeners();
+  }
+
+  Future getMySets(int? type, bool unique)
+  async {
+    final response = await BaseClient()
+        .get(Urls.mySets + '?type=$type&unique=$unique')
+        .catchError(handleError);
+
+    var data = json.decode(response.toString());
+
+      mySetsModel = MySetsModel.fromJson(data);
+
+
+    notifyListeners();
+  }
+  Future getMySets1(int? type,int? productID, bool single)
+  async {
+    final response = await BaseClient()
+        .get(Urls.mySets + '?type=$type&product=$productID&single=$single')
+        .catchError(handleError);
+
+    var data = json.decode(response.toString());
+
+    mySetsModel = MySetsModel.fromJson(data);
+
 
     notifyListeners();
   }
