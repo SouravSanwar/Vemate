@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/ValutGraphs/VaultStatusModel60D.dart';
-import 'package:ketemaa/features/vault/vault_collectibles_lists.dart';
+import 'package:ketemaa/features/vault/Wishlist/Separate_Vault_List/vault_collectibles_lists.dart';
 
 import 'package:syncfusion_flutter_charts/charts.dart';
 

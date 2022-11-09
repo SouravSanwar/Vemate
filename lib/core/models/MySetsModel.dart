@@ -36,21 +36,21 @@ class MySetsModel {
 
 class Results {
   Results({
-    this.id,
-    this.productDetail,
-    this.statsDetail,
-    this.type,
-    this.mintNumber,
-    this.ap,
-    this.ad,
-    this.creationTime,
-    this.user,
-    this.product,});
+      this.id,
+      this.productDetail,
+      this.statsDetail,
+      this.type,
+      this.mintNumber,
+      this.ap,
+      this.ad,
+      this.creationTime,
+      this.user,
+      this.product,});
 
   Results.fromJson(dynamic json) {
     id = json['id'];
     productDetail = json['product_detail'] != null ? ProductDetail.fromJson(json['product_detail']) : null;
-    statsDetail = json['stats_detail'] != null ? StatsDetail.fromJson(json['stats_detail']) : null;
+    statsDetail = json['stats_detail'];
     type = json['type'];
     mintNumber = json['mint_number'];
     ap = json['ap'];
@@ -59,13 +59,13 @@ class Results {
     user = json['user'];
     product = json['product'];
   }
-  int? id;
+  num? id;
   ProductDetail? productDetail;
-  StatsDetail? statsDetail;
+  dynamic statsDetail;
   num? type;
-  num? mintNumber;
-  String? ap;
-  String? ad;
+  dynamic mintNumber;
+  dynamic ap;
+  dynamic ad;
   String? creationTime;
   num? user;
   num? product;
@@ -76,9 +76,7 @@ class Results {
     if (productDetail != null) {
       map['product_detail'] = productDetail?.toJson();
     }
-    if (statsDetail != null) {
-      map['stats_detail'] = statsDetail?.toJson();
-    }
+    map['stats_detail'] = statsDetail;
     map['type'] = type;
     map['mint_number'] = mintNumber;
     map['ap'] = ap;
@@ -106,8 +104,8 @@ class StatsDetail {
   }
   num? totalItem;
   String? sign;
-  double? priceChange;
-  double? changePercent;
+  num? priceChange;
+  num? changePercent;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

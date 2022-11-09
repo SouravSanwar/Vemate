@@ -15,6 +15,8 @@ import 'package:ketemaa/features/market/presentation/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
 import 'package:ketemaa/features/market/widgets/image_widgets.dart';
+import 'package:ketemaa/features/vault/Component/no_data_card.dart';
+import 'package:ketemaa/features/vault/Wishlist/Separate_Vault_List/separate_vault_structure.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -30,8 +32,11 @@ class SetListPage extends StatefulWidget {
 }
 
 class _SetListPageState extends State<SetListPage> {
+  double mysetHeight= Get.height*.115;
+  double mysetWidth= Get.width*.95;
   GetData? getData;
-
+  Color? color=Colors.green;
+  String? rarity="";
   PostData? postData;
 
   int alertCheck = 0;
@@ -52,135 +57,158 @@ class _SetListPageState extends State<SetListPage> {
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
 
-    getData!.getSetList('');
+    getData!.getMySets(0, true,);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        elevation: 1.0,
-        titleSpacing: 0,
-        iconTheme: const IconThemeData(color: Colors.grey),
+
+      return Scaffold(
         backgroundColor: AppColors.backgroundColor,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'My Vault',
-              style: Get.textTheme.headline2!
-                  .copyWith(fontFamily: 'Inter', color: AppColors.textColor),
-            ),
-          ],
+        appBar: AppBar(
+          elevation: 1.0,
+          titleSpacing: 0,
+          iconTheme: const IconThemeData(color: Colors.grey),
+          backgroundColor: AppColors.backgroundColor,
+          title: Text(
+            "My Vault",
+            style: TextStyle(
+                color: AppColors.textColor,
+                fontFamily: 'Inter',
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
-      body: Consumer<GetData>(builder: (context, data, child) {
-        return data.setListModel != null
-            ? SmartRefresher(
-                key: _refreshkey,
-                controller: refreshController,
-                enablePullDown: true,
-                enablePullUp: true,
-                header: WaterDropMaterialHeader(
-                  color: AppColors.primaryColor,
-                ),
-                footer: const ClassicFooter(
-                  loadStyle: LoadStyle.ShowWhenLoading,
-                ),
-                onRefresh: _onRefresh,
-                onLoading: _onLoading,
-                child: data.setListModel!.setResults != null
-                    ? ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: data.setListModel!.setResults!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 4, bottom: 4, left: 4, right: 4),
-                              child: Container(
-                                  width: Get.width,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.graphCard,
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  child: SwipeActionCell(
-                            backgroundColor: Colors.transparent,
-                            key: ObjectKey(data
-                                .setListModel!
-                                .setResults![index]),
-                            trailingActions: <SwipeAction>[
-                              SwipeAction(
-                                  title: "Delete",style: TextStyle(fontSize: 14),
-                                  performsFirstActionWithFullSwipe: true,
+        body: Consumer<GetData>(builder: (content, data, child) {
+          return Container(
+            height: Get.height * .9,
+            width: Get.width,
+            padding: const EdgeInsets.only(bottom: 10),
+            child: data.mySetsModel != null
+                ? (data.mySetsModel!.results!.isNotEmpty
+                ? ListView.builder(
+                itemCount: data.mySetsModel!.results!.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  data.mySetsModel!.results![index].productDetail!.rarity !=null
+                      ? rarity=data.mySetsModel!.results![index].productDetail!.rarity.toString():"";
+                  if(rarity=="Common"){
+                    color=Colors.green;
+                  }
+                  else if(rarity=="Uncommon"){
+                    color=Colors.purpleAccent;
+                  }
+                  if(rarity=="Rare"){
+                    color=Colors.blue;
+                  }
+                  if(rarity=="Ultra Rare"){
+                    color=Colors.orange;
+                  }
+                  if(rarity=="Secret Rare"){
+                    color=Colors.red;
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        top: 4, bottom: 10, left: 4, right: 4),
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(() => CollectibleDetails(
+                          productId: data.mySetsModel!.results![index].productDetail!.id,
+                        ));
+                      },
+                      child:Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
+                            width: mysetWidth,
+                            height: mysetHeight,
+                            decoration: BoxDecoration(
+                              // color: Colors.white,
+                              border: Border.all(color: color!),
+                              borderRadius: BorderRadius.circular(10),
 
-                                  icon: Icon(
-                                    Icons.delete,
-                                    color: AppColors.white,
-                                  ),
-                                  onTap: (CompletionHandler
-                                  handler) async {
-                                    postData!
-                                        .deleteSetList(
-                                        context,
-                                        data
-                                            .setListModel!
-                                            .setResults![
-                                        index]
-                                            .id,
-                                        requestHeadersWithToken,
-                                        'product__type=0',deleteset: 13
-                                    ).whenComplete(() => Provider.of<GetData>(context,listen: false).getSetList(''))
-                                        .whenComplete(() => Provider.of<GetData>(context,listen: false).getHomeVault());
-                                  },
-                                  color: Colors.red),
+                            ),
+                          ),
+                          Positioned(
+                            top: 2,
+                            left: 2,
+                            child: Container(
+                              width: mysetWidth,
+                              height: mysetHeight,
+                              decoration: BoxDecoration(
+                                color: Color(0xff282742),
+                                border: Border.all(color: Color(0xff282742)),
+                                borderRadius: BorderRadius.circular(10),
 
-                            ],
-                            child: InkWell(
-                                onTap: () {
-                                  Get.to(() => CollectibleDetails(
-                                    productId: data
-                                        .setListModel!
-                                        .setResults![index]
-                                        .setProductDetail!
-                                        .id!,
-                                  ));
-                                },
-                                child: ProductListContainer(
-                                  checkImage: data.setListModel!
-                                      .setResults![index].setProductDetail!.image == null ? "" :data.setListModel!
-                                      .setResults![index].setProductDetail!.image.toString(),
-                                  name: data.setListModel!
-                                      .setResults![index].setProductDetail!.name == null ? "" : data.setListModel!
-                                      .setResults![index].setProductDetail!.name!,
-                                  lowResUrl: data.setListModel!
-                                      .setResults![index].setProductDetail!.image != null ? data.setListModel!
-                                      .setResults![index].setProductDetail!.image!.low_res_url! :"",
-                                  scrappedImage:data.setListModel!
-                                      .setResults![index].setProductDetail!.image != null ? data.setListModel!
-                                      .setResults![index].setProductDetail!.image!.image_on_list
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 4,
+                            left: 4,
+                            child: Container(
+                              width: mysetWidth,
+                              height: mysetHeight,
+                              decoration: BoxDecoration(
+                                // color: Colors.white,
+                                border: Border.all(color: Color(0xff282742)),
+                                borderRadius: BorderRadius.circular(10),
+
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 6,
+                            left: 6,
+                            child: Container(
+                              width: mysetWidth,
+                              height: mysetHeight,
+                              decoration: BoxDecoration(
+                                // color: Colors.white,
+                                border: Border.all(color: Color(0xff282742)),
+                                borderRadius: BorderRadius.circular(10),
+
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 8,
+                            left: 8,
+                            child:Container (
+                                width: mysetWidth,
+                                height: mysetHeight,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xff17193C),
+                                      Color(0xff313552),
+                                    ],
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                  ),
+                                  color: AppColors.backgroundColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: SeparateVaultStructure(
+                                  checkImage: data.mySetsModel!.results![index]
+                                      .productDetail!.image.toString(),
+                                  lowResUrl: data.mySetsModel!.results![index].productDetail!.image != null
+                                      ? data.mySetsModel!.results![index].productDetail!.image!.lowResUrl.toString() :"",
+                                  scrappedImage:data.mySetsModel!.results![index].productDetail!.image != null ?
+                                  data.mySetsModel!.results![index].productDetail!.image!.baseUrl
                                       .toString() :"",
-                                  edition: data.setListModel!
-                                      .setResults![index].setProductDetail!.edition == null ? "" : data.setListModel!
-                                      .setResults![index].setProductDetail!.edition!,
-                                  brand: data.setListModel!
-                                      .setResults![index].setProductDetail!.brand == null ? "" :data.setListModel!
-                                      .setResults![index].setProductDetail!.brand
-                                      .toString(),
+                                  name: data.mySetsModel!.results![index].productDetail!.name == null ? ""
+                                      : data.mySetsModel!.results![index].productDetail!.name!,
+                                  edition: data.mySetsModel!.results![index].productDetail!.edition == null ? ""
+                                      : data.mySetsModel!.results![index].productDetail!.edition!,
+                                  rarity: data.mySetsModel!.results![index].productDetail!.rarity ==null ? ""
+                                      :data.mySetsModel!.results![index].productDetail!.rarity!,
 
-                                  brandName: data.setListModel!
-                                      .setResults![index].setProductDetail!.brand == null ? "" : data.setListModel!
-                                      .setResults![index].setProductDetail!.brand!.name!,
-                                  rarity: data.setListModel!
-                                      .setResults![index].setProductDetail!.rarity ==null ? "" :data.setListModel!
-                                      .setResults![index].setProductDetail!.rarity!,
-                                  floorPrice: data.setListModel!
-                                      .setResults![index].setProductDetail!.floorPrice == null ? "" :data.setListModel!
-                                      .setResults![index].setProductDetail!.floorPrice!,
-                                  isAlert: data.setListModel!
-                                      .setResults![index].setProductDetail!.isProductAlert!,
+                                  brand: data.mySetsModel!.results![index].productDetail!.brand == null ? ""
+                                       :data.mySetsModel!.results![index].productDetail!.brand
+                                      .toString(),
                                   series: <ChartSeries<Graph, String>>[
                                     LineSeries<Graph, String>(
                                       color: data.setListModel!
@@ -199,24 +227,62 @@ class _SetListPageState extends State<SetListPage> {
                                       yAxisName: 'Total',
                                     )
                                   ],
-                                  changePrice: data.setListModel!
-                                      .setResults![index].setProductDetail!.graphData!.priceChangePercent!.changePrice,
-                                  pcpPercent: data.setListModel!
-                                      .setResults![index].setProductDetail!.graphData!.priceChangePercent!.percent,
-                                  pcpSign: data.setListModel!
-                                      .setResults![index].setProductDetail!.graphData!.priceChangePercent!.sign! ,
+                                  changePrice: data.mySetsModel!.results![index].statsDetail!.priceChange,
+                                  floorPrice: data.mySetsModel!.results![index].productDetail!.floorPrice == null ? ""
+                                      :data.mySetsModel!.results![index].productDetail!.floorPrice!,
+                                  pcpPercent: data.mySetsModel!.results![index].statsDetail!.changePercent == null ? 0.0
+                                      :data.mySetsModel!.results![index].statsDetail!.changePercent!,
+                                  pcpSign: data.mySetsModel!.results![index].statsDetail!.sign == null ? ""
+                                      :data.mySetsModel!.results![index].statsDetail!.sign!,
                                 )
                             ),
-                          )
-                          )
-                          );
-                        },
-                      )
-                    : const LoadingExample(),
-              )
-            : const ColorLoader();
-      }),
-    );
+                          ),
+                          Positioned(
+                                    top: 10,
+                                    right: 5,
+                                    child: Container(
+                                      width: 22,
+                                      height: 22,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xff492987),
+                                            Color(0xff1C4C89),
+                                          ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        margin: EdgeInsets.all(3),
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Color(0xff17193C),
+                                              Color(0xff313552),
+                                            ],),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Text(
+                                          data.mySetsModel!.results![index].statsDetail!.totalItem.toString(),
+                                          style: TextStyle(color: AppColors.textColor,fontSize: 12,fontWeight: FontWeight.bold),
+
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                        ],
+                      ),
+                    ),
+                  );
+                })
+                : ColorLoader())
+                : ColorLoader(),
+          );
+        }),
+      );
   }
 
 
