@@ -22,7 +22,7 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
-import '../../../core/models/SetListModel.dart';
+import '../../../core/models/MySetsModel.dart';
 
 class SetListPage extends StatefulWidget {
   const SetListPage({Key? key}) : super(key: key);
@@ -57,7 +57,7 @@ class _SetListPageState extends State<SetListPage> {
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
 
-    getData!.getMySets(0, true,);
+    getData!.getMySets(0, true,graph_data: true);
     super.initState();
   }
 
@@ -211,14 +211,11 @@ class _SetListPageState extends State<SetListPage> {
                                       .toString(),
                                   series: <ChartSeries<Graph, String>>[
                                     LineSeries<Graph, String>(
-                                      color: data.setListModel!
-                                          .setResults![index].setProductDetail!.graphData!.priceChangePercent!
-                                          .sign ==
+                                      color: data.mySetsModel!.results![index].statsDetail!.sign! ==
                                           'decrease'
                                           ? Colors.red
                                           : Colors.green,
-                                      dataSource: data.setListModel!
-                                          .setResults![index].setProductDetail!.graphData!.graph!,
+                                      dataSource: data.mySetsModel!.results![index].statsDetail!.graph!,
                                       xValueMapper: (Graph plot, _) =>
                                       plot.date,
                                       yValueMapper: (Graph plot, _) =>

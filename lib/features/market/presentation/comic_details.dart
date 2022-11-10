@@ -11,6 +11,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
+import 'package:ketemaa/features/market/presentation/multiple_adding_option/multi_row.dart';
 import 'package:ketemaa/features/market/presentation/widgets/details_appbar.dart';
 import 'package:ketemaa/graph/one_day_graph_page.dart';
 import 'package:ketemaa/graph/one_year_graph_page.dart';
@@ -215,7 +216,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                 AppSpaces.spaces_width_20,
                                 InkWell(
                                   onTap: () async {
-                                    var body = {"product": data.singleProductModel!.id, "type": 0};
+                                  /*  var body = {"product": data.singleProductModel!.id, "type": 0};
                                     Map<String, String> requestHeadersWithToken = {
                                       'Content-type': 'application/json',
                                       'Accept': 'application/json',
@@ -249,7 +250,15 @@ class _ComicDetailsState extends State<ComicDetails> {
                                           )
                                           .whenComplete(
                                               () => Provider.of<GetData>(context, listen: false).getHomeVault());
-                                    }
+                                    }*/
+                                    getData!.maoModel = null;
+                                    showDialog(
+                                        context: context,
+                                        builder: (ctx) => Dialog(
+                                          backgroundColor: Colors.transparent,
+                                          insetPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                                          child: Multiform(id: data.singleProductModel!.id, type: 1),
+                                        ));
                                   },
                                   child: Container(
                                     width: Get.width * .42,
@@ -264,8 +273,8 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     child: data.checkSetCheck != null
                                         ? Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
-                                            child: data.checkSetCheck!.isFound == false
-                                                ? AutoSizeText(
+                                            child: /*data.checkSetCheck!.isFound == false
+                                                ? */AutoSizeText(
                                                     'Add to Vault',
                                                     style: Get.textTheme.bodyMedium!.copyWith(
                                                       fontFamily: 'Inter',
@@ -273,14 +282,14 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                     maxLines: 1,
                                                     overflow: TextOverflow.ellipsis,
                                                   )
-                                                : AutoSizeText(
+                                                /*: AutoSizeText(
                                                     'Delete from Vault',
                                                     style: Get.textTheme.bodyMedium!.copyWith(
                                                       fontFamily: 'Inter',
                                                     ),
                                                     maxLines: 1,
                                                     overflow: TextOverflow.ellipsis,
-                                                  ),
+                                                  ),*/
                                           )
                                         : Container(),
                                   ),

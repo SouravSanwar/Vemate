@@ -34,10 +34,7 @@ class _MysetsCardState extends State<MysetsCard> {
   void initState() {
     getData = Provider.of<GetData>(context, listen: false);
     // TODO: implement initState
-    getData!.getMySets(
-      0,
-      true,
-    );
+    getData!.getMySets(0, true,);
 
     super.initState();
   }

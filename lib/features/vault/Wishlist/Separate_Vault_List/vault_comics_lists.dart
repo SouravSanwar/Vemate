@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
@@ -5,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
@@ -19,20 +19,20 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../core/models/MySetsModel.dart';
 
-class VaultCollectiblesLists extends StatefulWidget {
-  const VaultCollectiblesLists({Key? key}) : super(key: key);
+
+class VaultComicsList extends StatefulWidget {
+  const VaultComicsList({Key? key}) : super(key: key);
 
   @override
-  _VaultCollectiblesListsState createState() => _VaultCollectiblesListsState();
+  _VaultComicsListState createState() => _VaultComicsListState();
 }
 
-class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
-
+class _VaultComicsListState extends State<VaultComicsList> {
   bool? large;
   bool? medium;
   int page = 1;
   RefreshController refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController(initialRefresh: false);
 
   String? searchText;
 
@@ -56,7 +56,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
     // TODO: implement initState
-    getData!.geSeparatetMySets(0,true,true,0);
+    getData!.geSeparatetMySets(0,true,true,1);
     super.initState();
   }
 
@@ -73,8 +73,8 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
     return WillPopScope(
       onWillPop: () async {
         Get.offAll(() => ControllerPage(
-              seletedItem: 2,
-            ));
+          seletedItem: 2,
+        ));
         return true;
       },
       child: Scaffold(
@@ -85,10 +85,9 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
           iconTheme: const IconThemeData(color: Colors.grey),
           backgroundColor: AppColors.backgroundColor,
           title: Text(
-            "My Collectibles",
+            "My Comics",
             style: TextStyle(
                 color: AppColors.textColor,
-                fontFamily: 'Inter',
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold),
           ),
@@ -316,7 +315,7 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
   Future<void> _onLoading() async {
     offset = offset + 20;
 
-    // getData!.getWishList(offset: offset);
+    //getData!.getWishList(offset: offset);
 
     await Future.delayed(const Duration(seconds: 2));
 

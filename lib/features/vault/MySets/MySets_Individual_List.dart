@@ -8,10 +8,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
-import 'package:ketemaa/features/market/presentation/widgets/details_appbar.dart';
-import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/features/vault/MySets/individual_list_structure.dart';
 import 'package:ketemaa/main.dart';
@@ -19,6 +16,8 @@ import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
+import '../../../core/models/MySetsModel.dart';
 
 class MySetsIndividualList extends StatefulWidget {
   int? productId;
@@ -54,7 +53,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
   void initState() {
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
-    getData!.getMySets1(0, widget.productId!, true);
+    getData!.getMySets1(0, widget.productId!, true,graph_data: true);
     super.initState();
   }
 
@@ -261,26 +260,22 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                         floorPrice: data.mySetsModel!.results![index].productDetail!.floorPrice == null
                                             ? ""
                                             : data.mySetsModel!.results![index].productDetail!.floorPrice!,
-                                        series:
-                                            null/*<ChartSeries<Graph, String>>[
-                                LineSeries<Graph, String>(
-                                  color: data.setListModel!
-                                      .setResults![index].setProductDetail!.graphData!.priceChangePercent!
-                                      .sign ==
-                                      'decrease'
-                                      ? Colors.red
-                                      : Colors.green,
-                                  dataSource: data.setListModel!
-                                      .setResults![index].setProductDetail!.graphData!.graph!,
-                                  xValueMapper: (Graph plot, _) =>
-                                  plot.date,
-                                  yValueMapper: (Graph plot, _) =>
-                                  plot.floorPrice,
-                                  xAxisName: 'Duration',
-                                  yAxisName: 'Total',
-                                )
-                              ]*/
-                                        ,
+                                        series:<ChartSeries<Graph, String>>[
+                                          LineSeries<Graph, String>(
+                                            color: data.mySetsModel!.results![index].statsDetail!.sign! ==
+                                                'decrease'
+                                                ? Colors.red
+                                                : Colors.green,
+                                            dataSource: data.mySetsModel!.results![index].statsDetail!.graph!,
+                                            xValueMapper: (Graph plot, _) =>
+                                            plot.date,
+                                            yValueMapper: (Graph plot, _) =>
+                                            plot.floorPrice,
+                                            xAxisName: 'Duration',
+                                            yAxisName: 'Total',
+                                          )
+                                        ],
+
                                         pcpPercent: data.mySetsModel!.results![index].statsDetail == null
                                             ? 0.0
                                             : data.mySetsModel!.results![index].statsDetail!.changePercent!,

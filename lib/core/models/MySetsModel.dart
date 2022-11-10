@@ -36,21 +36,21 @@ class MySetsModel {
 
 class Results {
   Results({
-      this.id,
-      this.productDetail,
-      this.statsDetail,
-      this.type,
-      this.mintNumber,
-      this.ap,
-      this.ad,
-      this.creationTime,
-      this.user,
-      this.product,});
+    this.id,
+    this.productDetail,
+    this.statsDetail,
+    this.type,
+    this.mintNumber,
+    this.ap,
+    this.ad,
+    this.creationTime,
+    this.user,
+    this.product,});
 
   Results.fromJson(dynamic json) {
     id = json['id'];
     productDetail = json['product_detail'] != null ? ProductDetail.fromJson(json['product_detail']) : null;
-    statsDetail = json['stats_detail'];
+    statsDetail = json['stats_detail'] != null ? StatsDetail.fromJson(json['stats_detail']) : null;
     type = json['type'];
     mintNumber = json['mint_number'];
     ap = json['ap'];
@@ -61,11 +61,11 @@ class Results {
   }
   num? id;
   ProductDetail? productDetail;
-  dynamic statsDetail;
+  StatsDetail? statsDetail;
   num? type;
-  dynamic mintNumber;
-  dynamic ap;
-  dynamic ad;
+  num? mintNumber;
+  String? ap;
+  String? ad;
   String? creationTime;
   num? user;
   num? product;
@@ -76,7 +76,9 @@ class Results {
     if (productDetail != null) {
       map['product_detail'] = productDetail?.toJson();
     }
-    map['stats_detail'] = statsDetail;
+    if (statsDetail != null) {
+      map['stats_detail'] = statsDetail?.toJson();
+    }
     map['type'] = type;
     map['mint_number'] = mintNumber;
     map['ap'] = ap;
@@ -94,18 +96,29 @@ class StatsDetail {
     this.totalItem,
     this.sign,
     this.priceChange,
-    this.changePercent,});
+    this.changePercent,
+    this.totalAp,
+    this.graph,});
 
   StatsDetail.fromJson(dynamic json) {
     totalItem = json['total_item'];
     sign = json['sign'];
     priceChange = json['price_change'];
     changePercent = json['change_percent'];
+    totalAp = json['total_ap'];
+    if (json['graph'] != null) {
+      graph = [];
+      json['graph'].forEach((v) {
+        graph?.add(Graph.fromJson(v));
+      });
+    }
   }
   num? totalItem;
   String? sign;
-  num? priceChange;
-  num? changePercent;
+  double? priceChange;
+  double? changePercent;
+  num? totalAp;
+  List<Graph>? graph;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -113,6 +126,35 @@ class StatsDetail {
     map['sign'] = sign;
     map['price_change'] = priceChange;
     map['change_percent'] = changePercent;
+    map['total_ap'] = totalAp;
+    if (graph != null) {
+      map['graph'] = graph;
+    }
+    return map;
+  }
+
+}
+
+class Graph {
+  Graph({
+    this.floorPrice,
+    this.creationTime,
+    this.date,});
+
+  Graph.fromJson(dynamic json) {
+    floorPrice = json['floor_price'];
+    creationTime = json['creation_time'];
+    date = json['date'];
+  }
+  num? floorPrice;
+  String? creationTime;
+  String? date;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['floor_price'] = floorPrice;
+    map['creation_time'] = creationTime;
+    map['date'] = date;
     return map;
   }
 

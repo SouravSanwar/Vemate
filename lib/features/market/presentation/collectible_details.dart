@@ -329,8 +329,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(10),
-                                    child: data.checkSetCheck!.isFound == false
-                                        ? AutoSizeText(
+                                    child:/* data.checkSetCheck!.isFound == false
+                                        ? */AutoSizeText(
                                             'Add to Vault',
                                             style: Get.textTheme.bodyMedium!.copyWith(
                                               fontFamily: 'Inter',
@@ -338,14 +338,14 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                           )
-                                        : AutoSizeText(
+                                        /*: AutoSizeText(
                                             'Delete from Vault',
                                             style: Get.textTheme.bodyMedium!.copyWith(
                                               fontFamily: 'Inter',
                                             ),
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
-                                          ),
+                                          ),*/
                                   ),
                                 ),
                               ),
