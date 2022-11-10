@@ -12,6 +12,9 @@ import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
+import 'package:ketemaa/features/market/presentation/multiple_adding_option/Date_Picker/date_picker.dart';
+import 'package:ketemaa/features/market/presentation/multiple_adding_option/Date_Picker/i18n/date_picker_i18n.dart';
+import 'package:ketemaa/features/market/presentation/multiple_adding_option/mint_textfield.dart';
 import 'package:ketemaa/features/market/presentation/multiple_adding_option/multi_row.dart';
 import 'package:ketemaa/features/market/presentation/widgets/details_appbar.dart';
 import 'package:ketemaa/graph/one_year_graph_page.dart';
@@ -22,14 +25,23 @@ import 'package:ketemaa/graph/sixty_day_graph_page.dart';
 import 'package:ketemaa/graph/thirty_day_graph_page.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
 import 'package:marquee/marquee.dart';
 
 class CollectibleDetails extends StatefulWidget {
   final int? productId;
+  final int? productType;
   final int? fromNotification;
+  final bool? fromVault;
 
-  const CollectibleDetails({Key? key, this.productId, this.fromNotification = 0}) : super(key: key);
+  const CollectibleDetails({
+    Key? key,
+    this.productId,
+    this.fromNotification = 0,
+    this.productType,
+    this.fromVault = false,
+  }) : super(key: key);
 
   @override
   _CollectibleDetailsState createState() => _CollectibleDetailsState();
@@ -37,6 +49,15 @@ class CollectibleDetails extends StatefulWidget {
 
 class _CollectibleDetailsState extends State<CollectibleDetails> {
   GetData? getData;
+  TextEditingController mintController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  final form = GlobalKey<FormState>();
+
+  DateTime? textDate = DateTime.now();
+
+  List<TextEditingController> storedMintController = [];
+  List<TextEditingController> storedPriceController = [];
+  List<TextEditingController> storedDateController = [];
 
   int alertCheck = 0;
   PostData? postData;
@@ -50,6 +71,12 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
     '1Y',
   ];
 
+  Map<String, String> requestHeadersWithToken = {
+    'Content-type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'token ${prefs!.getString('token')}',
+  };
+
   @override
   void initState() {
     super.initState();
@@ -62,6 +89,10 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
     getData!.checkWishlist(widget.productId!);
     getData!.checkSetList(widget.productId!);
     getData!.getWishList();
+
+    if (widget.fromVault == true) {
+      getData!.getVaultProductDetails(widget.productId, widget.productType);
+    }
 
     widget.fromNotification == 1 ? getData!.getNotification() : print("no pass from notification");
   }
@@ -281,12 +312,11 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   getData!.maoModel = null;
                                   showDialog(
                                       context: context,
-                                      builder: (ctx) =>Dialog(
-                                      backgroundColor: Colors.transparent,
-                                      insetPadding: EdgeInsets.symmetric(vertical: 16,horizontal: 16),
-                                      child: Multiform(id: data.singleProductModel!.id, type: 0),
-                                      )
-                                  );
+                                      builder: (ctx) => Dialog(
+                                            backgroundColor: Colors.transparent,
+                                            insetPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                                            child: Multiform(id: data.singleProductModel!.id, type: 0),
+                                          ));
                                 },
                                 child: Container(
                                   width: Get.width * .42,
@@ -321,6 +351,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                               ),
                             ],
                           ),
+
+                          ///Graph
                           Container(
                             padding: EdgeInsets.only(
                                 top: Get.height * 0.05,
@@ -391,23 +423,199 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                 right: Get.width * 0.05336,
                                 left: Get.width * 0.05336,
                                 bottom: Get.height * 0.0334),
-                            child: Text(
-                              data.singleProductModel != null
-                                  ? data.singleProductModel!.name.toString() + "'s Details"
-                                  : "",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  color: AppColors.textColor,
-                                  //fontFamily: 'Inter',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15.sp),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  data.singleProductModel != null
+                                      ? data.singleProductModel!.name.toString() + "'s Details"
+                                      : "",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: AppColors.textColor,
+                                      //fontFamily: 'Inter',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.sp),
+                                ),
+                                widget.fromVault == true
+                                    ? Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: AppColors.primaryColor),
+                                          borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                        child: InkWell(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                if (data.vaultProductDetailsModel != null) {
+                                                  storedMintController.add(
+                                                    TextEditingController(
+                                                      text: data.vaultProductDetailsModel!.results![0].mintNumber
+                                                          .toString(),
+                                                    ),
+                                                  );
+                                                  storedPriceController.add(
+                                                    TextEditingController(
+                                                      text: data.vaultProductDetailsModel!.results![0].ap.toString(),
+                                                    ),
+                                                  );
+                                                  storedDateController.add(
+                                                    TextEditingController(
+                                                      text: data.vaultProductDetailsModel!.results![0].ad.toString(),
+                                                    ),
+                                                  );
+                                                }
+                                                return Dialog(
+                                                  backgroundColor: AppColors.backgroundColor,
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                  elevation: 16,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(20.0),
+                                                    child: Container(
+                                                      height:Get.height * .27,
+                                                      child: Column(
+                                                        children: [
+                                                          AppSpaces.spaces_height_5,
+                                                          MintTextField(
+                                                            labelText: 'Mint Number',
+                                                            textType: TextInputType.number,
+                                                            controller: storedMintController[0],
+                                                          ),
+                                                          AppSpaces.spaces_height_5,
+                                                          MintTextField(
+                                                            labelText: 'Price',
+                                                            textType: TextInputType.number,
+                                                            controller: storedPriceController[0],
+                                                          ),
+                                                          AppSpaces.spaces_height_5,
+
+                                                          ///datetime_new_row
+                                                          Container(
+                                                            height: Get.height * .035,
+                                                            padding: EdgeInsets.zero,
+                                                            decoration: BoxDecoration(
+                                                              border: Border.all(
+                                                                color: AppColors.white.withOpacity(.7),
+                                                                width: 1.5,
+                                                              ),
+                                                              borderRadius: BorderRadius.circular(10.0),
+                                                            ),
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                                              child: Row(
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                children: [
+                                                                  Text(
+                                                                    DateFormat('yyyy-MM-dd')
+                                                                        .format(DateTime.parse(
+                                                                            storedDateController[0].text))
+                                                                        .toString(),
+                                                                    style: TextStyle(
+                                                                      fontSize: 12,
+                                                                      fontWeight: FontWeight.bold,
+                                                                      color: AppColors.white.withOpacity(.7),
+                                                                    ),
+                                                                  ),
+                                                                  InkWell(
+                                                                    onTap: () async {
+                                                                      var datePicked =
+                                                                          await DatePicker.showSimpleDatePicker(
+                                                                        context,
+                                                                        initialDate: DateTime.now(),
+                                                                        firstDate: DateTime(2015),
+                                                                        lastDate: DateTime.now(),
+                                                                        dateFormat: "dd-MM-yyyy",
+                                                                        locale: DateTimePickerLocale.en_us,
+                                                                        looping: true,
+                                                                        backgroundColor: const Color(0xff02072D),
+                                                                        textColor: AppColors.white.withOpacity(.7),
+                                                                      );
+                                                                      setState(() {
+                                                                        storedDateController[0].text =
+                                                                            datePicked!.toIso8601String();
+                                                                      });
+                                                                    },
+                                                                    child: Icon(
+                                                                      Icons.calendar_month,
+                                                                      color: AppColors.white.withOpacity(.7),
+                                                                      size: 17,
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          AppSpaces.spaces_height_25,
+                                                          InkWell(
+                                                            child: Container(
+                                                              width: Get.width * .25,
+                                                              margin: const EdgeInsets.symmetric(
+                                                                  horizontal: 3, vertical: 3),
+                                                              decoration: BoxDecoration(
+                                                                color: AppColors.primaryColor,
+                                                                borderRadius: BorderRadius.circular(20.0),
+                                                              ),
+                                                              child: const Padding(
+                                                                padding: EdgeInsets.all(5.0),
+                                                                child: Text(
+                                                                  'Update',
+                                                                  textAlign: TextAlign.center,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            onTap: () {
+                                                              var body = {
+                                                                "mint_number": storedMintController[0].text,
+                                                                "ap": storedPriceController[0].text,
+                                                                "ad": storedDateController[0].text
+                                                              };
+                                                              postData!
+                                                                  .editMAO(
+                                                                    data.vaultProductDetailsModel!.results![0].id,
+                                                                    context,
+                                                                    body,
+                                                                    requestHeadersWithToken,
+                                                                  )
+                                                                  .whenComplete(() => getData!.getVaultProductDetails(
+                                                                      widget.productId, widget.productType))
+                                                                  .whenComplete(() => Navigator.of(context).pop());
+                                                            },
+                                                          ),
+                                                          AppSpaces.spaces_width_5,
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: Text(
+                                              "Edit",
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                  color: AppColors.textColor,
+                                                  //fontFamily: 'Inter',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 12.sp),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : Container(),
+                              ],
                             ),
                           ),
                         ],
                       ))
                     ];
                   },
-                  body: const ProductDetailsCollectibles(),
+                  body: ProductDetailsCollectibles(
+                    fromVault: widget.fromVault,
+                  ),
                 ),
               )
             : const ColorLoader(),

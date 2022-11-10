@@ -41,8 +41,7 @@ class IndividualListStructure extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<IndividualListStructure> createState() =>
-      _IndividualListStructureState();
+  State<IndividualListStructure> createState() => _IndividualListStructureState();
 }
 
 class _IndividualListStructureState extends State<IndividualListStructure> {
@@ -54,25 +53,26 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
-              height: Get.height * .09,
-              width: Get.height * .078,
-              decoration: BoxDecoration(
-                  color: AppColors.backgroundColor,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: AppColors.textBoxBgColor)),
-              alignment: Alignment.center,
-              child: widget.checkImage == null
-                  ? FirstLetterImage(
-                      firstLetter: widget.name.toString()[0].toUpperCase(),
-                      fontsize: 35,
-                    )
-                  : widget.lowResUrl == null
-                      ? VeVeLowImage(
-                          imageUrl: widget.scrappedImage.toString(),
-                        )
-                      : VeVeLowImage(
-                          imageUrl: widget.lowResUrl.toString(),
-                        )),
+            height: Get.height * .09,
+            width: Get.height * .078,
+            decoration: BoxDecoration(
+                color: AppColors.backgroundColor,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: AppColors.textBoxBgColor)),
+            alignment: Alignment.center,
+            child: widget.checkImage == ''
+                ? FirstLetterImage(
+                    firstLetter: widget.name.toString()[0].toUpperCase(),
+                    fontsize: 35,
+                  )
+                : widget.lowResUrl == ''
+                    ? VeVeLowImage(
+                        imageUrl: widget.scrappedImage.toString(),
+                      )
+                    : VeVeLowImage(
+                        imageUrl: widget.lowResUrl.toString(),
+                      ),
+          ),
           AppSpaces.spaces_width_5,
           Expanded(
             flex: 10,
@@ -88,10 +88,8 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                             widget.name.toString(),
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.start,
-                            style: Get.textTheme.bodyText2!.copyWith(
-                                color: AppColors.textColor,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12.sp),
+                            style: Get.textTheme.bodyText2!
+                                .copyWith(color: AppColors.textColor, fontWeight: FontWeight.w600, fontSize: 12.sp),
                           ),
                         )),
                     AppSpaces.spaces_width_2,
@@ -106,24 +104,18 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.brand != null
-                                ? widget.brand.toString()
-                                : '',
+                            widget.brand != '' ? widget.brand.toString() : '',
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.start,
-                            style: Get.textTheme.bodyText1!.copyWith(
-                                color: AppColors.grey,
-                                fontWeight: FontWeight.w200,
-                                fontSize: 10.sp),
+                            style: Get.textTheme.bodyText1!
+                                .copyWith(color: AppColors.grey, fontWeight: FontWeight.w200, fontSize: 10.sp),
                           ),
                           AppSpaces.spaces_height_5,
                           Text(
                             widget.rarity.toString(),
                             textAlign: TextAlign.start,
-                            style: Get.textTheme.bodyText1!.copyWith(
-                                color: AppColors.grey,
-                                fontWeight: FontWeight.w200,
-                                fontSize: 10.sp),
+                            style: Get.textTheme.bodyText1!
+                                .copyWith(color: AppColors.grey, fontWeight: FontWeight.w200, fontSize: 10.sp),
                           ),
                         ],
                       ),
@@ -153,49 +145,60 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                           Text(
                             r"$" + widget.floorPrice.toString(),
                             textAlign: TextAlign.start,
-                            style: Get.textTheme.bodyText1!.copyWith(
-                                color: AppColors.textColor,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 10.sp),
+                            style: Get.textTheme.bodyText1!
+                                .copyWith(color: AppColors.textColor, fontWeight: FontWeight.w900, fontSize: 10.sp),
                           ),
+                          AppSpaces.spaces_width_2,
                           Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius: BorderRadius.circular(1),
-                              ),
-                              child: const Text(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.primaryColor),
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                              child: Text(
                                 "FP",
-                                style: TextStyle(fontSize: 10),
-                              )),
+                                style: TextStyle(
+                                  fontSize: 10,
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     AppSpaces.spaces_width_2,
                     Expanded(
-                        flex: 4,
-                        child: Row(
-                          children: [
-                            Text(
-                              r"$" + widget.ap.toString(),
-                              textAlign: TextAlign.start,
-                              style: Get.textTheme.bodyText1!.copyWith(
-                                  color: AppColors.textColor,
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 10.sp),
+                      flex: 4,
+                      child: Row(
+                        children: [
+                          Text(
+                            r"$" + widget.ap.toString(),
+                            textAlign: TextAlign.start,
+                            style: Get.textTheme.bodyText1!
+                                .copyWith(color: AppColors.textColor, fontWeight: FontWeight.w900, fontSize: 10.sp),
+                          ),
+                          AppSpaces.spaces_width_2,
+                          Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.primaryColor),
+                              borderRadius: BorderRadius.circular(2),
                             ),
-                            Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(1),
+                            child: const Padding(
+                              padding: EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                              child: Text(
+                                "AP",
+                                style: TextStyle(
+                                  fontSize: 10,
                                 ),
-                                child: const Text(
-                                  "AP",
-                                  style: TextStyle(fontSize: 10),
-                                )),
-                          ],
-                        )),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -203,9 +206,9 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
           ),
           AppSpaces.spaces_width_2,
           Expanded(
-            flex: 4,
+            flex: 5,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
                   height: Get.height * .05,
@@ -235,20 +238,6 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: Text(
-                        '',
-                        // '\$${widget.changePrice != null
-                        //     ? widget.changePrice.toStringAsFixed(2)
-                        //     : ""}',
-                        textAlign: TextAlign.start,
-                        style: Get.textTheme.bodyText1!.copyWith(
-                            color: AppColors.textColor,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 10),
-                      ),
-                    ),
-                    AppSpaces.spaces_width_2,
-                    Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -256,9 +245,7 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                             widget.pcpPercent.toStringAsFixed(2) + "%",
                             textAlign: TextAlign.end,
                             style: Get.textTheme.bodyText1!.copyWith(
-                                color: widget.pcpSign == 'decrease'
-                                    ? Colors.red
-                                    : Colors.green,
+                                color: widget.pcpSign == 'decrease' ? Colors.red : Colors.green,
                                 fontWeight: FontWeight.w300,
                                 fontSize: 10),
                           ),
@@ -277,10 +264,43 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                                 color: Colors.green,
                                 size: 10,
                               ),
-                            )
+                            ),
                         ],
                       ),
                     ),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Text(
+                            '\$${widget.changePrice != null ? widget.changePrice.toStringAsFixed(2) : ""}',
+                            textAlign: TextAlign.start,
+                            style: Get.textTheme.bodyText1!
+                                .copyWith(color: AppColors.textColor, fontWeight: FontWeight.w400, fontSize: 10),
+                          ),
+
+                          AppSpaces.spaces_width_2,
+                          Expanded(
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: AppColors.primaryColor),
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                child: Text(
+                                  "CP",
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
                   ],
                 ),
               ],
