@@ -409,8 +409,8 @@ class _ComicDetailsState extends State<ComicDetails> {
                                               ),
                                             );
                                             storedDateController.add(TextEditingController(
-                                              text:
-                                                  DateFormat('MMMM dd, yyyy').format(DateTime.parse(widget.ad.toString())),
+                                              text: DateFormat('MMMM dd, yyyy')
+                                                  .format(DateTime.parse(widget.ad.toString())),
                                             ));
 
                                             return Dialog(
