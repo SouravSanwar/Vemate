@@ -31,9 +31,13 @@ import 'package:marquee/marquee.dart';
 
 class CollectibleDetails extends StatefulWidget {
   final int? productId;
-  final int? productType;
   final int? fromNotification;
+  final int? productType;
   final bool? fromVault;
+  final int? mintId;
+  final String? edition;
+  final String? ap;
+  final String? ad;
 
   const CollectibleDetails({
     Key? key,
@@ -41,6 +45,10 @@ class CollectibleDetails extends StatefulWidget {
     this.fromNotification = 0,
     this.productType,
     this.fromVault = false,
+    this.edition = '',
+    this.ap = '',
+    this.ad = '',
+    this.mintId,
   }) : super(key: key);
 
   @override
@@ -89,10 +97,6 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
     getData!.checkWishlist(widget.productId!);
     getData!.checkSetList(widget.productId!);
     getData!.getWishList();
-
-    if (widget.fromVault == true) {
-      getData!.getVaultProductDetails(widget.productId, widget.productType);
-    }
 
     widget.fromNotification == 1 ? getData!.getNotification() : print("no pass from notification");
   }
@@ -314,7 +318,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       context: context,
                                       builder: (ctx) => Dialog(
                                             backgroundColor: Colors.transparent,
-                                            insetPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                                            insetPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                                             child: Multiform(id: data.singleProductModel!.id, type: 0),
                                           ));
                                 },
@@ -328,17 +332,18 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     ),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child:/* data.checkSetCheck!.isFound == false
-                                        ? */AutoSizeText(
-                                            'Add to Vault',
-                                            style: Get.textTheme.bodyMedium!.copyWith(
-                                              fontFamily: 'Inter',
-                                            ),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          )
-                                        /*: AutoSizeText(
+                                      padding: const EdgeInsets.all(10),
+                                      child: /* data.checkSetCheck!.isFound == false
+                                        ? */
+                                          AutoSizeText(
+                                        'Add to Vault',
+                                        style: Get.textTheme.bodyMedium!.copyWith(
+                                          fontFamily: 'Inter',
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      )
+                                      /*: AutoSizeText(
                                             'Delete from Vault',
                                             style: Get.textTheme.bodyMedium!.copyWith(
                                               fontFamily: 'Inter',
@@ -346,7 +351,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                           ),*/
-                                  ),
+                                      ),
                                 ),
                               ),
                             ],
@@ -448,24 +453,21 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                             showDialog(
                                               context: context,
                                               builder: (context) {
-                                                if (data.vaultProductDetailsModel != null) {
-                                                  storedMintController.add(
-                                                    TextEditingController(
-                                                      text: data.vaultProductDetailsModel!.results![0].mintNumber
-                                                          .toString(),
-                                                    ),
-                                                  );
-                                                  storedPriceController.add(
-                                                    TextEditingController(
-                                                      text: data.vaultProductDetailsModel!.results![0].ap.toString(),
-                                                    ),
-                                                  );
-                                                  storedDateController.add(
-                                                    TextEditingController(
-                                                      text: data.vaultProductDetailsModel!.results![0].ad.toString(),
-                                                    ),
-                                                  );
-                                                }
+                                                storedMintController.add(
+                                                  TextEditingController(
+                                                    text: widget.edition.toString(),
+                                                  ),
+                                                );
+                                                storedPriceController.add(
+                                                  TextEditingController(
+                                                    text: widget.ap,
+                                                  ),
+                                                );
+                                                storedDateController.add(TextEditingController(
+                                                  text: DateFormat('MMMM dd, yyyy')
+                                                      .format(DateTime.parse(widget.ad.toString())),
+                                                ));
+
                                                 return Dialog(
                                                   backgroundColor: AppColors.backgroundColor,
                                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -473,79 +475,128 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                   child: Padding(
                                                     padding: const EdgeInsets.all(20.0),
                                                     child: Container(
-                                                      height:Get.height * .27,
+                                                      height: Get.height * .32,
                                                       child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           AppSpaces.spaces_height_5,
-                                                          MintTextField(
-                                                            labelText: 'Mint Number',
-                                                            textType: TextInputType.number,
+
+                                                          TextFormField(
+                                                            style: TextStyle(color: Colors.white.withOpacity(.7)),
+                                                            decoration: InputDecoration(isDense: true),
                                                             controller: storedMintController[0],
                                                           ),
-                                                          AppSpaces.spaces_height_5,
-                                                          MintTextField(
-                                                            labelText: 'Price',
-                                                            textType: TextInputType.number,
+                                                          AppSpaces.spaces_height_2,
+                                                          Text(
+                                                            'Mint Number or Edition',
+                                                            style: TextStyle(color: Colors.grey.withOpacity(.3)),
+                                                          ),
+                                                          TextFormField(
+                                                            style: TextStyle(color: Colors.white.withOpacity(.7)),
+                                                            decoration: InputDecoration(isDense: true),
                                                             controller: storedPriceController[0],
                                                           ),
+                                                          AppSpaces.spaces_height_2,
+                                                          Text(
+                                                            'Aquisition Price',
+                                                            style: TextStyle(color: Colors.grey.withOpacity(.3)),
+                                                          ),
+                                                          TextFormField(
+                                                            style: TextStyle(color: Colors.white.withOpacity(.7)),
+                                                            decoration: InputDecoration(
+                                                              isDense: true,
+                                                              suffixIcon: InkWell(
+                                                                onTap: () async {
+                                                                  var datePicked =
+                                                                      await DatePicker.showSimpleDatePicker(
+                                                                    context,
+                                                                    initialDate: DateTime.now(),
+                                                                    firstDate: DateTime(2015),
+                                                                    lastDate: DateTime.now(),
+                                                                    dateFormat: "dd-MM-yyyy",
+                                                                    locale: DateTimePickerLocale.en_us,
+                                                                    looping: true,
+                                                                    backgroundColor: const Color(0xff02072D),
+                                                                    textColor: AppColors.white.withOpacity(.7),
+                                                                  );
+                                                                  setState(() {
+                                                                    storedDateController[0].text =
+                                                                        datePicked!.toIso8601String();
+                                                                  });
+                                                                },
+                                                                child: Icon(
+                                                                  Icons.calendar_month,
+                                                                  color: AppColors.white.withOpacity(.7),
+                                                                  // size: 17,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            controller: storedDateController[0],
+                                                          ),
+                                                          AppSpaces.spaces_height_2,
+                                                          Text(
+                                                            'Aquisition Date',
+                                                            style: TextStyle(color: Colors.grey.withOpacity(.3)),
+                                                          ),
+
                                                           AppSpaces.spaces_height_5,
 
                                                           ///datetime_new_row
-                                                          Container(
-                                                            height: Get.height * .035,
-                                                            padding: EdgeInsets.zero,
-                                                            decoration: BoxDecoration(
-                                                              border: Border.all(
-                                                                color: AppColors.white.withOpacity(.7),
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius: BorderRadius.circular(10.0),
-                                                            ),
-                                                            child: Padding(
-                                                              padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                                              child: Row(
-                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                children: [
-                                                                  Text(
-                                                                    DateFormat('yyyy-MM-dd')
-                                                                        .format(DateTime.parse(
-                                                                            storedDateController[0].text))
-                                                                        .toString(),
-                                                                    style: TextStyle(
-                                                                      fontSize: 12,
-                                                                      fontWeight: FontWeight.bold,
-                                                                      color: AppColors.white.withOpacity(.7),
-                                                                    ),
-                                                                  ),
-                                                                  InkWell(
-                                                                    onTap: () async {
-                                                                      var datePicked =
-                                                                          await DatePicker.showSimpleDatePicker(
-                                                                        context,
-                                                                        initialDate: DateTime.now(),
-                                                                        firstDate: DateTime(2015),
-                                                                        lastDate: DateTime.now(),
-                                                                        dateFormat: "dd-MM-yyyy",
-                                                                        locale: DateTimePickerLocale.en_us,
-                                                                        looping: true,
-                                                                        backgroundColor: const Color(0xff02072D),
-                                                                        textColor: AppColors.white.withOpacity(.7),
-                                                                      );
-                                                                      setState(() {
-                                                                        storedDateController[0].text =
-                                                                            datePicked!.toIso8601String();
-                                                                      });
-                                                                    },
-                                                                    child: Icon(
-                                                                      Icons.calendar_month,
-                                                                      color: AppColors.white.withOpacity(.7),
-                                                                      size: 17,
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
+                                                          // Container(
+                                                          //   height: Get.height * .035,
+                                                          //   padding: EdgeInsets.zero,
+                                                          //   decoration: BoxDecoration(
+                                                          //     border: Border.all(
+                                                          //       color: AppColors.white.withOpacity(.7),
+                                                          //       width: 1.5,
+                                                          //     ),
+                                                          //     borderRadius: BorderRadius.circular(10.0),
+                                                          //   ),
+                                                          //   child: Padding(
+                                                          //     padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                                          //     child: Row(
+                                                          //       mainAxisAlignment: MainAxisAlignment.center,
+                                                          //       children: [
+                                                          //         Text(
+                                                          //           DateFormat('yyyy-MM-dd')
+                                                          //               .format(DateTime.parse(
+                                                          //                   storedDateController[0].text))
+                                                          //               .toString(),
+                                                          //           style: TextStyle(
+                                                          //             fontSize: 12,
+                                                          //             fontWeight: FontWeight.bold,
+                                                          //             color: AppColors.white.withOpacity(.7),
+                                                          //           ),
+                                                          //         ),
+                                                          //         InkWell(
+                                                          //           onTap: () async {
+                                                          //             var datePicked =
+                                                          //                 await DatePicker.showSimpleDatePicker(
+                                                          //               context,
+                                                          //               initialDate: DateTime.now(),
+                                                          //               firstDate: DateTime(2015),
+                                                          //               lastDate: DateTime.now(),
+                                                          //               dateFormat: "dd-MM-yyyy",
+                                                          //               locale: DateTimePickerLocale.en_us,
+                                                          //               looping: true,
+                                                          //               backgroundColor: const Color(0xff02072D),
+                                                          //               textColor: AppColors.white.withOpacity(.7),
+                                                          //             );
+                                                          //             setState(() {
+                                                          //               storedDateController[0].text =
+                                                          //                   datePicked!.toIso8601String();
+                                                          //             });
+                                                          //           },
+                                                          //           child: Icon(
+                                                          //             Icons.calendar_month,
+                                                          //             color: AppColors.white.withOpacity(.7),
+                                                          //             size: 17,
+                                                          //           ),
+                                                          //         )
+                                                          //       ],
+                                                          //     ),
+                                                          //   ),
+                                                          // ),
                                                           AppSpaces.spaces_height_25,
                                                           InkWell(
                                                             child: Container(
@@ -566,13 +617,13 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                             ),
                                                             onTap: () {
                                                               var body = {
-                                                                "mint_number": storedMintController[0].text,
+                                                                "edition": storedMintController[0].text,
                                                                 "ap": storedPriceController[0].text,
                                                                 "ad": storedDateController[0].text
                                                               };
                                                               postData!
                                                                   .editMAO(
-                                                                    data.vaultProductDetailsModel!.results![0].id,
+                                                                    widget.mintId,
                                                                     context,
                                                                     body,
                                                                     requestHeadersWithToken,
@@ -615,6 +666,10 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                   },
                   body: ProductDetailsCollectibles(
                     fromVault: widget.fromVault,
+                    mintId: widget.mintId,
+                    edition: widget.edition,
+                    ap: widget.ap,
+                    ad: widget.ad,
                   ),
                 ),
               )

@@ -5,14 +5,21 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/graph/designhelper.dart';
 import 'package:provider/provider.dart';
 
+import 'package:intl/intl.dart';
 import '../core/Provider/getData.dart';
 import 'components/item_details_helper.dart';
 
 class ProductDetailsCollectibles extends StatefulWidget {
   final int? id;
   final bool? fromVault;
+  final int? mintId;
+  final String? edition;
+  final String? ap;
+  final String? ad;
 
-  const ProductDetailsCollectibles({Key? key, this.id, this.fromVault = false}) : super(key: key);
+  const ProductDetailsCollectibles(
+      {Key? key, this.id, this.edition = '', this.ap = '', this.ad = '', this.fromVault = false, this.mintId})
+      : super(key: key);
 
   @override
   State<ProductDetailsCollectibles> createState() => _ProductDetailsCollectiblesState();
@@ -29,9 +36,7 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
   void initState() {
     super.initState();
 
-    getData = Provider.of<GetData>(context, listen: false);
-
-    postData = Provider.of<PostData>(context, listen: false);
+    printInfo(info: 'widget.fromVault' + widget.fromVault.toString());
   }
 
   @override
@@ -53,37 +58,30 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
                 SizedBox(
                   height: Get.height * .01,
                 ),
-
                 widget.fromVault == true
                     ? Column(
-                  children: [
-                    ItemDetailsHelper(
-                      text: "Edition",
-                      text1: data.vaultProductDetailsModel != null
-                          ? data.vaultProductDetailsModel!.results![0].mintNumber.toString()
-                          : "",
-                      fromVault: true,
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Acquisition Price",
-                      text1: data.vaultProductDetailsModel != null
-                          ? data.vaultProductDetailsModel!.results![0].ap.toString()
-                          : "",
-                      fromVault: true,
-                    ),
-                    divider(),
-                    ItemDetailsHelper(
-                      text: "Acquisition Date",
-                      text1: data.vaultProductDetailsModel != null
-                          ? data.vaultProductDetailsModel!.results![0].ad.toString()
-                          : "",
-                      fromVault: true,
-                    ),
-                    divider(),
-                  ],
-                ) : Container(),
-
+                        children: [
+                          ItemDetailsHelper(
+                            text: "Edition",
+                            text1: widget.edition,
+                            fromVault: true,
+                          ),
+                          divider(),
+                          ItemDetailsHelper(
+                            text: "Acquisition Price",
+                            text1: widget.ap,
+                            fromVault: true,
+                          ),
+                          divider(),
+                          ItemDetailsHelper(
+                            text: "Acquisition Date",
+                            text1: DateFormat('yyyy-MM-dd').format(DateTime.parse(widget.ad.toString())),
+                            fromVault: true,
+                          ),
+                          divider(),
+                        ],
+                      )
+                    : Container(),
                 ItemDetailsHelper(
                   text: "Floor Price",
                   text1: data.singleProductModel != null ? data.singleProductModel!.floorPrice.toString() : "",

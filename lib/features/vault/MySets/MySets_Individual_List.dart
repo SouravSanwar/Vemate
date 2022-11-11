@@ -9,6 +9,7 @@ import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/comic_details.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/features/vault/MySets/individual_list_structure.dart';
 import 'package:ketemaa/main.dart';
@@ -53,7 +54,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
   void initState() {
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
-    getData!.getMySets1(0, widget.productId!, true,graph_data: true);
+    getData!.getMySets1(0, widget.productId!, true, graph_data: true);
     super.initState();
   }
 
@@ -228,12 +229,34 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                     ],
                                     child: InkWell(
                                       onTap: () {
-                                        Get.to(() => CollectibleDetails(
-                                              productId: data.setListModel!.setResults![index].setProductDetail!.id!,
-                                              productType:
-                                                  data.setListModel!.setResults![index].setProductDetail!.type!,
-                                              fromVault: true,
-                                            ));
+                                        data.setListModel!.setResults![index].setProductDetail!.type == 0
+                                            ? Get.to(
+                                                () => CollectibleDetails(
+                                                  productType:
+                                                      data.setListModel!.setResults![index].setProductDetail!.type!,
+                                                  productId:
+                                                      data.setListModel!.setResults![index].setProductDetail!.id!,
+                                                  fromVault: true,
+
+                                                  ///Need to mint Id for upgrade
+                                                  mintId: int.parse(data.mySetsModel!.results![index].id.toString()),
+                                                  edition: data.mySetsModel!.results![index].productDetail!.edition,
+                                                  ap: data.mySetsModel!.results![index].ap,
+                                                  ad: data.mySetsModel!.results![index].ad,
+                                                ),
+                                              )
+                                            : Get.to(
+                                                () => ComicDetails(
+                                                  productId: data.wishListModel!.results![index].productDetail!.id!,
+                                                  fromVault: true,
+                                                  productType:
+                                                      data.setListModel!.setResults![index].setProductDetail!.type!,
+                                                  mintId: int.parse(data.mySetsModel!.results![index].id.toString()),
+                                                  edition: data.mySetsModel!.results![index].productDetail!.edition,
+                                                  ap: data.mySetsModel!.results![index].ap,
+                                                  ad: data.mySetsModel!.results![index].ad,
+                                                ),
+                                              );
                                       },
                                       child: IndividualListStructure(
                                         checkImage: data.mySetsModel!.results![index].productDetail!.image == null
@@ -260,22 +283,21 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                         floorPrice: data.mySetsModel!.results![index].productDetail!.floorPrice == null
                                             ? ""
                                             : data.mySetsModel!.results![index].productDetail!.floorPrice!,
-                                        series:<ChartSeries<Graph, String>>[
-                                          LineSeries<Graph, String>(
-                                            color: data.mySetsModel!.results![index].statsDetail!.sign! ==
-                                                'decrease'
-                                                ? Colors.red
-                                                : Colors.green,
-                                            dataSource: data.mySetsModel!.results![index].statsDetail!.graph!,
-                                            xValueMapper: (Graph plot, _) =>
-                                            plot.date,
-                                            yValueMapper: (Graph plot, _) =>
-                                            plot.floorPrice,
-                                            xAxisName: 'Duration',
-                                            yAxisName: 'Total',
-                                          )
-                                        ],
-
+                                        series: data.mySetsModel!.results![index].statsDetail!.graph != null
+                                            ? <ChartSeries<Graph, String>>[
+                                                LineSeries<Graph, String>(
+                                                  color:
+                                                      data.mySetsModel!.results![index].statsDetail!.sign! == 'decrease'
+                                                          ? Colors.red
+                                                          : Colors.green,
+                                                  dataSource: data.mySetsModel!.results![index].statsDetail!.graph!,
+                                                  xValueMapper: (Graph plot, _) => plot.date,
+                                                  yValueMapper: (Graph plot, _) => plot.floorPrice,
+                                                  xAxisName: 'Duration',
+                                                  yAxisName: 'Total',
+                                                )
+                                              ]
+                                            : null,
                                         pcpPercent: data.mySetsModel!.results![index].statsDetail == null
                                             ? 0.0
                                             : data.mySetsModel!.results![index].statsDetail!.changePercent!,
