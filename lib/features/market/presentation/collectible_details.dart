@@ -566,7 +566,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                             ),
                                                             onTap: () {
                                                               var body = {
-                                                                "mint_number": storedMintController[0].text,
+                                                                "edition": storedMintController[0].text,
                                                                 "ap": storedPriceController[0].text,
                                                                 "ad": storedDateController[0].text
                                                               };

@@ -257,7 +257,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         builder: (ctx) => Dialog(
                                           backgroundColor: Colors.transparent,
                                           insetPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                                          child: Multiform(id: data.singleProductModel!.id, type: 1),
+                                          child: Multiform(id: data.singleProductModel!.id, type: 0),
                                         ));
                                   },
                                   child: Container(
