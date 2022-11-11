@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:ketemaa/core/models/SetListModel.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
-import 'package:ketemaa/features/market/presentation/collectible_details.dart';
-import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/comic_details.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 

@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/auth/presentation/sign_up/sign_up.dart';
 import 'package:ketemaa/features/controller_page/presentattion/controller_page.dart';
-import 'package:ketemaa/features/market/presentation/collectible_details.dart';
-import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/comic_details.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/splash_screen/splashscreen.dart';
 

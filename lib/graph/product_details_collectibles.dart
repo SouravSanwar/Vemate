@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/features/market/presentation/multiple_adding_option/Date_Picker/i18n/date_picker_i18n.dart';
 import 'package:ketemaa/graph/designhelper.dart';
 import 'package:provider/provider.dart';
 
@@ -65,6 +66,7 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
                             text: "Edition",
                             text1: widget.edition,
                             fromVault: true,
+                            topRadius: true,
                           ),
                           divider(),
                           ItemDetailsHelper(
@@ -85,6 +87,7 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
                 ItemDetailsHelper(
                   text: "Floor Price",
                   text1: data.singleProductModel != null ? data.singleProductModel!.floorPrice.toString() : "",
+                  topRadius: widget.fromVault == true ?false:true,
                 ),
                 divider(),
                 ItemDetailsHelper(
@@ -140,6 +143,7 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
                 ItemDetailsHelper(
                   text: "Series",
                   text1: data.singleProductModel != null ? data.singleProductModel!.series.toString() : "",
+                  bottomRadius: true,
                 ),
               ],
             ),

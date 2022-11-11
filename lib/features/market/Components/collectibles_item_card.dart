@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
 import 'package:provider/provider.dart';

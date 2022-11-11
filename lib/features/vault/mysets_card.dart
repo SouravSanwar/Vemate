@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/features/home/components/New_Item_card/new_item_container.dart';
-import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/comic_details.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../core/utilities/app_colors/app_colors.dart';
 import '../../core/Provider/getData.dart';
 import '../../core/models/SetListModel.dart';
-import '../market/presentation/collectible_details.dart';
+import '../market/presentation/Details/collectible_details.dart';
 
 class MysetsCard extends StatefulWidget {
   const MysetsCard({

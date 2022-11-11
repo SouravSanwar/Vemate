@@ -9,21 +9,30 @@ class ItemDetailsHelper extends StatelessWidget {
   final String? text;
   final String? text1;
   final bool? fromVault;
+  final bool? topRadius;
+  final bool? bottomRadius;
 
   ItemDetailsHelper({
     this.text,
     this.text1,
     this.fromVault = false,
+    this.topRadius = false,
+    this.bottomRadius = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.0), color: AppColors.graphCard),
+      decoration: BoxDecoration(borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(topRadius==true ? 15.0:0.0),
+        topRight: Radius.circular(topRadius==true ? 15.0:0.0),
+        bottomLeft: Radius.circular(bottomRadius==true ? 15.0:0.0),
+        bottomRight: Radius.circular(bottomRadius==true ? 15.0:0.0),
+      ), color: AppColors.graphCard),
       child: Row(
         children: [
           Expanded(
-            flex: 4,
+            flex: 6,
             child: Container(
                 child: Text(
                   text!,
@@ -52,9 +61,12 @@ class ItemDetailsHelper extends StatelessWidget {
             flex: 2,
             child: Container(
                 child: fromVault == true
-                    ? const Icon(
+                    ?  Icon(
                         Icons.edit,
-                        color: Colors.deepOrangeAccent,
+                        color: Colors
+                            .grey
+                            .withOpacity(
+                            .5),
                       )
                     : null,
                 padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2)),

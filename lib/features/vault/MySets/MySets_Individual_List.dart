@@ -8,8 +8,8 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/features/market/presentation/collectible_details.dart';
-import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/comic_details.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/features/vault/MySets/individual_list_structure.dart';
 import 'package:ketemaa/main.dart';
@@ -150,7 +150,9 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          'Acquisition price of the NFT - this is the amount you spent to purchase the NFT and it will be used as a reference point for the charts. Please insert your acquisition price there.',
+                                          'Acquisition price of the NFT - this is the amount you spent to purchase the'
+                                              ' NFT and it will be used as a reference point for the charts.'
+                                              ' Please insert your acquisition price there.',
                                           maxLines: 10,
                                         ),
                                       ),

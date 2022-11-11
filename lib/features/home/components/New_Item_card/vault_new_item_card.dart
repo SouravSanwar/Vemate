@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/CollectiblesModel.dart';
 import 'package:ketemaa/features/home/components/New_Item_card/new_item_container.dart';
-import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../../core/utilities/app_colors/app_colors.dart';
 

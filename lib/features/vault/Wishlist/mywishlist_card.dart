@@ -2,13 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/features/home/components/New_Item_card/new_item_container.dart';
-import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/comic_details.dart';
 import 'package:ketemaa/core/models/WishListModel.dart';
+import 'package:ketemaa/features/vault/MySets/MySets_Individual_List.dart';
+import 'package:ketemaa/features/vault/MySets/mysets_structure.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/Provider/getData.dart';
-import '../../market/presentation/collectible_details.dart';
 
 
 
@@ -20,52 +22,54 @@ class MywishlistCard extends StatefulWidget {
     return MywishlistCardState();
   }
 }
-
+//data.wishListModel!.results![index]
 class MywishlistCardState extends State<MywishlistCard> {
-  List<Widget> cardList = [];
-
-  void removeCards(index) {
-    setState(() {
-      _generateCards("").removeAt(index);
-    });
-  }
+  double mysetHeight = Get.height * .296;
+  double mysetWidth = Get.width * .45;
+  GetData? getData;
+  Color? color = Colors.green;
+  String? rarity = "";
 
   @override
   void initState() {
+    getData = Provider.of<GetData>(context, listen: false);
     // TODO: implement initState
+    getData!.getMySets(0, true,);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Consumer<GetData>(builder: (context, data, child)
-    {
-      return Stack(alignment: Alignment.center, children: _generateCards(data));
-    });
-  }
-
-  List<Widget> _generateCards(dynamic data) {
-
-    List<Widget> cardList = [];
-
-    for (int index = 0; index < 5; index++) {
-      cardList.add(
-        Positioned(
-          top: index*3+10,
-          left: index*3+10,
-          child: Draggable(
-            onDragEnd: (drag) {
-              cardList.removeAt(index);
-            },
-            childWhenDragging: Container(),
-            feedback:Container(),
-            child: Container(
-              width: Get.width * .87,
-              //height: Get.height * .22,
-              decoration: BoxDecoration(
-                gradient: AppColors.purpleGradient,
-                borderRadius: BorderRadius.circular(12.0),
+    return Consumer<GetData>(
+      builder: (context, data, child) {
+        return data.wishListModel != null
+            ? ListView.builder(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemCount: data.wishListModel!.results!.length,
+          itemBuilder: (BuildContext context, int index) {
+            data.wishListModel!.results![index].productDetail!.rarity != null
+                ? rarity = data.wishListModel!.results![index].productDetail!.rarity.toString()
+                : "";
+            if (rarity == "Common") {
+              color = Colors.green;
+            } else if (rarity == "Uncommon") {
+              color = Colors.purpleAccent;
+            }
+            if (rarity == "Rare") {
+              color = Colors.blue;
+            }
+            if (rarity == "Ultra Rare") {
+              color = Colors.orange;
+            }
+            if (rarity == "Secret Rare") {
+              color = Colors.red;
+            }
+            return Padding(
+              padding: EdgeInsets.only(
+                left: index == 0 ? 6 : 8.0,
+                right: index == data.wishListModel!.results!.length - 1 ? 6 : 8.0,
               ),
               child: InkWell(
                 onTap: () {
@@ -79,96 +83,111 @@ class MywishlistCardState extends State<MywishlistCard> {
                     ),
                   );
                 },
-                child: Container(
-                  width: Get.width * .87,
-                  decoration: BoxDecoration(
-                    gradient: AppColors.cardGradient,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: data.wishListModel!.results![index].productDetail!.image == null
-                      ? Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        data.wishListModel!.results![index].productDetail!.name.toString()[0].toUpperCase(),
-                        style: TextStyle(
-                          color: AppColors.backgroundColor,
-                          //fontFamily: 'Inter',
-                          fontSize: 45,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                      width: mysetWidth,
+                      height: mysetHeight,
+                      decoration: BoxDecoration(
+                        // color: Colors.white,
+                        border: Border.all(color: color!),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      NewItemContainer(
-                        name: data.wishListModel!.results![index].productDetail!.name.toString(),
-                        series: <ChartSeries<Graph, String>>[
-                          LineSeries<Graph, String>(
-                            color: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!
-                                .sign ==
-                                'decrease'
-                                ? Colors.red
-                                : Colors.green,
-                            dataSource: data.wishListModel!.results![index].productDetail!.graphData!.graph!,
-                            xValueMapper: (Graph plot, _) => plot.date,
-                            yValueMapper: (Graph plot, _) =>
-                            plot.floorPrice,
-                            xAxisName: 'Duration',
-                            yAxisName: 'Total',
-                          )
-                        ],
-                        floorPrice:
-                        data.wishListModel!.results![index].productDetail!.floorPrice.toString(),
-                        pcpPercent:
-                        data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.percent,
-                        pcpSign: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign
-                            .toString(),
-                      )
-                    ],
-                  )
-                      : CachedNetworkImage(
-                    imageUrl: data.wishListModel!.results![index].productDetail!.image!.low_res_url == null
-                        ? data.wishListModel!.results![index].productDetail!.image!.image_on_list
-                        .toString()
-                        : data.wishListModel!.results![index].productDetail!.image!.low_res_url.toString(),
-                    imageBuilder: (context, imageProvider) => Container(
+                    ),
+                    Positioned(
+                      top: 2,
+                      left: 2,
+                      child: Container(
+                        width: mysetWidth,
+                        height: mysetHeight,
                         decoration: BoxDecoration(
+                          color: Color(0xff282742),
+                          border: Border.all(color: Color(0xff282742)),
                           borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
                         ),
-                        child: NewItemContainer(
-                          name: data.wishListModel!.results![index].productDetail!.name.toString(),
-                          series: <ChartSeries<Graph, String>>[
-                            LineSeries<Graph, String>(
-                              color: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!
-                                  .sign ==
-                                  'decrease'
-                                  ? Colors.red
-                                  : Colors.green,
-                              dataSource: data.wishListModel!.results![index].productDetail!.graphData!.graph!,
-                              xValueMapper: (Graph plot, _) => plot.date,
-                              yValueMapper: (Graph plot, _) =>
-                              plot.floorPrice,
-                              xAxisName: 'Duration',
-                              yAxisName: 'Total',
-                            )
-                          ],
-                          floorPrice:
-                          data.wishListModel!.results![index].productDetail!.floorPrice.toString(),
+                      ),
+                    ),
+                    Positioned(
+                      top: 4,
+                      left: 4,
+                      child: Container(
+                        width: mysetWidth,
+                        height: mysetHeight,
+                        decoration: BoxDecoration(
+                          // color: Colors.white,
+                          border: Border.all(color: Color(0xff282742)),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 6,
+                      left: 6,
+                      child: Container(
+                        width: mysetWidth,
+                        height: mysetHeight,
+                        decoration: BoxDecoration(
+                          // color: Colors.white,
+                          border: Border.all(color: Color(0xff282742)),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 8,
+                      left: 8,
+                      child: Container(
+                        width: mysetWidth,
+                        height: mysetHeight,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xff282742),
+                              color!,
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: MySetsStructure(
+                          color: color!,
+                          checkImage: data.wishListModel!.results![index].productDetail!.image.toString(),
+                          lowResUrl: data.wishListModel!.results![index].productDetail!.image != null
+                              ? data.wishListModel!.results![index].productDetail!.image!.low_res_url.toString()
+                              : "",
+                          scrappedImage: data.wishListModel!.results![index].productDetail!.image != null
+                              ? data.wishListModel!.results![index].productDetail!.image!.base_url.toString()
+                              : "",
+                          name: data.wishListModel!.results![index].productDetail!.name == null
+                              ? ""
+                              : data.wishListModel!.results![index].productDetail!.name!,
+                          edition: data.wishListModel!.results![index].productDetail!.edition == null
+                              ? ""
+                              : data.wishListModel!.results![index].productDetail!.edition!,
+                          rarity: data.wishListModel!.results![index].productDetail!.rarity == null
+                              ? ""
+                              : data.wishListModel!.results![index].productDetail!.rarity!,
+                          floorPrice: data.wishListModel!.results![index].productDetail!.floorPrice == null
+                              ? ""
+                              : data.wishListModel!.results![index].productDetail!.floorPrice!,
                           pcpPercent: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.percent,
-                          pcpSign: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign
-                              .toString(),
-                        )),
-                  ),
+                          pcpSign: data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign == null
+                              ? ""
+                              : data.wishListModel!.results![index].productDetail!.graphData!.priceChangePercent!.sign.toString(),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+
               ),
-            ),
-          )
-        ),
-      );
-    }
-    return cardList;
+            );
+          },
+        )
+            : Container();
+      },
+    );
   }
 }

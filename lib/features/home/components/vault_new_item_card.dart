@@ -8,7 +8,7 @@ import 'package:glass_kit/glass_kit.dart';
 import 'package:ketemaa/core/utilities/app_dimension/app_dimension.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/models/CollectiblesModel.dart';
-import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 

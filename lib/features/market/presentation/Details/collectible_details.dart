@@ -6,12 +6,14 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
+import 'package:ketemaa/core/models/Graphs/one_day_graph_model.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
+import 'package:ketemaa/features/market/presentation/Details/DetailsTextField.dart';
 import 'package:ketemaa/features/market/presentation/multiple_adding_option/Date_Picker/date_picker.dart';
 import 'package:ketemaa/features/market/presentation/multiple_adding_option/Date_Picker/i18n/date_picker_i18n.dart';
 import 'package:ketemaa/features/market/presentation/multiple_adding_option/mint_textfield.dart';
@@ -98,7 +100,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
     getData!.checkSetList(widget.productId!);
     getData!.getWishList();
 
-    widget.fromNotification == 1 ? getData!.getNotification() : print("no pass from notification");
+    widget.fromNotification == 1
+        ? getData!.getNotification()
+        : print("no pass from notification");
   }
 
   @override
@@ -132,33 +136,46 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
           ),*/
             ),
         backgroundColor: AppColors.backgroundColor,
-        body: data.singleProductModel != null && data.checkSetCheck != null && data.checkWishlistModel != null
+        body: data.singleProductModel != null &&
+                data.checkSetCheck != null &&
+                data.checkWishlistModel != null
             ? SafeArea(
                 child: NestedScrollView(
-                  headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                  headerSliverBuilder:
+                      (BuildContext context, bool innerBoxIsScrolled) {
                     return <Widget>[
                       SliverToBoxAdapter(
                           child: Column(
                         children: [
                           ///Image
                           Padding(
-                            padding: EdgeInsets.only(top: 0, right: 10, left: 10, bottom: Get.height * 0.01667),
+                            padding: EdgeInsets.only(
+                                top: 0,
+                                right: 10,
+                                left: 10,
+                                bottom: Get.height * 0.01667),
                             child: Container(
                               height: data.singleProductModel!.image != null
-                                  ? data.singleProductModel!.image!.direction == "PORTRAIT"
+                                  ? data.singleProductModel!.image!.direction ==
+                                          "PORTRAIT"
                                       ? Get.width * 1.173
                                       : Get.width * .66
                                   : Get.height * .3,
-                              width: data.singleProductModel!.image != null ? Get.width * .88 : Get.height * .5,
+                              width: data.singleProductModel!.image != null
+                                  ? Get.width * .88
+                                  : Get.height * .5,
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                   gradient: AppColors.vaultCardGradient,
                                   borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: AppColors.primaryColor)),
+                                  border: Border.all(
+                                      color: AppColors.primaryColor)),
                               alignment: Alignment.center,
                               child: data.singleProductModel!.image == null
                                   ? Text(
-                                      data.singleProductModel!.name.toString()[0].toUpperCase(),
+                                      data.singleProductModel!.name
+                                          .toString()[0]
+                                          .toUpperCase(),
                                       style: const TextStyle(
                                           color: Colors.deepPurpleAccent,
                                           //fontFamily: 'Inter',
@@ -166,12 +183,20 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           fontWeight: FontWeight.bold),
                                     )
                                   : CachedNetworkImage(
-                                      imageUrl: data.singleProductModel!.image!.high_res_url != null
-                                          ? data.singleProductModel!.image!.high_res_url.toString()
-                                          : data.singleProductModel!.image!.original.toString(),
-                                      imageBuilder: (context, imageProvider) => Container(
+                                      imageUrl: data.singleProductModel!.image!
+                                                  .high_res_url !=
+                                              null
+                                          ? data.singleProductModel!.image!
+                                              .high_res_url
+                                              .toString()
+                                          : data.singleProductModel!.image!
+                                              .original
+                                              .toString(),
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           image: DecorationImage(
                                             image: imageProvider,
                                             fit: BoxFit.fill,
@@ -188,14 +213,20 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  var body = {"product": data.singleProductModel!.id, "type": 1};
-                                  Map<String, String> requestHeadersWithToken = {
+                                  var body = {
+                                    "product": data.singleProductModel!.id,
+                                    "type": 1
+                                  };
+                                  Map<String, String> requestHeadersWithToken =
+                                      {
                                     'Content-type': 'application/json',
                                     'Accept': 'application/json',
-                                    'Authorization': 'token ${prefs!.getString('token')}',
+                                    'Authorization':
+                                        'token ${prefs!.getString('token')}',
                                   };
 
-                                  if (data.checkWishlistModel!.isFound == false) {
+                                  if (data.checkWishlistModel!.isFound ==
+                                      false) {
                                     postData!.addToWishlist(
                                       context,
                                       body,
@@ -207,8 +238,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       context,
                                       alertCheck,
                                       data.wishListModel!.results!
-                                          .firstWhere(
-                                              (element) => element.productDetail!.id == data.singleProductModel!.id)
+                                          .firstWhere((element) =>
+                                              element.productDetail!.id ==
+                                              data.singleProductModel!.id)
                                           .id,
                                       requestHeadersWithToken,
                                     );
@@ -216,7 +248,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     data.checkWishlistModel!.isFound = false;
                                   }
 
-                                  await Future.delayed(const Duration(seconds: 1));
+                                  await Future.delayed(
+                                      const Duration(seconds: 1));
                                   Navigator.of(context).pop();
                                 },
                                 child: Container(
@@ -230,10 +263,12 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(10),
-                                    child: data.checkWishlistModel!.isFound == false
+                                    child: data.checkWishlistModel!.isFound ==
+                                            false
                                         ? AutoSizeText(
                                             'Add to Wishlist',
-                                            style: Get.textTheme.bodyMedium!.copyWith(
+                                            style: Get.textTheme.bodyMedium!
+                                                .copyWith(
                                               fontFamily: 'Inter',
                                             ),
                                             maxLines: 1,
@@ -241,7 +276,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           )
                                         : AutoSizeText(
                                             'Delete from Wishlist',
-                                            style: Get.textTheme.bodyMedium!.copyWith(
+                                            style: Get.textTheme.bodyMedium!
+                                                .copyWith(
                                               fontFamily: 'Inter',
                                             ),
                                             maxLines: 1,
@@ -318,8 +354,13 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       context: context,
                                       builder: (ctx) => Dialog(
                                             backgroundColor: Colors.transparent,
-                                            insetPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                                            child: Multiform(id: data.singleProductModel!.id, type: 0),
+                                            insetPadding:
+                                                const EdgeInsets.symmetric(
+                                                    vertical: 16,
+                                                    horizontal: 16),
+                                            child: Multiform(
+                                                id: data.singleProductModel!.id,
+                                                type: 0),
                                           ));
                                 },
                                 child: Container(
@@ -337,7 +378,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                         ? */
                                           AutoSizeText(
                                         'Add to Vault',
-                                        style: Get.textTheme.bodyMedium!.copyWith(
+                                        style:
+                                            Get.textTheme.bodyMedium!.copyWith(
                                           fontFamily: 'Inter',
                                         ),
                                         maxLines: 1,
@@ -389,7 +431,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                     });
                                   },
                                   stepName: graphType[index].toString(),
-                                  selected: stepSelected == index ? true : false,
+                                  selected:
+                                      stepSelected == index ? true : false,
                                 ),
                               );
                             }),
@@ -398,7 +441,11 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                           ///Graph
                           Container(
                             alignment: Alignment.center,
-                            padding: EdgeInsets.only(top: Get.height * 0.0223, right: 10, left: 7, bottom: 0),
+                            padding: EdgeInsets.only(
+                                top: Get.height * 0.0223,
+                                right: 10,
+                                left: 7,
+                                bottom: 0),
                             width: Get.width,
                             child: FadeInUp(
                               duration: const Duration(milliseconds: 100),
@@ -433,7 +480,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                               children: [
                                 Text(
                                   data.singleProductModel != null
-                                      ? data.singleProductModel!.name.toString() + "'s Details"
+                                      ? data.singleProductModel!.name
+                                              .toString() +
+                                          "'s Details"
                                       : "",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
@@ -445,8 +494,10 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                 widget.fromVault == true
                                     ? Container(
                                         decoration: BoxDecoration(
-                                          border: Border.all(color: AppColors.primaryColor),
-                                          borderRadius: BorderRadius.circular(5.0),
+                                          border: Border.all(
+                                              color: AppColors.primaryColor),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
                                         ),
                                         child: InkWell(
                                           onTap: () {
@@ -455,7 +506,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                               builder: (context) {
                                                 storedMintController.add(
                                                   TextEditingController(
-                                                    text: widget.edition.toString(),
+                                                    text: widget.edition
+                                                        .toString(),
                                                   ),
                                                 );
                                                 storedPriceController.add(
@@ -463,177 +515,227 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                     text: widget.ap,
                                                   ),
                                                 );
-                                                storedDateController.add(TextEditingController(
-                                                  text: DateFormat('MMMM dd, yyyy')
-                                                      .format(DateTime.parse(widget.ad.toString())),
+                                                storedDateController
+                                                    .add(TextEditingController(
+                                                  text: DateFormat(
+                                                          'MMMM dd, yyyy')
+                                                      .format(DateTime.parse(
+                                                          widget.ad
+                                                              .toString())),
                                                 ));
 
                                                 return Dialog(
-                                                  backgroundColor: AppColors.backgroundColor,
-                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                  backgroundColor:
+                                                      AppColors.backgroundColor,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5)),
                                                   elevation: 16,
                                                   child: Padding(
-                                                    padding: const EdgeInsets.all(20.0),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            20.0),
                                                     child: Container(
-                                                      height: Get.height * .32,
+                                                      height: Get.height * .38,
+                                                      margin: EdgeInsets.symmetric(horizontal: 5),
                                                       child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
-                                                          AppSpaces.spaces_height_5,
+                                                          AppSpaces
+                                                              .spaces_height_5,
 
-                                                          TextFormField(
-                                                            style: TextStyle(color: Colors.white.withOpacity(.7)),
-                                                            decoration: InputDecoration(isDense: true),
-                                                            controller: storedMintController[0],
+                                                          DetailsTextField(
+                                                            controller:
+                                                                storedMintController[
+                                                                    0],
                                                           ),
-                                                          AppSpaces.spaces_height_2,
+                                                          AppSpaces
+                                                              .spaces_height_2,
                                                           Text(
                                                             'Mint Number or Edition',
-                                                            style: TextStyle(color: Colors.grey.withOpacity(.3)),
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .withOpacity(
+                                                                        .5)),
                                                           ),
-                                                          TextFormField(
-                                                            style: TextStyle(color: Colors.white.withOpacity(.7)),
-                                                            decoration: InputDecoration(isDense: true),
-                                                            controller: storedPriceController[0],
+                                                          DetailsTextField(
+                                                            controller:
+                                                                storedPriceController[
+                                                                    0],
                                                           ),
-                                                          AppSpaces.spaces_height_2,
+                                                          AppSpaces
+                                                              .spaces_height_2,
                                                           Text(
                                                             'Aquisition Price',
-                                                            style: TextStyle(color: Colors.grey.withOpacity(.3)),
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .withOpacity(
+                                                                        .5)),
                                                           ),
-                                                          TextFormField(
-                                                            style: TextStyle(color: Colors.white.withOpacity(.7)),
-                                                            decoration: InputDecoration(
-                                                              isDense: true,
-                                                              suffixIcon: InkWell(
-                                                                onTap: () async {
-                                                                  var datePicked =
-                                                                      await DatePicker.showSimpleDatePicker(
-                                                                    context,
-                                                                    initialDate: DateTime.now(),
-                                                                    firstDate: DateTime(2015),
-                                                                    lastDate: DateTime.now(),
-                                                                    dateFormat: "dd-MM-yyyy",
-                                                                    locale: DateTimePickerLocale.en_us,
-                                                                    looping: true,
-                                                                    backgroundColor: const Color(0xff02072D),
-                                                                    textColor: AppColors.white.withOpacity(.7),
-                                                                  );
-                                                                  setState(() {
-                                                                    storedDateController[0].text =
-                                                                        datePicked!.toIso8601String();
-                                                                  });
-                                                                },
-                                                                child: Icon(
-                                                                  Icons.calendar_month,
-                                                                  color: AppColors.white.withOpacity(.7),
-                                                                  // size: 17,
-                                                                ),
+                                                          Stack(
+                                                            children: [
+                                                              DetailsTextField(
+                                                                controller:
+                                                                    storedDateController[
+                                                                        0],
                                                               ),
-                                                            ),
-                                                            controller: storedDateController[0],
+                                                              Positioned(
+                                                                top: 10,
+                                                                right: 50,
+                                                                child: InkWell(
+                                                                  onTap:
+                                                                      () async {
+                                                                    var datePicked =
+                                                                        await DatePicker
+                                                                            .showSimpleDatePicker(
+                                                                      context,
+                                                                      initialDate:
+                                                                          DateTime
+                                                                              .now(),
+                                                                      firstDate:
+                                                                          DateTime(
+                                                                              2015),
+                                                                      lastDate:
+                                                                          DateTime
+                                                                              .now(),
+                                                                      dateFormat:
+                                                                          "dd-MM-yyyy",
+                                                                      locale: DateTimePickerLocale
+                                                                          .en_us,
+                                                                      looping:
+                                                                          true,
+                                                                      backgroundColor:
+                                                                          const Color(
+                                                                              0xff02072D),
+                                                                      textColor: AppColors
+                                                                          .white
+                                                                          .withOpacity(
+                                                                              .7),
+                                                                    );
+                                                                    setState(
+                                                                        () {
+                                                                      storedDateController[0]
+                                                                              .text =DateFormat(
+                                                                          'MMMM dd, yyyy')
+                                                                          .format(DateTime.parse(
+                                                                          datePicked!
+                                                                              .toIso8601String()));
+                                                                    });
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .calendar_month,
+                                                                    color: AppColors
+                                                                        .white
+                                                                        .withOpacity(
+                                                                            .7),
+                                                                    // size: 17,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
-                                                          AppSpaces.spaces_height_2,
+                                                          AppSpaces
+                                                              .spaces_height_2,
                                                           Text(
                                                             'Aquisition Date',
-                                                            style: TextStyle(color: Colors.grey.withOpacity(.3)),
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .withOpacity(
+                                                                        .5)),
                                                           ),
 
-                                                          AppSpaces.spaces_height_5,
+                                                          AppSpaces
+                                                              .spaces_height_5,
 
-                                                          ///datetime_new_row
-                                                          // Container(
-                                                          //   height: Get.height * .035,
-                                                          //   padding: EdgeInsets.zero,
-                                                          //   decoration: BoxDecoration(
-                                                          //     border: Border.all(
-                                                          //       color: AppColors.white.withOpacity(.7),
-                                                          //       width: 1.5,
-                                                          //     ),
-                                                          //     borderRadius: BorderRadius.circular(10.0),
-                                                          //   ),
-                                                          //   child: Padding(
-                                                          //     padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                                          //     child: Row(
-                                                          //       mainAxisAlignment: MainAxisAlignment.center,
-                                                          //       children: [
-                                                          //         Text(
-                                                          //           DateFormat('yyyy-MM-dd')
-                                                          //               .format(DateTime.parse(
-                                                          //                   storedDateController[0].text))
-                                                          //               .toString(),
-                                                          //           style: TextStyle(
-                                                          //             fontSize: 12,
-                                                          //             fontWeight: FontWeight.bold,
-                                                          //             color: AppColors.white.withOpacity(.7),
-                                                          //           ),
-                                                          //         ),
-                                                          //         InkWell(
-                                                          //           onTap: () async {
-                                                          //             var datePicked =
-                                                          //                 await DatePicker.showSimpleDatePicker(
-                                                          //               context,
-                                                          //               initialDate: DateTime.now(),
-                                                          //               firstDate: DateTime(2015),
-                                                          //               lastDate: DateTime.now(),
-                                                          //               dateFormat: "dd-MM-yyyy",
-                                                          //               locale: DateTimePickerLocale.en_us,
-                                                          //               looping: true,
-                                                          //               backgroundColor: const Color(0xff02072D),
-                                                          //               textColor: AppColors.white.withOpacity(.7),
-                                                          //             );
-                                                          //             setState(() {
-                                                          //               storedDateController[0].text =
-                                                          //                   datePicked!.toIso8601String();
-                                                          //             });
-                                                          //           },
-                                                          //           child: Icon(
-                                                          //             Icons.calendar_month,
-                                                          //             color: AppColors.white.withOpacity(.7),
-                                                          //             size: 17,
-                                                          //           ),
-                                                          //         )
-                                                          //       ],
-                                                          //     ),
-                                                          //   ),
-                                                          // ),
-                                                          AppSpaces.spaces_height_25,
-                                                          InkWell(
-                                                            child: Container(
-                                                              width: Get.width * .25,
-                                                              margin: const EdgeInsets.symmetric(
-                                                                  horizontal: 3, vertical: 3),
-                                                              decoration: BoxDecoration(
-                                                                color: AppColors.primaryColor,
-                                                                borderRadius: BorderRadius.circular(20.0),
-                                                              ),
-                                                              child: const Padding(
-                                                                padding: EdgeInsets.all(5.0),
-                                                                child: Text(
-                                                                  'Update',
-                                                                  textAlign: TextAlign.center,
+
+                                                          AppSpaces
+                                                              .spaces_height_25,
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            width:
+                                                                Get.width * .7,
+                                                            child: InkWell(
+                                                              child: Container(
+                                                                width:
+                                                                    Get.width *
+                                                                        0.46,
+                                                                height:
+                                                                    Get.height *
+                                                                        0.051,
+
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: AppColors
+                                                                      .primaryColor,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              14.0),
+                                                                ),
+                                                                child:
+                                                                    const Padding(
+                                                                  padding: EdgeInsets.only(
+                                                                      left: 56,
+                                                                      right: 56,
+                                                                      top: 12,
+                                                                      bottom:
+                                                                          12),
+                                                                  child: Text(
+                                                                    'Update',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            14),
+                                                                  ),
                                                                 ),
                                                               ),
+                                                              onTap: () {
+                                                                var body = {
+                                                                  "edition":
+                                                                      storedMintController[
+                                                                              0]
+                                                                          .text,
+                                                                  "ap":
+                                                                      storedPriceController[
+                                                                              0]
+                                                                          .text,
+                                                                  "ad":
+                                                                      storedDateController[
+                                                                              0]
+                                                                          .text
+                                                                };
+                                                                print(widget.mintId.toString());
+                                                                postData!
+                                                                    .editMAO(
+                                                                      widget
+                                                                          .mintId,
+                                                                      context,
+                                                                      body,
+                                                                      requestHeadersWithToken,
+                                                                    )
+                                                                    .whenComplete(() => getData!.getVaultProductDetails(
+                                                                        widget
+                                                                            .productId,
+                                                                        widget
+                                                                            .productType))
+                                                                    .whenComplete(() =>
+                                                                        Navigator.of(context)
+                                                                            .pop());
+                                                              },
                                                             ),
-                                                            onTap: () {
-                                                              var body = {
-                                                                "edition": storedMintController[0].text,
-                                                                "ap": storedPriceController[0].text,
-                                                                "ad": storedDateController[0].text
-                                                              };
-                                                              postData!
-                                                                  .editMAO(
-                                                                    widget.mintId,
-                                                                    context,
-                                                                    body,
-                                                                    requestHeadersWithToken,
-                                                                  )
-                                                                  .whenComplete(() => getData!.getVaultProductDetails(
-                                                                      widget.productId, widget.productType))
-                                                                  .whenComplete(() => Navigator.of(context).pop());
-                                                            },
                                                           ),
-                                                          AppSpaces.spaces_width_5,
+                                                          AppSpaces
+                                                              .spaces_width_5,
                                                         ],
                                                       ),
                                                     ),

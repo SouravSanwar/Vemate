@@ -7,13 +7,19 @@ import 'package:provider/provider.dart';
 import '../core/Provider/getData.dart';
 import 'components/item_details_helper.dart';
 import 'designhelper.dart';
+import 'package:intl/intl.dart';
 
 
 
 class ProductDetailsComics extends StatefulWidget {
   final int? id;
+  final bool? fromVault;
+  final int? mintId;
+  final String? edition;
+  final String? ap;
+  final String? ad;
 
-  const ProductDetailsComics({Key? key, this.id}) : super(key: key);
+  ProductDetailsComics({Key? key, this.id, this.edition = '', this.ap = '', this.ad = '', this.fromVault = false, this.mintId}) : super(key: key);
 
   @override
   State<ProductDetailsComics> createState() => _ProductDetailsComicsState();
@@ -50,11 +56,37 @@ class _ProductDetailsComicsState extends State<ProductDetailsComics> {
               SizedBox(
                 height: Get.height*.01,
               ),
+              widget.fromVault == true
+                  ? Column(
+                children: [
+                  ItemDetailsHelper(
+                    text: "Edition",
+                    text1: widget.edition,
+                    fromVault: true,
+                    topRadius: true,
+                  ),
+                  divider(),
+                  ItemDetailsHelper(
+                    text: "Acquisition Price",
+                    text1: widget.ap,
+                    fromVault: true,
+                  ),
+                  divider(),
+                  ItemDetailsHelper(
+                    text: "Acquisition Date",
+                    text1: DateFormat('yyyy-MM-dd').format(DateTime.parse(widget.ad.toString())),
+                    fromVault: true,
+                  ),
+                  divider(),
+                ],
+              )
+                  : Container(),
               ItemDetailsHelper(
                 text: "Floor Price",
                 text1: data.singleProductModel != null
                     ? data.singleProductModel!.floorPrice.toString()
                     : "",
+                topRadius: widget.fromVault == true ?false:true,
               ),
               divider(),
               ItemDetailsHelper(
@@ -146,12 +178,10 @@ class _ProductDetailsComicsState extends State<ProductDetailsComics> {
                 text1: data.singleProductModel != null
                     ? data.singleProductModel!.editions.toString()
                     : "",
+                bottomRadius: true,
               ),
             ]),
           ),
-
-
-
         );
       },
     );

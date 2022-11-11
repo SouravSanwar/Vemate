@@ -8,7 +8,7 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/features/market/model/MultiRowModel.dart';
-import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/multiple_adding_option/mint_textfield.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';

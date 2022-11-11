@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/features/market/presentation/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
 import 'package:ketemaa/features/vault/Wishlist/alert/alert_box.dart';
 import 'package:ketemaa/main.dart';

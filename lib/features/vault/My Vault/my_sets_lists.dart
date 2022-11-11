@@ -11,11 +11,12 @@ import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading.dart';
 import 'package:ketemaa/features/_global/sharedpreference/sp_controller.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
-import 'package:ketemaa/features/market/presentation/collectible_details.dart';
-import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/comic_details.dart';
 import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
 import 'package:ketemaa/features/market/widgets/image_widgets.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
+import 'package:ketemaa/features/vault/MySets/MySets_Individual_List.dart';
 import 'package:ketemaa/features/vault/Wishlist/Separate_Vault_List/separate_vault_structure.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
@@ -106,9 +107,10 @@ class _SetListPageState extends State<SetListPage> {
                       padding: const EdgeInsets.only(top: 4, bottom: 10, left: 4, right: 4),
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => CollectibleDetails(
-                                productId: data.mySetsModel!.results![index].productDetail!.id,
-                              ));
+                          Get.to(() => MySetsIndividualList(
+                            productId: data.mySetsModel!.results![index].productDetail!.id,
+                            productName: data.mySetsModel!.results![index].productDetail!.name,
+                          ));
                         },
                         child: Stack(
                           clipBehavior: Clip.none,

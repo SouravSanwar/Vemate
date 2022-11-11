@@ -20,8 +20,8 @@ import 'package:ketemaa/features/Designs/update_alert_dialog.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/home/notification/system_notification_details.dart';
 import 'package:ketemaa/features/home/presentation/home.dart';
-import 'package:ketemaa/features/market/presentation/collectible_details.dart';
-import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/comic_details.dart';
 import 'package:ketemaa/features/vault/vault.dart';
 
 import 'package:ketemaa/main.dart';

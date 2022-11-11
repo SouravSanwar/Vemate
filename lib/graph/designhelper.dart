@@ -193,11 +193,12 @@ class divider extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
+        color: AppColors.graphCard,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
           Divider(
-            height: 8.h,
+            height: .5,
             color: AppColors.white.withOpacity(.25),
             thickness: .5,
           ),

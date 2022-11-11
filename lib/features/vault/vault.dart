@@ -259,7 +259,7 @@ class _VaultState extends State<Vault> {
                           ]),
                           SizedBox(
                             width: Get.width,
-                            height: Get.height * .22,
+                            height: Get.height * .31,
                             child: data.wishListModel!.results!.isNotEmpty
                                 ?  Align(
                               alignment: Alignment.center,

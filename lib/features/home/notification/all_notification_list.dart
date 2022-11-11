@@ -15,8 +15,8 @@ import 'package:ketemaa/features/controller_page/presentattion/controller_page.d
 import 'package:ketemaa/features/home/notification/no_notification.dart';
 import 'package:ketemaa/features/home/notification/system_notification_details.dart';
 import 'package:ketemaa/features/market/Components/category_card.dart';
-import 'package:ketemaa/features/market/presentation/collectible_details.dart';
-import 'package:ketemaa/features/market/presentation/comic_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
+import 'package:ketemaa/features/market/presentation/Details/comic_details.dart';
 import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
 import 'package:ketemaa/features/market/widgets/image_widgets.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
