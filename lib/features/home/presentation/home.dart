@@ -10,6 +10,7 @@ import 'package:ketemaa/features/home/notification/all_notification_list.dart';
 import 'package:ketemaa/features/home/notification/no_notification.dart';
 import 'package:ketemaa/features/home/notification/notification_alart.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
+import 'package:ketemaa/features/vault/NewDesignCard/combined_vault_card.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
@@ -176,7 +177,11 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.w500),
                         ),
                       ),
-                      const HomeVaultCard(),
+                     Container(
+                       padding: EdgeInsets.symmetric(vertical: Get.height*.02),
+                       child: const CombinedVaultCard(),
+                     )
+                     ,
 
                       ///Newest
                       Padding(

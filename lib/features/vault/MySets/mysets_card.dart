@@ -76,6 +76,7 @@ class _MysetsCardState extends State<MysetsCard> {
                     ),
                     child: InkWell(
                       onTap: () {
+
                         Get.to(() => MySetsIndividualList(
                               productId: data.mySetsModel!.results![index].productDetail!.id,
                               productName: data.mySetsModel!.results![index].productDetail!.name,

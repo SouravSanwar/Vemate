@@ -106,6 +106,7 @@ class _SetListPageState extends State<SetListPage> {
                       padding: const EdgeInsets.only(top: 4, bottom: 10, left: 4, right: 4),
                       child: InkWell(
                         onTap: () {
+                          getData!.mySetsModel =null;
                           Get.to(() => MySetsIndividualList(
                                 productId: data.mySetsModel!.results![index].productDetail!.id,
                                 productName: data.mySetsModel!.results![index].productDetail!.name,

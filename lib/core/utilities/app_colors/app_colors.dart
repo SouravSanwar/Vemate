@@ -120,6 +120,37 @@ class AppColors extends ChangeNotifier {
     // end at the bottom
     end: Alignment.bottomCenter,
   );
+
+  static Gradient combinedVaultCardGradient = const LinearGradient(
+    colors: [
+      Color(0xff2E3087),
+      Color(0xff191A5E),
+    ],
+    begin: Alignment.topCenter,
+    // end at the bottom
+    end: Alignment.bottomCenter,
+  );
+
+  static Gradient separateVaultCardGradient = const LinearGradient(
+    colors: [
+      Color(0xff18154B),
+      Color(0xff262877),
+    ],
+    begin: Alignment.topCenter,
+    // end at the bottom
+    end: Alignment.bottomCenter,
+  );
+  static Gradient separateVaultCardGradientBtn = const LinearGradient(
+    colors: [
+      Color(0xff6C3ED0),
+      Color(0xff9360E4),
+      Color(0xffA275E8),
+    ],
+    begin: Alignment.topCenter,
+    // end at the bottom
+    end: Alignment.bottomCenter,
+  );
+
   static LinearGradient graphGradient = const LinearGradient(
     colors: [
       Color(0xff5E5966),

@@ -8,7 +8,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import '../../../../../core/utilities/app_colors/app_colors.dart';
 
-class VaultComicsCard extends StatefulWidget {
+/*class VaultComicsCard extends StatefulWidget {
   final Comic? data;
 
   const VaultComicsCard({Key? key, this.data}) : super(key: key);
@@ -200,4 +200,4 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
       ),
     );
   }
-}
+}*/
