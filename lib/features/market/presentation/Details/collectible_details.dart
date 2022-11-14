@@ -700,6 +700,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                                 ),
                                                               ),
                                                               onTap: () {
+                                                               // var date=DateTime.parse(storedDateController[0].text).toIso8601String();
                                                                 var body = {
                                                                   "edition":
                                                                       storedMintController[
@@ -709,10 +710,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                                       storedPriceController[
                                                                               0]
                                                                           .text,
-                                                                  "ad":
-                                                                      storedDateController[
-                                                                              0]
-                                                                          .text
+                                                                  "ad":widget.ad
                                                                 };
                                                                 print(widget.mintId.toString());
                                                                 postData!

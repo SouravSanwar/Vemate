@@ -12,6 +12,7 @@ import 'package:ketemaa/features/controller_page/presentattion/controller_page.d
 import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/widgets/products_list_container.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
+import 'package:ketemaa/features/vault/MySets/MySets_Individual_List.dart';
 import 'package:ketemaa/features/vault/Wishlist/Separate_Vault_List/separate_vault_structure.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
@@ -125,9 +126,14 @@ class _VaultComicsListState extends State<VaultComicsList> {
                         top: 4, bottom: 10, left: 4, right: 4),
                     child: InkWell(
                       onTap: () {
-                        Get.to(() => CollectibleDetails(
+                        getData!.mySetsModel =null;
+                        Get.to(() => MySetsIndividualList(
                           productId: data.mySetsModel!.results![index].productDetail!.id,
+                          productName: data.mySetsModel!.results![index].productDetail!.name,
                         ));
+                        /*Get.to(() => CollectibleDetails(
+                          productId: data.mySetsModel!.results![index].productDetail!.id,
+                        ));*/
                       },
                       child:Stack(
                         clipBehavior: Clip.none,
