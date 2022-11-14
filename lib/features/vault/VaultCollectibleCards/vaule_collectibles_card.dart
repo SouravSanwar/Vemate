@@ -11,6 +11,7 @@ import '../../../../../core/utilities/app_colors/app_colors.dart';
 import '../../../core/utilities/app_spaces/app_spaces.dart';
 import 'package:intl/intl.dart';
 
+/*
 class VaultCollectiblesCard extends StatefulWidget {
   final Collectible? data;
 
@@ -192,3 +193,4 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
     );
   }
 }
+*/
