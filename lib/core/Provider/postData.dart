@@ -1170,6 +1170,10 @@ class PostData extends ChangeNotifier with BaseController {
 
     var x = json.decode(response.body);
 
+    // prefs!.setString('edition', x.toString());
+    prefs!.setString('ap', x['ap'].toString());
+    prefs!.setString('ad', x['ad'].toString());
+
     Map<String, dynamic> js = x;
 
     if (response.statusCode == 200) {

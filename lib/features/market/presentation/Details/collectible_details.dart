@@ -455,19 +455,20 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                             showDialog(
                                               context: context,
                                               builder: (context) {
+
                                                 storedMintController.add(
                                                   TextEditingController(
-                                                    text: widget.edition.toString(),
+                                                    text: prefs!.getString('edition'),
                                                   ),
                                                 );
                                                 storedPriceController.add(
                                                   TextEditingController(
-                                                    text: widget.ap,
+                                                    text: prefs!.getString('ap'),
                                                   ),
                                                 );
                                                 storedDateController.add(TextEditingController(
                                                   text: DateFormat('MMMM dd, yyyy')
-                                                      .format(DateTime.parse(widget.ad.toString())),
+                                                      .format(DateTime.parse(prefs!.getString('ad').toString())),
                                                 ));
 
                                                 return Dialog(
@@ -549,23 +550,6 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                             alignment: Alignment.center,
                                                             width: Get.width * .7,
                                                             child: InkWell(
-                                                              child: Container(
-                                                                width: Get.width * 0.46,
-                                                                height: Get.height * 0.051,
-                                                                decoration: BoxDecoration(
-                                                                  color: AppColors.primaryColor,
-                                                                  borderRadius: BorderRadius.circular(14.0),
-                                                                ),
-                                                                child: const Padding(
-                                                                  padding: EdgeInsets.only(
-                                                                      left: 56, right: 56, top: 12, bottom: 12),
-                                                                  child: Text(
-                                                                    'Update',
-                                                                    textAlign: TextAlign.center,
-                                                                    style: TextStyle(fontSize: 14),
-                                                                  ),
-                                                                ),
-                                                              ),
                                                               onTap: () {
                                                                 String? ad =
                                                                     widget.ad == textDate ? widget.ad : textDate;
@@ -588,8 +572,35 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                                           getData!
                                                                               .getMySets1(0, widget.productId!, true)
                                                                         })
-                                                                    .whenComplete(() => Navigator.of(context).pop());
+                                                                    .whenComplete(() => {
+                                                                          Navigator.of(context).pop(),
+                                                                          storedPriceController[0].text =
+                                                                              prefs!.getString('ap').toString(),
+                                                                          storedDateController[0].text = DateFormat(
+                                                                                  'MMMM dd, yyyy')
+                                                                              .format(DateTime.parse(
+                                                                                  prefs!.getString('ad').toString())),
+                                                                        });
+                                                                printInfo(
+                                                                    info: 'ap b: ' + prefs!.getString('ap').toString());
                                                               },
+                                                              child: Container(
+                                                                width: Get.width * 0.46,
+                                                                height: Get.height * 0.051,
+                                                                decoration: BoxDecoration(
+                                                                  color: AppColors.primaryColor,
+                                                                  borderRadius: BorderRadius.circular(14.0),
+                                                                ),
+                                                                child: const Padding(
+                                                                  padding: EdgeInsets.only(
+                                                                      left: 56, right: 56, top: 12, bottom: 12),
+                                                                  child: Text(
+                                                                    'Update',
+                                                                    textAlign: TextAlign.center,
+                                                                    style: TextStyle(fontSize: 14),
+                                                                  ),
+                                                                ),
+                                                              ),
                                                             ),
                                                           ),
                                                           AppSpaces.spaces_width_5,
@@ -627,8 +638,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                     fromVault: widget.fromVault,
                     mintId: widget.mintId,
                     edition: widget.edition,
-                    ap: widget.ap,
-                    ad: widget.ad,
+                    ap: prefs!.getString('ap').toString(),
+                    ad: prefs!.getString('ad').toString(),
                   ),
                 ),
               )

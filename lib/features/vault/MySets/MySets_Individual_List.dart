@@ -239,6 +239,10 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                         ],
                                         child: InkWell(
                                           onTap: () {
+                                            prefs!.setString('edition',
+                                                data.mySetsModel!.results![index].productDetail!.edition.toString());
+                                            prefs!.setString('ap', data.mySetsModel!.results![index].ap.toString());
+                                            prefs!.setString('ad', data.mySetsModel!.results![index].ad.toString());
                                             data.setListModel!.setResults![index].setProductDetail!.type == 0
                                                 ? Get.to(
                                                     () => CollectibleDetails(
