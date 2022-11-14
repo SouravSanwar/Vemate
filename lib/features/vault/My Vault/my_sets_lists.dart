@@ -56,7 +56,6 @@ class _SetListPageState extends State<SetListPage> {
   void initState() {
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
-    getData!.mySetsModel = null;
     getData!.getMySets(0, true, graph_data: true);
     super.initState();
   }

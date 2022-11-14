@@ -34,7 +34,6 @@ class _MysetsCardState extends State<MysetsCard> {
   void initState() {
     getData = Provider.of<GetData>(context, listen: false);
     // TODO: implement initState
-    getData!.mySetsModel = null;
     getData!.getMySets(
       0,
       true,
@@ -77,7 +76,6 @@ class _MysetsCardState extends State<MysetsCard> {
                     ),
                     child: InkWell(
                       onTap: () {
-
                         Get.to(() => MySetsIndividualList(
                               productId: data.mySetsModel!.results![index].productDetail!.id,
                               productName: data.mySetsModel!.results![index].productDetail!.name,
