@@ -66,7 +66,7 @@ class _SeparateVaultCardState extends State<SeparateVaultCard> {
                       width: Get.width*.4,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        gradient: stepSelected == index ? AppColors.buttonTrue :  AppColors.separateVaultCardGradient ,
+                        gradient: stepSelected == index ? AppColors.separateVaultCardGradientBtn :  AppColors.separateVaultCardGradient ,
                       ),
                       child: Text(
                         graphType[index].toString(),
