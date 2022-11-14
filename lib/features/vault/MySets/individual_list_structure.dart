@@ -155,12 +155,12 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                               border: Border.all(color: AppColors.primaryColor),
                               borderRadius: BorderRadius.circular(2),
                             ),
-                            child: const Padding(
-                              padding: EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(1.0, 0.0, 1.0, 0.0),
                               child: Text(
                                 "FP",
                                 style: TextStyle(
-                                  fontSize: 10,
+                                  fontSize: 8.sp,
                                 ),
                               ),
                             ),
@@ -186,12 +186,12 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                               border: Border.all(color: AppColors.primaryColor),
                               borderRadius: BorderRadius.circular(2),
                             ),
-                            child: const Padding(
-                              padding: EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(1.0, 0.0, 1.0, 0.0),
                               child: Text(
                                 "AP",
                                 style: TextStyle(
-                                  fontSize: 10,
+                                  fontSize: 8.sp,
                                 ),
                               ),
                             ),
@@ -235,11 +235,11 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                 ),
                 AppSpaces.spaces_height_10,
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             widget.pcpPercent.toStringAsFixed(2) + "%",
@@ -270,6 +270,7 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                     ),
                     Expanded(
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
                             '\$${widget.changePrice != null ? widget.changePrice.toStringAsFixed(2) : ""}',
@@ -277,22 +278,19 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                             style: Get.textTheme.bodyText1!
                                 .copyWith(color: AppColors.textColor, fontWeight: FontWeight.w400, fontSize: 10),
                           ),
-
                           AppSpaces.spaces_width_2,
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: AppColors.primaryColor),
-                                borderRadius: BorderRadius.circular(2),
-                              ),
-                              child: const Padding(
-                                padding: EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                child: Text(
-                                  "CP",
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                  ),
+                          Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.primaryColor),
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(1.0, 0.0, 1.0, 0.0),
+                              child: Text(
+                                "CP",
+                                style: TextStyle(
+                                  fontSize: 8.sp,
                                 ),
                               ),
                             ),
@@ -300,7 +298,6 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                         ],
                       ),
                     ),
-
                   ],
                 ),
               ],

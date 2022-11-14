@@ -882,15 +882,12 @@ class PostData extends ChangeNotifier with BaseController {
     printInfo(info: response.statusCode.toString());
     printInfo(info: Urls.alert + '$id/');
 
-
-
     if (response.statusCode == 204 ||
         response.statusCode == 200 ||
         response.statusCode == 401 ||
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
-
       Navigator.of(context).pop();
 
       if (origin == 'allalert') {
@@ -898,16 +895,14 @@ class PostData extends ChangeNotifier with BaseController {
         getData!.getAlert();
       }
       if (origin == 'wishlist') {
-       // Navigator.of(context).pop();
+        // Navigator.of(context).pop();
         getData!.getWishList();
       }
       if (origin == 'details') {
         getData!.getSingleProduct(pid);
-
       }
       if (origin == 'collectible') {
         getData!.getCollectibles();
-
       }
       if (origin == 'comics') {
         getData!.getComics();
@@ -928,10 +923,8 @@ class PostData extends ChangeNotifier with BaseController {
                 message: "Deleted Successfully",
               ));
       if (origin == 'allalert') {
-            Navigator.of(context).pop();
+        Navigator.of(context).pop();
       }
-
-
     } else {
       showDialog(
           context: context,
@@ -990,7 +983,10 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future deletePassCheck(BuildContext context, var body, int? id,
+  Future deletePassCheck(
+    BuildContext context,
+    var body,
+    int? id,
     var requestToken,
   ) async {
     showDialog(
@@ -1091,32 +1087,30 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-
   Future postMAO(
-      BuildContext context,
-      var body,
-      var requestToken,
-      ) async {
+    BuildContext context,
+    var body,
+    var requestToken,
+  ) async {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Please wait",
-        ));
-
+              message: "Please wait",
+            ));
 
     /*final response =
         await BaseClient().post(Urls.logIn, body).catchError(handleError);*/
 
-    final response = await http.post(Uri.parse(Urls.MAO+'vault_bulk_upload/'), body: json.encode(body), headers: requestToken);
+    final response =
+        await http.post(Uri.parse(Urls.MAO + 'vault_bulk_upload/'), body: json.encode(body), headers: requestToken);
     printInfo(info: response.body.toString());
 
     var x = json.decode(response.body);
 
     Map<String, dynamic> js = x;
 
-    if (response.statusCode == 200)
-    {
+    if (response.statusCode == 200) {
       try {
         postData = Provider.of<PostData>(context, listen: false);
 
@@ -1124,10 +1118,10 @@ class PostData extends ChangeNotifier with BaseController {
             context: context,
             barrierDismissible: false,
             builder: (_) => const ResponseMessage(
-              icon: Icons.error,
-              color: Colors.purpleAccent,
-              message: "Added Successfully",
-            ));
+                  icon: Icons.error,
+                  color: Colors.purpleAccent,
+                  message: "Added Successfully",
+                ));
         Navigator.of(context).pop();
       } catch (e) {
         Navigator.of(context).pop();
@@ -1136,10 +1130,10 @@ class PostData extends ChangeNotifier with BaseController {
             context: context,
             barrierDismissible: false,
             builder: (_) => const ResponseMessage(
-              icon: Icons.error,
-              color: Colors.purpleAccent,
-              message: "Invalid Information",
-            ));
+                  icon: Icons.error,
+                  color: Colors.purpleAccent,
+                  message: "Invalid Information",
+                ));
       }
     } else {
       Navigator.of(context).pop();
@@ -1147,40 +1141,38 @@ class PostData extends ChangeNotifier with BaseController {
           context: context,
           barrierDismissible: false,
           builder: (_) => const ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: "Invalid Information",
-          ));
+                icon: Icons.error,
+                color: Colors.purpleAccent,
+                message: "Invalid Information",
+              ));
     }
     notifyListeners();
   }
 
   Future editMAO(
-      num? id,
-      BuildContext context,
-      var body,
-      var requestToken,
-      ) async {
+    num? id,
+    BuildContext context,
+    var body,
+    var requestToken,
+  ) async {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Please wait",
-        ));
-
+              message: "Please wait",
+            ));
 
     /*final response =
         await BaseClient().post(Urls.logIn, body).catchError(handleError);*/
 
-    final response = await http.patch(Uri.parse(Urls.MAO+ '$id/'), body: json.encode(body), headers: requestToken);
-    printInfo(info: response.body.toString());
+    final response = await http.patch(Uri.parse(Urls.MAO + '$id/'), body: json.encode(body), headers: requestToken);
+    printInfo(info: 'response.body: ' + response.body.toString());
 
     var x = json.decode(response.body);
 
     Map<String, dynamic> js = x;
 
-    if (response.statusCode == 200)
-    {
+    if (response.statusCode == 200) {
       try {
         postData = Provider.of<PostData>(context, listen: false);
 
@@ -1188,10 +1180,10 @@ class PostData extends ChangeNotifier with BaseController {
             context: context,
             barrierDismissible: false,
             builder: (_) => const ResponseMessage(
-              icon: Icons.error,
-              color: Colors.purpleAccent,
-              message: "Added Successfully",
-            ));
+                  icon: Icons.error,
+                  color: Colors.purpleAccent,
+                  message: "Added Successfully",
+                ));
         Navigator.of(context).pop();
       } catch (e) {
         Navigator.of(context).pop();
@@ -1200,10 +1192,10 @@ class PostData extends ChangeNotifier with BaseController {
             context: context,
             barrierDismissible: false,
             builder: (_) => const ResponseMessage(
-              icon: Icons.error,
-              color: Colors.purpleAccent,
-              message: "Invalid Information",
-            ));
+                  icon: Icons.error,
+                  color: Colors.purpleAccent,
+                  message: "Invalid Information",
+                ));
       }
     } else {
       Navigator.of(context).pop();
@@ -1211,40 +1203,38 @@ class PostData extends ChangeNotifier with BaseController {
           context: context,
           barrierDismissible: false,
           builder: (_) => const ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: "Invalid Information",
-          ));
+                icon: Icons.error,
+                color: Colors.purpleAccent,
+                message: "Invalid Information",
+              ));
     }
     notifyListeners();
   }
 
   Future deleteMAO(
-      num? id,
-      BuildContext context,
-      var body,
-      var requestToken,
-      ) async {
+    num? id,
+    BuildContext context,
+    var body,
+    var requestToken,
+  ) async {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (_) => const LoadingDialogue(
-          message: "Please wait",
-        ));
-
+              message: "Please wait",
+            ));
 
     /*final response =
         await BaseClient().post(Urls.logIn, body).catchError(handleError);*/
 
-    final response = await http.delete(Uri.parse(Urls.MAO+ '$id/'), body: json.encode(body), headers: requestToken);
+    final response = await http.delete(Uri.parse(Urls.MAO + '$id/'), body: json.encode(body), headers: requestToken);
     printInfo(info: response.body.toString());
 
     var x = json.decode(response.body);
 
     Map<String, dynamic> js = x;
 
-    if (response.statusCode == 200)
-    {
+    if (response.statusCode == 200) {
       try {
         postData = Provider.of<PostData>(context, listen: false);
 
@@ -1252,10 +1242,10 @@ class PostData extends ChangeNotifier with BaseController {
             context: context,
             barrierDismissible: false,
             builder: (_) => const ResponseMessage(
-              icon: Icons.error,
-              color: Colors.purpleAccent,
-              message: "Added Successfully",
-            ));
+                  icon: Icons.error,
+                  color: Colors.purpleAccent,
+                  message: "Added Successfully",
+                ));
         Navigator.of(context).pop();
       } catch (e) {
         Navigator.of(context).pop();
@@ -1264,10 +1254,10 @@ class PostData extends ChangeNotifier with BaseController {
             context: context,
             barrierDismissible: false,
             builder: (_) => const ResponseMessage(
-              icon: Icons.error,
-              color: Colors.purpleAccent,
-              message: "Invalid Information",
-            ));
+                  icon: Icons.error,
+                  color: Colors.purpleAccent,
+                  message: "Invalid Information",
+                ));
       }
     } else {
       Navigator.of(context).pop();
@@ -1275,14 +1265,13 @@ class PostData extends ChangeNotifier with BaseController {
           context: context,
           barrierDismissible: false,
           builder: (_) => const ResponseMessage(
-            icon: Icons.error,
-            color: Colors.purpleAccent,
-            message: "Invalid Information",
-          ));
+                icon: Icons.error,
+                color: Colors.purpleAccent,
+                message: "Invalid Information",
+              ));
     }
     notifyListeners();
   }
-
 
   Store(var mat, BuildContext context) async {
     prefs = await SharedPreferences.getInstance();

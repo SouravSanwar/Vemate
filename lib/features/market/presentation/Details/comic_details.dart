@@ -36,17 +36,17 @@ class ComicDetails extends StatefulWidget {
   final String? ap;
   final String? ad;
 
-  const ComicDetails(
-      {Key? key,
-        this.productId,
-        this.fromNotification = 0,
-        this.productType,
-        this.fromVault = false,
-        this.edition = '',
-        this.ap = '',
-        this.ad = '',
-        this.mintId,})
-      : super(key: key);
+  const ComicDetails({
+    Key? key,
+    this.productId,
+    this.fromNotification = 0,
+    this.productType,
+    this.fromVault = false,
+    this.edition = '',
+    this.ap = '',
+    this.ad = '',
+    this.mintId,
+  }) : super(key: key);
 
   @override
   _ComicDetailsState createState() => _ComicDetailsState();
@@ -60,7 +60,7 @@ class _ComicDetailsState extends State<ComicDetails> {
   TextEditingController priceController = TextEditingController();
   final form = GlobalKey<FormState>();
 
-  DateTime? textDate = DateTime.now();
+  String? textDate;
 
   List<TextEditingController> storedMintController = [];
   List<TextEditingController> storedPriceController = [];
@@ -113,136 +113,136 @@ class _ComicDetailsState extends State<ComicDetails> {
             backgroundColor: AppColors.backgroundColor,
             title: data.singleProductModel != null
                 ? DetailsAppbar(
-              name: data.singleProductModel!.name!,
-              results: data.singleProductModel,
-            )
+                    name: data.singleProductModel!.name!,
+                    results: data.singleProductModel,
+                  )
                 : Container()),
         backgroundColor: AppColors.backgroundColor,
         body: data.singleProductModel != null && data.checkSetCheck != null && data.checkWishlistModel != null
             ? SafeArea(
-          child: NestedScrollView(
-            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      ///Image
-                      Padding(
-                        padding: EdgeInsets.only(top: 0, right: 0, left: 0, bottom: Get.height * 0.01667),
-                        child: Container(
-                          height: data.singleProductModel!.image != null
-                              ? data.singleProductModel!.image!.direction == "PORTRAIT"
-                              ? Get.width * 1.173
-                              : Get.width * .66
-                              : Get.height * .3,
-                          width: data.singleProductModel!.image != null ? Get.width * .88 : Get.height * .5,
-                          //height: Get.height * .5,
-                          padding: const EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                              gradient: AppColors.vaultCardGradient,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: AppColors.primaryColor)),
-                          alignment: Alignment.center,
-                          child: data.singleProductModel!.image == null
-                              ? Text(
-                            data.singleProductModel!.name.toString()[0].toUpperCase(),
-                            style: const TextStyle(
-                                color: Colors.deepPurpleAccent,
-                                //fontFamily: 'Inter',
-                                fontSize: 65,
-                                fontWeight: FontWeight.bold),
-                          )
-                              : CachedNetworkImage(
-                            imageUrl: data.singleProductModel!.image!.high_res_url != null
-                                ? data.singleProductModel!.image!.high_res_url.toString()
-                                : data.singleProductModel!.image!.original.toString(),
-                            imageBuilder: (context, imageProvider) => Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.fill,
-                                ),
+                child: NestedScrollView(
+                  headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                    return <Widget>[
+                      SliverToBoxAdapter(
+                        child: Column(
+                          children: [
+                            ///Image
+                            Padding(
+                              padding: EdgeInsets.only(top: 0, right: 0, left: 0, bottom: Get.height * 0.01667),
+                              child: Container(
+                                height: data.singleProductModel!.image != null
+                                    ? data.singleProductModel!.image!.direction == "PORTRAIT"
+                                        ? Get.width * 1.173
+                                        : Get.width * .66
+                                    : Get.height * .3,
+                                width: data.singleProductModel!.image != null ? Get.width * .88 : Get.height * .5,
+                                //height: Get.height * .5,
+                                padding: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    gradient: AppColors.vaultCardGradient,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: AppColors.primaryColor)),
+                                alignment: Alignment.center,
+                                child: data.singleProductModel!.image == null
+                                    ? Text(
+                                        data.singleProductModel!.name.toString()[0].toUpperCase(),
+                                        style: const TextStyle(
+                                            color: Colors.deepPurpleAccent,
+                                            //fontFamily: 'Inter',
+                                            fontSize: 65,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    : CachedNetworkImage(
+                                        imageUrl: data.singleProductModel!.image!.high_res_url != null
+                                            ? data.singleProductModel!.image!.high_res_url.toString()
+                                            : data.singleProductModel!.image!.original.toString(),
+                                        imageBuilder: (context, imageProvider) => Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10),
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                               ),
                             ),
-                          ),
-                        ),
-                      ),
 
-                      ///Add Buttons
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () async {
-                              var body = {"product": data.singleProductModel!.id, "type": 1};
-                              Map<String, String> requestHeadersWithToken = {
-                                'Content-type': 'application/json',
-                                'Accept': 'application/json',
-                                'Authorization': 'token ${prefs!.getString('token')}',
-                              };
+                            ///Add Buttons
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () async {
+                                    var body = {"product": data.singleProductModel!.id, "type": 1};
+                                    Map<String, String> requestHeadersWithToken = {
+                                      'Content-type': 'application/json',
+                                      'Accept': 'application/json',
+                                      'Authorization': 'token ${prefs!.getString('token')}',
+                                    };
 
-                              if (data.checkWishlistModel!.isFound == false) {
-                                postData!.addToWishlist(
-                                  context,
-                                  body,
-                                  data.singleProductModel!.id,
-                                  requestHeadersWithToken,
-                                );
-                              } else {
-                                data.checkWishlistModel!.isFound = false;
+                                    if (data.checkWishlistModel!.isFound == false) {
+                                      postData!.addToWishlist(
+                                        context,
+                                        body,
+                                        data.singleProductModel!.id,
+                                        requestHeadersWithToken,
+                                      );
+                                    } else {
+                                      data.checkWishlistModel!.isFound = false;
 
-                                postData!.deleteWishlist(
-                                  context,
-                                  alertCheck,
-                                  data.wishListModel!.results!
-                                      .firstWhere(
-                                          (element) => element.productDetail!.id == data.singleProductModel!.id)
-                                      .id,
-                                  requestHeadersWithToken,
-                                );
-                              }
+                                      postData!.deleteWishlist(
+                                        context,
+                                        alertCheck,
+                                        data.wishListModel!.results!
+                                            .firstWhere(
+                                                (element) => element.productDetail!.id == data.singleProductModel!.id)
+                                            .id,
+                                        requestHeadersWithToken,
+                                      );
+                                    }
 
-                              await Future.delayed(Duration(seconds: 1));
-                              Navigator.of(context).pop();
-                            },
-                            child: Container(
-                              width: Get.width * .42,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                gradient: AppColors.purpleGradient,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(12),
-                                ),
-                              ),
-                              child: data.checkWishlistModel != null
-                                  ? Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
-                                child: data.checkWishlistModel!.isFound == false
-                                    ? AutoSizeText(
-                                  'Add to Wishlist',
-                                  style: Get.textTheme.bodyMedium!.copyWith(
-                                    fontFamily: 'Inter',
+                                    await Future.delayed(Duration(seconds: 1));
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Container(
+                                    width: Get.width * .42,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      gradient: AppColors.purpleGradient,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(12),
+                                      ),
+                                    ),
+                                    child: data.checkWishlistModel != null
+                                        ? Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
+                                            child: data.checkWishlistModel!.isFound == false
+                                                ? AutoSizeText(
+                                                    'Add to Wishlist',
+                                                    style: Get.textTheme.bodyMedium!.copyWith(
+                                                      fontFamily: 'Inter',
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  )
+                                                : AutoSizeText(
+                                                    'Delete from Wishlist',
+                                                    style: Get.textTheme.bodyMedium!.copyWith(
+                                                      fontFamily: 'Inter',
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                          )
+                                        : Container(),
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                )
-                                    : AutoSizeText(
-                                  'Delete from Wishlist',
-                                  style: Get.textTheme.bodyMedium!.copyWith(
-                                    fontFamily: 'Inter',
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
-                              )
-                                  : Container(),
-                            ),
-                          ),
-                          AppSpaces.spaces_width_20,
-                          InkWell(
-                            onTap: () async {
-                              /*  var body = {"product": data.singleProductModel!.id, "type": 0};
+                                AppSpaces.spaces_width_20,
+                                InkWell(
+                                  onTap: () async {
+                                    /*  var body = {"product": data.singleProductModel!.id, "type": 0};
                                     Map<String, String> requestHeadersWithToken = {
                                       'Content-type': 'application/json',
                                       'Accept': 'application/json',
@@ -276,39 +276,39 @@ class _ComicDetailsState extends State<ComicDetails> {
                                           .whenComplete(
                                               () => Provider.of<GetData>(context, listen: false).getHomeVault());
                                     }*/
-                              getData!.maoModel = null;
-                              showDialog(
-                                  context: context,
-                                  builder: (ctx) => Dialog(
-                                    backgroundColor: Colors.transparent,
-                                    insetPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                                    child: Multiform(id: data.singleProductModel!.id, type: 1),
-                                  ));
-                            },
-                            child: Container(
-                              width: Get.width * .42,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                gradient: AppColors.purpleGradient,
-                                //color: AppColors.primaryColor,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(12),
-                                ),
-                              ),
-                              child: data.checkSetCheck != null
-                                  ? Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
-                                  child: /*data.checkSetCheck!.isFound == false
-                                                ? */
-                                  AutoSizeText(
-                                    'Add to Vault',
-                                    style: Get.textTheme.bodyMedium!.copyWith(
-                                      fontFamily: 'Inter',
+                                    getData!.maoModel = null;
+                                    showDialog(
+                                        context: context,
+                                        builder: (ctx) => Dialog(
+                                              backgroundColor: Colors.transparent,
+                                              insetPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                                              child: Multiform(id: data.singleProductModel!.id, type: 1),
+                                            ));
+                                  },
+                                  child: Container(
+                                    width: Get.width * .42,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      gradient: AppColors.purpleGradient,
+                                      //color: AppColors.primaryColor,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(12),
+                                      ),
                                     ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  )
-                                /*: AutoSizeText(
+                                    child: data.checkSetCheck != null
+                                        ? Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
+                                            child: /*data.checkSetCheck!.isFound == false
+                                                ? */
+                                                AutoSizeText(
+                                              'Add to Vault',
+                                              style: Get.textTheme.bodyMedium!.copyWith(
+                                                fontFamily: 'Inter',
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            )
+                                            /*: AutoSizeText(
                                                     'Delete from Vault',
                                                     style: Get.textTheme.bodyMedium!.copyWith(
                                                       fontFamily: 'Inter',
@@ -316,377 +316,285 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                     maxLines: 1,
                                                     overflow: TextOverflow.ellipsis,
                                                   ),*/
-                              )
-                                  : Container(),
+                                            )
+                                        : Container(),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
 
-                      Container(
-                        padding: EdgeInsets.only(
-                            top: Get.height * 0.05,
-                            right: Get.width * 0.05336,
-                            left: Get.width * 0.05336,
-                            bottom: Get.height * 0.0334),
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Floor Price Chart",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              color: AppColors.textColor,
-                              fontFamily: 'Inter',
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-
-                      ///Graph Types
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: List.generate(graphType.length, (index) {
-                          return Expanded(
-                            child: ReportStepCard(
-                              onTap: () {
-                                setState(() {
-                                  stepSelected = index;
-                                });
-                              },
-                              stepName: graphType[index].toString(),
-                              selected: stepSelected == index ? true : false,
+                            Container(
+                              padding: EdgeInsets.only(
+                                  top: Get.height * 0.05,
+                                  right: Get.width * 0.05336,
+                                  left: Get.width * 0.05336,
+                                  bottom: Get.height * 0.0334),
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                "Floor Price Chart",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: AppColors.textColor,
+                                    fontFamily: 'Inter',
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                          );
-                        }),
-                      ),
 
-                      ///Graph
-                      Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.only(top: Get.height * 0.0223, right: 10, left: 7, bottom: 0),
-                        width: Get.width,
-                        child: FadeInUp(
-                          duration: const Duration(milliseconds: 100),
-                          child: SizedBox(
-                            width: double.infinity,
-                            height: 250,
-                            child: stepSelected == 0
-                                ? const OneDayProductGraphPage()
-                                : stepSelected == 1
-                                ? const SevenDayProductGraphPage()
-                                : stepSelected == 2
-                                ? const ThirtyDayProductGraphPage()
-                                : stepSelected == 3
-                                ? const SixtyDayProductGraphPage()
-                                : stepSelected == 4
-                                ? const OneYearProductGraphPage()
-                                : Container(),
-                          ),
-                        ),
-                      ),
-
-                      ///Details
-                      Container(
-                        alignment: Alignment.topLeft,
-                        padding: EdgeInsets.only(
-                            top: Get.height * 0.05,
-                            right: Get.width * 0.05336,
-                            left: Get.width * 0.05336,
-                            bottom: Get.height * 0.0334),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              data.singleProductModel != null
-                                  ? data.singleProductModel!.name
-                                  .toString() +
-                                  "'s Details"
-                                  : "",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  color: AppColors.textColor,
-                                  //fontFamily: 'Inter',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15.sp),
-                            ),
-                      widget.fromVault == true
-                          ? Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.primaryColor),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                storedMintController.add(
-                                  TextEditingController(
-                                    text: widget.edition.toString(),
+                            ///Graph Types
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: List.generate(graphType.length, (index) {
+                                return Expanded(
+                                  child: ReportStepCard(
+                                    onTap: () {
+                                      setState(() {
+                                        stepSelected = index;
+                                      });
+                                    },
+                                    stepName: graphType[index].toString(),
+                                    selected: stepSelected == index ? true : false,
                                   ),
                                 );
-                                storedPriceController.add(
-                                  TextEditingController(
-                                    text: widget.ap,
+                              }),
+                            ),
+
+                            ///Graph
+                            Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.only(top: Get.height * 0.0223, right: 10, left: 7, bottom: 0),
+                              width: Get.width,
+                              child: FadeInUp(
+                                duration: const Duration(milliseconds: 100),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: 250,
+                                  child: stepSelected == 0
+                                      ? const OneDayProductGraphPage()
+                                      : stepSelected == 1
+                                          ? const SevenDayProductGraphPage()
+                                          : stepSelected == 2
+                                              ? const ThirtyDayProductGraphPage()
+                                              : stepSelected == 3
+                                                  ? const SixtyDayProductGraphPage()
+                                                  : stepSelected == 4
+                                                      ? const OneYearProductGraphPage()
+                                                      : Container(),
+                                ),
+                              ),
+                            ),
+
+                            ///Details
+                            Container(
+                              alignment: Alignment.topLeft,
+                              padding: EdgeInsets.only(
+                                  top: Get.height * 0.05,
+                                  right: Get.width * 0.05336,
+                                  left: Get.width * 0.05336,
+                                  bottom: Get.height * 0.0334),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    data.singleProductModel != null
+                                        ? data.singleProductModel!.name.toString() + "'s Details"
+                                        : "",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        color: AppColors.textColor,
+                                        //fontFamily: 'Inter',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.sp),
                                   ),
-                                );
-                                storedDateController.add(TextEditingController(
-                                  text: DateFormat('MMMM dd, yyyy')
-                                      .format(DateTime.parse(widget.ad.toString())),
-                                ));
+                                  widget.fromVault == true
+                                      ? Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(color: AppColors.primaryColor),
+                                            borderRadius: BorderRadius.circular(5.0),
+                                          ),
+                                          child: InkWell(
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  storedMintController.add(
+                                                    TextEditingController(
+                                                      text: widget.edition.toString(),
+                                                    ),
+                                                  );
+                                                  storedPriceController.add(
+                                                    TextEditingController(
+                                                      text: widget.ap,
+                                                    ),
+                                                  );
+                                                  storedDateController.add(TextEditingController(
+                                                    text: DateFormat('MMMM dd, yyyy')
+                                                        .format(DateTime.parse(widget.ad.toString())),
+                                                  ));
 
-                                return Dialog(
-                                  backgroundColor:
-                                  AppColors.backgroundColor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(
-                                          5)),
-                                  elevation: 16,
-                                  child: Padding(
-                                    padding:
-                                    const EdgeInsets.all(
-                                        20.0),
-                                    child: Container(
-                                      height: Get.height * .38,
-                                      margin: EdgeInsets.symmetric(horizontal: 5),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment
-                                            .start,
-                                        children: [
-                                          AppSpaces
-                                              .spaces_height_5,
-
-                                          DetailsTextField(
-                                            controller:
-                                            storedMintController[
-                                            0],
-                                          ),
-                                          AppSpaces
-                                              .spaces_height_2,
-                                          Text(
-                                            'Mint Number or Edition',
-                                            style: TextStyle(
-                                                color: Colors
-                                                    .grey
-                                                    .withOpacity(
-                                                    .5)),
-                                          ),
-                                          DetailsTextField(
-                                            controller:
-                                            storedPriceController[
-                                            0],
-                                          ),
-                                          AppSpaces
-                                              .spaces_height_2,
-                                          Text(
-                                            'Aquisition Price',
-                                            style: TextStyle(
-                                                color: Colors
-                                                    .grey
-                                                    .withOpacity(
-                                                    .5)),
-                                          ),
-                                          Stack(
-                                            children: [
-                                              DetailsTextField(
-                                                controller:
-                                                storedDateController[
-                                                0],
+                                                  return Dialog(
+                                                    backgroundColor: AppColors.backgroundColor,
+                                                    shape:
+                                                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                    elevation: 16,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(20.0),
+                                                      child: Container(
+                                                        height: Get.height * .38,
+                                                        margin: EdgeInsets.symmetric(horizontal: 5),
+                                                        child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            AppSpaces.spaces_height_5,
+                                                            DetailsTextField(
+                                                              controller: storedMintController[0],
+                                                            ),
+                                                            AppSpaces.spaces_height_2,
+                                                            Text(
+                                                              'Mint Number or Edition',
+                                                              style: TextStyle(color: Colors.grey.withOpacity(.5)),
+                                                            ),
+                                                            DetailsTextField(
+                                                              controller: storedPriceController[0],
+                                                            ),
+                                                            AppSpaces.spaces_height_2,
+                                                            Text(
+                                                              'Aquisition Price',
+                                                              style: TextStyle(color: Colors.grey.withOpacity(.5)),
+                                                            ),
+                                                            Stack(
+                                                              children: [
+                                                                DetailsTextField(
+                                                                  controller: storedDateController[0],
+                                                                ),
+                                                                Positioned(
+                                                                  top: 10,
+                                                                  right: 50,
+                                                                  child: InkWell(
+                                                                    onTap: () async {
+                                                                      var datePicked =
+                                                                          await DatePicker.showSimpleDatePicker(
+                                                                        context,
+                                                                        initialDate: DateTime.now(),
+                                                                        firstDate: DateTime(2015),
+                                                                        lastDate: DateTime.now(),
+                                                                        dateFormat: "dd-MM-yyyy",
+                                                                        locale: DateTimePickerLocale.en_us,
+                                                                        looping: true,
+                                                                        backgroundColor: const Color(0xff02072D),
+                                                                        textColor: AppColors.white.withOpacity(.7),
+                                                                      );
+                                                                      setState(() {
+                                                                        String? textDate =
+                                                                            datePicked!.toIso8601String();
+                                                                        storedDateController[0].text =
+                                                                            DateFormat('MMMM dd, yyyy').format(
+                                                                                DateTime.parse(
+                                                                                    datePicked.toIso8601String()));
+                                                                      });
+                                                                    },
+                                                                    child: Icon(
+                                                                      Icons.calendar_month,
+                                                                      color: AppColors.white.withOpacity(.7),
+                                                                      // size: 17,
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                            AppSpaces.spaces_height_2,
+                                                            Text(
+                                                              'Aquisition Date',
+                                                              style: TextStyle(color: Colors.grey.withOpacity(.5)),
+                                                            ),
+                                                            AppSpaces.spaces_height_5,
+                                                            AppSpaces.spaces_height_25,
+                                                            Container(
+                                                              alignment: Alignment.center,
+                                                              width: Get.width * .7,
+                                                              child: InkWell(
+                                                                child: Container(
+                                                                  width: Get.width * 0.46,
+                                                                  height: Get.height * 0.051,
+                                                                  decoration: BoxDecoration(
+                                                                    color: AppColors.primaryColor,
+                                                                    borderRadius: BorderRadius.circular(14.0),
+                                                                  ),
+                                                                  child: const Padding(
+                                                                    padding: EdgeInsets.only(
+                                                                        left: 56, right: 56, top: 12, bottom: 12),
+                                                                    child: Text(
+                                                                      'Update',
+                                                                      textAlign: TextAlign.center,
+                                                                      style: TextStyle(fontSize: 14),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                onTap: () {
+                                                                  String? ad =
+                                                                      widget.ad == textDate ? widget.ad : textDate;
+                                                                  var body = {
+                                                                    "edition": storedMintController[0].text,
+                                                                    "ap": storedPriceController[0].text,
+                                                                    "ad": ad ?? DateTime.now().toIso8601String()
+                                                                  };
+                                                                  print(widget.mintId.toString());
+                                                                  postData!
+                                                                      .editMAO(
+                                                                        widget.mintId,
+                                                                        context,
+                                                                        body,
+                                                                        requestHeadersWithToken,
+                                                                      )
+                                                                      .whenComplete(() => getData!
+                                                                          .getVaultProductDetails(
+                                                                              widget.productId, widget.productType))
+                                                                      .whenComplete(() => Navigator.of(context).pop());
+                                                                },
+                                                              ),
+                                                            ),
+                                                            AppSpaces.spaces_width_5,
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(2.0),
+                                              child: Text(
+                                                "Edit",
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    color: AppColors.textColor,
+                                                    //fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 12.sp),
                                               ),
-                                              Positioned(
-                                                top: 10,
-                                                right: 50,
-                                                child: InkWell(
-                                                  onTap:
-                                                      () async {
-                                                    var datePicked =
-                                                    await DatePicker
-                                                        .showSimpleDatePicker(
-                                                      context,
-                                                      initialDate:
-                                                      DateTime
-                                                          .now(),
-                                                      firstDate:
-                                                      DateTime(
-                                                          2015),
-                                                      lastDate:
-                                                      DateTime
-                                                          .now(),
-                                                      dateFormat:
-                                                      "dd-MM-yyyy",
-                                                      locale: DateTimePickerLocale
-                                                          .en_us,
-                                                      looping:
-                                                      true,
-                                                      backgroundColor:
-                                                      const Color(
-                                                          0xff02072D),
-                                                      textColor: AppColors
-                                                          .white
-                                                          .withOpacity(
-                                                          .7),
-                                                    );
-                                                    setState(
-                                                            () {
-                                                          storedDateController[0]
-                                                              .text =DateFormat(
-                                                              'MMMM dd, yyyy')
-                                                              .format(DateTime.parse(
-                                                              datePicked!
-                                                                  .toIso8601String()));
-                                                        });
-                                                  },
-                                                  child: Icon(
-                                                    Icons
-                                                        .calendar_month,
-                                                    color: AppColors
-                                                        .white
-                                                        .withOpacity(
-                                                        .7),
-                                                    // size: 17,
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          AppSpaces
-                                              .spaces_height_2,
-                                          Text(
-                                            'Aquisition Date',
-                                            style: TextStyle(
-                                                color: Colors
-                                                    .grey
-                                                    .withOpacity(
-                                                    .5)),
-                                          ),
-
-                                          AppSpaces
-                                              .spaces_height_5,
-
-
-                                          AppSpaces
-                                              .spaces_height_25,
-                                          Container(
-                                            alignment: Alignment
-                                                .center,
-                                            width:
-                                            Get.width * .7,
-                                            child: InkWell(
-                                              child: Container(
-                                                width:
-                                                Get.width *
-                                                    0.46,
-                                                height:
-                                                Get.height *
-                                                    0.051,
-
-                                                decoration:
-                                                BoxDecoration(
-                                                  color: AppColors
-                                                      .primaryColor,
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(
-                                                      14.0),
-                                                ),
-                                                child:
-                                                const Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 56,
-                                                      right: 56,
-                                                      top: 12,
-                                                      bottom:
-                                                      12),
-                                                  child: Text(
-                                                    'Update',
-                                                    textAlign:
-                                                    TextAlign
-                                                        .center,
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                        14),
-                                                  ),
-                                                ),
-                                              ),
-                                              onTap: () {
-                                                var body = {
-                                                  "edition":
-                                                  storedMintController[
-                                                  0]
-                                                      .text,
-                                                  "ap":
-                                                  storedPriceController[
-                                                  0]
-                                                      .text,
-                                                  "ad":
-                                                  storedDateController[
-                                                  0]
-                                                      .text
-                                                };
-                                                print(widget.mintId.toString());
-                                                postData!
-                                                    .editMAO(
-                                                  widget
-                                                      .mintId,
-                                                  context,
-                                                  body,
-                                                  requestHeadersWithToken,
-                                                )
-                                                    .whenComplete(() => getData!.getVaultProductDetails(
-                                                    widget
-                                                        .productId,
-                                                    widget
-                                                        .productType))
-                                                    .whenComplete(() =>
-                                                    Navigator.of(context)
-                                                        .pop());
-                                              },
                                             ),
                                           ),
-                                          AppSpaces
-                                              .spaces_width_5,
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Text(
-                              "Edit",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  color: AppColors.textColor,
-                                  //fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 12.sp),
+                                        )
+                                      : Container(),
+                                ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       )
-                          : Container(),
-                    ],
+                    ];
+                  },
+                  body: ProductDetailsComics(
+                    fromVault: widget.fromVault,
+                    mintId: widget.mintId,
+                    edition: widget.edition,
+                    ap: widget.ap,
+                    ad: widget.ad,
                   ),
                 ),
-                    ],
-                  ),
-                )
-              ];
-            },
-            body:ProductDetailsComics(
-              fromVault: widget.fromVault,
-              mintId: widget.mintId,
-              edition: widget.edition,
-              ap: widget.ap,
-              ad: widget.ad,
-            ),
-          ),
-        )
+              )
             : ColorLoader(),
       );
     });

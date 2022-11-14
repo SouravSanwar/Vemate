@@ -77,7 +77,7 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
                           divider(),
                           ItemDetailsHelper(
                             text: "Acquisition Date",
-                            text1: DateFormat('yyyy-MM-dd').format(DateTime.parse(widget.ad.toString())),
+                            text1: DateFormat('MMMM dd, yyyy').format(DateTime.parse(widget.ad.toString())),
                             fromVault: true,
                           ),
                           divider(),
@@ -87,13 +87,15 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
                 ItemDetailsHelper(
                   text: "Floor Price",
                   text1: data.singleProductModel != null ? data.singleProductModel!.floorPrice.toString() : "",
-                  topRadius: widget.fromVault == true ?false:true,
+                  topRadius: widget.fromVault == true ? false : true,
                 ),
-                divider(),
-                ItemDetailsHelper(
-                  text: "Edition",
-                  text1: data.singleProductModel != null ? data.singleProductModel!.edition.toString() : "",
-                ),
+                widget.fromVault == true ? Container() : divider(),
+                widget.fromVault == true
+                    ? Container()
+                    : ItemDetailsHelper(
+                        text: "Edition",
+                        text1: data.singleProductModel != null ? data.singleProductModel!.edition.toString() : "",
+                      ),
                 divider(),
                 ItemDetailsHelper(
                   text: "Owner",
