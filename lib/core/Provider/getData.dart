@@ -460,6 +460,8 @@ class GetData extends ChangeNotifier with BaseController {
   }
 
   Future getMySets(int? type, bool unique, {bool graph_data = false}) async {
+    mySetsModel = null;
+
     final response = await BaseClient()
         .get(Urls.mySets + '?type=$type&unique=$unique&graph_data=$graph_data')
         .catchError(handleError);
@@ -472,6 +474,7 @@ class GetData extends ChangeNotifier with BaseController {
   }
 
   Future getMySets1(int? type, int? productID, bool single, {bool graph_data = false}) async {
+    mySetsModel = null;
     final response = await BaseClient()
         .get(Urls.mySets + '?type=$type&product=$productID&single=$single&graph_data=$graph_data')
         .catchError(handleError);
@@ -484,6 +487,7 @@ class GetData extends ChangeNotifier with BaseController {
   }
 
   Future geSeparatetMySets(int? type, bool unique, bool graph_data, int? product__type) async {
+    mySetsModel = null;
     final response = await BaseClient()
         .get(Urls.mySets + '?type=$type&unique=$unique&graph_data=$graph_data&product__type=$product__type')
         .catchError(handleError);

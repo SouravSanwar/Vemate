@@ -74,8 +74,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
   Widget build(BuildContext context) {
     const StatusBar();
     return Consumer<GetData>(builder: (content, data, child) {
-      return data.mySetsModel != null
-          ? WillPopScope(
+      return  WillPopScope(
               onWillPop: _willPopCallback,
               child: Scaffold(
                   backgroundColor: AppColors.backgroundColor,
@@ -342,8 +341,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                               ))
                         : const ColorLoader(),
                   )),
-            )
-          : const ColorLoader();
+            );
     });
   }
 
