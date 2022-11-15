@@ -299,21 +299,21 @@ class GetData extends ChangeNotifier with BaseController {
     var data = json.decode(response.toString());
     vaultStatsModel = VaultStatsModel.fromJson(data);
 
-    final response1 = await BaseClient().get(Urls.vaultStats + '?graph_type=1').catchError(handleError);
-    var data1 = json.decode(response1.toString());
-    vaultStatsModel7D = VaultStatsModel7D.fromJson(data1);
-
-    final response2 = await BaseClient().get(Urls.vaultStats + '?graph_type=2').catchError(handleError);
-    var data2 = json.decode(response2.toString());
-    vaultStatsModel30D = VaultStatsModel30D.fromJson(data2);
-
-    final response3 = await BaseClient().get(Urls.vaultStats + '?graph_type=3').catchError(handleError);
-    var data3 = json.decode(response3.toString());
-    vaultStatsModel60D = VaultStatsModel60D.fromJson(data3);
-
-    final response4 = await BaseClient().get(Urls.vaultStats + '?graph_type=4').catchError(handleError);
-    var data4 = json.decode(response4.toString());
-    vaultStatsModel1Y = VaultStatsModel1Y.fromJson(data4);
+    // final response1 = await BaseClient().get(Urls.vaultStats + '?graph_type=1').catchError(handleError);
+    // var data1 = json.decode(response1.toString());
+    // vaultStatsModel7D = VaultStatsModel7D.fromJson(data1);
+    //
+    // final response2 = await BaseClient().get(Urls.vaultStats + '?graph_type=2').catchError(handleError);
+    // var data2 = json.decode(response2.toString());
+    // vaultStatsModel30D = VaultStatsModel30D.fromJson(data2);
+    //
+    // final response3 = await BaseClient().get(Urls.vaultStats + '?graph_type=3').catchError(handleError);
+    // var data3 = json.decode(response3.toString());
+    // vaultStatsModel60D = VaultStatsModel60D.fromJson(data3);
+    //
+    // final response4 = await BaseClient().get(Urls.vaultStats + '?graph_type=4').catchError(handleError);
+    // var data4 = json.decode(response4.toString());
+    // vaultStatsModel1Y = VaultStatsModel1Y.fromJson(data4);
 
     notifyListeners();
   }

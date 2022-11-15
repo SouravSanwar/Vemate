@@ -43,6 +43,7 @@ class _MintTextFieldState extends State<MintTextField> {
       height: Get.height * .0467,
       color: Colors.transparent,
       child: TextFormField(
+        focusNode: FocusNode(),
         onChanged: widget.onChanged,
         textAlign: TextAlign.center,
         enabled: widget.isEnable,

@@ -52,11 +52,8 @@ class _VaultState extends State<Vault> {
         backgroundColor: AppColors.backgroundColor,
         title: Text(
           "My Vault",
-          style: TextStyle(
-              color: AppColors.textColor,
-              fontFamily: 'Inter',
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold),
+          style:
+              TextStyle(color: AppColors.textColor, fontFamily: 'Inter', fontSize: 20.sp, fontWeight: FontWeight.bold),
         ),
       ),
       backgroundColor: AppColors.backgroundColor,
@@ -71,18 +68,23 @@ class _VaultState extends State<Vault> {
                     ),
                     const CombinedVaultCard(),
                     Container(
-                      margin:  EdgeInsets.symmetric(horizontal: Get.height*.015,vertical: Get.height * .02,),
-                      height: Get.height*.13,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: Get.height * .015,
+                        vertical: Get.height * .02,
+                      ),
+                      height: Get.height * .13,
                       width: Get.width,
                       decoration: const BoxDecoration(
-                    image: DecorationImage(
-                    image: AssetImage(
-                        'assets/media/image/vault_banner.png'),
-          fit: BoxFit.fill,
-        ),
-        ),
+                        image: DecorationImage(
+                          image: AssetImage('assets/media/image/vault_banner.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
                     ),
-                    SeparateVaultCard(data: data.vaultStatsModel!.collectible,data1: data.vaultStatsModel!.comic,),
+                    SeparateVaultCard(
+                      data: data.vaultStatsModel!.collectible,
+                      data1: data.vaultStatsModel!.comic,
+                    ),
 
                     ///My Collectibles
                     /*  Padding(
@@ -174,9 +176,7 @@ class _VaultState extends State<Vault> {
                           child: data.setListModel!.setResults!.isNotEmpty
                               ? Padding(
                                   padding: EdgeInsets.only(
-                                      right: Get.width * .06,
-                                      top: Get.height * .0334,
-                                      bottom: Get.height * .0167),
+                                      right: Get.width * .06, top: Get.height * .0334, bottom: Get.height * .0167),
                                   child: Text(
                                     "See All",
                                     style: TextStyle(
@@ -208,8 +208,8 @@ class _VaultState extends State<Vault> {
                         padding: EdgeInsets.only(left: 15, top: Get.height * .0334, bottom: Get.height * .0167),
                         child: Text(
                           "My Wishlist",
-                          style: Get.textTheme.headline2!.copyWith(
-                              color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
+                          style: Get.textTheme.headline2!
+                              .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
                         ),
                       ),
                       InkWell(
@@ -239,11 +239,10 @@ class _VaultState extends State<Vault> {
                       width: Get.width,
                       height: Get.height * .31,
                       child: data.wishListModel!.results!.isNotEmpty
-                          ?  Align(
-                        alignment: Alignment.center,
-                        child: MywishlistCard(),
-
-                      )
+                          ? Align(
+                              alignment: Alignment.center,
+                              child: MywishlistCard(),
+                            )
                           : const NoDataCard(
                               title: 'Your Wishlist is empty!',
                             ),

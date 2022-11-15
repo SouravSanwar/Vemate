@@ -51,10 +51,10 @@ class _MultiformState extends State<Multiform> {
       TextEditingController(),
       TextEditingController(),
     )
-    ];
-    List<TextEditingController> storedMintController = [];
-    List<TextEditingController> storedPriceController = [];
-    List<TextEditingController> storedDateController = [];
+  ];
+  List<TextEditingController> storedMintController = [];
+  List<TextEditingController> storedPriceController = [];
+  List<TextEditingController> storedDateController = [];
 
   @override
   void initState() {
@@ -165,6 +165,8 @@ class _MultiformState extends State<Multiform> {
                                     ),
                                   );
                                 });
+                                mintController.clear();
+                                FocusScope.of(context).requestFocus(FocusNode());
                               }
                             },
                           ),
@@ -499,7 +501,6 @@ class _MultiformState extends State<Multiform> {
                                                 flex: 2,
                                                 child: InkWell(
                                                   child: Container(
-
                                                       margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
                                                       decoration: BoxDecoration(
                                                         border: Border.all(
