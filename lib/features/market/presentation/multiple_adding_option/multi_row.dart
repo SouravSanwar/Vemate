@@ -76,7 +76,7 @@ class _MultiformState extends State<Multiform> {
                       ((data.maoModel!.results!.length + addToListController.length) * 5) +
                       140
                   //10 er beshi hole
-                  : 570,
+                  : 490,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: AppColors.backgroundColor),
               padding: EdgeInsets.zero,
               width: double.infinity,
@@ -105,23 +105,7 @@ class _MultiformState extends State<Multiform> {
                           ),
                         ),
                         AppSpaces.spaces_width_5,
-                        Container(
-                          alignment: Alignment.center,
-                          height: Get.height * .035,
-                          width: Get.width * .12,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: AppColors.white.withOpacity(.7),
-                              width: 1.5,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: InkWell(
-                            child: Icon(
-                              Icons.add,
-                              size: 20,
-                              color: AppColors.grey,
-                            ),
+                        InkWell(
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
                                 setState(() {
@@ -169,8 +153,26 @@ class _MultiformState extends State<Multiform> {
                                 FocusScope.of(context).requestFocus(FocusNode());
                               }
                             },
+                            child: Container(
+                          alignment: Alignment.center,
+                          height: Get.height * .035,
+                          width: Get.width * .12,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: AppColors.white.withOpacity(.7),
+                              width: 1.5,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
+                          child:Icon(
+                              Icons.add,
+                              size: 20,
+                              color: AppColors.grey,
+                            ),
+
+
                         )
+                        ),
                       ],
                     ),
 
@@ -189,6 +191,7 @@ class _MultiformState extends State<Multiform> {
                           onRefresh: _onRefresh,
                           onLoading: _onLoading,
                           child: ListView(
+                            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                             physics: const AlwaysScrollableScrollPhysics(),
                             children: [
                               /// new_row
@@ -197,6 +200,7 @@ class _MultiformState extends State<Multiform> {
                                 //     ? addToListController.length * (Get.height * .055) - (addToListController.length * 5)
                                 //     : (Get.height * .275 - 35),
                                 child: ListView.builder(
+                                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                                   reverse: true,
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
@@ -333,6 +337,7 @@ class _MultiformState extends State<Multiform> {
                                 //         (data.maoModel!.results!.length * 5)
                                 //     : (Get.height * .275),
                                 child: ListView.builder(
+                                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                                   reverse: true,
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
@@ -392,6 +397,24 @@ class _MultiformState extends State<Multiform> {
                                             ),
                                             child: Padding(
                                               padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                               child: InkWell(
+                                                  onTap: () async {
+                                                    var datePicked = await DatePicker.showSimpleDatePicker(
+                                                      context,
+                                                      initialDate: DateTime.now(),
+                                                      firstDate: DateTime(2015),
+                                                      lastDate: DateTime.now(),
+                                                      dateFormat: "dd-MM-yyyy",
+                                                      locale: DateTimePickerLocale.en_us,
+                                                      looping: true,
+                                                      backgroundColor: const Color(0xff02072D),
+                                                      textColor: AppColors.white.withOpacity(.7),
+                                                    );
+                                                    setState(() {
+                                                      storedDateController[index].text =
+                                                          datePicked!.toIso8601String();
+                                                    });
+                                                  },
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
@@ -405,32 +428,16 @@ class _MultiformState extends State<Multiform> {
                                                       color: AppColors.white.withOpacity(.7),
                                                     ),
                                                   ),
-                                                  InkWell(
-                                                    onTap: () async {
-                                                      var datePicked = await DatePicker.showSimpleDatePicker(
-                                                        context,
-                                                        initialDate: DateTime.now(),
-                                                        firstDate: DateTime(2015),
-                                                        lastDate: DateTime.now(),
-                                                        dateFormat: "dd-MM-yyyy",
-                                                        locale: DateTimePickerLocale.en_us,
-                                                        looping: true,
-                                                        backgroundColor: const Color(0xff02072D),
-                                                        textColor: AppColors.white.withOpacity(.7),
-                                                      );
-                                                      setState(() {
-                                                        storedDateController[index].text =
-                                                            datePicked!.toIso8601String();
-                                                      });
-                                                    },
-                                                    child: Icon(
+
+                                                  Icon(
                                                       Icons.calendar_month,
                                                       color: AppColors.white.withOpacity(.7),
                                                       size: 17,
                                                     ),
-                                                  )
+
                                                 ],
                                               ),
+                                          )
                                             ),
                                           ),
                                         ),
@@ -515,9 +522,11 @@ class _MultiformState extends State<Multiform> {
                                                         size: 17,
                                                       )),
                                                   onTap: () {
+                                                    FocusScope.of(context).unfocus();
+
                                                     var body = {
-                                                      "mint_number": storedMintController[index].text,
-                                                      "ap": storedPriceController[index].text,
+                                                      "mint_number": storedMintController[index].text.isEmpty ? "0.0" : storedMintController[index].text,
+                                                      "ap": storedPriceController[index].text.isEmpty ? "0.0" :storedPriceController[index].text,
                                                       "ad": storedDateController[index].text
                                                     };
                                                     postData!
@@ -529,12 +538,13 @@ class _MultiformState extends State<Multiform> {
                                                         )
                                                         .whenComplete(() => getData!
                                                             .getMAO(widget.type.toString(), widget.id.toString()))
-                                                        .whenComplete(() => Navigator.of(context).pop());
-                                                    setState(() {
-                                                      storedMintController[index] = storedMintController[index];
-                                                      storedPriceController[index] = storedPriceController[index];
-                                                      storedDateController[index] = storedDateController[index];
-                                                    });
+                                                        .whenComplete(() => Navigator.of(context).pop())
+                                                         .whenComplete(() => setState(() {
+                                                      storedMintController[index].text = data.maoModel!.results![index].mintNumber.toString();
+                                                      storedPriceController[index].text = data.maoModel!.results![index].ap.toString();
+                                                      storedDateController[index].text = data.maoModel!.results![index].ad.toString();
+                                                    }));
+
                                                   },
                                                 ),
                                               )
@@ -645,14 +655,16 @@ class _MultiformState extends State<Multiform> {
                                 AppSpaces.spaces_width_15,
                                 InkWell(
                                   onTap: () {
+                                    FocusScope.of(context).unfocus();
+                                    mintController.text="Enter Mint";
                                     var body = {
                                       "product": widget.id,
                                       "type": widget.type,
                                       "mints": [
                                         for (int i = 0; i < addToListController.length; i++)
                                           {
-                                            "mint_number": addToListController[i].mintNumber1!.text,
-                                            "ap": addToListController[i].price!.text,
+                                            "mint_number": addToListController[i].mintNumber1!.text.isEmpty ?"0.0":addToListController[i].mintNumber1!.text,
+                                            "ap": addToListController[i].price!.text.isEmpty ? "0.0":addToListController[i].price!.text,
                                             "ad": addToListController[i].dateTime!.text
                                           }
                                       ]

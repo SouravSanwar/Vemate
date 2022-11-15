@@ -102,6 +102,7 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                       zoomPanBehavior: _zoomPanBehavior,
                       // tooltipBehavior: _tooltipBehavior,
                       trackballBehavior: TrackballBehavior(
+                          activationMode: ActivationMode.singleTap,
                           enable: true,
                           lineWidth: 0,
                           shouldAlwaysShow: true,

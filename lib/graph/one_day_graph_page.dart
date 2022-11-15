@@ -101,6 +101,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                       zoomPanBehavior: _zoomPanBehavior,
                       // tooltipBehavior: _tooltipBehavior,
                       trackballBehavior: TrackballBehavior(
+                        activationMode: ActivationMode.singleTap,
                           enable: true,
                           lineWidth: 0,
                           shouldAlwaysShow: true,

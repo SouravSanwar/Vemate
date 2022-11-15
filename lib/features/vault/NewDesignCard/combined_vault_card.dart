@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:provider/provider.dart';
 
 class CombinedVaultCard extends StatefulWidget {
@@ -105,7 +106,7 @@ class _CombinedVaultCardState extends State<CombinedVaultCard> {
                 ),
               ),
             )
-          : Container();
+          : const ColorLoader();
     });
   }
 }

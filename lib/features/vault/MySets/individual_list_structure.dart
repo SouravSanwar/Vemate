@@ -206,7 +206,7 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
           ),
           AppSpaces.spaces_width_2,
           Expanded(
-            flex: 5,
+            flex: 8,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -238,11 +238,12 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
+                      flex:6,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            widget.pcpPercent.toStringAsFixed(2) + "%",
+                            widget.pcpPercent.toStringAsFixed(1) + "%",
                             textAlign: TextAlign.end,
                             style: Get.textTheme.bodyText1!.copyWith(
                                 color: widget.pcpSign == 'decrease' ? Colors.red : Colors.green,
@@ -250,30 +251,28 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                                 fontSize: 10),
                           ),
                           if (widget.pcpSign == 'decrease')
-                            const Expanded(
-                              child: Icon(
-                                Icons.arrow_downward,
-                                color: Colors.red,
-                                size: 10,
-                              ),
+                            const Icon(
+                              Icons.arrow_downward,
+                              color: Colors.red,
+                              size: 10,
                             )
                           else
-                            const Expanded(
-                              child: Icon(
-                                Icons.arrow_upward,
-                                color: Colors.green,
-                                size: 10,
-                              ),
+                            const Icon(
+                              Icons.arrow_upward,
+                              color: Colors.green,
+                              size: 10,
                             ),
                         ],
                       ),
                     ),
                     Expanded(
+                      flex:8,
                       child: Row(
+
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            '\$${widget.changePrice != null ? widget.changePrice.toStringAsFixed(2) : ""}',
+                            '\$${widget.changePrice != null ? widget.changePrice.toStringAsFixed(1) : ""}',
                             textAlign: TextAlign.start,
                             style: Get.textTheme.bodyText1!
                                 .copyWith(color: AppColors.textColor, fontWeight: FontWeight.w400, fontSize: 10),

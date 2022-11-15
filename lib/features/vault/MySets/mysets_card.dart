@@ -72,7 +72,7 @@ class _MysetsCardState extends State<MysetsCard> {
                   return Padding(
                     padding: EdgeInsets.only(
                       left: index == 0 ? 6 : 8.0,
-                      right: index == data.mySetsModel!.results!.length - 1 ? 6 : 8.0,
+                      right: index == data.mySetsModel!.results!.length - 1 ? 12 : 8.0,
                     ),
                     child: InkWell(
                       onTap: () {

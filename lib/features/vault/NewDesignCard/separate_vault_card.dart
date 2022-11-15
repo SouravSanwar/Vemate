@@ -41,11 +41,17 @@ class _SeparateVaultCardState extends State<SeparateVaultCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: List.generate(graphType.length, (index) {
                 return Container(
-                  height: Get.height*.06,
+                  height: Get.height*.05,
                   width: Get.width*.4,
                   margin: const EdgeInsets.symmetric(vertical: 8),
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
+                  decoration:  BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(index==0?6:0),
+                      topRight: Radius.circular(index==0?0:6),
+                      bottomLeft: Radius.circular(index==0?6:0),
+                      bottomRight: Radius.circular(index==0?0:6),
+                    ),
+                    gradient: const LinearGradient(
                       colors: [
                         Color(0xffAC86E7),
                         Color(0xffA57EE7),
@@ -66,6 +72,12 @@ class _SeparateVaultCardState extends State<SeparateVaultCard> {
                       width: Get.width*.4,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(index==0?6:0),
+                          topRight: Radius.circular(index==0?0:6),
+                          bottomLeft: Radius.circular(index==0?6:0),
+                          bottomRight: Radius.circular(index==0?0:6),
+                        ),
                         gradient: stepSelected == index ? AppColors.separateVaultCardGradientBtn :  AppColors.separateVaultCardGradient ,
                       ),
                       child: Text(
