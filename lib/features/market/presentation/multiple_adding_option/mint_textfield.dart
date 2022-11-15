@@ -66,19 +66,19 @@ class _MintTextFieldState extends State<MintTextField> {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
-                color: AppColors.white.withOpacity(.7), // set border color
+                color: AppColors.white.withOpacity(.3), // set border color
                 width: 1.5),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
-                color: AppColors.white.withOpacity(.7), // set border color
+                color: AppColors.white.withOpacity(.3), // set border color
                 width: 1.5),
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
-                color: AppColors.white.withOpacity(.7), // set border color
+                color: AppColors.white.withOpacity(.3), // set border color
                 width: 1.5),
           ),
           hintText: widget.labelText,

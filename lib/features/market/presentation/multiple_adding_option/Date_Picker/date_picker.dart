@@ -165,14 +165,15 @@ class DatePicker {
         children: [
           Container(
               margin: const EdgeInsets.only(top:20,),
+              padding: EdgeInsets.symmetric(horizontal: 25),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Days',style: TextStyle(color: AppColors.textColor),),
+                  Text('Day',style: TextStyle(color: AppColors.textColor),),
                   SizedBox(width: Get.width*.1,),
-                  Text('Months',style: TextStyle(color: AppColors.textColor),),
+                  Text('Month',style: TextStyle(color: AppColors.textColor),),
                   SizedBox(width: Get.width*.1,),
-                  Text('Years',style: TextStyle(color: AppColors.textColor),),
+                  Text('Year',style: TextStyle(color: AppColors.textColor),),
                 ],
               )),
           Container(

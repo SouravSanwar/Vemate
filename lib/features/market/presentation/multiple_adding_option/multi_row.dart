@@ -159,7 +159,7 @@ class _MultiformState extends State<Multiform> {
                           width: Get.width * .12,
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: AppColors.white.withOpacity(.7),
+                              color: AppColors.white.withOpacity(.3),
                               width: 1.5,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -215,7 +215,7 @@ class _MultiformState extends State<Multiform> {
 
                                         //mint_number_new_row
                                         Expanded(
-                                          flex: 7,
+                                          flex: 10,
                                           child: MintTextField(
                                             labelText: 'Mint Number',
                                             textType: TextInputType.number,
@@ -226,7 +226,7 @@ class _MultiformState extends State<Multiform> {
 
                                         //price_new_row
                                         Expanded(
-                                          flex: 7,
+                                          flex: 10,
                                           child: MintTextField(
                                             labelText: 'Price',
                                             textType: TextInputType.number,
@@ -237,13 +237,13 @@ class _MultiformState extends State<Multiform> {
 
                                         //datetime_new_row
                                         Expanded(
-                                          flex: 7,
+                                          flex: 11,
                                           child: Container(
                                             height: Get.height * .035,
                                             padding: EdgeInsets.zero,
                                             decoration: BoxDecoration(
                                               border: Border.all(
-                                                color: AppColors.white.withOpacity(.7),
+                                                color: AppColors.white.withOpacity(.3),
                                                 width: 1.5,
                                               ),
                                               borderRadius: BorderRadius.circular(10.0),
@@ -254,7 +254,7 @@ class _MultiformState extends State<Multiform> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Text(
-                                                    DateFormat('yyyy-MM-dd')
+                                                    DateFormat('MMM dd,yyyy')
                                                         .format(
                                                             DateTime.parse(addToListController[index].dateTime!.text))
                                                         .toString(),
@@ -295,22 +295,22 @@ class _MultiformState extends State<Multiform> {
                                         ),
                                         AppSpaces.spaces_width_5,
 
-                                        //delete__new_row
+                                        //delete__new_row 8688A0
                                         Expanded(
-                                          flex: 2,
+                                          flex: 3,
                                           child: InkWell(
                                             child: Container(
                                                 margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
                                                 decoration: BoxDecoration(
                                                   border: Border.all(
-                                                    color: AppColors.white.withOpacity(.7),
+                                                    color: AppColors.white.withOpacity(.4),
                                                     width: 2,
                                                   ),
                                                   borderRadius: BorderRadius.circular(20.0),
                                                 ),
                                                 child: Icon(
                                                   Icons.clear,
-                                                  color: AppColors.textColor,
+                                                  color: AppColors.white.withOpacity(.4),
                                                   size: 17,
                                                 )),
                                             onTap: () {
@@ -365,7 +365,7 @@ class _MultiformState extends State<Multiform> {
                                       children: [
                                         AppSpaces.spaces_width_5,
                                         Expanded(
-                                          flex: 7,
+                                          flex: 10,
                                           child: MintTextField(
                                             labelText: 'Mint Number',
                                             textType: TextInputType.number,
@@ -374,7 +374,7 @@ class _MultiformState extends State<Multiform> {
                                         ),
                                         AppSpaces.spaces_width_5,
                                         Expanded(
-                                          flex: 7,
+                                          flex: 10,
                                           child: MintTextField(
                                             labelText: 'Price',
                                             textType: TextInputType.number,
@@ -384,13 +384,13 @@ class _MultiformState extends State<Multiform> {
                                         AppSpaces.spaces_width_5,
                                         //datetime_new_row
                                         Expanded(
-                                          flex: 7,
+                                          flex: 11,
                                           child: Container(
                                             height: Get.height * .035,
                                             padding: EdgeInsets.zero,
                                             decoration: BoxDecoration(
                                               border: Border.all(
-                                                color: AppColors.white.withOpacity(.7),
+                                                color: AppColors.white.withOpacity(.3),
                                                 width: 1.5,
                                               ),
                                               borderRadius: BorderRadius.circular(10.0),
@@ -404,7 +404,7 @@ class _MultiformState extends State<Multiform> {
                                                       initialDate: DateTime.now(),
                                                       firstDate: DateTime(2015),
                                                       lastDate: DateTime.now(),
-                                                      dateFormat: "dd-MM-yyyy",
+                                                      dateFormat: "MMM dd,yyyy",
                                                       locale: DateTimePickerLocale.en_us,
                                                       looping: true,
                                                       backgroundColor: const Color(0xff02072D),
@@ -419,7 +419,7 @@ class _MultiformState extends State<Multiform> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Text(
-                                                    DateFormat('yyyy-MM-dd')
+                                                    DateFormat('MMM dd,yyyy')
                                                         .format(DateTime.parse(storedDateController[index].text))
                                                         .toString(),
                                                     style: TextStyle(
@@ -505,20 +505,20 @@ class _MultiformState extends State<Multiform> {
                                                 storedDateController[index].text !=
                                                     data.maoModel!.results![index].ad.toString()
                                             ? Expanded(
-                                                flex: 2,
+                                                flex: 3,
                                                 child: InkWell(
                                                   child: Container(
                                                       margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
                                                       decoration: BoxDecoration(
                                                         border: Border.all(
-                                                          color: AppColors.white.withOpacity(.7),
+                                                          color: AppColors.white.withOpacity(.4),
                                                           width: 2,
                                                         ),
                                                         borderRadius: BorderRadius.circular(20.0),
                                                       ),
                                                       child: Icon(
                                                         Icons.upgrade,
-                                                        color: AppColors.textColor,
+                                                        color: AppColors.white.withOpacity(.4),
                                                         size: 17,
                                                       )),
                                                   onTap: () {
@@ -549,20 +549,20 @@ class _MultiformState extends State<Multiform> {
                                                 ),
                                               )
                                             : Expanded(
-                                                flex: 2,
+                                                flex: 3,
                                                 child: InkWell(
                                                   child: Container(
                                                       margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
                                                       decoration: BoxDecoration(
                                                         border: Border.all(
-                                                          color: AppColors.white.withOpacity(.7),
+                                                          color: AppColors.white.withOpacity(.4),
                                                           width: 2,
                                                         ),
                                                         borderRadius: BorderRadius.circular(20.0),
                                                       ),
                                                       child: Icon(
                                                         Icons.clear,
-                                                        color: AppColors.textColor,
+                                                        color: AppColors.white.withOpacity(.4),
                                                         size: 17,
                                                       )),
                                                   onTap: () {
@@ -633,18 +633,23 @@ class _MultiformState extends State<Multiform> {
                                     Get.back();
                                   },
                                   child: Container(
-                                    width: Get.width * .3,
-                                    height: Get.height * .038,
+                                    width: Get.width * .33,
+                                    height: Get.height * .04,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: AppColors.white.withOpacity(.7),
-                                        width: 1.5,
-                                      ),
-                                      borderRadius: BorderRadius.circular(14.0),
+                                      gradient: AppColors.purpleGradient,
+                                      borderRadius: BorderRadius.circular(14),
+                                      boxShadow: [],
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(2.0),
+                                    child: Container(
+                                      width: Get.width * .33,
+                                      height: Get.height * .04,
+                                      alignment: Alignment.center,
+                                      margin: EdgeInsets.all(1),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xff02072D),
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
                                       child: Text(
                                         'Cancel',
                                         style: TextStyle(fontSize: 14, fontFamily: 'Inter', color: AppColors.textColor),
@@ -687,8 +692,8 @@ class _MultiformState extends State<Multiform> {
                                     printInfo(info: body.toString() + requestHeadersWithToken.toString());
                                   },
                                   child: Container(
-                                    width: Get.width * .3,
-                                    height: Get.height * .038,
+                                    width: Get.width * .33,
+                                    height: Get.height * .04,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       gradient: AppColors.purpleGradient,
@@ -698,7 +703,7 @@ class _MultiformState extends State<Multiform> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(2.0),
                                       child: Text(
-                                        'Save',
+                                        'Add',
                                         style: TextStyle(fontSize: 14, fontFamily: 'Inter', color: AppColors.textColor),
                                       ),
                                     ),
