@@ -178,6 +178,7 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                             textAlign: TextAlign.start,
                             style: Get.textTheme.bodyText1!
                                 .copyWith(color: AppColors.textColor, fontWeight: FontWeight.w900, fontSize: 10.sp),
+                            overflow: TextOverflow.ellipsis,
                           ),
                           AppSpaces.spaces_width_2,
                           Container(
@@ -238,7 +239,7 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      flex:6,
+                      flex: 6,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -266,9 +267,8 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                       ),
                     ),
                     Expanded(
-                      flex:8,
+                      flex: 8,
                       child: Row(
-
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
