@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -141,8 +142,10 @@ class _ProfileState extends State<Profile> {
                         arguments: data.profileModel,
                       );
                     }),
-                    /* CustomProfileElements(
-                            Icons.help_outline, "Help and Support", () {}),*/
+                    */
+/* CustomProfileElements(
+                            Icons.help_outline, "Help and Support", () {}),*//*
+
                     CustomProfileElements(
                         Icons.privacy_tip_outlined, "Privacy Policy", () async {
                       String url =
@@ -159,19 +162,22 @@ class _ProfileState extends State<Profile> {
                             return FeedbackScreen();
                           });
 
-                      /*final InAppReview inAppReview = InAppReview.instance;
+                      */
+/*final InAppReview inAppReview = InAppReview.instance;
 
                           setState(() async {
                             if (await inAppReview.isAvailable()) {
                             inAppReview.requestReview();
                             }
-                          });*/
+                          });*//*
+
                     }),
                     CustomProfileElements(Icons.share, "Share Vemate", () {
                       Share.share(
                           'Visit Vemate Website:\n https://www.vemate.com/');
                     }),
-                    /* CustomProfileElements(Icons.share, "Check Vemate", () async {
+                    */
+/* CustomProfileElements(Icons.share, "Check Vemate", () async {
                       Source installationSource = await StoreChecker.getSource;
 
                       String source = "";
@@ -241,13 +247,15 @@ class _ProfileState extends State<Profile> {
                        await Future.delayed(const Duration(seconds: 1));
                        Navigator.of(context).pop();
                      });
-                    }),*/
+                    }),*//*
+
                     CustomProfileElements(
                         Icons.info_outline_rounded, "About Vemate", () async {
                       String url = 'https://www.vemate.com/';
                       _launchInApp(url);
                     }),
-                    /*CustomProfileElements(
+                    */
+/*CustomProfileElements(
                         Icons.toggle_off_outlined,
                         data.profileModel!.fa == true
                             ? "Two FA Enabled"
@@ -400,7 +408,8 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                       );
-                    }),*/
+                    }),*//*
+
                     CustomProfileElements(
                         Icons.delete_forever_outlined, "Delete Account", () {
 
@@ -509,7 +518,8 @@ class _ProfileState extends State<Profile> {
                               ),
                             );
 
-                            /*AlertDialog(
+                            */
+/*AlertDialog(
                               backgroundColor: AppColors.backgroundColor,
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(
@@ -581,7 +591,8 @@ class _ProfileState extends State<Profile> {
                                   ),
                                 )
                               ],
-                            );*/
+                            );*//*
+
                           });
                     }),
                     CustomProfileElements(Icons.logout, "Log Out", () {
@@ -674,3 +685,4 @@ class _ProfileState extends State<Profile> {
     );
   }
 }
+*/

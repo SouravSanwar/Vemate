@@ -45,210 +45,214 @@ class _VaultState extends State<Vault> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 1.0,
-        titleSpacing: 0,
-        iconTheme: const IconThemeData(color: Colors.grey),
-        backgroundColor: AppColors.backgroundColor,
-        title: Text(
-          "My Vault",
-          style:
-              TextStyle(color: AppColors.textColor, fontFamily: 'Inter', fontSize: 20.sp, fontWeight: FontWeight.bold),
-        ),
-      ),
       backgroundColor: AppColors.backgroundColor,
       body: Consumer<GetData>(builder: (context, data, child) {
         return data.vaultStatsModel != null && data.setListModel != null && data.wishListModel != null
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0),
-                child: ListView(
+                child: Stack(
+
                   children: [
-                    SizedBox(
-                      height: Get.height * .01,
-                    ),
-                    const CombinedVaultCard(),
+
                     Container(
-                      margin: EdgeInsets.symmetric(
-                        horizontal: Get.height * .015,
-                        vertical: Get.height * .02,
-                      ),
-                      height: Get.height * .13,
-                      width: Get.width,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/media/image/vault_banner.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    SeparateVaultCard(
-                      data: data.vaultStatsModel!.collectible,
-                      data1: data.vaultStatsModel!.comic,
-                    ),
-
-                    ///My Collectibles
-                    /*  Padding(
-                      padding: const EdgeInsets.only(left: 15),
+                      padding: EdgeInsets.symmetric(horizontal: Get.height * .021,vertical: Get.height * .05),
+                      color: AppColors.backgroundColor,
                       child: Text(
-                        "My Collectibles",
-                        style: Get.textTheme.headline2!.copyWith(
-                            color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
+                        "My Vault",
+                        style:
+                        TextStyle(color: AppColors.textColor, fontFamily: 'Inter', fontSize: 20.sp, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    vaultSelectDropDownIndex == 0
-                        ? VaultCollectiblesCard(data: data.vaultStatsModel!.collectible)
-                        : vaultSelectDropDownIndex == 1
-                            ? VaultCollectiblesCard7D(
-                                data: data.vaultStatsModel7D!.collectible,
-                              )
-                            : vaultSelectDropDownIndex == 2
-                                ? VaultCollectiblesCard30D(
-                                    data: data.vaultStatsModel30D!.collectible,
-                                  )
-                                : vaultSelectDropDownIndex == 3
-                                    ? VaultCollectiblesCard60D(
-                                        data: data.vaultStatsModel60D!.collectible,
-                                      )
-                                    : VaultCollectiblesCard1Y(
-                                        data: data.vaultStatsModel1Y!.collectible,
-                                      ),*/
-
-                    ///My Comics
-                    /*   Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Text(
-                        "My Comics",
-                        style: Get.textTheme.headline2!.copyWith(
-                          color: AppColors.textColor,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-
-                 vaultSelectDropDownIndex == 0
-                        ? VaultComicsCard(
-                            data: data.vaultStatsModel!.comic,
-                          )
-                        : vaultSelectDropDownIndex == 1
-                            ? VaultComicsCard7D(
-                                data: data.vaultStatsModel7D!.comic,
-                              )
-                            : vaultSelectDropDownIndex == 2
-                                ? VaultComicsCard30D(
-                                    data: data.vaultStatsModel30D!.comic,
-                                  )
-                                : vaultSelectDropDownIndex == 3
-                                    ? VaultComicsCard60D(
-                                        data: data.vaultStatsModel60D!.comic,
-                                      )
-                                    : VaultComicsCard1Y(
-                                        data: data.vaultStatsModel1Y!.comic,
-                                      ),*/
-
-                    ///My Vault
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                            left: 15,
-                            top: Get.height * .0334,
-                            bottom: Get.height * .0167,
-                          ),
-                          //apply padding to all four sides
-                          child: Text(
-                            "My Vault",
-                            style: Get.textTheme.headline2!.copyWith(
-                              color: AppColors.textColor,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500,
+                    Container(
+                      padding: EdgeInsets.only(top: Get.height * .1),
+                      child: ListView(
+                        children: [
+                          const CombinedVaultCard(),
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                              horizontal: Get.height * .015,
+                              vertical: Get.height * .02,
+                            ),
+                            height: Get.height * .13,
+                            width: Get.width,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/media/image/vault_banner.png'),
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
-                        ),
-                        InkWell(
-                          highlightColor: Colors.transparent,
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          onTap: () {
-                            Get.to(() => const SetListPage());
-                          },
-                          child: data.setListModel!.setResults!.isNotEmpty
-                              ? Padding(
-                                  padding: EdgeInsets.only(
-                                      right: Get.width * .06, top: Get.height * .0334, bottom: Get.height * .0167),
-                                  child: Text(
-                                    "See All",
-                                    style: TextStyle(
-                                        color: AppColors.textColor,
-                                        //fontFamily: 'Inter',
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                          SeparateVaultCard(
+                            data: data.vaultStatsModel!.collectible,
+                            data1: data.vaultStatsModel!.comic,
+                          ),
+
+                          ///My Collectibles
+                          /*  Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Text(
+                              "My Collectibles",
+                              style: Get.textTheme.headline2!.copyWith(
+                                  color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          vaultSelectDropDownIndex == 0
+                              ? VaultCollectiblesCard(data: data.vaultStatsModel!.collectible)
+                              : vaultSelectDropDownIndex == 1
+                                  ? VaultCollectiblesCard7D(
+                                      data: data.vaultStatsModel7D!.collectible,
+                                    )
+                                  : vaultSelectDropDownIndex == 2
+                                      ? VaultCollectiblesCard30D(
+                                          data: data.vaultStatsModel30D!.collectible,
+                                        )
+                                      : vaultSelectDropDownIndex == 3
+                                          ? VaultCollectiblesCard60D(
+                                              data: data.vaultStatsModel60D!.collectible,
+                                            )
+                                          : VaultCollectiblesCard1Y(
+                                              data: data.vaultStatsModel1Y!.collectible,
+                                            ),*/
+
+                          ///My Comics
+                          /*   Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Text(
+                              "My Comics",
+                              style: Get.textTheme.headline2!.copyWith(
+                                color: AppColors.textColor,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+
+                       vaultSelectDropDownIndex == 0
+                              ? VaultComicsCard(
+                                  data: data.vaultStatsModel!.comic,
                                 )
-                              : Container(),
-                        ),
-                      ],
-                    ),
-                    data.setListModel != null
-                        ? SizedBox(
+                              : vaultSelectDropDownIndex == 1
+                                  ? VaultComicsCard7D(
+                                      data: data.vaultStatsModel7D!.comic,
+                                    )
+                                  : vaultSelectDropDownIndex == 2
+                                      ? VaultComicsCard30D(
+                                          data: data.vaultStatsModel30D!.comic,
+                                        )
+                                      : vaultSelectDropDownIndex == 3
+                                          ? VaultComicsCard60D(
+                                              data: data.vaultStatsModel60D!.comic,
+                                            )
+                                          : VaultComicsCard1Y(
+                                              data: data.vaultStatsModel1Y!.comic,
+                                            ),*/
+
+                          ///My Vault
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left: Get.width * .041,
+                                  top: Get.height * .0334,
+                                  bottom: Get.height * .0167,
+                                ),
+                                //apply padding to all four sides
+                                child: Text(
+                                  "My Vault",
+                                  style: Get.textTheme.headline2!.copyWith(
+                                    color: AppColors.textColor,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                onTap: () {
+                                  Get.to(() => const SetListPage());
+                                },
+                                child: data.setListModel!.setResults!.isNotEmpty
+                                    ? Padding(
+                                        padding: EdgeInsets.only(
+                                            right: Get.width * .06, top: Get.height * .0334, bottom: Get.height * .0167),
+                                        child: Text(
+                                          "See All",
+                                          style: TextStyle(
+                                              color: AppColors.textColor,
+                                              //fontFamily: 'Inter',
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      )
+                                    : Container(),
+                              ),
+                            ],
+                          ),
+                          data.setListModel != null
+                              ? SizedBox(
+                                  width: Get.width,
+                                  height: Get.height * .31,
+                                  child: data.setListModel!.setResults!.isNotEmpty
+                                      ? const MysetsCard()
+                                      : const NoDataCard(
+                                          title: 'Your Vault is empty!',
+                                        ),
+                                )
+                              : const LoadingExample(),
+
+                          ///My Wishlist
+                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: Get.width * .041, top: Get.height * .0334, bottom: Get.height * .0167),
+                              child: Text(
+                                "My Wishlist",
+                                style: Get.textTheme.headline2!
+                                    .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            InkWell(
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              onTap: () {
+                                Get.to(() => const WishListPage());
+                              },
+                              child: data.wishListModel!.results!.isNotEmpty
+                                  ? Padding(
+                                      padding: EdgeInsets.only(
+                                          right: Get.width * .06, top: Get.height * .0334, bottom: Get.height * .0167),
+                                      child: Text(
+                                        "See All",
+                                        style: TextStyle(
+                                            color: AppColors.textColor,
+                                            //fontFamily: 'Inter',
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )
+                                  : Container(),
+                            ),
+                          ]),
+                          SizedBox(
                             width: Get.width,
                             height: Get.height * .31,
-                            child: data.setListModel!.setResults!.isNotEmpty
-                                ? const MysetsCard()
+                            child: data.wishListModel!.results!.isNotEmpty
+                                ? Align(
+                                    alignment: Alignment.center,
+                                    child: MywishlistCard(),
+                                  )
                                 : const NoDataCard(
-                                    title: 'Your Vault is empty!',
+                                    title: 'Your Wishlist is empty!',
                                   ),
-                          )
-                        : const LoadingExample(),
-
-                    ///My Wishlist
-                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 15, top: Get.height * .0334, bottom: Get.height * .0167),
-                        child: Text(
-                          "My Wishlist",
-                          style: Get.textTheme.headline2!
-                              .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
-                        ),
+                          ),
+                          SizedBox(
+                            height: Get.height * .01,
+                          ),
+                        ],
                       ),
-                      InkWell(
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        onTap: () {
-                          Get.to(() => const WishListPage());
-                        },
-                        child: data.wishListModel!.results!.isNotEmpty
-                            ? Padding(
-                                padding: EdgeInsets.only(
-                                    right: Get.width * .06, top: Get.height * .0334, bottom: Get.height * .0167),
-                                child: Text(
-                                  "See All",
-                                  style: TextStyle(
-                                      color: AppColors.textColor,
-                                      //fontFamily: 'Inter',
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              )
-                            : Container(),
-                      ),
-                    ]),
-                    SizedBox(
-                      width: Get.width,
-                      height: Get.height * .31,
-                      child: data.wishListModel!.results!.isNotEmpty
-                          ? Align(
-                              alignment: Alignment.center,
-                              child: MywishlistCard(),
-                            )
-                          : const NoDataCard(
-                              title: 'Your Wishlist is empty!',
-                            ),
-                    ),
-                    SizedBox(
-                      height: Get.height * .01,
                     ),
                   ],
                 ),

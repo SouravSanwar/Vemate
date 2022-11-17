@@ -16,10 +16,14 @@ import 'package:ketemaa/core/functions/version_control.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
+import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/Designs/update_alert_dialog.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
+import 'package:ketemaa/features/home/components/notification_badge.dart';
+import 'package:ketemaa/features/home/notification/all_notification_list.dart';
 import 'package:ketemaa/features/home/notification/system_notification_details.dart';
 import 'package:ketemaa/features/home/presentation/home.dart';
+import 'package:ketemaa/features/home/presentation/home_drawer.dart';
 import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/Details/comic_details.dart';
 import 'package:ketemaa/features/vault/vault.dart';
@@ -30,11 +34,13 @@ import 'package:provider/provider.dart';
 import '../../market/presentation/market.dart';
 
 String? token;
+late int? seletedItem=0;
+late int? seletedItem1=0;
 
 class ControllerPage extends StatefulWidget {
-  late int? seletedItem;
 
-  ControllerPage({Key? key, this.seletedItem = 0}) : super(key: key);
+
+  ControllerPage({Key? key,}) : super(key: key);
 
   @override
   State<ControllerPage> createState() => _ControllerPageState();
@@ -47,6 +53,7 @@ class _ControllerPageState extends State<ControllerPage> {
   //int _seletedItem = 0;
   final _pages = [const Home(), const Market(), const Vault()];
   late PageController pageController = PageController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<String> names = [
     'Home',
@@ -94,11 +101,19 @@ class _ControllerPageState extends State<ControllerPage> {
     }
 
     getData!.notificationListModel = null;
+    getData!.getUserInfo();
+    getData!.getNews();
+    getData!.getCollectibles(limit: 10);
+    getData!.getNotification();
+    getData!.getAlert();
+    getData!.getVaultStats();
+    getData!.getSetList('');
+    getData!.getWishList();
     super.initState();
     initPlatformState();
     getToken();
     initMessaging();
-    pageController = PageController(initialPage: widget.seletedItem!);
+    pageController = PageController(initialPage: seletedItem!);
   }
 
   Future<void> _firebaseMsg(RemoteMessage message) async {
@@ -255,67 +270,157 @@ class _ControllerPageState extends State<ControllerPage> {
   Widget build(BuildContext context) {
     StatusBar();
     Get.put(ControllerPageController());
-    return WillPopScope(
-      onWillPop: _willPopCallback,
-      child: Stack(
-        children: [
-          Scaffold(
-            backgroundColor: AppColors.backgroundColor,
-            body: PageView(
-              children: _pages,
-              onPageChanged: (index) {
-                setState(() {
-                  widget.seletedItem = index;
-                });
-              },
-              controller: pageController,
-            ),
-            bottomNavigationBar: Docker(
-              onTap: (int index) {
-                setState(() {
-                  widget.seletedItem = index;
-                  pageController.animateToPage(widget.seletedItem!,
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.linear);
-                });
-              },
-              currentIndex: widget.seletedItem,
+    return Consumer<GetData>(builder: (context, data, child)
+    {
+      return WillPopScope(
+        onWillPop: _willPopCallback,
+        child: Stack(
+          children: [
+            data.profileModel != null &&
+                data.homeVaultModel != null &&
+                data.newsModel != null &&
+                data.notificationListModel != null
+                ? Scaffold(
+              key: _scaffoldKey,
+              appBar: seletedItem1==0? AppBar(
+                backgroundColor: AppColors.backgroundColor,
+                elevation: 0,
+                leading: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 12, right: 12, bottom: 12, left: 12),
+                  child: InkWell(
+                    onTap: () {
+                      /*Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (c) => const Profile()));*/
+                      _scaffoldKey.currentState!.openDrawer();
+                    },
+                    child: Container(
+                      child:
+                      data.profileModel!.profileImage != null
+                          ? CircleAvatar(
+                        radius: 20,
+                        backgroundImage: NetworkImage(
+                          Urls.mainUrl +
+                              data
+                                  .profileModel!
+                                  .profileImage!
+                                  .mobile!
+                                  .src
+                                  .toString(),
+                        ),
+                      )
+                          : const CircleAvatar(
+                        radius: 20,
+                        backgroundImage: AssetImage(
+                            'assets/media/image/profile.png'),
+                      ),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: AppColors.greyWhite,
+                          width: 1.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+
+                        Text(
+                          "Hi, ${data.profileModel!.nickname.toString()}",
+                          style: Get.textTheme.headline1!.copyWith(
+                              color: AppColors.textColor,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(
+                        14.0,
+                      ),
+                      child: InkWell(
+                        focusColor: Colors.transparent,
+                        onTap: () async {
+                          Get.to(() => const AllNotificationList());
+                        },
+                        child: NotificationBadge(),
+                      ),
+                    ),
+                  ],
+                ),
+              ) : null,
+              drawer: const Drawer(
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  child: HomeDrawer()
+              ),
               backgroundColor: AppColors.backgroundColor,
-              selectedItemColor: Colors.white,
-              unselectedItemColor: Colors.grey,
-              selectedBackgroundColor: AppColors.purpleGradient,
-              items: [
-                DockerItem(
-                  icon: Icons.home,
-                  title: '  Home  ',
-                ),
-                DockerItem(
-                  icon: Icons.shop,
-                  title: ' Market ',
-                ),
-                DockerItem(
-                  icon: Icons.card_travel,
-                  title: 'My Vault',
-                ),
-              ],
+              body: PageView(
+                children: _pages,
+                onPageChanged: (index) {
+                  setState(() {
+                    seletedItem = index;
+                    print("Current page is " + seletedItem.toString());
+                  });
+                },
+                controller: pageController,
+              ),
+              bottomNavigationBar: Docker(
+                onTap: (int index) {
+                  setState(() {
+                    seletedItem = index;
+                    pageController.animateToPage(seletedItem!,
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.linear).whenComplete(() => seletedItem1=seletedItem);
+                  });
+                },
+                currentIndex: seletedItem,
+                backgroundColor: AppColors.backgroundColor,
+                selectedItemColor: Colors.white,
+                unselectedItemColor: Colors.grey,
+                selectedBackgroundColor: AppColors.purpleGradient,
+                items: [
+                  DockerItem(
+                    icon: Icons.home,
+                    title: '  Home  ',
+                  ),
+                  DockerItem(
+                    icon: Icons.shop,
+                    title: ' Market ',
+                  ),
+                  DockerItem(
+                    icon: Icons.card_travel,
+                    title: 'My Vault',
+                  ),
+                ],
+              ),
+            )
+                : Container(),
+            Positioned(
+              left: 0,
+              right: 0,
+              child: Consumer<AppUpdate>(builder: (context, data, child) {
+                return data.appUpdator != null
+                    ? (int.parse(data.appUpdator!.name!.toString()) >
+                    int.parse(
+                        VersionControl.packageInfo.buildNumber) &&
+                    data.isUpdate == true
+                    ? const AppUpdateAlert()
+                    : Container())
+                    : Container();
+              }),
             ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            child: Consumer<AppUpdate>(builder: (context, data, child) {
-              return data.appUpdator != null
-                  ? (int.parse(data.appUpdator!.name!.toString()) >
-                              int.parse(
-                                  VersionControl.packageInfo.buildNumber) &&
-                          data.isUpdate == true
-                      ? const AppUpdateAlert()
-                      : Container())
-                  : Container();
-            }),
-          ),
-        ],
-      ),
+          ],
+        ),
+      );
+    }
     );
   }
 
@@ -363,11 +468,11 @@ class _ControllerPageState extends State<ControllerPage> {
           );
         },
       ),
-      currentIndex: widget.seletedItem!,
+      currentIndex: seletedItem!,
       onTap: (index) {
         setState(() {
-          widget.seletedItem = index;
-          pageController.animateToPage(widget.seletedItem!,
+          seletedItem = index;
+          pageController.animateToPage(seletedItem!,
               duration: const Duration(milliseconds: 200),
               curve: Curves.linear);
         });

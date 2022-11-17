@@ -71,8 +71,9 @@ class _VaultComicsListState extends State<VaultComicsList> {
 
     return WillPopScope(
       onWillPop: () async {
+        seletedItem = 2;
         Get.offAll(() => ControllerPage(
-              seletedItem: 2,
+
             ));
         return true;
       },

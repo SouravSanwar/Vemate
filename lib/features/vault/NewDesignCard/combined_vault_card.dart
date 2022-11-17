@@ -27,7 +27,7 @@ class _CombinedVaultCardState extends State<CombinedVaultCard> {
                 borderRadius: BorderRadius.circular(6.0),
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.05556, vertical: Get.height * 0.03),
+                padding: EdgeInsets.only(top: 0,bottom: Get.height * 0.03,left: Get.width * 0.05556,right: Get.width * 0.05556),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,23 +70,7 @@ class _CombinedVaultCardState extends State<CombinedVaultCard> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            data.vaultStatsModel!.sign! == 'decrease'
-                                ? const RotationTransition(
-                                    turns: AlwaysStoppedAnimation(45 / 360),
-                                    child: Icon(
-                                      Icons.arrow_downward,
-                                      size: 18,
-                                      color: Colors.red,
-                                    ),
-                                  )
-                                : const RotationTransition(
-                                    turns: AlwaysStoppedAnimation(45 / 360),
-                                    child: Icon(
-                                      Icons.arrow_upward,
-                                      size: 18,
-                                      color: Colors.green,
-                                    ),
-                                  ),
+
                             Text(
                               data.vaultStatsModel!.totalPercentChange! < 0.0
                                   ? data.vaultStatsModel!.totalPercentChange!.toStringAsFixed(2)
@@ -97,6 +81,17 @@ class _CombinedVaultCardState extends State<CombinedVaultCard> {
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16.sp),
+                            ),
+                            data.vaultStatsModel!.sign! == 'decrease'
+                                ? const Icon(
+                              Icons.arrow_downward,
+                              size: 18,
+                              color: Colors.red,
+                            )
+                                : const Icon(
+                              Icons.arrow_upward,
+                              size: 18,
+                              color: Colors.green,
                             ),
                           ],
                         ),

@@ -1,23 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
+import 'package:ketemaa/core/Provider/postData.dart';
+import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
+import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
+import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_controller.dart';
 import 'package:ketemaa/features/home/components/notification_badge.dart';
 import 'package:ketemaa/features/home/notification/all_notification_list.dart';
 import 'package:ketemaa/features/home/notification/no_notification.dart';
 import 'package:ketemaa/features/home/notification/notification_alart.dart';
+import 'package:ketemaa/features/home/presentation/home_drawer.dart';
+import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/features/profile/presentation/profile.dart';
+import 'package:ketemaa/features/profile/widgets/profileElements.dart';
 import 'package:ketemaa/features/vault/NewDesignCard/combined_vault_card.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 import 'package:ketemaa/features/home/components/home_vault_card.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../core/Provider/getData.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
+import '../../controller_page/presentattion/controller_page.dart';
 import '../components/image_slider.dart';
 import '../components/New_Item_card/vault_new_item_card.dart';
 
@@ -36,6 +47,14 @@ class _HomeState extends State<Home> {
   GetData? getData;
   AppUpdate? appUpdate;
 
+  PostData? postData;
+  TextEditingController passwordController = TextEditingController();
+  Map<String, String> requestHeadersWithToken = {
+    'Content-type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'token ${prefs!.getString('token')}',
+  };
+
   Map<String, String> requestToken = {
     'Authorization': 'token ${prefs!.getString('token')}',
   };
@@ -49,16 +68,9 @@ class _HomeState extends State<Home> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-    getData!.getUserInfo();
-    getData!.getNews();
-    getData!.getCollectibles(limit: 10);
-    getData!.getNotification();
-    getData!.getAlert();
-    getData!.getVaultStats();
 
-    getData!.getWishList();
 
-    getData!.getSetList('');
+
 
     super.initState();
   }
@@ -72,127 +84,81 @@ class _HomeState extends State<Home> {
               data.notificationListModel != null
           ? Scaffold(
         key: _scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: AppColors.backgroundColor,
-          elevation: 0,
-          leading: Padding(
-            padding: const EdgeInsets.only(
-                top: 12, right: 12, bottom: 12, left: 12),
-            child: InkWell(
-              onTap: () {
-                /*Navigator.push(
+      appBar: seletedItem1 !=0? AppBar(
+        backgroundColor: AppColors.backgroundColor,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.only(
+              top: 12, right: 12, bottom: 12, left: 12),
+          child: InkWell(
+            onTap: () {
+              /*Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (c) => const Profile()));*/
-                _scaffoldKey.currentState!.openDrawer();
-              },
-              child: Container(
-                child:
-                data.profileModel!.profileImage != null
-                    ? CircleAvatar(
-                  radius: 20,
-                  backgroundImage: NetworkImage(
-                    Urls.mainUrl +
-                        data
-                            .profileModel!
-                            .profileImage!
-                            .mobile!
-                            .src
-                            .toString(),
-                  ),
-                )
-                    : const CircleAvatar(
-                  radius: 20,
-                  backgroundImage: AssetImage(
-                      'assets/media/image/profile.png'),
+              _scaffoldKey.currentState!.openDrawer();
+            },
+            child: Container(
+              child:
+              data.profileModel!.profileImage != null
+                  ? CircleAvatar(
+                radius: 20,
+                backgroundImage: NetworkImage(
+                  Urls.mainUrl +
+                      data
+                          .profileModel!
+                          .profileImage!
+                          .mobile!
+                          .src
+                          .toString(),
                 ),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: AppColors.greyWhite,
-                    width: 1.0,
-                  ),
+              )
+                  : const CircleAvatar(
+                radius: 20,
+                backgroundImage: AssetImage(
+                    'assets/media/image/profile.png'),
+              ),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: AppColors.greyWhite,
+                  width: 1.0,
                 ),
               ),
             ),
           ),
-          title:  Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-
-                  Text(
-                    "Hi, ${data.profileModel!.nickname.toString()}",
-                    style: Get.textTheme.headline1!.copyWith(
-                        color: AppColors.textColor,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(
-                  14.0,
-                ),
-                child: InkWell(
-                  focusColor: Colors.transparent,
-                  onTap: () async {
-                    Get.to(() => const AllNotificationList());
-                  },
-                  child: NotificationBadge(),
-                ),
-              ),
-            ],
-          ),
         ),
-              drawer: Drawer(
-                elevation: 0,
-                backgroundColor: AppColors.backgroundColor,
-                child: Container(
-                  width: Get.width*.7,
-                  child: Column(
-                    children: <Widget>[
-                      ListTile(
-                          leading: Icon(Icons.person, color: Colors.redAccent),
-                          title: Text('My Home'),
-                          onTap: () {
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
 
-                          }),
-                      ListTile(
-                        leading: Icon(Icons.person, color: Colors.redAccent),
-                        title: Text('My Acount'),
-                        onTap: () {
-
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.fitness_center, color: Colors.redAccent),
-                        title: Text('My Workout'),
-                        onTap: () {
-
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.cancel, color: Colors.redAccent),
-                        title: Text('My Nutrition'),
-                        onTap: () {},
-                      ),
-                      Divider(color: Colors.red, indent: 20.0),
-                      ListTile(
-                        leading: Icon(Icons.settings, color: Colors.blue),
-                        title: Text('Settings'),
-                        onTap: () {},
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.help, color: Colors.green),
-                        title: Text('About'),
-                        onTap: () {},
-                      ),
-                    ],
-                  ),
+                Text(
+                  "Hi, ${data.profileModel!.nickname.toString()}",
+                  style: Get.textTheme.headline1!.copyWith(
+                      color: AppColors.textColor,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w500),
                 ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(
+                14.0,
               ),
+              child: InkWell(
+                focusColor: Colors.transparent,
+                onTap: () async {
+                  Get.to(() => const AllNotificationList());
+                },
+                child: NotificationBadge(),
+              ),
+            ),
+          ],
+        ),
+      ) : null,
+
               backgroundColor: AppColors.backgroundColor,
               body: SafeArea(
                   minimum: EdgeInsets.only(top: Get.height * 0.0209),

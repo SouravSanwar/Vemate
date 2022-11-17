@@ -75,23 +75,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    widget.data!.sign! == 'decrease'
-                        ? const RotationTransition(
-                      turns: AlwaysStoppedAnimation(45 / 360),
-                      child: Icon(
-                        Icons.arrow_downward,
-                        size: 18,
-                        color: Colors.red,
-                      ),
-                    )
-                        : const RotationTransition(
-                      turns: AlwaysStoppedAnimation(45 / 360),
-                      child: Icon(
-                        Icons.arrow_upward,
-                        size: 18,
-                        color: Colors.green,
-                      ),
-                    ),
+
                     Text(
                       widget.data!.changePercent != null
                           ? widget.data!.changePercent.toStringAsFixed(2) + "%"
@@ -104,6 +88,17 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.bold,
                           fontSize: 16.sp),
+                    ),
+                    widget.data!.sign! == 'decrease'
+                        ? const Icon(
+                      Icons.arrow_downward,
+                      size: 18,
+                      color: Colors.red,
+                    )
+                        : const Icon(
+                      Icons.arrow_upward,
+                      size: 18,
+                      color: Colors.green,
                     ),
                   ],
                 ),

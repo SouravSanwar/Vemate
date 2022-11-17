@@ -71,8 +71,9 @@ class _VaultCollectiblesListsState extends State<VaultCollectiblesLists> {
 
     return WillPopScope(
       onWillPop: () async {
+        seletedItem= 2;
         Get.offAll(() => ControllerPage(
-              seletedItem: 2,
+
             ));
         return true;
       },
