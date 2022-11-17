@@ -191,7 +191,7 @@ class ProductDetail {
   }
   int? id;
   num? mintNumber;
-  num? type;
+  int? type;
   String? name;
   String? edition;
   String? editions;

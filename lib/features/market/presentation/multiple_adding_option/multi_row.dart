@@ -74,7 +74,7 @@ class _MultiformState extends State<Multiform> {
               height: (data.maoModel!.results!.length + addToListController.length) < 8
                   ? (data.maoModel!.results!.length + addToListController.length) * (Get.height * .055) -
                       ((data.maoModel!.results!.length + addToListController.length) * 5) +
-                      140
+                  (addToListController.isNotEmpty ? 140 : 100)
                   //10 er beshi hole
                   : 490,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: AppColors.backgroundColor),
@@ -350,6 +350,7 @@ class _MultiformState extends State<Multiform> {
                                     );
                                     storedPriceController.add(
                                       TextEditingController(
+
                                         text: data.maoModel!.results![index].ap.toString(),
                                       ),
                                     );
@@ -617,12 +618,12 @@ class _MultiformState extends State<Multiform> {
                             ],
                           )),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: addToListController.isEmpty || data.maoModel!.results!.isEmpty ? 0 : 20,
                     ),
                     //Save Button
                     Container(
-                      height: Get.height * .055,
+                      height: addToListController.isEmpty ? 0 : Get.height * .055,
                       alignment: Alignment.topCenter,
                       child: addToListController.isNotEmpty
                           ? Row(

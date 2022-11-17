@@ -40,13 +40,14 @@ class _HomeState extends State<Home> {
     'Authorization': 'token ${prefs!.getString('token')}',
   };
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     // TODO: implement initState
     //getConnection();
 
     getData = Provider.of<GetData>(context, listen: false);
-
 
     getData!.getUserInfo();
     getData!.getNews();
@@ -70,81 +71,135 @@ class _HomeState extends State<Home> {
               data.newsModel != null &&
               data.notificationListModel != null
           ? Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          backgroundColor: AppColors.backgroundColor,
+          elevation: 0,
+          leading: Padding(
+            padding: const EdgeInsets.only(
+                top: 12, right: 12, bottom: 12, left: 12),
+            child: InkWell(
+              onTap: () {
+                /*Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (c) => const Profile()));*/
+                _scaffoldKey.currentState!.openDrawer();
+              },
+              child: Container(
+                child:
+                data.profileModel!.profileImage != null
+                    ? CircleAvatar(
+                  radius: 20,
+                  backgroundImage: NetworkImage(
+                    Urls.mainUrl +
+                        data
+                            .profileModel!
+                            .profileImage!
+                            .mobile!
+                            .src
+                            .toString(),
+                  ),
+                )
+                    : const CircleAvatar(
+                  radius: 20,
+                  backgroundImage: AssetImage(
+                      'assets/media/image/profile.png'),
+                ),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColors.greyWhite,
+                    width: 1.0,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          title:  Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+
+                  Text(
+                    "Hi, ${data.profileModel!.nickname.toString()}",
+                    style: Get.textTheme.headline1!.copyWith(
+                        color: AppColors.textColor,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(
+                  14.0,
+                ),
+                child: InkWell(
+                  focusColor: Colors.transparent,
+                  onTap: () async {
+                    Get.to(() => const AllNotificationList());
+                  },
+                  child: NotificationBadge(),
+                ),
+              ),
+            ],
+          ),
+        ),
+              drawer: Drawer(
+                elevation: 0,
+                backgroundColor: AppColors.backgroundColor,
+                child: Container(
+                  width: Get.width*.7,
+                  child: Column(
+                    children: <Widget>[
+                      ListTile(
+                          leading: Icon(Icons.person, color: Colors.redAccent),
+                          title: Text('My Home'),
+                          onTap: () {
+
+                          }),
+                      ListTile(
+                        leading: Icon(Icons.person, color: Colors.redAccent),
+                        title: Text('My Acount'),
+                        onTap: () {
+
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.fitness_center, color: Colors.redAccent),
+                        title: Text('My Workout'),
+                        onTap: () {
+
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.cancel, color: Colors.redAccent),
+                        title: Text('My Nutrition'),
+                        onTap: () {},
+                      ),
+                      Divider(color: Colors.red, indent: 20.0),
+                      ListTile(
+                        leading: Icon(Icons.settings, color: Colors.blue),
+                        title: Text('Settings'),
+                        onTap: () {},
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.help, color: Colors.green),
+                        title: Text('About'),
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               backgroundColor: AppColors.backgroundColor,
               body: SafeArea(
                   minimum: EdgeInsets.only(top: Get.height * 0.0209),
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 15, right: 12, bottom: 15, left: 12),
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (c) => const Profile()));
-                                  },
-                                  child: Container(
-                                    child:
-                                        data.profileModel!.profileImage != null
-                                            ? CircleAvatar(
-                                                radius: 20,
-                                                backgroundImage: NetworkImage(
-                                                  Urls.mainUrl +
-                                                      data
-                                                          .profileModel!
-                                                          .profileImage!
-                                                          .mobile!
-                                                          .src
-                                                          .toString(),
-                                                ),
-                                              )
-                                            : const CircleAvatar(
-                                                radius: 20,
-                                                backgroundImage: AssetImage(
-                                                    'assets/media/image/profile.png'),
-                                              ),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: AppColors.greyWhite,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                "Hi, ${data.profileModel!.nickname.toString()}",
-                                style: Get.textTheme.headline1!.copyWith(
-                                    color: AppColors.textColor,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(
-                              14.0,
-                            ),
-                            child: InkWell(
-                              focusColor: Colors.transparent,
-                              onTap: () async {
-                                Get.to(
-                                        () =>const AllNotificationList());
-                              },
-                              child: NotificationBadge(),
-                            ),
-                          ),
-                        ],
-                      ),
+
 
                       ///News
                       Padding(
@@ -177,11 +232,11 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.w500),
                         ),
                       ),
-                     Container(
-                       padding: EdgeInsets.symmetric(vertical: Get.height*.02),
-                       child: const CombinedVaultCard(),
-                     )
-                     ,
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: Get.height * .02),
+                        child: const CombinedVaultCard(),
+                      ),
 
                       ///Newest
                       Padding(

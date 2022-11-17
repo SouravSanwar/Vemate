@@ -242,13 +242,14 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                                 data.mySetsModel!.results![index].productDetail!.edition.toString());
                                             prefs!.setString('ap', data.mySetsModel!.results![index].ap.toString());
                                             prefs!.setString('ad', data.mySetsModel!.results![index].ad.toString());
-                                            data.setListModel!.setResults![index].setProductDetail!.type == 0
+                                            data.mySetsModel!.results![index].productDetail!.type == 0
                                                 ? Get.to(
+
                                                     () => CollectibleDetails(
                                                       productType:
-                                                          data.setListModel!.setResults![index].setProductDetail!.type!,
+                                                      data.mySetsModel!.results![index].productDetail!.type!,
                                                       productId:
-                                                          data.setListModel!.setResults![index].setProductDetail!.id!,
+                                                      data.mySetsModel!.results![index].productDetail!.id!,
                                                       fromVault: true,
 
                                                       ///Need to mint Id for upgrade
@@ -262,10 +263,9 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                                   )
                                                 : Get.to(
                                                     () => ComicDetails(
-                                                      productId: data.wishListModel!.results![index].productDetail!.id!,
+                                                      productId: data.mySetsModel!.results![index].productDetail!.id!,
                                                       fromVault: true,
-                                                      productType:
-                                                          data.setListModel!.setResults![index].setProductDetail!.type!,
+                                                      productType:data.mySetsModel!.results![index].productDetail!.type,
                                                       mintId:
                                                           int.parse(data.mySetsModel!.results![index].id.toString()),
                                                       edition: data.mySetsModel!.results![index].productDetail!.edition,
