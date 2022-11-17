@@ -1,9 +1,10 @@
 class MySetsModel {
   MySetsModel({
-      this.count,
-      this.next,
-      this.previous,
-      this.results,});
+    this.count,
+    this.next,
+    this.previous,
+    this.results,
+  });
 
   MySetsModel.fromJson(dynamic json) {
     count = json['count'];
@@ -16,6 +17,7 @@ class MySetsModel {
       });
     }
   }
+
   num? count;
   dynamic next;
   dynamic previous;
@@ -31,7 +33,6 @@ class MySetsModel {
     }
     return map;
   }
-
 }
 
 class Results {
@@ -45,7 +46,8 @@ class Results {
     this.ad,
     this.creationTime,
     this.user,
-    this.product,});
+    this.product,
+  });
 
   Results.fromJson(dynamic json) {
     id = json['id'];
@@ -53,12 +55,13 @@ class Results {
     statsDetail = json['stats_detail'] != null ? StatsDetail.fromJson(json['stats_detail']) : null;
     type = json['type'];
     mintNumber = json['mint_number'];
-    ap = json['ap'];
+    ap = double.parse(json['ap']).toStringAsFixed(2);
     ad = json['ad'];
     creationTime = json['creation_time'];
     user = json['user'];
     product = json['product'];
   }
+
   num? id;
   ProductDetail? productDetail;
   StatsDetail? statsDetail;
@@ -88,7 +91,6 @@ class Results {
     map['product'] = product;
     return map;
   }
-
 }
 
 class StatsDetail {
@@ -98,7 +100,8 @@ class StatsDetail {
     this.priceChange,
     this.changePercent,
     this.totalAp,
-    this.graph,});
+    this.graph,
+  });
 
   StatsDetail.fromJson(dynamic json) {
     totalItem = json['total_item'];
@@ -113,6 +116,7 @@ class StatsDetail {
       });
     }
   }
+
   num? totalItem;
   String? sign;
   double? priceChange;
@@ -132,20 +136,21 @@ class StatsDetail {
     }
     return map;
   }
-
 }
 
 class Graph {
   Graph({
     this.floorPrice,
     this.creationTime,
-    this.date,});
+    this.date,
+  });
 
   Graph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
     creationTime = json['creation_time'];
     date = json['date'];
   }
+
   num? floorPrice;
   String? creationTime;
   String? date;
@@ -157,23 +162,23 @@ class Graph {
     map['date'] = date;
     return map;
   }
-
 }
 
 class ProductDetail {
   ProductDetail({
-      this.id,
-      this.mintNumber,
-      this.type,
-      this.name,
-      this.edition,
-      this.editions,
-      this.parent,
-      this.brand,
-      this.rarity,
-      this.floorPrice,
-      this.series,
-      this.image,});
+    this.id,
+    this.mintNumber,
+    this.type,
+    this.name,
+    this.edition,
+    this.editions,
+    this.parent,
+    this.brand,
+    this.rarity,
+    this.floorPrice,
+    this.series,
+    this.image,
+  });
 
   ProductDetail.fromJson(dynamic json) {
     id = json['id'];
@@ -189,6 +194,7 @@ class ProductDetail {
     series = json['series'];
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
   }
+
   int? id;
   num? mintNumber;
   int? type;
@@ -220,16 +226,16 @@ class ProductDetail {
     }
     return map;
   }
-
 }
 
 class Image {
   Image({
-      this.direction,
-      this.baseUrl,
-      this.lowResUrl,
-      this.midResUrl,
-      this.highResUrl,});
+    this.direction,
+    this.baseUrl,
+    this.lowResUrl,
+    this.midResUrl,
+    this.highResUrl,
+  });
 
   Image.fromJson(dynamic json) {
     direction = json['direction'];
@@ -238,6 +244,7 @@ class Image {
     midResUrl = json['mid_res_url'];
     highResUrl = json['high_res_url'];
   }
+
   String? direction;
   String? baseUrl;
   String? lowResUrl;
@@ -253,5 +260,4 @@ class Image {
     map['high_res_url'] = highResUrl;
     return map;
   }
-
 }
