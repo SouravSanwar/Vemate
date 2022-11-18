@@ -27,7 +27,7 @@ class _CombinedVaultCardState extends State<CombinedVaultCard> {
                 borderRadius: BorderRadius.circular(6.0),
               ),
               child: Padding(
-                padding: EdgeInsets.only(top: 0,bottom: Get.height * 0.03,left: Get.width * 0.05556,right: Get.width * 0.05556),
+                padding: EdgeInsets.only(top: Get.height * 0.03,bottom: Get.height * 0.03,left: Get.width * 0.05556,right: Get.width * 0.05556),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -54,17 +54,9 @@ class _VaultState extends State<Vault> {
 
                   children: [
 
+
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: Get.height * .021,vertical: Get.height * .05),
-                      color: AppColors.backgroundColor,
-                      child: Text(
-                        "My Vault",
-                        style:
-                        TextStyle(color: AppColors.textColor, fontFamily: 'Inter', fontSize: 20.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: Get.height * .1),
+                      padding: EdgeInsets.only(top: Get.height * .08),
                       child: ListView(
                         children: [
                           const CombinedVaultCard(),
@@ -252,6 +244,18 @@ class _VaultState extends State<Vault> {
                             height: Get.height * .01,
                           ),
                         ],
+                      ),
+                    ),
+                    Container(
+                      width: Get.width,
+                      height: Get.height * .07,
+                      margin: EdgeInsets.only(top: Get.height * .05),
+                      padding: EdgeInsets.symmetric(horizontal: Get.height * .021,),
+                      color: AppColors.backgroundColor,
+                      child: Text(
+                        "My Vault",
+                        style:
+                        TextStyle(color: AppColors.textColor, fontFamily: 'Inter', fontSize: 20.sp, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],

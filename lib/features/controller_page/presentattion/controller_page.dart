@@ -5,6 +5,8 @@ import 'package:bottom_bar_page_transition/bottom_bar_page_transition.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Docker/docker.dart';
@@ -348,7 +350,15 @@ class _ControllerPageState extends State<ControllerPage> {
                       child: InkWell(
                         focusColor: Colors.transparent,
                         onTap: () async {
-                          Get.to(() => const AllNotificationList());
+                          try {
+                            await FlutterDynamicIcon.setApplicationIconBadgeNumber(15);
+                          } on PlatformException {
+                            print('Exception: Platform not supported');
+                          } catch (e) {
+                            print(e);
+                          }
+                         // Get.to(() => const AllNotificationList());
+                         print(FlutterDynamicIcon.getApplicationIconBadgeNumber().toString());
                         },
                         child: NotificationBadge(),
                       ),
@@ -505,6 +515,7 @@ class _ControllerPageState extends State<ControllerPage> {
       importance: Importance.high,
       priority: Priority.high,
       playSound: true,
+      channelShowBadge: true,
     );
 
     var iosDetails = const IOSNotificationDetails();
