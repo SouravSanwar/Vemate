@@ -34,13 +34,12 @@ import 'package:provider/provider.dart';
 import '../../market/presentation/market.dart';
 
 String? token;
-late int? seletedItem=0;
-late int? seletedItem1=0;
+late int? seletedItem = 0;
 
 class ControllerPage extends StatefulWidget {
-
-
-  ControllerPage({Key? key,}) : super(key: key);
+  ControllerPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ControllerPage> createState() => _ControllerPageState();
@@ -77,11 +76,9 @@ class _ControllerPageState extends State<ControllerPage> {
   GetData? getData;
 
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  Future<void> _firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
+  Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     await Firebase.initializeApp();
 
     print("Handling a background message: ${message.messageId}");
@@ -119,16 +116,13 @@ class _ControllerPageState extends State<ControllerPage> {
   Future<void> _firebaseMsg(RemoteMessage message) async {
     print("Handling a background message : ${message.data}");
 
-
     if (message.data["verb"] == "7") {
-
       Get.to(() => SystemNotificationDetails(
-        title: message.data["title"].toString(),
-        description: message.data["body"].toString(),
-        link: message.data["link"].toString(),
-      ));
-    }
-    else{
+            title: message.data["title"].toString(),
+            description: message.data["body"].toString(),
+            link: message.data["link"].toString(),
+          ));
+    } else {
       productId = int.parse(message.data["id"].toString());
 
       message.data["type"].toString() == '0'
@@ -159,8 +153,7 @@ class _ControllerPageState extends State<ControllerPage> {
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -182,10 +175,8 @@ class _ControllerPageState extends State<ControllerPage> {
                       ),
                       Text(
                         "Vemate",
-                        style: Get.textTheme.headline1!.copyWith(
-                            color: AppColors.textColor,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w500),
+                        style: Get.textTheme.headline1!
+                            .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
@@ -193,8 +184,7 @@ class _ControllerPageState extends State<ControllerPage> {
                 AppSpaces.spaces_height_10,
                 Text(
                   'Are you sure to exit?',
-                  style: TextStyle(
-                      fontFamily: 'Inter', color: AppColors.textColor),
+                  style: TextStyle(fontFamily: 'Inter', color: AppColors.textColor),
                 ),
                 AppSpaces.spaces_height_10,
                 Row(
@@ -220,9 +210,7 @@ class _ControllerPageState extends State<ControllerPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'No',
-                            style: TextStyle(
-                                fontFamily: 'Inter',
-                                color: AppColors.textColor),
+                            style: TextStyle(fontFamily: 'Inter', color: AppColors.textColor),
                           ),
                         ),
                       ),
@@ -248,9 +236,7 @@ class _ControllerPageState extends State<ControllerPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'Yes',
-                            style: TextStyle(
-                                fontFamily: 'Inter',
-                                color: AppColors.textColor),
+                            style: TextStyle(fontFamily: 'Inter', color: AppColors.textColor),
                           ),
                         ),
                       ),
@@ -270,138 +256,118 @@ class _ControllerPageState extends State<ControllerPage> {
   Widget build(BuildContext context) {
     StatusBar();
     Get.put(ControllerPageController());
-    return Consumer<GetData>(builder: (context, data, child)
-    {
+    return Consumer<GetData>(builder: (context, data, child) {
       return WillPopScope(
         onWillPop: _willPopCallback,
         child: Stack(
           children: [
             data.profileModel != null &&
-                data.homeVaultModel != null &&
-                data.newsModel != null &&
-                data.notificationListModel != null
+                    data.homeVaultModel != null &&
+                    data.newsModel != null &&
+                    data.notificationListModel != null
                 ? Scaffold(
-              key: _scaffoldKey,
-              appBar: seletedItem1==0? AppBar(
-                backgroundColor: AppColors.backgroundColor,
-                elevation: 0,
-                leading: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 12, right: 12, bottom: 12, left: 12),
-                  child: InkWell(
-                    onTap: () {
-                      /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (c) => const Profile()));*/
-                      _scaffoldKey.currentState!.openDrawer();
-                    },
-                    child: Container(
-                      child:
-                      data.profileModel!.profileImage != null
-                          ? CircleAvatar(
-                        radius: 20,
-                        backgroundImage: NetworkImage(
-                          Urls.mainUrl +
-                              data
-                                  .profileModel!
-                                  .profileImage!
-                                  .mobile!
-                                  .src
-                                  .toString(),
-                        ),
-                      )
-                          : const CircleAvatar(
-                        radius: 20,
-                        backgroundImage: AssetImage(
-                            'assets/media/image/profile.png'),
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: AppColors.greyWhite,
-                          width: 1.0,
-                        ),
-                      ),
+                    key: _scaffoldKey,
+                    appBar: seletedItem == 0
+                        ? AppBar(
+                            backgroundColor: AppColors.backgroundColor,
+                            elevation: 0,
+                            leading: Padding(
+                              padding: const EdgeInsets.only(top: 12, right: 12, bottom: 12, left: 12),
+                              child: InkWell(
+                                onTap: () {
+                                  _scaffoldKey.currentState!.openDrawer();
+                                },
+                                child: Container(
+                                  child: data.profileModel!.profileImage != null
+                                      ? CircleAvatar(
+                                          radius: 20,
+                                          backgroundImage: NetworkImage(
+                                            Urls.mainUrl + data.profileModel!.profileImage!.mobile!.src.toString(),
+                                          ),
+                                        )
+                                      : const CircleAvatar(
+                                          radius: 20,
+                                          backgroundImage: AssetImage('assets/media/image/profile.png'),
+                                        ),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: AppColors.greyWhite,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Hi, ${data.profileModel!.nickname.toString()}",
+                                      style: Get.textTheme.headline1!.copyWith(
+                                          color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(
+                                    14.0,
+                                  ),
+                                  child: InkWell(
+                                    focusColor: Colors.transparent,
+                                    onTap: () async {
+                                      Get.to(() => const AllNotificationList());
+                                    },
+                                    child: NotificationBadge(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : null,
+                    drawer: const Drawer(elevation: 0, backgroundColor: Colors.transparent, child: HomeDrawer()),
+                    backgroundColor: AppColors.backgroundColor,
+                    body: PageView(
+                      children: _pages,
+                      onPageChanged: (index) {
+                        setState(() {
+                          seletedItem = index;
+                          print("Current page is " + seletedItem.toString());
+                        });
+                      },
+                      controller: pageController,
                     ),
-                  ),
-                ),
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-
-                        Text(
-                          "Hi, ${data.profileModel!.nickname.toString()}",
-                          style: Get.textTheme.headline1!.copyWith(
-                              color: AppColors.textColor,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500),
+                    bottomNavigationBar: Docker(
+                      onTap: (int index) {
+                        setState(() {
+                          seletedItem = index;
+                          pageController.animateToPage(seletedItem!,
+                              duration: const Duration(milliseconds: 200), curve: Curves.linear);
+                        });
+                      },
+                      currentIndex: seletedItem,
+                      backgroundColor: AppColors.backgroundColor,
+                      selectedItemColor: Colors.white,
+                      unselectedItemColor: Colors.grey,
+                      selectedBackgroundColor: AppColors.purpleGradient,
+                      items: [
+                        DockerItem(
+                          icon: Icons.home,
+                          title: '  Home  ',
+                        ),
+                        DockerItem(
+                          icon: Icons.shop,
+                          title: ' Market ',
+                        ),
+                        DockerItem(
+                          icon: Icons.card_travel,
+                          title: 'My Vault',
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(
-                        14.0,
-                      ),
-                      child: InkWell(
-                        focusColor: Colors.transparent,
-                        onTap: () async {
-                          Get.to(() => const AllNotificationList());
-                        },
-                        child: NotificationBadge(),
-                      ),
-                    ),
-                  ],
-                ),
-              ) : null,
-              drawer: const Drawer(
-                  elevation: 0,
-                  backgroundColor: Colors.transparent,
-                  child: HomeDrawer()
-              ),
-              backgroundColor: AppColors.backgroundColor,
-              body: PageView(
-                children: _pages,
-                onPageChanged: (index) {
-                  setState(() {
-                    seletedItem = index;
-                    print("Current page is " + seletedItem.toString());
-                  });
-                },
-                controller: pageController,
-              ),
-              bottomNavigationBar: Docker(
-                onTap: (int index) {
-                  setState(() {
-                    seletedItem = index;
-                    pageController.animateToPage(seletedItem!,
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.linear).whenComplete(() => seletedItem1=seletedItem);
-                  });
-                },
-                currentIndex: seletedItem,
-                backgroundColor: AppColors.backgroundColor,
-                selectedItemColor: Colors.white,
-                unselectedItemColor: Colors.grey,
-                selectedBackgroundColor: AppColors.purpleGradient,
-                items: [
-                  DockerItem(
-                    icon: Icons.home,
-                    title: '  Home  ',
-                  ),
-                  DockerItem(
-                    icon: Icons.shop,
-                    title: ' Market ',
-                  ),
-                  DockerItem(
-                    icon: Icons.card_travel,
-                    title: 'My Vault',
-                  ),
-                ],
-              ),
-            )
+                  )
                 : Container(),
             Positioned(
               left: 0,
@@ -409,19 +375,17 @@ class _ControllerPageState extends State<ControllerPage> {
               child: Consumer<AppUpdate>(builder: (context, data, child) {
                 return data.appUpdator != null
                     ? (int.parse(data.appUpdator!.name!.toString()) >
-                    int.parse(
-                        VersionControl.packageInfo.buildNumber) &&
-                    data.isUpdate == true
-                    ? const AppUpdateAlert()
-                    : Container())
+                                int.parse(VersionControl.packageInfo.buildNumber) &&
+                            data.isUpdate == true
+                        ? const AppUpdateAlert()
+                        : Container())
                     : Container();
               }),
             ),
           ],
         ),
       );
-    }
-    );
+    });
   }
 
   getBody(int index) {
@@ -472,9 +436,7 @@ class _ControllerPageState extends State<ControllerPage> {
       onTap: (index) {
         setState(() {
           seletedItem = index;
-          pageController.animateToPage(seletedItem!,
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.linear);
+          pageController.animateToPage(seletedItem!, duration: const Duration(milliseconds: 200), curve: Curves.linear);
         });
       },
     );
@@ -509,11 +471,9 @@ class _ControllerPageState extends State<ControllerPage> {
 
     var iosDetails = const IOSNotificationDetails();
 
-    var generalNotificationDetails =
-        NotificationDetails(android: androidDetails, iOS: iosDetails);
+    var generalNotificationDetails = NotificationDetails(android: androidDetails, iOS: iosDetails);
 
-    void onDidReceiveLocalNotification(
-        int id, String? title, String? body, String? payload) async {
+    void onDidReceiveLocalNotification(int id, String? title, String? body, String? payload) async {
       showDialog(
           context: context,
           builder: (_) {
@@ -530,8 +490,7 @@ class _ControllerPageState extends State<ControllerPage> {
           });
     }
 
-    var androidInit =
-        const AndroidInitializationSettings('assets/media/icon/logo_v.png');
+    var androidInit = const AndroidInitializationSettings('assets/media/icon/logo_v.png');
 
     final IOSInitializationSettings iosInit = IOSInitializationSettings(
       requestSoundPermission: true,
@@ -540,15 +499,12 @@ class _ControllerPageState extends State<ControllerPage> {
       onDidReceiveLocalNotification: onDidReceiveLocalNotification,
     );
 
-    var initSetting =
-        InitializationSettings(android: androidInit, iOS: iosInit);
+    var initSetting = InitializationSettings(android: androidInit, iOS: iosInit);
 
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.initialize(initSetting);
 
     FirebaseMessaging.onBackgroundMessage((message) async {
-
-
       Map<String, String> requestHeadersWithToken = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
@@ -556,42 +512,36 @@ class _ControllerPageState extends State<ControllerPage> {
       };
 
       if (message.data["verb"] == "7") {
-
         /*setState(() {
           postData!
               .notificationRead(context, productId, requestHeadersWithToken);
         });*/
         Get.to(() => SystemNotificationDetails(
-          title: message.data["title"].toString(),
-          description: message.data["body"].toString(),
-          link: message.data["link"].toString(),
-        ));
-
-      }
-      else{
+              title: message.data["title"].toString(),
+              description: message.data["body"].toString(),
+              link: message.data["link"].toString(),
+            ));
+      } else {
         productId = int.parse(message.data["id"].toString());
         print("onMessageOpenedApp Product Id: " + message.data["type"].toString());
 
         if (message.data["type"].toString() == '0') {
           setState(() {
-            postData!
-                .notificationRead(context, productId, requestHeadersWithToken);
+            postData!.notificationRead(context, productId, requestHeadersWithToken);
           });
           Get.to(() => CollectibleDetails(
-            productId: productId,
-          ));
+                productId: productId,
+              ));
         } else {
           setState(() {
-            postData!
-                .notificationRead(context, productId, requestHeadersWithToken);
+            postData!.notificationRead(context, productId, requestHeadersWithToken);
           });
           Get.to(
-                () => ComicDetails(
+            () => ComicDetails(
               productId: productId,
             ),
           );
         }
-
       }
     });
 
@@ -601,8 +551,8 @@ class _ControllerPageState extends State<ControllerPage> {
       AndroidNotification? android = message.notification!.android;
 
       if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(notification.hashCode,
-            notification.title, notification.body, generalNotificationDetails);
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode, notification.title, notification.body, generalNotificationDetails);
       }
     });
 
@@ -610,48 +560,43 @@ class _ControllerPageState extends State<ControllerPage> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       print("onMessageOpenedApp: ${message.data}");
 
-
       Map<String, String> requestHeadersWithToken = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'token ${prefs!.getString('token')}',
       };
 
-      if (message.data["verb"] == "7"){
+      if (message.data["verb"] == "7") {
         /*setState(() {
           postData!
               .notificationRead(context, productId, requestHeadersWithToken);
         });*/
         Get.to(() => SystemNotificationDetails(
-          title: message.data["title"].toString(),
-          description: message.data["body"].toString(),
-          link: message.data["link"].toString(),
-        ));
-      }
-      else{
+              title: message.data["title"].toString(),
+              description: message.data["body"].toString(),
+              link: message.data["link"].toString(),
+            ));
+      } else {
         print("onMessageOpenedApp Product Id: " + message.data["type"].toString());
 
         productId = int.parse(message.data["id"].toString());
         if (message.data["type"].toString() == '0') {
           setState(() {
-            postData!
-                .notificationRead(context, productId, requestHeadersWithToken);
+            postData!.notificationRead(context, productId, requestHeadersWithToken);
           });
           Get.to(() => CollectibleDetails(
-            productId: productId,
-          ));
+                productId: productId,
+              ));
         } else {
           setState(() {
-            postData!
-                .notificationRead(context, productId, requestHeadersWithToken);
+            postData!.notificationRead(context, productId, requestHeadersWithToken);
           });
           Get.to(
-                () => ComicDetails(
+            () => ComicDetails(
               productId: productId,
             ),
           );
         }
-
       }
     });
 
@@ -659,8 +604,6 @@ class _ControllerPageState extends State<ControllerPage> {
 
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
-
-
         Map<String, String> requestHeadersWithToken = {
           'Content-type': 'application/json',
           'Accept': 'application/json',
@@ -673,26 +616,24 @@ class _ControllerPageState extends State<ControllerPage> {
                 .notificationRead(context, productId, requestHeadersWithToken);
           });*/
           Get.to(() => SystemNotificationDetails(
-            title: message.data["title"].toString(),
-            description: message.data["body"].toString(),
-            link: message.data["link"].toString(),
-          ));
+                title: message.data["title"].toString(),
+                description: message.data["body"].toString(),
+                link: message.data["link"].toString(),
+              ));
         } else {
           productId = int.parse(message.data["id"].toString());
           print("onMessageOpenedApp Product Id: " + message.data["type"].toString());
 
           if (message.data["type"].toString() == '0') {
             setState(() {
-              postData!
-                  .notificationRead(context, productId, requestHeadersWithToken);
+              postData!.notificationRead(context, productId, requestHeadersWithToken);
             });
             Get.to(() => CollectibleDetails(
                   productId: productId,
                 ));
           } else {
             setState(() {
-              postData!
-                  .notificationRead(context, productId, requestHeadersWithToken);
+              postData!.notificationRead(context, productId, requestHeadersWithToken);
             });
             Get.to(
               () => ComicDetails(
@@ -707,8 +648,8 @@ class _ControllerPageState extends State<ControllerPage> {
         AppleNotification? apple = message.notification?.apple;
 
         if (notification != null && android != null && apple != null) {
-          flutterLocalNotificationsPlugin.show(notification.hashCode,
-              notification.title, notification.body, generalNotificationDetails,
+          flutterLocalNotificationsPlugin.show(
+              notification.hashCode, notification.title, notification.body, generalNotificationDetails,
               payload: message.data["type_id"].toString());
 
           showDialog(

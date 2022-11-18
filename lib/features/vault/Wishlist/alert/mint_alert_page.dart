@@ -68,7 +68,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
     // TODO: implement initState
 
     getData = Provider.of<GetData>(context, listen: false);
-    mintController2.text= widget.results!.editions.toString();
+    // mintController2.text= widget.results!.editions.toString();
 
     if (widget.results!.isProductAlert == true) {
       for (int i = 0; i < widget.results!.productAlertData!.length; i++) {

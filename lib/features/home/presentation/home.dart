@@ -68,10 +68,6 @@ class _HomeState extends State<Home> {
 
     getData = Provider.of<GetData>(context, listen: false);
 
-
-
-
-
     super.initState();
   }
 
@@ -83,137 +79,106 @@ class _HomeState extends State<Home> {
               data.newsModel != null &&
               data.notificationListModel != null
           ? Scaffold(
-        key: _scaffoldKey,
-      appBar: seletedItem1 !=0? AppBar(
-        backgroundColor: AppColors.backgroundColor,
-        elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.only(
-              top: 12, right: 12, bottom: 12, left: 12),
-          child: InkWell(
-            onTap: () {
-              /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (c) => const Profile()));*/
-              _scaffoldKey.currentState!.openDrawer();
-            },
-            child: Container(
-              child:
-              data.profileModel!.profileImage != null
-                  ? CircleAvatar(
-                radius: 20,
-                backgroundImage: NetworkImage(
-                  Urls.mainUrl +
-                      data
-                          .profileModel!
-                          .profileImage!
-                          .mobile!
-                          .src
-                          .toString(),
-                ),
-              )
-                  : const CircleAvatar(
-                radius: 20,
-                backgroundImage: AssetImage(
-                    'assets/media/image/profile.png'),
-              ),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.greyWhite,
-                  width: 1.0,
-                ),
-              ),
-            ),
-          ),
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-
-                Text(
-                  "Hi, ${data.profileModel!.nickname.toString()}",
-                  style: Get.textTheme.headline1!.copyWith(
-                      color: AppColors.textColor,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w500),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(
-                14.0,
-              ),
-              child: InkWell(
-                focusColor: Colors.transparent,
-                onTap: () async {
-                  Get.to(() => const AllNotificationList());
-                },
-                child: NotificationBadge(),
-              ),
-            ),
-          ],
-        ),
-      ) : null,
-
               backgroundColor: AppColors.backgroundColor,
+              key: _scaffoldKey,
+              // appBar: AppBar(
+              //   backgroundColor: AppColors.backgroundColor,
+              //   elevation: 0,
+              //   leading: Padding(
+              //     padding: const EdgeInsets.only(top: 12, right: 12, bottom: 12, left: 12),
+              //     child: InkWell(
+              //       onTap: () {
+              //         _scaffoldKey.currentState!.openDrawer();
+              //       },
+              //       child: Container(
+              //         child: data.profileModel!.profileImage != null
+              //             ? CircleAvatar(
+              //                 radius: 20,
+              //                 backgroundImage: NetworkImage(
+              //                   Urls.mainUrl + data.profileModel!.profileImage!.mobile!.src.toString(),
+              //                 ),
+              //               )
+              //             : const CircleAvatar(
+              //                 radius: 20,
+              //                 backgroundImage: AssetImage('assets/media/image/profile.png'),
+              //               ),
+              //         decoration: BoxDecoration(
+              //           shape: BoxShape.circle,
+              //           border: Border.all(
+              //             color: AppColors.greyWhite,
+              //             width: 1.0,
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              //   title: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       Row(
+              //         children: [
+              //           Text(
+              //             "Hi, ${data.profileModel!.nickname.toString()}",
+              //             style: Get.textTheme.headline1!
+              //                 .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
+              //           ),
+              //         ],
+              //       ),
+              //       Padding(
+              //         padding: const EdgeInsets.all(
+              //           14.0,
+              //         ),
+              //         child: InkWell(
+              //           focusColor: Colors.transparent,
+              //           onTap: () async {
+              //             Get.to(() => const AllNotificationList());
+              //           },
+              //           child: NotificationBadge(),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // drawer: const Drawer(elevation: 0, backgroundColor: Colors.transparent, child: HomeDrawer()),
               body: SafeArea(
                   minimum: EdgeInsets.only(top: Get.height * 0.0209),
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-
-
                       ///News
                       Padding(
-                        padding: const EdgeInsets.only(
-                            top: 11, bottom: 12, left: 15, right: 15),
+                        padding: const EdgeInsets.only(top: 11, bottom: 12, left: 15, right: 15),
                         child: Text(
                           'News',
                           textAlign: TextAlign.left,
-                          style: Get.textTheme.headline2!.copyWith(
-                              color: AppColors.textColor,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500),
+                          style: Get.textTheme.headline2!
+                              .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
                         ),
                       ),
 
-                      ImageSlider(
-                          news: data.newsModel != null
-                              ? data.newsModel!.results
-                              : null),
+                      ImageSlider(news: data.newsModel != null ? data.newsModel!.results : null),
 
                       ///My Vault
                       Padding(
-                        padding: const EdgeInsets.only(
-                            top: 24, bottom: 0, left: 15, right: 15),
+                        padding: const EdgeInsets.only(top: 24, bottom: 0, left: 15, right: 15),
                         child: Text(
                           'My Vault',
-                          style: Get.textTheme.headline2!.copyWith(
-                              color: AppColors.textColor,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500),
+                          style: Get.textTheme.headline2!
+                              .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
                         ),
                       ),
                       Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: Get.height * .02),
+                        padding: EdgeInsets.symmetric(vertical: Get.height * .02),
                         child: const CombinedVaultCard(),
                       ),
 
                       ///Newest
                       Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 12, left: 15, right: 15),
+                        padding: const EdgeInsets.only(bottom: 12, left: 15, right: 15),
                         child: Text(
                           'Latest Updates',
-                          style: Get.textTheme.headline2!.copyWith(
-                              color: AppColors.textColor,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500),
+                          style: Get.textTheme.headline2!
+                              .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
                         ),
                       ),
                       SizedBox(
