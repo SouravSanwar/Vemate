@@ -1,9 +1,10 @@
 class MaoModel {
   MaoModel({
-      this.count, 
-      this.next, 
-      this.previous, 
-      this.results,});
+    this.count,
+    this.next,
+    this.previous,
+    this.results,
+  });
 
   MaoModel.fromJson(dynamic json) {
     count = json['count'];
@@ -16,6 +17,7 @@ class MaoModel {
       });
     }
   }
+
   num? count;
   dynamic next;
   dynamic previous;
@@ -31,30 +33,31 @@ class MaoModel {
     }
     return map;
   }
-
 }
 
 class Results {
   Results({
-      this.id, 
-      this.type, 
-      this.mintNumber, 
-      this.ap, 
-      this.ad, 
-      this.creationTime, 
-      this.user, 
-      this.product,});
+    this.id,
+    this.type,
+    this.mintNumber,
+    this.ap,
+    this.ad,
+    this.creationTime,
+    this.user,
+    this.product,
+  });
 
   Results.fromJson(dynamic json) {
     id = json['id'];
     type = json['type'];
     mintNumber = json['mint_number'];
-    ap = json['ap'];
+    ap = double.parse(json['ap']).toStringAsFixed(2);
     ad = json['ad'];
     creationTime = json['creation_time'];
     user = json['user'];
     product = json['product'];
   }
+
   num? id;
   num? type;
   num? mintNumber;
@@ -76,5 +79,4 @@ class Results {
     map['product'] = product;
     return map;
   }
-
 }
