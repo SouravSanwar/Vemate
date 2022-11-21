@@ -11,6 +11,8 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
+import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_controller.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
 import 'package:ketemaa/features/market/presentation/Details/DetailsTextField.dart';
@@ -103,11 +105,28 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
     widget.fromNotification == 1 ? getData!.getNotification() : print("no pass from notification");
   }
 
+  Future<bool> _willPopCallback() async {
+    if (widget.fromVault==true) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const LoadingDialogue(
+            message: "Please wait",
+          ));
+      await getData!.getMySets1(0, widget.productId!, true, graph_data: true).whenComplete(() => Navigator.of(context).pop());
+    }
+    Get.back();
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     const StatusBar();
+    Get.put(SigninController());
     return Consumer<GetData>(builder: (context, data, child) {
-      return Scaffold(
+      return WillPopScope(
+          onWillPop: _willPopCallback,
+          child: Scaffold(
         appBar: AppBar(
             elevation: 1.0,
             titleSpacing: 0,
@@ -486,6 +505,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                           AppSpaces.spaces_height_5,
                                                           DetailsTextField(
                                                             controller: storedMintController[0],
+                                                            textType: TextInputType.number,
                                                           ),
                                                           AppSpaces.spaces_height_2,
                                                           Text(
@@ -494,6 +514,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                           ),
                                                           DetailsTextField(
                                                             controller: storedPriceController[0],
+                                                            textType: TextInputType.number,
                                                           ),
                                                           AppSpaces.spaces_height_2,
                                                           Text(
@@ -644,7 +665,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                 ),
               )
             : const ColorLoader(),
-      );
+      ));
     });
   }
 }

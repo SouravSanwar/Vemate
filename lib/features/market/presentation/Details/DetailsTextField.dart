@@ -8,9 +8,11 @@ final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 class DetailsTextField extends StatefulWidget {
 
   TextEditingController controller;
+  TextInputType? textType;
 
   DetailsTextField({
     required this.controller,
+   this.textType,
   });
 
   @override
@@ -26,7 +28,6 @@ class _DetailsTextFieldState extends State<DetailsTextField> {
     return Container(
       color: Colors.transparent,
       child: TextFormField(
-
         style: TextStyle(
             color: Colors
                 .white
@@ -52,7 +53,8 @@ class _DetailsTextFieldState extends State<DetailsTextField> {
                 width: 1.5),
           ),
         ),
-        controller:widget.controller
+        controller:widget.controller,
+          keyboardType: widget.textType,
       )
     );
   }

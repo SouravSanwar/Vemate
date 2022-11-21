@@ -1010,7 +1010,7 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
-      try {
+
         postData = Provider.of<PostData>(context, listen: false);
 
         postData!.deleteAccount(
@@ -1018,18 +1018,6 @@ class PostData extends ChangeNotifier with BaseController {
           id,
           requestToken,
         );
-      } catch (e) {
-        Navigator.of(context).pop();
-
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) => const ResponseMessage(
-                  icon: Icons.error,
-                  color: Colors.purpleAccent,
-                  message: "Invalid Information",
-                ));
-      }
     } else {
       Navigator.of(context).pop();
       showDialog(
@@ -1110,18 +1098,25 @@ class PostData extends ChangeNotifier with BaseController {
 
     Map<String, dynamic> js = x;
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 ||
+        response.statusCode == 401 ||
+        response.statusCode == 403 ||
+        response.statusCode == 500 ||
+        response.statusCode == 201) {
       try {
         postData = Provider.of<PostData>(context, listen: false);
+
+
 
         showDialog(
             context: context,
             barrierDismissible: false,
             builder: (_) => const ResponseMessage(
-                  icon: Icons.error,
+                  icon: Icons.check_circle,
                   color: Colors.purpleAccent,
                   message: "Added Successfully",
                 ));
+        await Future.delayed(Duration(seconds: 1));
         Navigator.of(context).pop();
       } catch (e) {
         Navigator.of(context).pop();
@@ -1176,18 +1171,24 @@ class PostData extends ChangeNotifier with BaseController {
 
     Map<String, dynamic> js = x;
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 ||
+        response.statusCode == 401 ||
+        response.statusCode == 403 ||
+        response.statusCode == 500 ||
+        response.statusCode == 201) {
       try {
         postData = Provider.of<PostData>(context, listen: false);
+
 
         showDialog(
             context: context,
             barrierDismissible: false,
             builder: (_) => const ResponseMessage(
-                  icon: Icons.error,
-                  color: Colors.purpleAccent,
-                  message: "Added Successfully",
+              icon: Icons.check_circle,
+              color: Colors.purpleAccent,
+              message: "Edited Successfully",
                 ));
+        await Future.delayed(Duration(seconds: 1));
         Navigator.of(context).pop();
       } catch (e) {
         Navigator.of(context).pop();
@@ -1238,18 +1239,25 @@ class PostData extends ChangeNotifier with BaseController {
 
     Map<String, dynamic> js = x;
 
-    if (response.statusCode == 200) {
+
+    if (response.statusCode == 200 ||
+        response.statusCode == 401 ||
+        response.statusCode == 403 ||
+        response.statusCode == 500 ||
+        response.statusCode == 201) {
       try {
         postData = Provider.of<PostData>(context, listen: false);
+
 
         showDialog(
             context: context,
             barrierDismissible: false,
             builder: (_) => const ResponseMessage(
-                  icon: Icons.error,
-                  color: Colors.purpleAccent,
-                  message: "Added Successfully",
+              icon: Icons.check_circle,
+              color: Colors.white,
+              message: "Deleted Successfully",
                 ));
+        await Future.delayed(Duration(seconds: 1));
         Navigator.of(context).pop();
       } catch (e) {
         Navigator.of(context).pop();

@@ -8,6 +8,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/Details/comic_details.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
@@ -65,7 +66,13 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
   }
 
   Future<bool> _willPopCallback() async {
-    await getData!.getMySets(0, true, graph_data: true);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingDialogue(
+          message: "Please wait",
+        ));
+    await getData!.getMySets(0, true, graph_data: true).whenComplete(() => Navigator.of(context).pop());
     Get.back();
     return true;
   }
@@ -337,7 +344,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                   );
                                 })
                             : const NoDataCard(
-                                title: 'Your Collectibles are empty!',
+                                title: 'List is empty!',
                               ))
                         : const ColorLoader(),
                   )),

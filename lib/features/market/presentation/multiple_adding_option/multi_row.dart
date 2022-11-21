@@ -531,6 +531,8 @@ class _MultiformState extends State<Multiform> {
                                                       "ap": storedPriceController[index].text.isEmpty ? "0.0" :storedPriceController[index].text,
                                                       "ad": storedDateController[index].text
                                                     };
+
+
                                                     postData!
                                                         .editMAO(
                                                           data.maoModel!.results![index].id,
@@ -662,6 +664,7 @@ class _MultiformState extends State<Multiform> {
                                 AppSpaces.spaces_width_15,
                                 InkWell(
                                   onTap: () {
+
                                     FocusScope.of(context).unfocus();
                                     mintController.text="Enter Mint";
                                     var body = {
