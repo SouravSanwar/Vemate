@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'package:intl/intl.dart';
 import '../core/Provider/getData.dart';
+import '../main.dart';
 import 'components/item_details_helper.dart';
 
 class ProductDetailsCollectibles extends StatefulWidget {
@@ -64,14 +65,14 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
                         children: [
                           ItemDetailsHelper(
                             text: "Edition",
-                            text1: widget.edition,
+                            text1: prefs!.getString('edition').toString(),
                             fromVault: true,
                             topRadius: true,
                           ),
                           divider(),
                           ItemDetailsHelper(
                             text: "Acquisition Price",
-                            text1: widget.ap,
+                            text1: prefs!.getString('ap').toString(),
                             fromVault: true,
                           ),
                           divider(),

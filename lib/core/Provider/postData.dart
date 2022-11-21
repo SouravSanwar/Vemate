@@ -1010,14 +1010,13 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 403 ||
         response.statusCode == 500 ||
         response.statusCode == 201) {
+      postData = Provider.of<PostData>(context, listen: false);
 
-        postData = Provider.of<PostData>(context, listen: false);
-
-        postData!.deleteAccount(
-          context,
-          id,
-          requestToken,
-        );
+      postData!.deleteAccount(
+        context,
+        id,
+        requestToken,
+      );
     } else {
       Navigator.of(context).pop();
       showDialog(
@@ -1106,8 +1105,6 @@ class PostData extends ChangeNotifier with BaseController {
       try {
         postData = Provider.of<PostData>(context, listen: false);
 
-
-
         showDialog(
             context: context,
             barrierDismissible: false,
@@ -1161,13 +1158,14 @@ class PostData extends ChangeNotifier with BaseController {
         await BaseClient().post(Urls.logIn, body).catchError(handleError);*/
 
     final response = await http.patch(Uri.parse(Urls.MAO + '$id/'), body: json.encode(body), headers: requestToken);
-    printInfo(info: 'response.body: ' + response.body.toString());
 
     var x = json.decode(response.body);
 
-    // prefs!.setString('edition', x.toString());
-    prefs!.setString('ap', x['ap'].toString());
+    prefs!.setString('edition', x['edition'].toString());
+    prefs!.setString('ap', double.parse(x['ap'].toString()).toStringAsFixed(2));
     prefs!.setString('ad', x['ad'].toString());
+
+    printInfo(info: 'response.body: ' + prefs!.getString('ap').toString());
 
     Map<String, dynamic> js = x;
 
@@ -1179,14 +1177,13 @@ class PostData extends ChangeNotifier with BaseController {
       try {
         postData = Provider.of<PostData>(context, listen: false);
 
-
         showDialog(
             context: context,
             barrierDismissible: false,
             builder: (_) => const ResponseMessage(
-              icon: Icons.check_circle,
-              color: Colors.purpleAccent,
-              message: "Edited Successfully",
+                  icon: Icons.check_circle,
+                  color: Colors.purpleAccent,
+                  message: "Edited Successfully",
                 ));
         await Future.delayed(Duration(seconds: 1));
         Navigator.of(context).pop();
@@ -1239,7 +1236,6 @@ class PostData extends ChangeNotifier with BaseController {
 
     Map<String, dynamic> js = x;
 
-
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
         response.statusCode == 403 ||
@@ -1248,14 +1244,13 @@ class PostData extends ChangeNotifier with BaseController {
       try {
         postData = Provider.of<PostData>(context, listen: false);
 
-
         showDialog(
             context: context,
             barrierDismissible: false,
             builder: (_) => const ResponseMessage(
-              icon: Icons.check_circle,
-              color: Colors.white,
-              message: "Deleted Successfully",
+                  icon: Icons.check_circle,
+                  color: Colors.white,
+                  message: "Deleted Successfully",
                 ));
         await Future.delayed(Duration(seconds: 1));
         Navigator.of(context).pop();

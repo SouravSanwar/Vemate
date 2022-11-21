@@ -24,7 +24,7 @@ import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 import 'package:ketemaa/features/home/components/home_vault_card.dart';
-import 'package:share_plus/share_plus.dart';
+// import 'package:share_plus/share_plus.dart';
 
 import '../../../core/Provider/getData.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';

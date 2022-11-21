@@ -44,6 +44,7 @@ class Results {
     this.mintNumber,
     this.ap,
     this.ad,
+    this.edition,
     this.creationTime,
     this.user,
     this.product,
@@ -57,6 +58,7 @@ class Results {
     mintNumber = json['mint_number'];
     ap = double.parse(json['ap']).toStringAsFixed(2);
     ad = json['ad'];
+    edition = json['edition'] ?? '';
     creationTime = json['creation_time'];
     user = json['user'];
     product = json['product'];
@@ -69,6 +71,7 @@ class Results {
   num? mintNumber;
   String? ap;
   String? ad;
+  String? edition;
   String? creationTime;
   num? user;
   num? product;
@@ -86,6 +89,7 @@ class Results {
     map['mint_number'] = mintNumber;
     map['ap'] = ap;
     map['ad'] = ad;
+    map['edition'] = edition;
     map['creation_time'] = creationTime;
     map['user'] = user;
     map['product'] = product;
