@@ -619,7 +619,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                                           builder: (_) => const ResponseMessage(
                                                                                 icon: Icons.error,
                                                                                 color: Colors.purpleAccent,
-                                                                                message: "Invalid Information",
+                                                                                message: "Invalid Input",
                                                                               ));
                                                                     }
                                                                     await Future.delayed(Duration(seconds: 1));
