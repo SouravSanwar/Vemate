@@ -289,9 +289,9 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                       scrappedImage: data.mySetsModel!.results![index].productDetail!.image != null
                                           ? data.mySetsModel!.results![index].productDetail!.image!.baseUrl.toString()
                                           : "",
-                                      edition: data.mySetsModel!.results![index].productDetail!.edition == null
+                                      edition: data.mySetsModel!.results![index].edition == null
                                           ? ""
-                                          : data.mySetsModel!.results![index].productDetail!.edition!,
+                                          : data.mySetsModel!.results![index].edition!,
                                       brand: data.mySetsModel!.results![index].productDetail!.brand == null
                                           ? ""
                                           : data.mySetsModel!.results![index].productDetail!.brand.toString(),

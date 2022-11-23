@@ -30,7 +30,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
   PostData? postData;
   TextEditingController valueController = TextEditingController(text: '1');
   TextEditingController mintController1 = TextEditingController(text: '1');
-  TextEditingController mintController2 = TextEditingController();
+  TextEditingController mintController2 = TextEditingController(text: '1');
   int value = 0;
   bool? toggleValue = false;
   bool? hasDropDownValue = false;
@@ -398,7 +398,7 @@ class _MintAlertPageState extends State<MintAlertPage> {
                               "value": valueController.text != "" ? double.parse(valueController.text) : null,
                               "frequency": frequencyIndex1,
                               "mint_low": mintController1.text != "" ? double.parse(mintController1.text).toInt() : null,
-                              "mint_upper": mintController2.text != "" ? double.parse(mintController2.text).toInt() : null,
+                              "mint_upper": mintController2.text != '1' ? double.parse(mintController2.text).toInt() : widget.results!.editions,
                             };
                             postData!.createAlert(context, body, widget.origin!, widget.results!.id).whenComplete(() => getData!.getAlert());
                           }

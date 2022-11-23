@@ -10,6 +10,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
+import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/features/market/Components/reports_step_card.dart';
 import 'package:ketemaa/features/market/presentation/Details/DetailsTextField.dart';
 import 'package:ketemaa/features/market/presentation/multiple_adding_option/Date_Picker/date_picker.dart';
@@ -99,6 +100,21 @@ class _ComicDetailsState extends State<ComicDetails> {
     getData!.getWishList();
 
     widget.fromNotification == 1 ? getData!.getNotification() : print("no pass from notification");
+  }
+  Future<bool> _willPopCallback() async {
+    if (widget.fromVault == true) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const LoadingDialogue(
+            message: "Please wait",
+          ));
+      await getData!
+          .getMySets1(0, widget.productId!, true, graph_data: true)
+          .whenComplete(() => Navigator.of(context).pop());
+    }
+    Get.back();
+    return true;
   }
 
   @override
@@ -396,16 +412,19 @@ class _ComicDetailsState extends State<ComicDetails> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    data.singleProductModel != null
-                                        ? data.singleProductModel!.name.toString() + "'s Details"
-                                        : "",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        color: AppColors.textColor,
-                                        //fontFamily: 'Inter',
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15.sp),
+                                  Container(
+                                    width: Get.width-(Get.width * 0.05336*2),
+                                    child: Text(
+                                      data.singleProductModel != null
+                                          ? data.singleProductModel!.name.toString() + "'s Details"
+                                          : "",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                          color: AppColors.textColor,
+                                          //fontFamily: 'Inter',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15.sp),
+                                    ),
                                   ),
                                   widget.fromVault == true
                                       ? Container(

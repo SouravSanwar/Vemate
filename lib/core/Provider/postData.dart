@@ -176,7 +176,6 @@ class PostData extends ChangeNotifier with BaseController {
       var x = json.decode(response.body);
       Map<String, dynamic> js = x;
       Navigator.of(context).pop();
-
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -524,12 +523,14 @@ class PostData extends ChangeNotifier with BaseController {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.getUserInfo();
       prefs = await SharedPreferences.getInstance();
+      String? username=js['nickname'].toString();
+      String? password=  "${prefs!.getString('password')}";
 
-      prefs!.setString('name', js['name'].toString());
-      prefs!.setString('email', js['email'].toString());
 
       Navigator.of(context).pop();
       prefs!.clear();
+      prefs!.setString('nickname', username);
+      prefs!.setString('password', password);
 
       SigninController.to.userNameTextFiledController.clear();
       SigninController.to.passwordTextFiledController.clear();
@@ -1027,6 +1028,8 @@ class PostData extends ChangeNotifier with BaseController {
                 color: Colors.purpleAccent,
                 message: "Invalid Information",
               ));
+      await Future.delayed(Duration(seconds: 1));
+      Navigator.of(context).pop();
     }
     notifyListeners();
   }
@@ -1056,6 +1059,18 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 500 ||
         response.statusCode == 201) {
       Get.offAll(() => const AuthInitialPage());
+
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const ResponseMessage(
+            icon: Icons.check_circle,
+            color: Colors.purpleAccent,
+            message: "Deleted Successfully",
+          ));
+      await Future.delayed(Duration(seconds: 5));
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
     } else {
       showDialog(
           context: context,
