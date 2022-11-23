@@ -536,18 +536,20 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          data.singleProductModel != null
-                                              ? data.singleProductModel!.name
-                                                      .toString() +
-                                                  "'s Details"
-                                              : "",
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                              color: AppColors.textColor,
-                                              //fontFamily: 'Inter',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15.sp),
+                                        Expanded(
+                                          child: Text(
+                                            data.singleProductModel != null
+                                                ? data.singleProductModel!.name
+                                                        .toString() +
+                                                    "'s Details"
+                                                : "",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                color: AppColors.textColor,
+                                                //fontFamily: 'Inter',
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.sp),
+                                          ),
                                         ),
                                         widget.fromVault == true
                                             ? Container(
