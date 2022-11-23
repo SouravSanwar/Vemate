@@ -11,16 +11,18 @@ import '../core/Provider/getData.dart';
 import '../main.dart';
 import 'components/item_details_helper.dart';
 
+
+String? detailsEdition;
+String? detailsAp;
+String? detailsAd;
+
 class ProductDetailsCollectibles extends StatefulWidget {
   final int? id;
   final bool? fromVault;
   final int? mintId;
-  final String? edition;
-  final String? ap;
-  final String? ad;
 
   const ProductDetailsCollectibles(
-      {Key? key, this.id, this.edition = '', this.ap = '', this.ad = '', this.fromVault = false, this.mintId})
+      {Key? key, this.id, this.fromVault = false, this.mintId})
       : super(key: key);
 
   @override
@@ -65,20 +67,20 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
                         children: [
                           ItemDetailsHelper(
                             text: "Edition",
-                            text1: prefs!.getString('edition').toString(),
+                            text1: detailsEdition,
                             fromVault: true,
                             topRadius: true,
                           ),
                           divider(),
                           ItemDetailsHelper(
                             text: "Acquisition Price",
-                            text1: prefs!.getString('ap').toString(),
+                            text1: detailsAp,
                             fromVault: true,
                           ),
                           divider(),
                           ItemDetailsHelper(
                             text: "Acquisition Date",
-                            text1: DateFormat('MMMM dd, yyyy').format(DateTime.parse(widget.ad.toString())),
+                            text1: DateFormat('MMMM dd, yyyy').format(DateTime.parse(detailsAd.toString())),
                             fromVault: true,
                           ),
                           divider(),

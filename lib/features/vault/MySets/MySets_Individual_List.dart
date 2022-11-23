@@ -257,10 +257,11 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
 
                                                 ///Need to mint Id for upgrade
                                                 mintId: int.parse(data.mySetsModel!.results![index].id.toString()),
-                                                edition: data.mySetsModel!.results![index].edition,
+                                                edition: data.mySetsModel!.results![index].mintNumber.toString(),
                                                 ap: data.mySetsModel!.results![index].ap,
                                                 ad: data.mySetsModel!.results![index].ad ??
                                                     DateTime.now().toIso8601String(),
+                                                index: index,
                                               ),
                                             )
                                           : Get.to(
@@ -269,10 +270,11 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                                 fromVault: true,
                                                 productType: data.mySetsModel!.results![index].productDetail!.type,
                                                 mintId: int.parse(data.mySetsModel!.results![index].id.toString()),
-                                                edition: data.mySetsModel!.results![index].edition,
+                                                edition: data.mySetsModel!.results![index].mintNumber.toString(),
                                                 ap: data.mySetsModel!.results![index].ap,
                                                 ad: data.mySetsModel!.results![index].ad ??
                                                     DateTime.now().toIso8601String(),
+                                                index: index,
                                               ),
                                             );
                                     },
@@ -289,9 +291,9 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                       scrappedImage: data.mySetsModel!.results![index].productDetail!.image != null
                                           ? data.mySetsModel!.results![index].productDetail!.image!.baseUrl.toString()
                                           : "",
-                                      edition: data.mySetsModel!.results![index].edition == null
+                                      edition: data.mySetsModel!.results![index].mintNumber == null
                                           ? ""
-                                          : data.mySetsModel!.results![index].edition!,
+                                          : data.mySetsModel!.results![index].mintNumber.toString(),
                                       brand: data.mySetsModel!.results![index].productDetail!.brand == null
                                           ? ""
                                           : data.mySetsModel!.results![index].productDetail!.brand.toString(),
