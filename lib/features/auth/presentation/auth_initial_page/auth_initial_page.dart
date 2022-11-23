@@ -166,7 +166,7 @@ class _AuthInitialPageState extends State<AuthInitialPage> {
                                 "password": SigninController.to.passwordTextFiledController.text,
                               };
                               //getConnection();
-                             // prefs!.setString('password', SigninController.to.passwordTextFiledController.text);
+                             prefs!.setString('password', SigninController.to.passwordTextFiledController.text);
 
                               if (_formKey.currentState!.validate()) {
                                 showDialog(
