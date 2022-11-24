@@ -454,15 +454,15 @@ class _ComicDetailsState extends State<ComicDetails> {
                                   width: double.infinity,
                                   height: 250,
                                   child: stepSelected == 0
-                                      ? const OneDayProductGraphPage()
+                                      ?  OneDayProductGraphPage(fromVault: widget.fromVault,ap: widget.ap,)
                                       : stepSelected == 1
-                                          ? const SevenDayProductGraphPage()
+                                          ? SevenDayProductGraphPage(fromVault: widget.fromVault,ap: widget.ap,)
                                           : stepSelected == 2
-                                              ? const ThirtyDayProductGraphPage()
+                                              ? ThirtyDayProductGraphPage(fromVault: widget.fromVault,ap: widget.ap,)
                                               : stepSelected == 3
-                                                  ? const SixtyDayProductGraphPage()
+                                                  ? SixtyDayProductGraphPage(fromVault: widget.fromVault,ap: widget.ap,)
                                                   : stepSelected == 4
-                                                      ? const OneYearProductGraphPage()
+                                                      ? OneYearProductGraphPage(fromVault: widget.fromVault,ap: widget.ap,)
                                                       : Container(),
                                 ),
                               ),
@@ -796,6 +796,265 @@ class _ComicDetailsState extends State<ComicDetails> {
                   body: ProductDetailsComics(
                     fromVault: widget.fromVault,
                     mintId: widget.mintId,
+                    onTap: (){
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          storedMintController
+                              .add(
+                            TextEditingController(
+                                text: widget
+                                    .edition),
+                          );
+                          storedPriceController
+                              .add(
+                            TextEditingController(
+                                text: widget.ap),
+                          );
+                          storedDateController.add(
+                              TextEditingController(
+                                text: DateFormat(
+                                    'MMMM dd, yyyy')
+                                    .format(DateTime
+                                    .parse(
+                                  widget.ad
+                                      .toString(),
+                                )),
+                              ));
+
+                          return Dialog(
+                            backgroundColor:
+                            AppColors
+                                .backgroundColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius
+                                    .circular(
+                                    5)),
+                            elevation: 16,
+                            child: Padding(
+                              padding:
+                              const EdgeInsets
+                                  .all(20.0),
+                              child: Container(
+                                height:
+                                Get.height *
+                                    .38,
+                                margin: EdgeInsets
+                                    .symmetric(
+                                    horizontal:
+                                    5),
+                                child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment
+                                      .start,
+                                  children: [
+                                    AppSpaces
+                                        .spaces_height_5,
+                                    DetailsTextField(
+                                      controller:
+                                      storedMintController[
+                                      0],
+                                      textType:
+                                      TextInputType
+                                          .number,
+                                    ),
+                                    AppSpaces
+                                        .spaces_height_2,
+                                    Text(
+                                      'Mint Number or Edition',
+                                      style: TextStyle(
+                                          color: Colors
+                                              .grey
+                                              .withOpacity(.5)),
+                                    ),
+                                    DetailsTextField(
+                                      controller:
+                                      storedPriceController[
+                                      0],
+                                      textType:
+                                      TextInputType
+                                          .number,
+                                    ),
+                                    AppSpaces
+                                        .spaces_height_2,
+                                    Text(
+                                      'Aquisition Price',
+                                      style: TextStyle(
+                                          color: Colors
+                                              .grey
+                                              .withOpacity(.5)),
+                                    ),
+                                    Stack(
+                                      children: [
+                                        DetailsTextField(
+                                          controller:
+                                          storedDateController[0],
+                                        ),
+                                        Positioned(
+                                          top: 10,
+                                          right:
+                                          50,
+                                          child:
+                                          InkWell(
+                                            onTap:
+                                                () async {
+                                              var datePicked =
+                                              await DatePicker.showSimpleDatePicker(
+                                                context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(2015),
+                                                lastDate: DateTime.now(),
+                                                dateFormat: "dd-MM-yyyy",
+                                                locale: DateTimePickerLocale.en_us,
+                                                looping: true,
+                                                backgroundColor: const Color(0xff02072D),
+                                                textColor: AppColors.white.withOpacity(.7),
+                                              );
+                                              setState(() {
+                                                textDate = datePicked!.toIso8601String();
+                                                storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(datePicked.toIso8601String()));
+                                              });
+                                            },
+                                            child:
+                                            Icon(
+                                              Icons.calendar_month,
+                                              color:
+                                              AppColors.white.withOpacity(.7),
+                                              // size: 17,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    AppSpaces
+                                        .spaces_height_2,
+                                    Text(
+                                      'Aquisition Date',
+                                      style: TextStyle(
+                                          color: Colors
+                                              .grey
+                                              .withOpacity(.5)),
+                                    ),
+                                    AppSpaces
+                                        .spaces_height_5,
+                                    AppSpaces
+                                        .spaces_height_25,
+                                    Container(
+                                      alignment:
+                                      Alignment
+                                          .center,
+                                      width:
+                                      Get.width *
+                                          .7,
+                                      child:
+                                      InkWell(
+                                        onTap:
+                                            () async {
+                                          String? ad = widget.ad ==
+                                              textDate
+                                              ? widget.ad
+                                              : textDate;
+
+                                          var body =
+                                          {
+                                            "mint_number":
+                                            storedMintController[0].text,
+                                            "ap":
+                                            storedPriceController[0].text,
+                                            "ad": ad ??
+                                                DateTime.now().toIso8601String()
+                                          };
+                                          print('body: ' +
+                                              storedPriceController[0].text.isNum.toString());
+                                          if (storedPriceController[0].text.isNum ==
+                                              true) {
+                                            postData!
+                                                .editMAO(
+                                              widget.mintId,
+                                              context,
+                                              body,
+                                              requestHeadersWithToken,
+                                            )
+                                                .whenComplete(() => {
+                                              getData!.getMySets(0, true, graph_data: true),
+                                              getData!.getMySets1(0, widget.productId!, true)
+                                            })
+                                                .whenComplete(() => {
+                                              Navigator.of(context).pop(),
+                                              storedMintController[0].text = data.mySetsModel!.results![widget.index!].mintNumber.toString(),
+                                              storedPriceController[0].text = data.mySetsModel!.results![widget.index!].ap!,
+                                              storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(data.mySetsModel!.results![widget.index!].ad!)),
+                                            });
+                                          } else {
+                                            showDialog(
+                                                context: context,
+                                                barrierDismissible: false,
+                                                builder: (_) => const ResponseMessage(
+                                                  icon: Icons.error,
+                                                  color: Colors.purpleAccent,
+                                                  message: "Invalid Input",
+                                                ));
+                                          }
+                                          await Future.delayed(Duration(
+                                              seconds:
+                                              1));
+                                          Navigator.of(context)
+                                              .pop();
+
+                                          printInfo(
+                                              info:
+                                              'ap b: ' + prefs!.getString('ap').toString());
+                                          setState(
+                                                  () {
+                                                print("Value1" +
+                                                    detailsEdition.toString() +
+                                                    detailsAd.toString() +
+                                                    detailsAp.toString());
+                                              });
+                                        },
+                                        child:
+                                        Container(
+                                          width: Get.width *
+                                              0.46,
+                                          height: Get.height *
+                                              0.051,
+                                          decoration:
+                                          BoxDecoration(
+                                            color:
+                                            AppColors.primaryColor,
+                                            borderRadius:
+                                            BorderRadius.circular(14.0),
+                                          ),
+                                          child:
+                                          const Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 56,
+                                                right: 56,
+                                                top: 12,
+                                                bottom: 12),
+                                            child:
+                                            Text(
+                                              'Update',
+                                              textAlign:
+                                              TextAlign.center,
+                                              style:
+                                              TextStyle(fontSize: 14),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    AppSpaces
+                                        .spaces_width_5,
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
               )

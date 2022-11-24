@@ -20,9 +20,10 @@ class ProductDetailsCollectibles extends StatefulWidget {
   final int? id;
   final bool? fromVault;
   final int? mintId;
+  final VoidCallback? onTap;
 
   const ProductDetailsCollectibles(
-      {Key? key, this.id, this.fromVault = false, this.mintId})
+      {Key? key, this.id, this.fromVault = false, this.mintId, this.onTap})
       : super(key: key);
 
   @override
@@ -67,21 +68,24 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
                         children: [
                           ItemDetailsHelper(
                             text: "Edition",
-                            text1: detailsEdition,
+                            text1:"#"+detailsEdition!,
                             fromVault: true,
                             topRadius: true,
+                            onTap: widget.onTap,
                           ),
                           divider(),
                           ItemDetailsHelper(
                             text: "Acquisition Price",
                             text1: detailsAp,
                             fromVault: true,
+                            onTap: widget.onTap,
                           ),
                           divider(),
                           ItemDetailsHelper(
                             text: "Acquisition Date",
                             text1: DateFormat('MMMM dd, yyyy').format(DateTime.parse(detailsAd.toString())),
                             fromVault: true,
+                            onTap: widget.onTap,
                           ),
                           divider(),
                         ],
@@ -99,8 +103,12 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
                         text: "Edition",
                         text1: data.singleProductModel != null ? data.singleProductModel!.edition.toString() : "",
                       ),
-                divider(),
-                ItemDetailsHelper(
+                widget.fromVault == true
+                    ?Container()
+                    :divider(),
+                widget.fromVault == true
+                    ?Container()
+                    :ItemDetailsHelper(
                   text: "Owner",
                   text1: data.singleProductModel != null ? data.singleProductModel!.owner.toString() : "",
                 ),

@@ -165,8 +165,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                     Expanded(
                                       child: Text(
                                         'Acquisition price of the NFT - this is the amount you spent to purchase the'
-                                        ' NFT and it will be used as a reference point for the charts.'
-                                        ' Please insert your acquisition price there.',
+                                        ' NFT and it will be used as a reference point for the charts.',
                                         maxLines: 10,
                                       ),
                                     ),
@@ -294,9 +293,14 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                       edition: data.mySetsModel!.results![index].mintNumber == null
                                           ? ""
                                           : data.mySetsModel!.results![index].mintNumber.toString(),
-                                      brand: data.mySetsModel!.results![index].productDetail!.brand == null
+                                      brand: data.mySetsModel!.results![index].productDetail!.type == 0
+                                        ?data.mySetsModel!.results![index].productDetail!.brand == null
                                           ? ""
-                                          : data.mySetsModel!.results![index].productDetail!.brand.toString(),
+                                          : data.mySetsModel!.results![index].productDetail!.brand.toString()
+
+                                          :data.mySetsModel!.results![index].productDetail!.series== null
+                                          ? ""
+                                          : data.mySetsModel!.results![index].productDetail!.series.toString(),
                                       rarity: data.mySetsModel!.results![index].productDetail!.rarity == null
                                           ? ""
                                           : data.mySetsModel!.results![index].productDetail!.rarity!,

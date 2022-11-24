@@ -11,6 +11,8 @@ class ItemDetailsHelper extends StatelessWidget {
   final bool? fromVault;
   final bool? topRadius;
   final bool? bottomRadius;
+  final VoidCallback? onTap;
+
 
   ItemDetailsHelper({
     this.text,
@@ -18,6 +20,7 @@ class ItemDetailsHelper extends StatelessWidget {
     this.fromVault = false,
     this.topRadius = false,
     this.bottomRadius = false,
+    this.onTap,
   });
 
   @override
@@ -59,17 +62,20 @@ class ItemDetailsHelper extends StatelessWidget {
           ),
           Expanded(
             flex: 2,
-            child: Container(
-                child: fromVault == true
-                    ?  Icon(
-                        Icons.edit,
-                        color: Colors
-                            .grey
-                            .withOpacity(
-                            .5),
-                      )
-                    : null,
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2)),
+            child:fromVault == true
+                ? InkWell(
+              onTap: onTap,
+                  child: Container(
+                  child: Icon(
+                          Icons.edit,
+                          color: Colors
+                              .grey
+                              .withOpacity(
+                              .5),
+                        ),
+                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2)),
+                )
+               : Container(),
           ),
         ],
       ),

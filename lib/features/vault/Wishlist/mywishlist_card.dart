@@ -24,7 +24,7 @@ class MywishlistCard extends StatefulWidget {
 }
 //data.wishListModel!.results![index]
 class MywishlistCardState extends State<MywishlistCard> {
-  double mysetHeight = Get.height * .296;
+  double mysetHeight = Get.height * .336;
   double mysetWidth = Get.width * .45;
   GetData? getData;
   Color? color = Colors.green;

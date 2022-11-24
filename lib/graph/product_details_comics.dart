@@ -18,8 +18,9 @@ class ProductDetailsComics extends StatefulWidget {
   final int? id;
   final bool? fromVault;
   final int? mintId;
+  final VoidCallback? onTap;
 
-  ProductDetailsComics({Key? key, this.id, this.fromVault = false, this.mintId}) : super(key: key);
+  ProductDetailsComics({Key? key, this.id, this.fromVault = false, this.mintId, this.onTap}) : super(key: key);
 
   @override
   State<ProductDetailsComics> createState() => _ProductDetailsComicsState();
@@ -64,18 +65,21 @@ class _ProductDetailsComicsState extends State<ProductDetailsComics> {
                     text1: detailsEdition,
                     fromVault: true,
                     topRadius: true,
+                    onTap: widget.onTap,
                   ),
                   divider(),
                   ItemDetailsHelper(
                     text: "Acquisition Price",
                     text1: detailsAp,
                     fromVault: true,
+                    onTap: widget.onTap,
                   ),
                   divider(),
                   ItemDetailsHelper(
                     text: "Acquisition Date",
                     text1: DateFormat('MMMM dd, yyyy').format(DateTime.parse(detailsAd.toString())),
                     fromVault: true,
+                    onTap: widget.onTap,
                   ),
                   divider(),
                 ],
@@ -95,8 +99,12 @@ class _ProductDetailsComicsState extends State<ProductDetailsComics> {
                     ? data.singleProductModel!.edition.toString()
                     : "",
               ),
-              divider(),
-              ItemDetailsHelper(
+              widget.fromVault == true
+                  ?Container()
+                  :divider(),
+              widget.fromVault == true
+              ?Container()
+              :ItemDetailsHelper(
                 text: "Owner",
                 text1: data.singleProductModel != null
                     ? data.singleProductModel!.owner.toString()

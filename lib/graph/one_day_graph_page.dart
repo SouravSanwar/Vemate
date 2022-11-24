@@ -10,8 +10,14 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 
+import 'product_details_collectibles.dart';
+
 class OneDayProductGraphPage extends StatefulWidget {
-  const OneDayProductGraphPage({Key? key}) : super(key: key);
+  final bool? fromVault;
+  final String? ap;
+
+  const OneDayProductGraphPage({Key? key, this.fromVault, this.ap})
+      : super(key: key);
 
   @override
   State<OneDayProductGraphPage> createState() => _OneDayProductGraphPageState();
@@ -101,20 +107,66 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                       zoomPanBehavior: _zoomPanBehavior,
                       // tooltipBehavior: _tooltipBehavior,
                       trackballBehavior: TrackballBehavior(
-                        activationMode: ActivationMode.singleTap,
+                          activationMode: ActivationMode.singleTap,
                           enable: true,
                           lineWidth: 0,
                           shouldAlwaysShow: true,
                           builder: (context, tooltipSettings) {
-                            return Container(
-                                padding: EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(7),
-                                    border: Border.all(
+
+                            return widget.fromVault == true
+                                ? Container(
+                                    height: Get.height*.07,
+                                    width: Get.width*.3,
+                                    padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(7),
+                                        border: Border.all(
+                                            color: const Color(0xff00A7FF)),
                                         color: const Color(0xff00A7FF)),
-                                    color: const Color(0xff00A7FF)),
-                                child: Text(
-                                    '${tooltipSettings.point?.dataLabelMapper}',style: TextStyle(fontSize: 12.sp),));
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'FP',
+                                              style: TextStyle(fontSize: 12.sp),
+                                            ),
+                                            Text(
+                                              '\$${tooltipSettings.point?.dataLabelMapper}',
+                                              style: TextStyle(fontSize: 12.sp),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Profit',
+                                              style: TextStyle(fontSize: 12.sp),
+                                            ),
+                                            Text("\$"+(double.parse(tooltipSettings.point!.dataLabelMapper!)-double.parse(detailsAp!)).toStringAsFixed(2),
+                                              style: TextStyle(fontSize: 12.sp),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ))
+                                : Container(
+                                    padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(7),
+                                        border: Border.all(
+                                            color: const Color(0xff00A7FF)),
+                                        color: const Color(0xff00A7FF)),
+                                    child: Text(
+                                      '${tooltipSettings.point?.dataLabelMapper}',
+                                      style: TextStyle(fontSize: 12.sp),
+                                    ));
                           },
                           tooltipSettings: const InteractiveTooltip(
                             canShowMarker: false,
@@ -124,7 +176,6 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                           ),
                           markerSettings: const TrackballMarkerSettings(
                               markerVisibility: TrackballVisibilityMode.auto)),
-
 
                       primaryXAxis: CategoryAxis(
                         interactiveTooltip: const InteractiveTooltip(
@@ -138,7 +189,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                         majorTickLines: const MajorTickLines(width: 0),
                         axisLine: const AxisLine(width: 0),
                         //labelIntersectAction: AxisLabelIntersectAction.hide,
-                      // labelRotation: 90,
+                        // labelRotation: 90,
                         edgeLabelPlacement: EdgeLabelPlacement.shift,
                         labelStyle: TextStyle(
                           color: AppColors.textColor,
@@ -155,7 +206,6 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                                 : LabelPlacement.onTicks,
                         //maximumLabels: 6
                       ),
-
 
                       primaryYAxis: NumericAxis(
                         decimalPlaces: 2,
@@ -186,16 +236,26 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                             ? ColumnSeries<OneDayProductGraph, String>(
                                 width: .01,
                                 gradient: AppColors.graphGradient,
-                                dataSource: data.oneDayGraphModel!.graphData!.graph!,
-                                xValueMapper: (plot, _) =>data.oneDayGraphModel!.graphData!.status == 0 ?plot.hourWiseTime :plot.hourWiseTime1,
+                                dataSource:
+                                    data.oneDayGraphModel!.graphData!.graph!,
+                                xValueMapper: (plot, _) =>
+                                    data.oneDayGraphModel!.graphData!.status ==
+                                            0
+                                        ? plot.hourWiseTime
+                                        : plot.hourWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                               )
                             : SplineAreaSeries<OneDayProductGraph, String>(
-                                dataSource: data.oneDayGraphModel!.graphData!.graph!,
+                                dataSource:
+                                    data.oneDayGraphModel!.graphData!.graph!,
                                 borderColor: const Color(0xff2093D7),
                                 borderWidth: 1,
                                 gradient: AppColors.graphGradient,
-                                xValueMapper: (plot, _) =>data.oneDayGraphModel!.graphData!.status == 0 ?plot.hourWiseTime :plot.hourWiseTime1,
+                                xValueMapper: (plot, _) =>
+                                    data.oneDayGraphModel!.graphData!.status ==
+                                            0
+                                        ? plot.hourWiseTime
+                                        : plot.hourWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                                 xAxisName: 'Duration',
                                 yAxisName: 'Total',

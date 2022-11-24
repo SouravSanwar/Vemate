@@ -42,7 +42,8 @@ class _MySetsStructureState extends State<MySetsStructure> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height*.296,
+
+      height: Get.height*.336,
       width: Get.width*.45,
       margin: EdgeInsets.all(1.5),
       decoration: BoxDecoration(
@@ -54,9 +55,9 @@ class _MySetsStructureState extends State<MySetsStructure> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
-              height: Get.height*.190,
+              height: Get.height*.230,
               width: Get.height*.190,
-              margin: EdgeInsets.all(7),
+              margin: EdgeInsets.symmetric(horizontal: 0,vertical: 5),
               alignment: Alignment.center,
               child: widget.checkImage == null
                   ? FirstLetterImage(

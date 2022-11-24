@@ -253,14 +253,14 @@ class _OtpPageState extends State<OtpPage> {
                             var body = {
                               "email": "${prefs!.getString('email')}",
                               "code": currentText,
-                              // "user": {
-                              //   "nickname": "${prefs!.getString('nickname')}",
-                              //   "email": "${prefs!.getString('email')}",
-                              //   "gender": "0",
-                              //   "birth_year": "1852",
-                              //   "fcm_device_id": "3",
-                              //   "password": "${prefs!.getString('password')}",
-                              // }
+                              "user": {
+                                 "nickname": "${prefs!.getString('nickname')}",
+                                 "email": "${prefs!.getString('email')}",
+                                "gender": "0",
+                                "birth_year": "1852",
+                                 "fcm_device_id": "3",
+                                 "password": "${prefs!.getString('password')}",
+                               }
                             };
 
                             printInfo(info: body.toString());
