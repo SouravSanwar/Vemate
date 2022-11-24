@@ -112,13 +112,12 @@ class PostData extends ChangeNotifier with BaseController {
               message: "Please wait",
             ));
 
-    printInfo(info: body.toString());
 
     final response = await http.post(Uri.parse(Urls.verifyCode), body: json.encode(body), headers: requestHeaders);
 
     //var x = json.decode(response.body);
 
-    printInfo(info: response.body.toString());
+    printInfo(info: 'response.body: '+ response.body.toString());
 
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
@@ -277,7 +276,7 @@ class PostData extends ChangeNotifier with BaseController {
 
     var x = json.decode(response.body);
 
-    printInfo(info: response.body.toString());
+    printInfo(info: 'response.body R: '+  response.body.toString());
 
     Map<String, dynamic> js = x;
 

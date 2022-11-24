@@ -28,24 +28,16 @@ class VersionControl {
   }
 
   static Future<void> initConfig() async {
-
-
-
-
     await remoteConfig.setConfigSettings(RemoteConfigSettings(
-      fetchTimeout: const Duration(
-          seconds: 1), // a fetch will wait up to 10 seconds before timing out
-      minimumFetchInterval: const Duration(
-          seconds:
-              10), // fetch parameters will be cached for a maximum of 1 hour
+      fetchTimeout: const Duration(seconds: 1), // a fetch will wait up to 10 seconds before timing out
+      minimumFetchInterval: const Duration(seconds: 10), // fetch parameters will be cached for a maximum of 1 hour
     ));
     if (remoteConfig.getInt("version_code").toString().isNotEmpty) {
       prefs!.getString('token') != null
-          ?
-      Provider.of<GetData>(Get.overlayContext!,listen: false).getHomeVault()
-          .then((value) => Get.to(() => ControllerPage()))
-          .then((value) => Provider.of<GetData>(Get.overlayContext!,listen: false).getCollectibles(limit: 10))
-
+          ? Provider.of<GetData>(Get.overlayContext!, listen: false)
+              .getHomeVault()
+              .then((value) => Get.to(() => ControllerPage()))
+              .then((value) => Provider.of<GetData>(Get.overlayContext!, listen: false).getCollectibles(limit: 10))
           : Get.to(() => const InstructionsScreen());
 
       print('Color Mode: ' + prefs!.getInt('mode').toString());
