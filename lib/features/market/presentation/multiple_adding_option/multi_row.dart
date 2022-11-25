@@ -8,6 +8,7 @@ import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
+import 'package:ketemaa/core/utilities/shimmer/response_message.dart';
 import 'package:ketemaa/features/market/model/MultiRowModel.dart';
 import 'package:ketemaa/features/market/presentation/Details/collectible_details.dart';
 import 'package:ketemaa/features/market/presentation/multiple_adding_option/mint_textfield.dart';
@@ -36,6 +37,8 @@ class _MultiformState extends State<Multiform> {
   PostData? postData;
   GetData? getData;
   int offset = 0;
+  bool? duplicateMint=false;
+  bool? duplicateStoredMint=false;
 
   RefreshController refreshController = RefreshController(initialRefresh: false);
   final GlobalKey _refreshkey = GlobalKey();
@@ -109,7 +112,7 @@ class _MultiformState extends State<Multiform> {
                         InkWell(
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
-                                setState(() {
+                                setState(() async {
                                   // storedMintController.add(
                                   //   TextEditingController(
                                   //     text: mintController.text,
@@ -141,15 +144,55 @@ class _MultiformState extends State<Multiform> {
                                   // printInfo(
                                   //     info: 'data.maoModel!.results![0]' +
                                   //         data.maoModel!.results![data.maoModel!.results!.length - 1].mintNumber.toString());
+                                  duplicateMint=false;
+                                  duplicateStoredMint=false;
 
-                                  addToListController.add(
-                                    MultiRowModel(
-                                      TextEditingController(text: mintController.text),
-                                      TextEditingController(),
-                                      TextEditingController(text: DateTime.now().toIso8601String()),
-                                    ),
-                                  );
+                                  for(int i=0;i<addToListController.length ;i++){
+                                    if(addToListController[i].mintNumber1!.text ==mintController.text){
+                                      duplicateMint=true;
+                                    }
+                                    else{
+                                      duplicateMint=false;
+                                    }
+                                  }
+
+                                  for(int i=0;i<storedMintController.length ;i++){
+                                    if(storedMintController[i].text==mintController.text){
+                                      duplicateStoredMint=true;
+                                          break;
+                                    }
+                                    else{
+                                     duplicateStoredMint=false;
+                                    }
+                                  }
+
+                                  if(duplicateMint==true || duplicateStoredMint==true){
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (_) => const ResponseMessage(
+                                          icon: Icons.error_outline,
+                                          color: Colors.purpleAccent,
+                                          message: "Mint number already exist in the list!",
+                                        ));
+
+                                    await Future.delayed(Duration(seconds: 2));
+                                    Navigator.of(context).pop();
+                                    mintController.clear();
+                                  }else {
+                                      addToListController.add(
+                                        MultiRowModel(
+                                          TextEditingController(text: mintController.text),
+                                          TextEditingController(),
+                                          TextEditingController(text: DateTime.now().toIso8601String()),
+                                        ),
+                                      );
+                                    }
+
+                                  mintController.clear();
                                 });
+                                print(duplicateMint.toString()+duplicateStoredMint.toString());
+
                                 mintController.clear();
                                 FocusScope.of(context).requestFocus(FocusNode());
                               }
@@ -251,7 +294,25 @@ class _MultiformState extends State<Multiform> {
                                             ),
                                             child: Padding(
                                               padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                              child: Row(
+                                              child:InkWell(
+                                                onTap: () async {
+                                                  var datePicked = await DatePicker.showSimpleDatePicker(
+                                                    context,
+                                                    initialDate: DateTime.now(),
+                                                    firstDate: DateTime(2015),
+                                                    lastDate: DateTime.now(),
+                                                    dateFormat: "dd-MM-yyyy",
+                                                    locale: DateTimePickerLocale.en_us,
+                                                    looping: true,
+                                                    backgroundColor: const Color(0xff02072D),
+                                                    textColor: AppColors.white.withOpacity(.7),
+                                                  );
+                                                  setState(() {
+                                                    addToListController[index].dateTime!.text =
+                                                        datePicked!.toIso8601String();
+                                                  });
+                                                },
+                                                child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Text(
@@ -265,32 +326,15 @@ class _MultiformState extends State<Multiform> {
                                                       color: AppColors.white.withOpacity(.7),
                                                     ),
                                                   ),
-                                                  InkWell(
-                                                    onTap: () async {
-                                                      var datePicked = await DatePicker.showSimpleDatePicker(
-                                                        context,
-                                                        initialDate: DateTime.now(),
-                                                        firstDate: DateTime(2015),
-                                                        lastDate: DateTime.now(),
-                                                        dateFormat: "dd-MM-yyyy",
-                                                        locale: DateTimePickerLocale.en_us,
-                                                        looping: true,
-                                                        backgroundColor: const Color(0xff02072D),
-                                                        textColor: AppColors.white.withOpacity(.7),
-                                                      );
-                                                      setState(() {
-                                                        addToListController[index].dateTime!.text =
-                                                            datePicked!.toIso8601String();
-                                                      });
-                                                    },
-                                                    child: Icon(
+                                                   Icon(
                                                       Icons.calendar_month,
                                                       color: AppColors.white.withOpacity(.7),
                                                       size: 17,
                                                     ),
-                                                  )
+
                                                 ],
                                               ),
+                                          )
                                             ),
                                           ),
                                         ),

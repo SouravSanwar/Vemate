@@ -656,6 +656,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                                       DetailsTextField(
                                                                         controller:
                                                                             storedDateController[0],
+                                                                        enabled: false,
                                                                       ),
                                                                       Positioned(
                                                                         top: 10,
@@ -781,6 +782,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                                       },
                                                                       child:
                                                                           Container(
+                                                                         alignment: Alignment.center,
                                                                         width: Get.width *
                                                                             0.46,
                                                                         height: Get.height *
@@ -793,21 +795,13 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                                               BorderRadius.circular(14.0),
                                                                         ),
                                                                         child:
-                                                                            const Padding(
-                                                                          padding: EdgeInsets.only(
-                                                                              left: 56,
-                                                                              right: 56,
-                                                                              top: 12,
-                                                                              bottom: 12),
-                                                                          child:
-                                                                              Text(
+                                                                            Text(
                                                                             'Update',
                                                                             textAlign:
-                                                                                TextAlign.center,
+                                                                              TextAlign.center,
                                                                             style:
-                                                                                TextStyle(fontSize: 14),
+                                                                              TextStyle(fontSize: 14),
                                                                           ),
-                                                                        ),
                                                                       ),
                                                                     ),
                                                                   ),
@@ -944,6 +938,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                 DetailsTextField(
                                                   controller:
                                                   storedDateController[0],
+                                                  enabled: false,
                                                 ),
                                                 Positioned(
                                                   top: 10,
@@ -1069,6 +1064,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                 },
                                                 child:
                                                 Container(
+                                                  alignment: Alignment.center,
                                                   width: Get.width *
                                                       0.46,
                                                   height: Get.height *
@@ -1081,20 +1077,12 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                     BorderRadius.circular(14.0),
                                                   ),
                                                   child:
-                                                  const Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left: 56,
-                                                        right: 56,
-                                                        top: 12,
-                                                        bottom: 12),
-                                                    child:
-                                                    Text(
-                                                      'Update',
-                                                      textAlign:
-                                                      TextAlign.center,
-                                                      style:
-                                                      TextStyle(fontSize: 14),
-                                                    ),
+                                                  Text(
+                                                    'Update',
+                                                    textAlign:
+                                                    TextAlign.center,
+                                                    style:
+                                                    TextStyle(fontSize: 14),
                                                   ),
                                                 ),
                                               ),

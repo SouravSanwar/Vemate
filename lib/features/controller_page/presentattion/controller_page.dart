@@ -105,6 +105,7 @@ class _ControllerPageState extends State<ControllerPage> {
     getData!.getAlert();
     getData!.getVaultStats();
     getData!.getSetList('');
+    getData!.getMySets(0, true, graph_data: true);
     getData!.getWishList();
     super.initState();
     initPlatformState();

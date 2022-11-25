@@ -192,7 +192,7 @@ class ProductDetail {
     edition = json['edition'];
     editions = json['editions'];
     parent = json['parent'];
-    brand = json['brand'];
+    brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
     rarity = json['rarity'];
     floorPrice = json['floor_price'];
     series = json['series'];
@@ -206,7 +206,7 @@ class ProductDetail {
   String? edition;
   String? editions;
   dynamic parent;
-  num? brand;
+  Brand? brand;
   String? rarity;
   String? floorPrice;
   String? series;
@@ -228,6 +228,27 @@ class ProductDetail {
     if (image != null) {
       map['image'] = image?.toJson();
     }
+    return map;
+  }
+}
+class Brand {
+  Brand({
+    this.id,
+    this.name,
+  });
+
+  Brand.fromJson(dynamic json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  int? id;
+  String? name;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['name'] = name;
     return map;
   }
 }

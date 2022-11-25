@@ -296,7 +296,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                       brand: data.mySetsModel!.results![index].productDetail!.type == 0
                                         ?data.mySetsModel!.results![index].productDetail!.brand == null
                                           ? ""
-                                          : data.mySetsModel!.results![index].productDetail!.brand.toString()
+                                          : data.mySetsModel!.results![index].productDetail!.brand!.name.toString()
 
                                           :data.mySetsModel!.results![index].productDetail!.series== null
                                           ? ""

@@ -40,6 +40,8 @@ class _VaultState extends State<Vault> {
 
     getData = Provider.of<GetData>(context, listen: false);
     getData!.getVaultStats();
+    getData!.getMySets(0, true, graph_data: true);
+
   }
 
   @override
@@ -47,7 +49,7 @@ class _VaultState extends State<Vault> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: Consumer<GetData>(builder: (context, data, child) {
-        return data.vaultStatsModel != null && data.setListModel != null && data.wishListModel != null
+        return data.vaultStatsModel != null && data.mySetsModel != null && data.wishListModel != null
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Stack(
@@ -166,7 +168,7 @@ class _VaultState extends State<Vault> {
                                 onTap: () {
                                   Get.to(() => const SetListPage());
                                 },
-                                child: data.setListModel!.setResults!.isNotEmpty
+                                child: data.mySetsModel!.results!.isNotEmpty
                                     ? Padding(
                                         padding: EdgeInsets.only(
                                             right: Get.width * .06, top: Get.height * .0334, bottom: Get.height * .0167),
@@ -183,11 +185,11 @@ class _VaultState extends State<Vault> {
                               ),
                             ],
                           ),
-                          data.setListModel != null
+                          data.mySetsModel != null
                               ? SizedBox(
                                   width: Get.width,
-                                  height:data.setListModel!.setResults!.isNotEmpty ?  Get.height * .35 : Get.height * .23,
-                                  child: data.setListModel!.setResults!.isNotEmpty
+                                  height:data.mySetsModel!.results!.isNotEmpty ?  Get.height * .35 : Get.height * .23,
+                                  child: data.mySetsModel!.results!.isNotEmpty
                                       ? const MysetsCard()
                                       : const NoDataCard(
                                           title: 'Your Vault is empty!',

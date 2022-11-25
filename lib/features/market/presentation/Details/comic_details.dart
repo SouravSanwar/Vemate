@@ -601,6 +601,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                           DetailsTextField(
                                                             controller:
                                                             storedDateController[0],
+                                                            enabled: false,
                                                           ),
                                                           Positioned(
                                                             top: 10,
@@ -726,6 +727,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                           },
                                                           child:
                                                           Container(
+                                                            alignment: Alignment.center,
                                                             width: Get.width *
                                                                 0.46,
                                                             height: Get.height *
@@ -738,20 +740,12 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                               BorderRadius.circular(14.0),
                                                             ),
                                                             child:
-                                                            const Padding(
-                                                              padding: EdgeInsets.only(
-                                                                  left: 56,
-                                                                  right: 56,
-                                                                  top: 12,
-                                                                  bottom: 12),
-                                                              child:
-                                                              Text(
-                                                                'Update',
-                                                                textAlign:
-                                                                TextAlign.center,
-                                                                style:
-                                                                TextStyle(fontSize: 14),
-                                                              ),
+                                                            Text(
+                                                              'Update',
+                                                              textAlign:
+                                                              TextAlign.center,
+                                                              style:
+                                                              TextStyle(fontSize: 14),
                                                             ),
                                                           ),
                                                         ),
@@ -890,6 +884,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         DetailsTextField(
                                           controller:
                                           storedDateController[0],
+                                          enabled: false,
                                         ),
                                         Positioned(
                                           top: 10,
@@ -1015,6 +1010,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                         },
                                         child:
                                         Container(
+                                          alignment: Alignment.center,
                                           width: Get.width *
                                               0.46,
                                           height: Get.height *
@@ -1027,20 +1023,12 @@ class _ComicDetailsState extends State<ComicDetails> {
                                             BorderRadius.circular(14.0),
                                           ),
                                           child:
-                                          const Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 56,
-                                                right: 56,
-                                                top: 12,
-                                                bottom: 12),
-                                            child:
-                                            Text(
-                                              'Update',
-                                              textAlign:
-                                              TextAlign.center,
-                                              style:
-                                              TextStyle(fontSize: 14),
-                                            ),
+                                          Text(
+                                            'Update',
+                                            textAlign:
+                                            TextAlign.center,
+                                            style:
+                                            TextStyle(fontSize: 14),
                                           ),
                                         ),
                                       ),

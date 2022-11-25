@@ -9,10 +9,12 @@ class DetailsTextField extends StatefulWidget {
 
   TextEditingController controller;
   TextInputType? textType;
+  bool? enabled;
 
   DetailsTextField({
     required this.controller,
    this.textType,
+    this.enabled=true
   });
 
   @override
@@ -28,6 +30,7 @@ class _DetailsTextFieldState extends State<DetailsTextField> {
     return Container(
       color: Colors.transparent,
       child: TextFormField(
+        enabled: widget.enabled==false? false : true,
         style: TextStyle(
             color: Colors
                 .white

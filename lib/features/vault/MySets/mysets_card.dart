@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/models/Test.dart';
+import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/home/components/New_Item_card/new_item_container.dart';
 import 'package:ketemaa/features/market/presentation/Details/comic_details.dart';
 import 'package:ketemaa/features/vault/MySets/MySets_Individual_List.dart';
@@ -333,7 +334,7 @@ class _MysetsCardState extends State<MysetsCard> {
                   );
                 },
               )
-            : Container();
+            : ColorLoader();
       },
     );
   }
