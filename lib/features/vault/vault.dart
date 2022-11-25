@@ -41,7 +41,6 @@ class _VaultState extends State<Vault> {
     getData = Provider.of<GetData>(context, listen: false);
     getData!.getVaultStats();
     getData!.getMySets(0, true, graph_data: true);
-
   }
 
   @override
@@ -53,10 +52,7 @@ class _VaultState extends State<Vault> {
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Stack(
-
                   children: [
-
-
                     Container(
                       padding: EdgeInsets.only(top: Get.height * .08),
                       child: ListView(
@@ -171,7 +167,9 @@ class _VaultState extends State<Vault> {
                                 child: data.mySetsModel!.results!.isNotEmpty
                                     ? Padding(
                                         padding: EdgeInsets.only(
-                                            right: Get.width * .06, top: Get.height * .0334, bottom: Get.height * .0167),
+                                            right: Get.width * .06,
+                                            top: Get.height * .0334,
+                                            bottom: Get.height * .0167),
                                         child: Text(
                                           "See All",
                                           style: TextStyle(
@@ -188,7 +186,7 @@ class _VaultState extends State<Vault> {
                           data.mySetsModel != null
                               ? SizedBox(
                                   width: Get.width,
-                                  height:data.mySetsModel!.results!.isNotEmpty ?  Get.height * .35 : Get.height * .23,
+                                  height: data.mySetsModel!.results!.isNotEmpty ? Get.height * .35 : Get.height * .23,
                                   child: data.mySetsModel!.results!.isNotEmpty
                                       ? const MysetsCard()
                                       : const NoDataCard(
@@ -200,11 +198,12 @@ class _VaultState extends State<Vault> {
                           ///My Wishlist
                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                             Padding(
-                              padding: EdgeInsets.only(left: Get.width * .041, top: Get.height * .0334, bottom: Get.height * .0167),
+                              padding: EdgeInsets.only(
+                                  left: Get.width * .041, top: Get.height * .0334, bottom: Get.height * .0167),
                               child: Text(
                                 "My Wishlist",
-                                style: Get.textTheme.headline2!
-                                    .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
+                                style: Get.textTheme.headline2!.copyWith(
+                                    color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
                               ),
                             ),
                             InkWell(
@@ -252,12 +251,17 @@ class _VaultState extends State<Vault> {
                       width: Get.width,
                       height: Get.height * .07,
                       margin: EdgeInsets.only(top: Get.height * .05),
-                      padding: EdgeInsets.symmetric(horizontal: Get.height * .021,),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: Get.height * .021,
+                      ),
                       color: AppColors.backgroundColor,
                       child: Text(
                         "My Vault",
-                        style:
-                        TextStyle(color: AppColors.textColor, fontFamily: 'Inter', fontSize: 20.sp, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            color: AppColors.textColor,
+                            fontFamily: 'Inter',
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],

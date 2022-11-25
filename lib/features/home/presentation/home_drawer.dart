@@ -14,7 +14,7 @@ import 'package:ketemaa/features/profile/feedback/rating_stars.dart';
 import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
+// import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/utilities/app_colors/app_colors.dart';
@@ -182,7 +182,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     setState(() {
                       DrawerItems(false, false, true, false, false, false, false);
                     });
-                      Share.share('Visit Vemate Website:\n https://www.vemate.com/');
+                      // Share.share('Visit Vemate Website:\n https://www.vemate.com/');
                   }, share //true or false
                       ),
                   CustomProfileElements(Icons.info_outline_rounded, "About Vemate", () async {
