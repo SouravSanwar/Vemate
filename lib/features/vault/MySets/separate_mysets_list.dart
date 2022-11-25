@@ -76,6 +76,10 @@ class _SeparateMysetsListState extends State<SeparateMysetsList> {
           style:
           TextStyle(color: AppColors.textColor, fontFamily: 'Inter', fontSize: 20.sp, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          const StackInstructionDialogue(),
+          AppSpaces.spaces_width_5,
+        ],
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
         return Container(
@@ -205,7 +209,7 @@ class _SeparateMysetsListState extends State<SeparateMysetsList> {
                                 brand: data.mySetsModel!.results![index].productDetail!.type == 0
                                     ?data.mySetsModel!.results![index].productDetail!.brand == null
                                     ? ""
-                                    : data.mySetsModel!.results![index].productDetail!.brand.toString()
+                                    : data.mySetsModel!.results![index].productDetail!.brand!.name.toString()
 
                                     :data.mySetsModel!.results![index].productDetail!.series== null
                                     ? ""
@@ -308,3 +312,82 @@ class _SeparateMysetsListState extends State<SeparateMysetsList> {
     }
   }
 }
+class StackInstructionDialogue extends StatefulWidget {
+  const StackInstructionDialogue({Key? key}) : super(key: key);
+
+  @override
+  State<StackInstructionDialogue> createState() => _StackInstructionDialogueState();
+}
+
+class _StackInstructionDialogueState extends State<StackInstructionDialogue> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Dialog(
+              backgroundColor: AppColors.priceInfoColor,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+              elevation: 16,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'FP - ',
+                        ),
+                        Text(
+                          'Current Floor Price of the NFT',
+                          maxLines: 2,
+                        ),
+                      ],
+                    ),
+                    AppSpaces.spaces_height_5,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'AP - ',
+                        ),
+                        Expanded(
+                          child: Text(
+                            'Acquisition price of the NFT - this is the amount you spent to purchase the'
+                                ' NFT and it will be used as a reference point for the charts.',
+                            maxLines: 10,
+                          ),
+                        ),
+                      ],
+                    ),
+                    AppSpaces.spaces_height_5,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'PC - ',
+                        ),
+                        Expanded(
+                          child: Text(
+                            'Price change - This displays the price change in the last 24 hours in % and \$',
+                            maxLines: 10,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+      child: const Icon(Icons.info_outline),
+    );
+  }
+}
+

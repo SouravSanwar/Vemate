@@ -20,6 +20,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../core/models/MySetsModel.dart';
+import 'separate_mysets_list.dart';
 
 class MySetsIndividualList extends StatefulWidget {
   int? productId;
@@ -129,72 +130,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                     )
                   : Container(),
               actions: [
-                InkWell(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return Dialog(
-                          backgroundColor: AppColors.priceInfoColor,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                          elevation: 16,
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: ListView(
-                              shrinkWrap: true,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      'FP - ',
-                                    ),
-                                    Text(
-                                      'Current Floor Price of the NFT',
-                                      maxLines: 2,
-                                    ),
-                                  ],
-                                ),
-                                AppSpaces.spaces_height_5,
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      'AP - ',
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        'Acquisition price of the NFT - this is the amount you spent to purchase the'
-                                        ' NFT and it will be used as a reference point for the charts.',
-                                        maxLines: 10,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                AppSpaces.spaces_height_5,
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      'PC - ',
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        'Price change - This displays the price change in the last 24 hours in % and \$',
-                                        maxLines: 10,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: const Icon(Icons.info_outline),
-                ),
+                const StackInstructionDialogue(),
                 AppSpaces.spaces_width_5,
               ],
             ),

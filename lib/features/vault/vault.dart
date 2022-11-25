@@ -5,7 +5,7 @@ import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
-import 'package:ketemaa/features/vault/My%20Vault/my_sets_lists.dart';
+import 'package:ketemaa/features/vault/MySets/my_sets_lists.dart';
 import 'package:ketemaa/features/vault/NewDesignCard/combined_vault_card.dart';
 import 'package:ketemaa/features/vault/NewDesignCard/separate_vault_card.dart';
 import 'package:ketemaa/features/vault/VaultComicCards/vault_comic_card_1Y.dart';

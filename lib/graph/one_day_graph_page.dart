@@ -111,6 +111,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                           enable: true,
                           lineWidth: 0,
                           shouldAlwaysShow: true,
+
                           builder: (context, tooltipSettings) {
 
                             return widget.fromVault == true
@@ -121,8 +122,8 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
                                         border: Border.all(
-                                            color: const Color(0xff00A7FF)),
-                                        color: const Color(0xff00A7FF)),
+                                            color: const Color(0xff3E488F)),
+                                        color: const Color(0xff3E488F)),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -161,8 +162,8 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
                                         border: Border.all(
-                                            color: const Color(0xff00A7FF)),
-                                        color: const Color(0xff00A7FF)),
+                                            color: const Color(0xff3E488F)),
+                                        color: const Color(0xff3E488F)),
                                     child: Text(
                                       '${tooltipSettings.point?.dataLabelMapper}',
                                       style: TextStyle(fontSize: 12.sp),
@@ -172,7 +173,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                             canShowMarker: false,
                             connectorLineColor: Colors.white,
                             enable: true,
-                            color: Color(0xff00A7FF),
+                            color: Color(0xff3E488F),
                           ),
                           markerSettings: const TrackballMarkerSettings(
                               markerVisibility: TrackballVisibilityMode.auto)),
@@ -183,9 +184,15 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                         ),
                         //rangePadding: ChartRangePadding.auto,
                         axisBorderType: AxisBorderType.withoutTopAndBottom,
-                        majorGridLines: const MajorGridLines(
-                          width: 0,
-                        ),
+                          majorGridLines: MajorGridLines(
+                              width: 1,
+                            color: AppColors.textColor.withOpacity(.1),
+                          ),
+                          minorGridLines: MinorGridLines(
+                              width: 1,
+                              color: AppColors.textColor.withOpacity(.1),
+                          ),
+                          minorTicksPerInterval:5,
                         majorTickLines: const MajorTickLines(width: 0),
                         axisLine: const AxisLine(width: 0),
                         //labelIntersectAction: AxisLabelIntersectAction.hide,
@@ -208,6 +215,20 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                       ),
 
                       primaryYAxis: NumericAxis(
+                        plotBands: <PlotBand>[
+                          PlotBand(
+                              verticalTextPadding:'0%',
+                              horizontalTextPadding: '0%',
+                              text: widget.fromVault==true ?'AP' :"",
+                              textAngle: 0,
+                              start: widget.fromVault==true ?double.parse(detailsAp!):0,
+                              end: widget.fromVault==true ?double.parse(detailsAp!):0,
+                              textStyle: TextStyle(color: AppColors.textColor.withOpacity(.5), fontSize: 8),
+                              horizontalTextAlignment: TextAnchor.end,
+                              borderColor: widget.fromVault==true ?const Color(0xff5A0FD8) : AppColors.graphCard,
+                              borderWidth: 1.5,
+                          )
+                        ],
                         decimalPlaces: 2,
                         numberFormat: NumberFormat.compact(),
                         interactiveTooltip: const InteractiveTooltip(
@@ -216,8 +237,13 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                         axisBorderType: AxisBorderType.withoutTopAndBottom,
                         borderWidth: 0,
                         axisLine: const AxisLine(width: 0),
-                        majorGridLines: const MajorGridLines(
-                          width: 0,
+                        majorGridLines: MajorGridLines(
+                          width: 1,
+                          color: AppColors.textColor.withOpacity(.1),
+                        ),
+                        minorGridLines: MinorGridLines(
+                          width: 1,
+                          color: AppColors.textColor.withOpacity(.1),
                         ),
                         majorTickLines: const MajorTickLines(width: 0),
                         //labelIntersectAction: AxisLabelIntersectAction.hide,
@@ -248,9 +274,9 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                             : SplineAreaSeries<OneDayProductGraph, String>(
                                 dataSource:
                                     data.oneDayGraphModel!.graphData!.graph!,
-                                borderColor: const Color(0xff2093D7),
+                                borderColor: const Color(0xff8A56E1),
+                                color: Colors.transparent,
                                 borderWidth: 1,
-                                gradient: AppColors.graphGradient,
                                 xValueMapper: (plot, _) =>
                                     data.oneDayGraphModel!.graphData!.status ==
                                             0
@@ -268,7 +294,34 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                                 ),
                                 splineType: SplineType.monotonic,
                                 cardinalSplineTension: 0.3,
+
                               ),
+
+                        /*SplineAreaSeries<OneDayProductGraph, String>(
+                          dataSource:
+                          data.oneDayGraphModel!.graphData!.graph!,
+                          borderColor: const Color(0xff5A0FD8),
+                          color: Colors.transparent,
+                          borderWidth: 1,
+                          xValueMapper: (plot, _) =>
+                          data.oneDayGraphModel!.graphData!.status ==
+                              0
+                              ? plot.hourWiseTime
+                              : plot.hourWiseTime1,
+                          yValueMapper: (plot, _) => double.parse(detailsAp!),
+                          xAxisName: 'Duration',
+                          yAxisName: 'Total',
+                          enableTooltip: false,
+                          dataLabelMapper: (plot, _) =>
+                          plot.floorPriceString,
+                          dataLabelSettings: const DataLabelSettings(
+                            isVisible: false,
+                            angle: 270,
+                          ),
+                          splineType: SplineType.monotonic,
+                          cardinalSplineTension: 0.3,
+
+                        ),*/
                       ],
                     )
               : const LoadingExample(),

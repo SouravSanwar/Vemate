@@ -596,7 +596,29 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                                 .grey
                                                                 .withOpacity(.5)),
                                                       ),
-                                                      Stack(
+
+                                                      InkWell(
+                                                        onTap:
+                                                            () async {
+                                                          var datePicked =
+                                                          await DatePicker.showSimpleDatePicker(
+                                                            context,
+                                                            initialDate: DateTime.now(),
+                                                            firstDate: DateTime(2015),
+                                                            lastDate: DateTime.now(),
+                                                            dateFormat: "dd-MM-yyyy",
+                                                            locale: DateTimePickerLocale.en_us,
+                                                            looping: true,
+                                                            backgroundColor: const Color(0xff02072D),
+                                                            textColor: AppColors.white.withOpacity(.7),
+                                                          );
+                                                          setState(() {
+                                                            textDate = datePicked!.toIso8601String();
+                                                            storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(datePicked.toIso8601String()));
+                                                          });
+                                                        },
+                                                        child:
+                                                        Stack(
                                                         children: [
                                                           DetailsTextField(
                                                             controller:
@@ -607,38 +629,16 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                             top: 10,
                                                             right:
                                                             50,
-                                                            child:
-                                                            InkWell(
-                                                              onTap:
-                                                                  () async {
-                                                                var datePicked =
-                                                                await DatePicker.showSimpleDatePicker(
-                                                                  context,
-                                                                  initialDate: DateTime.now(),
-                                                                  firstDate: DateTime(2015),
-                                                                  lastDate: DateTime.now(),
-                                                                  dateFormat: "dd-MM-yyyy",
-                                                                  locale: DateTimePickerLocale.en_us,
-                                                                  looping: true,
-                                                                  backgroundColor: const Color(0xff02072D),
-                                                                  textColor: AppColors.white.withOpacity(.7),
-                                                                );
-                                                                setState(() {
-                                                                  textDate = datePicked!.toIso8601String();
-                                                                  storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(datePicked.toIso8601String()));
-                                                                });
-                                                              },
-                                                              child:
-                                                              Icon(
+                                                            child:Icon(
                                                                 Icons.calendar_month,
                                                                 color:
                                                                 AppColors.white.withOpacity(.7),
                                                                 // size: 17,
                                                               ),
-                                                            ),
                                                           )
                                                         ],
                                                       ),
+                                                  ),
                                                       AppSpaces
                                                           .spaces_height_2,
                                                       Text(
@@ -879,7 +879,28 @@ class _ComicDetailsState extends State<ComicDetails> {
                                               .grey
                                               .withOpacity(.5)),
                                     ),
-                                    Stack(
+
+                                    InkWell(
+                                      onTap:
+                                          () async {
+                                        var datePicked =
+                                        await DatePicker.showSimpleDatePicker(
+                                          context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(2015),
+                                          lastDate: DateTime.now(),
+                                          dateFormat: "dd-MM-yyyy",
+                                          locale: DateTimePickerLocale.en_us,
+                                          looping: true,
+                                          backgroundColor: const Color(0xff02072D),
+                                          textColor: AppColors.white.withOpacity(.7),
+                                        );
+                                        setState(() {
+                                          textDate = datePicked!.toIso8601String();
+                                          storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(datePicked.toIso8601String()));
+                                        });
+                                      },
+                                      child:Stack(
                                       children: [
                                         DetailsTextField(
                                           controller:
@@ -891,37 +912,17 @@ class _ComicDetailsState extends State<ComicDetails> {
                                           right:
                                           50,
                                           child:
-                                          InkWell(
-                                            onTap:
-                                                () async {
-                                              var datePicked =
-                                              await DatePicker.showSimpleDatePicker(
-                                                context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime(2015),
-                                                lastDate: DateTime.now(),
-                                                dateFormat: "dd-MM-yyyy",
-                                                locale: DateTimePickerLocale.en_us,
-                                                looping: true,
-                                                backgroundColor: const Color(0xff02072D),
-                                                textColor: AppColors.white.withOpacity(.7),
-                                              );
-                                              setState(() {
-                                                textDate = datePicked!.toIso8601String();
-                                                storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(datePicked.toIso8601String()));
-                                              });
-                                            },
-                                            child:
                                             Icon(
                                               Icons.calendar_month,
                                               color:
                                               AppColors.white.withOpacity(.7),
                                               // size: 17,
                                             ),
-                                          ),
                                         )
                                       ],
                                     ),
+
+                                ),
                                     AppSpaces
                                         .spaces_height_2,
                                     Text(
