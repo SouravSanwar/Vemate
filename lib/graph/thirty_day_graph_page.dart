@@ -10,8 +10,12 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 
+import 'product_details_collectibles.dart';
+
 class ThirtyDayProductGraphPage extends StatefulWidget {
-  const ThirtyDayProductGraphPage({Key? key}) : super(key: key);
+  final bool? fromVault;
+  final String? ap;
+  const ThirtyDayProductGraphPage({Key? key, this.fromVault, this.ap}) : super(key: key);
 
   @override
   State<ThirtyDayProductGraphPage> createState() =>
@@ -107,7 +111,50 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                           lineWidth: 0,
                           shouldAlwaysShow: true,
                           builder: (context, tooltipSettings) {
-                            return Container(
+                            return widget.fromVault == true
+                                ? Container(
+                                height: Get.height*.07,
+                                width: Get.width*.3,
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7),
+                                    border: Border.all(
+                                        color: const Color(0xff00A7FF)),
+                                    color: const Color(0xff00A7FF)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'FP',
+                                          style: TextStyle(fontSize: 12.sp),
+                                        ),
+                                        Text(
+                                          '\$${tooltipSettings.point?.dataLabelMapper}',
+                                          style: TextStyle(fontSize: 12.sp),
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Profit',
+                                          style: TextStyle(fontSize: 12.sp),
+                                        ),
+                                        Text("\$"+(double.parse(tooltipSettings.point!.dataLabelMapper!)-double.parse(detailsAp!)).toStringAsFixed(2),
+                                          style: TextStyle(fontSize: 12.sp),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ))
+                                : Container(
                                 padding: EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(7),
@@ -115,7 +162,9 @@ class _ThirtyDayProductGraphPageState extends State<ThirtyDayProductGraphPage> {
                                         color: const Color(0xff00A7FF)),
                                     color: const Color(0xff00A7FF)),
                                 child: Text(
-                                    '${tooltipSettings.point?.dataLabelMapper}',style: TextStyle(fontSize: 12.sp),));
+                                  '${tooltipSettings.point?.dataLabelMapper}',
+                                  style: TextStyle(fontSize: 12.sp),
+                                ));
                           },
                           tooltipSettings: const InteractiveTooltip(
                             canShowMarker: false,

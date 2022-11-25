@@ -11,16 +11,19 @@ import '../core/Provider/getData.dart';
 import '../main.dart';
 import 'components/item_details_helper.dart';
 
+
+String? detailsEdition;
+String? detailsAp;
+String? detailsAd;
+
 class ProductDetailsCollectibles extends StatefulWidget {
   final int? id;
   final bool? fromVault;
   final int? mintId;
-  final String? edition;
-  final String? ap;
-  final String? ad;
+  final VoidCallback? onTap;
 
   const ProductDetailsCollectibles(
-      {Key? key, this.id, this.edition = '', this.ap = '', this.ad = '', this.fromVault = false, this.mintId})
+      {Key? key, this.id, this.fromVault = false, this.mintId, this.onTap})
       : super(key: key);
 
   @override
@@ -65,21 +68,24 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
                         children: [
                           ItemDetailsHelper(
                             text: "Edition",
-                            text1: prefs!.getString('edition').toString(),
+                            text1:"#"+detailsEdition!,
                             fromVault: true,
                             topRadius: true,
+                            onTap: widget.onTap,
                           ),
                           divider(),
                           ItemDetailsHelper(
                             text: "Acquisition Price",
-                            text1: prefs!.getString('ap').toString(),
+                            text1: detailsAp,
                             fromVault: true,
+                            onTap: widget.onTap,
                           ),
                           divider(),
                           ItemDetailsHelper(
                             text: "Acquisition Date",
-                            text1: DateFormat('MMMM dd, yyyy').format(DateTime.parse(widget.ad.toString())),
+                            text1: DateFormat('MMMM dd, yyyy').format(DateTime.parse(detailsAd.toString())),
                             fromVault: true,
+                            onTap: widget.onTap,
                           ),
                           divider(),
                         ],
@@ -97,8 +103,12 @@ class _ProductDetailsCollectiblesState extends State<ProductDetailsCollectibles>
                         text: "Edition",
                         text1: data.singleProductModel != null ? data.singleProductModel!.edition.toString() : "",
                       ),
-                divider(),
-                ItemDetailsHelper(
+                widget.fromVault == true
+                    ?Container()
+                    :divider(),
+                widget.fromVault == true
+                    ?Container()
+                    :ItemDetailsHelper(
                   text: "Owner",
                   text1: data.singleProductModel != null ? data.singleProductModel!.owner.toString() : "",
                 ),

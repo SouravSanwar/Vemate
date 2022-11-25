@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
+import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
 import '../core/Provider/getData.dart';
@@ -9,17 +10,17 @@ import 'components/item_details_helper.dart';
 import 'designhelper.dart';
 import 'package:intl/intl.dart';
 
+import 'product_details_collectibles.dart';
+
 
 
 class ProductDetailsComics extends StatefulWidget {
   final int? id;
   final bool? fromVault;
   final int? mintId;
-  final String? edition;
-  final String? ap;
-  final String? ad;
+  final VoidCallback? onTap;
 
-  ProductDetailsComics({Key? key, this.id, this.edition = '', this.ap = '', this.ad = '', this.fromVault = false, this.mintId}) : super(key: key);
+  ProductDetailsComics({Key? key, this.id, this.fromVault = false, this.mintId, this.onTap}) : super(key: key);
 
   @override
   State<ProductDetailsComics> createState() => _ProductDetailsComicsState();
@@ -61,21 +62,24 @@ class _ProductDetailsComicsState extends State<ProductDetailsComics> {
                 children: [
                   ItemDetailsHelper(
                     text: "Edition",
-                    text1: widget.edition,
+                    text1: detailsEdition,
                     fromVault: true,
                     topRadius: true,
+                    onTap: widget.onTap,
                   ),
                   divider(),
                   ItemDetailsHelper(
                     text: "Acquisition Price",
-                    text1: widget.ap,
+                    text1: detailsAp,
                     fromVault: true,
+                    onTap: widget.onTap,
                   ),
                   divider(),
                   ItemDetailsHelper(
                     text: "Acquisition Date",
-                    text1: DateFormat('yyyy-MM-dd').format(DateTime.parse(widget.ad.toString())),
+                    text1: DateFormat('MMMM dd, yyyy').format(DateTime.parse(detailsAd.toString())),
                     fromVault: true,
+                    onTap: widget.onTap,
                   ),
                   divider(),
                 ],
@@ -95,8 +99,12 @@ class _ProductDetailsComicsState extends State<ProductDetailsComics> {
                     ? data.singleProductModel!.edition.toString()
                     : "",
               ),
-              divider(),
-              ItemDetailsHelper(
+              widget.fromVault == true
+                  ?Container()
+                  :divider(),
+              widget.fromVault == true
+              ?Container()
+              :ItemDetailsHelper(
                 text: "Owner",
                 text1: data.singleProductModel != null
                     ? data.singleProductModel!.owner.toString()

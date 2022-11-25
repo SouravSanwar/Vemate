@@ -16,11 +16,13 @@ import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_c
 import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_2fa.dart';
 import 'package:ketemaa/features/auth/reset_pass/forgot_pass.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
+import 'package:ketemaa/graph/product_details_collectibles.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utilities/app_colors/app_colors.dart';
+import 'package:intl/intl.dart';
 
 class PostData extends ChangeNotifier with BaseController {
   GetData? getData;
@@ -1117,6 +1119,8 @@ class PostData extends ChangeNotifier with BaseController {
 
     var x = json.decode(response.body);
 
+    printInfo(info: 'response.body: ' + prefs!.getString('ap').toString());
+
     Map<String, dynamic> js = x;
 
     if (response.statusCode == 200 ||
@@ -1183,7 +1187,7 @@ class PostData extends ChangeNotifier with BaseController {
 
     var x = json.decode(response.body);
 
-    prefs!.setString('edition', x['edition'].toString());
+    prefs!.setString('edition', x['mint_number'].toString());
     prefs!.setString('ap', double.parse(x['ap'].toString()).toStringAsFixed(2));
     prefs!.setString('ad', x['ad'].toString());
 
@@ -1207,6 +1211,11 @@ class PostData extends ChangeNotifier with BaseController {
                   color: Colors.purpleAccent,
                   message: "Edited Successfully",
                 ));
+
+          detailsEdition=x['mint_number'].toString();
+          detailsAp=double.parse(x['ap'].toString()).toStringAsFixed(2);
+          detailsAd=x['ad'].toString();
+
         await Future.delayed(const Duration(seconds: 1));
         Navigator.of(context).pop();
       } catch (e) {

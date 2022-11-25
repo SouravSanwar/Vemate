@@ -165,8 +165,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                     Expanded(
                                       child: Text(
                                         'Acquisition price of the NFT - this is the amount you spent to purchase the'
-                                        ' NFT and it will be used as a reference point for the charts.'
-                                        ' Please insert your acquisition price there.',
+                                        ' NFT and it will be used as a reference point for the charts.',
                                         maxLines: 10,
                                       ),
                                     ),
@@ -257,10 +256,11 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
 
                                                 ///Need to mint Id for upgrade
                                                 mintId: int.parse(data.mySetsModel!.results![index].id.toString()),
-                                                edition: data.mySetsModel!.results![index].edition,
+                                                edition: data.mySetsModel!.results![index].mintNumber.toString(),
                                                 ap: data.mySetsModel!.results![index].ap,
                                                 ad: data.mySetsModel!.results![index].ad ??
                                                     DateTime.now().toIso8601String(),
+                                                index: index,
                                               ),
                                             )
                                           : Get.to(
@@ -269,10 +269,11 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                                 fromVault: true,
                                                 productType: data.mySetsModel!.results![index].productDetail!.type,
                                                 mintId: int.parse(data.mySetsModel!.results![index].id.toString()),
-                                                edition: data.mySetsModel!.results![index].edition,
+                                                edition: data.mySetsModel!.results![index].mintNumber.toString(),
                                                 ap: data.mySetsModel!.results![index].ap,
                                                 ad: data.mySetsModel!.results![index].ad ??
                                                     DateTime.now().toIso8601String(),
+                                                index: index,
                                               ),
                                             );
                                     },
@@ -289,12 +290,17 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                       scrappedImage: data.mySetsModel!.results![index].productDetail!.image != null
                                           ? data.mySetsModel!.results![index].productDetail!.image!.baseUrl.toString()
                                           : "",
-                                      edition: data.mySetsModel!.results![index].edition == null
+                                      edition: data.mySetsModel!.results![index].mintNumber == null
                                           ? ""
-                                          : data.mySetsModel!.results![index].edition!,
-                                      brand: data.mySetsModel!.results![index].productDetail!.brand == null
+                                          : data.mySetsModel!.results![index].mintNumber.toString(),
+                                      brand: data.mySetsModel!.results![index].productDetail!.type == 0
+                                        ?data.mySetsModel!.results![index].productDetail!.brand == null
                                           ? ""
-                                          : data.mySetsModel!.results![index].productDetail!.brand.toString(),
+                                          : data.mySetsModel!.results![index].productDetail!.brand!.name.toString()
+
+                                          :data.mySetsModel!.results![index].productDetail!.series== null
+                                          ? ""
+                                          : data.mySetsModel!.results![index].productDetail!.series.toString(),
                                       rarity: data.mySetsModel!.results![index].productDetail!.rarity == null
                                           ? ""
                                           : data.mySetsModel!.results![index].productDetail!.rarity!,

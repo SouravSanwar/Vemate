@@ -43,6 +43,7 @@ class CollectibleDetails extends StatefulWidget {
   final String? edition;
   final String? ap;
   final String? ad;
+  final int? index;
 
   const CollectibleDetails({
     Key? key,
@@ -54,6 +55,7 @@ class CollectibleDetails extends StatefulWidget {
     this.ap = '',
     this.ad = '',
     this.mintId,
+    this.index,
   }) : super(key: key);
 
   @override
@@ -93,7 +95,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
   @override
   void initState() {
     super.initState();
-
+    detailsEdition = widget.edition!;
+    detailsAp = widget.ap;
+    detailsAd = widget.ad;
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
     getData!.getSingleProduct(widget.productId);
@@ -103,7 +107,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
     getData!.checkSetList(widget.productId!);
     getData!.getWishList();
 
-    widget.fromNotification == 1 ? getData!.getNotification() : print("no pass from notification");
+    widget.fromNotification == 1
+        ? getData!.getNotification()
+        : print("no pass from notification");
   }
 
   Future<bool> _willPopCallback() async {
@@ -111,10 +117,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (_) =>
-          const LoadingDialogue(
-            message: "Please wait",
-          ));
+          builder: (_) => const LoadingDialogue(
+                message: "Please wait",
+              ));
       await getData!
           .getMySets1(0, widget.productId!, true, graph_data: true)
           .whenComplete(() => Navigator.of(context).pop());
@@ -138,9 +143,9 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                 backgroundColor: AppColors.backgroundColor,
                 title: data.singleProductModel != null
                     ? DetailsAppbar(
-                  name: data.singleProductModel!.name!,
-                  results: data.singleProductModel,
-                )
+                        name: data.singleProductModel!.name!,
+                        results: data.singleProductModel,
+                      )
                     : Container() /*Container(
             padding: EdgeInsets.symmetric(horizontal: Get.width * .03),
             child: Text(
@@ -155,132 +160,183 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
               overflow: TextOverflow.ellipsis,
             ),
           ),*/
-            ),
+                ),
             backgroundColor: AppColors.backgroundColor,
-            body: data.singleProductModel != null && data.checkSetCheck != null && data.checkWishlistModel != null
-                ? SafeArea(
-              child: NestedScrollView(
-                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-                  return <Widget>[
-                    SliverToBoxAdapter(
-                        child: Column(
-                          children: [
+            body:
+                data.singleProductModel != null &&
+                        data.checkSetCheck != null &&
+                        data.checkWishlistModel != null
+                    ? SafeArea(
+                        child: NestedScrollView(
+                          headerSliverBuilder:
+                              (BuildContext context, bool innerBoxIsScrolled) {
+                            return <Widget>[
+                              SliverToBoxAdapter(
+                                  child: Column(
+                                children: [
+                                  ///Image
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 0,
+                                        right: 10,
+                                        left: 10,
+                                        bottom: Get.height * 0.01667),
+                                    child: Container(
+                                      height:
+                                          data.singleProductModel!.image != null
+                                              ? data.singleProductModel!.image!
+                                                          .direction ==
+                                                      "PORTRAIT"
+                                                  ? Get.width * 1.173
+                                                  : Get.width * .66
+                                              : Get.height * .3,
+                                      width:
+                                          data.singleProductModel!.image != null
+                                              ? Get.width * .88
+                                              : Get.height * .5,
+                                      padding: const EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                          gradient: AppColors.vaultCardGradient,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                              color: AppColors.primaryColor)),
+                                      alignment: Alignment.center,
+                                      child: data.singleProductModel!.image ==
+                                              null
+                                          ? Text(
+                                              data.singleProductModel!.name
+                                                  .toString()[0]
+                                                  .toUpperCase(),
+                                              style: const TextStyle(
+                                                  color:
+                                                      Colors.deepPurpleAccent,
+                                                  //fontFamily: 'Inter',
+                                                  fontSize: 65,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          : CachedNetworkImage(
+                                              imageUrl: data
+                                                          .singleProductModel!
+                                                          .image!
+                                                          .high_res_url !=
+                                                      null
+                                                  ? data.singleProductModel!
+                                                      .image!.high_res_url
+                                                      .toString()
+                                                  : data.singleProductModel!
+                                                      .image!.original
+                                                      .toString(),
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                    ),
+                                  ),
 
-                            ///Image
-                            Padding(
-                              padding: EdgeInsets.only(top: 0, right: 10, left: 10, bottom: Get.height * 0.01667),
-                              child: Container(
-                                height: data.singleProductModel!.image != null
-                                    ? data.singleProductModel!.image!.direction == "PORTRAIT"
-                                    ? Get.width * 1.173
-                                    : Get.width * .66
-                                    : Get.height * .3,
-                                width: data.singleProductModel!.image != null ? Get.width * .88 : Get.height * .5,
-                                padding: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                    gradient: AppColors.vaultCardGradient,
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: AppColors.primaryColor)),
-                                alignment: Alignment.center,
-                                child: data.singleProductModel!.image == null
-                                    ? Text(
-                                  data.singleProductModel!.name.toString()[0].toUpperCase(),
-                                  style: const TextStyle(
-                                      color: Colors.deepPurpleAccent,
-                                      //fontFamily: 'Inter',
-                                      fontSize: 65,
-                                      fontWeight: FontWeight.bold),
-                                )
-                                    : CachedNetworkImage(
-                                  imageUrl: data.singleProductModel!.image!.high_res_url != null
-                                      ? data.singleProductModel!.image!.high_res_url.toString()
-                                      : data.singleProductModel!.image!.original.toString(),
-                                  imageBuilder: (context, imageProvider) =>
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.fill,
+                                  ///Add Buttons
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        onTap: () async {
+                                          var body = {
+                                            "product":
+                                                data.singleProductModel!.id,
+                                            "type": 1
+                                          };
+                                          Map<String, String>
+                                              requestHeadersWithToken = {
+                                            'Content-type': 'application/json',
+                                            'Accept': 'application/json',
+                                            'Authorization':
+                                                'token ${prefs!.getString('token')}',
+                                          };
+
+                                          if (data.checkWishlistModel!
+                                                  .isFound ==
+                                              false) {
+                                            postData!.addToWishlist(
+                                              context,
+                                              body,
+                                              data.singleProductModel!.id,
+                                              requestHeadersWithToken,
+                                            );
+                                          } else {
+                                            postData!.deleteWishlist(
+                                              context,
+                                              alertCheck,
+                                              data.wishListModel!.results!
+                                                  .firstWhere((element) =>
+                                                      element
+                                                          .productDetail!.id ==
+                                                      data.singleProductModel!
+                                                          .id)
+                                                  .id,
+                                              requestHeadersWithToken,
+                                            );
+
+                                            data.checkWishlistModel!.isFound =
+                                                false;
+                                          }
+
+                                          await Future.delayed(
+                                              const Duration(seconds: 1));
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Container(
+                                          width: Get.width * .42,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            gradient: AppColors.purpleGradient,
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(12),
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: data.checkWishlistModel!
+                                                        .isFound ==
+                                                    false
+                                                ? AutoSizeText(
+                                                    'Add to Wishlist',
+                                                    style: Get
+                                                        .textTheme.bodyMedium!
+                                                        .copyWith(
+                                                      fontFamily: 'Inter',
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  )
+                                                : AutoSizeText(
+                                                    'Delete from Wishlist',
+                                                    style: Get
+                                                        .textTheme.bodyMedium!
+                                                        .copyWith(
+                                                      fontFamily: 'Inter',
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
                                           ),
                                         ),
                                       ),
-                                ),
-                              ),
-                            ),
-
-                            ///Add Buttons
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () async {
-                                    var body = {"product": data.singleProductModel!.id, "type": 1};
-                                    Map<String, String> requestHeadersWithToken = {
-                                      'Content-type': 'application/json',
-                                      'Accept': 'application/json',
-                                      'Authorization': 'token ${prefs!.getString('token')}',
-                                    };
-
-                                    if (data.checkWishlistModel!.isFound == false) {
-                                      postData!.addToWishlist(
-                                        context,
-                                        body,
-                                        data.singleProductModel!.id,
-                                        requestHeadersWithToken,
-                                      );
-                                    } else {
-                                      postData!.deleteWishlist(
-                                        context,
-                                        alertCheck,
-                                        data.wishListModel!.results!
-                                            .firstWhere(
-                                                (element) => element.productDetail!.id == data.singleProductModel!.id)
-                                            .id,
-                                        requestHeadersWithToken,
-                                      );
-
-                                      data.checkWishlistModel!.isFound = false;
-                                    }
-
-                                    await Future.delayed(const Duration(seconds: 1));
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Container(
-                                    width: Get.width * .42,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      gradient: AppColors.purpleGradient,
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(12),
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: data.checkWishlistModel!.isFound == false
-                                          ? AutoSizeText(
-                                        'Add to Wishlist',
-                                        style: Get.textTheme.bodyMedium!.copyWith(
-                                          fontFamily: 'Inter',
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      )
-                                          : AutoSizeText(
-                                        'Delete from Wishlist',
-                                        style: Get.textTheme.bodyMedium!.copyWith(
-                                          fontFamily: 'Inter',
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                AppSpaces.spaces_width_20,
-                                InkWell(
-                                  onTap: () async {
-                                    /*var body = {
+                                      AppSpaces.spaces_width_20,
+                                      InkWell(
+                                        onTap: () async {
+                                          /*var body = {
                                     "product": data.singleProductModel!.id,
                                     "type": 0
                                   };
@@ -326,7 +382,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
 
 
                                   }*/
-                                    /*showDialog(
+                                          /*showDialog(
                                     context: context,
                                     builder: (ctx) => AlertDialog(
                                       backgroundColor: Colors.transparent,
@@ -340,38 +396,48 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                           child: Multiform(id: data.singleProductModel!.id, type: 0)),
                                     ),
                                   );*/
-                                    getData!.maoModel = null;
-                                    showDialog(
-                                        context: context,
-                                        builder: (ctx) =>
-                                            Dialog(
-                                              backgroundColor: Colors.transparent,
-                                              insetPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                                              child: Multiform(id: data.singleProductModel!.id, type: 0),
-                                            ));
-                                  },
-                                  child: Container(
-                                    width: Get.width * .42,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      gradient: AppColors.purpleGradient,
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(12),
-                                      ),
-                                    ),
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: /* data.checkSetCheck!.isFound == false
-                                        ? */
-                                        AutoSizeText(
-                                          'Add to Vault',
-                                          style: Get.textTheme.bodyMedium!.copyWith(
-                                            fontFamily: 'Inter',
+                                          getData!.maoModel = null;
+                                          showDialog(
+                                              context: context,
+                                              builder: (ctx) => Dialog(
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    insetPadding:
+                                                        const EdgeInsets
+                                                                .symmetric(
+                                                            vertical: 16,
+                                                            horizontal: 16),
+                                                    child: Multiform(
+                                                        id: data
+                                                            .singleProductModel!
+                                                            .id,
+                                                        type: 0),
+                                                  ));
+                                        },
+                                        child: Container(
+                                          width: Get.width * .42,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            gradient: AppColors.purpleGradient,
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(12),
+                                            ),
                                           ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        )
-                                      /*: AutoSizeText(
+                                          child: Padding(
+                                              padding: const EdgeInsets.all(10),
+                                              child: /* data.checkSetCheck!.isFound == false
+                                        ? */
+                                                  AutoSizeText(
+                                                'Add to Vault',
+                                                style: Get.textTheme.bodyMedium!
+                                                    .copyWith(
+                                                  fontFamily: 'Inter',
+                                                ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              )
+                                              /*: AutoSizeText(
                                             'Delete from Vault',
                                             style: Get.textTheme.bodyMedium!.copyWith(
                                               fontFamily: 'Inter',
@@ -379,323 +445,662 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                           ),*/
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  ///Graph
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        top: Get.height * 0.05,
+                                        right: Get.width * 0.05336,
+                                        left: Get.width * 0.05336,
+                                        bottom: Get.height * 0.0334),
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      "Floor Price Chart",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                          color: AppColors.textColor,
+                                          fontFamily: 'Inter',
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
 
-                            ///Graph
-                            Container(
-                              padding: EdgeInsets.only(
-                                  top: Get.height * 0.05,
-                                  right: Get.width * 0.05336,
-                                  left: Get.width * 0.05336,
-                                  bottom: Get.height * 0.0334),
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                "Floor Price Chart",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: AppColors.textColor,
-                                    fontFamily: 'Inter',
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-
-                            ///Graph Types
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: List.generate(graphType.length, (index) {
-                                return Expanded(
-                                  child: ReportStepCard(
-                                    onTap: () {
-                                      setState(() {
-                                        stepSelected = index;
-                                      });
-                                    },
-                                    stepName: graphType[index].toString(),
-                                    selected: stepSelected == index ? true : false,
+                                  ///Graph Types
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: List.generate(graphType.length,
+                                        (index) {
+                                      return Expanded(
+                                        child: ReportStepCard(
+                                          onTap: () {
+                                            setState(() {
+                                              stepSelected = index;
+                                            });
+                                          },
+                                          stepName: graphType[index].toString(),
+                                          selected: stepSelected == index
+                                              ? true
+                                              : false,
+                                        ),
+                                      );
+                                    }),
                                   ),
-                                );
-                              }),
-                            ),
 
-                            ///Graph
-                            Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.only(top: Get.height * 0.0223, right: 10, left: 7, bottom: 0),
-                              width: Get.width,
-                              child: FadeInUp(
-                                duration: const Duration(milliseconds: 100),
-                                child: SizedBox(
-                                  width: double.infinity,
-                                  height: 250,
-                                  child: stepSelected == 0
-                                      ? const OneDayProductGraphPage()
-                                      : stepSelected == 1
-                                      ? const SevenDayProductGraphPage()
-                                      : stepSelected == 2
-                                      ? const ThirtyDayProductGraphPage()
-                                      : stepSelected == 3
-                                      ? const SixtyDayProductGraphPage()
-                                      : stepSelected == 4
-                                      ? const OneYearProductGraphPage()
-                                      : Container(),
-                                ),
-                              ),
-                            ),
-
-                            ///Details
-                            Container(
-                              alignment: Alignment.topLeft,
-                              padding: EdgeInsets.only(
-                                  top: Get.height * 0.05,
-                                  right: Get.width * 0.05336,
-                                  left: Get.width * 0.05336,
-                                  bottom: Get.height * 0.0334),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    data.singleProductModel != null
-                                        ? data.singleProductModel!.name.toString() + "'s Details"
-                                        : "",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        color: AppColors.textColor,
-                                        //fontFamily: 'Inter',
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15.sp),
-                                  ),
-                                  widget.fromVault == true
-                                      ? Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: AppColors.primaryColor),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                  ///Graph
+                                  Container(
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.only(
+                                        top: Get.height * 0.0223,
+                                        right: 10,
+                                        left: 7,
+                                        bottom: 0),
+                                    width: Get.width,
+                                    child: FadeInUp(
+                                      duration:
+                                          const Duration(milliseconds: 100),
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        height: 250,
+                                        child: stepSelected == 0
+                                            ?  OneDayProductGraphPage(fromVault: widget.fromVault,ap: widget.ap,)
+                                            : stepSelected == 1
+                                                ? SevenDayProductGraphPage(fromVault: widget.fromVault,ap: widget.ap,)
+                                                : stepSelected == 2
+                                                    ? ThirtyDayProductGraphPage(fromVault: widget.fromVault,ap: widget.ap,)
+                                                    : stepSelected == 3
+                                                        ? SixtyDayProductGraphPage(fromVault: widget.fromVault,ap: widget.ap,)
+                                                        : stepSelected == 4
+                                                            ?  OneYearProductGraphPage(fromVault: widget.fromVault,ap: widget.ap,)
+                                                            : Container(),
+                                      ),
                                     ),
-                                    child: InkWell(
-                                      onTap: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            storedMintController.add(
-                                              TextEditingController(
-                                                text: prefs!.getString('edition'),
-                                              ),
-                                            );
-                                            storedPriceController.add(
-                                              TextEditingController(
-                                                text: prefs!.getString('ap'),
-                                              ),
-                                            );
-                                            storedDateController.add(TextEditingController(
-                                              text: DateFormat('MMMM dd, yyyy')
-                                                  .format(DateTime.parse(prefs!.getString('ad').toString())),
-                                            ));
+                                  ),
 
-                                            return Dialog(
-                                              backgroundColor: AppColors.backgroundColor,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(5)),
-                                              elevation: 16,
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(20.0),
-                                                child: Container(
-                                                  height: Get.height * .38,
-                                                  margin: EdgeInsets.symmetric(horizontal: 5),
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      AppSpaces.spaces_height_5,
-                                                      DetailsTextField(
-                                                        controller: storedMintController[0],
-                                                        textType: TextInputType.number,
-                                                      ),
-                                                      AppSpaces.spaces_height_2,
-                                                      Text(
-                                                        'Mint Number or Edition',
-                                                        style: TextStyle(color: Colors.grey.withOpacity(.5)),
-                                                      ),
-                                                      DetailsTextField(
-                                                        controller: storedPriceController[0],
-                                                        textType: TextInputType.number,
-                                                      ),
-                                                      AppSpaces.spaces_height_2,
-                                                      Text(
-                                                        'Aquisition Price',
-                                                        style: TextStyle(color: Colors.grey.withOpacity(.5)),
-                                                      ),
-                                                      Stack(
-                                                        children: [
-                                                          DetailsTextField(
-                                                            controller: storedDateController[0],
-                                                          ),
-                                                          Positioned(
-                                                            top: 10,
-                                                            right: 50,
-                                                            child: InkWell(
-                                                              onTap: () async {
-                                                                var datePicked =
-                                                                await DatePicker.showSimpleDatePicker(
-                                                                  context,
-                                                                  initialDate: DateTime.now(),
-                                                                  firstDate: DateTime(2015),
-                                                                  lastDate: DateTime.now(),
-                                                                  dateFormat: "dd-MM-yyyy",
-                                                                  locale: DateTimePickerLocale.en_us,
-                                                                  looping: true,
-                                                                  backgroundColor: const Color(0xff02072D),
-                                                                  textColor: AppColors.white.withOpacity(.7),
-                                                                );
-                                                                setState(() {
-                                                                  textDate = datePicked!.toIso8601String();
-                                                                  storedDateController[0].text =
-                                                                      DateFormat('MMMM dd, yyyy').format(
-                                                                          DateTime.parse(
-                                                                              datePicked.toIso8601String()));
-                                                                });
-                                                              },
-                                                              child: Icon(
-                                                                Icons.calendar_month,
-                                                                color: AppColors.white.withOpacity(.7),
-                                                                // size: 17,
+                                  ///Details
+                                  Container(
+                                    alignment: Alignment.topLeft,
+                                    padding: EdgeInsets.only(
+                                        top: Get.height * 0.05,
+                                        right: Get.width * 0.05336,
+                                        left: Get.width * 0.05336,
+                                        bottom: Get.height * 0.0334),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            data.singleProductModel != null
+                                                ? data.singleProductModel!.name
+                                                        .toString() +
+                                                    "'s Details"
+                                                : "",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                color: AppColors.textColor,
+                                                //fontFamily: 'Inter',
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.sp),
+                                          ),
+                                        ),
+                                        widget.fromVault == true
+                                            ? Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: AppColors
+                                                          .primaryColor),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                ),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        storedMintController
+                                                            .add(
+                                                          TextEditingController(
+                                                              text: widget
+                                                                  .edition),
+                                                        );
+                                                        storedPriceController
+                                                            .add(
+                                                          TextEditingController(
+                                                              text: widget.ap),
+                                                        );
+                                                        storedDateController.add(
+                                                            TextEditingController(
+                                                          text: DateFormat(
+                                                                  'MMMM dd, yyyy')
+                                                              .format(DateTime
+                                                                  .parse(
+                                                            widget.ad
+                                                                .toString(),
+                                                          )),
+                                                        ));
+
+                                                        return Dialog(
+                                                          backgroundColor:
+                                                              AppColors
+                                                                  .backgroundColor,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5)),
+                                                          elevation: 16,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(20.0),
+                                                            child: Container(
+                                                              height:
+                                                                  Get.height *
+                                                                      .38,
+                                                              margin: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          5),
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  AppSpaces
+                                                                      .spaces_height_5,
+                                                                  DetailsTextField(
+                                                                    controller:
+                                                                        storedMintController[
+                                                                            0],
+                                                                    textType:
+                                                                        TextInputType
+                                                                            .number,
+                                                                  ),
+                                                                  AppSpaces
+                                                                      .spaces_height_2,
+                                                                  Text(
+                                                                    'Mint Number or Edition',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .grey
+                                                                            .withOpacity(.5)),
+                                                                  ),
+                                                                  DetailsTextField(
+                                                                    controller:
+                                                                        storedPriceController[
+                                                                            0],
+                                                                    textType:
+                                                                        TextInputType
+                                                                            .number,
+                                                                  ),
+                                                                  AppSpaces
+                                                                      .spaces_height_2,
+                                                                  Text(
+                                                                    'Aquisition Price',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .grey
+                                                                            .withOpacity(.5)),
+                                                                  ),
+                                                                  Stack(
+                                                                    children: [
+                                                                      DetailsTextField(
+                                                                        controller:
+                                                                            storedDateController[0],
+                                                                        enabled: false,
+                                                                      ),
+                                                                      Positioned(
+                                                                        top: 10,
+                                                                        right:
+                                                                            50,
+                                                                        child:
+                                                                            InkWell(
+                                                                          onTap:
+                                                                              () async {
+                                                                            var datePicked =
+                                                                                await DatePicker.showSimpleDatePicker(
+                                                                              context,
+                                                                              initialDate: DateTime.now(),
+                                                                              firstDate: DateTime(2015),
+                                                                              lastDate: DateTime.now(),
+                                                                              dateFormat: "dd-MM-yyyy",
+                                                                              locale: DateTimePickerLocale.en_us,
+                                                                              looping: true,
+                                                                              backgroundColor: const Color(0xff02072D),
+                                                                              textColor: AppColors.white.withOpacity(.7),
+                                                                            );
+                                                                            setState(() {
+                                                                              textDate = datePicked!.toIso8601String();
+                                                                              storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(datePicked.toIso8601String()));
+                                                                            });
+                                                                          },
+                                                                          child:
+                                                                              Icon(
+                                                                            Icons.calendar_month,
+                                                                            color:
+                                                                                AppColors.white.withOpacity(.7),
+                                                                            // size: 17,
+                                                                          ),
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                  AppSpaces
+                                                                      .spaces_height_2,
+                                                                  Text(
+                                                                    'Aquisition Date',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .grey
+                                                                            .withOpacity(.5)),
+                                                                  ),
+                                                                  AppSpaces
+                                                                      .spaces_height_5,
+                                                                  AppSpaces
+                                                                      .spaces_height_25,
+                                                                  Container(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                    width:
+                                                                        Get.width *
+                                                                            .7,
+                                                                    child:
+                                                                        InkWell(
+                                                                      onTap:
+                                                                          () async {
+                                                                        String? ad = widget.ad ==
+                                                                                textDate
+                                                                            ? widget.ad
+                                                                            : textDate;
+
+                                                                        var body =
+                                                                            {
+                                                                          "mint_number":
+                                                                              storedMintController[0].text,
+                                                                          "ap":
+                                                                              storedPriceController[0].text,
+                                                                          "ad": ad ??
+                                                                              DateTime.now().toIso8601String()
+                                                                        };
+                                                                        print('body: ' +
+                                                                            storedPriceController[0].text.isNum.toString());
+                                                                        if (storedPriceController[0].text.isNum ==
+                                                                            true) {
+                                                                          postData!
+                                                                              .editMAO(
+                                                                                widget.mintId,
+                                                                                context,
+                                                                                body,
+                                                                                requestHeadersWithToken,
+                                                                              )
+                                                                              .whenComplete(() => {
+                                                                                    getData!.getMySets(0, true, graph_data: true),
+                                                                                    getData!.getMySets1(0, widget.productId!, true)
+                                                                                  })
+                                                                              .whenComplete(() => {
+                                                                                    Navigator.of(context).pop(),
+                                                                                    storedMintController[0].text = data.mySetsModel!.results![widget.index!].mintNumber.toString(),
+                                                                                    storedPriceController[0].text = data.mySetsModel!.results![widget.index!].ap!,
+                                                                                    storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(data.mySetsModel!.results![widget.index!].ad!)),
+                                                                                  });
+                                                                        } else {
+                                                                          showDialog(
+                                                                              context: context,
+                                                                              barrierDismissible: false,
+                                                                              builder: (_) => const ResponseMessage(
+                                                                                    icon: Icons.error,
+                                                                                    color: Colors.purpleAccent,
+                                                                                    message: "Invalid Input",
+                                                                                  ));
+                                                                        }
+                                                                        await Future.delayed(Duration(
+                                                                            seconds:
+                                                                                1));
+                                                                        Navigator.of(context)
+                                                                            .pop();
+
+                                                                        printInfo(
+                                                                            info:
+                                                                                'ap b: ' + prefs!.getString('ap').toString());
+                                                                        setState(
+                                                                            () {
+                                                                          print("Value1" +
+                                                                              detailsEdition.toString() +
+                                                                              detailsAd.toString() +
+                                                                              detailsAp.toString());
+                                                                        });
+                                                                      },
+                                                                      child:
+                                                                          Container(
+                                                                         alignment: Alignment.center,
+                                                                        width: Get.width *
+                                                                            0.46,
+                                                                        height: Get.height *
+                                                                            0.051,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              AppColors.primaryColor,
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(14.0),
+                                                                        ),
+                                                                        child:
+                                                                            Text(
+                                                                            'Update',
+                                                                            textAlign:
+                                                                              TextAlign.center,
+                                                                            style:
+                                                                              TextStyle(fontSize: 14),
+                                                                          ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  AppSpaces
+                                                                      .spaces_width_5,
+                                                                ],
                                                               ),
                                                             ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      AppSpaces.spaces_height_2,
-                                                      Text(
-                                                        'Aquisition Date',
-                                                        style: TextStyle(color: Colors.grey.withOpacity(.5)),
-                                                      ),
-                                                      AppSpaces.spaces_height_5,
-                                                      AppSpaces.spaces_height_25,
-                                                      Container(
-                                                        alignment: Alignment.center,
-                                                        width: Get.width * .7,
-                                                        child: InkWell(
-                                                          onTap: () async {
-                                                            String? ad =
-                                                            widget.ad == textDate ? widget.ad : textDate;
-
-                                                            var body = {
-                                                              "edition": storedMintController[0].text,
-                                                              "ap": storedPriceController[0].text,
-                                                              "ad": ad ?? DateTime.now().toIso8601String()
-                                                            };
-                                                            print('body: ' +
-                                                                storedPriceController[0].text.isNum.toString());
-                                                            if (storedPriceController[0].text.isNum == true) {
-                                                              postData!
-                                                                  .editMAO(
-                                                                widget.mintId,
-                                                                context,
-                                                                body,
-                                                                requestHeadersWithToken,
-                                                              )
-                                                                  .whenComplete(() =>
-                                                              {
-                                                                getData!.getMySets(0, true,
-                                                                    graph_data: true),
-                                                                getData!.getMySets1(
-                                                                    0, widget.productId!, true)
-                                                              })
-                                                                  .whenComplete(() =>
-                                                              {
-                                                                Navigator.of(context).pop(),
-                                                                storedMintController[0].text = prefs!
-                                                                    .getString('edition')
-                                                                    .toString(),
-                                                                storedPriceController[0].text =
-                                                                    prefs!.getString('ap').toString(),
-                                                                storedDateController[0].text =
-                                                                    DateFormat('MMMM dd, yyyy').format(
-                                                                        DateTime.parse(prefs!
-                                                                            .getString('ad')
-                                                                            .toString())),
-                                                              });
-                                                            } else {
-                                                              showDialog(
-                                                                  context: context,
-                                                                  barrierDismissible: false,
-                                                                  builder: (_) =>
-                                                                  const ResponseMessage(
-                                                                    icon: Icons.error,
-                                                                    color: Colors.purpleAccent,
-                                                                    message: "Invalid Input",
-                                                                  ));
-                                                            }
-                                                            await Future.delayed(Duration(seconds: 1));
-                                                            Navigator.of(context).pop();
-
-                                                            printInfo(
-                                                                info: 'ap b: ' +
-                                                                    prefs!.getString('ap').toString());
-                                                          },
-                                                          child: Container(
-                                                            width: Get.width * 0.46,
-                                                            height: Get.height * 0.051,
-                                                            decoration: BoxDecoration(
-                                                              color: AppColors.primaryColor,
-                                                              borderRadius: BorderRadius.circular(14.0),
-                                                            ),
-                                                            child: const Padding(
-                                                              padding: EdgeInsets.only(
-                                                                  left: 56, right: 56, top: 12, bottom: 12),
-                                                              child: Text(
-                                                                'Update',
-                                                                textAlign: TextAlign.center,
-                                                                style: TextStyle(fontSize: 14),
-                                                              ),
-                                                            ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      AppSpaces.spaces_width_5,
-                                                    ],
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            2.0),
+                                                    child: Text(
+                                                      "Edit",
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .textColor,
+                                                          //fontFamily: 'Inter',
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 12.sp),
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            : Container(),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ))
+                            ];
+                          },
+                          body: ProductDetailsCollectibles(
+                            fromVault: widget.fromVault,
+                            mintId: widget.mintId,
+                            onTap: (){
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  storedMintController
+                                      .add(
+                                    TextEditingController(
+                                        text: widget
+                                            .edition),
+                                  );
+                                  storedPriceController
+                                      .add(
+                                    TextEditingController(
+                                        text: widget.ap),
+                                  );
+                                  storedDateController.add(
+                                      TextEditingController(
+                                        text: DateFormat(
+                                            'MMMM dd, yyyy')
+                                            .format(DateTime
+                                            .parse(
+                                          widget.ad
+                                              .toString(),
+                                        )),
+                                      ));
+
+                                  return Dialog(
+                                    backgroundColor:
+                                    AppColors
+                                        .backgroundColor,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius
+                                            .circular(
+                                            5)),
+                                    elevation: 16,
+                                    child: Padding(
+                                      padding:
+                                      const EdgeInsets
+                                          .all(20.0),
+                                      child: Container(
+                                        height:
+                                        Get.height *
+                                            .38,
+                                        margin: EdgeInsets
+                                            .symmetric(
+                                            horizontal:
+                                            5),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment
+                                              .start,
+                                          children: [
+                                            AppSpaces
+                                                .spaces_height_5,
+                                            DetailsTextField(
+                                              controller:
+                                              storedMintController[
+                                              0],
+                                              textType:
+                                              TextInputType
+                                                  .number,
+                                            ),
+                                            AppSpaces
+                                                .spaces_height_2,
+                                            Text(
+                                              'Mint Number or Edition',
+                                              style: TextStyle(
+                                                  color: Colors
+                                                      .grey
+                                                      .withOpacity(.5)),
+                                            ),
+                                            DetailsTextField(
+                                              controller:
+                                              storedPriceController[
+                                              0],
+                                              textType:
+                                              TextInputType
+                                                  .number,
+                                            ),
+                                            AppSpaces
+                                                .spaces_height_2,
+                                            Text(
+                                              'Aquisition Price',
+                                              style: TextStyle(
+                                                  color: Colors
+                                                      .grey
+                                                      .withOpacity(.5)),
+                                            ),
+                                            Stack(
+                                              children: [
+                                                DetailsTextField(
+                                                  controller:
+                                                  storedDateController[0],
+                                                  enabled: false,
+                                                ),
+                                                Positioned(
+                                                  top: 10,
+                                                  right:
+                                                  50,
+                                                  child:
+                                                  InkWell(
+                                                    onTap:
+                                                        () async {
+                                                      var datePicked =
+                                                      await DatePicker.showSimpleDatePicker(
+                                                        context,
+                                                        initialDate: DateTime.now(),
+                                                        firstDate: DateTime(2015),
+                                                        lastDate: DateTime.now(),
+                                                        dateFormat: "dd-MM-yyyy",
+                                                        locale: DateTimePickerLocale.en_us,
+                                                        looping: true,
+                                                        backgroundColor: const Color(0xff02072D),
+                                                        textColor: AppColors.white.withOpacity(.7),
+                                                      );
+                                                      setState(() {
+                                                        textDate = datePicked!.toIso8601String();
+                                                        storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(datePicked.toIso8601String()));
+                                                      });
+                                                    },
+                                                    child:
+                                                    Icon(
+                                                      Icons.calendar_month,
+                                                      color:
+                                                      AppColors.white.withOpacity(.7),
+                                                      // size: 17,
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            AppSpaces
+                                                .spaces_height_2,
+                                            Text(
+                                              'Aquisition Date',
+                                              style: TextStyle(
+                                                  color: Colors
+                                                      .grey
+                                                      .withOpacity(.5)),
+                                            ),
+                                            AppSpaces
+                                                .spaces_height_5,
+                                            AppSpaces
+                                                .spaces_height_25,
+                                            Container(
+                                              alignment:
+                                              Alignment
+                                                  .center,
+                                              width:
+                                              Get.width *
+                                                  .7,
+                                              child:
+                                              InkWell(
+                                                onTap:
+                                                    () async {
+                                                  String? ad = widget.ad ==
+                                                      textDate
+                                                      ? widget.ad
+                                                      : textDate;
+
+                                                  var body =
+                                                  {
+                                                    "mint_number":
+                                                    storedMintController[0].text,
+                                                    "ap":
+                                                    storedPriceController[0].text,
+                                                    "ad": ad ??
+                                                        DateTime.now().toIso8601String()
+                                                  };
+                                                  print('body: ' +
+                                                      storedPriceController[0].text.isNum.toString());
+                                                  if (storedPriceController[0].text.isNum ==
+                                                      true) {
+                                                    postData!
+                                                        .editMAO(
+                                                      widget.mintId,
+                                                      context,
+                                                      body,
+                                                      requestHeadersWithToken,
+                                                    )
+                                                        .whenComplete(() => {
+                                                      getData!.getMySets(0, true, graph_data: true),
+                                                      getData!.getMySets1(0, widget.productId!, true)
+                                                    })
+                                                        .whenComplete(() => {
+                                                      Navigator.of(context).pop(),
+                                                      storedMintController[0].text = data.mySetsModel!.results![widget.index!].mintNumber.toString(),
+                                                      storedPriceController[0].text = data.mySetsModel!.results![widget.index!].ap!,
+                                                      storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(data.mySetsModel!.results![widget.index!].ad!)),
+                                                    });
+                                                  } else {
+                                                    showDialog(
+                                                        context: context,
+                                                        barrierDismissible: false,
+                                                        builder: (_) => const ResponseMessage(
+                                                          icon: Icons.error,
+                                                          color: Colors.purpleAccent,
+                                                          message: "Invalid Input",
+                                                        ));
+                                                  }
+                                                  await Future.delayed(Duration(
+                                                      seconds:
+                                                      1));
+                                                  Navigator.of(context)
+                                                      .pop();
+
+                                                  printInfo(
+                                                      info:
+                                                      'ap b: ' + prefs!.getString('ap').toString());
+                                                  setState(
+                                                          () {
+                                                        print("Value1" +
+                                                            detailsEdition.toString() +
+                                                            detailsAd.toString() +
+                                                            detailsAp.toString());
+                                                      });
+                                                },
+                                                child:
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  width: Get.width *
+                                                      0.46,
+                                                  height: Get.height *
+                                                      0.051,
+                                                  decoration:
+                                                  BoxDecoration(
+                                                    color:
+                                                    AppColors.primaryColor,
+                                                    borderRadius:
+                                                    BorderRadius.circular(14.0),
+                                                  ),
+                                                  child:
+                                                  Text(
+                                                    'Update',
+                                                    textAlign:
+                                                    TextAlign.center,
+                                                    style:
+                                                    TextStyle(fontSize: 14),
                                                   ),
                                                 ),
                                               ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: Text(
-                                          "Edit",
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                              color: AppColors.textColor,
-                                              //fontFamily: 'Inter',
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 12.sp),
+                                            ),
+                                            AppSpaces
+                                                .spaces_width_5,
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  )
-                                      : Container(),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ))
-                  ];
-                },
-                body: ProductDetailsCollectibles(
-                  fromVault: widget.fromVault,
-                  mintId: widget.mintId,
-                  edition: widget.edition,
-                  ap: prefs!.getString('ap').toString(),
-                  ad: prefs!.getString('ad').toString(),
-                ),
-              ),
-            )
-                : const ColorLoader(),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      )
+                    : const ColorLoader(),
           ));
     });
   }

@@ -124,7 +124,7 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                     Expanded(
                       flex: 4,
                       child: Text(
-                        widget.edition.toString(),
+                        "#"+widget.edition.toString(),
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText1!.copyWith(
                             color: AppColors.textColor,
@@ -271,7 +271,7 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text(
+                          Text((widget.pcpSign == 'decrease' ?"-":"")+
                             '\$${widget.changePrice != null ? widget.changePrice.toStringAsFixed(1) : ""}',
                             textAlign: TextAlign.start,
                             style: Get.textTheme.bodyText1!
@@ -287,7 +287,7 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(1.0, 0.0, 1.0, 0.0),
                               child: Text(
-                                "CP",
+                                "PC",
                                 style: TextStyle(
                                   fontSize: 8.sp,
                                 ),
