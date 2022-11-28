@@ -17,12 +17,10 @@ class SixtyDayProductGraphPage extends StatefulWidget {
   final bool? fromVault;
   final String? ap;
 
-  const SixtyDayProductGraphPage({Key? key, this.fromVault, this.ap})
-      : super(key: key);
+  const SixtyDayProductGraphPage({Key? key, this.fromVault, this.ap}) : super(key: key);
 
   @override
-  State<SixtyDayProductGraphPage> createState() =>
-      _SixtyDayProductGraphPageState();
+  State<SixtyDayProductGraphPage> createState() => _SixtyDayProductGraphPageState();
 }
 
 class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
@@ -69,8 +67,7 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
           enable: true,
           color: Color(0xff00A7FF),
         ),
-        markerSettings: const TrackballMarkerSettings(
-            markerVisibility: TrackballVisibilityMode.auto));
+        markerSettings: const TrackballMarkerSettings(markerVisibility: TrackballVisibilityMode.auto));
 
     /*  crosshair behaviour kete diye ei portion er kaj korte hbe
 
@@ -104,8 +101,7 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                       title: "No data for 60 days!",
                     )
                   : SfCartesianChart(
-                      margin: const EdgeInsets.only(
-                          top: 10, bottom: 2, left: 2, right: 2),
+                      margin: const EdgeInsets.only(top: 10, bottom: 2, left: 2, right: 2),
                       crosshairBehavior: _crosshairBehavior,
                       plotAreaBorderWidth: 0,
                       zoomPanBehavior: _zoomPanBehavior,
@@ -116,6 +112,9 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                           lineWidth: 0,
                           shouldAlwaysShow: true,
                           builder: (context, tooltipSettings) {
+                            var profit =
+                                (double.parse(tooltipSettings.point!.dataLabelMapper!) - double.parse(detailsAp!));
+
                             return widget.fromVault == true
                                 ? Container(
                                     height: Get.height * .07,
@@ -123,20 +122,15 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                                     padding: EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
-                                        border: Border.all(
-                                            color: const Color(0xff3E488F)),
+                                        border: Border.all(color: const Color(0xff3E488F)),
                                         color: const Color(0xff3E488F)),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               'FP',
@@ -149,23 +143,17 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                                           ],
                                         ),
                                         Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               'Profit',
                                               style: TextStyle(fontSize: 12.sp),
                                             ),
                                             Text(
-                                              "\$" +
-                                                  (double.parse(tooltipSettings
-                                                              .point!
-                                                              .dataLabelMapper!) -
-                                                          double.parse(
-                                                              detailsAp!))
-                                                      .toStringAsFixed(2),
+                                              profit > 0
+                                                  ? "\$" + profit.toStringAsFixed(2)
+                                                  : "-\$" + (profit.abs().toStringAsFixed(2)),
                                               style: TextStyle(fontSize: 12.sp),
                                             )
                                           ],
@@ -176,8 +164,7 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                                     padding: EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
-                                        border: Border.all(
-                                            color: const Color(0xff3E488F)),
+                                        border: Border.all(color: const Color(0xff3E488F)),
                                         color: const Color(0xff3E488F)),
                                     child: Text(
                                       '${tooltipSettings.point?.dataLabelMapper}',
@@ -191,8 +178,8 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                             enable: true,
                             color: Color(0xff3E488F),
                           ),
-                          markerSettings: const TrackballMarkerSettings(
-                              markerVisibility: TrackballVisibilityMode.auto)),
+                          markerSettings:
+                              const TrackballMarkerSettings(markerVisibility: TrackballVisibilityMode.auto)),
 
                       primaryXAxis: CategoryAxis(
                         interactiveTooltip: const InteractiveTooltip(
@@ -223,10 +210,9 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                         ),
                         labelAlignment: LabelAlignment.center,
                         //labelIntersectAction: AxisLabelIntersectAction.wrap,
-                        labelPlacement:
-                            data.oneDayGraphModel!.graphData!.graph!.length == 1
-                                ? LabelPlacement.betweenTicks
-                                : LabelPlacement.onTicks,
+                        labelPlacement: data.oneDayGraphModel!.graphData!.graph!.length == 1
+                            ? LabelPlacement.betweenTicks
+                            : LabelPlacement.onTicks,
                         //maximumLabels: 6
                       ),
 
@@ -237,19 +223,11 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                             horizontalTextPadding: '0%',
                             text: widget.fromVault == true ? 'AP' : "",
                             textAngle: 0,
-                            start: widget.fromVault == true
-                                ? double.parse(detailsAp!)
-                                : 0,
-                            end: widget.fromVault == true
-                                ? double.parse(detailsAp!)
-                                : 0,
-                            textStyle: TextStyle(
-                                color: AppColors.textColor.withOpacity(.5),
-                                fontSize: 8),
+                            start: widget.fromVault == true ? double.parse(detailsAp!) : 0,
+                            end: widget.fromVault == true ? double.parse(detailsAp!) : 0,
+                            textStyle: TextStyle(color: AppColors.textColor.withOpacity(.5), fontSize: 8),
                             horizontalTextAlignment: TextAnchor.end,
-                            borderColor: widget.fromVault == true
-                                ? const Color(0xff5A0FD8)
-                                : AppColors.graphCard,
+                            borderColor: widget.fromVault == true ? const Color(0xff5A0FD8) : AppColors.graphCard,
                             borderWidth: 1.5,
                           )
                         ],
@@ -284,38 +262,27 @@ class _SixtyDayProductGraphPageState extends State<SixtyDayProductGraphPage> {
                       series: <ChartSeries<SixtyDayProductGraph, String>>[
                         data.sixtyDayGraphModel!.graphData!.graph!.length == 1
                             ? ColumnSeries<SixtyDayProductGraph, String>(
-                                dataSource:
-                                    data.sixtyDayGraphModel!.graphData!.graph!,
+                                dataSource: data.sixtyDayGraphModel!.graphData!.graph!,
                                 width: .01,
                                 gradient: AppColors.graphGradient,
-                                xValueMapper: (plot, _) => data
-                                            .sixtyDayGraphModel!
-                                            .graphData!
-                                            .status ==
-                                        0
+                                xValueMapper: (plot, _) => data.sixtyDayGraphModel!.graphData!.status == 0
                                     ? plot.dayWiseTimeWithDate
                                     : plot.dayWiseTimeWithDate1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                               )
                             : SplineAreaSeries<SixtyDayProductGraph, String>(
-                                dataSource:
-                                    data.sixtyDayGraphModel!.graphData!.graph!,
+                                dataSource: data.sixtyDayGraphModel!.graphData!.graph!,
                                 borderColor: const Color(0xff8A56E1),
                                 color: Colors.transparent,
                                 borderWidth: 1,
-                                xValueMapper: (plot, _) => data
-                                            .sixtyDayGraphModel!
-                                            .graphData!
-                                            .status ==
-                                        0
+                                xValueMapper: (plot, _) => data.sixtyDayGraphModel!.graphData!.status == 0
                                     ? plot.dayWiseTimeWithDate
                                     : plot.dayWiseTimeWithDate1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                                 xAxisName: 'Duration',
                                 yAxisName: 'Total',
                                 enableTooltip: true,
-                                dataLabelMapper: (plot, _) =>
-                                    plot.floorPriceString,
+                                dataLabelMapper: (plot, _) => plot.floorPriceString,
                                 dataLabelSettings: const DataLabelSettings(
                                   isVisible: false,
                                   angle: 270,

@@ -16,12 +16,10 @@ class OneYearProductGraphPage extends StatefulWidget {
   final bool? fromVault;
   final String? ap;
 
-  const OneYearProductGraphPage({Key? key, this.fromVault, this.ap})
-      : super(key: key);
+  const OneYearProductGraphPage({Key? key, this.fromVault, this.ap}) : super(key: key);
 
   @override
-  State<OneYearProductGraphPage> createState() =>
-      _OneYearProductGraphPageState();
+  State<OneYearProductGraphPage> createState() => _OneYearProductGraphPageState();
 }
 
 class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
@@ -66,8 +64,7 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
           enable: true,
           color: Color(0xff00A7FF),
         ),
-        markerSettings: const TrackballMarkerSettings(
-            markerVisibility: TrackballVisibilityMode.auto));
+        markerSettings: const TrackballMarkerSettings(markerVisibility: TrackballVisibilityMode.auto));
 
     super.initState();
   }
@@ -89,8 +86,7 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                       title: "No data for 1 year!",
                     )
                   : SfCartesianChart(
-                      margin: const EdgeInsets.only(
-                          top: 10, bottom: 2, left: 2, right: 2),
+                      margin: const EdgeInsets.only(top: 10, bottom: 2, left: 2, right: 2),
                       crosshairBehavior: _crosshairBehavior,
                       plotAreaBorderWidth: 0,
                       zoomPanBehavior: _zoomPanBehavior,
@@ -101,6 +97,9 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                           lineWidth: 0,
                           shouldAlwaysShow: true,
                           builder: (context, tooltipSettings) {
+                            var profit =
+                                (double.parse(tooltipSettings.point!.dataLabelMapper!) - double.parse(detailsAp!));
+
                             return widget.fromVault == true
                                 ? Container(
                                     height: Get.height * .07,
@@ -108,20 +107,15 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                                     padding: EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
-                                        border: Border.all(
-                                            color: const Color(0xff3E488F)),
+                                        border: Border.all(color: const Color(0xff3E488F)),
                                         color: const Color(0xff3E488F)),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               'FP',
@@ -134,23 +128,17 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                                           ],
                                         ),
                                         Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               'Profit',
                                               style: TextStyle(fontSize: 12.sp),
                                             ),
                                             Text(
-                                              "\$" +
-                                                  (double.parse(tooltipSettings
-                                                              .point!
-                                                              .dataLabelMapper!) -
-                                                          double.parse(
-                                                              detailsAp!))
-                                                      .toStringAsFixed(2),
+                                              profit > 0
+                                                  ? "\$" + profit.toStringAsFixed(2)
+                                                  : "-\$" + (profit.abs().toStringAsFixed(2)),
                                               style: TextStyle(fontSize: 12.sp),
                                             )
                                           ],
@@ -161,8 +149,7 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                                     padding: EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
-                                        border: Border.all(
-                                            color: const Color(0xff3E488F)),
+                                        border: Border.all(color: const Color(0xff3E488F)),
                                         color: const Color(0xff3E488F)),
                                     child: Text(
                                       '${tooltipSettings.point?.dataLabelMapper}',
@@ -172,8 +159,7 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                                 padding: EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(7),
-                                    border: Border.all(
-                                        color: const Color(0xff00A7FF)),
+                                    border: Border.all(color: const Color(0xff00A7FF)),
                                     color: const Color(0xff00A7FF)),
                                 child: Text(
                                   '${tooltipSettings.point?.dataLabelMapper}',
@@ -186,8 +172,8 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                             enable: true,
                             color: Color(0xff3E488F),
                           ),
-                          markerSettings: const TrackballMarkerSettings(
-                              markerVisibility: TrackballVisibilityMode.auto)),
+                          markerSettings:
+                              const TrackballMarkerSettings(markerVisibility: TrackballVisibilityMode.auto)),
 
                       primaryXAxis: CategoryAxis(
                         interactiveTooltip: const InteractiveTooltip(
@@ -218,10 +204,9 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                         ),
                         labelAlignment: LabelAlignment.center,
                         //labelIntersectAction: AxisLabelIntersectAction.wrap,
-                        labelPlacement:
-                            data.oneDayGraphModel!.graphData!.graph!.length == 1
-                                ? LabelPlacement.betweenTicks
-                                : LabelPlacement.onTicks,
+                        labelPlacement: data.oneDayGraphModel!.graphData!.graph!.length == 1
+                            ? LabelPlacement.betweenTicks
+                            : LabelPlacement.onTicks,
                         //maximumLabels: 6
                       ),
 
@@ -232,19 +217,11 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                             horizontalTextPadding: '0%',
                             text: widget.fromVault == true ? 'AP' : "",
                             textAngle: 0,
-                            start: widget.fromVault == true
-                                ? double.parse(detailsAp!)
-                                : 0,
-                            end: widget.fromVault == true
-                                ? double.parse(detailsAp!)
-                                : 0,
-                            textStyle: TextStyle(
-                                color: AppColors.textColor.withOpacity(.5),
-                                fontSize: 8),
+                            start: widget.fromVault == true ? double.parse(detailsAp!) : 0,
+                            end: widget.fromVault == true ? double.parse(detailsAp!) : 0,
+                            textStyle: TextStyle(color: AppColors.textColor.withOpacity(.5), fontSize: 8),
                             horizontalTextAlignment: TextAnchor.end,
-                            borderColor: widget.fromVault == true
-                                ? const Color(0xff5A0FD8)
-                                : AppColors.graphCard,
+                            borderColor: widget.fromVault == true ? const Color(0xff5A0FD8) : AppColors.graphCard,
                             borderWidth: 1.5,
                           )
                         ],
@@ -279,34 +256,27 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                       series: <ChartSeries<OneYearProductGraph, String>>[
                         data.oneYearGraphModel!.graphData!.graph!.length == 1
                             ? ColumnSeries<OneYearProductGraph, String>(
-                                dataSource:
-                                    data.oneYearGraphModel!.graphData!.graph!,
+                                dataSource: data.oneYearGraphModel!.graphData!.graph!,
                                 width: .01,
                                 gradient: AppColors.graphGradient,
-                                xValueMapper: (plot, _) =>
-                                    data.oneYearGraphModel!.graphData!.status ==
-                                            0
-                                        ? plot.monthWiseTime
-                                        : plot.monthWiseTime1,
+                                xValueMapper: (plot, _) => data.oneYearGraphModel!.graphData!.status == 0
+                                    ? plot.monthWiseTime
+                                    : plot.monthWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                               )
                             : SplineAreaSeries<OneYearProductGraph, String>(
-                                dataSource:
-                                    data.oneYearGraphModel!.graphData!.graph!,
+                                dataSource: data.oneYearGraphModel!.graphData!.graph!,
                                 borderColor: const Color(0xff8A56E1),
                                 color: Colors.transparent,
                                 borderWidth: 1,
-                                xValueMapper: (plot, _) =>
-                                    data.oneYearGraphModel!.graphData!.status ==
-                                            0
-                                        ? plot.monthWiseTime
-                                        : plot.monthWiseTime1,
+                                xValueMapper: (plot, _) => data.oneYearGraphModel!.graphData!.status == 0
+                                    ? plot.monthWiseTime
+                                    : plot.monthWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                                 xAxisName: 'Duration',
                                 yAxisName: 'Total',
                                 enableTooltip: true,
-                                dataLabelMapper: (plot, _) =>
-                                    plot.floorPriceString,
+                                dataLabelMapper: (plot, _) => plot.floorPriceString,
                                 dataLabelSettings: const DataLabelSettings(
                                   isVisible: false,
                                   angle: 270,
