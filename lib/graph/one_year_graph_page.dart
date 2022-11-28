@@ -100,16 +100,18 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                 lineWidth: 0,
                 shouldAlwaysShow: true,
                 builder: (context, tooltipSettings) {
+                  var profit =
+                  (double.parse(tooltipSettings.point!.dataLabelMapper!) - double.parse(detailsAp!));
+
                   return widget.fromVault == true
                       ? Container(
-                      height: Get.height*.07,
-                      width: Get.width*.3,
+                      height: Get.height * .07,
+                      width: Get.width * .3,
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(7),
-                          border: Border.all(
-                              color: const Color(0xff00A7FF)),
-                          color: const Color(0xff00A7FF)),
+                          border: Border.all(color: const Color(0xff3E488F)),
+                          color: const Color(0xff3E488F)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,7 +138,10 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                                 'Profit',
                                 style: TextStyle(fontSize: 12.sp),
                               ),
-                              Text("\$"+(double.parse(tooltipSettings.point!.dataLabelMapper!)-double.parse(detailsAp!)).toStringAsFixed(2),
+                              Text(
+                                profit > 0
+                                    ? "\$" + profit.toStringAsFixed(2)
+                                    : "-\$" + (profit.abs().toStringAsFixed(2)),
                                 style: TextStyle(fontSize: 12.sp),
                               )
                             ],
@@ -147,21 +152,22 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(7),
-                          border: Border.all(
-                              color: const Color(0xff00A7FF)),
+                          border: Border.all(color: const Color(0xff3E488F)),
+                          color: const Color(0xff3E488F)),
+                      child: Text(
+                        '${tooltipSettings.point?.dataLabelMapper}',
+                        style: TextStyle(fontSize: 12.sp),
+                      ));
+                  return Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7),
+                          border: Border.all(color: const Color(0xff00A7FF)),
                           color: const Color(0xff00A7FF)),
                       child: Text(
                         '${tooltipSettings.point?.dataLabelMapper}',
                         style: TextStyle(fontSize: 12.sp),
-                      ));return Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(7),
-                          border: Border.all(
-                              color: const Color(0xff00A7FF)),
-                          color: const Color(0xff00A7FF)),
-                      child: Text(
-                        '${tooltipSettings.point?.dataLabelMapper}',style: TextStyle(fontSize: 12.sp),));
+                      ));
                 },
                 tooltipSettings: const InteractiveTooltip(
                   canShowMarker: false,
@@ -226,6 +232,10 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                   fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.w900),
               labelAlignment: LabelAlignment.center,
+              maximum: double.parse(detailsAp!) > double.parse(data.oneYearGraphModel!.floorPrice!)
+                  ? double.parse(detailsAp!) + 10.0
+                  : null,
+
             ),
             series: <ChartSeries<OneYearProductGraph, String>>[
               data.oneYearGraphModel!.graphData!.graph!.length == 1

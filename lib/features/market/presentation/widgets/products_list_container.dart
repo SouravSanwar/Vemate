@@ -219,10 +219,10 @@ class _ProductListContainerState extends State<ProductListContainer> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: Text('',
-                        // '\$${widget.changePrice != null
-                        //     ? widget.changePrice.toStringAsFixed(2)
-                        //     : ""}',
+                      child: Text(
+                        '\$${widget.changePrice != null
+                             ? widget.changePrice.toStringAsFixed(2)
+                             : ""}',
                         textAlign: TextAlign.start,
                         style: Get.textTheme.bodyText1!.copyWith(
                             color: AppColors.textColor,

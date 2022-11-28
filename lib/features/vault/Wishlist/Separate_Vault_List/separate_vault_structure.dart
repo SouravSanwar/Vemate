@@ -143,8 +143,9 @@ class _SeparateVaultStructureState extends State<SeparateVaultStructure> {
                             ],
                           )
                       ),
+
                       Expanded(
-                          flex: 5,
+                          flex: 7,
                           child: SizedBox(
                             height: Get.height * .05,
                             child: SfCartesianChart(
@@ -170,10 +171,7 @@ class _SeparateVaultStructureState extends State<SeparateVaultStructure> {
                             ),
                           ),
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: Container(),
-                      )
+
                     ],
                   )
               ),
