@@ -205,13 +205,12 @@ class _SetListPageState extends State<SetListPage> {
                                         ? ""
                                         : data.mySetsModel!.results![index].productDetail!.rarity!,
                                     brand: data.mySetsModel!.results![index].productDetail!.type == 0
-                                        ?data.mySetsModel!.results![index].productDetail!.brand == null
-                                        ? ""
-                                        : data.mySetsModel!.results![index].productDetail!.brand!.name.toString()
-
-                                        :data.mySetsModel!.results![index].productDetail!.series== null
-                                        ? ""
-                                        : data.mySetsModel!.results![index].productDetail!.series.toString(),
+                                        ? data.mySetsModel!.results![index].productDetail!.brand == null
+                                            ? ""
+                                            : data.mySetsModel!.results![index].productDetail!.brand!.name.toString()
+                                        : data.mySetsModel!.results![index].productDetail!.series == null
+                                            ? ""
+                                            : data.mySetsModel!.results![index].productDetail!.series.toString(),
                                     series: <ChartSeries<Graph, String>>[
                                       LineSeries<Graph, String>(
                                         color: data.mySetsModel!.results![index].statsDetail!.sign! == 'decrease'

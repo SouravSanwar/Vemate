@@ -16,8 +16,7 @@ class OneDayProductGraphPage extends StatefulWidget {
   final bool? fromVault;
   final String? ap;
 
-  const OneDayProductGraphPage({Key? key, this.fromVault, this.ap})
-      : super(key: key);
+  const OneDayProductGraphPage({Key? key, this.fromVault, this.ap}) : super(key: key);
 
   @override
   State<OneDayProductGraphPage> createState() => _OneDayProductGraphPageState();
@@ -65,8 +64,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
           enable: true,
           color: Color(0xff00A7FF),
         ),
-        markerSettings: const TrackballMarkerSettings(
-            markerVisibility: TrackballVisibilityMode.auto));
+        markerSettings: const TrackballMarkerSettings(markerVisibility: TrackballVisibilityMode.auto));
 
     /*  crosshair behaviour kete diye ei portion er kaj korte hbe
 
@@ -100,8 +98,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                       title: "No data for 24 hours!",
                     )
                   : SfCartesianChart(
-                      margin: const EdgeInsets.only(
-                          top: 10, bottom: 2, left: 2, right: 2),
+                      margin: const EdgeInsets.only(top: 10, bottom: 2, left: 2, right: 2),
                       crosshairBehavior: _crosshairBehavior,
                       plotAreaBorderWidth: 0,
                       zoomPanBehavior: _zoomPanBehavior,
@@ -111,18 +108,18 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                           enable: true,
                           lineWidth: 0,
                           shouldAlwaysShow: true,
-
                           builder: (context, tooltipSettings) {
+                            var profit =
+                                (double.parse(tooltipSettings.point!.dataLabelMapper!) - double.parse(detailsAp!));
 
                             return widget.fromVault == true
                                 ? Container(
-                                    height: Get.height*.07,
-                                    width: Get.width*.3,
+                                    height: Get.height * .07,
+                                    width: Get.width * .3,
                                     padding: EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
-                                        border: Border.all(
-                                            color: const Color(0xff3E488F)),
+                                        border: Border.all(color: const Color(0xff3E488F)),
                                         color: const Color(0xff3E488F)),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -150,7 +147,10 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                                               'Profit',
                                               style: TextStyle(fontSize: 12.sp),
                                             ),
-                                            Text("\$"+(double.parse(tooltipSettings.point!.dataLabelMapper!)-double.parse(detailsAp!)).toStringAsFixed(2),
+                                            Text(
+                                              profit > 0
+                                                  ? "\$" + profit.toStringAsFixed(2)
+                                                  : "-\$" + (profit.abs().toStringAsFixed(2)),
                                               style: TextStyle(fontSize: 12.sp),
                                             )
                                           ],
@@ -161,8 +161,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                                     padding: EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
-                                        border: Border.all(
-                                            color: const Color(0xff3E488F)),
+                                        border: Border.all(color: const Color(0xff3E488F)),
                                         color: const Color(0xff3E488F)),
                                     child: Text(
                                       '${tooltipSettings.point?.dataLabelMapper}',
@@ -175,8 +174,8 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                             enable: true,
                             color: Color(0xff3E488F),
                           ),
-                          markerSettings: const TrackballMarkerSettings(
-                              markerVisibility: TrackballVisibilityMode.auto)),
+                          markerSettings:
+                              const TrackballMarkerSettings(markerVisibility: TrackballVisibilityMode.auto)),
 
                       primaryXAxis: CategoryAxis(
                         interactiveTooltip: const InteractiveTooltip(
@@ -184,15 +183,15 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                         ),
                         //rangePadding: ChartRangePadding.auto,
                         axisBorderType: AxisBorderType.withoutTopAndBottom,
-                          majorGridLines: MajorGridLines(
-                              width: 1,
-                            color: AppColors.textColor.withOpacity(.1),
-                          ),
-                          minorGridLines: MinorGridLines(
-                              width: 1,
-                              color: AppColors.textColor.withOpacity(.1),
-                          ),
-                          minorTicksPerInterval:5,
+                        majorGridLines: MajorGridLines(
+                          width: 1,
+                          color: AppColors.textColor.withOpacity(.1),
+                        ),
+                        minorGridLines: MinorGridLines(
+                          width: 1,
+                          color: AppColors.textColor.withOpacity(.1),
+                        ),
+                        minorTicksPerInterval: 5,
                         majorTickLines: const MajorTickLines(width: 0),
                         axisLine: const AxisLine(width: 0),
                         //labelIntersectAction: AxisLabelIntersectAction.hide,
@@ -207,26 +206,25 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                         ),
                         labelAlignment: LabelAlignment.center,
                         //labelIntersectAction: AxisLabelIntersectAction.wrap,
-                        labelPlacement:
-                            data.oneDayGraphModel!.graphData!.graph!.length == 1
-                                ? LabelPlacement.betweenTicks
-                                : LabelPlacement.onTicks,
+                        labelPlacement: data.oneDayGraphModel!.graphData!.graph!.length == 1
+                            ? LabelPlacement.betweenTicks
+                            : LabelPlacement.onTicks,
                         //maximumLabels: 6
                       ),
 
                       primaryYAxis: NumericAxis(
                         plotBands: <PlotBand>[
                           PlotBand(
-                              verticalTextPadding:'0%',
-                              horizontalTextPadding: '0%',
-                              text: widget.fromVault==true ?'AP' :"",
-                              textAngle: 0,
-                              start: widget.fromVault==true ?double.parse(detailsAp!):0,
-                              end: widget.fromVault==true ?double.parse(detailsAp!):0,
-                              textStyle: TextStyle(color: AppColors.textColor.withOpacity(.5), fontSize: 8),
-                              horizontalTextAlignment: TextAnchor.end,
-                              borderColor: widget.fromVault==true ?const Color(0xff5A0FD8) : AppColors.graphCard,
-                              borderWidth: 1.5,
+                            verticalTextPadding: '0%',
+                            horizontalTextPadding: '0%',
+                            text: widget.fromVault == true ? 'AP' : "",
+                            textAngle: 0,
+                            start: widget.fromVault == true ? double.parse(detailsAp!) : 0,
+                            end: widget.fromVault == true ? double.parse(detailsAp!) : 0,
+                            textStyle: TextStyle(color: AppColors.textColor.withOpacity(.5), fontSize: 8),
+                            horizontalTextAlignment: TextAnchor.end,
+                            borderColor: widget.fromVault == true ? const Color(0xff5A0FD8) : AppColors.graphCard,
+                            borderWidth: 1.5,
                           )
                         ],
                         decimalPlaces: 2,
@@ -256,45 +254,40 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                             fontWeight: FontWeight.w900),
                         labelAlignment: LabelAlignment.center,
                         maximumLabelWidth: 40,
+                        maximum: double.parse(detailsAp!) > double.parse(data.oneDayGraphModel!.floorPrice!)
+                            ? double.parse(detailsAp!) + 10.0
+                            : null,
                       ),
                       series: <ChartSeries<OneDayProductGraph, String>>[
                         data.oneDayGraphModel!.graphData!.graph!.length == 1
                             ? ColumnSeries<OneDayProductGraph, String>(
                                 width: .01,
                                 gradient: AppColors.graphGradient,
-                                dataSource:
-                                    data.oneDayGraphModel!.graphData!.graph!,
-                                xValueMapper: (plot, _) =>
-                                    data.oneDayGraphModel!.graphData!.status ==
-                                            0
-                                        ? plot.hourWiseTime
-                                        : plot.hourWiseTime1,
+                                dataSource: data.oneDayGraphModel!.graphData!.graph!,
+                                xValueMapper: (plot, _) => data.oneDayGraphModel!.graphData!.status == 0
+                                    ? plot.hourWiseTime
+                                    : plot.hourWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                               )
                             : SplineAreaSeries<OneDayProductGraph, String>(
-                                dataSource:
-                                    data.oneDayGraphModel!.graphData!.graph!,
+                                dataSource: data.oneDayGraphModel!.graphData!.graph!,
                                 borderColor: const Color(0xff8A56E1),
                                 color: Colors.transparent,
                                 borderWidth: 1,
-                                xValueMapper: (plot, _) =>
-                                    data.oneDayGraphModel!.graphData!.status ==
-                                            0
-                                        ? plot.hourWiseTime
-                                        : plot.hourWiseTime1,
+                                xValueMapper: (plot, _) => data.oneDayGraphModel!.graphData!.status == 0
+                                    ? plot.hourWiseTime
+                                    : plot.hourWiseTime1,
                                 yValueMapper: (plot, _) => plot.floorPrice,
                                 xAxisName: 'Duration',
                                 yAxisName: 'Total',
                                 enableTooltip: true,
-                                dataLabelMapper: (plot, _) =>
-                                    plot.floorPriceString,
+                                dataLabelMapper: (plot, _) => plot.floorPriceString,
                                 dataLabelSettings: const DataLabelSettings(
                                   isVisible: false,
                                   angle: 270,
                                 ),
                                 splineType: SplineType.monotonic,
                                 cardinalSplineTension: 0.3,
-
                               ),
 
                         /*SplineAreaSeries<OneDayProductGraph, String>(

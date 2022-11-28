@@ -22,7 +22,7 @@ class _NoDataCardState extends State<NoDataCard> {
         decoration: BoxDecoration(
             gradient: AppColors.cardGradient,
             borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(color: const Color(0xff454F70))),
+            border: Border.all(color: const Color(0xff454F70),),),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
