@@ -14,7 +14,9 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 
 class OtpPage extends StatefulWidget {
+  final bool registration;
 
+  const OtpPage({Key? key, required this.registration}) : super(key: key);
 
   @override
   _OtpPageState createState() => _OtpPageState();
@@ -66,20 +68,12 @@ class _OtpPageState extends State<OtpPage> {
         return true;
       },
       child: Container(
-        decoration: BoxDecoration(
-            gradient: AppColors.onBoardGradient
-        ),
+        decoration: BoxDecoration(gradient: AppColors.onBoardGradient),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: SizedBox(
-            height: MediaQuery
-                .of(context)
-                .size
-                .height,
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             child: ListView(
               children: <Widget>[
                 const BackPreviousScreen(),
@@ -90,12 +84,8 @@ class _OtpPageState extends State<OtpPage> {
                   height: Get.height * .18,
                   width: Get.width * .9,
                   child: Image.asset(
-                    mode == 0
-                        ? 'assets/media/image/vemate1.png'
-                        : 'assets/media/image/vemate2.png',
-                    fit: mode == 0
-                        ? BoxFit.cover
-                        : BoxFit.contain,
+                    mode == 0 ? 'assets/media/image/vemate1.png' : 'assets/media/image/vemate2.png',
+                    fit: mode == 0 ? BoxFit.cover : BoxFit.contain,
                   ),
                 ),
                 SizedBox(
@@ -105,16 +95,12 @@ class _OtpPageState extends State<OtpPage> {
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(
                     'Email Verification',
-                    style: TextStyle(
-                        color: AppColors.textColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22.sp),
+                    style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.bold, fontSize: 22.sp),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Padding(
-                  padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
                   child: RichText(
                     text: TextSpan(
                         text: "Enter the code sent to ",
@@ -122,12 +108,9 @@ class _OtpPageState extends State<OtpPage> {
                           TextSpan(
                               text: "${prefs!.getString('email')}",
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.primaryColor,
-                                  fontSize: 15.sp)),
+                                  fontWeight: FontWeight.bold, color: AppColors.primaryColor, fontSize: 15.sp)),
                         ],
-                        style:
-                        const TextStyle(color: Colors.white, fontSize: 15)),
+                        style: const TextStyle(color: Colors.white, fontSize: 15)),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -135,8 +118,7 @@ class _OtpPageState extends State<OtpPage> {
                 Form(
                   key: formKey,
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 30),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
                       child: PinCodeTextField(
                         appContext: context,
                         pastedTextStyle: TextStyle(
@@ -193,10 +175,7 @@ class _OtpPageState extends State<OtpPage> {
                   child: Text(
                     hasError ? "*Please fill up all the cells properly" : "",
                     style: TextStyle(
-                        fontFamily: 'Inter',
-                        color: AppColors.white,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400),
+                        fontFamily: 'Inter', color: AppColors.white, fontSize: 12.sp, fontWeight: FontWeight.w400),
                   ),
                 ),
                 SizedBox(
@@ -207,10 +186,7 @@ class _OtpPageState extends State<OtpPage> {
                   children: [
                     Text(
                       "Didn't receive the code? ",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Inter',
-                          fontSize: 15.sp),
+                      style: TextStyle(color: Colors.white, fontFamily: 'Inter', fontSize: 15.sp),
                     ),
                     TextButton(
                         onPressed: () {
@@ -218,17 +194,13 @@ class _OtpPageState extends State<OtpPage> {
                             "email": "${prefs!.getString('email')}",
                             "user_checking": false,
                             "reason": "verify",
-
                           };
 
                           postData!.resendCode(context, body);
                         },
                         child: Text(
                           "RESEND",
-                          style: TextStyle(
-                              fontFamily: 'Inter',
-                              color: AppColors.primaryColor,
-                              fontSize: 16.sp),
+                          style: TextStyle(fontFamily: 'Inter', color: AppColors.primaryColor, fontSize: 16.sp),
                         ))
                   ],
                 ),
@@ -247,25 +219,31 @@ class _OtpPageState extends State<OtpPage> {
                         setState(() => hasError = true);
                       } else {
                         setState(
-                              () {
+                          () {
                             hasError = false;
 
-                            var body = {
+                            var bodyForUpdate = {
+                              "email": "${prefs!.getString('email')}",
+                              "code": currentText,
+                            };
+
+                            var bodyForRegistration = {
                               "email": "${prefs!.getString('email')}",
                               "code": currentText,
                               "user": {
-                                 "nickname": "${prefs!.getString('nickname')}",
-                                 "email": "${prefs!.getString('email')}",
+                                "nickname": "${prefs!.getString('nickname')}",
+                                "email": "${prefs!.getString('email')}",
                                 "gender": "0",
                                 "birth_year": "1852",
-                                 "fcm_device_id": "3",
-                                 "password": "${prefs!.getString('password')}",
-                               }
+                                "fcm_device_id": "3",
+                                "password": "${prefs!.getString('password')}",
+                              }
                             };
 
-                            printInfo(info: body.toString());
-
-                            postData!.verifyCode(context, body);
+                            postData!.verifyCode(
+                              context,
+                              widget.registration == true ? bodyForRegistration : bodyForUpdate,
+                            );
                           },
                         );
                       }

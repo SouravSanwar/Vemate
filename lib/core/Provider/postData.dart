@@ -65,7 +65,9 @@ class PostData extends ChangeNotifier with BaseController {
         response.statusCode == 201) {
       prefs = await SharedPreferences.getInstance();
       Navigator.of(context).pop();
-      Get.to(() => OtpPage());
+      Get.to(() => const OtpPage(
+            registration: true,
+          ));
     } else {
       var x = json.decode(response.body);
 
@@ -112,12 +114,12 @@ class PostData extends ChangeNotifier with BaseController {
               message: "Please wait",
             ));
 
-
+    printInfo(info: 'body: ' + body.toString());
     final response = await http.post(Uri.parse(Urls.verifyCode), body: json.encode(body), headers: requestHeaders);
 
     //var x = json.decode(response.body);
 
-    printInfo(info: 'response.body: '+ response.body.toString());
+    printInfo(info: 'response.body: ' + response.body.toString());
 
     if (response.statusCode == 200 ||
         response.statusCode == 401 ||
@@ -276,7 +278,7 @@ class PostData extends ChangeNotifier with BaseController {
 
     var x = json.decode(response.body);
 
-    printInfo(info: 'response.body R: '+  response.body.toString());
+    printInfo(info: 'response.body R: ' + response.body.toString());
 
     Map<String, dynamic> js = x;
 
@@ -381,7 +383,13 @@ class PostData extends ChangeNotifier with BaseController {
             "reason": "verify",
           };
           postData = Provider.of<PostData>(context, listen: false);
-          postData!.resendCode(context, body).whenComplete(() => Get.to(() => OtpPage()));
+          postData!.resendCode(context, body).whenComplete(
+                () => Get.to(
+                  () => const OtpPage(
+                    registration: false,
+                  ),
+                ),
+              );
         }
       } catch (e) {
         Navigator.of(context).pop();
@@ -497,8 +505,9 @@ class PostData extends ChangeNotifier with BaseController {
 
     final response =
         await http.patch(Uri.parse(Urls.updateUserInfo), body: json.encode(body), headers: requestHeadersWithToken);
-    print(response.body.toString());
-    print(requestHeadersWithToken.toString());
+
+    printInfo(info: 'response.body; ' + response.body.toString());
+
     var x = json.decode(response.body);
 
     Map<String, dynamic> js = x;
@@ -524,9 +533,8 @@ class PostData extends ChangeNotifier with BaseController {
       getData = Provider.of<GetData>(context, listen: false);
       await getData!.getUserInfo();
       prefs = await SharedPreferences.getInstance();
-      String? username=js['nickname'].toString();
-      String? password=  "${prefs!.getString('password')}";
-
+      String? username = js['nickname'].toString();
+      String? password = "${prefs!.getString('password')}";
 
       Navigator.of(context).pop();
       prefs!.clear();
@@ -937,7 +945,7 @@ class PostData extends ChangeNotifier with BaseController {
                 message: "Something went wrong",
               ));
     }
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
 
     Navigator.of(context).pop();
     Navigator.of(context).pop();
@@ -1029,7 +1037,7 @@ class PostData extends ChangeNotifier with BaseController {
                 color: Colors.purpleAccent,
                 message: "Invalid Information",
               ));
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
       Navigator.of(context).pop();
     }
     notifyListeners();
@@ -1065,11 +1073,11 @@ class PostData extends ChangeNotifier with BaseController {
           context: context,
           barrierDismissible: false,
           builder: (_) => const ResponseMessage(
-            icon: Icons.check_circle,
-            color: Colors.purpleAccent,
-            message: "Deleted Successfully",
-          ));
-      await Future.delayed(Duration(seconds: 5));
+                icon: Icons.check_circle,
+                color: Colors.purpleAccent,
+                message: "Deleted Successfully",
+              ));
+      await Future.delayed(const Duration(seconds: 5));
       Navigator.of(context).pop();
       Navigator.of(context).pop();
     } else {
@@ -1082,7 +1090,7 @@ class PostData extends ChangeNotifier with BaseController {
                 message: "Something went wrong",
               ));
     }
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
 
     Navigator.of(context).pop();
     Navigator.of(context).pop();
@@ -1131,7 +1139,7 @@ class PostData extends ChangeNotifier with BaseController {
                   color: Colors.purpleAccent,
                   message: "Added Successfully",
                 ));
-        await Future.delayed(Duration(seconds: 1));
+        await Future.delayed(const Duration(seconds: 1));
         Navigator.of(context).pop();
       } catch (e) {
         Navigator.of(context).pop();
@@ -1208,7 +1216,7 @@ class PostData extends ChangeNotifier with BaseController {
           detailsAp=double.parse(x['ap'].toString()).toStringAsFixed(2);
           detailsAd=x['ad'].toString();
 
-        await Future.delayed(Duration(seconds: 1));
+        await Future.delayed(const Duration(seconds: 1));
         Navigator.of(context).pop();
       } catch (e) {
         Navigator.of(context).pop();
@@ -1275,7 +1283,7 @@ class PostData extends ChangeNotifier with BaseController {
                   color: Colors.white,
                   message: "Deleted Successfully",
                 ));
-        await Future.delayed(Duration(seconds: 1));
+        await Future.delayed(const Duration(seconds: 1));
         Navigator.of(context).pop();
       } catch (e) {
         Navigator.of(context).pop();
