@@ -689,7 +689,6 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                                 requestHeadersWithToken,
                                                               )
                                                                   .whenComplete(() => {
-                                                                getData!.getMySets(0, true, graph_data: true),
                                                                 getData!.getMySets1(0, widget.productId!, true)
                                                               })
                                                                   .whenComplete(() => {
@@ -973,7 +972,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                               requestHeadersWithToken,
                                             )
                                                 .whenComplete(() => {
-                                              getData!.getMySets(0, true, graph_data: true),
+
                                               getData!.getMySets1(0, widget.productId!, true)
                                             })
                                                 .whenComplete(() => {

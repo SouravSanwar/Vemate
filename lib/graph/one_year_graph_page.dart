@@ -15,9 +15,7 @@ import 'product_details_collectibles.dart';
 class OneYearProductGraphPage extends StatefulWidget {
   final bool? fromVault;
   final String? ap;
-
-  const OneYearProductGraphPage({Key? key, this.fromVault, this.ap})
-      : super(key: key);
+  const OneYearProductGraphPage({Key? key, this.fromVault, this.ap}) : super(key: key);
 
   @override
   State<OneYearProductGraphPage> createState() =>
@@ -69,6 +67,7 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
         markerSettings: const TrackballMarkerSettings(
             markerVisibility: TrackballVisibilityMode.auto));
 
+
     super.initState();
   }
 
@@ -85,240 +84,183 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
           ),
           child: data.oneYearGraphModel != null
               ? data.oneYearGraphModel!.graphData!.graph!.isEmpty
-                  ? const NoGraphCard(
-                      title: "No data for 1 year!",
-                    )
-                  : SfCartesianChart(
-                      margin: const EdgeInsets.only(
-                          top: 10, bottom: 2, left: 2, right: 2),
-                      crosshairBehavior: _crosshairBehavior,
-                      plotAreaBorderWidth: 0,
-                      zoomPanBehavior: _zoomPanBehavior,
-                      // tooltipBehavior: _tooltipBehavior,
-                      trackballBehavior: TrackballBehavior(
-                          activationMode: ActivationMode.singleTap,
-                          enable: true,
-                          lineWidth: 0,
-                          shouldAlwaysShow: true,
-                          builder: (context, tooltipSettings) {
-                            return widget.fromVault == true
-                                ? Container(
-                                    height: Get.height * .07,
-                                    width: Get.width * .3,
-                                    padding: EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(7),
-                                        border: Border.all(
-                                            color: const Color(0xff3E488F)),
-                                        color: const Color(0xff3E488F)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'FP',
-                                              style: TextStyle(fontSize: 12.sp),
-                                            ),
-                                            Text(
-                                              '\$${tooltipSettings.point?.dataLabelMapper}',
-                                              style: TextStyle(fontSize: 12.sp),
-                                            )
-                                          ],
-                                        ),
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'Profit',
-                                              style: TextStyle(fontSize: 12.sp),
-                                            ),
-                                            Text(
-                                              "\$" +
-                                                  (double.parse(tooltipSettings
-                                                              .point!
-                                                              .dataLabelMapper!) -
-                                                          double.parse(
-                                                              detailsAp!))
-                                                      .toStringAsFixed(2),
-                                              style: TextStyle(fontSize: 12.sp),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ))
-                                : Container(
-                                    padding: EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(7),
-                                        border: Border.all(
-                                            color: const Color(0xff3E488F)),
-                                        color: const Color(0xff3E488F)),
-                                    child: Text(
-                                      '${tooltipSettings.point?.dataLabelMapper}',
-                                      style: TextStyle(fontSize: 12.sp),
-                                    ));
-                            return Container(
-                                padding: EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(7),
-                                    border: Border.all(
-                                        color: const Color(0xff00A7FF)),
-                                    color: const Color(0xff00A7FF)),
-                                child: Text(
-                                  '${tooltipSettings.point?.dataLabelMapper}',
-                                  style: TextStyle(fontSize: 12.sp),
-                                ));
-                          },
-                          tooltipSettings: const InteractiveTooltip(
-                            canShowMarker: false,
-                            connectorLineColor: Colors.white,
-                            enable: true,
-                            color: Color(0xff3E488F),
-                          ),
-                          markerSettings: const TrackballMarkerSettings(
-                              markerVisibility: TrackballVisibilityMode.auto)),
-
-                      primaryXAxis: CategoryAxis(
-                        interactiveTooltip: const InteractiveTooltip(
-                          enable: false,
-                        ),
-                        //rangePadding: ChartRangePadding.auto,
-                        axisBorderType: AxisBorderType.withoutTopAndBottom,
-                        majorGridLines: MajorGridLines(
-                          width: 1,
-                          color: AppColors.textColor.withOpacity(.1),
-                        ),
-                        minorGridLines: MinorGridLines(
-                          width: 1,
-                          color: AppColors.textColor.withOpacity(.1),
-                        ),
-                        minorTicksPerInterval: 5,
-                        majorTickLines: const MajorTickLines(width: 0),
-                        axisLine: const AxisLine(width: 0),
-                        //labelIntersectAction: AxisLabelIntersectAction.hide,
-                        // labelRotation: 90,
-                        edgeLabelPlacement: EdgeLabelPlacement.shift,
-                        labelStyle: TextStyle(
-                          color: AppColors.textColor,
-                          fontFamily: 'Inter',
-                          fontSize: 7.sp,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w900,
-                        ),
-                        labelAlignment: LabelAlignment.center,
-                        //labelIntersectAction: AxisLabelIntersectAction.wrap,
-                        labelPlacement:
-                            data.oneDayGraphModel!.graphData!.graph!.length == 1
-                                ? LabelPlacement.betweenTicks
-                                : LabelPlacement.onTicks,
-                        //maximumLabels: 6
-                      ),
-
-                      primaryYAxis: NumericAxis(
-                        plotBands: <PlotBand>[
-                          PlotBand(
-                            verticalTextPadding: '0%',
-                            horizontalTextPadding: '0%',
-                            text: widget.fromVault == true ? 'AP' : "",
-                            textAngle: 0,
-                            start: widget.fromVault == true
-                                ? double.parse(detailsAp!)
-                                : 0,
-                            end: widget.fromVault == true
-                                ? double.parse(detailsAp!)
-                                : 0,
-                            textStyle: TextStyle(
-                                color: AppColors.textColor.withOpacity(.5),
-                                fontSize: 8),
-                            horizontalTextAlignment: TextAnchor.end,
-                            borderColor: widget.fromVault == true
-                                ? const Color(0xff5A0FD8)
-                                : AppColors.graphCard,
-                            borderWidth: 1.5,
-                          )
-                        ],
-                        decimalPlaces: 2,
-                        numberFormat: NumberFormat.compact(),
-                        interactiveTooltip: const InteractiveTooltip(
-                          enable: false,
-                        ),
-                        axisBorderType: AxisBorderType.withoutTopAndBottom,
-                        borderWidth: 0,
-                        axisLine: const AxisLine(width: 0),
-                        majorGridLines: MajorGridLines(
-                          width: 1,
-                          color: AppColors.textColor.withOpacity(.1),
-                        ),
-                        minorGridLines: MinorGridLines(
-                          width: 1,
-                          color: AppColors.textColor.withOpacity(.1),
-                        ),
-                        majorTickLines: const MajorTickLines(width: 0),
-                        //labelIntersectAction: AxisLabelIntersectAction.hide,
-                        labelRotation: 0,
-                        labelStyle: TextStyle(
-                            color: AppColors.textColor,
-                            fontFamily: 'Inter',
-                            fontSize: 7.sp,
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.w900),
-                        labelAlignment: LabelAlignment.center,
-                        maximumLabelWidth: 40,
-                      ),
-                      series: <ChartSeries<OneYearProductGraph, String>>[
-                        data.oneYearGraphModel!.graphData!.graph!.length == 1
-                            ? ColumnSeries<OneYearProductGraph, String>(
-                                dataSource:
-                                    data.oneYearGraphModel!.graphData!.graph!,
-                                width: .01,
-                                gradient: AppColors.graphGradient,
-                                xValueMapper: (plot, _) =>
-                                    data.oneYearGraphModel!.graphData!.status ==
-                                            0
-                                        ? plot.monthWiseTime
-                                        : plot.monthWiseTime1,
-                                yValueMapper: (plot, _) => plot.floorPrice,
-                              )
-                            : SplineAreaSeries<OneYearProductGraph, String>(
-                                dataSource:
-                                    data.oneYearGraphModel!.graphData!.graph!,
-                                borderColor: const Color(0xff8A56E1),
-                                color: Colors.transparent,
-                                borderWidth: 1,
-                                xValueMapper: (plot, _) =>
-                                    data.oneYearGraphModel!.graphData!.status ==
-                                            0
-                                        ? plot.monthWiseTime
-                                        : plot.monthWiseTime1,
-                                yValueMapper: (plot, _) => plot.floorPrice,
-                                xAxisName: 'Duration',
-                                yAxisName: 'Total',
-                                enableTooltip: true,
-                                dataLabelMapper: (plot, _) =>
-                                    plot.floorPriceString,
-                                dataLabelSettings: const DataLabelSettings(
-                                  isVisible: false,
-                                  angle: 270,
-                                ),
-                                splineType: SplineType.monotonic,
-                                cardinalSplineTension: 0.3,
+              ? const NoGraphCard(
+            title: "No data for 1 year!",
+          )
+              : SfCartesianChart(
+            margin: const EdgeInsets.only(
+                top: 10, bottom: 2, left: 2, right: 2),
+            crosshairBehavior: _crosshairBehavior,
+            plotAreaBorderWidth: 0,
+            zoomPanBehavior: _zoomPanBehavior,
+            // tooltipBehavior: _tooltipBehavior,
+            trackballBehavior: TrackballBehavior(
+                activationMode: ActivationMode.singleTap,
+                enable: true,
+                lineWidth: 0,
+                shouldAlwaysShow: true,
+                builder: (context, tooltipSettings) {
+                  return widget.fromVault == true
+                      ? Container(
+                      height: Get.height*.07,
+                      width: Get.width*.3,
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7),
+                          border: Border.all(
+                              color: const Color(0xff00A7FF)),
+                          color: const Color(0xff00A7FF)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'FP',
+                                style: TextStyle(fontSize: 12.sp),
                               ),
-                      ],
-                    )
+                              Text(
+                                '\$${tooltipSettings.point?.dataLabelMapper}',
+                                style: TextStyle(fontSize: 12.sp),
+                              )
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Profit',
+                                style: TextStyle(fontSize: 12.sp),
+                              ),
+                              Text("\$"+(double.parse(tooltipSettings.point!.dataLabelMapper!)-double.parse(detailsAp!)).toStringAsFixed(2),
+                                style: TextStyle(fontSize: 12.sp),
+                              )
+                            ],
+                          ),
+                        ],
+                      ))
+                      : Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7),
+                          border: Border.all(
+                              color: const Color(0xff00A7FF)),
+                          color: const Color(0xff00A7FF)),
+                      child: Text(
+                        '${tooltipSettings.point?.dataLabelMapper}',
+                        style: TextStyle(fontSize: 12.sp),
+                      ));return Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7),
+                          border: Border.all(
+                              color: const Color(0xff00A7FF)),
+                          color: const Color(0xff00A7FF)),
+                      child: Text(
+                        '${tooltipSettings.point?.dataLabelMapper}',style: TextStyle(fontSize: 12.sp),));
+                },
+                tooltipSettings: const InteractiveTooltip(
+                  canShowMarker: false,
+                  connectorLineColor: Colors.white,
+                  enable: true,
+                  color: Color(0xff00A7FF),
+                ),
+                markerSettings: const TrackballMarkerSettings(
+                    markerVisibility: TrackballVisibilityMode.auto)),
+
+
+            primaryXAxis: CategoryAxis(
+              interactiveTooltip: const InteractiveTooltip(
+                enable: false,
+              ),
+              //rangePadding: ChartRangePadding.auto,
+              axisBorderType: AxisBorderType.withoutTopAndBottom,
+              majorGridLines: const MajorGridLines(
+                width: 0,
+              ),
+              majorTickLines: const MajorTickLines(width: 0),
+              axisLine: const AxisLine(width: 0),
+              // labelIntersectAction: AxisLabelIntersectAction.hide,
+              labelRotation: 0,
+              edgeLabelPlacement: EdgeLabelPlacement.shift,
+              labelStyle: TextStyle(
+                color: AppColors.textColor,
+                fontFamily: 'Inter',
+                fontSize: 8.sp,
+                fontStyle: FontStyle.italic,
+                //fontWeight: FontWeight.w900,
+              ),
+              labelAlignment: LabelAlignment.center,
+              labelPlacement:
+              data.oneYearGraphModel!.graphData!.graph!.length == 1
+                  ? LabelPlacement.betweenTicks
+                  : LabelPlacement.onTicks,
+              //maximumLabels: 6
+            ),
+
+
+
+            primaryYAxis: NumericAxis(
+              decimalPlaces: 2,
+              numberFormat: NumberFormat.compact(),
+              interactiveTooltip: const InteractiveTooltip(
+                enable: false,
+              ),
+              axisBorderType: AxisBorderType.withoutTopAndBottom,
+              borderWidth: 0,
+              axisLine: const AxisLine(width: 0),
+              majorGridLines: const MajorGridLines(
+                width: 0,
+              ),
+              majorTickLines: const MajorTickLines(width: 0),
+              //  labelIntersectAction: AxisLabelIntersectAction.hide,
+              labelRotation: 0,
+              labelStyle: TextStyle(
+                  color: AppColors.textColor,
+                  fontFamily: 'Inter',
+                  fontSize: 8.sp,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w900),
+              labelAlignment: LabelAlignment.center,
+            ),
+            series: <ChartSeries<OneYearProductGraph, String>>[
+              data.oneYearGraphModel!.graphData!.graph!.length == 1
+                  ? ColumnSeries<OneYearProductGraph, String>(
+                dataSource: data.oneYearGraphModel!.graphData!.graph!,
+                width: .01,
+                gradient: AppColors.graphGradient,
+                xValueMapper: (plot, _) => data.oneYearGraphModel!.graphData!.status == 0 ?plot.monthWiseTime :plot.monthWiseTime1,
+                yValueMapper: (plot, _) => plot.floorPrice,
+              )
+                  : SplineAreaSeries<OneYearProductGraph, String>(
+                dataSource: data.oneYearGraphModel!.graphData!.graph!,
+                borderColor: const Color(0xff2093D7),
+                borderWidth: 1,
+                gradient: AppColors.graphGradient,
+                xValueMapper: (plot, _) => data.oneYearGraphModel!.graphData!.status == 0 ?plot.monthWiseTime :plot.monthWiseTime1,
+                yValueMapper: (plot, _) => plot.floorPrice,
+                xAxisName: 'Duration',
+                yAxisName: 'Total',
+                enableTooltip: true,
+                dataLabelMapper: (plot, _) =>
+                plot.floorPriceString,
+                dataLabelSettings: const DataLabelSettings(
+                  isVisible: false,
+                  angle: 270,
+                ),
+                splineType: SplineType.monotonic,
+                cardinalSplineTension: 0.3,
+              ),
+            ],
+          )
               : const LoadingExample(),
         ),
       );
     });
   }
+
 }

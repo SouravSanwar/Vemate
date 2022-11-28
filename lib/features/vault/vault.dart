@@ -15,6 +15,7 @@ import 'package:ketemaa/features/vault/VaultComicCards/vault_comic_card_7D.dart'
 import 'package:ketemaa/features/vault/VaultComicCards/vault_comics_card.dart';
 import 'package:ketemaa/features/vault/Wishlist/my_wishlist_page.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/utilities/shimmer/loading.dart';
 import 'Component/no_data_card.dart';
 import 'MySets/mysets_card.dart';
@@ -33,6 +34,21 @@ class _VaultState extends State<Vault> {
 
   final items = ['24H', '7D', '30D', '60D', '1Y'];
   int vaultSelectDropDownIndex = 0;
+
+  Future<void> _launchInApp(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: true,
+        forceWebView: true,
+        enableDomStorage: true,
+        enableJavaScript: true,
+        headers: <String, String>{'header_key': 'header_value'},
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   void initState() {
@@ -62,17 +78,24 @@ class _VaultState extends State<Vault> {
                       child: ListView(
                         children: [
                           const CombinedVaultCard(),
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                              horizontal: Get.height * .015,
-                              vertical: Get.height * .02,
-                            ),
-                            height: Get.height * .085,
-                            width: Get.width,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('assets/media/image/vault_banner.png'),
-                                fit: BoxFit.fill,
+                          InkWell(
+                            onTap: (){
+                              String url = 'https://market.vemate.com/dashboard/import';
+                              _launchInApp(url);
+                            },
+                            splashColor: Colors.transparent,
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal: Get.height * .015,
+                                vertical: Get.height * .02,
+                              ),
+                              height: Get.height * .085,
+                              width: Get.width,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('assets/media/image/vault_banner.png'),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
                           ),

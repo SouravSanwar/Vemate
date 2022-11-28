@@ -173,7 +173,7 @@ class _MultiformState extends State<Multiform> {
                                         builder: (_) => const ResponseMessage(
                                           icon: Icons.error_outline,
                                           color: Colors.purpleAccent,
-                                          message: "Mint number already exist in the list!",
+                                          message: "Mint number already exists in the list!",
                                         ));
 
                                     await Future.delayed(Duration(seconds: 2));

@@ -82,8 +82,6 @@ dependencies:
   syncfusion_flutter_sliders: ^19.4.56
   flutter_swipe_action_cell: ^3.0.4
   flutter_switch: ^0.3.2
-  swipeable_card_stack: ^0.0.5
-  flutter_dynamic_icon: ^2.1.0
   share_plus: ^3.1.0
 
 dev_dependencies:

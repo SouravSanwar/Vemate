@@ -211,6 +211,7 @@ class _IndividualListStructureState extends State<IndividualListStructure> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
                 SizedBox(
                   height: Get.height * .05,
                   child: SfCartesianChart(

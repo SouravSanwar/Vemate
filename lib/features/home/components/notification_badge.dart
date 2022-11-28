@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 
 class NotificationBadge extends StatefulWidget {
   const NotificationBadge({Key? key}) : super(key: key);
@@ -17,7 +16,6 @@ class _NotificationBadgeState extends State<NotificationBadge> {
   @override
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
-      FlutterDynamicIcon.setApplicationIconBadgeNumber(10);
       return Container(
         child: data.notificationListModel!.totalUnread == 0
             ? Icon(
