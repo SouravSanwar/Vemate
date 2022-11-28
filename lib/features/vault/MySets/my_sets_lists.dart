@@ -17,6 +17,7 @@ import 'package:ketemaa/features/market/presentation/widgets/products_list_conta
 import 'package:ketemaa/features/market/widgets/image_widgets.dart';
 import 'package:ketemaa/features/vault/Component/no_data_card.dart';
 import 'package:ketemaa/features/vault/MySets/MySets_Individual_List.dart';
+import 'package:ketemaa/features/vault/MySets/separate_mysets_list.dart';
 import 'package:ketemaa/features/vault/Wishlist/Separate_Vault_List/separate_vault_structure.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +34,7 @@ class SetListPage extends StatefulWidget {
 }
 
 class _SetListPageState extends State<SetListPage> {
-  double mysetHeight = Get.height * .115;
+  double mysetHeight = Get.height * .13;
   double mysetWidth = Get.width * .95;
   GetData? getData;
   Color? color = Colors.green;
@@ -74,6 +75,10 @@ class _SetListPageState extends State<SetListPage> {
           style:
               TextStyle(color: AppColors.textColor, fontFamily: 'Inter', fontSize: 20.sp, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          const StackInstructionDialogue(),
+          AppSpaces.spaces_width_5,
+        ],
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
         return Container(
@@ -202,7 +207,7 @@ class _SetListPageState extends State<SetListPage> {
                                     brand: data.mySetsModel!.results![index].productDetail!.type == 0
                                         ?data.mySetsModel!.results![index].productDetail!.brand == null
                                         ? ""
-                                        : data.mySetsModel!.results![index].productDetail!.brand.toString()
+                                        : data.mySetsModel!.results![index].productDetail!.brand!.name.toString()
 
                                         :data.mySetsModel!.results![index].productDetail!.series== null
                                         ? ""

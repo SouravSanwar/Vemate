@@ -49,6 +49,7 @@ class _SeparateVaultStructureState extends State<SeparateVaultStructure> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Container(
+          margin: EdgeInsets.all(Get.width *0.007),
             width: Get.width * .22,
             decoration: BoxDecoration(
                 color: AppColors.backgroundColor,
@@ -67,7 +68,6 @@ class _SeparateVaultStructureState extends State<SeparateVaultStructure> {
                     : VeVeLowImage(
                         imageUrl: widget.lowResUrl.toString(),
                       )),
-        AppSpaces.spaces_width_5,
         Container(
           width: Get.width * .7,
           margin: const EdgeInsets.only(left: 2,right: 2,top: 4,bottom: 4),
