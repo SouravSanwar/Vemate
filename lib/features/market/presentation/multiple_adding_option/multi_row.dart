@@ -37,8 +37,8 @@ class _MultiformState extends State<Multiform> {
   PostData? postData;
   GetData? getData;
   int offset = 0;
-  bool? duplicateMint=false;
-  bool? duplicateStoredMint=false;
+  bool? duplicateMint = false;
+  bool? duplicateStoredMint = false;
 
   RefreshController refreshController = RefreshController(initialRefresh: false);
   final GlobalKey _refreshkey = GlobalKey();
@@ -78,7 +78,7 @@ class _MultiformState extends State<Multiform> {
               height: (data.maoModel!.results!.length + addToListController.length) < 8
                   ? (data.maoModel!.results!.length + addToListController.length) * (Get.height * .055) -
                       ((data.maoModel!.results!.length + addToListController.length) * 5) +
-                  (addToListController.isNotEmpty ? 140 : 100)
+                      (addToListController.isNotEmpty ? 140 : 100)
                   //10 er beshi hole
                   : 490,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: AppColors.backgroundColor),
@@ -144,79 +144,74 @@ class _MultiformState extends State<Multiform> {
                                   // printInfo(
                                   //     info: 'data.maoModel!.results![0]' +
                                   //         data.maoModel!.results![data.maoModel!.results!.length - 1].mintNumber.toString());
-                                  duplicateMint=false;
-                                  duplicateStoredMint=false;
+                                  duplicateMint = false;
+                                  duplicateStoredMint = false;
 
-                                  for(int i=0;i<addToListController.length ;i++){
-                                    if(addToListController[i].mintNumber1!.text ==mintController.text){
-                                      duplicateMint=true;
-                                    }
-                                    else{
-                                      duplicateMint=false;
+                                  for (int i = 0; i < addToListController.length; i++) {
+                                    if (addToListController[i].mintNumber1!.text == mintController.text) {
+                                      duplicateMint = true;
+                                    } else {
+                                      duplicateMint = false;
                                     }
                                   }
 
-                                  for(int i=0;i<storedMintController.length ;i++){
-                                    if(storedMintController[i].text==mintController.text){
-                                      duplicateStoredMint=true;
-                                          break;
-                                    }
-                                    else{
-                                     duplicateStoredMint=false;
+                                  for (int i = 0; i < storedMintController.length; i++) {
+                                    if (storedMintController[i].text == mintController.text) {
+                                      duplicateStoredMint = true;
+                                      break;
+                                    } else {
+                                      duplicateStoredMint = false;
                                     }
                                   }
 
-                                  if(duplicateMint==true || duplicateStoredMint==true){
+                                  if (duplicateMint == true || duplicateStoredMint == true) {
                                     showDialog(
                                         context: context,
                                         barrierDismissible: false,
                                         builder: (_) => const ResponseMessage(
-                                          icon: Icons.error_outline,
-                                          color: Colors.purpleAccent,
-                                          message: "Mint number already exist in the list!",
-                                        ));
+                                              icon: Icons.error_outline,
+                                              color: Colors.purpleAccent,
+                                              message: "Mint number already exist in the list!",
+                                            ));
 
                                     await Future.delayed(Duration(seconds: 2));
                                     Navigator.of(context).pop();
                                     mintController.clear();
-                                  }else {
-                                      addToListController.add(
-                                        MultiRowModel(
-                                          TextEditingController(text: mintController.text),
-                                          TextEditingController(),
-                                          TextEditingController(text: DateTime.now().toIso8601String()),
-                                        ),
-                                      );
-                                    }
+                                  } else {
+                                    addToListController.add(
+                                      MultiRowModel(
+                                        TextEditingController(text: mintController.text),
+                                        TextEditingController(),
+                                        TextEditingController(text: DateTime.now().toIso8601String()),
+                                      ),
+                                    );
+                                  }
 
                                   mintController.clear();
                                 });
-                                print(duplicateMint.toString()+duplicateStoredMint.toString());
+                                print(duplicateMint.toString() + duplicateStoredMint.toString());
 
                                 mintController.clear();
                                 FocusScope.of(context).requestFocus(FocusNode());
                               }
                             },
                             child: Container(
-                          alignment: Alignment.center,
-                          height: Get.height * .035,
-                          width: Get.width * .12,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: AppColors.white.withOpacity(.3),
-                              width: 1.5,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child:Icon(
-                              Icons.add,
-                              size: 20,
-                              color: AppColors.grey,
-                            ),
-
-
-                        )
-                        ),
+                              alignment: Alignment.center,
+                              height: Get.height * .035,
+                              width: Get.width * .12,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: AppColors.white.withOpacity(.3),
+                                  width: 1.5,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Icon(
+                                Icons.add,
+                                size: 20,
+                                color: AppColors.grey,
+                              ),
+                            )),
                       ],
                     ),
 
@@ -293,49 +288,47 @@ class _MultiformState extends State<Multiform> {
                                               borderRadius: BorderRadius.circular(10.0),
                                             ),
                                             child: Padding(
-                                              padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                              child:InkWell(
-                                                onTap: () async {
-                                                  var datePicked = await DatePicker.showSimpleDatePicker(
-                                                    context,
-                                                    initialDate: DateTime.now(),
-                                                    firstDate: DateTime(2015),
-                                                    lastDate: DateTime.now(),
-                                                    dateFormat: "dd-MM-yyyy",
-                                                    locale: DateTimePickerLocale.en_us,
-                                                    looping: true,
-                                                    backgroundColor: const Color(0xff02072D),
-                                                    textColor: AppColors.white.withOpacity(.7),
-                                                  );
-                                                  setState(() {
-                                                    addToListController[index].dateTime!.text =
-                                                        datePicked!.toIso8601String();
-                                                  });
-                                                },
-                                                child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    DateFormat('MMM dd,yyyy')
-                                                        .format(
-                                                            DateTime.parse(addToListController[index].dateTime!.text))
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: AppColors.white.withOpacity(.7),
-                                                    ),
+                                                padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    var datePicked = await DatePicker.showSimpleDatePicker(
+                                                      context,
+                                                      initialDate: DateTime.now(),
+                                                      firstDate: DateTime(2015),
+                                                      lastDate: DateTime.now(),
+                                                      dateFormat: "dd-MM-yyyy",
+                                                      locale: DateTimePickerLocale.en_us,
+                                                      looping: true,
+                                                      backgroundColor: const Color(0xff02072D),
+                                                      textColor: AppColors.white.withOpacity(.7),
+                                                    );
+                                                    setState(() {
+                                                      addToListController[index].dateTime!.text =
+                                                          datePicked!.toIso8601String();
+                                                    });
+                                                  },
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        DateFormat('MMM dd,yyyy')
+                                                            .format(DateTime.parse(
+                                                                addToListController[index].dateTime!.text))
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.bold,
+                                                          color: AppColors.white.withOpacity(.7),
+                                                        ),
+                                                      ),
+                                                      Icon(
+                                                        Icons.calendar_month,
+                                                        color: AppColors.white.withOpacity(.7),
+                                                        size: 17,
+                                                      ),
+                                                    ],
                                                   ),
-                                                   Icon(
-                                                      Icons.calendar_month,
-                                                      color: AppColors.white.withOpacity(.7),
-                                                      size: 17,
-                                                    ),
-
-                                                ],
-                                              ),
-                                          )
-                                            ),
+                                                )),
                                           ),
                                         ),
                                         AppSpaces.spaces_width_5,
@@ -395,7 +388,6 @@ class _MultiformState extends State<Multiform> {
                                     );
                                     storedPriceController.add(
                                       TextEditingController(
-
                                         text: data.maoModel!.results![index].ap.toString(),
                                       ),
                                     );
@@ -442,8 +434,8 @@ class _MultiformState extends State<Multiform> {
                                               borderRadius: BorderRadius.circular(10.0),
                                             ),
                                             child: Padding(
-                                              padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                               child: InkWell(
+                                                padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                                child: InkWell(
                                                   onTap: () async {
                                                     var datePicked = await DatePicker.showSimpleDatePicker(
                                                       context,
@@ -457,34 +449,30 @@ class _MultiformState extends State<Multiform> {
                                                       textColor: AppColors.white.withOpacity(.7),
                                                     );
                                                     setState(() {
-                                                      storedDateController[index].text =
-                                                          datePicked!.toIso8601String();
+                                                      storedDateController[index].text = datePicked!.toIso8601String();
                                                     });
                                                   },
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    DateFormat('MMM dd,yyyy')
-                                                        .format(DateTime.parse(storedDateController[index].text))
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: AppColors.white.withOpacity(.7),
-                                                    ),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        DateFormat('MMM dd,yyyy')
+                                                            .format(DateTime.parse(storedDateController[index].text))
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.bold,
+                                                          color: AppColors.white.withOpacity(.7),
+                                                        ),
+                                                      ),
+                                                      Icon(
+                                                        Icons.calendar_month,
+                                                        color: AppColors.white.withOpacity(.7),
+                                                        size: 17,
+                                                      ),
+                                                    ],
                                                   ),
-
-                                                  Icon(
-                                                      Icons.calendar_month,
-                                                      color: AppColors.white.withOpacity(.7),
-                                                      size: 17,
-                                                    ),
-
-                                                ],
-                                              ),
-                                          )
-                                            ),
+                                                )),
                                           ),
                                         ),
                                         /*Expanded(
@@ -571,11 +559,14 @@ class _MultiformState extends State<Multiform> {
                                                     FocusScope.of(context).unfocus();
 
                                                     var body = {
-                                                      "mint_number": storedMintController[index].text.isEmpty ? "0.0" : storedMintController[index].text,
-                                                      "ap": storedPriceController[index].text.isEmpty ? "0.0" :storedPriceController[index].text,
+                                                      "mint_number": storedMintController[index].text.isEmpty
+                                                          ? "0.0"
+                                                          : storedMintController[index].text,
+                                                      "ap": storedPriceController[index].text.isEmpty
+                                                          ? "0.0"
+                                                          : storedPriceController[index].text,
                                                       "ad": storedDateController[index].text
                                                     };
-
 
                                                     postData!
                                                         .editMAO(
@@ -587,12 +578,14 @@ class _MultiformState extends State<Multiform> {
                                                         .whenComplete(() => getData!
                                                             .getMAO(widget.type.toString(), widget.id.toString()))
                                                         .whenComplete(() => Navigator.of(context).pop())
-                                                         .whenComplete(() => setState(() {
-                                                      storedMintController[index].text = data.maoModel!.results![index].mintNumber.toString();
-                                                      storedPriceController[index].text = data.maoModel!.results![index].ap.toString();
-                                                      storedDateController[index].text = data.maoModel!.results![index].ad.toString();
-                                                    }));
-
+                                                        .whenComplete(() => setState(() {
+                                                              storedMintController[index].text =
+                                                                  data.maoModel!.results![index].mintNumber.toString();
+                                                              storedPriceController[index].text =
+                                                                  data.maoModel!.results![index].ap.toString();
+                                                              storedDateController[index].text =
+                                                                  data.maoModel!.results![index].ad.toString();
+                                                            }));
                                                   },
                                                 ),
                                               )
@@ -708,17 +701,20 @@ class _MultiformState extends State<Multiform> {
                                 AppSpaces.spaces_width_15,
                                 InkWell(
                                   onTap: () {
-
                                     FocusScope.of(context).unfocus();
-                                    mintController.text="Enter Mint";
+                                    mintController.text = "Enter Mint";
                                     var body = {
                                       "product": widget.id,
                                       "type": widget.type,
                                       "mints": [
                                         for (int i = 0; i < addToListController.length; i++)
                                           {
-                                            "mint_number": addToListController[i].mintNumber1!.text.isEmpty ?"0.0":addToListController[i].mintNumber1!.text,
-                                            "ap": addToListController[i].price!.text.isEmpty ? "0.0":addToListController[i].price!.text,
+                                            "mint_number": addToListController[i].mintNumber1!.text.isEmpty
+                                                ? "0.0"
+                                                : addToListController[i].mintNumber1!.text,
+                                            "ap": addToListController[i].price!.text.isEmpty
+                                                ? "0.0"
+                                                : addToListController[i].price!.text,
                                             "ad": addToListController[i].dateTime!.text
                                           }
                                       ]

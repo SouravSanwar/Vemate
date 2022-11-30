@@ -30,6 +30,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
 
   @override
   void initState() {
+    detailsAp = "0.0";
     _zoomPanBehavior = ZoomPanBehavior(
         enablePinching: true,
         zoomMode: ZoomMode.xy,
@@ -116,7 +117,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                                 ? Container(
                                     height: Get.height * .07,
                                     width: Get.width * .3,
-                                    padding: EdgeInsets.all(5),
+                                    padding: const EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
                                         border: Border.all(color: const Color(0xff3E488F)),
@@ -136,7 +137,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                                             Text(
                                               '\$${tooltipSettings.point?.dataLabelMapper}',
                                               style: TextStyle(fontSize: 12.sp),
-                                            )
+                                            ),
                                           ],
                                         ),
                                         Row(
@@ -158,7 +159,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                                       ],
                                     ))
                                 : Container(
-                                    padding: EdgeInsets.all(5),
+                                    padding: const EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
                                         border: Border.all(color: const Color(0xff3E488F)),
@@ -213,19 +214,23 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                       ),
 
                       primaryYAxis: NumericAxis(
-                        plotBands: <PlotBand>[
+                        plotBands: [
                           PlotBand(
+                            shouldRenderAboveSeries: true,
                             verticalTextPadding: '0%',
                             horizontalTextPadding: '0%',
                             text: widget.fromVault == true ? 'AP' : "",
                             textAngle: 0,
                             start: widget.fromVault == true ? double.parse(detailsAp!) : 0,
                             end: widget.fromVault == true ? double.parse(detailsAp!) : 0,
-                            textStyle: TextStyle(color: AppColors.textColor.withOpacity(.5), fontSize: 8),
+                            textStyle: TextStyle(
+                              color: AppColors.textColor.withOpacity(.5),
+                              fontSize: 8,
+                            ),
                             horizontalTextAlignment: TextAnchor.end,
                             borderColor: widget.fromVault == true ? const Color(0xff5A0FD8) : AppColors.graphCard,
                             borderWidth: 1.5,
-                          )
+                          ),
                         ],
                         decimalPlaces: 2,
                         numberFormat: NumberFormat.compact(),
