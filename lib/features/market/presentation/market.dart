@@ -112,7 +112,7 @@ class _MarketState extends State<Market> {
                         errorBorder: InputBorder.none,
                         disabledBorder: InputBorder.none,
                         contentPadding: const EdgeInsets.only(left: 15, bottom: 11, top: 13, right: 15),
-                        hintText: "Search Collectible",
+                        hintText: "Search Collectibles",
                         hintStyle: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Inter',

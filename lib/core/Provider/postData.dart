@@ -16,6 +16,7 @@ import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_c
 import 'package:ketemaa/features/auth/presentation/sign_in/sign_in_2fa.dart';
 import 'package:ketemaa/features/auth/reset_pass/forgot_pass.dart';
 import 'package:ketemaa/features/auth/verification/otpPage.dart';
+import 'package:ketemaa/features/home/presentation/change_password.dart';
 import 'package:ketemaa/graph/product_details_collectibles.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
@@ -993,12 +994,7 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future deletePassCheck(
-    BuildContext context,
-    var body,
-    int? id,
-    var requestToken,
-  ) async {
+  Future deletePassCheck(BuildContext context, var body, int? id, var requestToken,) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -1043,11 +1039,7 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future deleteAccount(
-    BuildContext context,
-    int? id,
-    var requestToken,
-  ) async {
+  Future deleteAccount(BuildContext context, int? id, var requestToken,) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -1098,11 +1090,7 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future postMAO(
-    BuildContext context,
-    var body,
-    var requestToken,
-  ) async {
+  Future postMAO(BuildContext context, var body, var requestToken,) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -1167,12 +1155,7 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future editMAO(
-    num? id,
-    BuildContext context,
-    var body,
-    var requestToken,
-  ) async {
+  Future editMAO(num? id, BuildContext context, var body, var requestToken,) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -1244,12 +1227,7 @@ class PostData extends ChangeNotifier with BaseController {
     notifyListeners();
   }
 
-  Future deleteMAO(
-    num? id,
-    BuildContext context,
-    var body,
-    var requestToken,
-  ) async {
+  Future deleteMAO(num? id, BuildContext context, var body, var requestToken,) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -1310,6 +1288,55 @@ class PostData extends ChangeNotifier with BaseController {
     }
     notifyListeners();
   }
+
+  Future changePassword(BuildContext context, var body,var requestToken,) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const LoadingDialogue(
+          message: "Please wait,changing password",
+        ));
+
+    printInfo(info: body.toString());
+
+    final response = await http.post(Uri.parse(Urls.changePassword), body: json.encode(body), headers: requestToken);
+
+    //var x = json.decode(response.body);
+
+    //print(x.toString());
+
+    // Map<String, dynamic> js = x;
+    if (response.statusCode == 200 ||
+        response.statusCode == 401 ||
+        response.statusCode == 403 ||
+        response.statusCode == 500 ||
+        response.statusCode == 201) {
+      var x = json.decode(response.body);
+      print("Response"+x.toString());
+
+      Navigator.of(context).pop();
+
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const ResponseMessage(
+            icon: Icons.check_circle,
+            color: Colors.white,
+            message: "Changed Successfully",
+          ));
+      await Future.delayed(const Duration(seconds: 1));
+      Navigator.of(context).pop();
+
+    } else {
+      var x = json.decode(response.body);
+
+      print("Response"+x.toString());
+
+      notifyListeners();
+    }
+  }
+
+
 
   Store(var mat, BuildContext context) async {
     prefs = await SharedPreferences.getInstance();

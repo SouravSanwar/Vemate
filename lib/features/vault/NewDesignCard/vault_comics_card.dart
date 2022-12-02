@@ -51,10 +51,9 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                         fontWeight: FontWeight.w600,
                         fontSize: 16.sp),
                   ),
-
                   Text(
-                    '\$${widget.data!.changePrice != null ? widget.data!
-                        .changePrice.toStringAsFixed(2) : "0.0"}',
+
+                    '\$' + widget.data!.totalComicValue!.toString(),
                     textAlign: TextAlign.start,
                     style: Get.textTheme.bodyText2!.copyWith(
                         color: AppColors.white,
@@ -63,21 +62,36 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                         fontSize: 18.sp),
                   ),
 
+
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  Padding(
+                    padding: const EdgeInsets.only(right: 1),
+                    child: Text(
+                      widget.data!.sign == 'decrease'
+                          ?
 
-                    '\$' + widget.data!.totalComicValue!.toString(),
-                    textAlign: TextAlign.start,
-                    style: Get.textTheme.bodyText2!.copyWith(
-                        color: AppColors.textColor.withOpacity(.7),
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.sp),
+                      '-\$${widget.data!.changePrice != null
+                          ? widget.data!.changePrice.abs().toStringAsFixed(2)
+                          : ""}'
+
+                          :
+
+                      '\$${widget.data!.changePrice != null
+                          ? widget.data!.changePrice.toStringAsFixed(2)
+                          : ""}',
+                      textAlign: TextAlign.start,
+                      style: Get.textTheme.bodyText2!.copyWith(
+
+                          color: AppColors.textColor.withOpacity(.7),
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -87,6 +101,7 @@ class _VaultComicsCardState extends State<VaultComicsCard> {
                         widget.data!.changePercent != null
                             ? widget.data!.changePercent.toStringAsFixed(2) + "%"
                             : "0.0" "%",
+
                         textAlign: TextAlign.end,
                         style: TextStyle(
                             color: widget.data!.sign == 'decrease'

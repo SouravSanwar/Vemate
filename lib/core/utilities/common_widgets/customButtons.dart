@@ -9,14 +9,16 @@ class CustomButtons extends StatelessWidget {
   final VoidCallback? onTap;
   final String? text;
   final TextStyle? style;
+  double? borderRadius;
 
-  const CustomButtons({
+  CustomButtons({
     Key? key,
     this.height,
     this.width,
     this.onTap,
     this.text,
     this.style,
+    this.borderRadius=25,
   }) : super(key: key);
 
   @override
@@ -30,8 +32,8 @@ class CustomButtons extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           gradient: AppColors.onBoardBtnGradient,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(25.0),
+          borderRadius:  BorderRadius.all(
+            Radius.circular(borderRadius!),
           ),
         ),
         child: Text(

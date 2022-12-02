@@ -3,11 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
+import 'package:ketemaa/core/utilities/common_widgets/customButtons.dart';
 import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
 import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
 import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
 import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_controller.dart';
+import 'package:ketemaa/features/home/presentation/change_password.dart';
 import 'package:ketemaa/features/profile/feedback/feeback_body.dart';
 import 'package:ketemaa/features/profile/feedback/feedback.dart';
 import 'package:ketemaa/features/profile/feedback/rating_stars.dart';
@@ -35,6 +37,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   bool share = false;
   bool about = false;
   bool privacy = false;
+  bool changePass = false;
   bool logout = false;
   bool delete = false;
 
@@ -146,7 +149,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   ),
                   CustomProfileElements(Icons.person, "Profile", () {
                     setState(() {
-                      DrawerItems(true, false, false, false, false, false, false);
+                      DrawerItems(true, false, false, false, false,false, false, false);
                     });
                     Get.to(
                       () => EditProfilePage(),
@@ -159,7 +162,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   ),
                   CustomProfileElements(Icons.rate_review_outlined, "Rate The App", () async {
                     setState(() {
-                      DrawerItems(false, true, false, false, false, false, false);
+                      DrawerItems(false, true, false, false, false,false, false, false);
                     });
                     FeedbackBody.checkFeedback = 0;
                     RatingStars.ratingValue = 0;
@@ -180,14 +183,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       ),
                   CustomProfileElements(Icons.share, "Share Vemate", () {
                     setState(() {
-                      DrawerItems(false, false, true, false, false, false, false);
+                      DrawerItems(false, false, true, false, false,false, false, false);
                     });
                       Share.share('Visit Vemate Website:\n https://www.vemate.com/');
                   }, share //true or false
                       ),
                   CustomProfileElements(Icons.info_outline_rounded, "About Vemate", () async {
                     setState(() {
-                      DrawerItems(false, false, false, true, false, false, false);
+                      DrawerItems(false, false, false, true, false,false, false, false);
                     });
                     String url = 'https://www.vemate.com/';
                     _launchInApp(url);
@@ -196,17 +199,30 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       about),
                   CustomProfileElements(Icons.privacy_tip_outlined, "Privacy Policy", () async {
                     setState(() {
-                      DrawerItems(false, false, false, false, true, false, false);
+                      DrawerItems(false, false, false, false, true,false, false, false);
                     });
                     String url = 'https://pages.flycricket.io/vemate-0/privacy.html';
                     _launchInApp(url);
                   },
                       //true or false
                       privacy),
+                  CustomProfileElements(Icons.lock_reset_outlined, "Change Password", () {
+                    setState(() {
+                      DrawerItems(false, false, false, false, false,true, false, false);
+                    });
+                    print(data.profileModel!.id.toString());
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const ChangePassword();
+                        });
+                  },
+                      //true or false
+                      changePass),
                   SizedBox(height: Get.height * .15),
                   CustomProfileElements(Icons.logout, "Log Out", () {
                     setState(() {
-                      DrawerItems(false, false, false, false, false, true, false);
+                      DrawerItems(false, false, false, false, false,false, true, false);
                     });
                     showDialog(
                         context: context,
@@ -280,7 +296,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       logout),
                   CustomProfileElements(Icons.delete_forever_outlined, "Delete Account", () {
                     setState(() {
-                      DrawerItems(false, false, false, false, false, false, true);
+                      DrawerItems(false, false, false, false, false,false, false, true);
                     });
                     print(data.profileModel!.id.toString());
                     showDialog(
@@ -333,7 +349,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                       labelText: "Password",
                                       height: Get.height * .04,
                                       textType: TextInputType.text,
-                                      controller: passwordController),
+                                      controller: passwordController,
+                                    borderRadius: 15,
+                                  ),
                                   Container(
                                     // alignment: Alignment.centerRight,
                                     child: Row(
@@ -457,6 +475,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   },
                       //true or false
                       delete),
+
                 ],
               ),
             )
@@ -468,12 +487,13 @@ class _HomeDrawerState extends State<HomeDrawer> {
     });
   }
 
-  void DrawerItems(bool profile, bool rate, bool share, bool about, bool privacy, bool logout, bool delete) {
+  void DrawerItems(bool profile, bool rate, bool share, bool about, bool privacy,bool changePass, bool logout, bool delete) {
     this.profile = profile;
     this.rate = rate;
     this.share = share;
     this.about = about;
     this.privacy = privacy;
+    this.changePass=changePass;
     this.logout = logout;
     this.delete = delete;
   }

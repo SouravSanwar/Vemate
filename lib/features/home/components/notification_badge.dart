@@ -37,15 +37,15 @@ class _NotificationBadgeState extends State<NotificationBadge> {
                   color: AppColors.textColor,
                 ),
               ),
-        height: 40.h,
-        width: 40.h,
+        height: 38.h,
+        width: 38.h,
         decoration: BoxDecoration(
           color: AppColors.backgroundColor,
           border: Border.all(
               color: AppColors.grey, // set border color
               width: 1), // set border width
           borderRadius:
-              BorderRadius.circular(15.0), // set rounded corner radius
+              BorderRadius.circular(13.0), // set rounded corner radius
         ),
       );
     });

@@ -56,8 +56,8 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                   ),
 
                   Text(
-                    '\$${widget.data!.changePrice != null ? widget.data!
-                        .changePrice.toStringAsFixed(2) : "0.0"}',
+
+                    '\$' + widget.data!.totalCollectibleValue!.toString(),
                     textAlign: TextAlign.start,
                     style: Get.textTheme.bodyText2!.copyWith(
                         color: AppColors.white,
@@ -66,21 +66,35 @@ class _VaultCollectiblesCardState extends State<VaultCollectiblesCard> {
                         fontSize: 18.sp),
                   ),
 
+
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  Padding(
+                    padding: const EdgeInsets.only(right: 1),
+                    child: Text(
+                      widget.data!.sign == 'decrease'
+                          ?
 
-                    '\$' + widget.data!.totalCollectibleValue!.toString(),
-                    textAlign: TextAlign.start,
-                    style: Get.textTheme.bodyText2!.copyWith(
-                        color: AppColors.textColor.withOpacity(.7),
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.sp),
+                      '-\$${widget.data!.changePrice != null
+                          ? widget.data!.changePrice.abs().toStringAsFixed(2)
+                          : ""}'
+
+                          :
+
+                      '\$${widget.data!.changePrice != null
+                          ? widget.data!.changePrice.toStringAsFixed(2)
+                          : ""}',
+                      textAlign: TextAlign.start,
+                      style: Get.textTheme.bodyText2!.copyWith(
+                          color: AppColors.textColor.withOpacity(.7),
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

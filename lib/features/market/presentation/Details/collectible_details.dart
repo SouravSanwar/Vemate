@@ -735,6 +735,51 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                                         };
                                                                         print('body: ' +
                                                                             storedPriceController[0].text.isNum.toString());
+
+                                                                        if (storedPriceController[0].text.isEmpty )
+                                                                        {
+                                                                          showDialog(
+                                                                              context: context,
+                                                                              barrierDismissible:
+                                                                              false,
+                                                                              builder: (_) =>
+                                                                              const ResponseMessage(
+                                                                                icon: Icons
+                                                                                    .error_outline,
+                                                                                color: Colors
+                                                                                    .purpleAccent,
+                                                                                message:
+                                                                                "Please insert price",
+                                                                              ));
+
+                                                                          await Future.delayed(
+                                                                              Duration(seconds: 2));
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        }
+                                                                        else if(storedMintController[0].text.isEmpty)
+                                                                        {
+                                                                          showDialog(
+                                                                              context: context,
+                                                                              barrierDismissible:
+                                                                              false,
+                                                                              builder: (_) =>
+                                                                              const ResponseMessage(
+                                                                                icon: Icons
+                                                                                    .error_outline,
+                                                                                color: Colors
+                                                                                    .purpleAccent,
+                                                                                message:
+                                                                                "Please insert mint number",
+                                                                              ));
+
+                                                                          await Future.delayed(
+                                                                              Duration(seconds: 2));
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        }
+                                                                        else {
+
                                                                         if (storedPriceController[0].text.isNum ==
                                                                             true) {
                                                                           postData!
@@ -769,16 +814,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                                         Navigator.of(context)
                                                                             .pop();
 
-                                                                        printInfo(
-                                                                            info:
-                                                                                'ap b: ' + prefs!.getString('ap').toString());
-                                                                        setState(
-                                                                            () {
-                                                                          print("Value1" +
-                                                                              detailsEdition.toString() +
-                                                                              detailsAd.toString() +
-                                                                              detailsAp.toString());
-                                                                        });
+                                                                        }
                                                                       },
                                                                       child:
                                                                           Container(
@@ -795,7 +831,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                                               BorderRadius.circular(14.0),
                                                                         ),
                                                                         child:
-                                                                            Text(
+                                                                            const Text(
                                                                             'Update',
                                                                             textAlign:
                                                                               TextAlign.center,
@@ -1017,50 +1053,92 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                   };
                                                   print('body: ' +
                                                       storedPriceController[0].text.isNum.toString());
-                                                  if (storedPriceController[0].text.isNum ==
-                                                      true) {
-                                                    postData!
-                                                        .editMAO(
-                                                      widget.mintId,
-                                                      context,
-                                                      body,
-                                                      requestHeadersWithToken,
-                                                    )
-                                                        .whenComplete(() => {
-                                                      getData!.getMySets1(0, widget.productId!, true)
-                                                    })
-                                                        .whenComplete(() => {
-                                                      Navigator.of(context).pop(),
-                                                      storedMintController[0].text = data.mySetsModel!.results![widget.index!].mintNumber.toString(),
-                                                      storedPriceController[0].text = data.mySetsModel!.results![widget.index!].ap!,
-                                                      storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(data.mySetsModel!.results![widget.index!].ad!)),
-                                                    });
-                                                  } else {
-                                                    showDialog(
-                                                        context: context,
-                                                        barrierDismissible: false,
-                                                        builder: (_) => const ResponseMessage(
-                                                          icon: Icons.error,
-                                                          color: Colors.purpleAccent,
-                                                          message: "Invalid Input",
-                                                        ));
-                                                  }
-                                                  await Future.delayed(Duration(
-                                                      seconds:
-                                                      1));
+
+                                                  if (storedPriceController[0].text.isEmpty )
+                                                  {
+                                                  showDialog(
+                                                  context: context,
+                                                  barrierDismissible:
+                                                  false,
+                                                  builder: (_) =>
+                                                  const ResponseMessage(
+                                                  icon: Icons
+                                                      .error_outline,
+                                                  color: Colors
+                                                      .purpleAccent,
+                                                  message:
+                                                  "Please insert price",
+                                                  ));
+
+                                                  await Future.delayed(
+                                                  Duration(seconds: 2));
                                                   Navigator.of(context)
                                                       .pop();
+                                                  }
+                                                  else if(storedMintController[0].text.isEmpty)
+                                                  {
+                                                  showDialog(
+                                                  context: context,
+                                                  barrierDismissible:
+                                                  false,
+                                                  builder: (_) =>
+                                                  const ResponseMessage(
+                                                  icon: Icons
+                                                      .error_outline,
+                                                  color: Colors
+                                                      .purpleAccent,
+                                                  message:
+                                                  "Please insert mint number",
+                                                  ));
 
-                                                  printInfo(
-                                                      info:
-                                                      'ap b: ' + prefs!.getString('ap').toString());
-                                                  setState(
-                                                          () {
-                                                        print("Value1" +
-                                                            detailsEdition.toString() +
-                                                            detailsAd.toString() +
-                                                            detailsAp.toString());
+                                                  await Future.delayed(
+                                                  Duration(seconds: 2));
+                                                  Navigator.of(context)
+                                                      .pop();
+                                                  }
+                                                  else {
+                                                    if (storedPriceController[0].text.isNum ==
+                                                        true) {
+                                                      postData!
+                                                          .editMAO(
+                                                        widget.mintId,
+                                                        context,
+                                                        body,
+                                                        requestHeadersWithToken,
+                                                      )
+                                                          .whenComplete(() =>
+                                                      {
+                                                        getData!.getMySets1(0, widget.productId!, true)
+                                                      })
+                                                          .whenComplete(() =>
+                                                      {
+                                                        Navigator.of(context).pop(),
+                                                        storedMintController[0].text = data.mySetsModel!.results![widget
+                                                            .index!].mintNumber.toString(),
+                                                        storedPriceController[0].text =
+                                                        data.mySetsModel!.results![widget.index!].ap!,
+                                                        storedDateController[0].text =
+                                                            DateFormat('MMMM dd, yyyy').format(DateTime.parse(data
+                                                                .mySetsModel!.results![widget.index!].ad!)),
                                                       });
+                                                    } else {
+                                                      showDialog(
+                                                          context: context,
+                                                          barrierDismissible: false,
+                                                          builder: (_) =>
+                                                          const ResponseMessage(
+                                                            icon: Icons.error,
+                                                            color: Colors.purpleAccent,
+                                                            message: "Invalid Input",
+                                                          ));
+                                                    }
+                                                    await Future.delayed(Duration(
+                                                        seconds:
+                                                        1));
+                                                    Navigator.of(context)
+                                                        .pop();
+                                                  }
+
                                                 },
                                                 child:
                                                 Container(

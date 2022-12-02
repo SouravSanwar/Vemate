@@ -11,6 +11,7 @@ class PasswordInputField extends StatefulWidget {
   TextEditingController controller;
   FormFieldValidator? validator;
   Bool? enable;
+  double? borderRadius;
 
   PasswordInputField({
     required this.labelText,
@@ -18,7 +19,8 @@ class PasswordInputField extends StatefulWidget {
     required this.textType,
     required this.controller,
     this.validator,
-    this.enable
+    this.enable,
+    this.borderRadius=25,
   });
 
   @override
@@ -48,16 +50,16 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
                   color: AppColors.white.withOpacity(.7), // set border color
                   width: 1.5
               ),
-              borderRadius: BorderRadius.circular(25.0)),
+              borderRadius: BorderRadius.circular(widget.borderRadius!)),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
+            borderRadius: BorderRadius.circular(widget.borderRadius!),
             borderSide: BorderSide(
                 color: AppColors.white.withOpacity(.7), // set border color
                 width: 1.5
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
+            borderRadius: BorderRadius.circular(widget.borderRadius!),
             borderSide: BorderSide(
                 color: AppColors.white.withOpacity(.7), // set border color
                 width: 1.5
