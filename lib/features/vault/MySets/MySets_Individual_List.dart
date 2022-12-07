@@ -37,7 +37,9 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
   bool? large;
   bool? medium;
   int page = 1;
+
   RefreshController refreshController = RefreshController(initialRefresh: false);
+  final GlobalKey _refreshkey = GlobalKey();
 
   String? searchText;
 
@@ -56,6 +58,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
   void initState() {
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
+    getData!.mySetsModel = null;
     getData!.getMySets1(0, widget.productId!, true, graph_data: true);
     super.initState();
   }
@@ -73,7 +76,8 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
         builder: (_) => const LoadingDialogue(
               message: "Please wait",
             ));
-    await getData!.getMySets(0, true, graph_data: true).whenComplete(() => Navigator.of(context).pop()).whenComplete(() => getData!.getVaultStats());
+    await getData!.getMySets(0, true, graph_data: true)
+        .whenComplete(() => Navigator.of(context).pop());
     Get.back();
     return true;
   }
@@ -140,141 +144,155 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
               padding: const EdgeInsets.only(bottom: 10),
               child: data.mySetsModel != null
                   ? (data.mySetsModel!.results!.isNotEmpty
-                      ? ListView.builder(
-                          itemCount: data.mySetsModel!.results!.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 4),
-                              child: Container(
-                                width: Get.width,
-                                decoration: BoxDecoration(
-                                  color: AppColors.graphCard,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                child: SwipeActionCell(
-                                  backgroundColor: Colors.transparent,
-                                  key: ObjectKey(data.mySetsModel!.results![index]),
-                                  trailingActions: <SwipeAction>[
-                                    SwipeAction(
-                                        title: "Delete",
-                                        style: const TextStyle(fontSize: 14),
-                                        performsFirstActionWithFullSwipe: true,
-                                        icon: Icon(
-                                          Icons.delete,
-                                          color: AppColors.white,
-                                        ),
-                                        onTap: (CompletionHandler handler) async {
-                                          var body = {};
-                                          postData!
-                                              .deleteMAO(
-                                                data.mySetsModel!.results![index].id,
-                                                context,
-                                                body,
-                                                requestHeadersWithToken,
-                                              )
-                                              .whenComplete(() => getData!.getMySets1(0, widget.productId!, true))
-                                              .whenComplete(() => Navigator.of(context).pop());
-                                        },
-                                        color: Colors.red),
-                                  ],
-                                  child: InkWell(
-                                    onTap: () {
-                                      prefs!.setString('edition', data.mySetsModel!.results![index].edition.toString());
-                                      prefs!.setString('ap', data.mySetsModel!.results![index].ap.toString());
-                                      prefs!.setString('ad', data.mySetsModel!.results![index].ad.toString());
-                                      data.mySetsModel!.results![index].productDetail!.type == 0
-                                          ? Get.to(
-                                              () => CollectibleDetails(
-                                                productType: data.mySetsModel!.results![index].productDetail!.type!,
-                                                productId: data.mySetsModel!.results![index].productDetail!.id!,
-                                                fromVault: true,
+                      ? SmartRefresher(
+                key: _refreshkey,
+                controller: refreshController,
+                enablePullDown: true,
+                enablePullUp: true,
+                header: WaterDropMaterialHeader(
+                  color: AppColors.primaryColor,
+                ),
+                footer: const ClassicFooter(
+                  loadStyle: LoadStyle.ShowWhenLoading,
+                ),
+                onRefresh: _onRefresh,
+                onLoading: _onLoading,
+                        child: ListView.builder(
+                            itemCount: data.mySetsModel!.results!.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 4),
+                                child: Container(
+                                  width: Get.width,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.graphCard,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: SwipeActionCell(
+                                    backgroundColor: Colors.transparent,
+                                    key: ObjectKey(data.mySetsModel!.results![index]),
+                                    trailingActions: <SwipeAction>[
+                                      SwipeAction(
+                                          title: "Delete",
+                                          style: const TextStyle(fontSize: 14),
+                                          performsFirstActionWithFullSwipe: true,
+                                          icon: Icon(
+                                            Icons.delete,
+                                            color: AppColors.white,
+                                          ),
+                                          onTap: (CompletionHandler handler) async {
+                                            var body = {};
+                                            postData!
+                                                .deleteMAO(
+                                                  data.mySetsModel!.results![index].id,
+                                                  context,
+                                                  body,
+                                                  requestHeadersWithToken,
+                                                )
+                                                .whenComplete(() => getData!.getMySets1(0, widget.productId!, true))
+                                                .whenComplete(() => Navigator.of(context).pop());
+                                          },
+                                          color: Colors.red),
+                                    ],
+                                    child: InkWell(
+                                      onTap: () {
+                                        prefs!.setString('edition', data.mySetsModel!.results![index].edition.toString());
+                                        prefs!.setString('ap', data.mySetsModel!.results![index].ap.toString());
+                                        prefs!.setString('ad', data.mySetsModel!.results![index].ad.toString());
+                                        data.mySetsModel!.results![index].productDetail!.type == 0
+                                            ? Get.to(
+                                                () => CollectibleDetails(
+                                                  productType: data.mySetsModel!.results![index].productDetail!.type!,
+                                                  productId: data.mySetsModel!.results![index].productDetail!.id!,
+                                                  fromVault: true,
 
-                                                ///Need to mint Id for upgrade
-                                                mintId: int.parse(data.mySetsModel!.results![index].id.toString()),
-                                                edition: data.mySetsModel!.results![index].mintNumber.toString(),
-                                                ap: data.mySetsModel!.results![index].ap,
-                                                ad: data.mySetsModel!.results![index].ad ??
-                                                    DateTime.now().toIso8601String(),
-                                                index: index,
-                                              ),
-                                            )
-                                          : Get.to(
-                                              () => ComicDetails(
-                                                productId: data.mySetsModel!.results![index].productDetail!.id!,
-                                                fromVault: true,
-                                                productType: data.mySetsModel!.results![index].productDetail!.type,
-                                                mintId: int.parse(data.mySetsModel!.results![index].id.toString()),
-                                                edition: data.mySetsModel!.results![index].mintNumber.toString(),
-                                                ap: data.mySetsModel!.results![index].ap,
-                                                ad: data.mySetsModel!.results![index].ad ??
-                                                    DateTime.now().toIso8601String(),
-                                                index: index,
-                                              ),
-                                            );
-                                    },
-                                    child: IndividualListStructure(
-                                      checkImage: data.mySetsModel!.results![index].productDetail!.image == null
-                                          ? ""
-                                          : data.mySetsModel!.results![index].productDetail!.image.toString(),
-                                      name: data.mySetsModel!.results![index].productDetail!.name == null
-                                          ? ""
-                                          : data.mySetsModel!.results![index].productDetail!.name!,
-                                      lowResUrl: data.mySetsModel!.results![index].productDetail!.image != null
-                                          ? data.mySetsModel!.results![index].productDetail!.image!.lowResUrl!
-                                          : "",
-                                      scrappedImage: data.mySetsModel!.results![index].productDetail!.image != null
-                                          ? data.mySetsModel!.results![index].productDetail!.image!.baseUrl.toString()
-                                          : "",
-                                      edition: data.mySetsModel!.results![index].mintNumber == null
-                                          ? ""
-                                          : data.mySetsModel!.results![index].mintNumber.toString(),
-                                      brand: data.mySetsModel!.results![index].productDetail!.type == 0
-                                          ? data.mySetsModel!.results![index].productDetail!.brand == null
-                                              ? ""
-                                              : data.mySetsModel!.results![index].productDetail!.brand!.name.toString()
-                                          : data.mySetsModel!.results![index].productDetail!.series == null
-                                              ? ""
-                                              : data.mySetsModel!.results![index].productDetail!.series.toString(),
-                                      rarity: data.mySetsModel!.results![index].productDetail!.rarity == null
-                                          ? ""
-                                          : data.mySetsModel!.results![index].productDetail!.rarity!,
-                                      floorPrice: data.mySetsModel!.results![index].productDetail!.floorPrice == null
-                                          ? ""
-                                          : data.mySetsModel!.results![index].productDetail!.floorPrice!,
-                                      series: data.mySetsModel!.results![index].statsDetail!.graph != null
-                                          ? <ChartSeries<Graph, String>>[
-                                              LineSeries<Graph, String>(
-                                                color:
-                                                    data.mySetsModel!.results![index].statsDetail!.sign! == 'decrease'
-                                                        ? Colors.red
-                                                        : Colors.green,
-                                                dataSource: data.mySetsModel!.results![index].statsDetail!.graph!,
-                                                xValueMapper: (Graph plot, _) => plot.date,
-                                                yValueMapper: (Graph plot, _) => plot.floorPrice,
-                                                xAxisName: 'Duration',
-                                                yAxisName: 'Total',
+                                                  ///Need to mint Id for upgrade
+                                                  mintId: int.parse(data.mySetsModel!.results![index].id.toString()),
+                                                  edition: data.mySetsModel!.results![index].mintNumber.toString(),
+                                                  ap: data.mySetsModel!.results![index].ap,
+                                                  ad: data.mySetsModel!.results![index].ad ??
+                                                      DateTime.now().toIso8601String(),
+                                                  index: index,
+                                                ),
                                               )
-                                            ]
-                                          : null,
-                                      pcpPercent: data.mySetsModel!.results![index].statsDetail == null
-                                          ? 0.0
-                                          : data.mySetsModel!.results![index].statsDetail!.changePercent!,
-                                      pcpSign: data.mySetsModel!.results![index].statsDetail == null
-                                          ? ""
-                                          : data.mySetsModel!.results![index].statsDetail!.sign!,
-                                      changePrice: data.mySetsModel!.results![index].statsDetail == null
-                                          ? 0.0
-                                          : data.mySetsModel!.results![index].statsDetail!.priceChange!,
-                                      ap: data.mySetsModel!.results![index].ap == null
-                                          ? ""
-                                          : data.mySetsModel!.results![index].ap.toString(),
+                                            : Get.to(
+                                                () => ComicDetails(
+                                                  productId: data.mySetsModel!.results![index].productDetail!.id!,
+                                                  fromVault: true,
+                                                  productType: data.mySetsModel!.results![index].productDetail!.type,
+                                                  mintId: int.parse(data.mySetsModel!.results![index].id.toString()),
+                                                  edition: data.mySetsModel!.results![index].mintNumber.toString(),
+                                                  ap: data.mySetsModel!.results![index].ap,
+                                                  ad: data.mySetsModel!.results![index].ad ??
+                                                      DateTime.now().toIso8601String(),
+                                                  index: index,
+                                                ),
+                                              );
+                                      },
+                                      child: IndividualListStructure(
+                                        checkImage: data.mySetsModel!.results![index].productDetail!.image == null
+                                            ? ""
+                                            : data.mySetsModel!.results![index].productDetail!.image.toString(),
+                                        name: data.mySetsModel!.results![index].productDetail!.name == null
+                                            ? ""
+                                            : data.mySetsModel!.results![index].productDetail!.name!,
+                                        lowResUrl: data.mySetsModel!.results![index].productDetail!.image != null
+                                            ? data.mySetsModel!.results![index].productDetail!.image!.lowResUrl!
+                                            : "",
+                                        scrappedImage: data.mySetsModel!.results![index].productDetail!.image != null
+                                            ? data.mySetsModel!.results![index].productDetail!.image!.baseUrl.toString()
+                                            : "",
+                                        edition: data.mySetsModel!.results![index].mintNumber == null
+                                            ? ""
+                                            : data.mySetsModel!.results![index].mintNumber.toString(),
+                                        brand: data.mySetsModel!.results![index].productDetail!.type == 0
+                                            ? data.mySetsModel!.results![index].productDetail!.brand == null
+                                                ? ""
+                                                : data.mySetsModel!.results![index].productDetail!.brand!.name.toString()
+                                            : data.mySetsModel!.results![index].productDetail!.series == null
+                                                ? ""
+                                                : data.mySetsModel!.results![index].productDetail!.series.toString(),
+                                        rarity: data.mySetsModel!.results![index].productDetail!.rarity == null
+                                            ? ""
+                                            : data.mySetsModel!.results![index].productDetail!.rarity!,
+                                        floorPrice: data.mySetsModel!.results![index].productDetail!.floorPrice == null
+                                            ? ""
+                                            : data.mySetsModel!.results![index].productDetail!.floorPrice!,
+                                        series: data.mySetsModel!.results![index].statsDetail!.graph != null
+                                            ? <ChartSeries<Graph, String>>[
+                                                LineSeries<Graph, String>(
+                                                  color:
+                                                      data.mySetsModel!.results![index].statsDetail!.sign! == 'decrease'
+                                                          ? Colors.red
+                                                          : Colors.green,
+                                                  dataSource: data.mySetsModel!.results![index].statsDetail!.graph!,
+                                                  xValueMapper: (Graph plot, _) => plot.date,
+                                                  yValueMapper: (Graph plot, _) => plot.floorPrice,
+                                                  xAxisName: 'Duration',
+                                                  yAxisName: 'Total',
+                                                )
+                                              ]
+                                            : null,
+                                        pcpPercent: data.mySetsModel!.results![index].statsDetail == null
+                                            ? 0.0
+                                            : data.mySetsModel!.results![index].statsDetail!.changePercent!,
+                                        pcpSign: data.mySetsModel!.results![index].statsDetail == null
+                                            ? ""
+                                            : data.mySetsModel!.results![index].statsDetail!.sign!,
+                                        changePrice: data.mySetsModel!.results![index].statsDetail == null
+                                            ? 0.0
+                                            : data.mySetsModel!.results![index].statsDetail!.priceChange!,
+                                        ap: data.mySetsModel!.results![index].ap == null
+                                            ? ""
+                                            : data.mySetsModel!.results![index].ap.toString(),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          })
+                              );
+                            }),
+                      )
                       : const NoDataCard(
                           title: 'List is empty!',
                         ))
@@ -293,8 +311,8 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
 
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
+    getData!.getMySets1(0, widget.productId!, true, graph_data: true);
 
-    //getData!.getWishList();
 
     setState(() {
       refreshController.refreshCompleted();
@@ -303,9 +321,8 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
   }
 
   Future<void> _onLoading() async {
-    offset = offset + 20;
-
-    // getData!.getWishList(offset: offset);
+    offset = offset + 10;
+    getData!.getMySets1(0, widget.productId!, true, offset: offset);
 
     await Future.delayed(const Duration(seconds: 2));
 

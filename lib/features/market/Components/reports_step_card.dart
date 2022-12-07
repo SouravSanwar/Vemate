@@ -28,13 +28,22 @@ class _ReportStepCardState extends State<ReportStepCard> {
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            gradient: widget.selected == true ? AppColors.buttonTrue : const LinearGradient(
+            gradient: widget.selected == true ?
+             const LinearGradient(
+
+               colors: [
+                 Colors.transparent,
+                 Colors.transparent,
+               ],
+            )
+                : const LinearGradient(
               colors: [
-                Color(0xff272E49),
-                Color(0xff272E49),
+                Color(0xff3E457B),
+                Color(0xff3E457B),
               ],
             ),
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(6.0),
+            border: Border.all(color: widget.selected == true ? Color(0xffA282F2) : Colors.transparent,)
           ),
           child: Padding(
             padding: const EdgeInsets.only(

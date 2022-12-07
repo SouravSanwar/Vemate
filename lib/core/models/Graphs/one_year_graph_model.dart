@@ -1,7 +1,9 @@
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
+import 'package:ketemaa/graph/product_details_collectibles.dart';
 
+double? maxPriceOneYearGraph=0;
 class OneYearGraphModel {
   OneYearGraphModel({
     this.id,
@@ -255,6 +257,7 @@ class Original {
 class OneYearProductGraph {
   OneYearProductGraph({
     this.floorPrice,
+    this.floorPrice1,
     this.floorPriceString,
     this.creationTime,
     this.date,
@@ -264,6 +267,7 @@ class OneYearProductGraph {
 
   OneYearProductGraph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
+    floorPrice1=(floorPrice! - (detailsAp! != "" ?double.parse(detailsAp!):0)).abs();
     floorPriceString=floorPrice.toString();
     creationTime = json['creation_time'];
     date = json['date'];
@@ -271,9 +275,15 @@ class OneYearProductGraph {
       monthWiseTime = DateFormat('MMM').format(DateTime.parse(date!));
       monthWiseTime1 = DateFormat('hh:mm a,dd MMM,y').format(DateTime.parse(date!));
     }
+    if(maxPriceOneYearGraph! < floorPrice!)
+    {
+      maxPriceOneYearGraph = floorPrice;
+    }
+    print("maxPrice==="+maxPriceOneYearGraph!.toString());
   }
 
   double? floorPrice;
+  double? floorPrice1;
   String? floorPriceString;
   String? creationTime;
   String? date;

@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
+import 'package:ketemaa/graph/product_details_collectibles.dart';
+
+double? maxPriceOneDayGraph=0;
+
 
 class OneDayGraphModel {
   OneDayGraphModel({
     this.id,
     this.brand,
-  //  this.graph,
+    //  this.graph,
     this.graphData,
     this.image,
     this.type,
@@ -255,6 +259,7 @@ class Original {
 class OneDayProductGraph {
   OneDayProductGraph({
     this.floorPrice,
+    this.floorPrice1,
     this.floorPriceString,
     this.creationTime,
     this.date,
@@ -264,6 +269,7 @@ class OneDayProductGraph {
 
   OneDayProductGraph.fromJson(dynamic json) {
     floorPrice = json['floor_price'];
+    floorPrice1=(floorPrice! - (detailsAp! != "" ?double.parse(detailsAp!):0)).abs();
     floorPriceString=floorPrice.toString();
     creationTime = json['creation_time'];
     date = json['date'];
@@ -271,15 +277,24 @@ class OneDayProductGraph {
 
       hourWiseTime = DateFormat('hh a').format(DateTime.parse(date!));
       hourWiseTime1 = DateFormat('hh:mm a,dd MMM,y').format(DateTime.parse(date!));
+
     }
+    if(maxPriceOneDayGraph! < floorPrice!)
+    {
+      maxPriceOneDayGraph=floorPrice;
+    }
+    print("maxPrice==="+maxPriceOneDayGraph!.toString());
+
   }
 
   double? floorPrice;
+  double? floorPrice1;
   String? floorPriceString;
   String? creationTime;
   String? date;
   String? hourWiseTime;
   String? hourWiseTime1;
+
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -330,7 +345,7 @@ class GraphData {
       });
     }
 
- final Map<String, OneDayProductGraph> graphMap = {};
+    final Map<String, OneDayProductGraph> graphMap = {};
     int length = graph!.length;
     for (int i = 0; i < length; i++) {
       if (i == 0) {
@@ -344,8 +359,8 @@ class GraphData {
         }
       }
     }
-  graph = graphMap.values.toList();
-  status= json['status'];
+    graph = graphMap.values.toList();
+    status= json['status'];
 /*    final Map<String, OneDayProductGraph> graphMap = {};
     for (var item in graph!) {
       graphMap[item.date!] = item;

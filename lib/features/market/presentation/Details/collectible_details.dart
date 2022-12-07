@@ -7,6 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
 import 'package:ketemaa/core/models/Graphs/one_day_graph_model.dart';
+import 'package:ketemaa/core/models/Graphs/one_year_graph_model.dart';
+import 'package:ketemaa/core/models/Graphs/seven_day_graph_model.dart';
+import 'package:ketemaa/core/models/Graphs/sixty_day_graph_model.dart';
+import 'package:ketemaa/core/models/Graphs/thirty_day_graph_model.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
@@ -95,6 +99,11 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
   @override
   void initState() {
     super.initState();
+    maxPriceOneDayGraph=0;
+    maxPriceSevenDayGraph=0;
+    maxPriceOneYearGraph=0;
+    maxPriceSixtyDayGraph=0;
+    maxPriceThirtyDayGraph=0;
     detailsEdition = widget.edition!;
     detailsAp = widget.ap;
     detailsAd = widget.ad;
@@ -793,7 +802,8 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                                                     getData!.getMySets1(0, widget.productId!, true)
                                                                                   })
                                                                               .whenComplete(() => {
-                                                                                    Navigator.of(context).pop(),
+                                                                                   Navigator.of(context).pop(),
+                                                                                    getData!.getVaultStats(),
                                                                                     storedMintController[0].text = data.mySetsModel!.results![widget.index!].mintNumber.toString(),
                                                                                     storedPriceController[0].text = data.mySetsModel!.results![widget.index!].ap!,
                                                                                     storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(data.mySetsModel!.results![widget.index!].ad!)),
@@ -1113,6 +1123,7 @@ class _CollectibleDetailsState extends State<CollectibleDetails> {
                                                           .whenComplete(() =>
                                                       {
                                                         Navigator.of(context).pop(),
+                                                        getData!.getVaultStats(),
                                                         storedMintController[0].text = data.mySetsModel!.results![widget
                                                             .index!].mintNumber.toString(),
                                                         storedPriceController[0].text =

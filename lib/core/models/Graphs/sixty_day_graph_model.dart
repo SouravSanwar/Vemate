@@ -1,6 +1,9 @@
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
+import 'package:ketemaa/graph/product_details_collectibles.dart';
+
+double? maxPriceSixtyDayGraph=0;
 
 class SixtyDayGraphModel {
   SixtyDayGraphModel({
@@ -255,6 +258,7 @@ class Original {
 class SixtyDayProductGraph {
   SixtyDayProductGraph({
     this.floorPrice,
+    this.floorPrice1,
     this.floorPriceString,
     this.creationTime,
     this.date,
@@ -267,20 +271,26 @@ class SixtyDayProductGraph {
     /*if(floorPrice! > 999){
       floorPrice=floorPrice! / 1000;
     }*/
+    floorPrice1=(floorPrice! - (detailsAp! != "" ?double.parse(detailsAp!):0)).abs();
     floorPriceString=floorPrice.toString();
     creationTime = json['creation_time'];
     date = json['date'];
     if (date != null) {
       dayWiseTimeWithDate = DateFormat('dd MMM').format(DateTime.parse(date!));
       dayWiseTimeWithDate1 = DateFormat('hh:mm a,dd MMM,y').format(DateTime.parse(date!));
-      print("+++++++++++++"+dayWiseTimeWithDate1.toString());
-      
+
     }
+    if(maxPriceSixtyDayGraph! < floorPrice!)
+    {
+      maxPriceSixtyDayGraph=floorPrice;
+    }
+    print("maxPriceSixtyDayGraph==="+maxPriceSixtyDayGraph!.toString());
 
   }
 
 
   double? floorPrice;
+  double? floorPrice1;
   String? floorPriceString;
   String? creationTime;
   String? date;
