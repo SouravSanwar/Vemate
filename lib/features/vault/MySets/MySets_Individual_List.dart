@@ -76,6 +76,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
         builder: (_) => const LoadingDialogue(
               message: "Please wait",
             ));
+
     await getData!.getMySets(0, true, graph_data: true)
         .whenComplete(() => Navigator.of(context).pop());
     Get.back();

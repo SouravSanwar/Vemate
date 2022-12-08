@@ -285,7 +285,7 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                 xValueMapper: (plot, _) => data.oneYearGraphModel!.graphData!.status == 0
                     ? plot.monthWiseTime
                     : plot.monthWiseTime1,
-                yValueMapper: (plot, _) => widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
+                yValueMapper: (plot, _) => plot.floorPrice, //widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
               )
                   : SplineAreaSeries<OneYearProductGraph, String>(
                 dataSource: data.oneYearGraphModel!.graphData!.graph!,
@@ -296,7 +296,7 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                 xValueMapper: (plot, _) => data.oneYearGraphModel!.graphData!.status == 0
                     ? plot.monthWiseTime
                     : plot.monthWiseTime1,
-                yValueMapper: (plot, _) => widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
+                yValueMapper: (plot, _) => plot.floorPrice, //widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
                 xAxisName: 'Duration',
                 yAxisName: 'Total',
                 enableTooltip: true,
@@ -314,7 +314,7 @@ class _OneYearProductGraphPageState extends State<OneYearProductGraphPage> {
                 xValueMapper: (plot, _) => data.oneYearGraphModel!.graphData!.status == 0
                     ? plot.monthWiseTime
                     : plot.monthWiseTime1,
-                yValueMapper: (plot, _) => widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
+                yValueMapper: (plot, _) => plot.floorPrice, //widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
               )
             ],
           )

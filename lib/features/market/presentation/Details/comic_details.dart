@@ -525,13 +525,12 @@ class _ComicDetailsState extends State<ComicDetails> {
                                             storedMintController
                                                 .add(
                                               TextEditingController(
-                                                  text: widget
-                                                      .edition),
+                                                  text: detailsEdition),
                                             );
                                             storedPriceController
                                                 .add(
                                               TextEditingController(
-                                                  text: widget.ap),
+                                                  text: detailsAp),
                                             );
                                             storedDateController.add(
                                                 TextEditingController(
@@ -539,7 +538,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                       'MMMM dd, yyyy')
                                                       .format(DateTime
                                                       .parse(
-                                                    widget.ad
+                                                    detailsAd
                                                         .toString(),
                                                   )),
                                                 ));
@@ -748,9 +747,9 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                                     .whenComplete(() => {
                                                                   Navigator.of(context).pop(),
                                                                   getData!.getVaultStats(),
-                                                                  storedMintController[0].text = data.mySetsModel!.results![widget.index!].mintNumber.toString(),
-                                                                  storedPriceController[0].text = data.mySetsModel!.results![widget.index!].ap!,
-                                                                  storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(data.mySetsModel!.results![widget.index!].ad!)),
+                                                                  storedMintController[0].text = detailsEdition!,
+                                                                  storedPriceController[0].text = detailsAp!,
+                                                                  storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(detailsAd.toString(),)),
                                                                 });
                                                               } else {
                                                                 showDialog(
@@ -841,13 +840,12 @@ class _ComicDetailsState extends State<ComicDetails> {
                           storedMintController
                               .add(
                             TextEditingController(
-                                text: widget
-                                    .edition),
+                                text: detailsEdition),
                           );
                           storedPriceController
                               .add(
                             TextEditingController(
-                                text: widget.ap),
+                                text: detailsAp),
                           );
                           storedDateController.add(
                               TextEditingController(
@@ -855,7 +853,7 @@ class _ComicDetailsState extends State<ComicDetails> {
                                     'MMMM dd, yyyy')
                                     .format(DateTime
                                     .parse(
-                                  widget.ad
+                                  detailsAd
                                       .toString(),
                                 )),
                               ));
@@ -1066,9 +1064,9 @@ class _ComicDetailsState extends State<ComicDetails> {
                                                   .whenComplete(() => {
                                                 Navigator.of(context).pop(),
                                                 getData!.getVaultStats(),
-                                                storedMintController[0].text = data.mySetsModel!.results![widget.index!].mintNumber.toString(),
-                                                storedPriceController[0].text = data.mySetsModel!.results![widget.index!].ap!,
-                                                storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(data.mySetsModel!.results![widget.index!].ad!)),
+                                                storedMintController[0].text = detailsEdition!,
+                                                storedPriceController[0].text = detailsAp!,
+                                                storedDateController[0].text = DateFormat('MMMM dd, yyyy').format(DateTime.parse(detailsAd.toString(),)),
                                               });
                                             } else {
                                               showDialog(

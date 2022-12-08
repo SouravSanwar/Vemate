@@ -1006,10 +1006,11 @@ class _MultiformState extends State<Multiform> {
                                             color: Colors.purpleAccent,
                                             message: "Please insert price",
                                           ));
-
+                                      mintController.clear();
                                       await Future.delayed(
                                           Duration(seconds: 2));
                                       Navigator.of(context).pop();
+
 
                                     }
                                     else if(emptyMint==true){
@@ -1024,6 +1025,7 @@ class _MultiformState extends State<Multiform> {
                                             color: Colors.purpleAccent,
                                             message: "Please insert mint",
                                           ));
+                                      mintController.clear();
 
                                       await Future.delayed(
                                           Duration(seconds: 2));

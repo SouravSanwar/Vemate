@@ -297,7 +297,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                 xValueMapper: (plot, _) => data.oneDayGraphModel!.graphData!.status == 0
                     ? plot.hourWiseTime
                     : plot.hourWiseTime1,
-                yValueMapper: (plot, _) => widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
+                yValueMapper: (plot, _) => plot.floorPrice, //widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
               )
                   : SplineAreaSeries<OneDayProductGraph, String>(
                 dataSource: data.oneDayGraphModel!.graphData!.graph!,
@@ -308,7 +308,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                 xValueMapper: (plot, _) => data.oneDayGraphModel!.graphData!.status == 0
                     ? plot.hourWiseTime
                     : plot.hourWiseTime1,
-                yValueMapper: (plot, _) => widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
+                yValueMapper: (plot, _) => plot.floorPrice, //widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
                 xAxisName: 'Duration',
                 yAxisName: 'Total',
                 enableTooltip: true,
@@ -326,7 +326,7 @@ class _OneDayProductGraphPageState extends State<OneDayProductGraphPage> {
                 xValueMapper: (plot, _) => data.oneDayGraphModel!.graphData!.status == 0
                     ? plot.hourWiseTime
                     : plot.hourWiseTime1,
-                yValueMapper: (plot, _) =>widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
+                yValueMapper: (plot, _) =>plot.floorPrice, //widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
               )
             ],
           )

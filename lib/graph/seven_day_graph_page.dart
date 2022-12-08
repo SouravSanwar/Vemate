@@ -298,7 +298,7 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
                 xValueMapper: (plot, _) => data.sevenDayGraphModel!.graphData!.status == 0
                     ? plot.dayWiseTime
                     : plot.dayWiseTime1,
-                yValueMapper: (plot, _) => widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
+                yValueMapper: (plot, _) => plot.floorPrice, //widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
               )
                   : SplineAreaSeries<SevenDayProductGraph, String>(
                 dataSource: data.sevenDayGraphModel!.graphData!.graph!,
@@ -309,7 +309,7 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
                 xValueMapper: (plot, _) => data.sevenDayGraphModel!.graphData!.status == 0
                     ? plot.dayWiseTime
                     : plot.dayWiseTime1,
-                yValueMapper: (plot, _) => widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
+                yValueMapper: (plot, _) => plot.floorPrice, //widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
                 xAxisName: 'Duration',
                 yAxisName: 'Total',
                 enableTooltip: true,
@@ -327,7 +327,7 @@ class _SevenDayProductGraphPageState extends State<SevenDayProductGraphPage> {
                 xValueMapper: (plot, _) => data.sevenDayGraphModel!.graphData!.status == 0
                     ? plot.dayWiseTime
                     : plot.dayWiseTime1,
-                yValueMapper: (plot, _) => widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
+                yValueMapper: (plot, _) => plot.floorPrice, //widget.fromVault == true ? plot.floorPrice1 : plot.floorPrice,
               )
 
             ],
