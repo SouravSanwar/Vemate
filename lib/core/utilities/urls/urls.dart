@@ -1,7 +1,7 @@
 class Urls {
-  //static String mainUrl = 'https://market.vemate.com';
+  static String mainUrl = 'https://market.vemate.com';
 
-  static String mainUrl = 'http://167.71.134.124';
+  //static String mainUrl = 'http://167.71.134.124';
 
   static String signUp = mainUrl + '/api/v1/account/public/users/signup/';
   static String verifyCode =
@@ -58,5 +58,6 @@ class Urls {
   static String MAO = mainUrl + '/api/v1/veve/public/common-storage/';
   static String productMAO = mainUrl + '/api/v1/veve/public/common-storages/product-detail/';
   static String mySets = mainUrl + '/api/v1/veve/public/common-storages/vault/';
+  static String changePassword = mainUrl + '/api/v1/account/public/users/change_password/';
 
 }

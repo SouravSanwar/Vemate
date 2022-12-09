@@ -273,7 +273,7 @@ class _ControllerPageState extends State<ControllerPage> {
                             backgroundColor: AppColors.backgroundColor,
                             elevation: 0,
                             leading: Padding(
-                              padding: const EdgeInsets.only(top: 12, right: 12, bottom: 12, left: 12),
+                              padding: const EdgeInsets.all(8),
                               child: InkWell(
                                 onTap: () {
                                   _scaffoldKey.currentState!.openDrawer();

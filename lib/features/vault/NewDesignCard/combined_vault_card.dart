@@ -33,6 +33,7 @@ class _CombinedVaultCardState extends State<CombinedVaultCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start ,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -45,21 +46,34 @@ class _CombinedVaultCardState extends State<CombinedVaultCard> {
                               fontSize: 16.sp),
                         ),
                         Text(
-                          '\$${data.vaultStatsModel!.totalPriceChange != null ? data.vaultStatsModel!.totalPriceChange!.toStringAsFixed(2) : ""}',
+                          '\$' + data.vaultStatsModel!.totalVaultValue!.toStringAsFixed(2),
                           textAlign: TextAlign.start,
                           style: Get.textTheme.bodyText2!.copyWith(
+
                               color: AppColors.white,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.bold,
                               fontSize: 18.sp),
                         ),
+
                       ],
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '\$' + data.vaultStatsModel!.totalVaultValue!.toStringAsFixed(2),
+                            data.vaultStatsModel!.sign! == 'decrease'
+                              ?
+
+                          '-\$${data.vaultStatsModel!.totalPriceChange != null
+                              ? data.vaultStatsModel!.totalPriceChange.abs().toStringAsFixed(2)
+                              : ""}'
+
+                              :
+
+                          '\$${data.vaultStatsModel!.totalPriceChange != null
+                              ? data.vaultStatsModel!.totalPriceChange.toStringAsFixed(2)
+                              : ""}',
                           textAlign: TextAlign.start,
                           style: Get.textTheme.bodyText2!.copyWith(
                               color: AppColors.textColor.withOpacity(.7),

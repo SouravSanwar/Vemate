@@ -92,8 +92,12 @@ class _ProductDetailsComicsState extends State<ProductDetailsComics> {
                     : "",
                 topRadius: widget.fromVault == true ?false:true,
               ),
-              divider(),
-              ItemDetailsHelper(
+              widget.fromVault == true
+                  ? Container()
+                  :divider(),
+              widget.fromVault == true
+                  ? Container()
+                  :ItemDetailsHelper(
                 text: "Edition",
                 text1: data.singleProductModel != null
                     ? data.singleProductModel!.edition.toString()

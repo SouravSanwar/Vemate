@@ -1,34 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ketemaa/core/Provider/app_update.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/Provider/postData.dart';
-import 'package:ketemaa/core/utilities/common_widgets/password_input_field.dart';
+import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/shimmer/color_loader.dart';
-import 'package:ketemaa/core/utilities/shimmer/loading_dialogue.dart';
-import 'package:ketemaa/core/utilities/urls/urls.dart';
-import 'package:ketemaa/features/auth/presentation/auth_initial_page/auth_initial_page.dart';
-import 'package:ketemaa/features/auth/presentation/sign_in/_controller/sign_in_controller.dart';
-import 'package:ketemaa/features/home/components/notification_badge.dart';
-import 'package:ketemaa/features/home/notification/all_notification_list.dart';
-import 'package:ketemaa/features/home/notification/no_notification.dart';
-import 'package:ketemaa/features/home/notification/notification_alart.dart';
-import 'package:ketemaa/features/home/presentation/home_drawer.dart';
-import 'package:ketemaa/features/profile/presentation/edit_profile_page.dart';
-import 'package:ketemaa/features/profile/presentation/profile.dart';
-import 'package:ketemaa/features/profile/widgets/profileElements.dart';
 import 'package:ketemaa/features/vault/NewDesignCard/combined_vault_card.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
-
-import 'package:ketemaa/features/home/components/home_vault_card.dart';
-// import 'package:share_plus/share_plus.dart';
-
 import '../../../core/Provider/getData.dart';
 import '../../../core/utilities/app_colors/app_colors.dart';
-import '../../controller_page/presentattion/controller_page.dart';
 import '../components/image_slider.dart';
 import '../components/New_Item_card/vault_new_item_card.dart';
 
@@ -181,6 +163,7 @@ class _HomeState extends State<Home> {
                               .copyWith(color: AppColors.textColor, fontFamily: 'Inter', fontWeight: FontWeight.w500),
                         ),
                       ),
+                      AppSpaces.spaces_height_5,
                       SizedBox(
                         height: Get.height * .22,
                         child: SizedBox(

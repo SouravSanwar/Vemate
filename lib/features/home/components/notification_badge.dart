@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ketemaa/core/Provider/getData.dart';
 import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 
 class NotificationBadge extends StatefulWidget {
   const NotificationBadge({Key? key}) : super(key: key);
@@ -17,7 +16,6 @@ class _NotificationBadgeState extends State<NotificationBadge> {
   @override
   Widget build(BuildContext context) {
     return Consumer<GetData>(builder: (context, data, child) {
-      FlutterDynamicIcon.setApplicationIconBadgeNumber(10);
       return Container(
         child: data.notificationListModel!.totalUnread == 0
             ? Icon(
@@ -39,15 +37,15 @@ class _NotificationBadgeState extends State<NotificationBadge> {
                   color: AppColors.textColor,
                 ),
               ),
-        height: 40.h,
-        width: 40.h,
+        height: 38.h,
+        width: 38.h,
         decoration: BoxDecoration(
           color: AppColors.backgroundColor,
           border: Border.all(
               color: AppColors.grey, // set border color
               width: 1), // set border width
           borderRadius:
-              BorderRadius.circular(15.0), // set rounded corner radius
+              BorderRadius.circular(13.0), // set rounded corner radius
         ),
       );
     });

@@ -153,10 +153,8 @@ class AppColors extends ChangeNotifier {
 
   static LinearGradient graphGradient = const LinearGradient(
     colors: [
-      Color(0xff5E5966),
-      Color(0xff385179),
-      Color(0xff27477A),
-      Color(0xff284479),
+      Color(0xff5537A4),
+      Color(0xff7545B1),
     ],
     begin: Alignment.topCenter,
     // end at the bottom

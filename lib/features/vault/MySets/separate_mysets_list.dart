@@ -28,7 +28,6 @@ import '../../../core/models/MySetsModel.dart';
 class SeparateMysetsList extends StatefulWidget {
   final String? title;
   final int? type;
-
   const SeparateMysetsList({Key? key, this.title, this.type}) : super(key: key);
 
   @override
@@ -75,7 +74,7 @@ class _SeparateMysetsListState extends State<SeparateMysetsList> {
         title: Text(
           widget.title!,
           style:
-              TextStyle(color: AppColors.textColor, fontFamily: 'Inter', fontSize: 20.sp, fontWeight: FontWeight.bold),
+          TextStyle(color: AppColors.textColor, fontFamily: 'Inter', fontSize: 20.sp, fontWeight: FontWeight.bold),
         ),
         actions: [
           const StackInstructionDialogue(),
@@ -83,224 +82,229 @@ class _SeparateMysetsListState extends State<SeparateMysetsList> {
         ],
       ),
       body: Consumer<GetData>(builder: (content, data, child) {
-        return data.mySetsModel != null
-            ? Container(
-                height: Get.height * .9,
-                width: Get.width,
-                padding: const EdgeInsets.only(bottom: 10),
-                child: ListView.builder(
-                    itemCount: data.mySetsModel!.results!.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      data.mySetsModel!.results![index].productDetail!.rarity != null
-                          ? rarity = data.mySetsModel!.results![index].productDetail!.rarity.toString()
-                          : "";
-                      if (rarity == "Common") {
-                        color = Colors.green;
-                      } else if (rarity == "Uncommon") {
-                        color = Colors.purpleAccent;
-                      }
-                      if (rarity == "Rare") {
-                        color = Colors.blue;
-                      }
-                      if (rarity == "Ultra Rare") {
-                        color = Colors.orange;
-                      }
-                      if (rarity == "Secret Rare") {
-                        color = Colors.red;
-                      }
-                      return data.mySetsModel!.results![index].productDetail!.type == widget.type
-                          ? Padding(
-                              padding: const EdgeInsets.only(top: 4, bottom: 10, left: 4, right: 4),
-                              child: InkWell(
-                                onTap: () {
-                                  Get.to(
-                                    () => MySetsIndividualList(
-                                      productId: data.mySetsModel!.results![index].productDetail!.id,
-                                      productName: data.mySetsModel!.results![index].productDetail!.name,
-                                    ),
-                                  );
-                                },
-                                child: Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    Container(
-                                      width: mysetWidth,
-                                      height: mysetHeight,
-                                      decoration: BoxDecoration(
-                                        // color: Colors.white,
-                                        border: Border.all(color: color!),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      top: 2,
-                                      left: 2,
-                                      child: Container(
-                                        width: mysetWidth,
-                                        height: mysetHeight,
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xff282742),
-                                          border: Border.all(color: const Color(0xff282742)),
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      top: 4,
-                                      left: 4,
-                                      child: Container(
-                                        width: mysetWidth,
-                                        height: mysetHeight,
-                                        decoration: BoxDecoration(
-                                          // color: Colors.white,
-                                          border: Border.all(color: const Color(0xff282742)),
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      top: 6,
-                                      left: 6,
-                                      child: Container(
-                                        width: mysetWidth,
-                                        height: mysetHeight,
-                                        decoration: BoxDecoration(
-                                          // color: Colors.white,
-                                          border: Border.all(color: const Color(0xff282742)),
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      top: 8,
-                                      left: 8,
-                                      child: Container(
-                                          width: mysetWidth,
-                                          height: mysetHeight,
-                                          decoration: BoxDecoration(
-                                            gradient: const LinearGradient(
-                                              colors: [
-                                                Color(0xff17193C),
-                                                Color(0xff313552),
-                                              ],
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                            ),
-                                            color: AppColors.backgroundColor,
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                          child: SeparateVaultStructure(
-                                            checkImage:
-                                                data.mySetsModel!.results![index].productDetail!.image.toString(),
-                                            lowResUrl: data.mySetsModel!.results![index].productDetail!.image != null
-                                                ? data.mySetsModel!.results![index].productDetail!.image!.lowResUrl
-                                                    .toString()
-                                                : "",
-                                            scrappedImage:
-                                                data.mySetsModel!.results![index].productDetail!.image != null
-                                                    ? data.mySetsModel!.results![index].productDetail!.image!.baseUrl
-                                                        .toString()
-                                                    : "",
-                                            name: data.mySetsModel!.results![index].productDetail!.name == null
-                                                ? ""
-                                                : data.mySetsModel!.results![index].productDetail!.name!,
-                                            edition: data.mySetsModel!.results![index].productDetail!.edition == null
-                                                ? ""
-                                                : data.mySetsModel!.results![index].productDetail!.edition!,
-                                            rarity: data.mySetsModel!.results![index].productDetail!.rarity == null
-                                                ? ""
-                                                : data.mySetsModel!.results![index].productDetail!.rarity!,
-                                            brand: data.mySetsModel!.results![index].productDetail!.type == 0
-                                                ? data.mySetsModel!.results![index].productDetail!.brand == null
-                                                    ? ""
-                                                    : data.mySetsModel!.results![index].productDetail!.brand!.name.toString()
-                                                : data.mySetsModel!.results![index].productDetail!.series == null
-                                                    ? ""
-                                                    : data.mySetsModel!.results![index].productDetail!.series
-                                                        .toString(),
-                                            series: <ChartSeries<Graph, String>>[
-                                              LineSeries<Graph, String>(
-                                                color:
-                                                    data.mySetsModel!.results![index].statsDetail!.sign! == 'decrease'
-                                                        ? Colors.red
-                                                        : Colors.green,
-                                                dataSource: data.mySetsModel!.results![index].statsDetail!.graph!,
-                                                xValueMapper: (Graph plot, _) => plot.date,
-                                                yValueMapper: (Graph plot, _) => plot.floorPrice,
-                                                xAxisName: 'Duration',
-                                                yAxisName: 'Total',
-                                              )
-                                            ],
-                                            changePrice: data.mySetsModel!.results![index].statsDetail!.priceChange,
-                                            floorPrice:
-                                                data.mySetsModel!.results![index].productDetail!.floorPrice == null
-                                                    ? ""
-                                                    : data.mySetsModel!.results![index].productDetail!.floorPrice!,
-                                            pcpPercent:
-                                                data.mySetsModel!.results![index].statsDetail!.changePercent == null
-                                                    ? 0.0
-                                                    : data.mySetsModel!.results![index].statsDetail!.changePercent!,
-                                            pcpSign: data.mySetsModel!.results![index].statsDetail!.sign == null
-                                                ? ""
-                                                : data.mySetsModel!.results![index].statsDetail!.sign!,
-                                          )),
-                                    ),
-                                    Positioned(
-                                      top: 10,
-                                      right: 5,
-                                      child: Container(
-                                        width: 22,
-                                        height: 22,
-                                        decoration: BoxDecoration(
-                                          gradient: const LinearGradient(
-                                            colors: [
-                                               Color(0xff492987),
-                                               Color(0xff1C4C89),
-                                            ],
-                                            begin: Alignment.topLeft,
-                                            end: Alignment.bottomRight,
-                                          ),
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          margin: const EdgeInsets.all(3),
-                                          decoration: BoxDecoration(
-                                            gradient: const LinearGradient(
-                                              colors: [
-                                                Color(0xff17193C),
-                                                Color(0xff313552),
-                                              ],
-                                            ),
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                          child: Text(
-                                            data.mySetsModel!.results![index].statsDetail!.totalItem.toString(),
-                                            style: TextStyle(
-                                                color: AppColors.textColor, fontSize: 12, fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+        return Container(
+          height: Get.height * .9,
+          width: Get.width,
+          padding: const EdgeInsets.only(bottom: 10),
+          child: data.mySetsModel != null
+              ? SmartRefresher(
+            key: _refreshkey,
+            controller: refreshController,
+            enablePullDown: true,
+            enablePullUp: true,
+            header: WaterDropMaterialHeader(
+              color: AppColors.primaryColor,
+            ),
+            footer: const ClassicFooter(
+              loadStyle: LoadStyle.ShowWhenLoading,
+            ),
+            onRefresh: _onRefresh,
+            onLoading: _onLoading,
+            child: ListView.builder(
+                itemCount: data.mySetsModel!.results!.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  data.mySetsModel!.results![index].productDetail!.rarity != null
+                      ? rarity = data.mySetsModel!.results![index].productDetail!.rarity.toString()
+                      : "";
+                  if (rarity == "Common") {
+                    color = Colors.green;
+                  } else if (rarity == "Uncommon") {
+                    color = Colors.purpleAccent;
+                  }
+                  if (rarity == "Rare") {
+                    color = Colors.blue;
+                  }
+                  if (rarity == "Ultra Rare") {
+                    color = Colors.orange;
+                  }
+                  if (rarity == "Secret Rare") {
+                    color = Colors.red;
+                  }
+                  return data.mySetsModel!.results![index].productDetail!.type==widget.type
+                      ? Padding(
+                    padding: const EdgeInsets.only(top: 4, bottom: 10, left: 4, right: 4),
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(
+                              () => MySetsIndividualList(
+                            productId: data.mySetsModel!.results![index].productDetail!.id,
+                            productName: data.mySetsModel!.results![index].productDetail!.name,
+                          ),
+                        );
+                      },
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
+                            width: mysetWidth,
+                            height: mysetHeight,
+                            decoration: BoxDecoration(
+                              // color: Colors.white,
+                              border: Border.all(color: color!),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          Positioned(
+                            top: 2,
+                            left: 2,
+                            child: Container(
+                              width: mysetWidth,
+                              height: mysetHeight,
+                              decoration: BoxDecoration(
+                                color: Color(0xff282742),
+                                border: Border.all(color: Color(0xff282742)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 4,
+                            left: 4,
+                            child: Container(
+                              width: mysetWidth,
+                              height: mysetHeight,
+                              decoration: BoxDecoration(
+                                // color: Colors.white,
+                                border: Border.all(color: Color(0xff282742)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 6,
+                            left: 6,
+                            child: Container(
+                              width: mysetWidth,
+                              height: mysetHeight,
+                              decoration: BoxDecoration(
+                                // color: Colors.white,
+                                border: Border.all(color: Color(0xff282742)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 8,
+                            left: 8,
+                            child: Container(
+                                width: mysetWidth,
+                                height: mysetHeight,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xff17193C),
+                                      Color(0xff313552),
+                                    ],
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                  ),
+                                  color: AppColors.backgroundColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: SeparateVaultStructure(
+                                  checkImage: data.mySetsModel!.results![index].productDetail!.image.toString(),
+                                  lowResUrl: data.mySetsModel!.results![index].productDetail!.image != null
+                                      ? data.mySetsModel!.results![index].productDetail!.image!.lowResUrl.toString()
+                                      : "",
+                                  scrappedImage: data.mySetsModel!.results![index].productDetail!.image != null
+                                      ? data.mySetsModel!.results![index].productDetail!.image!.baseUrl.toString()
+                                      : "",
+                                  name: data.mySetsModel!.results![index].productDetail!.name == null
+                                      ? ""
+                                      : data.mySetsModel!.results![index].productDetail!.name!,
+                                  edition: data.mySetsModel!.results![index].productDetail!.edition == null
+                                      ? ""
+                                      : data.mySetsModel!.results![index].productDetail!.edition!,
+                                  rarity: data.mySetsModel!.results![index].productDetail!.rarity == null
+                                      ? ""
+                                      : data.mySetsModel!.results![index].productDetail!.rarity!,
+                                  brand: data.mySetsModel!.results![index].productDetail!.type == 0
+                                      ?data.mySetsModel!.results![index].productDetail!.brand == null
+                                      ? ""
+                                      : data.mySetsModel!.results![index].productDetail!.brand!.name.toString()
+
+                                      :data.mySetsModel!.results![index].productDetail!.series== null
+                                      ? ""
+                                      : data.mySetsModel!.results![index].productDetail!.series.toString(),
+                                  series: <ChartSeries<Graph, String>>[
+                                    LineSeries<Graph, String>(
+                                      color: data.mySetsModel!.results![index].statsDetail!.sign! == 'decrease'
+                                          ? Colors.red
+                                          : Colors.green,
+                                      dataSource: data.mySetsModel!.results![index].statsDetail!.graph!,
+                                      xValueMapper: (Graph plot, _) => plot.date,
+                                      yValueMapper: (Graph plot, _) => plot.floorPrice,
+                                      xAxisName: 'Duration',
+                                      yAxisName: 'Total',
+                                    )
                                   ],
+                                  changePrice: data.mySetsModel!.results![index].statsDetail!.priceChange,
+                                  floorPrice: data.mySetsModel!.results![index].productDetail!.floorPrice == null
+                                      ? ""
+                                      : data.mySetsModel!.results![index].productDetail!.floorPrice!,
+                                  pcpPercent: data.mySetsModel!.results![index].statsDetail!.changePercent == null
+                                      ? 0.0
+                                      : data.mySetsModel!.results![index].statsDetail!.changePercent!,
+                                  pcpSign: data.mySetsModel!.results![index].statsDetail!.sign == null
+                                      ? ""
+                                      : data.mySetsModel!.results![index].statsDetail!.sign!,
+                                )),
+                          ),
+                          Positioned(
+                            top: 10,
+                            right: 5,
+                            child: Container(
+                              width: 22,
+                              height: 22,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xff492987),
+                                    Color(0xff1C4C89),
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Container(
+                                alignment: Alignment.center,
+                                margin: EdgeInsets.all(3),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xff17193C),
+                                      Color(0xff313552),
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  data.mySetsModel!.results![index].statsDetail!.totalItem.toString(),
+                                  style: TextStyle(
+                                      color: AppColors.textColor, fontSize: 12, fontWeight: FontWeight.bold),
                                 ),
                               ),
-                            )
-                          : const NoDataCard(
-                              title: 'List is empty!',
-                            );
-                    }),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                      : Container();
+                }),
               )
-            : const ColorLoader();
+              : ColorLoader(),
+        );
       }),
     );
   }
 
   Future<void> _onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
+    getData!.getMySets(0, true, graph_data: true);
 
-    getData!.getSetList('');
 
     setState(() {
       refreshController.refreshCompleted();
@@ -309,9 +313,8 @@ class _SeparateMysetsListState extends State<SeparateMysetsList> {
   }
 
   Future<void> _onLoading() async {
-    offset = offset + 20;
-
-    getData!.getSetList('', offset: offset);
+    offset = offset + 10;
+    getData!.getMySets(0, true, graph_data: true, offset: offset);
 
     await Future.delayed(const Duration(seconds: 2));
 
@@ -383,7 +386,7 @@ class _StackInstructionDialogueState extends State<StackInstructionDialogue> {
                         ),
                         Expanded(
                           child: Text(
-                            'Price change - This displays the price change in the last 24 hours in % and \$',
+                           'Profit change - This displays the change in profit since you purchased the NFT in % and \$',
                             maxLines: 10,
                           ),
                         ),
