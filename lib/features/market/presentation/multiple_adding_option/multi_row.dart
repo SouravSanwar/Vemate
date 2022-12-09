@@ -60,9 +60,14 @@ class _MultiformState extends State<Multiform> {
   List<TextEditingController> storedPriceController = [];
   List<TextEditingController> storedDateController = [];
 
+  List<FocusNode> textFocusNodes = [
+    FocusNode(),
+  ];
+
   @override
   void initState() {
     addToListController.length = 0;
+    textFocusNodes.length = 0;
     postData = Provider.of<PostData>(context, listen: false);
     getData = Provider.of<GetData>(context, listen: false);
     // getData!.maoModel = null;
@@ -185,6 +190,7 @@ class _MultiformState extends State<Multiform> {
                                         TextEditingController(text: DateTime.now().toIso8601String()),
                                       ),
                                     );
+                                    textFocusNodes.add(FocusNode());
                                   }
 
                                   mintController.clear();
@@ -270,6 +276,8 @@ class _MultiformState extends State<Multiform> {
                                             labelText: 'Price',
                                             textType: TextInputType.number,
                                             controller: addToListController[index].price!,
+                                            autoFocus: true,
+                                            focusNode: textFocusNodes[0],
                                           ),
                                         ),
                                         AppSpaces.spaces_width_5,
@@ -355,6 +363,7 @@ class _MultiformState extends State<Multiform> {
                                               if (addToListController.isNotEmpty) {
                                                 setState(() {
                                                   addToListController.removeAt(index);
+                                                  textFocusNodes.removeAt(index);
                                                 });
                                               }
                                               print(Get.width.toString());
@@ -417,6 +426,7 @@ class _MultiformState extends State<Multiform> {
                                             labelText: 'Price',
                                             textType: TextInputType.number,
                                             controller: storedPriceController[index],
+                                            focusNode: textFocusNodes[0],
                                           ),
                                         ),
                                         AppSpaces.spaces_width_5,

@@ -14,7 +14,9 @@ class MintTextField extends StatefulWidget {
   FormFieldValidator? validator;
   dynamic onsaved;
   dynamic onChanged;
-  bool? isEnable;
+  final bool? isEnable;
+  final bool? autoFocus;
+  final FocusNode? focusNode;
 
   MintTextField({
     required this.labelText,
@@ -25,6 +27,8 @@ class MintTextField extends StatefulWidget {
     this.onsaved,
     this.onChanged,
     this.isEnable,
+    this.autoFocus = false,
+    this.focusNode,
   });
 
   @override
@@ -43,7 +47,8 @@ class _MintTextFieldState extends State<MintTextField> {
       height: Get.height * .0467,
       color: Colors.transparent,
       child: TextFormField(
-        autofocus: false,
+        // focusNode: widget.focusNode,
+        autofocus: widget.autoFocus!,
         onChanged: widget.onChanged,
         textAlign: TextAlign.center,
         enabled: widget.isEnable,
@@ -54,15 +59,19 @@ class _MintTextFieldState extends State<MintTextField> {
           color: AppColors.white.withOpacity(.7),
           fontSize: 13.0.sp,
         ),
+        // onFieldSubmitted: (value){
+        //   FocusScope.of(context).requestFocus(widget.focusNode);
+        // },
         controller: widget.controller,
         decoration: InputDecoration(
           isDense: true,
           contentPadding: const EdgeInsets.fromLTRB(2, 5, 2, 5),
           border: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: AppColors.white.withOpacity(.7), // set border color
-                  width: 1.5),
-              borderRadius: BorderRadius.circular(10.0)),
+            borderSide: BorderSide(
+                color: AppColors.white.withOpacity(.7), // set border color
+                width: 1.5),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
