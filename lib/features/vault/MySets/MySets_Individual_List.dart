@@ -18,8 +18,7 @@ import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
-import '../../../core/models/MySetsModel.dart';
+import '../../../core/models/MySetsIndividualModel.dart';
 import 'separate_mysets_list.dart';
 
 class MySetsIndividualList extends StatefulWidget {
@@ -58,7 +57,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
   void initState() {
     getData = Provider.of<GetData>(context, listen: false);
     postData = Provider.of<PostData>(context, listen: false);
-    getData!.mySetsModel = null;
+    getData!.mySetsIndividualModel = null;
     getData!.getMySets1(0, widget.productId!, true, graph_data: true);
     super.initState();
   }
@@ -96,7 +95,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
               titleSpacing: 0,
               iconTheme: const IconThemeData(color: Colors.grey),
               backgroundColor: AppColors.backgroundColor,
-              title: data.mySetsModel != null
+              title: data.mySetsIndividualModel != null
                   ? Container(
                       padding: const EdgeInsets.only(right: 75),
                       height: 25,
@@ -143,8 +142,8 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
               height: Get.height * .9,
               width: Get.width,
               padding: const EdgeInsets.only(bottom: 10),
-              child: data.mySetsModel != null
-                  ? (data.mySetsModel!.results!.isNotEmpty
+              child: data.mySetsIndividualModel != null
+                  ? (data.mySetsIndividualModel!.results!.isNotEmpty
                       ? SmartRefresher(
                 key: _refreshkey,
                 controller: refreshController,
@@ -159,7 +158,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                 onRefresh: _onRefresh,
                 onLoading: _onLoading,
                         child: ListView.builder(
-                            itemCount: data.mySetsModel!.results!.length,
+                            itemCount: data.mySetsIndividualModel!.results!.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return Padding(
@@ -172,7 +171,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                   ),
                                   child: SwipeActionCell(
                                     backgroundColor: Colors.transparent,
-                                    key: ObjectKey(data.mySetsModel!.results![index]),
+                                    key: ObjectKey(data.mySetsIndividualModel!.results![index]),
                                     trailingActions: <SwipeAction>[
                                       SwipeAction(
                                           title: "Delete",
@@ -186,7 +185,7 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                             var body = {};
                                             postData!
                                                 .deleteMAO(
-                                                  data.mySetsModel!.results![index].id,
+                                                  data.mySetsIndividualModel!.results![index].id,
                                                   context,
                                                   body,
                                                   requestHeadersWithToken,
@@ -198,76 +197,76 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                     ],
                                     child: InkWell(
                                       onTap: () {
-                                        prefs!.setString('edition', data.mySetsModel!.results![index].edition.toString());
-                                        prefs!.setString('ap', data.mySetsModel!.results![index].ap.toString());
-                                        prefs!.setString('ad', data.mySetsModel!.results![index].ad.toString());
-                                        data.mySetsModel!.results![index].productDetail!.type == 0
+                                        prefs!.setString('edition', data.mySetsIndividualModel!.results![index].edition.toString());
+                                        prefs!.setString('ap', data.mySetsIndividualModel!.results![index].ap.toString());
+                                        prefs!.setString('ad', data.mySetsIndividualModel!.results![index].ad.toString());
+                                        data.mySetsIndividualModel!.results![index].productDetail!.type == 0
                                             ? Get.to(
                                                 () => CollectibleDetails(
-                                                  productType: data.mySetsModel!.results![index].productDetail!.type!,
-                                                  productId: data.mySetsModel!.results![index].productDetail!.id!,
+                                                  productType: data.mySetsIndividualModel!.results![index].productDetail!.type!,
+                                                  productId: data.mySetsIndividualModel!.results![index].productDetail!.id!,
                                                   fromVault: true,
 
                                                   ///Need to mint Id for upgrade
-                                                  mintId: int.parse(data.mySetsModel!.results![index].id.toString()),
-                                                  edition: data.mySetsModel!.results![index].mintNumber.toString(),
-                                                  ap: data.mySetsModel!.results![index].ap,
-                                                  ad: data.mySetsModel!.results![index].ad ??
+                                                  mintId: int.parse(data.mySetsIndividualModel!.results![index].id.toString()),
+                                                  edition: data.mySetsIndividualModel!.results![index].mintNumber.toString(),
+                                                  ap: data.mySetsIndividualModel!.results![index].ap,
+                                                  ad: data.mySetsIndividualModel!.results![index].ad ??
                                                       DateTime.now().toIso8601String(),
                                                   index: index,
                                                 ),
                                               )
                                             : Get.to(
                                                 () => ComicDetails(
-                                                  productId: data.mySetsModel!.results![index].productDetail!.id!,
+                                                  productId: data.mySetsIndividualModel!.results![index].productDetail!.id!,
                                                   fromVault: true,
-                                                  productType: data.mySetsModel!.results![index].productDetail!.type,
-                                                  mintId: int.parse(data.mySetsModel!.results![index].id.toString()),
-                                                  edition: data.mySetsModel!.results![index].mintNumber.toString(),
-                                                  ap: data.mySetsModel!.results![index].ap,
-                                                  ad: data.mySetsModel!.results![index].ad ??
+                                                  productType: data.mySetsIndividualModel!.results![index].productDetail!.type,
+                                                  mintId: int.parse(data.mySetsIndividualModel!.results![index].id.toString()),
+                                                  edition: data.mySetsIndividualModel!.results![index].mintNumber.toString(),
+                                                  ap: data.mySetsIndividualModel!.results![index].ap,
+                                                  ad: data.mySetsIndividualModel!.results![index].ad ??
                                                       DateTime.now().toIso8601String(),
                                                   index: index,
                                                 ),
                                               );
                                       },
                                       child: IndividualListStructure(
-                                        checkImage: data.mySetsModel!.results![index].productDetail!.image == null
+                                        checkImage: data.mySetsIndividualModel!.results![index].productDetail!.image == null
                                             ? ""
-                                            : data.mySetsModel!.results![index].productDetail!.image.toString(),
-                                        name: data.mySetsModel!.results![index].productDetail!.name == null
+                                            : data.mySetsIndividualModel!.results![index].productDetail!.image.toString(),
+                                        name: data.mySetsIndividualModel!.results![index].productDetail!.name == null
                                             ? ""
-                                            : data.mySetsModel!.results![index].productDetail!.name!,
-                                        lowResUrl: data.mySetsModel!.results![index].productDetail!.image != null
-                                            ? data.mySetsModel!.results![index].productDetail!.image!.lowResUrl!
+                                            : data.mySetsIndividualModel!.results![index].productDetail!.name!,
+                                        lowResUrl: data.mySetsIndividualModel!.results![index].productDetail!.image != null
+                                            ? data.mySetsIndividualModel!.results![index].productDetail!.image!.lowResUrl!
                                             : "",
-                                        scrappedImage: data.mySetsModel!.results![index].productDetail!.image != null
-                                            ? data.mySetsModel!.results![index].productDetail!.image!.baseUrl.toString()
+                                        scrappedImage: data.mySetsIndividualModel!.results![index].productDetail!.image != null
+                                            ? data.mySetsIndividualModel!.results![index].productDetail!.image!.baseUrl.toString()
                                             : "",
-                                        edition: data.mySetsModel!.results![index].mintNumber == null
+                                        edition: data.mySetsIndividualModel!.results![index].mintNumber == null
                                             ? ""
-                                            : data.mySetsModel!.results![index].mintNumber.toString(),
-                                        brand: data.mySetsModel!.results![index].productDetail!.type == 0
-                                            ? data.mySetsModel!.results![index].productDetail!.brand == null
+                                            : data.mySetsIndividualModel!.results![index].mintNumber.toString(),
+                                        brand: data.mySetsIndividualModel!.results![index].productDetail!.type == 0
+                                            ? data.mySetsIndividualModel!.results![index].productDetail!.brand == null
                                                 ? ""
-                                                : data.mySetsModel!.results![index].productDetail!.brand!.name.toString()
-                                            : data.mySetsModel!.results![index].productDetail!.series == null
+                                                : data.mySetsIndividualModel!.results![index].productDetail!.brand!.name.toString()
+                                            : data.mySetsIndividualModel!.results![index].productDetail!.series == null
                                                 ? ""
-                                                : data.mySetsModel!.results![index].productDetail!.series.toString(),
-                                        rarity: data.mySetsModel!.results![index].productDetail!.rarity == null
+                                                : data.mySetsIndividualModel!.results![index].productDetail!.series.toString(),
+                                        rarity: data.mySetsIndividualModel!.results![index].productDetail!.rarity == null
                                             ? ""
-                                            : data.mySetsModel!.results![index].productDetail!.rarity!,
-                                        floorPrice: data.mySetsModel!.results![index].productDetail!.floorPrice == null
+                                            : data.mySetsIndividualModel!.results![index].productDetail!.rarity!,
+                                        floorPrice: data.mySetsIndividualModel!.results![index].productDetail!.floorPrice == null
                                             ? ""
-                                            : data.mySetsModel!.results![index].productDetail!.floorPrice!,
-                                        series: data.mySetsModel!.results![index].statsDetail!.graph != null
+                                            : data.mySetsIndividualModel!.results![index].productDetail!.floorPrice!,
+                                        series: data.mySetsIndividualModel!.results![index].statsDetail!.graph != null
                                             ? <ChartSeries<Graph, String>>[
                                                 LineSeries<Graph, String>(
                                                   color:
-                                                      data.mySetsModel!.results![index].statsDetail!.sign! == 'decrease'
+                                                      data.mySetsIndividualModel!.results![index].statsDetail!.sign! == 'decrease'
                                                           ? Colors.red
                                                           : Colors.green,
-                                                  dataSource: data.mySetsModel!.results![index].statsDetail!.graph!,
+                                                  dataSource: data.mySetsIndividualModel!.results![index].statsDetail!.graph!,
                                                   xValueMapper: (Graph plot, _) => plot.date,
                                                   yValueMapper: (Graph plot, _) => plot.floorPrice,
                                                   xAxisName: 'Duration',
@@ -275,18 +274,18 @@ class _MySetsIndividualListState extends State<MySetsIndividualList> {
                                                 )
                                               ]
                                             : null,
-                                        pcpPercent: data.mySetsModel!.results![index].statsDetail == null
+                                        pcpPercent: data.mySetsIndividualModel!.results![index].statsDetail == null
                                             ? 0.0
-                                            : data.mySetsModel!.results![index].statsDetail!.changePercent!,
-                                        pcpSign: data.mySetsModel!.results![index].statsDetail == null
+                                            : data.mySetsIndividualModel!.results![index].statsDetail!.changePercent!,
+                                        pcpSign: data.mySetsIndividualModel!.results![index].statsDetail == null
                                             ? ""
-                                            : data.mySetsModel!.results![index].statsDetail!.sign!,
-                                        changePrice: data.mySetsModel!.results![index].statsDetail == null
+                                            : data.mySetsIndividualModel!.results![index].statsDetail!.sign!,
+                                        changePrice: data.mySetsIndividualModel!.results![index].statsDetail == null
                                             ? 0.0
-                                            : data.mySetsModel!.results![index].statsDetail!.priceChange!,
-                                        ap: data.mySetsModel!.results![index].ap == null
+                                            : data.mySetsIndividualModel!.results![index].statsDetail!.priceChange!,
+                                        ap: data.mySetsIndividualModel!.results![index].ap == null
                                             ? ""
-                                            : data.mySetsModel!.results![index].ap.toString(),
+                                            : data.mySetsIndividualModel!.results![index].ap.toString(),
                                       ),
                                     ),
                                   ),

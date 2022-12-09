@@ -19,6 +19,7 @@ import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultGraph60D.dart';
 import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultGraph7D.dart';
 import 'package:ketemaa/core/models/HomeVaultGraphs/HomeVaultModel.dart';
 import 'package:ketemaa/core/models/MAOModel.dart';
+import 'package:ketemaa/core/models/MySetsIndividualModel.dart';
 import 'package:ketemaa/core/models/MySetsModel.dart';
 import 'package:ketemaa/core/models/NewsModel.dart';
 import 'package:ketemaa/core/models/NotificationListModel.dart';
@@ -85,6 +86,7 @@ class GetData extends ChangeNotifier with BaseController {
   NotificationReadModel? notificationReadModel;
   MaoModel? maoModel;
   MySetsModel? mySetsModel;
+  MySetsIndividualModel? mySetsIndividualModel;
 
   VaultProductDetailsModel? vaultProductDetailsModel;
 
@@ -486,14 +488,14 @@ class GetData extends ChangeNotifier with BaseController {
 
     var data = json.decode(response.toString());
 
-    if (mySetsModel != null) {
-      if (offset == 0) mySetsModel!.results!.clear();
+    if (mySetsIndividualModel != null) {
+      if (offset == 0) mySetsIndividualModel!.results!.clear();
 
-      mySetsModel!.results!.addAll(MySetsModel.fromJson(data).results!);
+      mySetsIndividualModel!.results!.addAll(MySetsIndividualModel.fromJson(data).results!);
     } else {
-      mySetsModel = MySetsModel.fromJson(data);
+      mySetsIndividualModel = MySetsIndividualModel.fromJson(data);
     }
-    print("Data"+mySetsModel!.results!.toString());
+    print("Data"+mySetsIndividualModel!.results!.toString());
     notifyListeners();
   }
 
