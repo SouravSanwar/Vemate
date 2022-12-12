@@ -78,6 +78,7 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                                 .results![index].id,
                           ),
                         );
+                        offset = 0;
                       },
                       child: ProductListContainer(
                         checkImage: data.collectiblesModel!

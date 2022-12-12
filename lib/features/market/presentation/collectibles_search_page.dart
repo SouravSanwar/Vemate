@@ -167,6 +167,7 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                                     .results![index].id,
                               ),
                             );
+                            offset = 0;
                           },
                           child: ProductListContainer(
                             checkImage: data.searchCollectiblesModel!

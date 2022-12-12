@@ -357,7 +357,7 @@ class GetData extends ChangeNotifier with BaseController {
 
   Future getWishList({int offset = 0}) async {
     final response =
-        await BaseClient().get(Urls.commonStorage + '?type=1&limit=20&offset=$offset').catchError(handleError);
+        await BaseClient().get(Urls.commonStorage + '?type=1&limit=10&offset=$offset').catchError(handleError);
 
     var data = json.decode(response.toString());
 

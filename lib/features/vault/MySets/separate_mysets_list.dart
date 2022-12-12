@@ -132,6 +132,7 @@ class _SeparateMysetsListState extends State<SeparateMysetsList> {
                             productName: data.mySetsModel!.results![index].productDetail!.name,
                           ),
                         );
+                        offset=0;
                       },
                       child: Stack(
                         clipBehavior: Clip.none,

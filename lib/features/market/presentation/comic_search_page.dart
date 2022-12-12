@@ -155,6 +155,7 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                                     data.searchComicsModel!.results![index].id,
                               ),
                             );
+                            offset = 0;
                           },
                           child: ProductListContainer(
                             checkImage: data.searchComicsModel!

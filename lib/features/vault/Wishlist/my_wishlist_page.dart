@@ -158,6 +158,7 @@ class _WishListPageState extends State<WishListPage> {
                                                   .id!,
                                             ),
                                           );
+                                          offset=0;
                                         },
                                         child: ProductListContainer(
                                           checkImage: data.wishListModel!.results![index].productDetail!.image == null ? ""
@@ -238,7 +239,7 @@ class _WishListPageState extends State<WishListPage> {
   }
 
   Future<void> _onLoading() async {
-    offset = offset + 20;
+    offset = offset + 10;
 
     getData!.getWishList(offset: offset);
 

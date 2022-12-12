@@ -81,6 +81,7 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                             .comicsModel!.results![index].id,
                                       ),
                                     );
+                                    offset = 0;
                                   },
                                   child: ProductListContainer(
                                     checkImage: data.comicsModel!

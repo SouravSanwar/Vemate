@@ -67,10 +67,6 @@ class _AllNotificationListState extends State<AllNotificationList>
     super.initState();
   }
 
-  Future<bool> _willPopCallback() async {
-    Get.offAll(() => ControllerPage());
-    return true;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +107,7 @@ class _AllNotificationListState extends State<AllNotificationList>
                         setState(() {
                           notificationSelected = true;
                           alarmSelected = false;
+                          offset=0;
                         });
                       },
                       child: CategoryCard(
@@ -136,6 +133,7 @@ class _AllNotificationListState extends State<AllNotificationList>
                         setState(() {
                           notificationSelected = false;
                           alarmSelected = true;
+                          offset=0;
                         });
                       },
                       child: CategoryCard(
@@ -311,6 +309,7 @@ class _AllNotificationListState extends State<AllNotificationList>
                                                         .link,
                                                   ));
                                             }
+                                            offset=0;
                                           },
                                           child: Row(
                                             children: [
@@ -538,6 +537,7 @@ class _AllNotificationListState extends State<AllNotificationList>
                                       .id!,
                                 ),
                               );
+                              offset=0;
                             },
                             child: ProductListContainer(
                               checkImage: data
