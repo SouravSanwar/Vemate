@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 import '../Components/category_card.dart';
 import '../Components/collectibles_item_card.dart';
 import '../Components/commics_item_card.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 
 bool? itemValue = false;
 int? itemVal;

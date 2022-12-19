@@ -17,6 +17,7 @@ import 'package:ketemaa/core/utilities/app_colors/app_colors.dart';
 import 'package:ketemaa/core/utilities/app_spaces/app_spaces.dart';
 import 'package:ketemaa/core/utilities/common_widgets/status_bar.dart';
 import 'package:ketemaa/core/utilities/urls/urls.dart';
+import 'package:ketemaa/features/Auction/auction_card.dart';
 import 'package:ketemaa/features/Designs/update_alert_dialog.dart';
 import 'package:ketemaa/features/controller_page/controller/controller_page_controller.dart';
 import 'package:ketemaa/features/home/components/notification_badge.dart';
@@ -50,18 +51,20 @@ class _ControllerPageState extends State<ControllerPage> {
   PostData? postData;
 
   //int _seletedItem = 0;
-  final _pages = [const Home(), const Market(), const Vault()];
+  final _pages = [const Home(), const Market(),const Auction(), const Vault()];
   late PageController pageController = PageController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<String> names = [
     'Home',
     'Market',
+    'Auction',
     'My Vault',
   ];
 
   List<IconData> icons = [
     Icons.home,
+    Icons.shop,
     Icons.shop,
     Icons.card_travel,
   ];
@@ -363,6 +366,10 @@ class _ControllerPageState extends State<ControllerPage> {
                           title: ' Market ',
                         ),
                         DockerItem(
+                          icon: Icons.shop,
+                          title: 'Auction',
+                        ),
+                        DockerItem(
                           icon: Icons.card_travel,
                           title: 'My Vault',
                         ),
@@ -394,8 +401,11 @@ class _ControllerPageState extends State<ControllerPage> {
       return const Home();
     } else if (index == 1) {
       return const Market();
-    } else {
-      return const Vault();
+    } else if (index == 2) {
+      return const Auction();
+    }
+    else {
+    return const Vault();
     }
   }
 
@@ -468,11 +478,14 @@ class _ControllerPageState extends State<ControllerPage> {
       importance: Importance.high,
       priority: Priority.high,
       playSound: true,
+      number: 1,
+
+
     );
 
-    var iosDetails = const IOSNotificationDetails();
+    //var iosDetails = const IOSNotificationDetails();
 
-    var generalNotificationDetails = NotificationDetails(android: androidDetails, iOS: iosDetails);
+    var generalNotificationDetails = NotificationDetails(android: androidDetails,);
 
     void onDidReceiveLocalNotification(int id, String? title, String? body, String? payload) async {
       showDialog(
@@ -493,14 +506,32 @@ class _ControllerPageState extends State<ControllerPage> {
 
     var androidInit = const AndroidInitializationSettings('assets/media/icon/logo_v.png');
 
-    final IOSInitializationSettings iosInit = IOSInitializationSettings(
+
+/*   final IOSInitializationSettings iosInit = IOSInitializationSettings(
       requestSoundPermission: true,
       requestBadgePermission: true,
       requestAlertPermission: true,
       onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+    );*/
+    const DarwinInitializationSettings initializationSettingsDarwin =
+    DarwinInitializationSettings(
+     requestAlertPermission: false,
+      requestBadgePermission: false,
+      requestSoundPermission: false,
+      /* onDidReceiveLocalNotification:
+          (int id, String? title, String? body, String? payload) async {
+        didReceiveLocalNotificationStream.add(
+          ReceivedNotification(
+            id: id,
+            title: title,
+            body: body,
+            payload: payload,
+          ),
+        );
+      },
+      notificationCategories: darwinNotificationCategories,*/
     );
-
-    var initSetting = InitializationSettings(android: androidInit, iOS: iosInit);
+    var initSetting = InitializationSettings(android: androidInit,iOS: initializationSettingsDarwin);
 
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.initialize(initSetting);

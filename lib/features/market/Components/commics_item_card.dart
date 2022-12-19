@@ -83,6 +83,8 @@ class _ComicsItemCardState extends State<ComicsItemCard> {
                                     );
                                   },
                                   child: ProductListContainer(
+                                    is_listed_on_veve_market: data.comicsModel!
+                                        .results![index].is_listed_on_veve_market,
                                     checkImage: data.comicsModel!
                                         .results![index].image == null ? "" :data.comicsModel!
                                         .results![index].image.toString(),

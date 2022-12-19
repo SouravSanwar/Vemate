@@ -23,9 +23,11 @@ class ProductListContainer extends StatefulWidget {
   final dynamic changePrice;
   final double pcpPercent;
   final String pcpSign;
+  bool? is_listed_on_veve_market;
 
-  const ProductListContainer(
+  ProductListContainer(
       {Key? key,
+        this.is_listed_on_veve_market,
       required this.checkImage,
        this.name="",
       required this.lowResUrl,
@@ -84,6 +86,14 @@ class _ProductListContainerState extends State<ProductListContainer> {
               children: [
                 Row(
                   children: <Widget>[
+                    widget.is_listed_on_veve_market==true?
+                        Container() :
+                    const Icon(
+                      Icons.brightness_1,
+                      size: 10,
+                      color: Color(0xffEC3E3E)
+                    ),
+                    AppSpaces.spaces_width_2,
                     Expanded(
                         flex: 5,
                         child: SizedBox(

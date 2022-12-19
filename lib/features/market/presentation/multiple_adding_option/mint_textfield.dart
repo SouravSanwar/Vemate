@@ -15,6 +15,7 @@ class MintTextField extends StatefulWidget {
   dynamic onsaved;
   dynamic onChanged;
   bool? isEnable;
+  FocusNode? focusNode;
 
   MintTextField({
     required this.labelText,
@@ -25,6 +26,7 @@ class MintTextField extends StatefulWidget {
     this.onsaved,
     this.onChanged,
     this.isEnable,
+    this.focusNode,
   });
 
   @override
@@ -43,6 +45,7 @@ class _MintTextFieldState extends State<MintTextField> {
       height: Get.height * .0467,
       color: Colors.transparent,
       child: TextFormField(
+        focusNode: widget.focusNode,
         autofocus: false,
         onChanged: widget.onChanged,
         textAlign: TextAlign.center,

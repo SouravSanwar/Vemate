@@ -169,6 +169,8 @@ class _SearchCollectiblePageState extends State<SearchCollectiblePage> {
                             );
                           },
                           child: ProductListContainer(
+                            is_listed_on_veve_market: data.collectiblesModel!
+                                .results![index].is_listed_on_veve_market,
                             checkImage: data.searchCollectiblesModel!
                                 .results![index].image == null ? "" :data.searchCollectiblesModel!
                                 .results![index].image.toString(),

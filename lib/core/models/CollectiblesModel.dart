@@ -54,7 +54,8 @@ class Results {
     this.rarePoint,
     this.cpp,
     this.productAlertData,
-    this.isProductAlert
+    this.isProductAlert,
+    this.is_listed_on_veve_market
   });
 
   Results.fromJson(dynamic json) {
@@ -79,6 +80,7 @@ class Results {
       });
     }
     productAlertData != null ? isProductAlert = true : isProductAlert = false;
+    is_listed_on_veve_market = json['is_listed_on_veve_market'];
     /*priceChangePercent = json['price_change_percent'] != null
         ? PriceChangePercent.fromJson(json['price_change_percent'])
         : null;
@@ -107,6 +109,7 @@ class Results {
   double? cpp;
   List<ProductAlertData>? productAlertData;
   bool? isProductAlert;
+  bool? is_listed_on_veve_market;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -132,6 +135,8 @@ class Results {
     if (graph != null) {
       map['new_graph'] = graph?.map((v) => v.toJson()).toList();
     }*/
+
+    map['is_listed_on_veve_market'] = is_listed_on_veve_market;
     return map;
   }
 }

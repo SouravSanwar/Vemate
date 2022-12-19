@@ -54,7 +54,8 @@ class Results {
     this.rarePoint,
     this.cpp,
     this.productAlertData,
-    this.isProductAlert
+    this.isProductAlert,
+    this.is_listed_on_veve_market,
   });
 
   Results.fromJson(dynamic json) {
@@ -66,6 +67,7 @@ class Results {
     editions = json['editions'];
     series= json['series'];
     rarity = json['rarity'];
+    floorPrice = json['floor_price'];
     floorPrice = json['floor_price'];
     graphData = json['graph_data'] != null
         ? GraphData.fromJson(json['graph_data'])
@@ -86,6 +88,10 @@ class Results {
         graph?.add(Graph.fromJson(v));
       });
     }*/
+
+    is_listed_on_veve_market= json['is_listed_on_veve_market'];
+
+
     if (rarity == 'Rare') {
       rarePoint = 2;
       cpp = (double.parse(floorPrice!) / rarePoint!).toPrecision(2);
@@ -114,6 +120,7 @@ class Results {
   double? cpp;
   List<ProductAlertData>? productAlertData;
   bool? isProductAlert;
+  bool? is_listed_on_veve_market;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -138,6 +145,7 @@ class Results {
     if (graph != null) {
       map['new_graph'] = graph?.map((v) => v.toJson()).toList();
     }*/
+    map['is_listed_on_veve_market'] = is_listed_on_veve_market;
     return map;
   }
 }

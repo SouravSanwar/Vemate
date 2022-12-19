@@ -41,6 +41,9 @@ class _MultiformState extends State<Multiform> {
   bool? duplicateStoredMint = false;
   bool? emptyPrice = false;
   bool? emptyMint = false;
+  final FocusNode priceFocusNode = FocusNode();
+  List <FocusNode>? priceFocusList=[];
+  int focusIndex=-1;
 
   RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -65,6 +68,7 @@ class _MultiformState extends State<Multiform> {
 
   @override
   void initState() {
+    priceFocusList!.length=0;
     addToListController.length = 0;
     postData = Provider.of<PostData>(context, listen: false);
     getData = Provider.of<GetData>(context, listen: false);
@@ -122,6 +126,7 @@ class _MultiformState extends State<Multiform> {
                         AppSpaces.spaces_width_5,
                         InkWell(
                             onTap: () {
+
                               if (_formKey.currentState!.validate()) {
                                 setState(() async {
                                   // storedMintController.add(
@@ -199,6 +204,8 @@ class _MultiformState extends State<Multiform> {
                                     Navigator.of(context).pop();
                                     mintController.clear();
                                   } else {
+                                    focusIndex=focusIndex+1;
+                                    priceFocusList!.add(FocusNode());
                                     addToListController.add(
                                       MultiRowModel(
                                         TextEditingController(
@@ -209,6 +216,11 @@ class _MultiformState extends State<Multiform> {
                                                 .toIso8601String()),
                                       ),
                                     );
+
+                                    setState(() {
+                                      //priceFocusNode.requestFocus();
+                                      priceFocusList![focusIndex].requestFocus();
+                                    });
                                   }
 
                                   mintController.clear();
@@ -304,6 +316,7 @@ class _MultiformState extends State<Multiform> {
                                             controller:
                                                 addToListController[index]
                                                     .price!,
+                                            focusNode: priceFocusList![index]
                                           ),
                                         ),
                                         AppSpaces.spaces_width_5,
@@ -934,6 +947,7 @@ class _MultiformState extends State<Multiform> {
                                 AppSpaces.spaces_width_15,
                                 InkWell(
                                   onTap: () async {
+
                                     FocusScope.of(context).unfocus();
                                     mintController.text = "Enter Mint";
                                     var body = {

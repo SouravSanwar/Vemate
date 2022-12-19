@@ -157,6 +157,8 @@ class _SearchComicsPageState extends State<SearchComicsPage> {
                             );
                           },
                           child: ProductListContainer(
+                            is_listed_on_veve_market: data.comicsModel!
+                                .results![index].is_listed_on_veve_market,
                             checkImage: data.searchComicsModel!
                                 .results![index].image == null ? "" :data.searchComicsModel!
                                 .results![index].image.toString(),

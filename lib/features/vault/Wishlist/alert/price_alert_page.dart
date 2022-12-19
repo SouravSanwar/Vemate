@@ -9,11 +9,6 @@ import 'package:ketemaa/features/vault/Wishlist/alert/alertTextfield.dart';
 import 'package:ketemaa/main.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/models/WishListModel.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
-
-import 'package:syncfusion_flutter_core/theme.dart';
-
 
 int? frequencyIndex;
 int? TypeIndex;
@@ -34,7 +29,6 @@ class _PriceAlertPageState extends State<PriceAlertPage> {
   TextEditingController mintController1 = TextEditingController();
   TextEditingController mintController2 = TextEditingController();
   int value = 0;
-  SfRangeValues _values = const SfRangeValues(45, 55);
   bool? toggleValue = false;
   bool? hasDropDownValue = false;
   bool? priceAlert = false;

@@ -80,6 +80,8 @@ class _CollectiblesItemCardState extends State<CollectiblesItemCard> {
                         );
                       },
                       child: ProductListContainer(
+                        is_listed_on_veve_market: data.collectiblesModel!
+                            .results![index].is_listed_on_veve_market,
                         checkImage: data.collectiblesModel!
                             .results![index].image == null ? "" :data.collectiblesModel!
                             .results![index].image.toString(),
